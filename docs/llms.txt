@@ -1,0 +1,101 @@
+# Design System Core
+
+> Design system white-label em CSS puro com tokens DTCG em JSON, componentes documentados, modos light/dark e paleta brand única customizável. Versão atual: 1.0.0-beta.5.
+
+Repositório: definir no ambiente de destino.
+Site: documentação local
+Arquivo completo para LLMs: docs/llms-full.txt
+
+## Visão geral
+
+- [Home](index.html): visão rápida, quick start e dark mode.
+- [README](README.md): instalação e navegação.
+- [Token Architecture](docs/token-architecture.html): arquitetura 3-layer (Foundation/Core → Semantic/System → Component).
+- [Theming](docs/theming.html): como customizar brand e alternar modo.
+- [Accessibility](docs/accessibility.html): WCAG 2.2 AA aplicada.
+- [Design Principles](docs/design-principles.html): princípios do sistema.
+
+## Foundations
+
+- [Colors](docs/foundations-colors.html)
+- [Theme Colors](docs/foundations-theme-colors.html)
+- [Typography](docs/foundations-typography.html)
+- [Spacing](docs/foundations-spacing.html)
+- [Radius](docs/foundations-radius.html)
+- [Elevation](docs/foundations-elevation.html)
+- [Borders](docs/foundations-borders.html)
+- [Motion](docs/foundations-motion.html)
+- [Opacity](docs/foundations-opacity.html)
+- [Z-index](docs/foundations-zindex.html)
+
+## Components
+
+- [Button](docs/button.html)
+- [Input](docs/input.html)
+- [Textarea](docs/textarea.html)
+- [Select](docs/select.html)
+- [Checkbox](docs/checkbox.html)
+- [Radio](docs/radio.html)
+- [Toggle](docs/toggle.html)
+- [Badge](docs/badge.html)
+- [Alert](docs/alert.html)
+- [Card](docs/card.html)
+- [Modal](docs/modal.html)
+- [Tooltip](docs/tooltip.html)
+- [Tabs](docs/tabs.html)
+- [Breadcrumb](docs/breadcrumb.html)
+- [Avatar](docs/avatar.html)
+- [Divider](docs/divider.html)
+- [Form-field](docs/form-field.html)
+- [Spinner](docs/spinner.html)
+- [Skeleton](docs/skeleton.html)
+
+## Decisões arquiteturais (ADRs)
+
+- [ADR-001 — Migração da arquitetura de tokens para Foundation→Semantic→Component com DTCG + Style Dictionary](docs/decisions/adr-001-migracao-tokens.html) — Aceita — superseded em parte por [ADR-014](ADR-014-action-tokens-role-style.md) (themes Default/Ocean/Forest removidos em 0.8.0; Brand virou paleta única customizável)
+- [ADR-002 — Stack agnóstica — HTML + CSS + vanilla JS como base](docs/decisions/adr-002-stack-agnostica.html) — Aceita
+- [ADR-003 — Figma como origem canônica de tokens, Git como consolidação](docs/decisions/adr-003-fontes-verdade.html) — Aceita — Revisada em 0.5.8
+- [ADR-004 — WCAG 2.2 AA como padrão de acessibilidade](docs/decisions/adr-004-wcag.html) — Aceita — Implementada em 0.5.0
+- [ADR-005 — Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica](docs/decisions/adr-005-brand-foundation-e-estados-explicitos.html) — Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por [ADR-014](ADR-014-action-tokens-role-style.md): collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.
+- [ADR-006 — Tokens semânticos de controle para dimensões e tipografia compartilhadas entre controles interativos](docs/decisions/adr-006-semantic-control-tokens.html) — Parcialmente substituída — `size.control.*` e `space.control.padding-{x,y}.*` substituídos por escala `size.{xs..5xl}` + `space.{xs..2xl}` + `space.control.padding.10` em **ADR-015** (2026-04-26). O contrato público de anatomia dos componentes foi movido para tokens Component em **ADR-019** (2026-05-10). `typography.control.*` permanece vigente.
+- [ADR-007 — Estabelecer sistema de cores toned com overlays coloridos e tokens semânticos toned](docs/decisions/adr-007-toned-color-system.html) — Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.4, sincronização Figma completa em 0.5.6)
+- [ADR-008 — Recalibração das paletas foundation `green` e `amber`](docs/decisions/adr-008-recalibracao-paletas-feedback.html) — Aceita — Implementada em 0.5.0
+- [ADR-009 — Separação de `border.default` (decorativa) e `border.control` (funcional)](docs/decisions/adr-009-border-control-vs-decorative.html) — Aceita — Implementada em 0.5.0
+- [ADR-010 — Remoção de `foundation.color.white` e `foundation.color.black` puros](docs/decisions/adr-010-abolir-white-black-puros.html) — Aceita — Implementada em 0.5.0
+- [ADR-011 — Reestruturação do naming de tokens semânticos de cor](docs/decisions/adr-011-renaming-tokens-semanticos-de-cor.html) — Aceita — Implementada em 0.5.0
+- [ADR-012 — Tokens de line-height e letter-spacing divergem por design entre Figma e JSON](docs/decisions/adr-012-typography-tokens-divergence.html) — Aceita
+- [ADR-013 — Camadas de consumo de tokens — Foundation nunca direto em consumidor final](docs/decisions/adr-013-camadas-de-consumo-de-tokens.html) — Aceita — implementada em 0.7.0 e parcialmente substituída por ADR-019 em 2026-05-11
+- [ADR-014 — Reestruturação Semantic em `action` × `style` × `prop` × `state` — eliminação de brand/accent e themes](docs/decisions/adr-014-action-tokens-role-style.html) — Aceita — implementada em 0.7.0 e estabilizada em 1.0.0-beta.1
+- [ADR-015 — — Unificação da escala size, eliminação de tokens component-specific e renomeação spacing→dimension](docs/decisions/adr-015-unificacao-de-size-e-dimension.html) — Aceito
+- [ADR-016 — — Tokens sem equivalência no Figma (CSS-only)](docs/decisions/adr-016-tokens-sem-equivalencia-no-figma.html) — Aceito
+- [ADR-017 — — Componentes CSS-only (sem equivalência no Figma)](docs/decisions/adr-017-componentes-css-only.html) — Aceito
+- [ADR-018 — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}`](docs/decisions/adr-018-content-naming-strong-default-subtle.html) — Aceito
+- [ADR-019 — — Reintrodução de Component tokens como contrato anatômico](docs/decisions/adr-019-component-tokens-contrato-anatomico.html) — Aceita
+
+## Processo
+
+- [Contributing](docs/process-contributing.html): setup, fluxo de PR, convenções.
+- [Versionamento](docs/process-versioning.html): releases 1.0.0-beta.N com cadência semanal durante beta.
+- [Releases](docs/process-releasing.html): passo a passo.
+- [Changelog](docs/changelog.html): histórico de versões.
+- [Backlog](docs/backlog.html): itens fora do escopo imediato.
+
+## Marca
+
+- [Brand Principles](docs/brand-principles.html): missão, princípios, tom de voz, identidade.
+
+## APIs JSON (consumo programático)
+
+- [components.json](docs/api/components.json): catálogo de componentes com variantes e tokens consumidos.
+- [tokens.json](docs/api/tokens.json): camadas Foundation, Semantic (light/dark) e Component.
+- [adrs.json](docs/api/adrs.json): índice estruturado das decisões.
+- [foundations.json](docs/api/foundations.json): catálogo das foundations.
+- [tokens-sync.json](docs/api/tokens-sync.json): estado de coerência Figma ↔ JSON ↔ CSS.
+
+## Figma
+
+- Arquivo: `IE68amP9Hya5ieFw1rX8S8` (TIS, acesso via convite).
+
+---
+
+Gerado por `scripts/build-llms.mjs`. Versão atual: 1.0.0-beta.5.

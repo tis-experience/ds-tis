@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Checkbox</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Checkboxes permitem que usuários selecionem uma ou mais opções de um conjunto. Construído com <code>&lt;input type="checkbox"&gt;</code> nativo para acessibilidade completa.</span><span data-lang="en">Checkboxes allow users to select one or more options from a set. Built with native <code>&lt;input type="checkbox"&gt;</code> for full accessibility.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use checkboxes quando</span><span data-lang="en">Use checkboxes when</span></div>
+      <span data-lang="pt">Zero, uma ou múltiplas opções podem ser selecionadas de um conjunto. Ou para uma escolha binária com label visível: "Eu concordo com os termos", "Lembrar de mim".</span><span data-lang="en">Zero, one, or multiple options can be selected from a set. Or for a single binary choice with a visible label: "I agree to the terms", "Remember me".</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use checkboxes quando</span><span data-lang="en">Don't use checkboxes when</span></div>
+      <span data-lang="pt">Apenas uma opção pode ser selecionada de um grupo (use <a href="radio.html" style="color:inherit;text-decoration:underline">Radio</a>), um toggle rápido liga/desliga com efeito imediato é necessário (use <a href="toggle.html" style="color:inherit;text-decoration:underline">Toggle</a>), ou ao exibir uma longa lista de opções (use <a href="select.html" style="color:inherit;text-decoration:underline">Select</a>).</span><span data-lang="en">Only one option can be selected from a group (use <a href="radio.html" style="color:inherit;text-decoration:underline">Radio</a>), a quick on/off toggle with immediate effect is needed (use <a href="toggle.html" style="color:inherit;text-decoration:underline">Toggle</a>), or when displaying a long list of options (use <a href="select.html" style="color:inherit;text-decoration:underline">Select</a>).</span>
+    </div>
+
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Componente</span><span data-lang="en">Component</span></th><th><span data-lang="pt">Seleção</span><span data-lang="en">Selection</span></th><th><span data-lang="pt">Contexto</span><span data-lang="en">Context</span></th></tr></thead>
+      <tbody>
+        <tr><td><strong>Checkbox</strong></td><td><span data-lang="pt">Múltiplas seleções permitidas</span><span data-lang="en">Multiple selections allowed</span></td><td><span data-lang="pt">Contexto de formulário, submit explícito</span><span data-lang="en">Form context, explicit submit</span></td></tr>
+        <tr><td><strong>Toggle</strong></td><td><span data-lang="pt">Liga/desliga único</span><span data-lang="en">Single on/off</span></td><td><span data-lang="pt">Efeito imediato, sem necessidade de submit</span><span data-lang="en">Immediate effect, no submit needed</span></td></tr>
+        <tr><td><strong>Radio</strong></td><td><span data-lang="pt">Mutuamente exclusivo, um deve ser selecionado</span><span data-lang="en">Mutually exclusive, one must be selected</span></td><td>Form context, explicit submit</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="position:relative;display:inline-flex;align-items:center;" inert>
+        <label class="ds-checkbox-label">
+          <input type="checkbox" class="ds-checkbox" checked>
+          Option label
+        </label>
+        <!-- 1: Label wrapper top center -->
+        <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+        <!-- 2: Input checkbox left -->
+        <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">2</span>
+        <!-- 3: Checkmark top-left (above checkbox) -->
+        <span style="position:absolute;top:-28px;left:9px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:0;">3</span>
+        <!-- 4: Indeterminate dash bottom-left (below checkbox) -->
+        <span style="position:absolute;bottom:-28px;left:9px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="bottom:-48px;left:0;">4</span>
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Label (<code>.ds-checkbox-label</code>) — envolve checkbox + texto, estende área de clique.<br>
+      <strong>2</strong> Input (<code>.ds-checkbox</code>) — <code>&lt;input type="checkbox"&gt;</code> nativo estilizado.<br>
+      <strong>3</strong> Checkmark — pseudo-elemento CSS, visível quando marcado.<br>
+      <strong>4</strong> Traço indeterminado — pseudo-elemento CSS, visível quando <code>indeterminate = true</code>.</span><span data-lang="en"><strong>1</strong> Label (<code>.ds-checkbox-label</code>) — wraps checkbox + text, extends click target.<br>
+      <strong>2</strong> Input (<code>.ds-checkbox</code>) — styled native <code>&lt;input type="checkbox"&gt;</code>.<br>
+      <strong>3</strong> Checkmark — CSS pseudo-element, visible when checked.<br>
+      <strong>4</strong> Indeterminate dash — CSS pseudo-element, visible when <code>indeterminate = true</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. DEFAULT (live preview)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox">
+            Unchecked
+          </label>
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox" checked>
+            Checked
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox"&gt;
+  Unchecked
+&lt;/label&gt;
+
+&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox" checked&gt;
+  Checked
+&lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. INDETERMINATE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Indeterminado</span><span data-lang="en">Indeterminate</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox" id="demo-indeterminate">
+            Select all
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox" id="select-all"&gt;
+  Select all
+&lt;/label&gt;
+
+&lt;script&gt;
+  // Indeterminate must be set via JavaScript
+  document.getElementById('select-all').indeterminate = true;
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       6. SIZES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox ds-checkbox--sm" checked>
+            Small (16px)
+          </label>
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox" checked>
+            Medium (20px, default)
+          </label>
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox ds-checkbox--lg" checked>
+            Large (24px)
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox ds-checkbox--sm"&gt;
+  Small (16px)
+&lt;/label&gt;
+
+&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox"&gt;
+  Medium (20px, default)
+&lt;/label&gt;
+
+&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox ds-checkbox--lg"&gt;
+  Large (24px)
+&lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       7. ERROR GROUP
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Grupo com erro</span><span data-lang="en">Error Group</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <fieldset class="ds-checkbox-group--error" style="border:none;padding:0;margin:0">
+            <legend style="font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);margin-bottom:var(--ds-dimension-8)">Select at least one option</legend>
+            <label class="ds-checkbox-label">
+              <input type="checkbox" class="ds-checkbox">
+              Option A
+            </label>
+            <label class="ds-checkbox-label">
+              <input type="checkbox" class="ds-checkbox">
+              Option B
+            </label>
+            <span class="ds-checkbox-group__error">Please select at least one option.</span>
+          </fieldset>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;fieldset class="ds-checkbox-group--error"&gt;
+  &lt;legend&gt;Select at least one option&lt;/legend&gt;
+  &lt;label class="ds-checkbox-label"&gt;
+    &lt;input type="checkbox" class="ds-checkbox"&gt;
+    Option A
+  &lt;/label&gt;
+  &lt;label class="ds-checkbox-label"&gt;
+    &lt;input type="checkbox" class="ds-checkbox"&gt;
+    Option B
+  &lt;/label&gt;
+  &lt;span class="ds-checkbox-group__error"&gt;Please select at least one option.&lt;/span&gt;
+&lt;/fieldset&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       8. DISABLED
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Desabilitado</span><span data-lang="en">Disabled</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox" disabled>
+            Disabled unchecked
+          </label>
+          <label class="ds-checkbox-label">
+            <input type="checkbox" class="ds-checkbox" checked disabled>
+            Disabled checked
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox" disabled&gt;
+  Disabled unchecked
+&lt;/label&gt;
+
+&lt;label class="ds-checkbox-label"&gt;
+  &lt;input type="checkbox" class="ds-checkbox" checked disabled&gt;
+  Disabled checked
+&lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       9. STATES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>State</th><th>CSS trigger</th><th>Visual change</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>Unchecked</td><td>---</td><td>Neutral box fill and border</td><td><code>component.checkbox.box.fill.unchecked.default</code>, <code>component.checkbox.box.border-color.unchecked.default</code></td></tr>
+        <tr><td>Unchecked hover</td><td><code>:hover</code></td><td>Darker neutral box border/fill</td><td><code>component.checkbox.box.fill.unchecked.hover</code>, <code>component.checkbox.box.border-color.unchecked.hover</code></td></tr>
+        <tr><td>Checked</td><td><code>:checked</code></td><td>Primary box fill with checkmark</td><td><code>component.checkbox.box.fill.checked.default</code>, <code>component.checkbox.mark.fill.checked.default</code></td></tr>
+        <tr><td>Checked hover</td><td><code>:checked:hover</code></td><td>Darker primary box fill</td><td><code>component.checkbox.box.fill.checked.hover</code>, <code>component.checkbox.mark.fill.checked.hover</code></td></tr>
+        <tr><td>Indeterminate</td><td><code>:indeterminate</code></td><td>Primary box fill with indeterminate mark</td><td><code>component.checkbox.box.fill.indeterminate.default</code>, <code>component.checkbox.mark.fill.indeterminate.default</code></td></tr>
+        <tr><td>Focus</td><td><code>:focus-visible</code></td><td>2px outline ring</td><td><code>component.checkbox.focus-ring.radius.default + component.focus-ring.*</code></td></tr>
+        <tr><td>Error group</td><td><code>.ds-checkbox-group--error</code></td><td>Error border on controls and message below group</td><td><code>component.checkbox.box.border-color.unchecked.error</code>, <code>semantic.feedback.error.content-default</code></td></tr>
+        <tr><td>Disabled</td><td><code>[disabled]</code></td><td>Muted box, mark and label</td><td><code>component.checkbox.box.fill.*.disabled</code>, <code>semantic.content.disabled</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       10. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:flex-start;">
+          <fieldset style="border:none;padding:0;margin:0;">
+            <legend style="font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);margin-bottom:var(--ds-dimension-8);">Interests</legend>
+            <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox" checked> Design</label>
+            <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> Development</label>
+          </fieldset>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Envolva em <code>&lt;fieldset&gt;</code> com <code>&lt;legend&gt;</code> para contexto de leitores de tela.</span><span data-lang="en">Wrap in <code>&lt;fieldset&gt;</code> with <code>&lt;legend&gt;</code> for screen reader context.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="align-items:flex-start;justify-content:flex-start;" inert>
+          <input type="checkbox" class="ds-checkbox">
+          <input type="checkbox" class="ds-checkbox">
+          <input type="checkbox" class="ds-checkbox">
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar checkboxes sem labels. Todo checkbox precisa de um label de texto visível.</span><span data-lang="en">Use checkboxes without labels. Every checkbox needs a visible text label.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:flex-start;">
+          <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox" id="dodont-indet"> Select all</label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Use indeterminate para "selecionar todos" quando alguns filhos estão marcados.</span><span data-lang="en">Use indeterminate for "select all" when some children are checked.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:flex-start;">
+          <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> Yes</label>
+          <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> No</label>
+          <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> Maybe</label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar indeterminate como um terceiro estado voltado ao usuário. É um estado apenas programático.</span><span data-lang="en">Use indeterminate as a third user-facing state. It is a programmatic state only.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       11. CONTENT GUIDELINES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Use declarações afirmativas</span><span data-lang="en">Use affirmative statements</span></td><td>"Receive marketing emails" — not "Don't send me emails"</td></tr>
+        <tr><td><span data-lang="pt">A legend do grupo deve ser uma pergunta ou instrução</span><span data-lang="en">Group legend should be a question or instruction</span></td><td>"Select your interests" — not "Interests list"</td></tr>
+        <tr><td><span data-lang="pt">Mantenha labels concisos</span><span data-lang="en">Keep labels concise</span></td><td>"Remember me" — not "Keep me logged in on this device for future sessions"</td></tr>
+        <tr><td><span data-lang="pt">Use sentence case</span><span data-lang="en">Use sentence case</span></td><td>"Receive notifications" — not "Receive Notifications"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       12. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token Component</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>box size (sm/md/lg)</td><td><code>component.checkbox.box.size.*</code></td><td><code>--ds-checkbox-box-size-*</code></td></tr>
+        <tr><td>box fill</td><td><code>component.checkbox.box.fill.*.*</code></td><td><code>--ds-checkbox-box-fill-*</code></td></tr>
+        <tr><td>box border</td><td><code>component.checkbox.box.border-color.*.*</code></td><td><code>--ds-checkbox-box-border-color-*</code></td></tr>
+        <tr><td>mark fill</td><td><code>component.checkbox.mark.fill.*.*</code></td><td><code>--ds-checkbox-mark-fill-*</code></td></tr>
+        <tr><td>target height</td><td><code>component.checkbox.target.height.*</code></td><td><code>--ds-checkbox-target-height-*</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.checkbox.focus-ring.radius.default + component.focus-ring.*</code></td><td><code>--ds-focus-ring-* + --ds-checkbox-focus-ring-radius-default</code></td></tr>
+        <tr><td>label/helper/description/error</td><td><code>component.form-field.*</code></td><td><code>--ds-form-field-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       13. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-checkbox</code></td><td><span data-lang="pt">Checkbox nativo estilizado</span><span data-lang="en">Custom styled native checkbox</span></td></tr>
+        <tr><td><code>ds-checkbox-label</code></td><td><span data-lang="pt">Wrapper do label (envolve checkbox + texto)</span><span data-lang="en">Label wrapper (wraps checkbox + text)</span></td></tr>
+        <tr><td><code>ds-checkbox--sm</code></td><td><span data-lang="pt">Tamanho pequeno (16px)</span><span data-lang="en">Small size (16px)</span></td></tr>
+        <tr><td><code>ds-checkbox--lg</code></td><td><span data-lang="pt">Tamanho grande (24px)</span><span data-lang="en">Large size (24px)</span></td></tr>
+        <tr><td><code>ds-checkbox-group--error</code></td><td><span data-lang="pt">Estado de erro para um grupo de checkboxes</span><span data-lang="en">Error state for a group of checkboxes</span></td></tr>
+        <tr><td><code>ds-checkbox-group__error</code></td><td><span data-lang="pt">Texto de mensagem de erro do grupo</span><span data-lang="en">Error message text for the group</span></td></tr>
+        <tr><td><code>ds-checkbox__content</code></td><td><span data-lang="pt">Frame vertical com label, description e helper text</span><span data-lang="en">Vertical frame stacking label, description, and helper text</span></td></tr>
+        <tr><td><code>ds-checkbox__label</code></td><td><span data-lang="pt">Texto do label dentro do content frame (label/md)</span><span data-lang="en">Label text inside content frame (label/md)</span></td></tr>
+        <tr><td><code>ds-checkbox__description</code></td><td><span data-lang="pt">Texto descritivo multiline (body/sm, content/default)</span><span data-lang="en">Multiline description text (body/sm, content/default)</span></td></tr>
+        <tr><td><code>ds-checkbox__helper</code></td><td><span data-lang="pt">Texto auxiliar (caption/sm, content/secondary)</span><span data-lang="en">Helper annotation (caption/sm, content/secondary)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       12b. FIGMA PROPERTIES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Propriedades Figma</span><span data-lang="en">Figma properties</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Show Label</code></td><td>Boolean</td><td><code>true</code></td><td><span data-lang="pt">Exibe ou oculta o label do controle</span><span data-lang="en">Shows or hides the control label</span></td></tr>
+        <tr><td><code>Label</code></td><td>Text</td><td>"Rótulo"</td><td><span data-lang="pt">Texto do label (label/md)</span><span data-lang="en">Label text (label/md)</span></td></tr>
+        <tr><td><code>Show Description</code></td><td>Boolean</td><td><code>false</code></td><td><span data-lang="pt">Exibe texto descritivo abaixo do label</span><span data-lang="en">Shows descriptive text below the label</span></td></tr>
+        <tr><td><code>Description</code></td><td>Text</td><td>"Texto descritivo"</td><td><span data-lang="pt">Texto multiline de descrição (body/sm)</span><span data-lang="en">Multiline description text (body/sm)</span></td></tr>
+        <tr><td><code>Show Helper Text</code></td><td>Boolean</td><td><code>false</code></td><td><span data-lang="pt">Exibe texto auxiliar abaixo da description</span><span data-lang="en">Shows helper text below the description</span></td></tr>
+        <tr><td><code>Helper Text</code></td><td>Text</td><td>"Texto auxiliar"</td><td><span data-lang="pt">Anotação em caption/sm (content/secondary)</span><span data-lang="en">Caption/sm annotation (content/secondary)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       13. KEYBOARD INTERACTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td><span data-lang="pt">Move o foco para o próximo checkbox</span><span data-lang="en">Moves focus to the next checkbox</span></td></tr>
+        <tr><td><code>Space</code></td><td><span data-lang="pt">Alterna o estado marcado</span><span data-lang="en">Toggles the checked state</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       14. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td><span data-lang="pt">Agrupe checkboxes relacionados em <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></span><span data-lang="en">Group related checkboxes in <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></span></td><td>&#10003;</td></tr>
+        <tr><td>2.4.11 Focus Appearance (AA)</td><td><span data-lang="pt">Focus ring visível via <code>:focus-visible</code></span><span data-lang="en">Focus ring visible via <code>:focus-visible</code></span></td><td>&#10003;</td></tr>
+        <tr><td>2.5.8 Target Size min (AA)</td><td><span data-lang="pt">Label estende a área de clique além do checkbox</span><span data-lang="en">Label extends click target beyond the checkbox itself</span></td><td>&#10003;</td></tr>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><span data-lang="pt"><code>&lt;input type="checkbox"&gt;</code> nativo fornece role + estado automaticamente</span><span data-lang="en">Native <code>&lt;input type="checkbox"&gt;</code> provides role + state automatically</span></td><td>&#10003;</td></tr>
+        <tr><td>3.3.1 Error Identification (A)</td><td><span data-lang="pt">Erro do grupo comunicado via <code>ds-checkbox-group--error</code></span><span data-lang="en">Group error communicated via <code>ds-checkbox-group--error</code></span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Notas de implementação</span><span data-lang="en">Implementation notes</span></div>
+      <span data-lang="pt">Usa <code>&lt;input type="checkbox"&gt;</code> nativo para suporte integrado a teclado e leitores de tela. O estado indeterminate deve ser definido via JavaScript (<code>el.indeterminate = true</code>). Sempre envolva checkboxes relacionados em um <code>&lt;fieldset&gt;</code> com um <code>&lt;legend&gt;</code> para fornecer contexto de grupo à tecnologia assistiva.</span><span data-lang="en">Uses native <code>&lt;input type="checkbox"&gt;</code> for built-in keyboard and screen reader support. The indeterminate state must be set via JavaScript (<code>el.indeterminate = true</code>). Always wrap related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> to provide group context to assistive technology.</span>
+    </div>
+
+    <div class="ds-callout ds-callout--warning" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Label invisível — exige ARIA explícito</span><span data-lang="en">Invisible label — requires explicit ARIA</span></div>
+      <span data-lang="pt">Quando <code>Show Label = false</code> e <code>Show Description = true</code>, vincule o <code>&lt;input&gt;</code> à descrição via <code>aria-labelledby="id-da-description"</code>. Se nenhum dos dois estiver visível, use <code>aria-label</code> diretamente no <code>&lt;input&gt;</code>. O Helper Text deve sempre ser vinculado via <code>aria-describedby="id-do-helper"</code>.</span><span data-lang="en">When <code>Show Label = false</code> and <code>Show Description = true</code>, link the <code>&lt;input&gt;</code> to the description via <code>aria-labelledby="description-id"</code>. If neither is visible, use <code>aria-label</code> directly on the <code>&lt;input&gt;</code>. Helper Text should always be linked via <code>aria-describedby="helper-id"</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       15. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="radio.html" class="ds-related__link">Radio</a>
+      <a href="toggle.html" class="ds-related__link">Toggle</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Set indeterminate state for demos
+  var el = document.getElementById('demo-indeterminate');
+  if (el) el.indeterminate = true;
+  var dodontEl = document.getElementById('dodont-indet');
+  if (dodontEl) dodontEl.indeterminate = true;
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

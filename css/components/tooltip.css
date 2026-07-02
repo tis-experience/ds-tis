@@ -1,0 +1,100 @@
+/* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+.ds-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip content
+   ========================================================================== */
+
+/* Content — Figma: padding space/sm × space/xs, radius/sm,
+   bg/content via component tooltip tokens, label body/sm (14/20) */
+.ds-tooltip__content {
+  position: absolute;
+  background: var(--ds-tooltip-content-fill-default);
+  color: var(--ds-tooltip-label-color-default);
+  padding: var(--ds-tooltip-content-padding-y-default) var(--ds-tooltip-content-padding-x-default);
+  border-radius: var(--ds-tooltip-content-radius-default);
+  font-size: var(--ds-tooltip-label-font-size-default);
+  font-weight: var(--ds-tooltip-label-font-weight-default);
+  line-height: var(--ds-tooltip-label-line-height-default);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: var(--ds-z-tooltip);
+  transition: opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Arrow
+   ========================================================================== */
+
+.ds-tooltip__content::before {
+  content: '';
+  position: absolute;
+  border: var(--ds-tooltip-arrow-depth-default) solid transparent;
+}
+
+/* Positions
+   ========================================================================== */
+
+/* Top (default) */
+.ds-tooltip--top .ds-tooltip__content {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--ds-space-sm);
+}
+
+.ds-tooltip--top .ds-tooltip__content::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--ds-tooltip-arrow-fill-default);
+}
+
+/* Right */
+.ds-tooltip--right .ds-tooltip__content {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: var(--ds-space-sm);
+}
+
+.ds-tooltip--right .ds-tooltip__content::before {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--ds-tooltip-arrow-fill-default);
+}
+
+/* Bottom */
+.ds-tooltip--bottom .ds-tooltip__content {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--ds-space-sm);
+}
+
+.ds-tooltip--bottom .ds-tooltip__content::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--ds-tooltip-arrow-fill-default);
+}
+
+/* Left */
+.ds-tooltip--left .ds-tooltip__content {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: var(--ds-space-sm);
+}
+
+.ds-tooltip--left .ds-tooltip__content::before {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--ds-tooltip-arrow-fill-default);
+}

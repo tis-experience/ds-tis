@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-token-table { width: 100%; border-collapse: collapse; font-size: var(--ds-font-size-14); margin-bottom: var(--ds-dimension-32); }
+    .ds-token-table th { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-2) solid var(--ds-border-default); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); }
+    .ds-token-table td { padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); vertical-align: middle; }
+    .ds-token-table code { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); }
+    .ds-type-sample { margin-bottom: var(--ds-dimension-24); padding: var(--ds-dimension-16); border: var(--ds-border-width-1) solid var(--ds-border-default); border-radius: var(--ds-radius-12); }
+    .ds-type-sample__preview { margin-bottom: var(--ds-dimension-8); color: var(--ds-content-strong); }
+    .ds-type-sample__meta { display: flex; flex-wrap: wrap; gap: var(--ds-dimension-12); font-size: var(--ds-font-size-12); color: var(--ds-content-default); font-family: var(--ds-font-family-mono); }
+    .ds-font-preview { padding: var(--ds-dimension-24); border: var(--ds-border-width-1) solid var(--ds-border-default); border-radius: var(--ds-radius-12); margin-bottom: var(--ds-dimension-16); }
+    .ds-font-preview__name { font-size: var(--ds-font-size-14); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); margin-bottom: var(--ds-dimension-8); }
+    .ds-font-preview__sample { font-size: var(--ds-font-size-24); color: var(--ds-content-strong); margin-bottom: var(--ds-dimension-4); }
+    .ds-font-preview__chars { font-size: var(--ds-font-size-14); color: var(--ds-content-subtle); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Typography</span><span data-lang="en">Typography</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Escala tipografica, familias de fonte e as 24 classes utilitarias de estilo de texto que formam a base tipografica do design system.</span><span data-lang="en">Type scale, font families, and the 24 text style utility classes that form the typographic foundation of the design system.</span></p>
+  </div>
+
+  <!-- Font Families -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Font Families</span><span data-lang="en">Font Families</span></h2>
+    <div class="ds-font-preview">
+      <div class="ds-font-preview__name">Sans (Inter) -- <code>--ds-font-family-sans</code></div>
+      <div class="ds-font-preview__sample" style="font-family:var(--ds-font-family-sans)">The quick brown fox jumps over the lazy dog</div>
+      <div class="ds-font-preview__chars" style="font-family:var(--ds-font-family-sans)">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</div>
+    </div>
+    <div class="ds-font-preview">
+      <div class="ds-font-preview__name">Mono (DM Mono) -- <code>--ds-font-family-mono</code></div>
+      <div class="ds-font-preview__sample" style="font-family:var(--ds-font-family-mono)">The quick brown fox jumps over the lazy dog</div>
+      <div class="ds-font-preview__chars" style="font-family:var(--ds-font-family-mono)">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</div>
+    </div>
+  </div>
+
+  <!-- Font Size Scale -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Font Size Scale</span><span data-lang="en">Font Size Scale</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th>rem</th><th>px</th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Preview</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-font-size-11</code></td><td>0.6875rem</td><td>11px</td><td><span style="font-size:0.6875rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-12</code></td><td>0.75rem</td><td>12px</td><td><span style="font-size:0.75rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-14</code></td><td>0.875rem</td><td>14px</td><td><span style="font-size:0.875rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-16</code></td><td>1rem</td><td>16px</td><td><span style="font-size:1rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-18</code></td><td>1.125rem</td><td>18px</td><td><span style="font-size:1.125rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-20</code></td><td>1.25rem</td><td>20px</td><td><span style="font-size:1.25rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-24</code></td><td>1.5rem</td><td>24px</td><td><span style="font-size:1.5rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-28</code></td><td>1.75rem</td><td>28px</td><td><span style="font-size:1.75rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-32</code></td><td>2rem</td><td>32px</td><td><span style="font-size:2rem">The quick brown fox</span></td></tr>
+        <tr><td><code>--ds-font-size-40</code></td><td>2.5rem</td><td>40px</td><td><span style="font-size:2.5rem">Aa</span></td></tr>
+        <tr><td><code>--ds-font-size-48</code></td><td>3rem</td><td>48px</td><td><span style="font-size:3rem">Aa</span></td></tr>
+        <tr><td><code>--ds-font-size-56</code></td><td>3.5rem</td><td>56px</td><td><span style="font-size:3.5rem">Aa</span></td></tr>
+        <tr><td><code>--ds-font-size-64</code></td><td>4rem</td><td>64px</td><td><span style="font-size:4rem">Aa</span></td></tr>
+        <tr><td><code>--ds-font-size-72</code></td><td>4.5rem</td><td>72px</td><td><span style="font-size:4.5rem">Aa</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Text Styles -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Text Styles (24 utility classes)</span><span data-lang="en">Text Styles (24 utility classes)</span></h2>
+
+    <h3 style="margin:var(--ds-dimension-16) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Display</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-display-2xl">Display 2XL</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-display-2xl</span><span>bold</span><span>72px</span><span>line-height: 1.25</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-display-xl">Display XL</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-display-xl</span><span>bold</span><span>64px</span><span>line-height: 1.25</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-display-lg">Display LG</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-display-lg</span><span>bold</span><span>56px</span><span>line-height: 1.25</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-display-md">Display MD</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-display-md</span><span>bold</span><span>48px</span><span>line-height: 1.25</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-display-sm">Display SM</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-display-sm</span><span>bold</span><span>40px</span><span>line-height: 1.25</span><span>letter-spacing: normal</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Heading</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-heading-xl">Heading XL</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-heading-xl</span><span>bold</span><span>32px</span><span>line-height: 1.375</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-heading-lg">Heading LG</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-heading-lg</span><span>semibold</span><span>28px</span><span>line-height: 1.375</span><span>letter-spacing: -0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-heading-md">Heading MD</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-heading-md</span><span>semibold</span><span>24px</span><span>line-height: 1.375</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-heading-sm">Heading SM</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-heading-sm</span><span>semibold</span><span>20px</span><span>line-height: 1.375</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-heading-xs">Heading XS</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-heading-xs</span><span>semibold</span><span>18px</span><span>line-height: 1.375</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Body</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-body-lg">Body LG -- The quick brown fox jumps over the lazy dog.</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-body-lg</span><span>regular</span><span>18px</span><span>line-height: 1.5</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-body-md">Body MD -- The quick brown fox jumps over the lazy dog.</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-body-md</span><span>regular</span><span>16px</span><span>line-height: 1.5</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-body-sm">Body SM -- The quick brown fox jumps over the lazy dog.</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-body-sm</span><span>regular</span><span>14px</span><span>line-height: 1.5</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-body-xs">Body XS -- The quick brown fox jumps over the lazy dog.</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-body-xs</span><span>regular</span><span>12px</span><span>line-height: 1.5</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Label</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-label-lg">Label LG</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-label-lg</span><span>medium</span><span>16px</span><span>line-height: 1.375</span><span>letter-spacing: 0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-label-md">Label MD</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-label-md</span><span>medium</span><span>14px</span><span>line-height: 1.375</span><span>letter-spacing: 0.5px</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-label-xs">Label XS</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-label-xs</span><span>bold</span><span>12px</span><span>line-height: 18px</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Overline</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-overline-md">Overline MD</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-overline-md</span><span>semibold</span><span>12px</span><span>line-height: 1.375</span><span>letter-spacing: 1.5px</span><span>uppercase</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-overline-sm">Overline SM</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-overline-sm</span><span>semibold</span><span>11px</span><span>line-height: 1.375</span><span>letter-spacing: 1.5px</span><span>uppercase</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Code</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-code-md">const greeting = "Hello, World!";</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-code-md</span><span>regular</span><span>14px</span><span>line-height: 1.5</span><span>DM Mono</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview ds-text-code-sm">const greeting = "Hello, World!";</div>
+      <div class="ds-type-sample__meta"><span>.ds-text-code-sm</span><span>regular</span><span>12px</span><span>line-height: 1.5</span><span>DM Mono</span></div>
+    </div>
+
+    <h3 style="margin:var(--ds-dimension-24) 0 var(--ds-dimension-8);color:var(--ds-content-default)">Link</h3>
+    <p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin-bottom:var(--ds-dimension-12);line-height:var(--ds-body-line-height-md);">Bold + underline. Estados WCAG/W3C: <code>:hover</code>, <code>:active</code>, <code>:focus-visible</code>. Tokens semânticos: <code>--ds-link-content-default</code>, <code>--ds-link-content-hover</code>, <code>--ds-link-content-active</code>.</p>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview"><a href="#" class="ds-link ds-link--lg">Link LG</a></div>
+      <div class="ds-type-sample__meta"><span>.ds-link.ds-link--lg</span><span>bold</span><span>18px</span><span>line-height: 32px</span><span>underline</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview"><a href="#" class="ds-link ds-link--md">Link MD</a></div>
+      <div class="ds-type-sample__meta"><span>.ds-link.ds-link--md</span><span>bold</span><span>16px</span><span>line-height: 24px</span><span>underline</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview"><a href="#" class="ds-link ds-link--sm">Link SM</a></div>
+      <div class="ds-type-sample__meta"><span>.ds-link.ds-link--sm</span><span>bold</span><span>14px</span><span>line-height: 20px</span><span>underline</span></div>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-sample__preview"><a href="#" class="ds-link ds-link--xs">Link XS</a></div>
+      <div class="ds-type-sample__meta"><span>.ds-link.ds-link--xs</span><span>bold</span><span>12px</span><span>line-height: 18px</span><span>underline</span></div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">JSON (DTCG)</h2>
+<div class="ds-code-block">{
+  "foundation": {
+    "typography": {
+      "font": {
+        "family": {
+          "sans":    { "$type": "fontFamily", "$value": "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" },
+          "mono":    { "$type": "fontFamily", "$value": "'DM Mono', 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace" },
+          "display": { "$type": "fontFamily", "$value": "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }
+        },
+        "size": {
+          "xs": { "$type": "dimension", "$value": "0.75rem" },
+          "sm": { "$type": "dimension", "$value": "0.875rem" },
+          "md": { "$type": "dimension", "$value": "1rem" },
+          "lg": { "$type": "dimension", "$value": "1.125rem" },
+          "xl": { "$type": "dimension", "$value": "1.25rem" },
+          // …
+        },
+        "weight": {
+          "regular":  { "$type": "number", "$value": "400" },
+          "medium":   { "$type": "number", "$value": "500" },
+          "semibold": { "$type": "number", "$value": "600" },
+          "bold":     { "$type": "number", "$value": "700" }
+        }
+      },
+      "line": {
+        "height": {
+          "none":    { "$type": "number", "$value": "1" },
+          "tight":   { "$type": "number", "$value": "1.25" },
+          "snug":    { "$type": "number", "$value": "1.375" },
+          "normal":  { "$type": "number", "$value": "1.5" },
+          "relaxed": { "$type": "number", "$value": "1.625" },
+          "loose":   { "$type": "number", "$value": "1.75" }
+        }
+      }
+    }
+  }
+}</div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{
+  "component": {
+    "textarea": {
+      "field": {
+        "min-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.control.textarea.min-height.sm}",
+            "$description": "Altura mínima do field Textarea sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.control.textarea.min-height.md}",
+            "$description": "Altura mínima do field Textarea md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.control.textarea.min-height.lg}",
+            "$description": "Altura mínima do field Textarea lg."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.lg}",
+            "$description": "Radius do focus ring Textarea."
+          }
+        }
+      },
+      "padding-x": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Padding horizontal do Field Textarea sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.space.md}",
+          "$description": "Padding horizontal do Field Textarea md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.space.lg}",
+          "$description": "Padding horizontal do Field Textarea lg."
+        }
+      },
+      "text": {
+        "font-family": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$description": "Font-family do texto Textarea."
+          }
+        },
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xs}",
+            "$description": "Font-size do texto Textarea sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do texto Textarea md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$description": "Font-size do texto Textarea lg."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight do texto Textarea."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$description": "Letter-spacing do texto Textarea."
+          }
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.2xs}",
+            "$description": "Line-height do texto Textarea sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do texto Textarea md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$description": "Line-height do texto Textarea lg."
+          }
+        }
+      }
+    }
+  }
+}

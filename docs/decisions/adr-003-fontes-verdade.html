@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-003 — Figma como origem canônica de tokens, Git como consolidação — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-003 — Figma como origem canônica de tokens, Git como consolidação</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — Revisada em 0.5.8</strong> · Data: 2026-04-14 (original) · 2026-04-21 (revisada)</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-14 (original) · 2026-04-21 (revisada)
+<strong>Status:</strong> Aceita — Revisada em 0.5.8</p>
+<h2>Contexto</h2>
+<p>A versão original deste ADR (abril/2026) declarava Git como fonte de verdade para tokens (JSON) e Figma como consumidor. A direção implementada seguia essa convenção: editar JSON → <code>build-tokens.mjs</code> gera CSS → Figma era atualizado manualmente.</p>
+<p>Revisitando esta decisão em 21/04/2026 com o time, ficou claro que a direção correta do fluxo é o oposto: <strong>as decisões de design nascem no Figma</strong>, onde o designer explora, testa, valida e fecha valores de cor, spacing, tipografia. Essas decisões precisam virar código e documentação, não o contrário. Forçar o desenvolvedor a editar JSON e depois &quot;sincronizar&quot; o Figma quebra a cadeia natural designer → dev e distancia a fonte real (decisões humanas em uma ferramenta visual) da representação técnica.</p>
+<p>Esta revisão alinha a ADR à realidade desejada: <strong>Figma Variables são a autoridade</strong> para valores de token. JSON em <code>tokens/</code> é uma <strong>consolidação</strong> — um contrato em formato transportável (DTCG) que vira código, documentação e futuramente Storybook.</p>
+<h2>Decisão</h2>
+<h3>Fontes de verdade</h3>
+<ul>
+<li><strong>Figma Variables</strong>: fonte canônica de todos os valores de token (cor, spacing, tipografia, radius, shadow, stroke, opacity, motion, z-index). Arquivo <code>IE68amP9Hya5ieFw1rX8S8</code>.</li>
+<li><strong>Figma (frames e componentes)</strong>: fonte canônica do design visual (auto-layout, variantes, properties, anatomy).</li>
+<li><strong>Git (<code>tokens/**/*.json</code>)</strong>: consolidação derivada do Figma em formato DTCG. Versionado, transportável entre plataformas.</li>
+<li><strong>Git (<code>css/</code>, <code>docs/</code>, ADRs, código)</strong>: fonte canônica do código e da documentação textual. Inclui <code>CHANGELOG.md</code>, <code>CONTRIBUTING.md</code>, ADRs, schemas.</li>
+</ul>
+<h3>Fluxo explícito</h3>
+<pre><code>Figma Variables (autoridade de valor)
+       │
+       │ npm run sync:tokens-from-figma (manual, abre PR)
+       ▼
+tokens/**/*.json (DTCG, consolidação em Git)
+       │
+       │ npm run build:tokens (automático no CI)
+       ▼
+css/tokens/generated/*.css
+       │
+       │ @import em design-system.css
+       ▼
+css/components/*.css (consumo nos 18 componentes)
+       │
+       ▼
+site em docs/ + Storybook (futuro)
+</code></pre>
+<h3>Regras operacionais</h3>
+<ol>
+<li>Mudanças de token <strong>começam no Figma</strong>. Designer edita a Variable, valida visualmente.</li>
+<li>Quando o designer decide que o conjunto de mudanças está fechado, alguém roda <code>npm run sync:tokens-from-figma</code> (dry-run por padrão, <code>--write</code> pra aplicar). Dispara em comando manual — não é automático.</li>
+<li>O script abre um PR com o diff pros JSONs. Revisão mínima antes do merge (nomes novos, remoções inesperadas, valores discrepantes).</li>
+<li>Após o merge, <code>build-tokens.mjs</code> regenera o CSS. CI publica o site.</li>
+<li><strong>Nunca editar <code>tokens/*.json</code> à mão</strong> num commit normal. JSONs são derivados. A exceção é em PRs do próprio script de sync, onde a edição é gerada automaticamente e revisada como diff.</li>
+<li>Mudanças visuais de componente (não de token) continuam acontecendo no Figma normalmente. CSS de componente é atualizado manualmente pra refletir.</li>
+</ol>
+<h3>Ferramentas</h3>
+<ul>
+<li><strong>MCP remoto do Figma</strong> (<code>use_figma</code>): canal pelo qual o script acessa as Variables. Autenticado via MCP TIS (Pro/Expert).</li>
+<li><strong><code>scripts/sync-tokens-from-figma.mjs</code></strong>: o script de sync. Dry-run por padrão.</li>
+<li><strong><code>scripts/tokens-verify.mjs</code></strong>: passa a interpretar divergências orientadas — Figma como autoridade.</li>
+</ul>
+<h2>Verificação automatizada</h2>
+<p><code>scripts/tokens-verify.mjs</code> classifica divergências em três categorias:</p>
+<ul>
+<li><strong>NEEDS_SYNC</strong> (warning): Figma tem uma Variable que o JSON ainda não representa. Rodar <code>sync:tokens-from-figma</code> resolve.</li>
+<li><strong>DRIFT_FROM_SOURCE</strong> (erro): JSON tem um token que não existe no Figma. Indica edição manual do JSON ou Variable deletada no Figma sem sync.</li>
+<li><strong>VALUE_DRIFT</strong> (erro): mesmo nome, valor diferente. Sincronizar.</li>
+</ul>
+<p>O workflow <code>.github/workflows/verify-tokens.yml</code> roda em pull requests e push pra main. Em 0.5.8, a interpretação fica em warning em todos os casos (fase de adaptação). Depois de duas semanas estáveis, <code>DRIFT_FROM_SOURCE</code> e <code>VALUE_DRIFT</code> passam a falhar o CI.</p>
+<h2>Consequências</h2>
+<ul>
+<li>A &quot;porta de entrada&quot; para mudanças de tokens passa a ser o Figma. Fluxo natural pro designer.</li>
+<li>Desenvolvedores que quiserem sugerir uma mudança de token abrem uma issue ou negociam com design. Não têm permissão de editar o JSON diretamente (convenção, não bloqueio técnico).</li>
+<li>O CI continua rápido e simples: build-tokens depende só do JSON do repo, igual antes. Novo script é invocado manualmente, não bloqueia deploys.</li>
+<li>A versão &quot;oficial&quot; dos tokens é a que está no Git em <code>tokens/</code> — o Figma é a autoridade mas o Git é o backup imutável e o ponto de consumo pra todo o resto da cadeia.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<p><strong>Manter Git como source (ADR-003 original, pré-revisão).</strong> Descartada porque separa a decisão (Figma) da representação canônica (JSON), forçando sincronização em ordem não natural.</p>
+<p><strong>Tokens Studio como intermediário no Figma.</strong> Avaliada e descartada pra este momento. Tokens Studio exigiria migrar 462 Variables do formato nativo pra dentro do plugin, ajustar <code>build-tokens.mjs</code> pro formato exportado por ele, e requer que designers aprendam UI nova. Sem ganho proporcional ao custo na nossa escala atual. Reavaliar quando houver time de design maior e necessidade explícita das features do Tokens Studio (branches em tokens, temas via plugin, etc.).</p>
+<p><strong>Plugin Figma custom.</strong> Descartada por ROI. Desenvolvimento + manutenção maior que o script via MCP pra o mesmo resultado funcional no cenário atual.</p>
+<p><strong>Bidirecional automático (webhook Figma).</strong> Descartada pra início. Manual garante controle e revisão. Se o fluxo manual virar gargalo, reavaliar.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-001-migracao-tokens.md">ADR-001</a> — Migração de tokens para DTCG + Style Dictionary.</li>
+<li><a href="./ADR-011-renaming-tokens-semanticos-de-cor.md">ADR-011</a> — Renaming semântico que consolidou a estrutura atual do JSON.</li>
+<li><code>scripts/sync-tokens-from-figma.mjs</code> — implementação do sync (a partir de 0.5.8).</li>
+<li><code>scripts/tokens-verify.mjs</code> — verificador com interpretação revisada (a partir de 0.5.8).</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

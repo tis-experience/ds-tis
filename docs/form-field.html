@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Field — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- HEADER -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Form Field</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Wrapper composite que junta label, controle (Input/Select/Textarea), required indicator, helper text e error message. É onde a acessibilidade de form se materializa: associação correta de label↔controle, aria-describedby pra helper, aria-invalid em estado de erro.</span><span data-lang="en">Composite wrapper that pairs label, control (Input/Select/Textarea), required indicator, helper text, and error message. This is where form accessibility lives: correct label↔control association, aria-describedby for helpers, aria-invalid on error.</span></p>
+  </div>
+
+  <!-- WHEN TO USE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Form Field quando</span><span data-lang="en">Use Form Field when</span></div>
+      <span data-lang="pt">Qualquer controle de formulário precisar de label visível, helper text ou validação. Sempre que houver Input, Select ou Textarea com contexto adicional, eles devem estar dentro de um Form Field — é o que conecta os pedaços de forma acessível.</span><span data-lang="en">Any form control needs a visible label, helper text, or validation. Whenever you have an Input, Select, or Textarea with additional context, they should live inside a Form Field — it connects the pieces accessibly.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Form Field quando</span><span data-lang="en">Don't use Form Field when</span></div>
+      <span data-lang="pt">O controle não precisa de label visível (ex: search input no header com ícone, com <code>aria-label</code> direto no controle). Mesmo assim, considere usar Form Field com <code>--no-label</code> para manter consistência de espaçamento.</span><span data-lang="en">The control doesn't need a visible label (e.g., search input in header with icon, using <code>aria-label</code> directly). Even so, consider Form Field with <code>--no-label</code> to keep spacing consistent.</span>
+    </div>
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title">CSS-only (ADR-017)</div>
+      <span data-lang="pt">Form Field não tem equivalente Figma dedicado. Ele existe para compor markup HTML/ARIA; Input, Select, Textarea, Checkbox, Radio e Toggle já carregam seus elementos de label/helper nas variants Figma.</span><span data-lang="en">Form Field has no dedicated Figma equivalent. It exists to compose HTML/ARIA markup; Input, Select, Textarea, Checkbox, Radio, and Toggle already include label/helper elements in their Figma variants.</span>
+    </div>
+  </div>
+
+  <!-- ANATOMY -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="display:inline-block;max-width:360px;width:360px;" inert>
+        <div class="ds-field">
+          <div class="ds-field__label-row" style="position:relative;">
+            <label class="ds-field__label" for="anatomy-id">Email address</label>
+            <span class="ds-field__required" aria-hidden="true" style="position:relative;display:inline-block;">
+              *
+              <!-- 2: Required asterisk — above -->
+              <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+              <span class="ds-anatomy__marker" style="position:absolute;top:-48px;left:50%;transform:translateX(-50%);">2</span>
+            </span>
+            <!-- 1: Label — left of label row -->
+            <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="position:absolute;left:-48px;top:50%;transform:translateY(-50%);">1</span>
+          </div>
+          <div class="ds-input" style="position:relative;">
+            <input type="email" id="anatomy-id" class="ds-input__field" placeholder="name@example.com" aria-required="true" aria-describedby="anatomy-helper">
+            <!-- 3: Control — left of input wrapper -->
+            <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="position:absolute;left:-48px;top:50%;transform:translateY(-50%);">3</span>
+          </div>
+          <span class="ds-field__helper" id="anatomy-helper" style="position:relative;display:block;">
+            We'll never share your email.
+            <!-- 4: Helper text — right of helper -->
+            <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="position:absolute;right:-48px;top:50%;transform:translateY(-50%);">4</span>
+          </span>
+          <span class="ds-field__error" role="alert" style="display:flex;position:relative;">
+            Please enter a valid email.
+            <!-- 5: Error message — right of error -->
+            <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="position:absolute;right:-48px;top:50%;transform:translateY(-50%);">5</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Label (<code>.ds-field__label</code>) — texto descritivo, com <code>for=</code> apontando pro <code>id</code> do controle.<br>
+      <strong>2</strong> Required indicator (<code>.ds-field__required</code>) — asterisco visual, <code>aria-hidden="true"</code> (a obrigatoriedade vem do <code>aria-required</code> no controle).<br>
+      <strong>3</strong> Controle — Input/Select/Textarea/Checkbox group, com <code>id</code> matching o label e <code>aria-describedby</code> apontando pro helper.<br>
+      <strong>4</strong> Helper text (<code>.ds-field__helper</code>) — orientação ou contexto adicional, com <code>id</code> referenciado pelo <code>aria-describedby</code> do controle.<br>
+      <strong>5</strong> Error message (<code>.ds-field__error</code>) — ícone + mensagem de validação, aparece apenas em <code>.ds-field--error</code> com <code>role="alert"</code>.</span>
+      <span data-lang="en"><strong>1</strong> Label (<code>.ds-field__label</code>) — descriptive text with <code>for=</code> pointing to the control's <code>id</code>.<br>
+      <strong>2</strong> Required indicator (<code>.ds-field__required</code>) — visual asterisk, <code>aria-hidden="true"</code> (required state comes from <code>aria-required</code> on the control).<br>
+      <strong>3</strong> Control — Input/Select/Textarea/Checkbox group, with matching <code>id</code> and <code>aria-describedby</code> pointing to the helper.<br>
+      <strong>4</strong> Helper text (<code>.ds-field__helper</code>) — guidance or additional context, with <code>id</code> referenced by control's <code>aria-describedby</code>.<br>
+      <strong>5</strong> Error message (<code>.ds-field__error</code>) — icon + validation message, shown only in <code>.ds-field--error</code> with <code>role="alert"</code>.</span>
+    </div>
+  </div>
+
+  <!-- WRAPPING FORM CONTROLS -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Encapsulando controles</span><span data-lang="en">Wrapping form controls</span></h2>
+    <p style="color:var(--ds-content-default);margin-bottom:var(--ds-space-lg);"><span data-lang="pt">Form Field é agnóstico ao tipo de controle. Funciona com Input, Textarea e Select via <code>label[for]</code>. Para grupos (Checkbox/Radio), use <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> em vez de label/for individual — a semântica de grupo é diferente da semântica de controle único.</span><span data-lang="en">Form Field is control-agnostic. Works with Input, Textarea, and Select via <code>label[for]</code>. For groups (Checkbox/Radio), use <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> instead of individual label/for — group semantics differ from single-control semantics.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="gap:var(--ds-space-xl);max-width:480px;">
+
+          <!-- 1. Input -->
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="ff-input">Full name</label>
+              <span class="ds-field__required" aria-hidden="true">*</span>
+            </div>
+            <div class="ds-input">
+              <input type="text" id="ff-input" class="ds-input__field" placeholder="John Doe" aria-required="true" aria-describedby="ff-input-helper">
+            </div>
+            <span class="ds-field__helper" id="ff-input-helper">As shown on your ID.</span>
+          </div>
+
+          <!-- 2. Textarea -->
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="ff-textarea">Notes</label>
+            </div>
+            <div class="ds-textarea">
+              <textarea id="ff-textarea" class="ds-textarea__field" rows="3" placeholder="Optional notes..." aria-describedby="ff-textarea-helper"></textarea>
+            </div>
+            <span class="ds-field__helper" id="ff-textarea-helper">Up to 500 characters.</span>
+          </div>
+
+          <!-- 3. Select -->
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="ff-select">Country</label>
+            </div>
+            <div class="ds-select">
+              <select id="ff-select" class="ds-select__field" aria-describedby="ff-select-helper">
+                <option value="" disabled selected>Choose a country</option>
+                <option>Brazil</option>
+                <option>United States</option>
+              </select>
+            </div>
+            <span class="ds-field__helper" id="ff-select-helper">Used for shipping calculations.</span>
+          </div>
+
+          <!-- 4. Checkbox group (fieldset + legend) -->
+          <fieldset class="ds-field" style="border:0;padding:0;margin:0;">
+            <legend class="ds-field__label" style="padding:0;">Notification preferences</legend>
+            <div style="display:flex;flex-direction:column;gap:var(--ds-space-xs);" aria-describedby="ff-checkboxes-helper">
+              <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox" checked> Email</label>
+              <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> SMS</label>
+              <label class="ds-checkbox-label"><input type="checkbox" class="ds-checkbox"> Push notifications</label>
+            </div>
+            <span class="ds-field__helper" id="ff-checkboxes-helper">Choose how we contact you.</span>
+          </fieldset>
+
+          <!-- 5. Radio group (fieldset + legend) -->
+          <fieldset class="ds-field" style="border:0;padding:0;margin:0;">
+            <legend class="ds-field__label" style="padding:0;">Plan</legend>
+            <div style="display:flex;flex-direction:column;gap:var(--ds-space-xs);" aria-describedby="ff-radios-helper">
+              <label class="ds-radio-label"><input type="radio" name="ff-plan" class="ds-radio" checked> Monthly — $9</label>
+              <label class="ds-radio-label"><input type="radio" name="ff-plan" class="ds-radio"> Annual — $90</label>
+              <label class="ds-radio-label"><input type="radio" name="ff-plan" class="ds-radio"> Lifetime — $300</label>
+            </div>
+            <span class="ds-field__helper" id="ff-radios-helper">You can change this anytime.</span>
+          </fieldset>
+
+        </div>
+      </div>
+    </div>
+    <p style="color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-xs);margin-top:var(--ds-space-md);"><span data-lang="pt">Nota: para grupos, <code>aria-describedby</code> vai no container do grupo; <code>&lt;legend&gt;</code> substitui <code>&lt;label&gt;</code>. O wrapper <code>&lt;fieldset class="ds-field"&gt;</code> herda o gap vertical igual ao Input.</span><span data-lang="en">Note: for groups, <code>aria-describedby</code> goes on the group container; <code>&lt;legend&gt;</code> replaces <code>&lt;label&gt;</code>. The <code>&lt;fieldset class="ds-field"&gt;</code> wrapper inherits the same vertical gap as Input.</span></p>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Error state</span><span data-lang="en">Error state</span></h2>
+    <p style="color:var(--ds-content-default);margin-bottom:var(--ds-space-lg);"><span data-lang="pt">Adicione <code>.ds-field--error</code> no wrapper, <code>aria-invalid="true"</code> + <code>aria-describedby</code> no controle apontando para o id do error. <code>role="alert"</code> no error garante anúncio imediato para screen readers.</span><span data-lang="en">Add <code>.ds-field--error</code> on the wrapper, <code>aria-invalid="true"</code> + <code>aria-describedby</code> on the control pointing to the error's id. <code>role="alert"</code> on the error ensures immediate screen reader announcement.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:420px;">
+          <div class="ds-field ds-field--error">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="err-input">Email address</label>
+              <span class="ds-field__required" aria-hidden="true">*</span>
+            </div>
+            <div class="ds-input ds-input--error">
+              <input type="email" id="err-input" class="ds-input__field" value="not-an-email" aria-required="true" aria-invalid="true" aria-describedby="err-error">
+            </div>
+            <span class="ds-field__error" id="err-error" role="alert">Please enter a valid email address.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field ds-field--error"&gt;
+  &lt;div class="ds-field__label-row"&gt;
+    &lt;label class="ds-field__label" for="email"&gt;Email address&lt;/label&gt;
+    &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-input ds-input--error"&gt;
+    &lt;input type="email" id="email" class="ds-input__field"
+           value="not-an-email"
+           aria-required="true"
+           aria-invalid="true"
+           aria-describedby="email-error"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__error" id="email-error" role="alert"&gt;
+    Please enter a valid email address.
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEST PRACTICES -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+    <div class="ds-dodont">
+      <div class="ds-dodont__item ds-dodont__item--do">
+        <div class="ds-dodont__label ds-dodont__label--do"><span data-lang="pt">Faça</span><span data-lang="en">Do</span></div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Use <code>label[for]</code>, <code>id</code> e <code>aria-describedby</code> para conectar visual e semântica.</span><span data-lang="en">Use <code>label[for]</code>, <code>id</code>, and <code>aria-describedby</code> to connect visuals and semantics.</span></div>
+      </div>
+      <div class="ds-dodont__item ds-dodont__item--dont">
+        <div class="ds-dodont__label ds-dodont__label--dont"><span data-lang="pt">Não faça</span><span data-lang="en">Don't</span></div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não replique Form Field como componente Figma separado; isso duplicaria elementos já presentes nas variants dos controles.</span><span data-lang="en">Do not replicate Form Field as a separate Figma component; that would duplicate elements already present in control variants.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESSIBILITY CHECKLIST -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Checklist de acessibilidade</span><span data-lang="en">Accessibility checklist</span></h2>
+    <ul style="color:var(--ds-content-strong);line-height:var(--ds-body-line-height-md);padding-left:var(--ds-space-xl);">
+      <li><span data-lang="pt"><code>label</code> com <code>for=</code> matching o <code>id</code> do controle (WCAG 1.3.1, 3.3.2).</span><span data-lang="en"><code>label</code> with <code>for=</code> matching the control's <code>id</code> (WCAG 1.3.1, 3.3.2).</span></li>
+      <li><span data-lang="pt">Required: <code>aria-required="true"</code> no controle. Asterisco visual com <code>aria-hidden="true"</code>.</span><span data-lang="en">Required: <code>aria-required="true"</code> on the control. Visual asterisk with <code>aria-hidden="true"</code>.</span></li>
+      <li><span data-lang="pt">Helper text: <code>aria-describedby</code> no controle apontando pro <code>id</code> do helper.</span><span data-lang="en">Helper text: <code>aria-describedby</code> on the control pointing to helper's <code>id</code>.</span></li>
+      <li><span data-lang="pt">Error: <code>aria-invalid="true"</code> no controle, <code>aria-describedby</code> apontando pro <code>id</code> do error, e <code>role="alert"</code> no error pra anúncio imediato.</span><span data-lang="en">Error: <code>aria-invalid="true"</code> on the control, <code>aria-describedby</code> pointing to error's <code>id</code>, and <code>role="alert"</code> on the error for immediate announcement.</span></li>
+      <li><span data-lang="pt">Sem label visível: use <code>aria-label</code> direto no controle E aplique <code>.ds-field--no-label</code> pra esconder a row.</span><span data-lang="en">No visible label: use <code>aria-label</code> on the control directly AND apply <code>.ds-field--no-label</code> to hide the row.</span></li>
+      <li><span data-lang="pt">Grupos (Checkbox/Radio): use <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> em vez de label/for individual.</span><span data-lang="en">Groups (Checkbox/Radio): use <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> instead of individual label/for.</span></li>
+    </ul>
+  </div>
+
+  <!-- TOKEN MAPPING -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token (Component)</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>root gap</td><td><code>component.form-field.gap.default</code></td><td><code>--ds-form-field-gap-default</code></td></tr>
+        <tr><td>label-row gap</td><td><code>component.form-field.label-row.gap.default</code></td><td><code>--ds-form-field-label-row-gap-default</code></td></tr>
+        <tr><td>label color</td><td><code>component.form-field.label.color.{default,disabled,readonly}</code></td><td><code>--ds-form-field-label-color-*</code></td></tr>
+        <tr><td>required color</td><td><code>component.form-field.required.color.default</code></td><td><code>--ds-form-field-required-color-default</code></td></tr>
+        <tr><td>helper color</td><td><code>component.form-field.helper.color.default</code></td><td><code>--ds-form-field-helper-color-default</code></td></tr>
+        <tr><td>error color</td><td><code>component.form-field.error.color.default</code></td><td><code>--ds-form-field-error-color-default</code></td></tr>
+        <tr><td>error gap</td><td><code>component.form-field.error.gap.default</code></td><td><code>--ds-form-field-error-gap-default</code></td></tr>
+        <tr><td>error icon</td><td><code>component.form-field.error.icon.{color,size,stroke-width}.default</code> + <code>component.form-field.error.icon-frame.padding-x.default</code></td><td><code>--ds-form-field-error-icon-*-default</code>, <code>--ds-form-field-error-icon-frame-padding-x-default</code></td></tr>
+        <tr><td>label typography</td><td><code>component.form-field.label.{font-size,line-height,font-weight}.default</code></td><td><code>--ds-form-field-label-*-default</code></td></tr>
+        <tr><td>helper/error typography</td><td><code>component.form-field.{helper,error}.{font-size,line-height,font-weight}.default</code></td><td><code>--ds-form-field-helper-*-default</code> / <code>--ds-form-field-error-*-default</code></td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-xs);margin-top:var(--ds-space-md);"><span data-lang="pt">Esses tokens existem como contrato CSS-only do Form Field. Eles aliasam Semantic quando o valor já é uma decisão reutilizável e não criam um componente visual Form Field no Figma, conforme ADR-017.</span><span data-lang="en">These tokens exist as the CSS-only Form Field contract. They alias Semantic when the value is already reusable and do not create a visual Form Field component in Figma, per ADR-017.</span></p>
+  </div>
+
+  <!-- API REFERENCE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Uso</span><span data-lang="en">Usage</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-field</code></td><td><span data-lang="pt">Wrapper. Stack vertical com gap consistente.</span><span data-lang="en">Wrapper. Vertical stack with consistent gap.</span></td></tr>
+        <tr><td><code>ds-field__label-row</code></td><td><span data-lang="pt">Linha do label + required (horizontal).</span><span data-lang="en">Label + required row (horizontal).</span></td></tr>
+        <tr><td><code>ds-field__label</code></td><td><span data-lang="pt">Texto do label (14px medium).</span><span data-lang="en">Label text (14px medium).</span></td></tr>
+        <tr><td><code>ds-field__required</code></td><td><span data-lang="pt">Asterisco visual (decorativo, <code>aria-hidden</code>).</span><span data-lang="en">Visual asterisk (decorative, <code>aria-hidden</code>).</span></td></tr>
+        <tr><td><code>ds-field__helper</code></td><td><span data-lang="pt">Helper text (12px secundário).</span><span data-lang="en">Helper text (12px secondary).</span></td></tr>
+        <tr><td><code>ds-field__error</code></td><td><span data-lang="pt">Linha de erro com ícone automático e mensagem. Visível apenas em <code>--error</code>.</span><span data-lang="en">Error row with automatic icon and message. Visible only with <code>--error</code>.</span></td></tr>
+        <tr><td><code>ds-field--error</code></td><td><span data-lang="pt">Modificador: estado de erro. Mostra error message e aplica o contrato de erro ao controle associado.</span><span data-lang="en">Modifier: error state. Shows error message and applies the error contract to the associated control.</span></td></tr>
+        <tr><td><code>ds-field--no-label</code></td><td><span data-lang="pt">Modificador: esconde label-row. Usar com <code>aria-label</code> no controle.</span><span data-lang="en">Modifier: hides label-row. Pair with <code>aria-label</code> on control.</span></td></tr>
+        <tr><td><code>ds-field--no-helper</code></td><td><span data-lang="pt">Modificador: esconde helper.</span><span data-lang="en">Modifier: hides helper.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RELATED -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a class="ds-related__link" href="input.html">Input</a>
+      <a class="ds-related__link" href="select.html">Select</a>
+      <a class="ds-related__link" href="textarea.html">Textarea</a>
+      <a class="ds-related__link" href="checkbox.html">Checkbox</a>
+      <a class="ds-related__link" href="radio.html">Radio</a>
+      <a class="ds-related__link" href="toggle.html">Toggle</a>
+    </div>
+  </div>
+
+</main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

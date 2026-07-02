@@ -1,0 +1,15 @@
+{
+  "component": {
+    "action-menu": {
+      "overlay": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap entre o trigger e o overlay do Action Menu."
+          }
+        }
+      }
+    }
+  }
+}

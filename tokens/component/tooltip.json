@@ -1,0 +1,86 @@
+{
+  "component": {
+    "tooltip": {
+      "content": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Padding horizontal do content Tooltip."
+          }
+        },
+        "padding-y": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding vertical do content Tooltip."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do content Tooltip."
+          }
+        },
+        "fill": {
+          "default": {
+            "$value": "{semantic.background.inverse}",
+            "$type": "color"
+          }
+        }
+      },
+      "label": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do label Tooltip."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do label Tooltip."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight do label Tooltip."
+          }
+        },
+        "color": {
+          "default": {
+            "$value": "{semantic.brand.content-default}",
+            "$type": "color"
+          }
+        }
+      },
+      "arrow": {
+        "base": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Base visual da seta Tooltip."
+          }
+        },
+        "depth": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Profundidade visual da seta Tooltip."
+          }
+        },
+        "fill": {
+          "default": {
+            "$value": "{semantic.background.inverse}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

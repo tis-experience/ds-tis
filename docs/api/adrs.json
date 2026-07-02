@@ -1,0 +1,177 @@
+{
+  "version": "1.0.0-beta.5",
+  "count": 19,
+  "adrs": [
+    {
+      "id": "ADR-001",
+      "num": 1,
+      "title": "Migração da arquitetura de tokens para Foundation→Semantic→Component com DTCG + Style Dictionary",
+      "status": "Aceita — superseded em parte por [ADR-014](ADR-014-action-tokens-role-style.md) (themes Default/Ocean/Forest removidos em 0.8.0; Brand virou paleta única customizável)",
+      "date": "2026-04-14",
+      "sourceFile": "docs/decisions/ADR-001-migracao-tokens.md",
+      "url": "docs/decisions/adr-001-migracao-tokens.html"
+    },
+    {
+      "id": "ADR-002",
+      "num": 2,
+      "title": "Stack agnóstica — HTML + CSS + vanilla JS como base",
+      "status": "Aceita",
+      "date": "2026-04-14",
+      "sourceFile": "docs/decisions/ADR-002-stack-agnostica.md",
+      "url": "docs/decisions/adr-002-stack-agnostica.html"
+    },
+    {
+      "id": "ADR-003",
+      "num": 3,
+      "title": "Figma como origem canônica de tokens, Git como consolidação",
+      "status": "Aceita — Revisada em 0.5.8",
+      "date": "2026-04-14 (original) · 2026-04-21 (revisada)",
+      "sourceFile": "docs/decisions/ADR-003-fontes-verdade.md",
+      "url": "docs/decisions/adr-003-fontes-verdade.html"
+    },
+    {
+      "id": "ADR-004",
+      "num": 4,
+      "title": "WCAG 2.2 AA como padrão de acessibilidade",
+      "status": "Aceita — Implementada em 0.5.0",
+      "date": "2026-04-14",
+      "sourceFile": "docs/decisions/ADR-004-wcag.md",
+      "url": "docs/decisions/adr-004-wcag.html"
+    },
+    {
+      "id": "ADR-005",
+      "num": 5,
+      "title": "Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica",
+      "status": "Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por [ADR-014](ADR-014-action-tokens-role-style.md): collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.",
+      "date": "2026-04-14",
+      "sourceFile": "docs/decisions/ADR-005-brand-foundation-e-estados-explicitos.md",
+      "url": "docs/decisions/adr-005-brand-foundation-e-estados-explicitos.html"
+    },
+    {
+      "id": "ADR-006",
+      "num": 6,
+      "title": "Tokens semânticos de controle para dimensões e tipografia compartilhadas entre controles interativos",
+      "status": "Parcialmente substituída — `size.control.*` e `space.control.padding-{x,y}.*` substituídos por escala `size.{xs..5xl}` + `space.{xs..2xl}` + `space.control.padding.10` em **ADR-015** (2026-04-26). O contrato público de anatomia dos componentes foi movido para tokens Component em **ADR-019** (2026-05-10). `typography.control.*` permanece vigente.",
+      "date": "2026-04-15",
+      "sourceFile": "docs/decisions/ADR-006-semantic-control-tokens.md",
+      "url": "docs/decisions/adr-006-semantic-control-tokens.html"
+    },
+    {
+      "id": "ADR-007",
+      "num": 7,
+      "title": "Estabelecer sistema de cores toned com overlays coloridos e tokens semânticos toned",
+      "status": "Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.4, sincronização Figma completa em 0.5.6)",
+      "date": "2026-04-15",
+      "sourceFile": "docs/decisions/ADR-007-toned-color-system.md",
+      "url": "docs/decisions/adr-007-toned-color-system.html"
+    },
+    {
+      "id": "ADR-008",
+      "num": 8,
+      "title": "Recalibração das paletas foundation `green` e `amber`",
+      "status": "Aceita — Implementada em 0.5.0",
+      "date": "2026-04-16",
+      "sourceFile": "docs/decisions/ADR-008-recalibracao-paletas-feedback.md",
+      "url": "docs/decisions/adr-008-recalibracao-paletas-feedback.html"
+    },
+    {
+      "id": "ADR-009",
+      "num": 9,
+      "title": "Separação de `border.default` (decorativa) e `border.control` (funcional)",
+      "status": "Aceita — Implementada em 0.5.0",
+      "date": "2026-04-16",
+      "sourceFile": "docs/decisions/ADR-009-border-control-vs-decorative.md",
+      "url": "docs/decisions/adr-009-border-control-vs-decorative.html"
+    },
+    {
+      "id": "ADR-010",
+      "num": 10,
+      "title": "Remoção de `foundation.color.white` e `foundation.color.black` puros",
+      "status": "Aceita — Implementada em 0.5.0",
+      "date": "2026-04-16",
+      "sourceFile": "docs/decisions/ADR-010-abolir-white-black-puros.md",
+      "url": "docs/decisions/adr-010-abolir-white-black-puros.html"
+    },
+    {
+      "id": "ADR-011",
+      "num": 11,
+      "title": "Reestruturação do naming de tokens semânticos de cor",
+      "status": "Aceita — Implementada em 0.5.0",
+      "date": "2026-04-17",
+      "sourceFile": "docs/decisions/ADR-011-renaming-tokens-semanticos-de-cor.md",
+      "url": "docs/decisions/adr-011-renaming-tokens-semanticos-de-cor.html"
+    },
+    {
+      "id": "ADR-012",
+      "num": 12,
+      "title": "Tokens de line-height e letter-spacing divergem por design entre Figma e JSON",
+      "status": "Aceita",
+      "date": "2026-04-21",
+      "sourceFile": "docs/decisions/ADR-012-typography-tokens-divergence.md",
+      "url": "docs/decisions/adr-012-typography-tokens-divergence.html"
+    },
+    {
+      "id": "ADR-013",
+      "num": 13,
+      "title": "Camadas de consumo de tokens — Foundation nunca direto em consumidor final",
+      "status": "Aceita — implementada em 0.7.0 e parcialmente substituída por ADR-019 em 2026-05-11",
+      "date": "2026-04-22",
+      "sourceFile": "docs/decisions/ADR-013-camadas-de-consumo-de-tokens.md",
+      "url": "docs/decisions/adr-013-camadas-de-consumo-de-tokens.html"
+    },
+    {
+      "id": "ADR-014",
+      "num": 14,
+      "title": "Reestruturação Semantic em `action` × `style` × `prop` × `state` — eliminação de brand/accent e themes",
+      "status": "Aceita — implementada em 0.7.0 e estabilizada em 1.0.0-beta.1",
+      "date": "2026-04-22",
+      "sourceFile": "docs/decisions/ADR-014-action-tokens-role-style.md",
+      "url": "docs/decisions/adr-014-action-tokens-role-style.html"
+    },
+    {
+      "id": "ADR-015",
+      "num": 15,
+      "title": "— Unificação da escala size, eliminação de tokens component-specific e renomeação spacing→dimension",
+      "status": "Aceito",
+      "date": "2026-04-26",
+      "sourceFile": "docs/decisions/ADR-015-unificacao-de-size-e-dimension.md",
+      "url": "docs/decisions/adr-015-unificacao-de-size-e-dimension.html"
+    },
+    {
+      "id": "ADR-016",
+      "num": 16,
+      "title": "— Tokens sem equivalência no Figma (CSS-only)",
+      "status": "Aceito",
+      "date": "2026-04-30",
+      "sourceFile": "docs/decisions/ADR-016-tokens-sem-equivalencia-no-figma.md",
+      "url": "docs/decisions/adr-016-tokens-sem-equivalencia-no-figma.html"
+    },
+    {
+      "id": "ADR-017",
+      "num": 17,
+      "title": "— Componentes CSS-only (sem equivalência no Figma)",
+      "status": "Aceito",
+      "date": "2026-04-30",
+      "sourceFile": "docs/decisions/ADR-017-componentes-css-only.md",
+      "url": "docs/decisions/adr-017-componentes-css-only.html"
+    },
+    {
+      "id": "ADR-018",
+      "num": 18,
+      "title": "— Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}`",
+      "status": "Aceito",
+      "date": "2026-05-06",
+      "sourceFile": "docs/decisions/ADR-018-content-naming-strong-default-subtle.md",
+      "url": "docs/decisions/adr-018-content-naming-strong-default-subtle.html"
+    },
+    {
+      "id": "ADR-019",
+      "num": 19,
+      "title": "— Reintrodução de Component tokens como contrato anatômico",
+      "status": "Aceita",
+      "date": "2026-05-11",
+      "sourceFile": "docs/decisions/ADR-019-component-tokens-contrato-anatomico.md",
+      "url": "docs/decisions/adr-019-component-tokens-contrato-anatomico.html"
+    }
+  ]
+}

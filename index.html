@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Começando — Design System</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="docs/layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-4)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- Hero -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Design System <span class="ds-badge ds-badge--primary ds-badge--subtle" style="font-size:0.45em;vertical-align:middle;margin-left:var(--ds-dimension-8);border-radius:var(--ds-radius-sm)"><!-- VERSION:1.0.0-beta.5 -->v1.0.0-beta.5</span></h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Um design system CSS white-label com tokens DTCG, componentes documentados, suporte multi-tema e acessibilidade WCAG 2.2.</span>
+      <span data-lang="en">A white-label CSS design system with DTCG tokens, documented components, multi-theme support, and WCAG 2.2 accessibility.</span>
+    </p>
+  </div>
+
+  <!-- Quick Start -->
+  <div class="ds-section">
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title">
+        <span data-lang="pt">Início Rápido</span>
+        <span data-lang="en">Quick Start</span>
+      </h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-4);">
+        <span data-lang="pt">Inclua a stylesheet no seu HTML para obter todos os componentes, tokens e temas:</span>
+        <span data-lang="en">Include the stylesheet in your HTML to get every component, token, and theme:</span>
+      </p>
+      <div class="ds-preview">
+        <div class="ds-preview__tabs" role="tablist">
+          <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+        </div>
+        <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+          <div class="ds-preview__code" style="border-top:none;">
+            <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+            <pre><code>&lt;link rel="stylesheet" href="css/design-system.css"&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dark Mode -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title">
+        <span data-lang="pt">Modo Escuro</span>
+        <span data-lang="en">Dark Mode</span>
+      </h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-4);">
+        <span data-lang="pt">Ative o modo escuro definindo o atributo <code style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 6px;border-radius:var(--ds-radius-sm);">data-mode</code> no elemento raiz:</span>
+        <span data-lang="en">Enable dark mode by setting the <code style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 6px;border-radius:var(--ds-radius-sm);">data-mode</code> attribute on the root element:</span>
+      </p>
+      <div class="ds-preview">
+        <div class="ds-preview__tabs" role="tablist">
+          <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+        </div>
+        <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+          <div class="ds-preview__code" style="border-top:none;">
+            <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+            <pre><code>&lt;html data-mode="dark"&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+      <p style="color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm);">
+        <span data-lang="pt">O modo claro é o padrão. Todos os tokens semânticos são remapeados automaticamente quando o modo muda.</span>
+        <span data-lang="en">Light mode is the default. All semantic tokens automatically remap when the mode changes.</span>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Components Grid -->
+  <div class="ds-section">
+    <h2 class="ds-subsection__title">
+      <span data-lang="pt">Componentes</span>
+      <span data-lang="en">Components</span>
+    </h2>
+    <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-6);">
+      <span data-lang="pt">Componentes prontos para produção. Clique em qualquer card para ver a documentação.</span>
+      <span data-lang="en">Production-ready components. Click any card to view its documentation.</span>
+    </p>
+    <div class="ds-component-grid">
+      <a class="ds-component-card" href="docs/icons.html">Icons</a>
+      <a class="ds-component-card" href="docs/accordion.html">Accordion</a>
+      <a class="ds-component-card" href="docs/alert.html">Alert</a>
+      <a class="ds-component-card" href="docs/avatar.html">Avatar</a>
+      <a class="ds-component-card" href="docs/badge.html">Badge</a>
+      <a class="ds-component-card" href="docs/breadcrumb.html">Breadcrumb</a>
+      <a class="ds-component-card" href="docs/button.html">Button</a>
+      <a class="ds-component-card" href="docs/card.html">Card</a>
+      <a class="ds-component-card" href="docs/checkbox.html">Checkbox</a>
+      <a class="ds-component-card" href="docs/combobox.html">Combobox</a>
+      <a class="ds-component-card" href="docs/divider.html">Divider</a>
+      <a class="ds-component-card" href="docs/form-field.html">Form Field</a>
+      <a class="ds-component-card" href="docs/input.html">Input</a>
+      <a class="ds-component-card" href="docs/menu.html">Menu</a>
+      <a class="ds-component-card" href="docs/modal.html">Modal</a>
+      <a class="ds-component-card" href="docs/pagination.html">Pagination</a>
+      <a class="ds-component-card" href="docs/radio.html">Radio</a>
+      <a class="ds-component-card" href="docs/select.html">Select</a>
+      <a class="ds-component-card" href="docs/skeleton.html">Skeleton</a>
+      <a class="ds-component-card" href="docs/spinner.html">Spinner</a>
+      <a class="ds-component-card" href="docs/tabs.html">Tabs</a>
+      <a class="ds-component-card" href="docs/textarea.html">Textarea</a>
+      <a class="ds-component-card" href="docs/toggle.html">Toggle</a>
+      <a class="ds-component-card" href="docs/tooltip.html">Tooltip</a>
+    </div>
+  </div>
+
+</main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

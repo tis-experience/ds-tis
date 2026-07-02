@@ -1,0 +1,280 @@
+/* ============================================================
+   COMPONENT: Radio Button
+   ============================================================ */
+
+/* Item wrapper — agrupa radio label + description + helper text
+   verticalmente. Use quando precisar de Description/Helper opt-in
+   (matches Figma "Show Description"/"Show Helper Text" booleans). */
+.ds-radio-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-radio-content-gap-default);
+}
+
+/* Description text — mesmo size do label, regular (Figma) */
+.ds-radio-description {
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-form-field-description-color-default);
+  padding-left: calc(var(--ds-size-sm) + var(--ds-space-sm) + var(--ds-space-xs));
+}
+
+/* Helper text — menor + mais sutil que description (Figma) */
+.ds-radio-helper {
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-xs);
+  color: var(--ds-form-field-helper-color-default);
+  padding-left: calc(var(--ds-size-sm) + var(--ds-space-sm) + var(--ds-space-xs));
+}
+
+/* Radio group container */
+.ds-radio-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--ds-space-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-sm);
+}
+
+.ds-radio-group__legend {
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-form-field-label-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  line-height: var(--ds-form-field-label-line-height-default);
+  color: var(--ds-form-field-label-color-default);
+  margin-bottom: var(--ds-space-xs);
+  padding: 0;
+}
+
+/* Radio item (label wraps input) */
+.ds-radio-label {
+  --radio-target-height: var(--ds-radio-target-height-md);
+  --radio-control-size: var(--ds-radio-control-size-md);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-radio-target-gap-default);
+  cursor: pointer;
+  padding: var(--ds-space-xs) var(--ds-space-xs);
+  border-radius: var(--ds-radius-sm);
+  min-height: var(--radio-target-height);
+  font-size: var(--ds-form-field-label-font-size-default);
+  color: var(--ds-form-field-label-color-default);
+}
+
+/* Custom radio */
+.ds-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  width: var(--radio-control-size);
+  height: var(--radio-control-size);
+  border: var(--ds-radio-control-border-width-unselected-default) solid var(--ds-radio-control-border-color-unselected-default);
+  border-radius: var(--ds-radio-control-radius-default);
+  background-color: var(--ds-radio-control-fill-unselected-default);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ds-radio-dot-size-md);
+  height: var(--ds-radio-dot-size-md);
+  border-radius: var(--ds-radio-dot-radius-default);
+  background-color: var(--ds-radio-dot-fill-selected-default);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Checked */
+.ds-radio:checked {
+  background-color: var(--ds-radio-control-fill-selected-default);
+  border-color: var(--ds-radio-control-border-color-selected-default);
+  border-width: var(--ds-radio-control-border-width-selected-default);
+}
+
+.ds-radio:checked::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Hover */
+.ds-radio:hover:not(:disabled) {
+  background-color: var(--ds-radio-control-fill-unselected-hover);
+  border-color: var(--ds-radio-control-border-color-unselected-hover);
+}
+
+.ds-radio:checked:hover:not(:disabled) {
+  background-color: var(--ds-radio-control-fill-selected-hover);
+  border-color: var(--ds-radio-control-border-color-selected-hover);
+}
+
+.ds-radio:checked:hover:not(:disabled)::after {
+  background-color: var(--ds-radio-dot-fill-selected-hover);
+}
+
+/* Focus */
+.ds-radio:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Disabled */
+.ds-radio:disabled {
+  background-color: var(--ds-radio-control-fill-unselected-disabled);
+  border-color: var(--ds-radio-control-border-color-unselected-disabled);
+  cursor: not-allowed;
+}
+
+.ds-radio:checked:disabled {
+  background-color: var(--ds-radio-control-fill-selected-disabled);
+  border-width: 0;
+}
+
+.ds-radio:checked:disabled::after {
+  background-color: var(--ds-radio-dot-fill-selected-disabled);
+}
+
+.ds-radio-label:has(.ds-radio:disabled) {
+  cursor: not-allowed;
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* Error state */
+.ds-radio-group--error .ds-radio {
+  border-color: var(--ds-radio-control-border-color-unselected-error);
+}
+
+.ds-radio-group__error {
+  font-size: var(--ds-form-field-error-font-size-default);
+  font-weight: var(--ds-form-field-error-font-weight-default);
+  line-height: var(--ds-form-field-error-line-height-default);
+  color: var(--ds-form-field-error-color-default);
+  margin-top: var(--ds-space-xs);
+  display: none;
+}
+
+.ds-radio-group--error .ds-radio-group__error {
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   Sizes
+   --------------------------------------------------------- */
+
+/* Small */
+.ds-radio-label:has(.ds-radio--sm) {
+  --radio-target-height: var(--ds-radio-target-height-sm);
+  --radio-control-size: var(--ds-radio-control-size-sm);
+}
+
+.ds-radio--sm {
+  width: var(--ds-radio-control-size-sm);
+  height: var(--ds-radio-control-size-sm);
+}
+
+.ds-radio--sm::after {
+  width: var(--ds-radio-dot-size-sm);
+  height: var(--ds-radio-dot-size-sm);
+}
+
+/* Large */
+.ds-radio-label:has(.ds-radio--lg) {
+  --radio-target-height: var(--ds-radio-target-height-lg);
+  --radio-control-size: var(--ds-radio-control-size-lg);
+}
+
+.ds-radio--lg {
+  width: var(--ds-radio-control-size-lg);
+  height: var(--ds-radio-control-size-lg);
+}
+
+.ds-radio--lg::after {
+  width: var(--ds-radio-dot-size-lg);
+  height: var(--ds-radio-dot-size-lg);
+}
+
+/* ---------------------------------------------------------
+   Field anatomy — Content frame, Description, Helper Text
+   --------------------------------------------------------- */
+
+/*
+  HTML structure:
+  <label class="ds-radio-label">
+    <input type="radio" class="ds-radio">
+    <span class="ds-radio__content">
+      <span class="ds-radio__label">Rótulo</span>
+      <span class="ds-radio__description">Descrição</span>
+      <span class="ds-radio__helper">Texto auxiliar</span>
+    </span>
+  </label>
+
+  Accessibility:
+  - Label hidden + Description visible → aria-labelledby on <input> pointing to .ds-radio__description id
+  - Helper Text → aria-describedby on <input> pointing to .ds-radio__helper id
+*/
+
+/* Vertical stack: Label → Description → Helper Text */
+.ds-radio__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-radio-content-gap-default);
+  min-width: 0;
+}
+
+/* Label text — defaults para Md size (label/md: 14px Bold / 20px) */
+.ds-radio__label {
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-form-field-label-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  line-height: var(--ds-form-field-label-line-height-default);
+  color: var(--ds-form-field-label-color-default);
+}
+
+/* Sm size: label = control/label-md (14px Bold / 16px) */
+.ds-radio-label:has(.ds-radio--sm) .ds-radio__label {
+  line-height: var(--ds-body-line-height-2xs);
+}
+
+/* Lg size: label = label/lg (16px Bold / 24px) */
+.ds-radio-label:has(.ds-radio--lg) .ds-radio__label {
+  font-size: var(--ds-body-font-size-md);
+  line-height: var(--ds-body-line-height-md);
+}
+
+/* Description (body/sm: 14px Regular / 20px) */
+.ds-radio__description {
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-form-field-description-color-default);
+  white-space: pre-wrap;
+}
+
+/* Helper text (caption/sm: 11px regular / 18px) */
+.ds-radio__helper {
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-xs);
+  color: var(--ds-form-field-helper-color-default);
+}
+
+.ds-radio-label:has(.ds-radio:disabled) .ds-radio__label {
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-radio-label,
+  .ds-radio,
+  .ds-radio::after { transition: none; }
+}

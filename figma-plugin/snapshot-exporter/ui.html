@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Design System Snapshot Exporter</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 12px;
+      }
+
+      body {
+        margin: 0;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+      }
+
+      main {
+        display: grid;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      header {
+        display: grid;
+        gap: 6px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        color: var(--figma-color-text-secondary);
+        line-height: 18px;
+      }
+
+      .panel {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 8px;
+        background: var(--figma-color-bg-secondary);
+      }
+
+      .status {
+        min-height: 18px;
+        color: var(--figma-color-text-secondary);
+      }
+
+      .status[data-state="error"] {
+        color: var(--figma-color-text-danger);
+      }
+
+      .status[data-state="ready"] {
+        color: var(--figma-color-text-success);
+      }
+
+      #result[data-state="error"] {
+        color: var(--figma-color-text-danger);
+      }
+
+      #result[data-state="ready"] {
+        color: var(--figma-color-text-success);
+      }
+
+      dl {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 8px 12px;
+        margin: 0;
+      }
+
+      dt {
+        color: var(--figma-color-text-secondary);
+      }
+
+      dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .result {
+        display: grid;
+        gap: 8px;
+      }
+
+      .result-summary {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .result-summary__row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 6px;
+        border-top: 1px solid var(--figma-color-border);
+      }
+
+      .result-summary__label {
+        color: var(--figma-color-text-secondary);
+      }
+
+      .result-summary__value {
+        color: var(--figma-color-text);
+        font-weight: 600;
+        text-align: right;
+      }
+
+      button {
+        min-height: 32px;
+        padding: 0 12px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+        font: inherit;
+        cursor: pointer;
+      }
+
+      button.primary {
+        border-color: var(--figma-color-bg-brand);
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 210px;
+        box-sizing: border-box;
+        resize: vertical;
+        padding: 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+        font: 11px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      pre {
+        max-height: 150px;
+        margin: 0;
+        overflow: auto;
+        padding: 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text-secondary);
+        white-space: pre-wrap;
+        font: 11px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .warning {
+        color: var(--figma-color-text-warning);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Design System Snapshot Exporter</h1>
+        <p>Exporta Figma Variables locais no formato esperado por <code>scripts/sync-tokens-from-figma.mjs</code>.</p>
+      </header>
+
+      <section class="panel">
+        <div id="status" class="status">Preparando snapshot...</div>
+        <dl id="summary"></dl>
+        <p id="file-warning" class="warning" hidden></p>
+      </section>
+
+      <section class="actions">
+        <button class="primary" id="check" disabled>Verificar com repo publicado</button>
+        <button class="primary" id="download" disabled>Baixar .figma-snapshot.json</button>
+        <button id="copy" disabled>Copiar JSON</button>
+        <button id="refresh">Regenerar</button>
+        <button id="close">Fechar</button>
+      </section>
+
+      <section class="panel result">
+        <p id="result">Clique em "Verificar com repo publicado" para comparar este Figma com a última versão publicada do DS.</p>
+        <div id="result-summary" class="result-summary" hidden></div>
+        <pre id="result-output" hidden></pre>
+      </section>
+
+      <textarea id="preview" spellcheck="false" readonly placeholder="O snapshot aparecerá aqui."></textarea>
+    </main>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const summaryEl = document.getElementById("summary");
+      const fileWarningEl = document.getElementById("file-warning");
+      const previewEl = document.getElementById("preview");
+      const resultEl = document.getElementById("result");
+      const resultSummaryEl = document.getElementById("result-summary");
+      const resultOutputEl = document.getElementById("result-output");
+      const checkButton = document.getElementById("check");
+      const downloadButton = document.getElementById("download");
+      const copyButton = document.getElementById("copy");
+      const refreshButton = document.getElementById("refresh");
+      const closeButton = document.getElementById("close");
+      const TOKENS_API_URL = "docs/api/tokens.json";
+
+      let snapshot = null;
+      let snapshotText = "";
+
+      window.onmessage = (event) => {
+        const message = event.data.pluginMessage;
+        if (!message || typeof message.type !== "string") return;
+
+        if (message.type === "snapshot-status") {
+          setStatus(message.message || "Processando...", "");
+          return;
+        }
+
+        if (message.type === "snapshot-error") {
+          setStatus(message.message || "Falha ao gerar snapshot.", "error");
+          return;
+        }
+
+        if (message.type === "snapshot-ready") {
+          snapshot = message.snapshot;
+          snapshotText = JSON.stringify(message.snapshot, null, 2);
+          previewEl.value = snapshotText;
+          renderSummary(message.summary);
+          checkButton.disabled = false;
+          downloadButton.disabled = false;
+          copyButton.disabled = false;
+          setStatus("Snapshot pronto.", "ready");
+        }
+      };
+
+      downloadButton.onclick = () => {
+        if (!snapshotText) return;
+        const blob = new Blob([snapshotText + "\n"], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = ".figma-snapshot.json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      };
+
+      checkButton.onclick = async () => {
+        if (!snapshot) return;
+        checkButton.disabled = true;
+        setResult("Comparando com repo publicado...", "");
+        resultSummaryEl.hidden = true;
+        resultSummaryEl.innerHTML = "";
+        resultOutputEl.hidden = true;
+        resultOutputEl.textContent = "";
+
+        try {
+          const response = await fetch(`${TOKENS_API_URL}?t=${Date.now()}`, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const published = await response.json();
+          const result = compareSnapshotToPublished(snapshot, published);
+          renderCheckResult(published, result);
+          if (result.output) {
+            resultOutputEl.hidden = false;
+            resultOutputEl.textContent = result.output;
+          }
+        } catch {
+          setResult("Não consegui consultar o repo publicado. Verifique sua conexão e tente de novo.", "error");
+        } finally {
+          checkButton.disabled = false;
+        }
+      };
+
+      copyButton.onclick = async () => {
+        if (!snapshotText) return;
+        try {
+          await navigator.clipboard.writeText(snapshotText + "\n");
+          setStatus("JSON copiado para a área de transferência.", "ready");
+        } catch {
+          previewEl.focus();
+          previewEl.select();
+          setStatus("Não foi possível copiar automaticamente. O JSON ficou selecionado.", "error");
+        }
+      };
+
+      refreshButton.onclick = () => {
+        downloadButton.disabled = true;
+        checkButton.disabled = true;
+        copyButton.disabled = true;
+        previewEl.value = "";
+        summaryEl.innerHTML = "";
+        fileWarningEl.hidden = true;
+        fileWarningEl.textContent = "";
+        snapshot = null;
+        snapshotText = "";
+        setResult("Clique em \"Verificar com repo publicado\" para comparar este Figma com a última versão publicada do DS.", "");
+        resultSummaryEl.hidden = true;
+        resultSummaryEl.innerHTML = "";
+        resultOutputEl.hidden = true;
+        resultOutputEl.textContent = "";
+        setStatus("Regenerando snapshot...", "");
+        parent.postMessage({ pluginMessage: { type: "export-snapshot" } }, "*");
+      };
+
+      closeButton.onclick = () => {
+        parent.postMessage({ pluginMessage: { type: "close" } }, "*");
+      };
+
+      function renderSummary(summary) {
+        const rows = [
+          ["Arquivo", summary.fileKey || "indisponível"],
+          ["Esperado", summary.expectedFileKey],
+          ["Collections", String(summary.collectionCount)],
+          ["Variables", String(summary.variableCount)],
+          ["Gerado em", summary.generatedAt],
+          ["Por collection", Object.entries(summary.collectionCounts || {}).map(([name, count]) => `${name}: ${count}`).join(", ")],
+        ];
+
+        summaryEl.innerHTML = rows.map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`).join("");
+
+        if (summary.fileKey && summary.fileKey !== summary.expectedFileKey) {
+          fileWarningEl.hidden = false;
+          fileWarningEl.textContent = "Atenção: este arquivo Figma não é o Design System esperado.";
+        } else {
+          fileWarningEl.hidden = true;
+          fileWarningEl.textContent = "";
+        }
+      }
+
+      function setStatus(message, state) {
+        statusEl.textContent = message;
+        if (state) statusEl.dataset.state = state;
+        else delete statusEl.dataset.state;
+      }
+
+      function setResult(message, state) {
+        resultEl.textContent = message;
+        if (state) resultEl.dataset.state = state;
+        else delete resultEl.dataset.state;
+      }
+
+      function renderCheckResult(published, result) {
+        setResult(result.ok ? "Figma igual ao publicado." : result.humanMessage, result.ok ? "ready" : "error");
+
+        const rows = [
+          ["Versão publicada", published.version || "desconhecida"],
+          ["Tokens comparados", String(result.comparableCount)],
+          ["Divergências reais", String(result.totalIssues)],
+        ];
+
+        if (!result.ok) {
+          for (const [kind, count] of Object.entries(result.issueCounts)) {
+            if (count > 0) rows.push([labelForIssueKind(kind), String(count)]);
+          }
+          rows.push(["Próximo passo", result.nextStep]);
+        }
+
+        resultSummaryEl.innerHTML = rows.map(([label, value]) => `
+          <div class="result-summary__row">
+            <span class="result-summary__label">${escapeHtml(label)}</span>
+            <span class="result-summary__value">${escapeHtml(value)}</span>
+          </div>
+        `).join("");
+        resultSummaryEl.hidden = false;
+      }
+
+      function compareSnapshotToPublished(figmaSnapshot, published) {
+        const figmaState = buildComparableState(figmaSnapshot);
+        const publishedState = {
+          foundation: published.foundation || {},
+          semanticLight: (published.semantic && published.semantic.light) || {},
+          semanticDark: (published.semantic && published.semantic.dark) || {},
+        };
+
+        const issues = [
+          ...compareMap("Foundation", figmaState.foundation, publishedState.foundation),
+          ...compareMap("Semantic Light", figmaState.semanticLight, publishedState.semanticLight),
+          ...compareMap("Semantic Dark", figmaState.semanticDark, publishedState.semanticDark),
+          ...figmaState.issues,
+        ];
+
+        const visible = issues.slice(0, 30);
+        const issueCounts = countIssues(issues);
+        const output = issues.length === 0
+          ? `${figmaState.comparableCount} tokens comparáveis OK.`
+          : [
+              `${issues.length} divergência(s) encontrada(s). Mostrando ${visible.length}.`,
+              "",
+              `Leitura: ${humanMessageForIssues(issueCounts)}`,
+              `Próximo passo: ${nextStepForIssues(issueCounts)}`,
+              "",
+              ...visible.map(formatIssue),
+            ].join("\n");
+
+        return {
+          ok: issues.length === 0,
+          output,
+          comparableCount: figmaState.comparableCount,
+          totalIssues: issues.length,
+          issueCounts,
+          humanMessage: humanMessageForIssues(issueCounts),
+          nextStep: nextStepForIssues(issueCounts),
+        };
+      }
+
+      function countIssues(issues) {
+        return issues.reduce((acc, issue) => {
+          acc[issue.kind] = (acc[issue.kind] || 0) + 1;
+          return acc;
+        }, {});
+      }
+
+      function humanMessageForIssues(counts) {
+        if (counts.ALIAS_BROKEN) return "Há alias quebrado no Figma.";
+        if ((counts.VALUE_DRIFT || counts.NEW_IN_FIGMA) && !counts.MISSING_IN_FIGMA) return "Figma tem mudanças ainda não publicadas.";
+        if (counts.MISSING_IN_FIGMA && !(counts.VALUE_DRIFT || counts.NEW_IN_FIGMA)) return "Repo publicado tem tokens que não aparecem no Figma.";
+        return "Figma e repo publicado estão diferentes.";
+      }
+
+      function nextStepForIssues(counts) {
+        if (counts.ALIAS_BROKEN) return "Corrigir alias no Figma antes de sincronizar.";
+        if (counts.VALUE_DRIFT || counts.NEW_IN_FIGMA) return "Revisar com pessoa técnica e decidir se vira sync/release.";
+        if (counts.MISSING_IN_FIGMA) return "Confirmar se foi remoção intencional ou exceção documentada.";
+        return "Copiar o detalhe e classificar as divergências.";
+      }
+
+      function labelForIssueKind(kind) {
+        const labels = {
+          VALUE_DRIFT: "Valor diferente",
+          NEW_IN_FIGMA: "Só no Figma",
+          MISSING_IN_FIGMA: "Só no repo",
+          ALIAS_BROKEN: "Alias quebrado",
+        };
+        return labels[kind] || kind;
+      }
+
+      function buildComparableState(figmaSnapshot) {
+        const variables = figmaSnapshot.variables || {};
+        const collections = figmaSnapshot.variableCollections || {};
+        const state = {
+          foundation: {},
+          semanticLight: {},
+          semanticDark: {},
+          issues: [],
+          comparableCount: 0,
+          ignoredCount: 0,
+        };
+
+        for (const variable of Object.values(variables)) {
+          const collection = collections[variable.variableCollectionId];
+          const layer = layerForCollection(collection);
+          if (!layer) continue;
+
+          const token = `${layer}.${String(variable.name).replace(/\//g, ".")}`;
+          const modes = Array.isArray(collection.modes) ? collection.modes : [];
+
+          for (const mode of modes) {
+            const rawValue = variable.valuesByMode ? variable.valuesByMode[mode.modeId] : undefined;
+            const value = resolveSnapshotValue(rawValue, variables, collections);
+            if (value && value.__error) {
+              state.issues.push({ kind: "ALIAS_BROKEN", group: collection.name, token, detail: value.__error });
+              continue;
+            }
+
+            if (layer === "foundation") {
+              state.foundation[token] = value;
+              state.comparableCount++;
+              break;
+            }
+
+            const modeName = String(mode.name).toLowerCase();
+            if (modeName === "light") {
+              state.semanticLight[token] = value;
+              state.comparableCount++;
+            } else if (modeName === "dark") {
+              state.semanticDark[token] = value;
+              state.comparableCount++;
+            }
+          }
+        }
+
+        return state;
+      }
+
+      function compareMap(group, figmaMap, publishedMap) {
+        const issues = [];
+        const figmaByCanonical = indexByCanonicalPath(figmaMap);
+        const publishedByCanonical = indexByCanonicalPath(publishedMap);
+
+        for (const [canonicalToken, figmaToken] of figmaByCanonical.entries()) {
+          if (isFigmaOnlyToken(canonicalToken)) continue;
+          const repoToken = publishedByCanonical.get(canonicalToken);
+          const figmaValue = figmaMap[figmaToken];
+          const publishedToken = repoToken ? publishedMap[repoToken] : null;
+          const displayToken = repoToken || figmaToken;
+
+          if (!publishedToken) {
+            issues.push({ kind: "NEW_IN_FIGMA", group, token: displayToken, figma: figmaValue });
+            continue;
+          }
+          if (!valuesEquivalent(canonicalToken, figmaValue, publishedToken.value)) {
+            issues.push({ kind: "VALUE_DRIFT", group, token: displayToken, figma: figmaValue, repo: publishedToken.value });
+          }
+        }
+
+        for (const [canonicalToken, repoToken] of publishedByCanonical.entries()) {
+          if (isJsonOnlyToken(canonicalToken)) continue;
+          if (!figmaByCanonical.has(canonicalToken)) {
+            issues.push({ kind: "MISSING_IN_FIGMA", group, token: repoToken, repo: publishedMap[repoToken].value });
+          }
+        }
+
+        return issues;
+      }
+
+      function indexByCanonicalPath(map) {
+        const indexed = new Map();
+        for (const token of Object.keys(map)) {
+          indexed.set(canonicalPathKey(token), token);
+        }
+        return indexed;
+      }
+
+      function canonicalPathKey(token) {
+        return token.replace(/-/g, ".");
+      }
+
+      function resolveSnapshotValue(value, variables, collections) {
+        if (value == null) return value;
+
+        if (value.type === "VARIABLE_ALIAS") {
+          const target = variables[value.id];
+          if (!target) return { __error: `alias sem alvo: ${value.id}` };
+          const collection = collections[target.variableCollectionId];
+          const layer = layerForCollection(collection);
+          if (!layer) return { __error: `alias para collection desconhecida: ${value.id}` };
+          return `{${layer}.${String(target.name).replace(/\//g, ".")}}`;
+        }
+
+        if (typeof value === "object" && typeof value.r === "number" && typeof value.g === "number" && typeof value.b === "number") {
+          return colorToString(value);
+        }
+
+        return value;
+      }
+
+      function layerForCollection(collection) {
+        if (!collection) return null;
+        if (collection.name === "Foundation" || collection.name === "Brand") return "foundation";
+        if (collection.name === "Semantic") return "semantic";
+        return null;
+      }
+
+      function colorToString(rgba) {
+        const to255 = (channel) => Math.round(channel * 255);
+        const alpha = typeof rgba.a === "number" ? rgba.a : 1;
+        if (alpha < 0.999) {
+          return `rgba(${to255(rgba.r)}, ${to255(rgba.g)}, ${to255(rgba.b)}, ${Number(alpha.toFixed(2))})`;
+        }
+        return `#${[rgba.r, rgba.g, rgba.b].map((channel) => to255(channel).toString(16).padStart(2, "0").toUpperCase()).join("")}`;
+      }
+
+      function valuesEquivalent(token, figmaValue, repoValue) {
+        if (ignoreCssRepresentationDiff(token)) return true;
+        if (isDivergentAliasByDesign(figmaValue, repoValue)) return true;
+        return normalizeValue(token, figmaValue) === normalizeValue(token, repoValue);
+      }
+
+      function normalizeValue(token, value) {
+        if (value == null) return "";
+        if (isPxLikeToken(token)) {
+          const px = toPx(value);
+          if (px != null) return `px:${Number(px.toFixed(4))}`;
+        }
+        if (typeof value === "number") return `number:${Number(value.toFixed(4))}`;
+        if (typeof value === "boolean") return `boolean:${value}`;
+        return String(value)
+          .trim()
+          .replace(/\s+/g, "")
+          .toLowerCase()
+          .replace(/-?\d+\.\d+/g, (match) => String(Number(Number(match).toFixed(4))))
+          .replace(/\{([^}]+)\}/g, (_, inner) => `{${inner.replace(/-/g, ".")}}`);
+      }
+
+      function isPxLikeToken(token) {
+        return [
+          /^foundation\.dimension\./,
+          /^foundation\.radius\./,
+          /^foundation\.border\.width\./,
+          /^foundation\.stroke\.width\./,
+          /^foundation\.typography\.font\.size\./,
+          /^semantic\.space\./,
+          /^semantic\.radius\./,
+          /^semantic\.border\.width\./,
+          /^semantic\.(body|control)\.font\.size\./,
+          /^semantic\.size\./,
+        ].some((pattern) => pattern.test(token));
+      }
+
+      function toPx(value) {
+        if (typeof value === "number") return value;
+        const raw = String(value).trim().toLowerCase();
+        const rem = raw.match(/^(-?[\d.]+)rem$/);
+        if (rem) return Number(rem[1]) * 16;
+        const px = raw.match(/^(-?[\d.]+)px$/);
+        if (px) return Number(px[1]);
+        if (/^-?[\d.]+$/.test(raw)) return Number(raw);
+        return null;
+      }
+
+      function isDivergentAliasByDesign(figmaValue, repoValue) {
+        if (typeof figmaValue !== "string" || typeof repoValue !== "string") return false;
+        const figmaLineHeight = /^\{foundation\.typography\.font\.line-height\./.test(figmaValue);
+        const repoLineHeight = /^\{foundation\.typography\.line\.height\./.test(repoValue);
+        if (figmaLineHeight && repoLineHeight) return true;
+
+        const figmaLetterSpacing = /^\{foundation\.typography\.font\.letter-spacing\./.test(figmaValue);
+        const repoLetterSpacing = /^\{foundation\.typography\.letter\.spacing\./.test(repoValue);
+        return figmaLetterSpacing && repoLetterSpacing;
+      }
+
+      function ignoreCssRepresentationDiff(token) {
+        return [
+          "foundation.typography.font.family.sans",
+          "foundation.typography.font.family.mono",
+          "foundation.typography.font.family.display",
+          "foundation.typography.font.weight.regular",
+          "foundation.typography.font.weight.medium",
+          "foundation.typography.font.weight.semibold",
+          "foundation.typography.font.weight.bold",
+        ].includes(token);
+      }
+
+      function isFigmaOnlyToken(token) {
+        return /^foundation\.typography\.font\.(letter\.spacing|line\.height)\./.test(token);
+      }
+
+      function isJsonOnlyToken(token) {
+        return [
+          /^foundation\.typography\.line\.height\./,
+          /^foundation\.typography\.letter\.spacing\./,
+          /^foundation\.typography\.font\.size\.11$/,
+          /^foundation\.duration\./,
+          /^foundation\.ease\./,
+          /^foundation\.shadow\./,
+          /^foundation\.z\./,
+          /^semantic\.motion\./,
+          /^semantic\.z\./,
+          /^semantic\.shadow\./,
+          /^semantic\.typography\.body\.font\.size\.2xs$/,
+          /^semantic\.typography\.body\.line\.height\.2xs$/,
+        ].some((pattern) => pattern.test(token));
+      }
+
+      function formatIssue(issue) {
+        if (issue.kind === "VALUE_DRIFT") {
+          return `[${issue.kind}] ${issue.group} · ${issue.token}\n  Figma: ${JSON.stringify(issue.figma)}\n  Repo:  ${JSON.stringify(issue.repo)}`;
+        }
+        if (issue.kind === "NEW_IN_FIGMA") {
+          return `[${issue.kind}] ${issue.group} · ${issue.token}\n  Figma: ${JSON.stringify(issue.figma)}`;
+        }
+        if (issue.kind === "MISSING_IN_FIGMA") {
+          return `[${issue.kind}] ${issue.group} · ${issue.token}\n  Repo: ${JSON.stringify(issue.repo)}`;
+        }
+        return `[${issue.kind}] ${issue.group} · ${issue.token}\n  ${issue.detail || ""}`;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinner — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Spinner</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Indicadores de carregamento animados com tamanhos de controle e estilos default/on-color.</span><span data-lang="en">Animated loading indicators with control sizes and default/on-color styles.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use spinners quando</span><span data-lang="en">Use spinners when</span></div>
+      <span data-lang="pt">Indicando carregamento indeterminado: dentro de buttons durante ações assincronas, inline em áreas de conteúdo, ou centralizado para estados de carregamento de página inteira.</span><span data-lang="en">Indicating indeterminate loading: inside buttons during async actions, inline in content areas, or centered for full-page loading states.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use spinners quando</span><span data-lang="en">Don't use spinners when</span></div>
+      <span data-lang="pt">A estrutura do conteúdo e conhecida antecipadamente (use <a href="skeleton.html" style="color:var(--ds-link-content-default)">Skeleton</a>) ou a espera e muito curta — mostrar um spinner para operações breves causa desconforto.</span><span data-lang="en">The content structure is known ahead of time (use <a href="skeleton.html" style="color:var(--ds-link-content-default)">Skeleton</a> instead) or the wait is very short -- showing a spinner for brief operations feels jarring.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Container (<code>.ds-spinner</code>) — elemento inline flex com tamanho tokenizado.<br>
+      <strong>2</strong> Ring — borda circular animada por rotação linear.<br>
+      <strong>3</strong> Size/style modifiers — <code>--sm</code>, <code>--md</code>, <code>--lg</code> e <code>--on-color</code>.</span>
+      <span data-lang="en"><strong>1</strong> Container (<code>.ds-spinner</code>) — inline-flex element with tokenized size.<br>
+      <strong>2</strong> Ring — circular border animated with linear rotation.<br>
+      <strong>3</strong> Size/style modifiers — <code>--sm</code>, <code>--md</code>, <code>--lg</code>, and <code>--on-color</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Três tamanhos para diferentes contextos: sm, md e lg.</span><span data-lang="en">Three sizes to suit different contexts: sm, md, and lg.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <div style="display:flex;align-items:center;gap:var(--ds-space-section-sm);">
+          <div style="text-align:center;">
+            <span class="ds-spinner ds-spinner--sm" role="status" aria-label="Loading"></span>
+            <p style="margin:var(--ds-space-sm) 0 0;font-size:var(--ds-body-font-size-xs);color:var(--ds-content-default);">sm</p>
+          </div>
+          <div style="text-align:center;">
+            <span class="ds-spinner" role="status" aria-label="Loading"></span>
+            <p style="margin:var(--ds-space-sm) 0 0;font-size:var(--ds-body-font-size-xs);color:var(--ds-content-default);">md</p>
+          </div>
+          <div style="text-align:center;">
+            <span class="ds-spinner ds-spinner--lg" role="status" aria-label="Loading"></span>
+            <p style="margin:var(--ds-space-sm) 0 0;font-size:var(--ds-body-font-size-xs);color:var(--ds-content-default);">lg</p>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;span class="ds-spinner ds-spinner--sm" role="status" aria-label="Loading"&gt;&lt;/span&gt;
+&lt;span class="ds-spinner ds-spinner--md" role="status" aria-label="Loading"&gt;&lt;/span&gt;
+&lt;span class="ds-spinner ds-spinner--lg" role="status" aria-label="Loading"&gt;&lt;/span&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estilos</span><span data-lang="en">Styles</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Use default sobre superfícies neutras e on-color sobre fundos coloridos ou invertidos.</span><span data-lang="en">Use default on neutral surfaces and on-color on colored or inverted backgrounds.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <span class="ds-spinner ds-spinner--md" role="status" aria-label="Loading"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;padding:var(--ds-space-lg);border-radius:var(--ds-radius-md);background:var(--ds-brand-background-default);">
+          <span class="ds-spinner ds-spinner--md ds-spinner--on-color" role="status" aria-label="Loading"></span>
+        </span>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;span class="ds-spinner ds-spinner--md"
+      role="status" aria-label="Loading"&gt;&lt;/span&gt;
+
+&lt;span class="ds-spinner ds-spinner--md ds-spinner--on-color"
+      role="status" aria-label="Loading"&gt;&lt;/span&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estado de carregamento no button</span><span data-lang="en">Button loading state</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Spinners dentro de buttons indicam que uma ação está em andamento. O button não e interativo enquanto carrega.</span><span data-lang="en">Spinners inside buttons indicate that an action is in progress. The button is non-interactive while loading.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <button class="ds-button ds-button--brand ds-button--loading ds-button--sm">
+          <span class="ds-button__label">Saving</span>
+          <span class="ds-button__spinner"><span class="ds-spinner ds-spinner--sm ds-spinner--on-color" role="status" aria-label="Loading"></span></span>
+        </button>
+        <button class="ds-button ds-button--brand ds-button--loading ds-button--md">
+          <span class="ds-button__label">Saving</span>
+          <span class="ds-button__spinner"><span class="ds-spinner ds-spinner--sm ds-spinner--on-color" role="status" aria-label="Loading"></span></span>
+        </button>
+        <button class="ds-button ds-button--toned ds-button--loading ds-button--md">
+          <span class="ds-button__label">Loading</span>
+          <span class="ds-button__spinner"><span class="ds-spinner ds-spinner--sm" role="status" aria-label="Loading"></span></span>
+        </button>
+        <button class="ds-button ds-button--outline ds-button--loading ds-button--md">
+          <span class="ds-button__label">Loading</span>
+          <span class="ds-button__spinner"><span class="ds-spinner ds-spinner--sm" role="status" aria-label="Loading"></span></span>
+        </button>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;button class="ds-button ds-button--brand ds-button--loading"
+        aria-disabled="true" aria-busy="true"&gt;
+  &lt;span class="ds-button__label"&gt;Saving&lt;/span&gt;
+  &lt;span class="ds-button__spinner"&gt;
+    &lt;span class="ds-spinner ds-spinner--sm ds-spinner--on-color"
+          role="status" aria-label="Loading"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Carregamento centralizado</span><span data-lang="en">Centered loading</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Use um spinner grande centralizado em um container para estados de carregamento de área completa.</span><span data-lang="en">Use a large spinner centered in a container for full-area loading states.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered" style="min-height:calc(var(--ds-space-section-xl) * 2);" aria-busy="true">
+        <div style="text-align:center;">
+          <span class="ds-spinner ds-spinner--lg" role="status" aria-label="Loading content"></span>
+          <p style="margin:var(--ds-space-md) 0 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Loading content...</p>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div aria-busy="true"&gt;
+  &lt;div style="text-align:center;"&gt;
+    &lt;span class="ds-spinner ds-spinner--lg"
+          role="status" aria-label="Loading content"&gt;&lt;/span&gt;
+    &lt;p&gt;Loading content...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;">
+          <span class="ds-spinner ds-spinner--md" role="status" aria-label="Loading"></span>
+          <span style="font-size:var(--ds-body-font-size-xs);color:var(--ds-content-default);margin-top:var(--ds-space-sm);">Show after short delay</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mostre o spinner após um atraso curto para evitar um flash em operações rapidas.</span><span data-lang="en">Show the spinner after a short delay to avoid a flash for fast operations.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="min-height:var(--ds-space-section-xl);">
+          <span class="ds-spinner ds-spinner--lg" role="status" aria-label="Loading"></span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não substitua uma página inteira por apenas um spinner — use Skeleton placeholders para previsualizar a estrutura do layout.</span><span data-lang="en">Don't replace an entire page with just a spinner -- use Skeleton placeholders to preview the layout structure.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>root size (sm/md/lg)</td><td><code>component.spinner.size.sm/md/lg</code></td><td><code>--ds-spinner-root-size-*</code> (16/24/32px)</td></tr>
+        <tr><td>root radius</td><td><code>component.spinner.radius.default</code></td><td><code>--ds-spinner-radius-default</code></td></tr>
+        <tr><td><span data-lang="pt">espessura</span><span data-lang="en">stroke width</span></td><td><code>component.spinner.ring.stroke-width.default</code></td><td><code>--ds-spinner-ring-stroke-width-default</code> (2px)</td></tr>
+        <tr><td><span data-lang="pt">indicador default</span><span data-lang="en">default indicator</span></td><td><code>semantic.border.brand</code></td><td><code>--ds-border-brand</code></td></tr>
+        <tr><td><span data-lang="pt">trilha default</span><span data-lang="en">default track</span></td><td><code>semantic.border.subtle</code></td><td><code>--ds-border-subtle</code></td></tr>
+        <tr><td><span data-lang="pt">indicador on-color</span><span data-lang="en">on-color indicator</span></td><td><code>semantic.border.inverse</code></td><td><code>--ds-border-inverse</code></td></tr>
+        <tr><td><span data-lang="pt">trilha on-color</span><span data-lang="en">on-color track</span></td><td><code>semantic.overlay.medium</code></td><td><code>--ds-overlay-medium</code></td></tr>
+        <tr><td><span data-lang="pt">duração da animação</span><span data-lang="en">animation duration</span></td><td><code>semantic.motion.duration.slower</code></td><td><code>--ds-motion-duration-slower</code></td></tr>
+        <tr><td><span data-lang="pt">curva da animação</span><span data-lang="en">animation easing</span></td><td><code>semantic.motion.ease.linear</code></td><td><code>--ds-motion-ease-linear</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       6. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-spinner</code></td><td><span data-lang="pt">Classe base do spinner</span><span data-lang="en">Base spinner class</span></td></tr>
+        <tr><td><code>ds-spinner--sm</code></td><td><span data-lang="pt">Tamanho pequeno (16px)</span><span data-lang="en">Small size (16px)</span></td></tr>
+        <tr><td><code>ds-spinner--md</code></td><td><span data-lang="pt">Tamanho médio (24px) — também é o padrão da classe base</span><span data-lang="en">Medium size (24px) — also the default on the base class</span></td></tr>
+        <tr><td><code>ds-spinner--lg</code></td><td><span data-lang="pt">Tamanho grande (32px)</span><span data-lang="en">Large size (32px)</span></td></tr>
+        <tr><td><code>ds-spinner--on-color</code></td><td><span data-lang="pt">Estilo para fundos coloridos ou invertidos</span><span data-lang="en">Style for colored or inverted backgrounds</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       7. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><span data-lang="pt"><code>role="status"</code> + <code>aria-label="Loading"</code> em cada spinner</span><span data-lang="en"><code>role="status"</code> + <code>aria-label="Loading"</code> on every spinner</span></td><td>&#10003;</td></tr>
+        <tr><td>2.3.1 Three Flashes (A)</td><td><span data-lang="pt">A animação e uma rotacao continua, não piscante</span><span data-lang="en">Animation is a continuous rotation, not flashing</span></td><td>&#10003;</td></tr>
+        <tr><td>2.3.3 Animation from Interactions (AAA)</td><td><span data-lang="pt">Respeita <code>prefers-reduced-motion</code> — animação pausada ou desacelerada</span><span data-lang="en">Respects <code>prefers-reduced-motion</code> -- animation paused or slowed</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-space-lg)">
+      <div class="ds-callout__title"><span data-lang="pt">Resumo dos atributos ARIA</span><span data-lang="en">ARIA attributes summary</span></div>
+      <span data-lang="pt"><code>role="status"</code> + <code>aria-label="Loading"</code> — obrigatorio em cada spinner para que leitores de tela anunciem o estado de carregamento.<br>
+      <code>aria-busy="true"</code> — defina no container quando o spinner substitui conteúdo.<br>
+      <code>prefers-reduced-motion</code> — o CSS do spinner respeita esta media query pausando ou reduzindo a animação.</span><span data-lang="en"><code>role="status"</code> + <code>aria-label="Loading"</code> — required on every spinner so screen readers announce the loading state.<br>
+      <code>aria-busy="true"</code> — set on the container when the spinner replaces content.<br>
+      <code>prefers-reduced-motion</code> — the spinner CSS respects this media query by pausing or reducing animation.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       8. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="skeleton.html" class="ds-related__link">Skeleton</a>
+      <a href="button.html" class="ds-related__link">Button (loading state)</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

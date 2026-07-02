@@ -1,0 +1,1246 @@
+{
+  "semantic": {
+    "brand": {
+      "$description": "Ação primária (brand solid). ADR-014.",
+      "content-default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}"
+      },
+      "content-hover": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Conteúdo sobre fill primário em hover."
+      },
+      "content-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.white.80}"
+      },
+      "background": {
+        "default": {
+          "$type": "color",
+          "$value": "{foundation.color.brand.600}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{foundation.color.brand.700}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{foundation.color.brand.800}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{foundation.color.disabled.brand.light}"
+        }
+      },
+      "border": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.brand.background.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{semantic.brand.background.hover}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{semantic.brand.background.disabled}"
+        }
+      }
+    },
+    "toned": {
+      "$description": "Ação brand translúcida. ADR-014.",
+      "content-default": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.700}"
+      },
+      "content-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.disabled.brand.light}"
+      },
+      "background": {
+        "default": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.blue-600.12}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.blue-600.20}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.blue-600.28}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{foundation.color.disabled.brand.toned.light}"
+        }
+      }
+    },
+    "outline": {
+      "$description": "Ação com borda neutra. ADR-014.",
+      "content-default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.700}"
+      },
+      "content-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.400}"
+      },
+      "border-default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.500}"
+      },
+      "border-hover": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.700}"
+      },
+      "border-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.200}"
+      },
+      "background": {
+        "hover": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.black.5}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.black.10}"
+        }
+      }
+    },
+    "ghost": {
+      "$description": "Ação apenas texto (neutral). ADR-014.",
+      "content-default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.900}"
+      },
+      "content-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.400}"
+      },
+      "background": {
+        "hover": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.black.5}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.black.10}"
+        }
+      }
+    },
+    "link": {
+      "$description": "Link inline (branded text). ADR-014.",
+      "content-default": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.700}",
+        "$description": "Links em estado default."
+      },
+      "content-hover": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.800}",
+        "$description": "Links em estado hover."
+      },
+      "content-active": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.800}",
+        "$description": "Links em estado pressed (mousedown/active). Brand step abaixo de hover."
+      },
+      "content-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.400}",
+        "$description": "Links em estado disabled."
+      }
+    },
+    "feedback": {
+      "success": {
+        "border-default": {
+          "$type": "color",
+          "$value": "{foundation.color.green.500}"
+        },
+        "content-default": {
+          "$type": "color",
+          "$value": "{foundation.color.green.700}",
+          "$description": "Cor success como conteúdo (mensagens, ícones sobre fundo claro)."
+        },
+        "content-contrast": {
+          "$type": "color",
+          "$value": "{foundation.color.neutral.50}",
+          "$description": "Conteúdo de alto contraste sobre fill success sólido."
+        },
+        "content-disabled": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.white.80}",
+          "$description": "Conteúdo success disabled."
+        },
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{foundation.color.green.600}",
+            "$description": "Fill success principal."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{foundation.color.green.800}"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{foundation.color.green.900}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{foundation.color.green.100}"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{foundation.color.disabled.success.light}",
+            "$description": "Fill success disabled."
+          }
+        }
+      },
+      "warning": {
+        "border-default": {
+          "$type": "color",
+          "$value": "{foundation.color.amber.500}",
+          "$description": "Upgraded from amber.500 to amber.600 (ADR-008) for consistency with error.border/info.border at step 600. Passes 3:1 vs amber.50."
+        },
+        "content-default": {
+          "$type": "color",
+          "$value": "{foundation.color.amber.700}",
+          "$description": "Cor warning como conteúdo."
+        },
+        "content-contrast": {
+          "$type": "color",
+          "$value": "{foundation.color.amber.950}",
+          "$description": "Conteúdo de alto contraste sobre fill warning sólido. Dark text porque amber-500 é claro."
+        },
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{foundation.color.amber.300}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{foundation.color.amber.600}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{foundation.color.amber.100}"
+          }
+        }
+      },
+      "error": {
+        "border-default": {
+          "$type": "color",
+          "$value": "{foundation.color.red.500}"
+        },
+        "border": {
+          "hover": {
+            "$type": "color",
+            "$value": "{foundation.color.red.800}",
+            "$description": "Borda de feedback erro em estado hover."
+          }
+        },
+        "content-default": {
+          "$type": "color",
+          "$value": "{foundation.color.red.700}",
+          "$description": "Cor error como conteúdo (mensagens de erro, ícones de alerta)."
+        },
+        "content-contrast": {
+          "$type": "color",
+          "$value": "{foundation.color.neutral.50}",
+          "$description": "Conteúdo de alto contraste sobre fill error sólido."
+        },
+        "content-disabled": {
+          "$type": "color",
+          "$value": "{foundation.color.overlay.white.80}",
+          "$description": "Conteúdo error disabled."
+        },
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{foundation.color.red.600}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{foundation.color.red.800}"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{foundation.color.red.900}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{foundation.color.red.100}"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{foundation.color.disabled.error.light}",
+            "$description": "Fill error disabled."
+          }
+        },
+        "content": {
+          "strong": {
+            "$type": "color",
+            "$value": "{foundation.color.red.700}",
+            "$description": "Conteudo error/destructive ativo com contraste reforcado para surfaces elevadas."
+          }
+        }
+      },
+      "info": {
+        "border-default": {
+          "$type": "color",
+          "$value": "{foundation.color.blue.500}"
+        },
+        "content-default": {
+          "$type": "color",
+          "$value": "{foundation.color.blue.700}",
+          "$description": "Cor info como conteúdo."
+        },
+        "content-contrast": {
+          "$type": "color",
+          "$value": "{foundation.color.brand.950}",
+          "$description": "Conteúdo de alto contraste sobre fill info sólido. Dark text porque sky-600 é claro demais para branco."
+        },
+        "background": {
+          "default": {
+            "$type": "color",
+            "$value": "{foundation.color.blue.400}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{foundation.color.blue.600}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{foundation.color.blue.100}"
+          }
+        }
+      }
+    },
+    "surface": {
+      "default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Card and panel surfaces"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.100}",
+        "$description": "Surface neutra em hover de controles."
+      },
+      "raised": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Elevated surface (sticky headers, raised cards)"
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}"
+      },
+      "elevated": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}"
+      }
+    },
+    "background": {
+      "default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Page background"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.200}",
+        "$description": "Subtle alternate background — one step darker than default to create visual separation."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.900}"
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.black.60}",
+        "$description": "Modal/dialog overlay backdrop"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.100}",
+        "$description": "Background de componentes em estado disabled (antes state.disabled.background)."
+      },
+      "transparent": {
+        "$type": "color",
+        "$value": "{foundation.color.transparent}",
+        "$description": "Fundo sem preenchimento. Usado por itens ghost-like (Pagination default/disabled)."
+      }
+    },
+    "content": {
+      "$description": "Conteúdo sobre superfícies neutras (background, surface). Cobre texto, ícones e shapes. ADR-011.",
+      "strong": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.900}",
+        "$description": "Conteúdo de ênfase máxima (títulos, badge labels, modal title, active tab). Tom mais escuro/claro da escala."
+      },
+      "default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.700}",
+        "$description": "Conteúdo padrão (body text, descriptions, form labels). Use este na maioria dos casos."
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.700}",
+        "$description": "Conteúdo neutro em hover."
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.600}",
+        "$description": "Conteúdo de ênfase reduzida (placeholders, ícones decorativos, helper text)."
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.400}",
+        "$description": "Conteúdo em estado disabled. Isento de contraste WCAG. Unifica text/disabled e state/disabled/foreground (ADR-011)."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Conteúdo sobre superfícies inversas (background/inverse)."
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{semantic.brand.background.default}",
+        "$description": "Conteúdo brand sobre superfície neutra."
+      }
+    },
+    "content-placeholder": {
+      "rectangle": {
+        "height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.120}",
+            "$description": "Altura padrão do placeholder retangular de conteúdo."
+          }
+        }
+      },
+      "text": {
+        "height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.12}",
+            "$description": "Altura padrão do placeholder textual de conteúdo."
+          }
+        }
+      }
+    },
+    "control": {
+      "button": {
+        "min-width": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.80}"
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.88}"
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.102}"
+          }
+        }
+      },
+      "radio": {
+        "dot": {
+          "size": {
+            "sm": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.6}"
+            },
+            "md": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.8}"
+            },
+            "lg": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.10}"
+            }
+          }
+        }
+      },
+      "textarea": {
+        "min-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.80}"
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.96}"
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.120}"
+          }
+        }
+      },
+      "toggle": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.16}"
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.24}"
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.32}"
+          }
+        },
+        "width": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.28}"
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.44}"
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.56}"
+          }
+        },
+        "thumb": {
+          "gap": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.2}"
+          },
+          "size": {
+            "sm": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.12}"
+            },
+            "md": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.20}"
+            },
+            "lg": {
+              "$type": "dimension",
+              "$value": "{foundation.dimension.28}"
+            }
+          }
+        }
+      }
+    },
+    "icon": {
+      "$description": "Vocabulário semântico de iconografia. Pode alimentar bibliotecas de ícones e Icon swap; componentes finais devem expor tokens Component próprios.",
+      "color": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.content.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{semantic.content.hover}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{semantic.content.strong}"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{semantic.content.disabled}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{semantic.content.subtle}"
+        },
+        "inverse": {
+          "$type": "color",
+          "$value": "{semantic.content.inverse}"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{semantic.feedback.success.content-default}"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{semantic.feedback.warning.content-default}"
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{semantic.feedback.error.content-default}"
+        },
+        "success-contrast": {
+          "$type": "color",
+          "$value": "{semantic.feedback.success.content-contrast}"
+        },
+        "warning-contrast": {
+          "$type": "color",
+          "$value": "{semantic.feedback.warning.content-contrast}"
+        },
+        "error-contrast": {
+          "$type": "color",
+          "$value": "{semantic.feedback.error.content-contrast}"
+        },
+        "info-contrast": {
+          "$type": "color",
+          "$value": "{semantic.feedback.info.content-contrast}"
+        },
+        "error-strong": {
+          "$type": "color",
+          "$value": "{semantic.feedback.error.content.strong}",
+          "$description": "Icone error/destructive ativo pareado com feedback/error/content/strong."
+        }
+      },
+      "stroke-width": {
+        "regular": {
+          "16": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.1_5}"
+          },
+          "20": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.1_75}"
+          },
+          "24": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.2}"
+          },
+          "32": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.2_5}"
+          }
+        },
+        "strong": {
+          "16": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.1_75}"
+          },
+          "20": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.2}"
+          },
+          "24": {
+            "$type": "dimension",
+            "$value": "{foundation.stroke.width.2_25}"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.300}"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.600}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.200}"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.50}",
+        "$description": "Borda usada sobre fundos invertidos (escuros em light mode)."
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.600}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.600}"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{foundation.color.red.600}"
+      },
+      "error-hover": {
+        "$type": "color",
+        "$value": "{semantic.feedback.error.border.hover}"
+      },
+      "overlay": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.overlay.default}"
+        },
+        "medium": {
+          "$type": "color",
+          "$value": "{semantic.overlay.medium}"
+        }
+      },
+      "width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{foundation.border.width.1}"
+        },
+        "strong": {
+          "$type": "dimension",
+          "$value": "{foundation.border.width.2}"
+        },
+        "focus": {
+          "$type": "dimension",
+          "$value": "{foundation.border.width.2}"
+        }
+      },
+      "focus-error": {
+        "$type": "color",
+        "$value": "{foundation.color.red.600}",
+        "$description": "Focus ring color for error/danger states"
+      },
+      "control-default": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.500}",
+        "$description": "Border color for interactive controls (Input, Select, Textarea, Checkbox, Radio). Meets WCAG 1.4.11 (≥3:1 against control background)."
+      },
+      "control-hover": {
+        "$type": "color",
+        "$value": "{foundation.color.brand.600}",
+        "$description": "Border on hover for interactive controls."
+      },
+      "control-disabled": {
+        "$type": "color",
+        "$value": "{foundation.color.neutral.200}",
+        "$description": "Border for disabled controls. Exempt from contrast requirements per WCAG 1.4.3."
+      }
+    },
+    "overlay": {
+      "subtle": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.black.5}"
+      },
+      "default": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.black.10}"
+      },
+      "medium": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.black.20}"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{foundation.color.overlay.black.40}"
+      }
+    },
+    "opacity": {
+      "$description": "Semantic opacity tokens — ADR-013 Fase 8.",
+      "disabled": {
+        "$type": "number",
+        "$value": "{foundation.opacity.50}",
+        "$description": "50%. Aplicar em componentes em estado disabled."
+      }
+    },
+    "motion": {
+      "$description": "Semantic motion tokens — ADR-013 Fase 8. Centraliza decisões de duração e easing pra componentes não duplicarem wrappers 1:1.",
+      "duration": {
+        "instant": {
+          "$type": "duration",
+          "$value": "{foundation.duration.instant}",
+          "$description": "0ms — sem animação."
+        },
+        "fast": {
+          "$type": "duration",
+          "$value": "{foundation.duration.fast}",
+          "$description": "150ms — hover, focus, active."
+        },
+        "moderate": {
+          "$type": "duration",
+          "$value": "{foundation.duration.moderate}",
+          "$description": "250ms — toggle, drawer, expand/collapse."
+        },
+        "slow": {
+          "$type": "duration",
+          "$value": "{foundation.duration.slow}",
+          "$description": "400ms — entrada de overlay, modal, popover."
+        },
+        "slower": {
+          "$type": "duration",
+          "$value": "{foundation.duration.slower}",
+          "$description": "600ms — loops contínuos (Spinner)."
+        }
+      },
+      "ease": {
+        "default": {
+          "$type": "cubicBezier",
+          "$value": "{foundation.ease.default}",
+          "$description": "Curva padrão (= in-out)."
+        },
+        "in": {
+          "$type": "cubicBezier",
+          "$value": "{foundation.ease.in}",
+          "$description": "Aceleração no início. Elementos saindo da tela."
+        },
+        "out": {
+          "$type": "cubicBezier",
+          "$value": "{foundation.ease.out}",
+          "$description": "Desaceleração no final. Elementos entrando na tela."
+        },
+        "in-out": {
+          "$type": "cubicBezier",
+          "$value": "{foundation.ease.in-out}",
+          "$description": "Aceleração + desaceleração. Mesmo valor de default."
+        },
+        "linear": {
+          "$type": "cubicBezier",
+          "$value": "{foundation.ease.linear}",
+          "$description": "Velocidade constante. Loops (Spinner)."
+        }
+      }
+    },
+    "space": {
+      "none": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.0}",
+        "$description": "0px. Espaço zero para remover padding/gap mantendo alias semântico."
+      },
+      "2xs": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.2}",
+        "$description": "2px. Menor espaço semântico para ajustes finos de gap/padding."
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.4}",
+        "$description": "4px. Espaço compacto para relações muito próximas."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.8}",
+        "$description": "8px. Espaço pequeno padrão para controles e conteúdo denso."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.12}",
+        "$description": "12px. Espaço médio para gaps internos e agrupamentos próximos."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.16}",
+        "$description": "16px. Espaço confortável para padding e separação interna."
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.20}",
+        "$description": "20px. Espaço amplo para containers e componentes robustos."
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.24}",
+        "$description": "24px. Espaço extra amplo para containers antes da escala expandida."
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.32}",
+        "$description": "32px. Espaçamento amplo para composição interna de componentes e blocos densos."
+      },
+      "4xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.40}",
+        "$description": "40px. Espaçamento amplo para composição interna quando 32px ainda é curto."
+      },
+      "5xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.48}",
+        "$description": "48px. Limite alto para composição interna antes de entrar em escala de section."
+      },
+      "6xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.64}",
+        "$description": "64px. Espaçamento máximo da escala genérica; use section/* para respiro entre áreas."
+      },
+      "section": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.48}",
+          "$description": "48px. Espaçamento compacto entre seções, acima da escala genérica comum."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.64}",
+          "$description": "64px. Espaçamento padrão entre seções de página, docs e specs."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.80}",
+          "$description": "80px. Espaçamento amplo entre seções ou grupos editoriais."
+        },
+        "xl": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.96}",
+          "$description": "96px. Espaçamento extra amplo para separação de grandes áreas."
+        },
+        "2xl": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.120}",
+          "$description": "120px. Maior respiro de section previsto para páginas e documentação."
+        }
+      },
+      "control": {
+        "$description": "Tokens de space específicos para controles que fogem da escala genérica (control deviations).",
+        "padding": {
+          "6": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.6}",
+            "$description": "6px. Padding simétrico de Icon Only sm Button. Único valor de control entre xs(4) e sm(8) que foge da escala space."
+          },
+          "10": {
+            "$type": "dimension",
+            "$value": "{foundation.dimension.10}",
+            "$description": "10px. Padding-Y vertical de controles (Input/Button md). Único valor de control que foge da escala space (xs–2xl)."
+          }
+        }
+      },
+      "hairline": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.1}",
+        "$description": "1px. Menor espaço semântico para bordas hairline, divisores e ajustes finos."
+      }
+    },
+    "size": {
+      "$description": "Escala genérica de dimensão estrutural — t-shirt sizing para tudo dentro de componente (ícones, indicators, controles, avatars, spinners, textareas, skeletons). Substitui a antiga subdivisão em namespaces de componente. ADR-015.",
+      "xs": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.16}",
+        "$description": "16px. Inline icon em body text, indicator pequeno."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.20}",
+        "$description": "20px. Icon padrão em controle, checkbox/radio sm."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.24}",
+        "$description": "24px. Icon grande, checkbox/radio md, avatar icon."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.32}",
+        "$description": "32px. Control height sm, avatar md, spinner padrão."
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.40}",
+        "$description": "40px. Control height md (Button/Input/Select default), avatar lg."
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.48}",
+        "$description": "48px. Control height lg, touch target a11y, avatar xl."
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.64}",
+        "$description": "64px. Avatar 2xl, textarea sm, image placeholder."
+      },
+      "4xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.96}",
+        "$description": "96px. Textarea md, skeleton card."
+      },
+      "5xl": {
+        "$type": "dimension",
+        "$value": "{foundation.dimension.128}",
+        "$description": "128px. Textarea lg, skeleton hero."
+      },
+      "layout": {
+        "$description": "Escala layout — containers, modal widths, sidebars, page max-widths.",
+        "xs": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.320}",
+          "$description": "320px. Mobile container, dropdown menu wide."
+        },
+        "sm": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.480}",
+          "$description": "480px. Modal sm (form simples)."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.640}",
+          "$description": "640px. Modal md, content max-width."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.800}",
+          "$description": "800px. Modal lg, narrow page."
+        },
+        "xl": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.1024}",
+          "$description": "1024px. Page container default."
+        },
+        "2xl": {
+          "$type": "dimension",
+          "$value": "{foundation.dimension.1280}",
+          "$description": "1280px. Page max-width."
+        }
+      }
+    },
+    "shadow": {
+      "$description": "Sombras semânticas. Aliasam foundation.shadow.* mantendo Foundation hidden.",
+      "card": {
+        "$type": "shadow",
+        "$value": "{foundation.shadow.sm}",
+        "$description": "Elevação leve de cards."
+      },
+      "overlay": {
+        "$type": "shadow",
+        "$value": "{foundation.shadow.md}",
+        "$description": "Elevação média para menus e overlays contextuais."
+      },
+      "modal": {
+        "$type": "shadow",
+        "$value": "{foundation.shadow.xl}",
+        "$description": "Elevação forte de modais e popovers."
+      }
+    },
+    "radius": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "{foundation.radius.4}",
+        "$description": "4px. Tags, badges, chips pequenos."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{foundation.radius.8}",
+        "$description": "8px. Cards, alerts — radius padrão médio."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{foundation.radius.12}",
+        "$description": "12px. Cards grandes, containers."
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{foundation.radius.16}",
+        "$description": "16px. Modais, sheets, dialogs."
+      },
+      "full": {
+        "$type": "dimension",
+        "$value": "{foundation.radius.999}",
+        "$description": "Pill/circle. Aliases foundation.radius.999."
+      }
+    },
+    "typography": {
+      "body": {
+        "$description": "Typography para texto UI geral (body, labels, títulos). Fora do escopo 'control' (ADR-006). Ver ADR-013.",
+        "font-family": {
+          "sans": {
+            "$type": "fontFamily",
+            "$value": "{foundation.typography.font.family.sans}",
+            "$description": "Font-family sans-serif padrão do sistema. Usar em todo texto UI."
+          },
+          "mono": {
+            "$type": "fontFamily",
+            "$value": "{foundation.typography.font.family.mono}",
+            "$description": "Monospace pra code blocks e snippets. Espelha Figma typography/body/font-family/mono."
+          }
+        },
+        "font-weight": {
+          "regular": {
+            "$type": "number",
+            "$value": "{foundation.typography.font.weight.regular}",
+            "$description": "Peso regular (400). Usar em body text, descrições, placeholders."
+          },
+          "medium": {
+            "$type": "number",
+            "$value": "{foundation.typography.font.weight.medium}",
+            "$description": "Peso medium (500). Usar em labels, links secundários, ênfase leve."
+          },
+          "semibold": {
+            "$type": "number",
+            "$value": "{foundation.typography.font.weight.semibold}",
+            "$description": "Peso semibold (600). Usar em títulos, headings, ênfase forte em UI."
+          },
+          "bold": {
+            "$type": "number",
+            "$value": "{foundation.typography.font.weight.bold}",
+            "$description": "Peso bold (700). Usar em títulos de destaque e em negrito inline dentro de body text."
+          }
+        },
+        "letter-spacing": {
+          "normal": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.letter.spacing.normal}",
+            "$description": "Letter-spacing neutro (0). Padrão pra body text e UI."
+          },
+          "tight": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.letter.spacing.tight}",
+            "$description": "Letter-spacing apertado (-0.02em). Usar em display/headings grandes."
+          },
+          "wider": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.letter.spacing.wider}",
+            "$description": "Letter-spacing expandido (1.5px). Usado em overline/uppercase. Espelha Figma typography/body/letter-spacing/wider."
+          }
+        },
+        "font-size": {
+          "2xs": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.11}",
+            "$description": "11px. Caption, micro-text. Use sparingly — abaixo do mínimo recomendado WCAG 1.4.4."
+          },
+          "xs": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.12}",
+            "$description": "12px. Helper text, captions, secondary labels."
+          },
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.14}",
+            "$description": "14px. Body padrão, labels, descrições. WCAG 1.4.4 compliant."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.16}",
+            "$description": "16px. Body confortável, títulos menores."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.18}",
+            "$description": "18px. Subtítulos, avatar labels."
+          },
+          "xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.20}",
+            "$description": "20px. Títulos de card, headings H3."
+          },
+          "2xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.24}",
+            "$description": "24px. Headings H2, títulos de modal."
+          },
+          "3xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.28}",
+            "$description": "28px. Headings H1, display."
+          },
+          "4xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.32}",
+            "$description": "32px. Heading xl, display."
+          },
+          "5xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.40}",
+            "$description": "40px. Display sm."
+          },
+          "6xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.48}",
+            "$description": "48px. Display md."
+          },
+          "7xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.56}",
+            "$description": "56px. Display lg."
+          },
+          "8xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.64}",
+            "$description": "64px. Display xl."
+          },
+          "9xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.font.size.72}",
+            "$description": "72px. Display 2xl."
+          }
+        },
+        "line-height": {
+          "$description": "Ratios unitless. Resolvem no CSS como multiplicador do font-size. Figma usa PX absolutos pra mesmos tokens — divergência BY_DESIGN por ADR-012.",
+          "2xs": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.16}",
+            "$description": "16px. Pareia com body/font-size/2xs (11px) — ratio ~1.45."
+          },
+          "xs": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.18}",
+            "$description": "18px. Pareia com body/font-size/xs (12px) — ratio 1.5."
+          },
+          "sm": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.20}",
+            "$description": "20px. Pareia com body/font-size/sm (14px) — ratio 1.43."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.24}",
+            "$description": "24px. Pareia com body/font-size/md (16px) — ratio 1.5."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.28}",
+            "$description": "28px. Pareia com body/font-size/lg (18px) — ratio 1.55."
+          },
+          "xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.32}",
+            "$description": "32px. Pareia com body/font-size/xl (20px) — ratio 1.6."
+          },
+          "2xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.34}",
+            "$description": "34px. Pareia com body/font-size/2xl (24px)."
+          },
+          "3xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.40}",
+            "$description": "40px. Pareia com body/font-size/3xl (28px)."
+          },
+          "4xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.44}",
+            "$description": "44px. Pareia com body/font-size/4xl (32px)."
+          },
+          "5xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.48}",
+            "$description": "48px. Pareia com body/font-size/5xl (40px)."
+          },
+          "6xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.64}",
+            "$description": "64px. Pareia com body/font-size/6xl (48px)."
+          },
+          "7xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.72}",
+            "$description": "72px. Pareia com body/font-size/7xl (56px)."
+          },
+          "8xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.80}",
+            "$description": "80px. Pareia com body/font-size/8xl (64px)."
+          },
+          "9xl": {
+            "$type": "dimension",
+            "$value": "{foundation.typography.line.height.90}",
+            "$description": "90px. Pareia com body/font-size/9xl (72px)."
+          }
+        }
+      }
+    },
+    "z": {
+      "modal": {
+        "$type": "number",
+        "$value": "{foundation.z.40}",
+        "$description": "Stack layer para modais e overlays bloqueantes."
+      },
+      "tooltip": {
+        "$type": "number",
+        "$value": "{foundation.z.40}",
+        "$description": "Stack layer para tooltips e floating labels não modais."
+      }
+    }
+  }
+}

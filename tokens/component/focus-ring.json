@@ -1,0 +1,33 @@
+{
+  "component": {
+    "focus-ring": {
+      "color": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.border.focus}",
+          "$description": "Focus ring color default."
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{semantic.border.focus-error}",
+          "$description": "Focus ring color error."
+        },
+        "readonly": {
+          "$type": "color",
+          "$value": "{semantic.border.control-default}",
+          "$description": "Focus ring color read-only."
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{semantic.feedback.success.border-default}",
+          "$description": "Focus ring color success."
+        }
+      },
+      "width": {
+        "$type": "dimension",
+        "$value": "{semantic.border.width.focus}",
+        "$description": "Focus ring width."
+      }
+    }
+  }
+}

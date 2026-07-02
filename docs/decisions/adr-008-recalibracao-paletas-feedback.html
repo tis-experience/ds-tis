@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-008 — Recalibração das paletas foundation `green` e `amber` — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-008 — Recalibração das paletas foundation `green` e `amber`</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — Implementada em 0.5.0</strong> · Data: 2026-04-16</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-16
+<strong>Status:</strong> Aceita — Implementada em 0.5.0</p>
+<h2>Implementação</h2>
+<ul>
+<li>Paletas <code>green</code> e <code>amber</code> em <code>tokens/foundation/colors.json</code> atualizadas para os valores recalibrados descritos abaixo em <code>c23661f</code> (<code>feat(tokens): recalibrate green/amber palettes + docs + v1.4.0 (ADR-008/009/010)</code>).</li>
+<li>Binding <code>feedback.warning.border</code> apontando para <code>amber.600</code> confirmado em <code>tokens/semantic/light.json</code>.</li>
+<li>CSS regenerado via <code>build-tokens.mjs</code>.</li>
+</ul>
+<h2>Contexto</h2>
+<p>A auditoria de contraste das cores de feedback expôs uma assimetria nas paletas de referência usadas como base do DS. Os L anchors (lightness perceptual em OKLCH) variam entre famílias no mesmo step:</p>
+<table>
+<thead>
+<tr>
+<th>paleta</th>
+<th>L no step 600</th>
+<th>cr vs branco</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>neutral.600</td>
+<td>0.446</td>
+<td>7.58:1</td>
+</tr>
+<tr>
+<td>red.600</td>
+<td>0.577</td>
+<td>4.83:1 ✅</td>
+</tr>
+<tr>
+<td>sky.600</td>
+<td>0.588</td>
+<td>5.17:1 ✅</td>
+</tr>
+<tr>
+<td>green.600</td>
+<td>0.627</td>
+<td>3.30:1 ❌</td>
+</tr>
+<tr>
+<td>amber.600</td>
+<td>0.666</td>
+<td>3.19:1 ❌</td>
+</tr>
+</tbody></table>
+<p>A consequência prática é que a regra implícita do DS (&quot;step 600 é a cor sólida default da família, com foreground branco em superfícies coloridas&quot;) só funciona em red e sky. Em green e amber o step 600 não atinge 4.5:1 (WCAG 1.4.3 para texto normal), o que obriga a soluções caso a caso: usar foreground neutral.900 em amber, ou apontar success.default para um step diferente do que feedback.error usa.</p>
+<p>Isso quebra duas coisas: a previsibilidade cross-family do sistema (mesmo step, mesmo comportamento) e a regra documentada nos project instructions (&quot;shade 600 ou mais escuro → foreground branco&quot;).</p>
+<p>A causa é que a calibração das paletas de referência por chroma máximo visível empurra greens e ambers para L mais alto. Trocar steps no binding (apontar success.default para green.700) resolve pontualmente mas mantém a inconsistência de fundo: o step 600 da família green continua sendo um valor que não cumpre o contrato do sistema.</p>
+<h2>Decisão</h2>
+<p>Recalibrar as paletas foundation <code>green</code> e <code>amber</code> mantendo o hue característico de cada família mas alinhando os L anchors aos da paleta <code>red</code> (família que já passa 4.5:1 com branco no step 600). A escala continua de 50 a 950, mantendo a mesma estrutura do schema atual.</p>
+<h3>Nova paleta <code>green</code> (hue OKLCH 150)</h3>
+<table>
+<thead>
+<tr>
+<th>step</th>
+<th>atual</th>
+<th>proposto</th>
+<th>cr vs branco</th>
+<th>cr vs neutral.900</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50</td>
+<td>#F0FDF4</td>
+<td><code>#EDF9EF</code></td>
+<td>1.08:1</td>
+<td>16.49:1</td>
+</tr>
+<tr>
+<td>100</td>
+<td>#DCFCE7</td>
+<td><code>#D5F2D9</code></td>
+<td>1.20:1</td>
+<td>14.90:1</td>
+</tr>
+<tr>
+<td>200</td>
+<td>#BBF7D0</td>
+<td><code>#AEE6B9</code></td>
+<td>1.42:1</td>
+<td>12.60:1</td>
+</tr>
+<tr>
+<td>300</td>
+<td>#86EFAC</td>
+<td><code>#75D28B</code></td>
+<td>1.85:1</td>
+<td>9.65:1</td>
+</tr>
+<tr>
+<td>400</td>
+<td>#4ADE80</td>
+<td><code>#30B65D</code></td>
+<td>2.63:1</td>
+<td>6.78:1</td>
+</tr>
+<tr>
+<td>500</td>
+<td>#22C55E</td>
+<td><code>#009F42</code></td>
+<td>3.48:1</td>
+<td>5.13:1</td>
+</tr>
+<tr>
+<td><strong>600</strong></td>
+<td><strong>#16A34A (3.30:1 ❌)</strong></td>
+<td><strong><code>#008535</code></strong></td>
+<td><strong>4.77:1 ✅</strong></td>
+<td>3.75:1</td>
+</tr>
+<tr>
+<td>700</td>
+<td>#15803D</td>
+<td><code>#006F2D</code></td>
+<td>6.34:1</td>
+<td>2.82:1</td>
+</tr>
+<tr>
+<td>800</td>
+<td>#166534</td>
+<td><code>#035926</code></td>
+<td>8.53:1</td>
+<td>2.09:1</td>
+</tr>
+<tr>
+<td>900</td>
+<td>#14532D</td>
+<td><code>#07461E</code></td>
+<td>11.03:1</td>
+<td>1.62:1</td>
+</tr>
+<tr>
+<td>950</td>
+<td>#052E16</td>
+<td><code>#02240C</code></td>
+<td>16.66:1</td>
+<td>1.07:1</td>
+</tr>
+</tbody></table>
+<h3>Nova paleta <code>amber</code> (hue OKLCH 75)</h3>
+<table>
+<thead>
+<tr>
+<th>step</th>
+<th>atual</th>
+<th>proposto</th>
+<th>cr vs branco</th>
+<th>cr vs neutral.900</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50</td>
+<td>#FFFBEB</td>
+<td><code>#FFF4E3</code></td>
+<td>1.09:1</td>
+<td>16.41:1</td>
+</tr>
+<tr>
+<td>100</td>
+<td>#FEF3C7</td>
+<td><code>#FFE3B5</code></td>
+<td>1.24:1</td>
+<td>14.37:1</td>
+</tr>
+<tr>
+<td>200</td>
+<td>#FDE68A</td>
+<td><code>#FFCA78</code></td>
+<td>1.50:1</td>
+<td>11.88:1</td>
+</tr>
+<tr>
+<td>300</td>
+<td>#FCD34D</td>
+<td><code>#F1AA34</code></td>
+<td>1.99:1</td>
+<td>8.96:1</td>
+</tr>
+<tr>
+<td>400</td>
+<td>#FBBF24</td>
+<td><code>#D28800</code></td>
+<td>2.89:1</td>
+<td>6.17:1</td>
+</tr>
+<tr>
+<td>500</td>
+<td>#F59E0B</td>
+<td><code>#BB7500</code></td>
+<td>3.71:1</td>
+<td>4.81:1</td>
+</tr>
+<tr>
+<td><strong>600</strong></td>
+<td><strong>#D97706 (3.19:1 ❌ vs branco)</strong></td>
+<td><strong><code>#A06400</code></strong></td>
+<td><strong>4.86:1 ✅</strong></td>
+<td>3.67:1</td>
+</tr>
+<tr>
+<td>700</td>
+<td>#B45309</td>
+<td><code>#835400</code></td>
+<td>6.50:1</td>
+<td>2.75:1</td>
+</tr>
+<tr>
+<td>800</td>
+<td>#92400E</td>
+<td><code>#694400</code></td>
+<td>8.65:1</td>
+<td>2.06:1</td>
+</tr>
+<tr>
+<td>900</td>
+<td>#78350F</td>
+<td><code>#533601</code></td>
+<td>11.08:1</td>
+<td>1.61:1</td>
+</tr>
+<tr>
+<td>950</td>
+<td>#451A03</td>
+<td><code>#2E1C01</code></td>
+<td>16.37:1</td>
+<td>1.09:1</td>
+</tr>
+</tbody></table>
+<h3>Cross-family após recalibração (step 600 + texto branco)</h3>
+<table>
+<thead>
+<tr>
+<th>paleta</th>
+<th>cr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>red.600</td>
+<td>4.83:1 ✅</td>
+</tr>
+<tr>
+<td>sky.600</td>
+<td>5.17:1 ✅</td>
+</tr>
+<tr>
+<td>green.600 (novo)</td>
+<td>4.77:1 ✅</td>
+</tr>
+<tr>
+<td>amber.600 (novo)</td>
+<td>4.86:1 ✅</td>
+</tr>
+</tbody></table>
+<h2>Consequências</h2>
+<h3>Tokens semânticos afetados</h3>
+<p>A mudança é em foundation. Os bindings semânticos podem permanecer apontando para os mesmos steps, mas alguns ganham comportamento diferente:</p>
+<p><strong>Light mode (semantic/light.json):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Token semantic</th>
+<th>Aponta para</th>
+<th>Comportamento atual</th>
+<th>Comportamento novo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>feedback.success.default</code></td>
+<td>green.600</td>
+<td>falha 4.5:1 com branco</td>
+<td>passa 4.5:1 com branco</td>
+</tr>
+<tr>
+<td><code>feedback.success.hover</code></td>
+<td>green.700</td>
+<td>OK</td>
+<td>OK (mais escuro)</td>
+</tr>
+<tr>
+<td><code>feedback.success.active</code></td>
+<td>green.800</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td><code>feedback.success.text</code></td>
+<td>green.700</td>
+<td>5.02:1 vs branco</td>
+<td>6.34:1 vs branco</td>
+</tr>
+<tr>
+<td><code>feedback.success.border</code></td>
+<td>green.600</td>
+<td>3.15:1 vs green.50</td>
+<td>passa 3:1</td>
+</tr>
+<tr>
+<td><code>feedback.warning.default</code></td>
+<td>amber.500</td>
+<td>precisa fg dark</td>
+<td>precisa fg dark (igual)</td>
+</tr>
+<tr>
+<td><code>feedback.warning.border</code></td>
+<td>amber.500</td>
+<td>2.07:1 vs amber.50 ❌</td>
+<td>4.47:1 vs amber.50 ✅</td>
+</tr>
+<tr>
+<td><code>feedback.warning.text</code></td>
+<td>amber.700</td>
+<td>4.84:1 vs amber.50</td>
+<td>5.97:1 vs amber.50</td>
+</tr>
+</tbody></table>
+<p><strong>Decorrência adicional:</strong> com a nova paleta amber, <code>feedback.warning.border</code> pode subir do step 500 para o step 600 (#A06400) e ainda passar 3:1 (4.07:1). Sugiro rebinding para manter consistência com error.border (red.600) e info.border (sky.600).</p>
+<h3>Decorrência relevante: foreground do success button</h3>
+<p>Hoje <code>feedback.success.foreground</code> aponta para white. Com a nova paleta, success.default (#008535) + branco dá 4.77:1, então o foreground branco passa a fazer sentido (era a intenção original). Nenhuma mudança no binding necessária.</p>
+<p>Para o button success em dark mode, o binding atual (<code>success.default → green.500</code>, <code>success.foreground → neutral.900</code>) continua válido: green.500 novo (#009F42) + neutral.900 = 5.13:1 ✅.</p>
+<h3>Componentes afetados</h3>
+<p>Tudo que consome <code>feedback.success.*</code> ou <code>feedback.warning.*</code> muda visualmente, sem mudança estrutural:</p>
+<ul>
+<li>Button (variantes Success e Warning, se existir)</li>
+<li>Alert (variantes Success e Warning)</li>
+<li>Badge (variantes correspondentes)</li>
+<li>Input (estado de validação success, se existir)</li>
+<li>Toast/Snackbar (futuro)</li>
+</ul>
+<h3>Pipeline</h3>
+<ol>
+<li>Editar <code>tokens/foundation/colors.json</code> substituindo os 22 valores (11 green + 11 amber)</li>
+<li>Regenerar CSS via Style Dictionary</li>
+<li>Atualizar Figma Variables nas paletas correspondentes</li>
+<li>Validar visualmente em Storybook ou docs site após o pipeline CSS estar saudável (debt técnica conhecida em <code>component-inventory.md</code>)</li>
+<li>Atualizar <code>tokens/semantic/light.json</code> se decidir mover <code>feedback.warning.border</code> para amber.600</li>
+</ol>
+<h3>Compatibilidade</h3>
+<p>A mudança é breaking visualmente (cores diferentes do que está no ar). Não é breaking estruturalmente (mesmas chaves, mesmo schema). Como o DS ainda não tem consumers externos formais, o risco é baixo. Bump de minor version no <code>package.json</code> é apropriado, com nota no Figma Changelog.</p>
+<h2>Alternativas consideradas</h2>
+<p><strong>A. Trocar bindings sem recalibrar foundation.</strong></p>
+<p>Apontar <code>feedback.success.default</code> para green.700 em vez de green.600, e <code>feedback.warning.default</code> para amber.700. Resolve a falha pontual mas não resolve a inconsistência cross-family — o &quot;step 600&quot; continua significando coisas diferentes em famílias diferentes, o que viola a previsibilidade do sistema. Foi descartada.</p>
+<p><strong>B. Manter as paletas de referência sem recalibração e mudar a regra do DS.</strong></p>
+<p>Documentar que &quot;step 600 + foreground branco&quot; só funciona em algumas paletas, e cada família declara seu próprio &quot;default + foreground&quot;. Aumenta a carga cognitiva e contradiz o objetivo de tokens AI-readable — uma AI lendo o JSON não consegue inferir comportamento sem ler regra textual em outro lugar. Foi descartada.</p>
+<p><strong>C. Recalibrar todas as paletas (incluindo red e sky) para um padrão único.</strong></p>
+<p>Tecnicamente possível, mas red e sky já passam o critério com folga e a divergência entre L anchors é menor (0.577 vs 0.588). Recalibrar tudo aumenta o blast radius da mudança sem ganho mensurável. Descartada por escopo.</p>
+<h2>Referências</h2>
+<ul>
+<li>WCAG 2.2 SC 1.4.3 Contrast (Minimum) — texto normal precisa 4.5:1</li>
+<li>WCAG 2.2 SC 1.4.11 Non-text Contrast — UI components precisam 3:1</li>
+<li>ADR-005 (Brand como foundation, regra &quot;shade 600+ → texto branco&quot;)</li>
+<li>token-schema.md — regras invioláveis 1, 5, 6</li>
+<li>system-principles.md — seção 3 (Tokens são transversais)</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

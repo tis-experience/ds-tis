@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Changelog</h1>
+    <p class="ds-section__subtitle">Histórico de versões do design system.</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p>Todas as mudanças notáveis deste design system são registradas aqui.</p>
+<p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
+<p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
+<h2>[Não publicado]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Accordion público no repo.</strong> Adicionados <code>css/components/accordion.css</code>, <code>docs/accordion.html</code>, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens <code>component.accordion.*</code>.</li>
+<li><strong>Componente Accordion.</strong> Adicionado o contrato anatômico do Accordion aprovado no Figma para <code>item</code>, <code>trigger</code>, <code>content</code>, <code>chevron</code>, <code>leading-icon</code> e <code>focus-ring</code>, com tokens <code>component.accordion.*</code>, CSS gerado, API, registry e documentação de tokens a partir da run <code>2026-06-29-accordion</code>. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e <code>Focus Ring</code> dedicado com radius <code>16</code>.</li>
+<li><strong>Aprendizado retroalimentado nos gates de agents.</strong> Checklists de Figma Builder, Figma Auditor e Token Sync passam a exigir registro de falhas corrigidas como novos gates/testes/critérios de auditoria, incluindo bloqueio por snapshot antigo e separação explícita entre drift global e escopo do componente.</li>
+<li><strong>Componente Pagination.</strong> Figma aprovado (run <code>2026-06-25-pagination</code>): tokens <code>pagination/*</code> (29 paths), token semântico <code>background.transparent</code>, <code>css/components/pagination.css</code>, <code>docs/pagination.html</code>, prev/next via Button Ghost Icon Only, page items com <code>aria-current=&quot;page&quot;</code>, sizes sm/md/lg, baselines visuais e run documentada em <code>docs/agents/runs/2026-06-25-pagination/</code>.</li>
+<li><strong>Componente Combobox.</strong> Sincroniza 16 tokens <code>component.combobox.*</code> do Figma, <code>css/components/combobox.css</code>, <code>docs/combobox.html</code>, listbox/option com tokens locais + geometria <code>menu/item/*</code>, field compartilhado (ADR-020), ARIA de combobox/listbox/option, baselines visuais e links em Select/Menu.</li>
+<li><strong>Estado da run verificável por máquina + porteiro de gates.</strong> Cada run agora tem <code>state.json</code> com status por gate, pré-requisitos, aprovações do owner e exit codes de validadores. <code>agents:next-step</code> passa a recusar avançar enquanto o gate anterior não estiver <code>approved</code>, e o novo <code>agents:gate</code> registra status, aprovações, snapshot Figma e checks. Transforma a orquestração de conselheira em porteiro, impedindo pular etapas.</li>
+<li><strong>Matriz de contrato como artefato executável.</strong> Novo <code>templates/figma-contract-matrix.md</code> + <code>agents:validate-matrix</code> computam <code>unmappedRows</code>, exigem <code>modelEvidence</code> por linha e sinalizam exceções sem aprovação (<code>--strict-exceptions</code>). O Figma Builder fica bloqueado enquanto a matriz não passar — atacando a causa raiz dos erros do Combobox (tokens inventados, anatomia copiada parcialmente, exceções sem owner).</li>
+<li><strong>Espinha anti-alucinação (<code>docs/agents/grounding.md</code>).</strong> Documento único referenciado por todas as roles consolidando: nunca afirmar fato Figma sem ler+persistir em <code>evidence/</code>, binding validado por propriedade (não por total agregado), inspeção de ícone no vetor interno, foco no Focus Ring (não na borda estrutural), documentação derivada da API real, protocolo de recuperação pós-rejeição e status tripartite (contrato/documentação/visual) computado, não declarado.</li>
+<li><strong>Matriz de contrato obrigatória para Figma Builder.</strong> O fluxo de agents agora bloqueia escrita no Figma sem uma matriz implementável de <code>node/path + propriedade + token/property pública + evidência de modelo + validação</code>, proíbe bindings por heurística de nome e exige validação linha a linha antes de entregar para auditoria.</li>
+<li><strong>Workflow designer-facing para agents de DS.</strong> <code>docs/agents/product-designer-workflow.md</code> define uma entrada otimizada para Product Designers, onde o Orchestrator esconde scripts, terminal e handoffs técnicos e conduz o fluxo por necessidade → planejamento → Figma → auditoria → aprovação → repo → testes → web.</li>
+<li><strong>Protocolo portátil de orquestração multi-agent.</strong> <code>docs/agents/protocol.md</code>, <code>docs/agents/orchestration.md</code>, adapters por IA e scripts <code>agents:create-run</code>, <code>agents:validate-run</code> e <code>agents:next-step</code> permitem criar runs versionadas em <code>docs/agents/runs/</code>, passar artefatos entre roles sem copy/paste e replicar o fluxo em Codex, Claude, Gemini, Cursor ou outra IA.</li>
+<li><strong>Menu e padrão Action Menu documentados no repo.</strong> Adicionados CSS e página de docs para Menu como base de comandos e Action Menu como composição recomendada com Button, roles ARIA e exemplos com ícones Lucide.</li>
+<li><strong>Gate permanente de paridade para documentação Figma.</strong> O processo de agents agora obriga consultar páginas maduras como modelo antes de criar/editar documentação visual, manter textos com altura automática/height hug, evitar <code>clipsContent=true</code> em frames documentais e auditar contagens objetivas de textos fixos, clips, nós soltos e divergências contra o modelo.</li>
+<li><strong>Atalhos oficiais para agents especializados.</strong> <code>docs/agents/quick-commands.md</code> documenta comandos curtos como &quot;Audite Menu como Figma Auditor&quot; e &quot;Execute a spec aprovada como Figma Builder&quot;, resolvendo cada frase para role, checklist, template e bloqueios sem exigir prompts longos em todo uso.</li>
+<li><strong>Estrutura de agents especializados para DS Core.</strong> Adicionada <code>docs/agents/</code> com roles, checklists e templates para separar DS Architect, Figma Builder, Figma Auditor, Token Sync Agent, Repo Component Agent e Release Agent; <code>docs/process-ai-component-workflow.md</code> e <code>AGENTS.md</code> passam a exigir declaração de role/checklist e reforçam que quem constrói não aprova o próprio trabalho.</li>
+<li><strong>Processo de agentes para novos componentes e padrões.</strong> <code>AGENTS.md</code> agora exige isolamento do estado atual, benchmark, classificação, brief/spec aprovados, padrão de página Figma validado e draft Figma antes de qualquer escrita em Figma ou repo; <code>docs/process-ai-component-workflow.md</code> documenta checkpoints, bloqueios, padrão de frame raiz/seções e aprovação por gate para evitar execução prematura por agentes IA.</li>
+<li><strong>Escala semântica de space expandida.</strong> <code>semantic.space</code> passa a incluir <code>3xl</code> a <code>6xl</code> (<code>32/40/48/64px</code>) e <code>semantic.space.section</code> sobe para <code>48/64/80/96/120px</code> com novo <code>section.2xl</code>, mantendo aliases Figma ↔ JSON para gaps, paddings e separação macro.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Accordion sincroniza API e comportamento.</strong> A documentação passa a refletir a propriedade pública <code>Title</code> do Figma, documenta <code>Content Slot</code>, <code>Show Leading Icon</code>, <code>Leading Icon</code>, <code>State</code> e <code>Open</code>, e o site adiciona helper interativo para sincronizar <code>aria-expanded</code>, <code>hidden</code> e <code>data-state</code> em expand/collapse. Novo gate <code>test-accordion-docs</code> impede regressão para <code>Label</code> como propriedade pública e valida o contrato de comportamento.</li>
+<li><strong>Documentação de Combobox, Menu e Pagination.</strong> Páginas completas no padrão Select/Breadcrumb (Quando usar, Anatomia, Padrão com <code>ds-preview</code>, tamanhos/estados, Boas práticas <code>ds-dodont</code>, Diretrizes de conteúdo, Mapeamento tokens, Classes CSS, Teclado, Accessibility e Relacionados); navegação Components em <code>js/main.js</code> e grid de <code>index.html</code> reordenados alfabeticamente (Icons primeiro, Menu e Alert incluídos).</li>
+<li><strong>CI de PR com check obrigatório.</strong> O workflow <code>Verify tokens</code> passa a rodar em todo PR/push para <code>main</code>, evitando bloqueio por check requerido ausente quando a mudança não toca arquivos de tokens.</li>
+<li><strong>Snapshot exporter audita uso real de Component tokens.</strong> Exporter <code>0.2.0</code> passa a contar variables usadas sob ancestrais <code>COMPONENT</code>/<code>COMPONENT_SET</code>; <code>verify:figma-structure</code> bloqueia snapshots sem <code>structureAudit.variableUsage</code> atualizado antes de aceitar a auditoria.</li>
+<li><strong>Drift Figma/JSON eliminado para tokens recentes.</strong> Sincronizados <code>dimension/0</code>, <code>dimension/1</code>, <code>space.none</code>, <code>space.hairline</code>, padding de overlay do Modal, backgrounds de Menu Item, Divider inset, Field compartilhado, Tooltip e aliases de Card/Menu, preservando a cadeia <code>Foundation -&gt; Semantic -&gt; Component -&gt; CSS</code>.</li>
+<li><strong>Registry completo para novos contratos.</strong> Metadados de registry foram preenchidos para Accordion, Pagination, Combobox, Divider, Field, Menu e novos tokens Foundation/Semantic, removendo TODOs e mantendo <code>verify:registry</code> sem pendências.</li>
+<li><strong>Card espelha container, media slot e estados interativos do Figma.</strong> Adicionados contratos <code>card/container/*</code>, <code>card/footer/gap/*</code> e <code>card-interactive/*</code>; CSS passa a usar container interno com padding <code>20px</code>, gap <code>12px</code>, media full-bleed opcional e estados hover/focus/selected derivados do outlined.</li>
+<li><strong>Modal aplica padding/gap no container real.</strong> <code>.ds-modal</code> volta a consumir <code>--ds-modal-container-padding-*</code> e <code>--ds-modal-container-gap-*</code> na superfície principal, deixando header/body/footer como slots internos sem padding duplicado e alinhando o espaçamento ao component set do Figma.</li>
+<li><strong>Modal close alinha posição ao Figma.</strong> <code>.ds-modal__close</code> passa a ficar a <code>8px</code> do topo/direita da superfície em todos os tamanhos, compensando o padding do header como no component set vivo.</li>
+<li><strong>Tabs aplicam radius no focus ring.</strong> <code>.ds-tab:focus-visible</code> passa a consumir <code>--ds-tabs-focus-ring-radius-default</code>, alinhando o repo ao token já definido no Figma.</li>
+<li><strong>Cards Faça/Não faça ajustam altura pelo próprio conteúdo.</strong> O grid compartilhado dos docs deixa de esticar o card menor até a altura da coluna vizinha e reduz o espaço entre label e descrição.</li>
+<li><strong>Visual regression passa a rodar no CI.</strong> <code>test.yml</code> agora executa <code>scripts/test-visual.mjs</code> após a auditoria a11y e publica <code>tests/visual/actual</code> + <code>tests/visual/diff</code> como artifact quando houver falha; a baseline visual foi atualizada para o estado atual validado em produção.</li>
+<li><strong>Baseline de acessibilidade zerada.</strong> Ajustados contrastes em feedback <code>subtle</code> no dark mode, links do site de documentação e foco de blocos de código roláveis; <code>test:a11y</code> agora passa com <code>critical=0</code>, <code>serious=0</code>, <code>moderate=0</code>, <code>minor=0</code> e <code>.a11y-baseline.json</code> fica sem violações aceitas.</li>
+<li><strong>Auditoria estrutural do Figma passa a escolher o snapshot mais recente.</strong> <code>verify:figma-structure</code> agora aceita <code>figma-snapshot.json</code> sem ponto e, quando não recebe <code>--snapshot</code>, escolhe o arquivo mais novo entre os snapshots locais conhecidos, evitando validar acidentalmente um <code>.figma-snapshot.structure.json</code> antigo.</li>
+<li><strong>Pendências de maturidade e milestones removem itens stale.</strong> <code>process-versioning</code> passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; <code>component-inventory</code> troca milestones já resolvidos por próximos passos reais.</li>
+</ul>
+<h2>[1.0.0-beta.5] — 2026-06-12</h2>
+<h3>Corrigido</h3>
+<ul>
+<li><p><strong>Documentação renderiza ícones como Lucide outline.</strong> Button, Input, Select, Alert, Avatar, Modal, Tooltip e Form Field deixam de depender de preenchimento/ligaduras antigas e passam a usar SVG/stroke compatível com a biblioteca de ícones atual.</p>
+</li>
+<li><p><strong>Tabs sem radius no indicador ativo.</strong> O repo remove o arredondamento visual residual do indicador para seguir o contrato atual do Figma.</p>
+</li>
+<li><p><strong>Sincronização de tokens sem avisos falsos.</strong> <code>verify:tokens</code> passa a reconhecer variáveis CSS com <code>_</code> e elimina os avisos indevidos de stroke width <code>1_5</code>, <code>1_75</code>, <code>2_25</code> e <code>2_5</code>.</p>
+</li>
+<li><p><strong>Input Text, Select e Textarea documentam o novo contrato de propriedades do Figma.</strong> <code>Disabled</code> passa a ser valor de <code>State</code> (<code>Default</code>, <code>Hover</code>, <code>Focus</code>, <code>Disabled</code>), enquanto <code>Filled</code>, <code>Error</code> e <code>Read-only</code> ficam como propriedades separadas com regras explícitas de combinação.</p>
+</li>
+<li><p><strong>Input Text e Select com área clicável expandida para todo o container.</strong> O campo nativo agora cobre o padding interno do wrapper, incluindo top/bottom, áreas laterais, espaço vazio e regiões de ícone/adornment decorativo, mantendo ícones e chevron com <code>pointer-events: none</code>.</p>
+</li>
+<li><p><strong>Documentação de estados dos controles de formulário padronizada.</strong> Input, Select, Textarea, Checkbox, Radio e Toggle agora documentam os estados visuais com o mesmo modelo de tabela (<code>State</code>, <code>CSS trigger</code>, <code>Visual change</code>, <code>Token</code>); Checkbox, Radio e Toggle também tiveram o mapeamento de tokens atualizado para a camada <code>component.*</code> em vez dos atalhos semânticos antigos.</p>
+</li>
+<li><p><strong>Form Field e anatomia de Input alinhados ao Figma.</strong> <code>.ds-field--error</code> agora propaga borda/focus/hover de erro para Input e Select compostos; a linha de erro usa ícone outline via CSS mask com gap/stroke do contrato atual, e a anatomia do Input representa o estado de erro com ordem Error Message → Helper Text.</p>
+</li>
+<li><p><strong>Input Text, Select e Textarea espelhados com error-hover e readonly focus.</strong> Adicionados <code>feedback/error/border/hover</code>, <code>component.{input,select,textarea}.bg.error-hover</code>, <code>border-color.error-hover</code> e <code>focus-ring.color.readonly</code>; CSS passa a aplicar hover específico em erro, mantém error acima de filled e usa focus ring neutro em readonly.</p>
+</li>
+<li><p><strong>Hover de Checkbox, Radio e Toggle espelhado do Figma.</strong> Adicionados estados <code>hover</code> aos Component tokens de box/control/track/thumb/mark/dot e semânticos <code>surface.hover</code>, <code>content.hover</code> e <code>primary.content-hover</code>; CSS aplica hover apenas no controle real, sem overlay/target hover inventado, e mantém <code>focus-visible</code> separado.</p>
+</li>
+<li><p><strong>Checkbox, Radio e Toggle completos aplicados aos Component tokens.</strong> Espelhadas no repo as 120 variables vivas de <code>checkbox/...</code>, <code>radio/...</code> e <code>toggle/...</code> no Figma: cores de label/description/helper, fills/borders por estado, mark/dot/thumb, track, focus ring, content gap e target gap/radius. CSS passa a consumir <code>--ds-checkbox-*</code>, <code>--ds-radio-*</code> e <code>--ds-toggle-*</code> para esses contratos; registry, API, docs, LLMs e snapshot Figma↔JSON foram atualizados.</p>
+</li>
+<li><p><strong>Frames externos de ícone espelhados do Figma.</strong> Adicionados <code>input/icon-frame/padding-x/default</code>, <code>select/icon-frame/padding-x/default</code>, <code>select/chevron-frame/padding-x/default</code> e <code>form-field/error/icon-frame/padding-x/default</code> aos Component tokens; CSS passa a representar o wrapper externo com padding horizontal sem confundir esse respiro com o tamanho do SVG Lucide.</p>
+</li>
+<li><p><strong>AGENTS.md reforça regras de edição de componentes no Figma.</strong> Adicionado checklist obrigatório para preservar propriedades públicas do component set: textos editáveis via painel, ordem size menor→maior, pares booleano→campo dependente, instâncias Lucide/tokenizadas para ícones, validação de <code>componentPropertyReferences</code> e regra específica para Select não duplicar chevron/right icon.</p>
+</li>
+<li><p><strong>Fields single-line com respiro interno e adornments proporcionais.</strong> Input Text e Select voltam a usar <code>text-frame/padding-x=4px</code> além do padding do Field, mantendo origem visual de texto em <code>12/12/16px</code>; ícones e chevrons usam <code>size</code>, <code>stroke-width</code> e frame padding tokenizados, alinhando Figma e CSS.</p>
+</li>
+<li><p><strong>Textarea completo aplicado aos Component tokens.</strong> <code>component.textarea</code> agora cobre bg, bordas, radius, focus ring, conteúdo, placeholder, label, required, helper, spacing e tipografia; <code>Textarea</code> passa a consumir <code>--ds-textarea-*</code> no CSS em vez de <code>Semantic</code> direto, preservando <code>field.min-height</code> como contrato anatômico multilinha e mantendo o contador como CSS-only por não existir no component set vivo do Figma.</p>
+</li>
+<li><p><strong>Form Field renderiza o ícone da mensagem de erro.</strong> Adicionados <code>component.form-field.error.gap.default</code>, <code>component.form-field.error.icon.{color,size,stroke-width}.default</code> e <code>component.form-field.error.icon-frame.padding-x.default</code> ao contrato CSS-only; <code>.ds-field__error</code> renderiza a linha de erro com ícone automático + texto, alinhada ao Figma vivo de Input Text, Select e Textarea.</p>
+</li>
+<li><p><strong>Select completo aplicado aos Component tokens.</strong> Criadas 89 novas variables <code>select/...</code> na collection Component do Figma e normalizadas as 3 alturas existentes, totalizando 92 tokens para bg, bordas, radius, focus ring, conteúdo, placeholder, chevron, ícone leading, label, required, helper, stack, label-row, sizing, padding e tipografia. Os 18 variants vivos do Select foram bindados nesses tokens; JSON/CSS/docs/API passam a consumir <code>component.select.*</code> / <code>--ds-select-*</code>, alinhando padding <code>8/8/12</code>, padding-y <code>8/10/12</code>, gap interno <code>4/4/8</code>, text frame <code>4px</code> e chevron/ícone <code>16/20/24</code> ao Figma vivo.</p>
+</li>
+<li><p><strong>Input Text md gap sincronizado com Figma.</strong> <code>component.input.gap.md</code> passa de <code>semantic.space.sm</code> para <code>semantic.space.xs</code>, alinhando o Field Medium ao gap vivo de <code>4px</code> nos variants do Input Text.</p>
+</li>
+<li><p><strong>Input Text completo aplicado aos Component tokens.</strong> <code>component.input</code> agora cobre bg, bordas, radius, focus ring, conteúdo, placeholder, ícone, label, required, helper, stack, label-row, sizing, padding e tipografia; os variants vivos no Figma foram bindados nesses atributos e o CSS passa a consumir <code>--ds-input-*</code> no wrapper e no uso composto com <code>.ds-field</code>.</p>
+</li>
+<li><p><strong>Input Text sizing/spacing aplicado aos Component tokens.</strong> Criadas variables <code>input/{padding-x,padding-y,gap}</code>, <code>input/icon/{size,stroke-width}</code>, <code>input/icon-frame/padding-x</code> e <code>input/text-frame/padding-x</code> no Figma, com Code Syntax WEB e binds nos variants do Input Text. JSON/CSS/docs passam a consumir <code>component.input.*</code> junto dos contratos compartilhados de Field/Form Field.</p>
+</li>
+<li><p><strong>Button padding e gap sincronizados com Figma.</strong> <code>component.button.padding-x.{sm,md,lg}</code> passa a seguir <code>8/12/16px</code> e <code>component.button.gap.{sm,md,lg}</code> passa a seguir <code>2/4/8px</code>, alinhando JSON, CSS gerado, documentação e API às variables vivas do Button no Figma.</p>
+</li>
+<li><p><strong>Button sm com frame de ícone por tamanho.</strong> Na época, o Button passou a ter frame de ícone por tamanho; esse contrato foi depois superado por <code>component.button.icon.size.{sm,md,lg}</code> e <code>component.button.icon.stroke-width.{sm,md,lg}</code>. CSS também corrige Button somente-ícone para não herdar <code>min-width</code> textual e renderizar quadrado.</p>
+</li>
+<li><p><strong>Checkbox estrutural/focus aplicado aos Component tokens anatômicos.</strong> Na época, o Checkbox adicionou tokens próprios para target, box e focus ring; esse contrato foi depois simplificado para manter no componente apenas o radius do focus ring e consumir <code>component.focus-ring.*</code> para cor/largura. CSS passa a consumir <code>--ds-checkbox-*</code> nesses contratos.</p>
+</li>
+<li><p><strong>Button Focus Ring por estilo no Component token.</strong> Na época, Success e Danger tinham cor de focus ring própria no componente; esse contrato foi depois consolidado em <code>component.focus-ring.color.*</code>, mantendo no Button apenas o radius anatômico.</p>
+</li>
+<li><p><strong>Button Figma/CSS aplicado aos Component tokens anatômicos completos.</strong> Criado <code>component.button</code> para a superfície principal height/min-width/padding/gap/radius/border, background por estilo/estado, border color de Outline, cor de conteúdo, tipografia do label, frame/size de ícone, icon-only e focus ring. Os 216 variants vivos do Button no Figma agora usam Component tokens nos atributos públicos; CSS passa a consumir <code>--ds-button-*</code>, corrige <code>Brand/Large/Focused</code> com padding vertical incorreto e remove opacidade disabled global em favor de cores de estado.</p>
+</li>
+<li><p><strong>Form Field aplicado aos Component tokens CSS-only.</strong> Criado <code>component.form-field</code> para gaps, cores e tipografia de label, required, helper e error; o CSS passa a consumir <code>--ds-form-field-*</code> sem criar componente visual no Figma, respeitando ADR-017. Helper e error também foram alinhados ao Figma vivo para <code>body/xs</code> com <code>line-height/xs</code>.</p>
+</li>
+<li><p><strong>Divider Figma/CSS aplicado aos tokens Component anatômicos.</strong> Criado <code>component.divider.line</code> para cor, espessura e raio da linha; os variants <code>Orientation=Horizontal</code> e <code>Orientation=Vertical</code> vivos do Figma agora usam tokens Component nesses contratos. CSS passa a consumir <code>--ds-divider-*</code>; comprimento segue contextual (<code>100%</code>/container) e não vira token.</p>
+</li>
+<li><p><strong>Breadcrumb Figma/CSS aplicado aos tokens Component anatômicos.</strong> Criado <code>component.breadcrumb</code> para gap da lista, gap/raio do item, tipografia do rótulo e tipografia do separador; <code>Breadcrumb</code> e <code>Breadcrumb Item</code> vivos do Figma agora usam tokens Component nesses contratos. CSS passa a consumir <code>--ds-breadcrumb-*</code>; separador é alinhado ao Figma com <code>content.subtle</code> e tipografia <code>body/xs regular</code>.</p>
+</li>
+<li><p><strong>Tabs Figma/CSS aplicado aos tokens Component anatômicos.</strong> Criado <code>component.tabs</code> para borda da lista, spacing do item, altura do indicador, radius do focus ring, tipografia do rótulo e espaçamento do painel; <code>Tab Item</code> e <code>Tab Bar</code> ativos no Figma agora usam tokens Component nesses contratos. CSS mantém o indicador ativo sem border-radius; cores e focus ring permanecem Semantic/Focus Ring.</p>
+</li>
+<li><p><strong>Modal Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.modal</code> para overlay, superfície principal, header, body, title, footer e close; as 3 variantes vivas do Figma (<code>Small</code>, <code>Medium</code>, <code>Large</code>) agora usam Component tokens nesses contratos. CSS passa a consumir <code>--ds-modal-*</code>, remove <code>z-index</code> hardcoded via <code>semantic.z.modal</code> e aplica <code>component.modal.shadow.default</code> em vez de depender da utility <code>.ds-elevation-4</code>.</p>
+</li>
+<li><p><strong>Card Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.card</code> para radius/border-width da superfície principal, padding/gap do header, padding do body e tipografia de title/subtitle/body; as 3 variantes vivas do Figma agora usam Component tokens nesses contratos. CSS passa a consumir <code>--ds-card-*</code>; cores e shadow permanecem Semantic.</p>
+</li>
+<li><p><strong>Alert Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.alert</code> para a superfície principal padding/gap/radius/border-width, icon/close size e stroke-width, content gap e tipografia de title/description; os variants vivos do Figma agora usam Component tokens nesses contratos. CSS passa a consumir <code>--ds-alert-*</code>; documentação remove mappings antigos/stale de spacing e typography Foundation.</p>
+</li>
+<li><p><strong>Badge Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.badge</code> para padding/gap/radius/border-width da superfície principal e tipografia do label; os 12 variants vivos do Figma (<code>6</code> cores × <code>2</code> estilos) agora usam Component tokens nesses contratos. CSS passa a consumir <code>--ds-badge-*</code>; documentação corrige inventário de cores para 6 e remove mappings antigos/stale.</p>
+</li>
+<li><p><strong>Tooltip Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.tooltip</code> para padding/radius do content, tipografia do label e dimensões da seta (<code>base/depth</code>); os 4 variants <code>Position</code> do Figma agora usam Component tokens nesses contratos. CSS passa a consumir <code>--ds-tooltip-*</code>; cores e z-index permanecem Semantic.</p>
+</li>
+<li><p><strong>Skeleton Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.skeleton.{text,circle,rectangle}</code> para height/size/radius dos 3 variants vivos do Figma; Text e Rectangle usam alturas anatômicas específicas (<code>12/120</code>) e Circle usa <code>semantic.size.xl</code> (<code>40</code>). CSS passa a consumir <code>--ds-skeleton-*</code>; documentação corrige background para <code>semantic.background.subtle</code> e remove mappings antigos de radius Foundation.</p>
+</li>
+<li><p><strong>Spinner Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.spinner.size.{sm,md,lg}</code>, <code>component.spinner.radius.default</code> e <code>component.spinner.ring.stroke-width.default</code>; os 6 variants do Spinner no Figma agora usam Component tokens na superfície principal, Track e Indicator. CSS passa a consumir <code>--ds-spinner-*</code>; documentação corrige tamanhos <code>16/24/32</code> e motion para <code>duration.slower</code> + <code>ease.linear</code>.</p>
+</li>
+<li><p><strong>Avatar Figma/CSS aplicado aos Component tokens anatômicos.</strong> Criado <code>component.avatar.size.*</code>, <code>component.avatar.radius.default</code>, <code>component.avatar.initials.{font-size,line-height,font-weight}.*</code> e <code>component.avatar.icon.size.*</code>; os 6 variants do Avatar no Figma agora usam Component tokens para a superfície principal e tipografia anatômica. CSS passa a consumir <code>--ds-avatar-*</code>, corrige icon sizes para <code>20/24/32</code> e documentação corrige <code>lg</code> de <code>56px</code> para <code>64px</code>.</p>
+</li>
+<li><p><strong>Textarea Figma/CSS aplicado aos Component tokens de field min-height.</strong> Criado <code>component.textarea.field.min-height.{sm,md,lg}</code> e bindado nos 18 <code>Field</code> variants do Textarea no Figma (<code>80/96/120</code>). CSS passa a consumir <code>--ds-textarea-field-min-height-*</code>; documentação corrigida removendo valores antigos <code>120/160</code> que não batiam com Figma vivo. <code>foundation.dimension.120</code> foi adicionado como primitivo para suportar o tamanho Large.</p>
+</li>
+<li><p><strong>Toggle Figma aplicado aos Component tokens anatômicos bindáveis.</strong> Os 18 variants do component set <code>Toggle</code> agora usam <code>component.toggle.target.height.{sm,md,lg}</code> no <code>minHeight</code> da superfície principal, preservando <code>component.toggle.track.width.{sm,md,lg}</code> e <code>component.toggle.track.height.{sm,md,lg}</code> em <code>Track</code> width/height. Validação Figma viva: sm <code>32 / 28×16</code>, md <code>40 / 44×24</code>, lg <code>48 / 56×32</code>, sem problemas de binding. <code>component.toggle.thumb.inset.default</code> permanece como geometria <code>x/y</code> do Thumb, porque posição <code>x/y</code> não é campo bindável por Figma Variables.</p>
+</li>
+<li><p><strong>Radio Figma aplicado aos Component tokens anatômicos.</strong> Os 18 variants do component set <code>Radio</code> agora usam <code>component.radio.target.height.{sm,md,lg}</code> no <code>minHeight</code> da superfície principal, preservando <code>component.radio.control.size.{sm,md,lg}</code> em <code>Control</code> width/height. Validação Figma viva: sm <code>32/16</code>, md <code>40/20</code>, lg <code>48/24</code>, sem problemas de binding.</p>
+</li>
+<li><p><strong>Checkbox Figma aplicado aos Component tokens anatômicos.</strong> Os 27 variants do component set <code>Checkbox</code> agora usam <code>component.checkbox.target.height.{sm,md,lg}</code> no <code>minHeight</code> da superfície principal, preservando <code>component.checkbox.box.size.{sm,md,lg}</code> em <code>Control</code> width/height. Validação Figma viva: sm <code>32/16</code>, md <code>40/20</code>, lg <code>48/24</code>, sem problemas de binding.</p>
+</li>
+<li><p><strong>API CSS e docs alinhadas aos nomes canônicos de Component.</strong> Classes públicas do Button renomeadas de <code>.ds-btn*</code> para <code>.ds-button*</code> sem alias legado, porque o DS ainda está em beta e só a documentação consome os componentes. A documentação de Button/Control Sizing também deixou de anunciar tokens antigos inexistentes de height/padding/font/icon e passa a publicar o contrato real <code>component.button.height.*</code> / <code>--ds-button-height-*</code>.</p>
+</li>
+<li><p><strong>Tokens semânticos inválidos do Toggle removidos.</strong> A tentativa anterior criou <code>semantic.control.toggle.*</code> diretamente no JSON sem variável correspondente no Figma, gerando <code>DRIFT_FROM_SOURCE</code> em <code>verify:tokens</code>. Esses aliases foram removidos de <code>tokens/semantic/{light,dark}.json</code> e do registry; <code>toggle.css</code> agora consome os Component tokens do piloto em vez de inventar <code>semantic.control.toggle.*</code>.</p>
+</li>
+<li><p><strong>Documentação normalizada conforme auditoria estrutural.</strong> Labels de tabela foram padronizados (<code>Variável CSS</code>, <code>Descrição</code>, <code>Critério WCAG</code>, <code>Função</code>, <code>Referência</code>), README atualizado para 19 ADRs, páginas simples de componentes ganharam anatomia curta, <code>Form Field</code> declara o contrato CSS-only na própria página, e referências stale a <code>semantic.content.secondary/tertiary</code> foram migradas para <code>semantic.content.default/subtle</code>.</p>
+</li>
+<li><p><strong>Escala de Elevation/Shadow oficializada em 4 níveis + reset.</strong> Removidos <code>foundation.shadow.xs</code> e <code>foundation.shadow.2xl</code> por não terem uso nem Effect Style correspondente. <code>foundation.shadow.{sm,md,lg,xl}</code> preserva exatamente os parâmetros dos Effect Styles Figma <code>elevation/1..4</code>, e <code>foundation.shadow.none</code> permanece como reset técnico de <code>.ds-elevation-0</code>. A página de Elevation agora documenta o papel de cada nível e o mapping Figma ↔ CSS. Resolve #19 / P3-2 da auditoria Figma↔Repo.</p>
+</li>
+<li><p><strong>Documentação de Elevation mantém nomes oficiais numéricos.</strong> A tabela de <code>foundations-elevation.html</code> agora mostra apenas os níveis <code>0</code> a <code>4</code> como nomes oficiais, sem rótulos descritivos não existentes no Figma/JSON.</p>
+</li>
+<li><p><strong>Documentação de Elevation separa conceito de utility CSS.</strong> A tabela principal agora segue o padrão de Foundation (<code>Nível</code>, Figma, sombra, surface recomendada e papel), enquanto <code>.ds-elevation-*</code> fica documentado como utility auxiliar que aplica apenas <code>box-shadow</code>.</p>
+</li>
+<li><p><strong>Foundation <code>disabled/*</code> alinhado à hierarquia Figma.</strong> Tokens <code>color.disabled.{brand,success,error}-{light,dark}</code> migrados para paths aninhados (<code>disabled.brand.light</code>, <code>disabled.success.dark</code>, etc.), adicionados <code>disabled.brand.toned.{light,dark}</code> e criado <code>semantic.toned.background.disabled</code> para espelhar <code>toned/background/disabled</code> no Figma. CSS gerado preserva os nomes consumíveis (<code>--ds-color-disabled-brand-light</code>) e adiciona <code>--ds-toned-background-disabled</code>. Resolve #18 / P3-1 da auditoria Figma↔Repo.</p>
+</li>
+<li><p><strong>Tabs alinhado ao dump Figma de <code>Tab Item</code> + <code>Tab Bar</code>.</strong> CSS agora espelha o gap de 10px antes do indicador ativo (<code>--ds-space-control-padding-10</code>), usa divider <code>--ds-overlay-default</code> como o <code>Tab Bar</code>, e aplica radius <code>md</code> no focus ring. Docs de Tabs atualizadas para remover tokens antigos (<code>content.secondary</code>, <code>focus.ring.*</code>, <code>overlay.subtle</code>) e documentar o mapeamento atual. Resolve #21 da auditoria Figma↔Repo.</p>
+</li>
+<li><p><strong>Required asterisk de Input Text, Select e Textarea usa token semântico de conteúdo de erro.</strong> Figma rebindado em 48 nós <code>Required</code> (<code>12</code> Input Text, <code>18</code> Select, <code>18</code> Textarea) de <code>feedback/error/background/default</code> para <code>feedback/error/content/default</code>. CSS compartilhado <code>.ds-field__required</code>, <code>.ds-field__error</code> e <code>.ds-field--error .ds-field__label</code> agora consome <code>--ds-feedback-error-content-default</code>, evitando token de background como cor de texto. Resolve #20 / P3-3 da auditoria Figma↔Repo.</p>
+</li>
+<li><p>Referências órfãs de motion em docs (<code>--ds-duration-normal</code>) substituídas por <code>--ds-duration-moderate</code>, alinhando <code>foundations-motion.html</code> e <code>docs/layout.css</code> à escala atual (<code>instant/fast/moderate/slow/slower</code>) e liberando <code>npm test</code>.</p>
+</li>
+<li><p>Referências órfãs de tokens de cor (<code>content-secondary</code>, <code>content-tertiary</code>) no <code>index.html</code> que causavam falha no pipeline de CI.</p>
+</li>
+<li><p><strong>Alert Subtle icon tematizado por feedback</strong> (Success/Warning/Error/Info). Antes: ícone inheritava <code>color: content-default</code> do wrapper — saía cinza, sem distinção visual. Agora segue Figma: ícone usa <code>feedback/X/content/default</code> em CSS + Figma rebindado de <code>feedback/X/background/default</code> (token de bg usado como text — uso semanticamente errado, mesmo padrão de P1-2). 4 variants Figma rebindadas via <code>use_figma</code>. Resolve P2-6.</p>
+</li>
+<li><p><strong>Doc ↔ JSON drift check em <code>verify:tokens</code></strong> (<code>scripts/lib/doc-token-drift.mjs</code>). Detecta automaticamente quando doc descreve tokens/valores que JSON não tem — exatamente o sintoma que escondeu a drift de motion por meses. Categorias: <code>DOC_ONLY_TOKEN</code> (error — doc cita token inexistente), <code>VALUE_MISMATCH</code> (warning — doc e JSON com valores diferentes), <code>JSON_ONLY_TOKEN</code> (info). Roda automaticamente em <code>npm run verify:tokens</code>. Limpou 3 drifts pré-existentes durante implementação:</p>
+<ul>
+<li><code>foundation.border.width.0</code> removido de <code>foundations-borders.html</code> (token zero eliminado em 0.7.0).</li>
+<li><code>foundation.opacity.0</code> removido de <code>foundations-opacity.html</code> (idem).</li>
+<li><code>foundation.radius.9999</code> em <code>foundations-radius.html</code> corrigido pra <code>999</code> (typo histórico).</li>
+</ul>
+</li>
+<li><p><strong>Motion completo: JSON alinhado com doc <code>foundations-motion.html</code></strong> (eliminada drift histórica). Antes: doc descrevia 5 durations × 5 easings; JSON tinha 3 durations × 1 ease com nomes/valores divergentes. Agora alinhado:</p>
+<ul>
+<li><strong>Durations</strong> (foundation + semantic): <code>instant</code> (0ms), <code>fast</code> (150ms), <code>moderate</code> (250ms — substitui <code>normal=200</code>, renomeado + recalibrado), <code>slow</code> (400ms — recalibrado de 300), <code>slower</code> (600ms).</li>
+<li><strong>Easings</strong> (foundation já tinha; semantic estava só com <code>default</code>): <code>default</code>, <code>in</code>, <code>out</code>, <code>in-out</code>, <code>linear</code> (5 curves).</li>
+<li><strong>Removidos</strong>: <code>foundation.duration.normal</code> e <code>semantic.motion.duration.normal</code> (zero consumers em CSS — eram tokens órfãos).</li>
+<li><strong>Impacto em consumers</strong>: zero — todos os 30 usos em CSS de componente eram <code>motion-duration-fast</code> (mesmo valor 150ms) e 1 de <code>motion-duration-slower</code> (Spinner). <code>normal</code> e <code>slow</code> (antigo 300) tinham 0 usos.</li>
+<li>Registry atualizado com 8 entries novas + 3 ajustes; per ADR-016 (motion CSS-only) edição direta no JSON é legítima.</li>
+</ul>
+</li>
+<li><p><strong>Spinner: nova rotação tokenizada (<code>motion-duration-slower</code> + <code>motion-ease-linear</code>)</strong>, em vez do <code>0.6s linear</code> literal. Tokens criados pra cobrir o caso de loops contínuos que <code>motion-duration.{fast,normal,slow}</code> (150-300ms, transições de estado) não atende. Doc <code>foundations-motion.html</code> já documentava <code>slower=600ms</code> e <code>ease.linear</code> mas JSON estava sem — agora alinhado:</p>
+<ul>
+<li><code>foundation.duration.slower = 600ms</code></li>
+<li><code>foundation.ease.linear = [0,0,1,1]</code></li>
+<li><code>semantic.motion.duration.slower → {foundation.duration.slower}</code></li>
+<li><code>semantic.motion.ease.linear → {foundation.ease.linear}</code></li>
+<li>Registry com 4 entries novas; per ADR-016 (motion CSS-only) edição direta no JSON é legítima.</li>
+</ul>
+</li>
+<li><p><strong>Spinner: revertido animation duration/timing para <code>0.6s linear</code>.</strong> Em rodada anterior eu (Claude) tinha trocado por <code>motion-duration-slow</code> (300ms) + <code>motion-ease-default</code>, semantizando indevidamente. Resultado: rotação 2x mais rápida e oscilante (ease quebra rotação constante). Tokens <code>motion.duration.*</code> são pra transições de estado (150-300ms), não pra loops contínuos. Spinner precisa de literal <code>0.6s linear</code> por design — comentário adicionado no CSS explicando.</p>
+</li>
+<li><p><strong>Field paddings horizontais descem um nível em Input/Select/Textarea.</strong> User feedback: paddings laterais aparentavam maiores que deveriam. Aplicado em Figma + CSS:</p>
+<ul>
+<li>sm: <code>space.md</code> (12) → <code>space.sm</code> (8)</li>
+<li>md: <code>space.lg</code> (16) → <code>space.md</code> (12)</li>
+<li>lg: <code>space.xl</code> (20) → <code>space.lg</code> (16)</li>
+<li>Figma: 108 paddings rebindados (Input Text, Select, Textarea × 3 sizes × variants).</li>
+<li>CSS: input.css, select.css, textarea.css atualizados.</li>
+<li>Verticais ficam como estão.</li>
+</ul>
+</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li><p><strong>Card e Modal ganham slots nativos no Figma.</strong> Card mantém as variantes por <code>Style</code> e passa a expor <code>Content Slot</code> e <code>Footer Slot</code> como properties <code>SLOT</code>, coexistindo com <code>Content</code>, <code>Title</code> e <code>Description</code>; Modal mantém as variantes por <code>Size</code> e passa a expor <code>Content Slot</code> nativo junto de <code>Title</code>, <code>Description</code> e <code>Content</code>. Repo documenta os novos contratos com <code>ds-card__description</code>, <code>ds-card__footer</code>, <code>ds-modal__heading</code> e <code>ds-modal__description</code>.</p>
+</li>
+<li><p><strong>ADR-019 — Component tokens como contrato anatômico.</strong> Reintroduz a camada Component no modelo Foundation/Core → Semantic/System → Component → implementação, alinhando o Core ao padrão de mercado para component tokens. Component deixa de ser wrapper mecânico e passa a documentar anatomia pública (<code>target</code>, <code>box</code>, <code>track</code>, <code>thumb</code>, etc.); aliases 1:1 para Semantic são permitidos quando representam contrato estável do componente. Pipeline preparado para <code>tokens/component/*.json</code> e <code>css/tokens/generated/component.css</code>, com docs/API/llms atualizados.</p>
+</li>
+<li><p><strong>Piloto Component materializado em Figma + JSON para Checkbox, Radio e Toggle.</strong> Criada a collection Figma <code>Component</code> com modo <code>Default</code> e 22 variables agrupadas por componente (<code>checkbox/...</code>, <code>radio/...</code>, <code>toggle/...</code>): target heights 32/40/48, box/control 16/20/24, track Toggle 28×16 / 44×24 / 56×32 e thumb inset 2px. Checkbox/Radio <code>Control</code> e Toggle <code>Track</code> foram rebindados às novas variables; <code>tokens/component/{checkbox,radio,toggle}.json</code>, registry, CSS consumidor e snapshot Figma foram atualizados.</p>
+</li>
+<li><p><strong>Alturas Component para controles single-line.</strong> Button, Input Text e Select ganharam <code>component.&lt;componente&gt;.superfície principal.height.{sm,md,lg}</code> aliasados a <code>semantic.size.{lg,xl,2xl}</code>. Figma foi rebindado no Button e no <code>Field</code> visual de Input/Select; CSS consumidor passou a usar <code>--ds-button-height-*</code>, <code>--ds-input-height-*</code> e <code>--ds-select-height-*</code>.</p>
+</li>
+<li><p><strong>Guia editorial de documentação</strong> (<code>docs/documentation-guidelines.md</code>). Define templates para páginas Foundation, Component, Process e System, exceções permitidas, labels oficiais de tabela e regra authored vs generated.</p>
+</li>
+<li><p><strong>Auditoria estrutural da documentação</strong> (<code>audit/docs-structure-audit.md</code>). Classifica páginas por tipo (Foundation, Component, Process, System), identifica inconsistências editoriais e define uma sequência recomendada de PRs para normalização.</p>
+</li>
+<li><p><strong>ADR-018 — Renomear <code>content.{default,secondary,tertiary}</code> para <code>content.{strong,default,subtle}</code>.</strong> Único conjunto de tokens do DS com naming ordinal foi alinhado ao vocabulário descritivo das demais categorias (<code>border.{strong,default,subtle}</code>, <code>surface.*</code>, <code>background.*</code>). Strict rename — valores 100% preservados, só nomes mudaram. Migração: keys em <code>tokens/semantic/{light,dark}.json</code>, entries em <code>tokens/registry.json</code>, <code>--ds-content-*</code> em CSS de componente/base e em HTMLs/MDs de docs (sed-replace via 3 passos com placeholder pra evitar clash), Variables <code>content/{default,secondary,tertiary}</code> na collection Semantic do Figma via <code>use_figma</code> (bindings auto-seguem por ID). <code>npm run build:tokens</code> + <code>build:api</code> + <code>sync:docs</code> regeneram derivados. Decisão tomada durante #4 P1-1 da auditoria Figma↔Repo, quando <code>content/secondary</code> apareceu como text token do Badge Neutral Subtle.</p>
+</li>
+<li><p><strong>ADR-017 — Componentes CSS-only (sem equivalência no Figma).</strong> Análogo de ADR-016 para componentes. Codifica que <strong>Form Field</strong> (<code>css/components/form-field.css</code>) existe só no CSS porque HTML não tem elemento &quot;form control&quot; composto — precisamos compor <code>&lt;label&gt;</code> + control + helper + error com IDs e ARIA. Cada componente Figma de form (Input Text, Select, Textarea, Checkbox, Radio, Toggle) já carrega Label + Required + Helper + Description inline em cada variant; authorar Form Field no Figma criaria duplicação. Auditorias Figma↔Repo devem ignorar componentes marcados <code>cssOnly: true</code> ao reportar &quot;faltando no Figma&quot;. Propagado para: <code>scripts/sync-docs.mjs</code> (<code>knownComponents</code> ganha flag <code>cssOnly</code>; tabela de inventário mostra &quot;— (CSS-only, ADR-017)&quot; em vez de status Figma; nota explicativa adicionada), <code>docs/component-inventory.md</code> (regerada), <code>css/components/form-field.css</code> (comentário no topo), <code>AGENTS.md</code> (seção dedicada após source of truth de tokens), <code>audit/audit-report.md</code> (P0-3 reclassificado).</p>
+</li>
+<li><p><strong>Plugin local <code>figma-plugin/snapshot-exporter</code> para exportar <code>.figma-snapshot.json</code> direto do Figma.</strong> MVP seguro antes de webhook/PR automático: lê Variables locais via Plugin API, preserva collections, modes, aliases e metadados mínimos, permite baixar/copiar o snapshot no formato já consumido por <code>scripts/sync-tokens-from-figma.mjs</code>. <code>docs/process-figma-sync.md</code> passa a tratar o plugin como caminho preferencial e MCP como fallback.</p>
+</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><p><strong>Avatar Initials font-size escala 14/16/20 com weight matching (sm/md/lg).</strong> Antes: Md tinha mesma font-size do Sm (14) — bug Figma. Lg tinha drift CSS (font-lg=18 vs Figma font-xl=20) e weight diferente (CSS bold vs Figma semibold). Aplicado:</p>
+<ul>
+<li>Figma: Avatar Initials Medium fontSize → <code>typography/body/font-size/md</code> (16) via <code>use_figma</code>.</li>
+<li>CSS: <code>.ds-avatar</code> default md <code>font-sm → font-md</code>; <code>.ds-avatar--lg font-lg → font-xl + font-weight semibold</code>.</li>
+<li>Resolve P2-3 da auditoria.</li>
+</ul>
+</li>
+<li><p><strong>Description + Helper Text adicionados em Checkbox/Radio/Toggle (CSS).</strong> Figma já tinha esses como slots opt-in (boolean <code>Show Description</code>/<code>Show Helper Text</code>); CSS implementava só Label. Agora os 3 componentes ganham wrapper item (<code>.ds-checkbox-item</code>, <code>.ds-radio-item</code>, <code>.ds-toggle-item</code>) com flex column + classes filhas <code>__description</code> (sm + regular + content/strong) e <code>__helper</code> (xs + regular + content/default). Indent calculado pra alinhar com label, passando o control + gap. Resolve P2-2 da auditoria.</p>
+</li>
+<li><p><strong>P2-5 (Spinner --on-color) reclassificado como falso positivo.</strong> Re-dump completo mostra Figma TEM <code>Style=On Color</code> (sm/md/lg) com tokens batendo 1:1 com CSS (<code>overlay/medium</code> + <code>border/inverse</code>). Auditoria original amostrou só <code>Style=Default, Size=Small</code> — conclusão errada. Sistema correto.</p>
+</li>
+<li><p><strong>P2-4 (Modal Footer button heights) reclassificado como wontfix.</strong> Modal CSS não força size de Button (decisão consciente, padrão Material/Polaris). Consumer controla via <code>.ds-button--sm/--lg</code>. Figma prescreve sm/md/lg como recomendação visual pra mockups, não como CSS constraint.</p>
+</li>
+<li><p><strong>P2-1 (letter-spacing morto sistêmico) reclassificado como wontfix.</strong> Investigação revelou que <code>css/base/reset.css:82</code> aplica <code>letter-spacing: var(--ds-body-letter-spacing-normal)</code> globalmente; todo texto herda via cascade. Figma bindings explícitos são redundantes mas não causam drift visual. Limpar ~600+ bindings sem ganho visual não justifica o trabalho. Modal Large title é exceção (tight, fix em P1-4).</p>
+</li>
+<li><p><strong>Breadcrumb Item Link agora usa <code>link.content-default</code></strong> (era <code>primary.background.default</code>, token de background usado como text). Adicionado <code>:hover</code> → <code>link.content-hover</code> e <code>:active</code> → <code>link.content-active</code> no CSS. Figma rebindado via <code>use_figma</code> no Label do State=Link. Resolve P1-8 da auditoria.</p>
+</li>
+<li><p><strong>Select chevron + leading icon escalam por size (sm=20, md/lg=24)</strong> alinhando ao padrão do Button icon. Antes: chevron sempre 16px no CSS; Figma chevron icon hardcoded 16/20/24 (um step menor que Button). Agora ambos seguem 20/24/24:</p>
+<ul>
+<li>Figma: 18 chevron icon TEXT nodes rebindados via <code>use_figma</code> — sm → <code>size/sm</code>, md/lg → <code>size/md</code>.</li>
+<li>CSS <code>.ds-select__arrow</code>: default md = 24px, sm = 20px, lg = sem override (usa default).</li>
+<li>CSS <code>.ds-select__icon</code> (leading icon): mesma escala.</li>
+<li>Resolve P1-7 da auditoria.</li>
+</ul>
+</li>
+<li><p><strong>Input + Select Field text em size Small alinhados ao Figma</strong>: font-size <code>body/sm</code> (14px) → <code>body/xs</code> (12px) + line-height <code>body/sm</code> → <code>body/2xs</code>. Textarea já estava alinhado (Figma sm = 14px). Resolve P1-6 da auditoria.</p>
+</li>
+<li><p><strong>Modal body agora escala typography por size</strong> (espelha Figma): sm → <code>font-size sm + line-height sm</code>, md → <code>font-size md + line-height md</code>, lg → <code>font-size lg + line-height xl</code>. Antes <code>.ds-modal__body</code> era estático em sm/md mistura. Resolve P1-5 da auditoria.</p>
+</li>
+<li><p><strong>Modal Large title agora aplica <code>letter-spacing/tight</code></strong> (espelha binding do Figma). Para títulos grandes (3xl), tight letter-spacing otimiza legibilidade visual. Resolve P1-4 da auditoria.</p>
+</li>
+<li><p><strong>Button: icon escala por size (sm=20, md/lg=24) + Icon Only com padding simétrico.</strong> Antes: icon hardcoded em todas as variants (boundVar=null), Icon Only com <code>padding: 0</code> e paddings assimétricos no Figma (pl/pr ≠ pt/pb). Agora:</p>
+<ul>
+<li><strong>Glyph fontSize bindado</strong> em 270 nodes via <code>use_figma</code>: sm Buttons → <code>size/sm</code> (20), md/lg Buttons → <code>size/md</code> (24).</li>
+<li><strong>Icon Only paddings simétricos</strong> em 108 variants Figma: sm → <code>space/control/padding/6</code> (6px), md → <code>space/sm</code> (8px), lg → <code>space/md</code> (12px). Cálculo: (button - icon) / 2 centraliza icon.</li>
+<li><strong>Token novo: <code>semantic.space.control.padding.6</code></strong> (alias <code>foundation.dimension.6</code>) — único valor entre <code>xs</code> (4) e <code>sm</code> (8) na escala. Segue padrão de <code>space.control.padding.10</code> (ADR-006/015).</li>
+<li><strong>CSS atualizado</strong>: <code>.ds-button__icon</code> default 20→24, sm 16→20, lg sem mudança. Material Symbols idem. <code>.ds-button--icon-only</code> ganha paddings por size em vez de <code>padding: 0</code>.</li>
+<li>Decidido como P1-3 da auditoria.</li>
+</ul>
+</li>
+<li><p><strong>Badge Subtle (Success/Warning/Error/Info): Figma rebindado de <code>feedback/X/background/default</code> para <code>feedback/X/content/default</code> na cor do Label.</strong> Figma usava token de <strong>background</strong> como cor de texto — uso semanticamente errado da Variable. CSS já consumia <code>feedback-X-content-default</code> (correto, com calibração WCAG pra texto). Rebind via <code>use_figma</code> em 4 variants (Success Subtle, Warning Subtle, Error Subtle, Info Subtle). Resolve P1-2 e mantém paralelismo com Solid: Solid usa <code>content/contrast</code> (texto sobre fundo escuro), Subtle usa <code>content/default</code> (texto sobre fundo claro).</p>
+</li>
+<li><p><strong>Badge Neutral Subtle alinhado ao Figma</strong> — CSS estava usando <code>background-disabled</code> (semanticamente errado pra um Neutral) e sem stroke. Agora usa <code>surface-default</code> + <code>content-default</code> + <code>border-default</code> (1px), espelhando exatamente o que Figma binda. Stroke é o que distingue Subtle de Solid no Neutral (ambos compartilham <code>surface-default</code>). Decidido como item P1-1 da auditoria.</p>
+</li>
+<li><p><strong>Badge Neutral Solid alinhado ao Figma</strong> — CSS estava usando <code>border-strong</code> + <code>content-inverse</code> (fundo escuro + texto claro), enquanto Figma binda <code>surface/default</code> + <code>content/default</code> (fundo claro + texto escuro). Inversão visual entre design e produto. CSS atualizado pra espelhar Figma. Decidido como item P0-1 da auditoria.</p>
+</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><strong>Badge Secondary (Solid + Subtle) eliminado</strong> — não temos mais cores secundárias no DS, então a variante perdeu propósito. Remoção aplicada em <code>css/components/badge.css</code> (regras <code>.ds-badge--secondary.ds-badge--solid</code> e <code>.ds-badge--secondary.ds-badge--subtle</code>), <code>docs/badge.html</code> (preview, code snippet e tabela de classes), <code>.a11y-baseline.json</code> (fingerprints de contraste light/dark), e Figma (variants <code>Color=Secondary, Style=Solid</code> e <code>Color=Secondary, Style=Subtle</code> removidas — Badge component agora tem 12 variants em vez de 14). Decidido como item P0-2 da auditoria Figma↔Repo.</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li><strong><code>AGENTS.md</code> na raiz — fonte canônica multi-IA.</strong> Adota o padrão emergente <a href="https://agents.md/">agents.md</a> (OpenAI Codex, Cursor, Aider, Sourcegraph Amp, Factory, Jules) para que qualquer agente IA — não só Claude Code — saiba como operar no repo. Cobre forbidden actions (top, scannable), source of truth por categoria de token (Figma-canônica vs CSS-only ADR-016), workflows comuns (adicionar token, refatorar componente, sync Figma→JSON, criar ADR), verification protocol antes de commit, convenções de commit/branch/PR, glossário, e ordem de consulta para dúvidas.</li>
+<li><strong><code>GEMINI.md</code> na raiz</strong> — pointer fino para <code>AGENTS.md</code> + adições específicas do Gemini CLI (limitações sem MCP Figma/GitHub direto, co-author de commit).</li>
+<li><strong><code>CLAUDE.md</code> refatorado</strong> para pointer fino + Claude-specifics (MCPs Figma/GitHub, gotchas Plugin API, skills relevantes, precedência de instruções repo vs memória). Conteúdo transversal migrado para <code>AGENTS.md</code>.</li>
+<li><strong><code>scripts/agent-preflight.mjs</code> + <code>npm run agent:preflight</code></strong> — sanity check rodável como primeira ação de uma sessão. Reporta branch, dirty/clean, ahead/behind, idade do <code>.figma-snapshot.json</code>, último resultado de <code>verify:tokens</code> (lido de <code>docs/api/tokens-sync.json</code>), estado do <code>[Não publicado]</code> no CHANGELOG, e versão atual. Não bloqueia — informa o que precisa de atenção antes de qualquer escrita. Documentado na seção 0 de AGENTS.md como obrigatório.</li>
+<li><strong>README e CONTRIBUTING apontam para AGENTS.md</strong> — entry no índice de docs do README + nota de abertura no CONTRIBUTING para colaboradores que estão usando IA.</li>
+<li><strong>Gotchas de Figma authoring migrados para CLAUDE.md</strong> (Plugin API): <code>COMPONENT_SET</code> precisa de <code>clipsContent=false</code> + size que abrace focus rings/drop shadows; não ativar <code>clipsContent=true</code> em frames de componente sem necessidade. Antes vivia só em memória user-level do Claude — agora documentado no repo.</li>
+<li><strong>ADR-016 — Tokens sem equivalência no Figma (CSS-only).</strong> Codifica que <code>motion.*</code> (duration + ease), <code>z.*</code> (z-index) e <code>shadow.*</code> vivem só em JSON porque Figma não as representa como Variables (Smart Animate é runtime, layer order não é z-index, shadow é Effect Style não-bindável). JSON é fonte de verdade para essas categorias; edição direta é permitida e esperada. Para todas as outras (<code>color</code>, <code>dimension</code>, <code>radius</code>, <code>opacity</code>, <code>border-width</code>, <code>typography</code> etc.), vale a regra padrão de ADR-003 (Figma é fonte). Critério de carve-out: nenhuma representação Figma OU representação não-bindável (Effect Style). <code>sync:tokens-from-figma</code> ignora essas categorias ao reportar <code>MISSING_IN_FIGMA</code>. Propagado para <code>CLAUDE.md</code> (regra operacional 1), <code>docs/system-principles.md</code> (hierarquia de verdade), <code>docs/token-architecture.html</code> (nova seção), <code>CONTRIBUTING.md</code> (pipeline de tokens) e <code>docs/process-figma-sync.md</code> (categoria BY_DESIGN).</li>
+<li><strong>Token semantic novo: <code>z.tooltip</code> → <code>{foundation.z.40}</code>.</strong> Light + dark (mode-invariant). CSS gerado: <code>--ds-z-tooltip</code>. Consumido por <code>tooltip.css</code> em substituição ao <code>z-index: 40</code> literal anterior. Edição direta no JSON é legítima sob ADR-016.</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><p><strong>Documentação consolidada para arquitetura 2-layer (Foundation → Semantic).</strong> Remoção de referências stale à camada Component, deletada em 0.7.0 mas ainda mencionada em vários lugares:</p>
+<ul>
+<li><code>README.md</code> — versão atualizada de 0.5.14 → 1.0.0-beta.4 (alinha com <code>package.json</code>); descrição &quot;três temas&quot; → &quot;paleta brand única customizável&quot;; &quot;18 componentes&quot; → &quot;19&quot;; &quot;11 ADRs&quot; → &quot;15&quot;.</li>
+<li><code>docs/decisions/ADR-013-camadas-de-consumo-de-tokens.md</code> (+ HTML regerado) — reescrita refletindo 2-layer; remove cadeia de Component, atualiza exemplos e exceções para o estado vigente.</li>
+<li><code>docs/system-principles.md</code> — seção &quot;três camadas&quot; → &quot;duas camadas&quot;; tabela de fontes de verdade limpa; texto sobre when-to-create token simplificado.</li>
+<li><code>docs/token-schema.md</code> — remove linha Component da tabela de camadas; renumera &quot;Regras invioláveis&quot; para incluir &quot;text styles autoritários para tipografia&quot;.</li>
+<li><code>docs/process-figma-sync.md</code> — &quot;4 collections&quot; → &quot;2 collections&quot; (Foundation, Semantic).</li>
+<li><code>docs/component-inventory.md</code> — coluna &quot;Tokens JSON&quot; removida; Component count removido; nota de binding ajustada.</li>
+<li><code>docs/token-architecture.html</code> — corrige nomes de tokens stale (<code>--ds-dimension-20</code>/<code>--ds-font-size-14</code> → <code>--ds-space-xl</code>/<code>--ds-body-font-size-sm</code>; <code>primary.bg-hover</code> → <code>primary.background.hover</code>; <code>size.avatar.md</code> → <code>size.lg</code>).</li>
+<li><code>docs/llms.txt</code> + <code>docs/llms-full.txt</code> + <code>scripts/build-llms.mjs</code> — descrição &quot;três temas&quot; → &quot;paleta brand única&quot;; &quot;três camadas&quot; → &quot;2-layer&quot;.</li>
+<li><code>scripts/sync-docs.mjs</code> — para de gerar seção Component em <code>token-schema.md</code>.</li>
+</ul>
+</li>
+<li><p><strong>Card <code>--elevated</code> agora usa <code>surface-raised</code> em vez de border subtle</strong>, espelhando o componente Figma (raised surface + semantic card shadow, sem stroke).</p>
+</li>
+<li><p><strong>Modal</strong>: remove border default; tamanho <code>--lg</code> agora usa <code>layout-lg</code> (era duplicata de <code>md</code>); título escala por size (xl/2xl/3xl) com line-heights pareados.</p>
+</li>
+<li><p><strong>Spinner</strong>: consome <code>border-width-strong</code>, <code>border-brand</code>, <code>motion-duration-slow</code> + <code>motion-ease-default</code>, <code>opacity-disabled</code>. Variante nova <code>--on-color</code> para uso sobre fundos de marca (overlay-medium + border-inverse). Remove valores <code>border-width: 1.5px/3px</code> hardcoded.</p>
+</li>
+<li><p><strong>Tooltip</strong>: consome <code>--ds-z-tooltip</code> (novo, ver Adicionado), <code>--ds-primary-content-default</code> para foreground, e <code>--ds-space-xs/sm</code> no lugar dos <code>4px/6px</code> literais nas setas.</p>
+</li>
+<li><p><strong><code>docs/foundations-colors.html</code> agora exibe contraste WCAG por swatch no formato Figma.</strong> Cada swatch das 10 paletas Foundation + Brand alias mostra <code>vs White X.X:1</code> e <code>vs Black X.X:1</code> com badge <code>AAA / AA / AA Large / Fail</code> — paridade com a página Foundation — Colors do Figma. Layout do swatch redesenhado pra card com info section (token name, hex, divider, duas linhas de contraste). Razões WCAG calculadas deterministicamente a partir do Foundation JSON (formula 2.1) e validadas contra os valores reportados no Figma (zero divergência). Hex hardcodados (<code>style=&quot;background-color:#XXX&quot;</code>) substituídos por <code>var(--ds-color-...)</code> em todos os swatches — referência direta à Foundation, sem drift entre página e tokens.</p>
+</li>
+<li><p><strong>Cobertura de overlay/disabled na página Foundation Colors.</strong> Adicionadas seções &quot;Overlays&quot; (Black/White × {5,10,20,40,60,80}%), &quot;Toned overlays (Brand)&quot; (blue-600 × {12,20,28}, blue-400 × {15,25,32}) e &quot;Disabled fills&quot; ({brand,success,error} × {light,dark}) — antes a página só mostrava 5 stops de Black overlay e omitia White, toned e disabled, criando gap entre <code>tokens/foundation/colors.json</code> e o que a doc exibe. Renderizadas sobre xadrez pra indicar transparência. Seção &quot;Brand (alias customizável)&quot; também adicionada.</p>
+</li>
+<li><p><code>.ds-swatch__info</code>, <code>.ds-swatch__divider</code>, <code>.ds-swatch__contrast-row</code>, <code>.ds-swatch__contrast-label</code>, <code>.ds-swatch__contrast-ratio</code>, <code>.ds-swatch__color--checker</code>, <code>.ds-swatch__overlay</code> em <code>docs/layout.css</code> pra suportar o novo layout de card.</p>
+</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>Swatches em <code>foundations-colors.html</code> agora exibem o nome completo da CSS variable como label</strong> (ex: <code>--ds-color-brand-50</code> em vez de só <code>50</code>). Mirror direto do que o consumer escreve em CSS/JSON. Disabled e Overlay seguem o mesmo padrão (<code>--ds-color-disabled-brand-light</code>, <code>--ds-overlay-black-5</code>, etc.). Layout do <code>__name</code> ajustado pra mono font + word-break pra acomodar nomes longos.</li>
+<li><strong><code>docs/foundations-colors.html</code> reordenado e renomeado pra espelhar a collection Foundation no Figma.</strong> Ordem antes (Neutral, Blue, Purple, Red, Amber, Green, Sky, Cyan, Emerald, Indigo + Brand alias no fim) → ordem agora (Brand, Neutral, Green, Amber, Red, Blue, Purple, Sky, Cyan, Emerald, Indigo) matching <code>Foundation.variableIds[]</code>. Section labels limpos: removidos refs obsoletos a &quot;(escala Slate)&quot;, &quot;(paleta Primary)&quot;, &quot;(paleta Secondary)&quot;, &quot;(tema Ocean)&quot;, &quot;(tema Forest)&quot;, &quot;(secundária do tema Ocean)&quot; — themes Default/Ocean/Forest foram deletados em ADR-014, palettes Primary/Secondary não existem mais. Section labels mantém só descrição semântica útil onde aplica (Green = Sucesso, Amber = Alerta, Red = Erro, Sky = Informação). Disabled fills + Overlays movidos pra final (matching ordem no Figma collection).</li>
+<li><strong>Página <code>Foundation — Colors</code> no Figma reordenada pra match collection order.</strong> Sections antes em ordem <code>Neutral, Green, Amber, Red, Blue, Purple, Sky, Cyan, Emerald, Indigo</code>. Já estava quase certa, mas descrição de Neutral atualizada de &quot;Escala de cinzas&quot; pra &quot;Escala neutra&quot; (consistência terminológica).</li>
+</ul>
+<h3>Histórico Tailwind removido</h3>
+<p>Projeto não usa Tailwind. Citações que poderiam gerar confusão foram limpas:</p>
+<ul>
+<li><code>tokens/registry.json</code> (121 ocorrências) + <code>scripts/populate-registry.mjs</code> (1 template) — &quot;escala Tailwind-compatível&quot; → &quot;escala 50–950 padronizada&quot;. <code>docs/token-registry.md</code> regenerado via <code>npm run build:registry</code>.</li>
+<li><code>docs/decisions/ADR-001</code> e <code>ADR-005</code> — header <strong>Status</strong> atualizado anotando supersession por ADR-014 (themes Default/Ocean/Forest deletados em 0.8.0). Conteúdo histórico preservado por convenção ADR.</li>
+<li><code>docs/foundations.html</code> — swatches demo de Foundation Colors trocadas: <code>--ds-color-blue-500</code> + <code>--ds-color-purple-500</code> → <code>--ds-color-brand-500</code> + <code>--ds-color-neutral-500</code>.</li>
+<li><code>docs/token-architecture.html</code> — exemplos <code>foundation.color.blue.500</code> / <code>--ds-color-blue-500</code> / <code>color/blue/500</code> → <code>brand.500</code> em todas as colunas.</li>
+<li><code>docs/design-principles.html</code> — anti-pattern reescrito: &quot;When the brand switches to cyan, every reference to blue needs manual replacement&quot; → &quot;Foundation tokens skip the Semantic layer — every brand, hierarchy or state change needs manual replacement&quot;.</li>
+</ul>
+<p>Paletas Foundation <code>blue/purple/cyan/emerald/indigo</code> (55 vars) <strong>não removidas</strong> — restos pré-0.8.0 com 0 consumer em CSS de componente, mas ainda existem na collection Foundation/JSON. Decisão de deletar fica pra sessão futura (afeta Figma + JSON + regenera CSS).</p>
+<h3>Drift detectado (requer ação no Figma)</h3>
+<ul>
+<li><strong>Página de documentação <code>Foundation — Colors</code> no Figma está stale para <code>green/*</code>, <code>amber/*</code> e <code>neutral/950</code>.</strong> Os retângulos coloridos e labels hex daquela página exibem Tailwind defaults antigos (ex: green/500 mostra <code>#22C55E</code>, amber/500 mostra <code>#F59E0B</code>, neutral/950 mostra <code>#050C1A</code>), enquanto as Variables Figma reais (e o JSON) já estão recalibrados pra WCAG 4.5:1 (<code>#009F42</code>, <code>#BB7500</code>, <code>#070C17</code>). Validado contra <code>.figma-snapshot.json</code>: Variables ↔ JSON estão 100% alinhadas (<code>verify:tokens</code> passa com 0 drift). A correção é repopular os swatches da página de doc do Figma a partir das Variables atuais — os retângulos foram pintados com hex literal antes da recalibração e nunca refrescados. Não afeta consumidores; é só a doc visual do Figma. Pendente: sessão de Figma authoring pra regenerar as 33 swatches stale (11 green + 11 amber + 1 neutral/950 — total 33 retângulos).</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Form Field restaurado como component #19</strong>. Reverte simplificação anterior que tirou Form Field da lista — Form Field é padrão first-class em todo DS sério (Material, Polaris, Carbon, Chakra), é onde a a11y de form se materializa (label↔control association, aria-describedby, aria-invalid). Entregas:<ul>
+<li><code>css/components/form-field.css</code> (extraído de <code>input.css</code>) — wrapper standalone <code>.ds-field</code> + sub-classes <code>.ds-field__label-row</code>, <code>.ds-field__label</code>, <code>.ds-field__required</code>, <code>.ds-field__helper</code>, <code>.ds-field__error</code> e modificadores <code>.ds-field--error</code>, <code>.ds-field--no-label</code>, <code>.ds-field--no-helper</code>. CSS já existia, agora tem arquivo dedicado e import explícito em <code>components/index.css</code>.</li>
+<li><code>docs/form-field.html</code> — doc completa com when-to-use, anatomy (5 partes numeradas), uso básico, required state, error state com <code>aria-invalid</code> + <code>role=&quot;alert&quot;</code>, composição com Select/Textarea, checklist de a11y WCAG 2.2 (1.3.1, 3.3.2 etc), reference table de classes.</li>
+<li>Sidebar (<code>js/main.js</code>), <code>index.html</code> grid, <code>index.html</code> count 18→19, <code>scripts/sync-docs.mjs</code> knownComponents, e refs em <code>process-versioning.md</code>/<code>system-principles.md</code>/<code>build-llms.mjs</code>/<code>CONTRIBUTING.md</code>.</li>
+<li>A11y baseline atualizado (5 fingerprints novos, todos inerências de template — logo + tabs já aceitos em outras páginas).</li>
+<li>Visual regression baseline criado pra form-field.html (light + dark).</li>
+<li><strong>Figma</strong>: page placeholder criada em <code>🧩  Components → ❖  Form Field</code>. Component dedicado (variants, properties, slots) marcado como TODO de authoring session.</li>
+</ul>
+</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Sidebar 404 em &quot;Form Field&quot;</strong> — entry em <code>js/main.js</code> tinha sido órfã quando Form Field foi removido. Corrigido restaurando-o como component first-class (acima).</li>
+</ul>
+<h2>[1.0.0-beta.4] — 2026-04-28</h2>
+<p>Production-grade hardening: reconciliação completa Figma↔JSON com CI gate, a11y testing automatizado (axe-core + Playwright) com baseline lock, visual regression testing (pixelmatch), token registry 100% documentado (sentido/contexto/decisão pra cada token), refactor Foundation→Semantic em 12 components, redesign de token-architecture.</p>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Visual regression testing via Playwright + pixelmatch</strong> (<code>scripts/test-visual.mjs</code>). Captura full-page de 31 páginas × 2 modos = 62 screenshots e compara contra baseline versionado em <code>tests/visual/baseline/</code> (~27MB). Threshold 0.5% pixel diff tolera anti-aliasing, bloqueia mudanças visuais reais. Diff visualizável em <code>tests/visual/diff/</code> (gitignored). Comando: <code>npm run test:visual</code> (local-only — fonts via Google Fonts CDN renderizam levemente diferente Linux vs Mac, então não rodando em CI ainda).</li>
+<li><strong>Token registry 100% preenchido</strong> — <code>scripts/populate-registry.mjs</code> gerou drafts determinísticos pra <code>sentido</code>/<code>contexto</code>/<code>decisao</code>/<code>escopo</code> em todos os 426 tokens. Foundation 100% mecânico (color step descriptions, escalas dimension/radius/typography, conventions de shadow/motion/z). Semantic 100% via heurísticas de nome (action × style × prop × state, feedback × kind × prop). Drafts revisíveis — owner pode reescrever entries específicas; <code>build:registry</code> preserva campos editados manualmente.</li>
+<li><strong>A11y testing automatizado via axe-core + Playwright</strong> (<code>scripts/test-a11y.mjs</code>). Roda contra todas as 42 páginas docs em light + dark (84 runs) com tags WCAG 2A, 2AA, 2.1A, 2.1AA, 2.2AA. Bloqueia CI em violações NOVAS (não-baseline) com impact <code>critical</code> ou <code>serious</code>. Baseline atual em <code>.a11y-baseline.json</code> (422 fingerprints) — meta é reduzir incrementalmente. Comando: <code>npm run test:a11y</code> (também rodando em <code>npm test</code>).<ul>
+<li>Fixes preventivos no setup: skeleton previews ganharam <code>role=&quot;status&quot;</code>; markdown task list checkboxes em process-*.html marcados <code>aria-hidden=&quot;true&quot;</code> via post-process em <code>sync-docs.mjs</code>; loading buttons em <code>docs/button.html</code> com <code>aria-label</code> + <code>aria-busy</code>; demos com <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code> sem label receberam <code>aria-label</code>; &quot;Don&#39;t&quot; examples em checkbox demos receberam atributo <code>inert</code> pra axe pular; swatch contrast badges em <code>js/main.js</code> marcados <code>aria-hidden=&quot;true&quot;</code> (são demonstrações educativas de mau contraste); <code>&lt;pre&gt;</code> com código longo recebeu <code>tabindex=&quot;0&quot;</code> (scrollable-region-focusable); <code>&lt;dl&gt;</code> malformado em token-architecture virou <code>&lt;div&gt;</code>.</li>
+</ul>
+</li>
+<li><strong>CI check Figma↔JSON via <code>.figma-snapshot.json</code></strong> — <code>verify:tokens</code> agora compara JSON do repo contra snapshot das 387 Variables Figma e falha em divergência. Snapshot gerado por <code>use_figma</code> em batches (~50KB cada), gitignored. Ver <code>docs/process-figma-sync.md</code>.</li>
+<li><strong>Redesign da seção &quot;Camadas e cadeia de alias&quot;</strong> em <code>docs/token-architecture.html</code>. Duas seções viraram uma. Foundation primeiro (01), Semantic depois (02), em dois cards lado-a-lado usando o vocabulário visual do site (<code>--ds-radius-12</code>, <code>--ds-border-default</code>, <code>--ds-surface-default</code>, <code>&lt;code&gt;</code> inline padrão). Sem componente novo, sem display all-caps, sem chips, sem swatches/ícones. A cadeia de alias virou um parágrafo prosaico abaixo dos cards (já implícita no card 02 via aliases <code>{color.blue.600}</code>). Card usa <code>--ds-surface-default</code> (não <code>--ds-surface-raised</code>) pra contrastar com o <code>&lt;code&gt;</code> inline em dark mode (que usa <code>--ds-background-subtle</code> ≡ <code>--ds-surface-raised</code> ≡ neutral-800).</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>Reconciliação Figma↔JSON completa.</strong> 23 tokens com VALUE_DRIFT corrigidos pra refletir Figma como autoridade de valor (ADR-003):<ul>
+<li><code>foundation.color.disabled.{brand,success,error}-dark</code> ganharam alpha (estavam sem em hex). <code>foundation.radius.999</code> corrigido (<code>9999px</code> → <code>999</code>).</li>
+<li>Semantic: <code>outline.{border-default,border-hover,content-default}</code>, <code>link.{content-default,content-hover}</code>, <code>border.{focus,focus-error,error}</code>, <code>outline.background.hover</code>, <code>ghost.background.hover</code>, <code>feedback.{success,warning,error,info}.background.subtle</code> (dark) — todos os aliases atualizados pra refletir escolhas de cor do Figma.</li>
+</ul>
+</li>
+<li><strong>4 tokens semantic novos</strong> adicionados pra alinhar com Figma: <code>link.content-disabled</code>, <code>border.inverse</code>, <code>feedback.{success,error}.content-disabled</code> (light + dark).</li>
+<li><strong>Refatoração de Foundation→Semantic em CSS de componentes</strong> (12 arquivos). Componentes não consomem mais Foundation direto via <code>--ds-focus-ring-*</code> ou <code>--ds-control-*</code>:<ul>
+<li>Focus ring → <code>--ds-border-focus</code> + <code>--ds-border-width-focus</code> (mesmo valor pra offset). Bate com Figma <code>border/focus</code> e <code>border/width/focus</code>.</li>
+<li>Control typography → <code>--ds-body-font-size-{sm,md}</code> + <code>--ds-body-line-height-{2xs,sm,md}</code> espelhando Text Styles <code>control/label-md</code>, <code>label/md</code>, <code>label/lg</code> que Figma aplica nos componentes.</li>
+</ul>
+</li>
+<li><strong><code>background/overlay</code> em ambos modos no Figma</strong> unificados em <code>overlay/black/60</code>. Antes: light=<code>black/40</code>, dark=<code>white/40</code> (contraditório). Agora ambos consistentes em 60% black, alinhado com mercado (Material/Bootstrap/Tailwind usam ~50-60% black em modal scrim).</li>
+<li><strong>Variable nova <code>link/content/active</code> no Figma</strong> (Semantic, scope TEXT_FILL): light alias <code>brand.800</code>, dark alias <code>brand.200</code>. Espelha <code>semantic.link.content-active</code> adicionado em beta.3 — JSON e Figma agora convergem.</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><strong>Tokens Semantic redundantes ou sem consumer real</strong>:<ul>
+<li><code>semantic.focus.ring.{width,offset,color}</code> — substituídos por <code>border.focus</code> e <code>border.width.focus</code> que Figma já tem.</li>
+<li><code>semantic.typography.control.{font-size,line-height}.{sm,md,lg}</code> — Figma não tem Variables <code>control/typography/*</code>; usa Text Styles <code>control/*</code> que bindam Semantic <code>body/*</code>. CSS migrado pra <code>body.*</code> direto.</li>
+<li><code>semantic.feedback.{success,error}.content-contrast-disabled</code> — sem consumer no CSS.</li>
+<li><code>semantic.border.width.subtle</code> — sem consumer no CSS.</li>
+</ul>
+</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong><code>scripts/lib/figma-dtcg.mjs</code></strong>: normalizer Figma↔JSON colapsa hífen→ponto em paths (<code>primary.content-default</code> ↔ <code>primary.content.default</code>). Antes inflava 119 falsos positivos.</li>
+<li><strong><code>scripts/tokens-verify.mjs</code></strong>: <code>normalize()</code> reconhece equivalência entre número puro (Figma Float) e string <code>Npx</code>/<code>Nrem</code> (CSS gerado). Antes flagava <code>999 ≠ &quot;999px&quot;</code> como drift.</li>
+<li><strong>Code blocks sempre escuros no docs site</strong> (<code>docs/layout.css</code>):<ul>
+<li><strong><code>.ds-code-block</code> regredido sem estilo</strong> desde <code>d5c4fd2</code>: regra CSS não foi migrada pra <code>layout.css</code>. Recolocada com <code>--ds-color-neutral-900</code> + <code>--ds-color-neutral-50</code> (sempre escuro, padrão universal de terminal/editor).</li>
+<li><strong><code>&lt;pre&gt;</code> global em <code>reset.css</code></strong> usa <code>--ds-background-inverse</code>, que flipa pra branco em dark mode — deixava <code>.ds-preview__code pre</code> brancos em dark. Override em <code>main.ds-main pre</code> força escuro nos dois modos. Foundation direto é aceito aqui por ser estrutura do site de docs (não componente do DS).</li>
+</ul>
+</li>
+<li><strong>Topbar do site sempre acima de todo conteúdo de página</strong> (<code>docs/layout.css</code>, <code>docs/foundations-zindex.html</code>):<ul>
+<li>Topbar (e sidebar mobile + overlay) sobem para <code>calc(var(--ds-z-50) + 10)</code> (= 60), acima de toda a escala <code>--ds-z-*</code> (que termina em 50/toast). Antes, com header em <code>--ds-z-50</code>, conteúdo de página com z-50 empatava e podia paintar por cima via DOM order.</li>
+<li><strong>Demo de z-index</strong> ganhou <code>isolation: isolate</code> no <code>.ds-zindex-stack</code> — o container era <code>position: relative</code> sem <code>z-index</code>, então não criava stacking context, e o card <code>.ds-zindex-layer--50</code> escapava pra raiz e atravessava a topbar quando o demo era rolado pra baixo da topbar. Com <code>isolation</code>, a escala 0–50 fica local ao demo (que era a intenção).</li>
+</ul>
+</li>
+</ul>
+<h2>[1.0.0-beta.3] — 2026-04-27</h2>
+<p>Link como text style (não Button variant) com estados WCAG/W3C completos. Topbar fixes do site de docs. Modal Cancel rebind no Figma alinhando com decisão de manter Cancel como Ghost Button.</p>
+<h3>Adicionado</h3>
+<ul>
+<li><strong><code>.ds-link</code> CSS class</strong> (<code>css/components/link.css</code>) — text style pra hyperlinks inline em prosa, bold + underline, herdando dimensões de <code>body/*</code>. 4 sizes (<code>xs</code>/<code>sm</code>/<code>md</code>/<code>lg</code>) com line-heights pareados. Estados WCAG/W3C: <code>:hover</code>, <code>:active</code>, <code>:focus-visible</code>. <code>:visited</code> intencionalmente omitido (decisão do owner — Material 3/Apple HIG omitem em conteúdo curado).</li>
+<li><strong>Token <code>semantic.link.content-active</code></strong> (<code>brand.800</code> light / <code>brand.200</code> dark) — pressed state distinto de hover. Estados existentes <code>content-default</code> e <code>content-hover</code> mantidos.</li>
+<li><strong>4 Text Styles <code>link/{xs,sm,md,lg}</code> em Figma</strong> com bindings completos (fontSize, lineHeight, fontFamily, fontStyle Bold, letterSpacing) + <code>textDecoration: UNDERLINE</code> direto no Text Style (Figma Plugin API suporta). Cor aplicada em consumidor via <code>link/content/default</code> (Text Styles não armazenam fills).</li>
+<li><strong>Showcase rows pra Link</strong> em <code>docs/foundations-typography.html</code> — 4 sizes documentados com tokens.</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>Modal Cancel button no Figma</strong> rebindado em todas as 3 variants (Sm/Md/Lg): label color e icon fills de <code>link/content/default</code> → <code>ghost/content/default</code>. Cancel volta a ser visualmente Ghost neutral (alinha com <code>.ds-button--ghost</code> já em uso no CSS).</li>
+<li><strong>Capa Figma</strong>: badge versão <code>v1.0.0-beta.1</code> → <code>v1.0.0-beta.3</code> (pulou beta.2). Estilos de Texto count <code>25 → 29</code> (+4 link styles).</li>
+<li><strong>Changelog Figma</strong>: nova entrada <code>v1.0.0-beta.3 — Abril 2026</code> com 7 bullets.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Topbar do site de docs</strong> (<code>docs/layout.css</code>): três bugs visuais corrigidos:<ul>
+<li><strong>Hamburger mobile</strong>: <code>.ds-menu-toggle</code> usava <code>--ds-content-default</code> (escuro em light mode) sobre fundo brand. Agora consome <code>--_hfg</code>, ficando branco em ambos os modos. Hover ganhou estado.</li>
+<li><strong>Z-index</strong>: topbar subia até <code>--ds-z-40</code>, ficando no mesmo nível de modais (<code>z-40</code>) e abaixo de toasts (<code>z-50</code>). Conteúdo da página passava por cima da topbar. Subido para <code>--ds-z-50</code>. <code>.ds-sidebar-overlay</code> também foi pra <code>--ds-z-50</code> para cobrir a topbar quando o drawer mobile abrir (ordem DOM mantém header → overlay → sidebar).</li>
+<li><strong>Dark mode com transparência</strong>: header dark usava <code>--ds-toned-background-default</code>, que resolve para <code>--ds-overlay-blue-600-12</code> (12% alpha), deixando o conteúdo passar por trás. Trocado por <code>--ds-color-brand-900</code> (sólido, mantém identidade da marca e separa visualmente da sidebar — que usa <code>--ds-surface-raised</code>).</li>
+</ul>
+</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><strong><code>.ds-button--link</code> variant</strong> revertido de <code>css/components/button.css</code>. Adicionado erroneamente em beta.2 — Link não é Button variant (overlap com Ghost), é text style. Substituído por <code>.ds-link</code> em arquivo dedicado.</li>
+</ul>
+<h3>Sobre versão</h3>
+<p>Beta.3 corrige decisão arquitetural de beta.2 (Link como Button variant) e adiciona pattern correto (Link como text style com estados WCAG/W3C completos). Topbar fixes do owner consolidados nesta release.</p>
+<h2>[1.0.0-beta.2] — 2026-04-27</h2>
+<p>Sincronização Figma↔código: alinhamento de utilities/textStyles per size + nova variant <code>.ds-button--link</code> espelhando padrão de DS modernos (Material Text Button, Atlassian Link Button, Polaris Plain). Atualização da documentação no Figma (Capa + Changelog) refletindo o estado atual.</p>
+<h3>Adicionado</h3>
+<ul>
+<li><strong><code>.ds-button--link</code> variant</strong> em <code>css/components/button.css</code>: button text-only com cor <code>link/content/default</code>, sem background/border, underline em hover. Cobre o padrão Modal Cancel e ações de baixa ênfase. Espelha Material 3 (Text Button), Atlassian (Link Button), Polaris (Plain), Spectrum (style=text).</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>Badge label</strong> alinhado com Figma: <code>font-size sm (14)</code> → <code>xs (12)</code> + <code>line-height sm (20)</code> → <code>xs (18)</code>. Match exato com textStyle <code>label/xs</code> que Figma agora usa.</li>
+<li><strong>Radio label</strong> ganhou variants per size: Sm usa <code>control/label-md</code> (14/16), Md usa <code>label/md</code> (14/20), Lg usa <code>label/lg</code> (16/24). Antes CSS aplicava 14/20 em todos os tamanhos. Implementado via <code>:has()</code> selector.</li>
+<li><strong>Figma Capa atualizada</strong>: badge de versão <code>v0.5.17</code> → <code>v1.0.0-beta.1</code>. Counts atualizados (Coleções 4→2 após eliminação Component layer, Estilos de Texto 24→25, Tokens 285+→386).</li>
+<li><strong>Figma Changelog</strong>: nova entrada <code>v1.0.0-beta.1 — Abril 2026</code> espelhando CHANGELOG.md do repo. A partir daqui versionamento Figma e código alinhados.</li>
+</ul>
+<h3>Documentação</h3>
+<ul>
+<li><strong>Política de versionamento beta</strong> estabilizada: schema <code>1.0.0-beta.N</code> substitui 0.x até decisão do owner pra dropping → <code>1.0.0</code> oficial. Detalhes em <code>docs/process-versioning.md</code>.</li>
+<li><strong>Style=Link variant em Figma</strong> identificado como pendente (~60 variants × Style/Size/State/booleans). Deferido pra sessão dedicada com escopo Figma. CSS já tem <code>.ds-button--link</code> pronto pra consumir quando variant existir.</li>
+</ul>
+<h3>Sobre versão</h3>
+<p>Beta.2 fecha pendências do beta.1 (descrições/counts Figma desatualizados, drift Badge/Radio per size). Próxima beta deve focar em snapshot Figma (CI Figma↔JSON), Style=Link variants no Figma, e brand-principles.md.</p>
+<h2>[1.0.0-beta.1] — 2026-04-26</h2>
+<p>Primeiro release em fase beta. Consolida todo trabalho pós-0.8.0: alinhamento de 14 componentes restantes com Figma, refactor de inline styles dos docs, descriptions designer-focused nos 18 component sets Figma, eliminação de 111 leaks Foundation em <code>css/base/</code>, fix de problemas visuais persistentes (Toggle pixel offset, dodont border, callouts, header washed, version badge, code contraste, theme switcher legado, tooltip docs grid). Marca a transição do versionamento 0.x para a fase beta de 1.0.</p>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Política de versionamento beta</strong> (<code>docs/process-versioning.md</code>): schema <code>1.0.0-beta.N</code> substitui o 0.x até dropping decidido pelo owner. Cadência pack-based + fallback 2 semanas. Critérios de maturidade pra 1.0 documentados como guia (não gate).</li>
+<li><strong>Regra Operacional 5</strong> em <code>CLAUDE.md</code>: &quot;Figma é fonte de verdade absoluta. Quando o usuário pedir algo que diverge do Figma, alertar antes de aplicar.&quot; Inspeção do Figma vira pré-requisito de qualquer mudança que toque valor visual ou estrutura de token.</li>
+<li><strong>Centralização de utility classes de docs</strong> em <code>docs/layout.css</code>: callouts, dodont, anatomy, related, tables. Antes duplicados inline em 19+ arquivos <code>docs/*.html</code>. Future fix em uma edição.</li>
+<li><strong>Documentation links nos 18 component sets Figma</strong>: cada um aponta pro site de docs correspondente.</li>
+<li><strong>17 descriptions designer-focused</strong> reescritas (template Quando usar / Variantes / Constraints) nos componentes Figma.</li>
+<li><strong><code>semantic.typography.body.font-family.mono</code></strong> + <strong><code>semantic.typography.body.letter-spacing.wider</code></strong> sincronizados pra JSON (já existiam em Figma — JSON estava out-of-sync).</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>14 componentes alinhados 1:1 com Figma vs CSS</strong>: Badge, Breadcrumb, Checkbox, Input, Textarea, Alert, Avatar, Card, Divider, Radio, Skeleton, Spinner, Tabs, Tooltip. Drift visual aceito como alinhamento Figma (line-heights heading, font-weight medium→bold em label/*, icon container size-md fixo, etc.).</li>
+<li><strong>Toggle pixel-perfect</strong>: dimensions Sm 32×18, Md 40×22, Lg 48×26 com thumbs 12/16/20 e gap 3px (era 2px). Eliminada o offset de 1px à direita que persistia.</li>
+<li><strong><code>css/base/typography.css</code> reescrito</strong>: 24 utility classes <code>.ds-text-*</code> agora consomem 100% Semantic, alinhadas 1:1 com Text Styles do Figma. 21 classes restantes (3 deletadas alinhando com Figma).</li>
+<li><strong><code>css/base/reset.css</code></strong>: 14 substituições Foundation→Semantic. body/code/pre/table consomem <code>--ds-body-*</code>. <code>pre</code> usa <code>--ds-background-inverse</code> / <code>--ds-content-inverse</code> em vez de neutral-900/100 direto.</li>
+<li><strong><code>docs/layout.css</code></strong> ganha section &quot;DOCS UTILITY CLASSES&quot; centralizando estilos antes duplicados inline.</li>
+<li><strong>CI <code>deploy.yml</code></strong>: removida etapa &quot;Commit regenerated artifacts&quot; que tentava push como bot e falhava na branch protection. Agora só valida drift e falha com mensagem clara se artefatos commitados não baterem com <code>build:all</code>.</li>
+<li><strong><code>docs/foundations-typography.html</code></strong>: 3 showcase rows removidas (Label SM, Caption MD, Caption SM) alinhando com deleção dos Text Styles correspondentes em Figma.</li>
+<li><strong><code>tokens/registry.json</code></strong>: 83 entries stale removidas (referências a tokens deletados nas migrações 2-layer e size unification).</li>
+<li><strong>Toggle/Avatar descriptions Figma</strong> atualizadas refletindo specs 0.8.0 (Toggle 32/40/48, Avatar lg 64).</li>
+<li><strong>ADRs históricos atualizados</strong> com notas de evolução: ADR-006 (parcialmente substituída por ADR-015), ADR-013 (estabilizada como 2-layer em 1.0.0-beta.1), ADR-014 (estabilizada).</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Toggle Sm sem pill shape e thumb deslocado</strong> — track + thumb dimensions alinhadas exatamente com Figma.</li>
+<li><strong>&quot;Não faça&quot; / &quot;Faça&quot; callouts</strong> sem border completo e com bg desconectado do label tint. <code>.ds-dodont__item</code> ganha border + <code>:has()</code> pra desc herdar tint do label.</li>
+<li><strong>&quot;Foundation&quot; header washed em token-architecture.html</strong> — <code>.ds-arch__header--fdn</code> trocado de <code>--ds-overlay-subtle</code> (5% black, quase invisível) pra <code>--ds-feedback-info-background-subtle</code> + border tinted.</li>
+<li><strong>Badge de versão sem fundo</strong> em index.html — ref antiga <code>--ds-toned-bg-default</code> corrigida pra <code>--ds-toned-background-default</code>.</li>
+<li><strong>Tooltip docs com tooltips overlapping</strong> no canvas — layout grid 2x2 com gaps generosos. Position Right da coluna esquerda não colide mais com Position Left da coluna direita.</li>
+<li><strong>Tokens-sync page</strong>: &quot;Em dia&quot; deixa de imitar Button (solid bg+contrast color) e vira badge feedback-success-bg-subtle. Banner info ganha código inline com contraste legível (surface bg + border).</li>
+<li><strong>Theme switcher (Default/Ocean/Forest)</strong> removido do header — só Default existe nos tokens. lang-switcher (PT/EN) preservado.</li>
+<li><strong>574 textos de components Figma sem textStyleId</strong> corrigidos: aplicação por matching (family, style, fontSize, lineHeight) + detecção de contexto (Field/Text Frame → control/* style). Resultado: 100% Inter coverage em components, 367 Material Icons preservados como design intent.</li>
+<li><strong>Foundation header em chain__badge--fdn</strong> mesmo fix que arch__header — bg tinted em vez de overlay-subtle.</li>
+<li><strong><code>generatedAt</code> em artefatos derivados</strong> removido — torna build determinístico, eliminando drift CI.</li>
+<li><strong>Duplicata <code>body.line-height.lg</code>/<code>xl</code></strong> corrigida (xl agora 32px espelhando Figma; antes era 28 igual lg).</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><strong>111 leaks Foundation em <code>css/base/</code></strong> — todos migrados pra Semantic. <code>verify:tokens</code> reporta <code>CSS leak: OK</code> em components AND base.</li>
+<li><strong>3 utility classes</strong> sem Text Style counterpart no Figma: <code>.ds-text-label-sm</code>, <code>.ds-text-caption-md</code>, <code>.ds-text-caption-sm</code>.</li>
+<li><strong>Form Field</strong> da lista de components — <code>.ds-field*</code> permanece como utility interna do Input. <code>index.html</code> lista 18 components consistentes (era 19 com Form Field órfão). <code>docs/form-field.html</code> removido. Refs em &quot;Related&quot; sections de 6 docs HTML removidas.</li>
+<li><strong>Inline styles duplicados</strong> em 19+ docs HTML — extraídos pra <code>docs/layout.css</code>. ~89KB economizados.</li>
+<li><strong>Theme switcher dropdown</strong> do header (3 opções legadas).</li>
+<li><strong><code>.ds-md-generated-banner</code> Foundation leak</strong> — ganha border tinted e código inline com surface bg.</li>
+</ul>
+<h3>Sobre versão</h3>
+<p>Esta é a <strong>transição do 0.x para fase beta</strong>. Tags <code>v0.5.0</code> até <code>v0.8.0</code> permanecem válidas como histórico pré-beta. A partir daqui, releases são <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial.</p>
+<p>A entrada <strong>[0.8.0] — 2026-04-26</strong> abaixo é o último release pré-beta e ficou consolidando o trabalho pós-2-layer migration. Nada antes dela mudou.</p>
+<h2>[0.8.0] — 2026-04-26</h2>
+<p>Release que consolida o trabalho pós-merge do 2-layer (PR #41) até a unificação da escala de dimensão. Sequência de ajustes que ocorreu na prática em sub-etapas é apresentada aqui agrupada por tipo. Detalhamento técnico nos ADRs <strong>013</strong> (2-layer), <strong>014</strong> (action × style × prop × state), <strong>015</strong> (size unification).</p>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>ADR-015</strong> — unificação da escala de dimensão. Nova <code>semantic.size.{xs..5xl}</code> (16/20/24/32/40/48/64/96/128px) cobre tudo dentro de componente; <code>semantic.size.layout.{xs..2xl}</code> (320/480/640/800/1024/1280px) cobre containers. Substitui ~25 tokens component-specific.</li>
+<li><code>foundation.dimension.*</code> — escala numérica primitiva (renomeação de <code>foundation.spacing.*</code>, +7 entries: 128, 320, 480, 640, 800, 1024, 1280).</li>
+<li><code>semantic.typography.body.{font-size,line-height}.{4xl..9xl}</code> — escala completa para text styles display/heading. Foundation ganhou <code>line.height.{32, 48, 64, 72}</code>.</li>
+<li>Sistema de testes automatizado (<code>scripts/test-token-integrity.mjs</code>, <code>test-css-references.mjs</code>, <code>test-generators.mjs</code>, <code>test-self.mjs</code>) validando coerência JSON↔CSS↔HTML, incluindo meta-test que provoca regressões e valida que detectores pegam.</li>
+<li>CI workflow <code>.github/workflows/test.yml</code> rodando os testes em cada push.</li>
+<li>Política de versionamento explícita em <code>docs/process-versioning.md</code>: triggers (mudança considerável / feature completa / cadência ≤2 semanas), regras do que NÃO bumpa, formato consolidado de CHANGELOG.</li>
+</ul>
+<h3>Mudado</h3>
+<ul>
+<li><strong>Naming Foundation:</strong> <code>foundation.spacing.N</code> → <code>foundation.dimension.N</code>. CSS gerado: <code>--ds-spacing-N</code> → <code>--ds-dimension-N</code>. Espelha Figma (que já adotou <code>dimension/N</code>).</li>
+<li><strong><code>size.control.*</code> → namespace de exceção</strong>, não namespace genérico. <code>control.*</code> agora só existe para valores que <strong>fogem</strong> da escala genérica (ex: <code>space.control.padding.10</code> = 10px único deviation).</li>
+<li>2.062 bindings em componentes Figma rebound de zombies legados (<code>size/control/*</code>, <code>space/control/padding/{x,y}-*</code>, <code>size/lg0</code>, <code>border/width/focus</code> duplicado) → escala unificada.</li>
+<li>~50 refs em <code>css/components/*.css</code>, <code>css/base/*.css</code>, <code>docs/*.html</code>, <code>docs/layout.css</code>, <code>index.html</code>, scripts internos atualizadas para os novos vars.</li>
+<li>Touch target a11y: 44px → 48px (<code>size.control.min-target</code> → <code>size.2xl</code>). Passa Material 48px guideline além de WCAG 2.5.5 AAA (44px).</li>
+<li>Avatar lg: 56px → 64px (<code>size.3xl</code>). Modal sm/md: 400/520 → 480/640 (<code>size.layout.sm/md</code>). Toggle track-width: 28/36/44 → 24/40/48. Textarea min-heights: 68/80/112 → 64/96/128. Ajustes para alinhar componentes à escala única.</li>
+<li>ADR-006 marcada como <strong>parcialmente substituída</strong> por ADR-015 (parte de <code>size.control.*</code> e <code>space.control.padding-{x,y}.*</code>). <code>typography.control.*</code> permanece vigente.</li>
+<li>740 textos de componentes Figma ganharam Text Style aplicado (estado pré-existente: 1.665 textos sem style). Match exato por (fontFamily, fontStyle, fontSize, lineHeight). Material Icons preservados (não recebem text style por design).</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li>Duplicata <code>body.line-height.lg</code> e <code>xl</code> (ambos aliasavam <code>line.height.28</code>). Corrigido: <code>xl</code> → <code>line.height.32</code> espelhando Figma. JSON estava fora de sincronia.</li>
+<li><code>body.font-size</code> e <code>line-height</code>: JSON tinha 8 entries (<code>2xs..3xl</code>), Figma tem 14 (<code>2xs..9xl</code>). Adicionados os 6 faltantes em ambos.</li>
+<li>Site de docs: refs CSS quebradas pós-migração 2-layer (44 arquivos <code>docs/*.html</code> com <code>--ds-spacing-*</code> e legados <code>--ds-size-control-*</code> etc.) atualizadas para os nomes vigentes.</li>
+<li><code>card --elevated</code>: passa a consumir <code>var(--ds-shadow-card)</code> (Semantic) em vez de Foundation direto.</li>
+<li>Modal: removido <code>border-bottom</code> no header e <code>border-top</code> no footer (não existiam no Figma).</li>
+<li>Tooltip: arrows criados nas 4 variants (Position=top/bottom/left/right) — antes não existiam.</li>
+<li><code>tokens/registry.json</code>: 107 entries adicionadas via <code>build:registry:init</code>. Eliminado o erro de completude no <code>verify:tokens</code>.</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><code>semantic.size.{avatar, control, modal, skeleton, spinner, textarea, toggle}.*</code> — 25 tokens component-specific. Vestígio da Component layer eliminada em ADR-013.</li>
+<li><code>semantic.space.control.padding-{x,y}.{sm,md,lg}</code> — 6 tokens. Substituídos por <code>space.{sm, md, lg, xl}</code> direto (8/12/16/20px) + <code>space.control.padding.10</code> (10px, único deviation).</li>
+<li><code>tokens/foundation/spacing.json</code> — renomeado para <code>dimension.json</code>.</li>
+</ul>
+<h3>Notas de migração</h3>
+<ul>
+<li>0.7.0 → 0.8.0 é breaking. Consumidores externos do CSS gerado precisam atualizar references aos vars renomeados (na prática este repo é o único consumer hoje).</li>
+<li>Reversibilidade: rebind reverso é possível por valor. Branch atual contém todo o trabalho testado e funcional.</li>
+<li><code>verify:tokens</code> continua reportando 111 warnings em <code>css/base/*.css</code> (Foundation leak). Débito pré-existente, fora do escopo desta release. PR futuro.</li>
+</ul>
+<h3>Sobre versão</h3>
+<p>A versão <strong>0.7.0</strong> foi tagueada via PR #41 (2026-04-24) cobrindo a migração 2-layer mas sem entrada formal de CHANGELOG. Toda a substância dessa entrega + cleanup posterior + size unification está consolidada nesta entrada <strong>0.8.0</strong>. A política de versionamento foi formalizada em <code>docs/process-versioning.md</code> para evitar fragmentação futura.</p>
+<h2>[0.5.17]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><code>semantic.space.gap.2xs</code> → <code>{foundation.spacing.0-5}</code> (2px). Gera <code>--ds-space-gap-2xs</code> no CSS. Cobre gaps muito compactos entre elementos (Label Row: label + asterisco required). Issue #24.1.</li>
+<li>Variable correspondente em Figma (<code>space/gap/2xs</code> em Semantic collection, alias pra <code>spacing/0-5</code> nos modos Light/Dark).</li>
+</ul>
+<h3>Corrigido (Figma — form controls bindings)</h3>
+<p>Fecha <strong>issue #24.1</strong>. Auditoria do Figma encontrou <strong>75 nodes com <code>itemSpacing</code> raw</strong> nos componentes Input Text, Select e Textarea. Aplicados 74 bindings (1 descartado — <code>Frame 1</code> de preview, fora de componente):</p>
+<ul>
+<li><strong>63 Label Row @ 2px</strong> → bind pra <code>semantic.space.gap.2xs</code> (token novo).</li>
+<li><strong>5 Error Message @ 4px</strong> (Input Text) → bind pra <code>semantic.space.gap.xs</code>.</li>
+<li><strong>6 Error Message @ 6px</strong> (Textarea + Select) → <strong>padronizado para 4px</strong> + bind pra <code>semantic.space.gap.xs</code>. Alinha com o padrão do Input Text (inconsistência histórica — mesma função visual, valores diferentes entre componentes da mesma família).</li>
+</ul>
+<p>Audit pós-fix: <strong>0 <code>itemSpacing</code> raw</strong> nos 3 componentes. Sync Figma↔JSON: <strong>0 drift</strong> (<code>VALUE_DRIFT=0, NEW_IN_FIGMA=0, MISSING_IN_FIGMA=0, ALIAS_BROKEN=0</code>).</p>
+<h3>Reversibilidade</h3>
+<ul>
+<li><code>.figma-revert-24.1.json</code> (gitignored): dump do estado original de todos os 74 nodes com valores raw antes do fix.</li>
+<li><code>.figma-revert-24.1.mjs</code> (gitignored): script documentando como reverter (desfazer bindings + restaurar valores raw + opcionalmente remover <code>gap.2xs</code>).</li>
+<li>Permite rollback completo se necessário.</li>
+</ul>
+<h3>Mudança visual</h3>
+<p>Error Message de Textarea e Select fica <strong>2px mais compacto</strong> (6px → 4px). Alinhamento com Input Text — bug visual histórico corrigido.</p>
+<h2>[0.5.16]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>ADR-012</strong> — <em>Tokens de line-height e letter-spacing divergem por design entre Figma e JSON.</em> Formaliza que esses dois grupos de tokens são representados em unidades incompatíveis (PX no Figma vs ratio/rem/em no JSON) por limitação da Plugin API do Figma e requisito WCAG 1.4.4 do CSS. Os dois lados são canônicos em seus contextos de consumo; <strong>não sincronizam entre si</strong>.</li>
+<li><strong>Categoria <code>BY_DESIGN</code></strong> no sync Figma → JSON. Listas <code>FIGMA_ONLY_PATHS</code> e <code>JSON_ONLY_PATHS</code> em <code>scripts/lib/figma-dtcg.mjs</code> reconhecem tokens que existem só de um lado por escolha documentada. Ficam em <code>BY_DESIGN</code> (informativo) em vez de falso-positivarem como <code>NEW_IN_FIGMA</code> ou <code>MISSING_IN_FIGMA</code>.</li>
+</ul>
+<h3>Corrigido (efeito do ADR-012 no sync)</h3>
+<p>Antes: sync reportava <strong>23 NEW_IN_FIGMA + 14 MISSING_IN_FIGMA</strong> (37 falsos drifts) em line-height/letter-spacing, mascarando drifts reais.</p>
+<p>Depois: <strong>0 NEW_IN_FIGMA + 0 MISSING_IN_FIGMA + 37 BY_DESIGN</strong> (informativo). Dry-run sai com exit 0. Qualquer drift novo em typography (ex: valor real diferente em <code>semantic.brand.hover</code>) continua detectado.</p>
+<h3>Atualizado</h3>
+<ul>
+<li><code>docs/process-figma-sync.md</code>: tabela de categorias passou de 4 pra 6 (inclui <code>CSS_ONLY</code> e <code>BY_DESIGN</code>, ambas marcadas como &quot;não aplica em <code>--write</code>&quot;).</li>
+<li><code>scripts/sync-tokens-from-figma.mjs</code>: relatório inclui contagem e seção <code>BY_DESIGN</code> com indicação de lado (<code>figma-only</code> ou <code>json-only</code>).</li>
+</ul>
+<h3>Contexto operacional</h3>
+<p>Issue #23 (origem) fica <strong>fechada</strong> com este PR. Questão de unificação futura via composite typography tokens fica em issue #27 (ADR-013 a abrir quando for priorizada).</p>
+<h2>[0.5.15]</h2>
+<h3>Consolidado</h3>
+<p>Auditoria do <code>CLAUDE.md</code> contra o estado real do repo + Figma + contexto externo (que vivia em workspace Claude Project). Objetivo: tornar o repo fonte única de verdade, sem ambiguidades.</p>
+<h3>Corrigido — hierarquia de verdade</h3>
+<p>Três documentos tinham posições contraditórias sobre &quot;quem é fonte de verdade&quot;:</p>
+<ul>
+<li><code>system-principles.md</code> §2 e §7.2 diziam &quot;Git/JSON é fonte de verdade pra tokens&quot; (versão pré-0.5.8)</li>
+<li><code>ADR-003</code> revisada (0.5.8) diz &quot;Figma é autoridade de valor&quot;</li>
+<li><code>CLAUDE.md</code> (desde 0.5.10) já refletia a ADR-003 revisada</li>
+</ul>
+<p>Consolidado em <strong>todas as 3 fontes</strong> com a mesma regra:</p>
+<ul>
+<li><strong>ADRs</strong> = autoridade arquitetural (camadas, naming, regras de referência)</li>
+<li><strong>Figma Variables</strong> = autoridade de valor (hex, alpha, shade, variante visual)</li>
+<li><strong><code>tokens/**/*.json</code></strong> = consolidação canônica em Git (DTCG); <strong>nada roda sem JSON atualizado</strong></li>
+<li><strong>CSS gerado</strong> = derivado do JSON</li>
+<li><strong>Docs</strong> = descritivo, nunca fonte</li>
+</ul>
+<p>Regra operacional destacada: <strong>arquitetura &gt; valor</strong>. Figma pode decidir &quot;brand.hover é blue-800 em vez de blue-700&quot;. Figma <strong>não pode</strong> criar <code>semantic.color.primary.foreground</code> se ADR-011 definiu <code>brand.content.contrast</code> — mudança arquitetural exige ADR antes da implementação.</p>
+<h3>Adicionado ao CLAUDE.md</h3>
+<ul>
+<li>Seção <strong>Hierarquia de verdade</strong> explícita (antes só estava na tabela &quot;Fontes de verdade&quot;).</li>
+<li>Seção <strong>Protocolo de trabalho com agente</strong> (5 regras): aprovação estrita por ação, plano antes de agir, validar antes de afirmar, incremental/não-bulk, tom técnico direto.</li>
+<li>Seção <strong>Figma Plugin API — armadilhas operacionais</strong>: <code>paint.boundVariables.color.id</code> (não node-level), clear-before-setBoundVariable em <code>fontSize</code>, <code>setBoundVariable</code> pode empilhar, truncamento ~20KB em dumps, <code>hiddenFromPublishing</code> falha pós-create.</li>
+<li>Subseção <strong>Limitações conhecidas do GitHub MCP</strong>: <code>create_or_update_file</code> exige SHA fresco; <code>push_files</code> grande estoura timeout; MCP não escreve em <code>.github/workflows/</code>; <code>web_fetch</code> em github.com/raw.githubusercontent.com bloqueado.</li>
+<li>Linha em &quot;Fontes de verdade&quot; pra <code>docs/process-figma-sync.md</code>.</li>
+<li>Bump &quot;~462 Variables&quot; → &quot;~489 Variables&quot; (atualiza contagem pós PR #18/0.5.11).</li>
+</ul>
+<h3>Corrigido em <code>system-principles.md</code></h3>
+<ul>
+<li>§2 reescrita com a nova hierarquia (5 linhas de regras operacionais).</li>
+<li>§6 tabela de ADRs: adicionado <strong>ADR-011</strong> (estava faltando).</li>
+<li>§6 linha de ADR-003: título atualizado pra refletir a revisão (0.5.8).</li>
+<li>§7 princípios: 7 → 6 princípios (consolidado §2 antigo &quot;Git fonte de verdade&quot; + §3 antigo &quot;JSON convergência&quot; em um único princípio #2 coerente com ADR-003 revisada).</li>
+</ul>
+<h3>Corrigido em <code>README.md</code></h3>
+<ul>
+<li>Badge <code>0.5.1</code> → <code>0.5.15</code> (defasagem de 14 versões).</li>
+<li>URL CDN de exemplo atualizada.</li>
+</ul>
+<h3>Rejeitado (diagnóstico obsoleto ou falso positivo)</h3>
+<p>Sete pontos do contexto externo foram auditados contra o repo e <strong>não precisam de ação</strong>:</p>
+<ul>
+<li>CLAUDE.md &quot;usa nome Theme&quot; → usa Semantic (obsoleto).</li>
+<li>Brand = &quot;13 vars com 3 modos&quot; → 2 vars, ADR-005 efetivada (obsoleto).</li>
+<li>&quot;Foundation 192, Theme 94&quot; → 231 Foundation, 132×2 Semantic (obsoleto).</li>
+<li>&quot;CLAUDE.md não menciona DTCG/Style Dictionary&quot; → menciona sim (obsoleto).</li>
+<li>&quot;Naming semântico antigo&quot; → ADR-011 aplicada, naming atual (obsoleto).</li>
+<li>Button &quot;60 variantes&quot; → 252 variantes (atualizar <code>component-inventory.md</code> se relevante).</li>
+<li>&quot;<code>background/subtle</code> no Figma diverge do JSON&quot; → alinhados (0 VALUE_DRIFT no sync atual — divergência foi resolvida no PR #18/0.5.11).</li>
+<li>&quot;Componentes de controle não consomem <code>--ds-size-control-*</code>&quot; → falso positivo (consomem via camada component em <code>component.css</code>; arquiteturalmente correto pela ADR-001).</li>
+</ul>
+<h3>Issues criadas no GitHub (não pertencem a documentação)</h3>
+<ul>
+<li><strong>B1</strong> — Decidir tratamento dos 37 tokens line-height/letter-spacing com sistemas divergentes (PX vs ratio/rem).</li>
+<li><strong>B3</strong> — Auditoria do Figma: bindings e variantes (quebrar por componente).</li>
+<li><strong>B5</strong> — AI-readable metadata em tokens (<code>usage</code>/<code>doNot</code>/<code>pairedTokens</code>/<code>a11y</code>/<code>components</code>).</li>
+<li><strong>B6</strong> — Adoption metrics e analytics de componentes.</li>
+<li><strong>B7</strong> — Composite typography tokens + patterns docs.</li>
+</ul>
+<p>Itens já listados em <code>docs/backlog.md</code> (Storybook, Astro/Zeroheight/Supernova) não duplicados.</p>
+<h2>[0.5.14]</h2>
+<h3>Corrigido</h3>
+<p>Audit da camada Component (19 docs HTML de componentes + meta-docs) revelou <strong>49 paths token inválidos + 14 CSS vars fantasmas</strong> — todos decorrentes de naming pré-ADR-011 (renames que a camada de dados incorporou mas a doc não). Corrigido em massa:</p>
+<ul>
+<li><strong><code>semantic.color.primary.*</code> → <code>semantic.brand.*</code></strong> (ADR-011): 15+ ocorrências em avatar, badge, button, checkbox, radio, spinner, tabs, textarea, toggle, etc. Incluindo sub-renames:<ul>
+<li><code>.primary.foreground</code> → <code>.brand.content.contrast</code></li>
+<li><code>.primary.text</code> → <code>.brand.content.default</code></li>
+</ul>
+</li>
+<li><strong><code>semantic.text.*</code> → <code>semantic.content.*</code></strong> (ADR-011): em breadcrumb, button, form-field, input, select, tabs, textarea, token-architecture. Inclui <code>.text.link.*</code> → <code>.content.link.*</code>.</li>
+<li><strong><code>semantic.state.disabled.foreground</code> → <code>semantic.content.disabled</code></strong> (ADR-011): button, select.</li>
+<li><strong><code>semantic.feedback.*.foreground|text</code> → <code>semantic.feedback.*.content.default</code></strong>: alert, textarea, form-field.</li>
+<li><strong><code>semantic.border.hover</code> → <code>semantic.border.control.hover</code></strong> (ADR-009): select, textarea.</li>
+<li><strong><code>semantic.radius.*</code> → <code>foundation.radius.*</code></strong> (radius é Foundation, não Semantic): card, checkbox, modal, radio, skeleton, tooltip.</li>
+<li><strong><code>foundation.z-index.*</code> → <code>foundation.z.*</code></strong>: modal, tooltip.</li>
+<li><strong><code>foundation.motion.duration.*</code> → <code>foundation.duration.*</code></strong>: spinner.</li>
+<li><strong><code>semantic.background.muted</code> → <code>semantic.state.disabled.background</code></strong>: skeleton.</li>
+<li><strong><code>--ds-typography-control-font-size-*</code> → <code>--ds-control-font-size-*</code></strong>: button, input, select, textarea. O Style Dictionary faz strip-layer removendo <code>typography</code>; a doc mantinha o nome pre-strip.</li>
+<li><strong><code>--ds-border-hover</code> → <code>--ds-border-control-hover</code></strong>: select, textarea.</li>
+</ul>
+<p>Também em <code>docs/token-architecture.html</code>: exemplo de component token atualizado de <code>--ds-button-bg-brand-default</code> (inexistente) para <code>--ds-button-bg-toned-default</code> (real, criado no PR #18).</p>
+<p>E em <code>docs/brand-principles.md</code>: <code>foundation.color.brand.primary/secondary/accent</code> → <code>foundation.brand.primary/secondary</code> (<code>.accent</code> nunca existiu — só primary e secondary em Foundation; marcado como &quot;não definido&quot; até virar ADR).</p>
+<p><strong>Total: 66 renames em 19 arquivos.</strong> Audit residual: 2 &quot;fantasmas&quot; remanescentes são bad examples didáticos intencionais (<code>--ds-red-600</code> em <code>design-principles.html</code> dizendo &quot;não use&quot; + <code>--ds-color-primary</code> em <code>token-architecture.html</code> dizendo &quot;não colapse&quot;). Ficam.</p>
+<h3>Observações do audit (não aplicadas nesta PR)</h3>
+<p><strong>Semantic: 18 tokens órfãos</strong> (declarados mas nenhum componente consome): 3 border-widths extras, 5 <code>space-inset-*</code>, 6 <code>space-component-*</code>, 4 <code>space-section-*</code>. Decisão pendente (remover / manter / caso a caso).</p>
+<p><strong>Component: 19 tokens órfãos</strong> declarados no JSON mas não consumidos pelo CSS do próprio componente:</p>
+<ul>
+<li><code>button</code> (6): <code>background/foreground-toned-*</code> (criados no PR #18, CSS ainda usa semantic direto — refatoração pendente)</li>
+<li><code>checkbox</code> (6): <code>check-width/height-sm/md/lg</code> (CSS provavelmente desenha via SVG/stroke, não consome)</li>
+<li><code>input</code>, <code>select</code> (3 cada): <code>padding-y-sm/md/lg</code> (CSS usa height pra controlar Y, não padding-y)</li>
+<li><code>modal</code> (1): <code>padding</code></li>
+</ul>
+<h3>Notas</h3>
+<ul>
+<li>Audit confirmou: <strong>11 componentes têm tokens JSON</strong>, <strong>7 não têm e consomem semantic direto</strong> (alert, badge, breadcrumb, card, divider, tabs, tooltip — arquiteturalmente OK pela ADR-001: camada component é opcional).</li>
+<li><strong>Paridade light/dark: perfeita</strong> (132 = 132, 0 divergência de tipo).</li>
+<li>Próximo passo: decisão sobre os 37 órfãos totais (18 semantic + 19 component) + audit da camada Foundation.</li>
+</ul>
+<h2>[0.5.13]</h2>
+<h3>Corrigido</h3>
+<p>Audit completo dos 9 arquivos <code>foundations-*.html</code> restantes (após PR #19 auto-gerar <code>theme-colors</code>). Descobertos 3 arquivos com drift real:</p>
+<ul>
+<li><strong><code>foundations-motion.html</code></strong>: <code>--ds-duration-fast</code> mostrava <code>100ms</code> mas CSS real é <code>150ms</code> (divergência em 2 lugares — label demo + tabela). Tabela de easings usava keywords CSS imprecisas (<code>ease</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ease-in-out</code>) — o CSS real usa <code>cubic-bezier(0.4, 0, 0.2, 1)</code> etc, que <strong>não são equivalentes</strong> às keywords. Corrigido: duration, tabela com valores cubic-bezier reais, labels demo com descrição semântica (<code>padrão</code>, <code>acelerando</code>, <code>desacelerando</code>, <code>suave</code>) em vez de keyword enganosa.</li>
+<li><strong><code>foundations-opacity.html</code></strong>: <code>&lt;code&gt;--ds-color-overlay-black-5&lt;/code&gt;</code> era <strong>token fantasma</strong> — o nome CSS correto é <code>--ds-overlay-black-5</code> (sem <code>color-</code>). Corrigido.</li>
+<li><strong><code>foundations-borders.html</code></strong>: duas tabelas de cores de borda (<code>Border Colors</code>, <code>Feedback Border Colors</code>) estavam com 7 valores desatualizados pós PR #18 <strong>e</strong> duplicavam informação já presente em <code>foundations-theme-colors.html</code> (que é auto-gerada). Removidas; substituídas por parágrafo linkando pra Theme Colors. Mantida só a tabela de <code>Border Widths</code>, que está correta.</li>
+</ul>
+<h3>Confirmado em dia</h3>
+<p><code>foundations-typography.html</code>, <code>foundations-spacing.html</code>, <code>foundations-radius.html</code>, <code>foundations-elevation.html</code>, <code>foundations-zindex.html</code>, <code>foundations-colors.html</code> — 0 drift. Os &quot;falsos positivos&quot; do audit automático eram tabelas conceituais (elevation mapeia &quot;nível → combinação de tokens&quot;; zindex mostra &quot;uso por token&quot;; opacity é <code>&lt;div&gt;</code> custom não <code>&lt;table&gt;</code>) que o parser genérico confundiu com tabelas de valor.</p>
+<h3>Notas</h3>
+<ul>
+<li>Princípio de não-duplicação aplicado: quando um token semântico tem seu valor canônico em <code>foundations-theme-colors.html</code>, outras páginas de foundation <strong>não</strong> repetem — linkam. Evita drift futuro.</li>
+<li>Próximo passo: revisão equivalente nas camadas <strong>Semantic</strong> e <strong>Component</strong> (páginas de docs e Figma).</li>
+</ul>
+<h2>[0.5.12]</h2>
+<h3>Corrigido</h3>
+<ul>
+<li><strong><code>docs/foundations-theme-colors.html</code> agora é auto-gerado</strong> a partir dos JSONs <code>tokens/semantic/{light,dark}.json</code> e <code>tokens/foundation/{colors,brand}.json</code>. O arquivo era mantido à mão e acumulou drift severo: <strong>37 das 53 linhas (70%)</strong> estavam com valor errado, principalmente porque o PR #18 (0.5.11) mudou valores de semantic mas a doc não acompanhou. Problemas eliminados:<ul>
+<li>5 tokens <strong>duplicados</strong> (ex: <code>accent-subtle</code> aparecia com <code>purple-100/purple-800</code> e também com <code>purple-50/purple-950</code> — a segunda linha era fantasma).</li>
+<li>22 tokens <strong>desatualizados</strong> pós PR #18 (<code>brand.hover/active</code>, <code>feedback.*.hover/active/border</code>, <code>background.subtle</code>, <code>state.disabled.background</code>, etc).</li>
+<li>10 tokens com <strong>apelidos imprecisos</strong> (doc usava <code>white</code> em vez de <code>neutral-50</code>, <code>primary</code> em vez de <code>brand-default</code>, <code>blue-600</code> em vez de <code>brand-primary</code>).</li>
+<li>3 linhas <strong>inventadas</strong> sem correspondência no CSS real.</li>
+</ul>
+</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li>Em <code>scripts/sync-docs.mjs</code>: função que lê <code>tokens/semantic/{light,dark}.json</code>, resolve aliases recursivamente respeitando a arquitetura (para em <code>foundation.brand.*</code> e em outros semantic — bate com o que o Style Dictionary emite no CSS), e gera 12 seções (Background, Surface, Brand Primary, Brand Secondary, Text/Foreground, Border, Feedback Success/Warning/Error/Info, State, Overlay) com <strong>85 tokens</strong>.</li>
+<li>Marcadores <code>&lt;!-- AUTO-GENERATED:THEME-COLORS:START|END --&gt;</code> no HTML — só a região entre eles é regenerada; header, nav, sidebar, footer continuam editáveis à mão.</li>
+<li>Audit de tokens faltando: se um token <code>$type: color</code> existe em <code>semantic/light.json</code> mas não está listado em nenhuma seção, o script avisa no console.</li>
+</ul>
+<h3>Notas</h3>
+<ul>
+<li>Daqui pra frente, toda mudança de token no JSON regenera a doc automaticamente (via <code>npm run sync:docs</code>, já no <code>build:all</code>). Drift arquitetural nessa página é estruturalmente impossível.</li>
+<li><strong>Follow-up</strong>: auditar <code>foundations-spacing.html</code>, <code>foundations-radius.html</code>, <code>foundations-typography.html</code>, <code>foundations-elevation.html</code>, <code>foundations-motion.html</code>, <code>foundations-zindex.html</code>, <code>foundations-borders.html</code>, <code>foundations-opacity.html</code> pra confirmar se estão em dia ou se têm drift similar. (Opção C do plano — próximo PR.)</li>
+</ul>
+<h2>[0.5.11]</h2>
+<h3>Alterado (Figma — alinhamento arquitetônico + primeiro sync real)</h3>
+<p>Primeira execução end-to-end do fluxo Figma → JSON. O Figma estava arquiteturalmente defasado em relação ao JSON (que evoluiu ao longo das ADRs 001/005/006/007/011): tinha valores literais onde o JSON tinha aliases de 2–3 níveis. Decisão do time em 21/04/2026: ajustar o Figma pra espelhar a arquitetura do JSON antes de começar a usar o sync bidirecionalmente.</p>
+<p><strong>Ajustes no Figma (~162 operações):</strong></p>
+<ul>
+<li><strong>Foundation — criadas 8 variáveis</strong>: <code>color/disabled/brand-light</code>, <code>brand-dark</code>, <code>success-light</code>, <code>success-dark</code>, <code>error-light</code>, <code>error-dark</code> (ADR-007), <code>spacing/9</code> (36px), <code>spacing/11</code> (44px).</li>
+<li><strong>Foundation — renomeadas 44 variáveis</strong> de <code>font/*</code> → <code>typography/font/*</code> pra alinhar com a estrutura do JSON (<code>foundation.typography.font.*</code>).</li>
+<li><strong>Semantic — 31 rebindings</strong>: link/focus/border agora apontam pra <code>semantic.brand.*</code> via alias (antes apontavam direto pra foundation); <code>focus/ring/*</code>, <code>size/control/*</code>, <code>typography/control/*</code>, <code>*.disabled</code>, <code>*.contrast-disabled</code> viraram aliases de foundation (antes eram literais).</li>
+<li><strong>Component — 28 rebindings</strong>: <code>button/input/select/textarea</code> — height, font-size, icon-size, min-target-size viram aliases de <code>semantic.size.control.*</code> e <code>semantic.typography.control.*</code>.</li>
+<li><strong>Component — reestruturado padding</strong>: substituído <code>{comp}/padding/{sm,md,lg}</code> (unificado) por <code>{comp}/padding-x/*</code> + <code>{comp}/padding-y/*</code> em 4 componentes (24 criadas, 12 deletadas).</li>
+<li><strong>Component — 7 criadas</strong>: <code>button/bg/toned/{default,hover,active,disabled}</code>, <code>button/foreground/toned/{default,disabled}</code>, <code>skeleton/fill</code>.</li>
+<li>Total Figma: <strong>489 variáveis</strong> (era 462) em 4 collections.</li>
+</ul>
+<p><strong>Sync Figma → JSON aplicado (38 VALUE_DRIFT, categoria A):</strong></p>
+<ul>
+<li>Decisões visuais mais recentes do Figma sincronizadas para <code>tokens/semantic/light.json</code> e <code>dark.json</code>. Maior parte são ajustes finos de shade — <code>brand.hover</code> blue.700 → blue.800, <code>feedback.success.border</code> green.600 → green.500, <code>background.subtle</code> neutral.100 → neutral.200, etc. CSS regenerado, docs regeneradas, zero mudanças em Foundation ou Component.</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li>Categoria <strong>CSS_ONLY</strong> no <code>scripts/lib/figma-dtcg.mjs</code>: tokens com representação CSS-específica (font family stacks, weights numéricos, unidades rem) ficam marcados como informativos e <strong>não são aplicados via <code>--write</code></strong>. Evita regressão onde o Figma trocaria <code>&#39;Inter&#39;, system-ui, -apple-system,...</code> por <code>&quot;Inter&quot;</code> sozinho, weights <code>400/500/600/700</code> por <code>&quot;Regular&quot;/&quot;Medium&quot;/...</code>, e <code>0.875rem</code> por <code>14</code>. Cobre ~9 tokens em <code>foundation.typography.font.family/weight/size</code>.</li>
+<li><code>FOUNDATION_PREFIX_TO_FILE</code>: mapping atualizado de <code>font</code> → <code>typography.json</code> para <code>typography</code> (Figma agora usa prefixo <code>typography/font/*</code>).</li>
+</ul>
+<h3>Pendente (relatado mas não aplicado)</h3>
+<ul>
+<li><strong>37 tokens de line-height/letter-spacing</strong> aparecem como NEW_IN_FIGMA (23) ou MISSING_IN_FIGMA (14) porque Figma e JSON usam <strong>sistemas diferentes</strong>: Figma tem valores em PX (<code>line-height/90</code>, <code>line-height/44</code>, <code>letter-spacing/-0.5</code>); JSON tem ratios (<code>line.height.tight = 1.25</code>) e unidades rem (<code>line.height.control.sm = 1rem</code>). Não é &quot;mais recente&quot; em um lado — são conceitos divergentes. Decisão adiada: será tratada em PR separada com ADR.</li>
+</ul>
+<h3>Notas</h3>
+<ul>
+<li>Propriedade <code>hiddenFromPublishing = true</code> não pôde ser setada via <code>use_figma</code> (erro <code>Node not found</code> após create) — as 6 novas <code>color/disabled/*</code> e 2 novas <code>spacing/9|11</code> ficaram visíveis aos pickers. Ajuste manual no Figma depois.</li>
+</ul>
+<h2>[0.5.10]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><code>scripts/sync-tokens-from-figma.mjs</code> + <code>scripts/lib/figma-dtcg.mjs</code>: sync Figma → JSON baseado em snapshot gerado via MCP. Desvia da limitação da REST API (exclusiva Enterprise) usando o MCP remoto <code>use_figma</code> — agente Claude Code dumpa as ~462 Variables em <code>.figma-snapshot.json</code> (gitignored), e o script Node compara com <code>tokens/**/*.json</code> em 4 categorias: VALUE_DRIFT (auto-corrigível com <code>--write</code>), NEW_IN_FIGMA, MISSING_IN_FIGMA, ALIAS_BROKEN.</li>
+<li><code>docs/process-figma-sync.md</code>: passo-a-passo do fluxo, incluindo troubleshooting e limitações.</li>
+<li>npm scripts: <code>sync:tokens-from-figma</code> (dry-run) e <code>sync:tokens-from-figma:write</code>.</li>
+<li><code>.figma-snapshot.json</code> e variações no <code>.gitignore</code> (snapshot é derivado, não vai pro repo).</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li>CLAUDE.md: regras de ouro de tokens atualizadas com o fluxo MCP concreto (em vez de &quot;mecanismo em reavaliação&quot;). Ferramentas lista os dois scripts novos.</li>
+<li><code>docs/backlog.md</code>: item &quot;Implementar o sync Figma → JSON&quot; (que tinha 4 opções em aberto) substituído por &quot;Automatizar o sync Figma → JSON em CI&quot; — reconhece que a opção (b) MCP está implementada pro fluxo manual e mantém as outras 3 (plugin custom, Tokens Studio, Enterprise) como caminhos pra automação futura.</li>
+</ul>
+<h3>Notas</h3>
+<ul>
+<li>Direção canônica da ADR-003 continua: Figma é autoridade, JSON é consolidação derivada. O sync consolida essa direção na prática — mas é manual (exige sessão Claude Code), não roda em GitHub Actions.</li>
+<li><code>verify:tokens</code> não foi alterado nesse PR; continua checando coerência JSON ↔ CSS.</li>
+</ul>
+<h2>[0.5.9]</h2>
+<h3>Revertido</h3>
+<ul>
+<li>Revertido o PR #15 (0.6.0, <code>feat(tokens): sync Figma → JSON via script + workflow + verify refinado</code>). Motivo: o endpoint <code>GET /v1/files/:key/variables/local</code> da Figma REST API requer o scope <code>file_variables:read</code>, que <strong>é exclusivo do plano Enterprise</strong>. Nosso plano atual é Pro/Expert — o PAT não consegue emitir esse scope. Script inútil no plano atual.</li>
+<li>Removidos: <code>scripts/sync-tokens-from-figma.mjs</code>, <code>scripts/lib/figma-dtcg.mjs</code>, <code>.github/workflows/sync-tokens-from-figma.yml</code>, e os npm scripts correspondentes.</li>
+<li><code>scripts/tokens-verify.mjs</code> voltou à implementação pré-0.6.0 (sem a classificação NEEDS_SYNC/DRIFT_FROM_SOURCE/VALUE_DRIFT — que dependia do módulo <code>lib/figma-dtcg.mjs</code> também revertido).</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li>CLAUDE.md: ajustado para refletir que o mecanismo de propagação Figma → JSON está em reavaliação. Regra de ouro &quot;não editar <code>tokens/*.json</code> à mão&quot; continua valendo.</li>
+<li><code>docs/backlog.md</code>: item &quot;Implementar o sync Figma → JSON&quot; adicionado em alta prioridade, listando as quatro opções em aberto (plugin custom, adaptar pra MCP, Tokens Studio, upgrade Enterprise).</li>
+</ul>
+<h3>Mantido</h3>
+<ul>
+<li>ADR-003 revisada (Figma como autoridade canônica) continua válida — a decisão conceitual não depende do mecanismo técnico. Só o &quot;como&quot; ficou em aberto.</li>
+</ul>
+<h2>[0.5.8]</h2>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-003 reescrita. A versão anterior declarava Git como fonte de verdade para tokens; a revisão reposiciona <strong>Figma Variables como a autoridade canônica</strong> dos valores de token. Git (<code>tokens/**/*.json</code>) passa a ser &quot;consolidação derivada em DTCG&quot; em vez de source. Fluxo canônico: Figma → sync manual → JSON → CSS → site. Decisão tomada em 21/04/2026 alinhando a prática à intenção do time (designer decide; dev consolida).</li>
+<li>CLAUDE.md: seção &quot;Como a pipeline funciona&quot; atualizada com o novo fluxo. Regras de ouro adicionadas: não editar <code>tokens/*.json</code> à mão, sempre passar pelo Figma. Lista de scripts em &quot;Ferramentas&quot; lista <code>sync:tokens-from-figma</code> (a ser implementado no próximo PR).</li>
+<li>Backlog reestruturado: item &quot;Sincronização automatizada Figma ↔ site&quot; substituído por &quot;Reduzir documentação textual do Figma&quot; (decisão concreta do time). Adicionados itens &quot;Futuro do site de documentação&quot; (Astro/Zeroheight/Supernova), &quot;Resolução de conflitos inteligente&quot; e &quot;Sincronização automática de tokens&quot; (evoluções futuras).</li>
+</ul>
+<h2>[0.5.7]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>6 tokens foundation novos em <code>tokens/foundation/colors.json</code>, subcategoria <code>color.disabled</code>: <code>brand-light</code>, <code>brand-dark</code>, <code>success-light</code>, <code>success-dark</code>, <code>error-light</code>, <code>error-dark</code>. Valores primitive (hex/rgba) que representam o fill disabled de cada role; viviam antes como literais na camada semantic.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><code>semantic.brand.disabled</code>, <code>semantic.feedback.success.disabled</code>, <code>semantic.feedback.error.disabled</code>, <code>semantic.brand.content.contrast-disabled</code>, <code>semantic.feedback.success.content.contrast-disabled</code>, <code>semantic.feedback.error.content.contrast-disabled</code> em <code>light.json</code> e <code>dark.json</code> — 12 tokens que tinham valores rgba/hex literais agora referenciam tokens foundation (<code>color.disabled.*</code> ou <code>color.overlay.white.80/60</code> existentes). Viola menos a regra &quot;semantic nunca hardcoded&quot; (ADR-001). Zero mudança visual.</li>
+<li>Item correspondente removido do backlog.</li>
+</ul>
+<h2>[0.5.6]</h2>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-007: sincronização Figma completa. Confirmação de que o naming aninhado <code>brand/toned/{default,hover,active}</code> já vigora no arquivo Figma (migração feita durante ADR-011). Variáveis <code>color/primary/toned-*</code> antigas (flat + <code>-disabled</code>/<code>-disabled-fg</code>) não existem mais.</li>
+<li>Button variant Toned+Disabled: 6 variantes (3 tamanhos × Icon Only true/false) tinham foreground apontando para <code>brand/content/contrast-disabled</code> (errado para contexto toned com fundo neutral) ou para variável órfã. Re-vinculadas para <code>content/disabled</code> (neutral-400 opaco), conforme ADR-007. 21 rebindings no total.</li>
+<li>Item correspondente removido do backlog.</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-006 e ADR-007 traduzidos inteiramente para PT-BR. Antes, partes do corpo (Context, Decision, Consequences, Alternatives considered) estavam em inglês enquanto o cabeçalho havia sido traduzido. Agora os 11 ADRs são consistentes em idioma.</li>
+<li>Pequenos ajustes no ADR-006 durante a tradução: tokens <code>semantic.typography.control.line-height.*</code> documentados referenciando <code>{foundation.spacing.4/5/6}</code> (alinhado ao que o código já faz desde 0.5.3). Tokens de CSS listados em &quot;Consequências&quot; alinhados aos nomes reais emitidos pelo build (<code>--ds-control-font-size-*</code>, <code>--ds-control-line-height-*</code>).</li>
+<li>Pequenos ajustes no ADR-007 durante a tradução: tokens <code>semantic.brand.toned.*</code> documentados no naming consolidado do ADR-011 (antes referenciados como <code>semantic.color.primary.toned.*</code>). Foreground toned aponta para <code>semantic.brand.content.default</code>.</li>
+</ul>
+<h2>[0.5.4]</h2>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-007 marcada como Aceita — Implementada em 0.5.0. Camada de código (foundation overlays, semantic toned, component tokens, CSS do button) já havia sido executada via ADR-011; fechamento formal em 0.5.4.</li>
+</ul>
+<h3>Pendente</h3>
+<ul>
+<li>Sincronização Figma: renomeação de <code>color/primary/toned</code>, <code>-hover</code>, <code>-active</code> para hierarquia aninhada (<code>toned/default</code>, <code>toned/hover</code>, <code>toned/active</code>), remoção de <code>toned-disabled</code> e <code>toned-disabled-fg</code>, rebinding do Button Toned disabled para <code>state/disabled/*</code>. Será executado como tarefa Figma separada.</li>
+</ul>
+<h2>[0.5.3]</h2>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-006 marcada como Aceita — Implementada em 0.5.0. Implementação já havia acontecido via ADR-011; fechamento formal em 0.5.3.</li>
+<li><code>semantic.size.control.*</code> e <code>semantic.typography.control.line-height.*</code> em <code>tokens/semantic/light.json</code> e <code>dark.json</code> passam a referenciar tokens <code>foundation.spacing.*</code> em vez de valores absolutos. Integridade da cadeia de tokens preservada (foundation → semantic).</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li><code>component.input.padding-y.{sm,md,lg}</code> e <code>component.select.padding-y.{sm,md,lg}</code> em <code>tokens/component/input.json</code> e <code>select.json</code>, referenciando <code>semantic.space.control.padding-y.*</code>. Gera <code>--ds-input-padding-y-*</code> e <code>--ds-select-padding-y-*</code> no CSS gerado.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><code>docs/control-sizing.html</code> — nomes das CSS vars na tabela agora batem com o que o build realmente emite: <code>--ds-control-font-size-*</code> e <code>--ds-control-line-height-*</code> (em vez de <code>--ds-typography-control-*</code>). O transform <code>name/strip-layer</code> remove o segmento <code>typography</code> do nome gerado.</li>
+</ul>
+<h2>[0.5.2]</h2>
+<h3>Alterado</h3>
+<ul>
+<li>ADR-005 marcada como Aceita — Implementada em 0.5.0. Implementação já havia acontecido via ADR-011; fechamento formal em 0.5.2.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><code>scripts/tokens-verify.mjs</code>: função <code>canônicalToCssVar</code> agora espelha exatamente o transform <code>name/strip-layer</code> de <code>build-tokens.mjs</code>. Remove os 65 falsos positivos (<code>foundation.typography.font.*</code> e <code>foundation.color.overlay.*</code>) que mascaravam a saúde real da cadeia Figma → JSON → CSS. <code>npm run verify:tokens</code> agora reporta 0 warnings, 0 erros.</li>
+</ul>
+<p>Consolidação da documentação como fonte única de verdade. Plano em seis fases executadas na branch <code>consolidation/docs-ground-truth</code>.</p>
+<h3>Alterado</h3>
+<ul>
+<li><code>package.json</code> realinhado para <code>0.5.1</code> (estava em <code>1.5.1</code> sem publicação no npm, divergindo do que o site exibia).</li>
+<li><code>README.md</code> reescrito curto (39 linhas, era 74), aponta pro site como fonte completa.</li>
+<li><code>CLAUDE.md</code> reescrito enxuto (123 linhas, era 498). Mantém só instruções de agente, acessos MCP, convenções, regras operacionais, checklist. Conteúdo duplicado do site foi removido.</li>
+<li><code>tokens/component/README.md</code> substituído por nota correta (era placeholder mentindo &quot;componentes ainda não foram migrados&quot;).</li>
+<li><code>docs/foundations.html</code> ganhou breadcrumb e link pra <code>token-architecture.html</code> na intro; grade de cards mantida.</li>
+<li><code>.github/workflows/deploy.yml</code> passa a rodar <code>npm run build:all</code> (tokens + docs + api + llms + verify) em cada push pra main.</li>
+<li><code>scripts/sync-docs.mjs</code> ampliado para converter MDs em HTML usando <code>marked</code>, injetar badge de versão em <code>index.html</code> e gerar <code>docs/decisions/index.html</code> + 11 HTMLs de ADR.</li>
+<li>ADRs atualizados para refletir o código real: ADR-004/008/009/010/011 marcados como &quot;Aceita — Implementada em 0.5.0&quot; com referência aos commits. ADR-003 ganhou seção &quot;Verificação automatizada&quot;. ADR-005/006/007 ganharam Pré-requisitos/Estimativa/Passos concretos.</li>
+</ul>
+<h3>Adicionado</h3>
+<ul>
+<li>Tag <code>v0.5.0-pre-consolidation</code> marcando o estado antes da consolidação.</li>
+<li><code>CHANGELOG.md</code> na raiz como fonte canônica. <code>docs/changelog.html</code> passa a ser gerado a partir deste arquivo.</li>
+<li><code>CONTRIBUTING.md</code> na raiz (setup, fluxo PR, convenções, versionamento).</li>
+<li><code>docs/brand-principles.md</code> com template para preenchimento.</li>
+<li><code>docs/backlog.md</code> listando itens fora deste plano (ADR-005/006/007, Storybook, MCP próprio, publicação npm, etc).</li>
+<li><code>docs/process-contributing.md</code>, <code>docs/process-versioning.md</code>, <code>docs/process-releasing.md</code> cobrindo fluxos.</li>
+<li><code>scripts/tokens-verify.mjs</code>: verifica coerência JSON ↔ CSS (e JSON ↔ Figma quando FIGMA_PAT definido). Três saídas: terminal, <code>docs/api/tokens-sync.json</code>, <code>docs/tokens-sync.html</code>.</li>
+<li><code>.github/workflows/verify-tokens.yml</code>: roda verify em PR e push, comenta divergências no PR.</li>
+<li><code>scripts/build-api.mjs</code>: gera <code>docs/api/components.json</code>, <code>tokens.json</code>, <code>adrs.json</code>, <code>foundations.json</code>.</li>
+<li><code>scripts/build-llms.mjs</code>: gera <code>docs/llms.txt</code> (índice) e <code>docs/llms-full.txt</code> (conteúdo consolidado, 133 KB) seguindo llmstxt.org.</li>
+<li>Scripts <code>verify:tokens</code>, <code>build:api</code>, <code>build:llms</code>, <code>build:all</code> em <code>package.json</code>.</li>
+<li><code>scripts/archive/</code> com <code>extract-tokens.js</code> e <code>add-i18n-shell.mjs</code> preservados e explicados em README.</li>
+<li>Badge de versão em <code>index.html</code> (lida do <code>package.json</code> pelo build).</li>
+<li>Links <code>&lt;link rel=&quot;alternate&quot;&gt;</code> em <code>index.html</code> apontando pros llms.txt.</li>
+</ul>
+<h3>Removido</h3>
+<ul>
+<li><code>style-dictionary.config.js</code> (legado CommonJS v4, não usado — script ativo é <code>build-tokens.mjs</code>).</li>
+</ul>
+<h2>[0.5.0] — 2026-04-15</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>Página Token Architecture — diagrama de 3 camadas, walkthrough de cadeia de alias, convenção de nomenclatura, mapeamento entre formatos.</li>
+<li>Página Changelog.</li>
+<li>Páginas Foundation: Motion (7 tokens), Opacity (7 tokens), Z-index (6 tokens).</li>
+<li>Template expandido de componente com 10 novas seções: quando usar, anatomia, boas práticas (faça/não faça), diretrizes de conteúdo, mapeamento de tokens, interação por teclado, tabela WCAG, propriedades Figma, componentes relacionados.</li>
+<li>Todas as 19 páginas de componentes reescritas com o template expandido (+5.000 linhas).</li>
+<li>Blocos faça/não faça com previews ao vivo em todos os componentes.</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li>Sidebar atualizada em todas as 34 páginas — links novos para Motion, Opacity, Z-index, Token Architecture, Changelog.</li>
+<li>Overview de Foundations: 3 novos cards (Motion, Opacity, Z-index), agora 10 no total.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li>Implementação de focus ring em <code>accessibility.html</code> migrada de <code>box-shadow</code> para <code>outline</code> + <code>outline-offset</code> (ADR-005).</li>
+<li>Seção incorreta de focus ring removida de <code>elevation.html</code>.</li>
+<li>Contagem de componentes na home corrigida para 19.</li>
+</ul>
+<h2>[0.4.0] — 2026-04-14</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>Arquivos JSON de tokens de componente: <code>button.json</code>, <code>input.json</code>, <code>textarea.json</code>, <code>select.json</code>, <code>checkbox.json</code>, <code>radio.json</code>, <code>toggle.json</code>, <code>badge.json</code>, <code>alert.json</code>, <code>card.json</code>, <code>modal.json</code> (118 tokens no total).</li>
+<li>Variáveis Figma reconciliadas em 4 coleções (Foundation, Brand, Semantic, Component).</li>
+<li>Script de build Style Dictionary (<code>build-tokens.mjs</code>) gerando CSS em <code>css/tokens/generated/</code>.</li>
+<li>Componente Form Field (<code>ds-field</code>) com label, texto auxiliar, indicador de obrigatório, mensagem de erro, contador de caracteres.</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li>Arquitetura de tokens formalizada: Foundation → Semantic → Component (ADR-001, ADR-005).</li>
+<li>Regra do sufixo <code>-default</code> aplicada: todos os tokens <code>.default</code> geram <code>-default</code> no CSS.</li>
+<li>Focus ring migrado de <code>box-shadow</code> para <code>outline</code> + <code>outline-offset</code> (ADR-005).</li>
+<li>Subcamada Brand formalizada: 2 tokens (primary, secondary), sem estados, trocável por tema.</li>
+</ul>
+<h2>[0.3.0] — 2026-03</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>18 componentes implementados em CSS: Button, Input, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Modal, Tooltip, Tabs, Breadcrumb, Avatar, Divider, Spinner, Skeleton.</li>
+<li>Site de documentação com previews ao vivo, blocos de código, seletor de tema, toggle de modo escuro.</li>
+<li>Páginas Foundation: Colors, Theme Colors, Typography, Spacing, Radius, Elevation, Borders.</li>
+<li>Guias: Theming, Accessibility.</li>
+<li>Três temas: Default (Blue/Purple), Ocean (Cyan/Indigo), Forest (Emerald/Amber).</li>
+<li>Modo light/dark com remapeamento de tokens semânticos.</li>
+</ul>
+<h2>[0.2.0] — 2026-02</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>94 tokens semânticos (camada Theme) com valores Light/Dark.</li>
+<li>Variáveis Figma: 3 coleções (Foundation, Brand, Theme) com suporte a modos.</li>
+<li>24 text styles: display, heading, body, label, caption, overline, code (Inter + DM Mono).</li>
+</ul>
+<h2>[0.1.0] — 2026-01</h2>
+<h3>Adicionado</h3>
+<ul>
+<li>Tokens foundation: 10 paletas de cores (escala 50–950), spacing (20 steps), radius (8 tokens), shadows, opacity, motion, stroke, z-index.</li>
+<li>CSS custom properties (<code>--ds-*</code>) para todos os tokens foundation.</li>
+<li>Reset base com carregamento de Inter + DM Mono.</li>
+<li>Estrutura do repositório: <code>css/</code>, <code>docs/</code>, <code>js/</code>.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

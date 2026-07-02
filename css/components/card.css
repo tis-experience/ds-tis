@@ -1,0 +1,153 @@
+/* ============================================================
+   COMPONENT: Card
+   ============================================================ */
+
+.ds-card {
+  background-color: var(--ds-card-bg-default);
+  border-radius: var(--ds-card-radius-default);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ds-card__media {
+  width: 100%;
+  height: calc(var(--ds-size-layout-xs) / 2);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ds-card__media img,
+.ds-card__media > picture,
+.ds-card__media > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-card__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-card-container-gap-default);
+  padding: var(--ds-card-container-padding-default);
+  width: 100%;
+}
+
+.ds-card:not(:has(.ds-card__container)) {
+  gap: var(--ds-card-container-gap-default);
+  padding: var(--ds-card-container-padding-default);
+}
+
+.ds-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-card-header-gap-default);
+  min-width: 0;
+}
+
+/* Title — body/xl semibold in Figma */
+.ds-card__title {
+  margin: 0;
+  font-size: var(--ds-card-title-font-size-default);
+  font-weight: var(--ds-card-title-font-weight-default);
+  color: var(--ds-card-title-color-default);
+  line-height: var(--ds-card-title-line-height-default);
+  overflow-wrap: anywhere;
+}
+
+/* Description — body/sm bold in Figma */
+.ds-card__subtitle,
+.ds-card__description {
+  margin: 0;
+  font-size: var(--ds-card-subtitle-font-size-default);
+  font-weight: var(--ds-card-subtitle-font-weight-default);
+  line-height: var(--ds-card-subtitle-line-height-default);
+  color: var(--ds-card-subtitle-color-default);
+  overflow-wrap: anywhere;
+}
+
+/* Body — body/sm in Figma */
+.ds-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-card-container-gap-default);
+  min-width: 0;
+  font-size: var(--ds-card-body-font-size-default);
+  font-weight: var(--ds-card-body-font-weight-default);
+  color: var(--ds-card-body-color-default);
+  line-height: var(--ds-card-body-line-height-default);
+  overflow-wrap: anywhere;
+}
+
+.ds-card__body > :where(p, ul, ol, dl, blockquote, figure) {
+  margin: 0;
+}
+
+.ds-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-card-footer-gap-default);
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------
+   Variants
+   --------------------------------------------------------- */
+
+/* Default — subtle border */
+.ds-card--default {
+  border: var(--ds-card-border-width-default) solid var(--ds-card-border-color-outlined);
+}
+
+/* Outlined — stronger border */
+.ds-card--outlined {
+  border: var(--ds-card-border-width-default) solid var(--ds-card-border-color-outlined);
+}
+
+/* Elevated — raised surface + semantic card shadow, no stroke in Figma. */
+.ds-card--elevated {
+  background-color: var(--ds-card-bg-elevated);
+  box-shadow: var(--ds-shadow-card);
+}
+
+/* Interactive Card — mirrors the Figma Card Interactive set. */
+.ds-card--interactive {
+  position: relative;
+  border: var(--ds-card-interactive-border-width-default) solid var(--ds-card-interactive-border-color-default);
+  cursor: pointer;
+  transition:
+    border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+    box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-card--interactive::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--ds-focus-ring-width) * -2);
+  border: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  border-radius: var(--ds-card-interactive-focus-ring-radius-default);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ds-card--interactive:hover,
+.ds-card--interactive.ds-card--hover {
+  border-color: var(--ds-card-interactive-border-color-hover);
+}
+
+.ds-card--interactive:focus-visible,
+.ds-card--interactive.ds-card--focus {
+  outline: none;
+  border-color: var(--ds-card-interactive-border-color-default);
+}
+
+.ds-card--interactive:focus-visible::after,
+.ds-card--interactive.ds-card--focus::after {
+  opacity: 1;
+}
+
+.ds-card--interactive.ds-card--selected,
+.ds-card--interactive[aria-selected="true"] {
+  border-color: var(--ds-card-interactive-border-color-selected);
+  border-width: var(--ds-card-interactive-border-width-selected);
+}

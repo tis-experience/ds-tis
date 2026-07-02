@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-013 — Camadas de consumo de tokens — Foundation nunca direto em consumidor final — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-013 — Camadas de consumo de tokens — Foundation nunca direto em consumidor final</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — implementada em 0.7.0 e parcialmente substituída por ADR-019 em 2026-05-11</strong> · Data: 2026-04-22</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-22
+<strong>Status:</strong> Aceita — implementada em 0.7.0 e parcialmente substituída por ADR-019 em 2026-05-11</p>
+<blockquote>
+<p><strong>Atualização (2026-04-26):</strong> Naquele release, a arquitetura foi estabilizada como <strong>2-layer (Foundation + Semantic)</strong>. Component collection foi eliminada em 0.7.0. ADR-015 unificou a escala de dimensão dentro de Semantic. Em 1.0.0-beta.1, todos os 111 leaks Foundation em <code>css/base/</code> foram migrados pra Semantic, fechando o débito original deste ADR.</p>
+</blockquote>
+<blockquote>
+<p><strong>Atualização (2026-05-11):</strong> ADR-019 reintroduz <strong>Component tokens</strong> como contrato anatômico de componente. A regra de fundo permanece: consumidor final não consome Foundation direto. A cadeia vigente passa a ser Foundation/Core → Semantic/System → Component → implementação. Component não volta como wrapper mecânico; volta para partes públicas de componente (<code>target</code>, <code>box</code>, <code>track</code>, <code>thumb</code>, etc.).</p>
+</blockquote>
+<h2>Contexto</h2>
+<p>O sistema começou com três camadas de tokens, passou por uma simplificação 2-layer em 0.7.0 e voltou a ter três camadas com ADR-019. A arquitetura vigente é:</p>
+<ol>
+<li><strong>Foundation</strong> — valores crus, escalas primitivas (<code>spacing/3 = 0.75rem</code>, <code>color/blue/600</code>, <code>radius/sm</code>, <code>shadow/md</code>, <code>duration/fast</code>). Sem significado funcional, só quantidade.</li>
+<li><strong>Semantic</strong> — aliases com intenção de uso (<code>brand/default</code>, <code>content/default</code>, <code>border/width/default</code>, <code>space/inset/md</code>, <code>typography/control/font-size/md</code>).</li>
+<li><strong>Component</strong> — contrato público de anatomia de componente (<code>component.checkbox.target.height.sm</code>, <code>component.button.bg.brand.default</code>, <code>component.toggle.track.width.md</code>), aliasando Semantic quando possível.</li>
+</ol>
+<p>A regra vigente é que consumidores finais — CSS de componente, bindings em componentes Figma, docs de uso — operam em cima de Component quando houver contrato de componente, ou Semantic enquanto o componente ainda não foi migrado. Foundation existe pra <strong>abastecer Semantic e aliases Component</strong>, não pra ser consumido direto.</p>
+<p>Essa regra <strong>nunca foi codificada explicitamente</strong> e por isso <strong>não é respeitada hoje</strong>. Auditoria em 22/04/2026:</p>
+<h3>No Figma (fonte de verdade — ADR-003)</h3>
+<ul>
+<li>51 componentes (COMPONENT/COMPONENT_SET) auditados.</li>
+<li><strong>3.479 bindings diretos pra Foundation</strong> encontrados. Distribuição:<ul>
+<li>Typography (<code>font-family</code>, <code>font-weight</code>, <code>font-size</code>, <code>line-height</code>, <code>letter-spacing</code>): ~2.500 bindings. Causa: Semantic nunca teve aliases pra typography genérica, só <code>typography/control/*</code> pra controles single-line.</li>
+<li>Border width (<code>border/width/1</code> em vez de <code>border/width/default</code>): ~500 bindings. Causa: negligência — o alias Semantic já existe.</li>
+<li>Restante: opacity, z-index, shadow, motion, radius — Semantic não tem aliases pra essas categorias.</li>
+</ul>
+</li>
+<li>A antiga collection <strong>Component</strong> tinha variáveis com valores literais raw (ex: <code>avatar/size/sm = 32</code>) em vez de aliases. Essa camada foi eliminada em 0.7.0.</li>
+</ul>
+<h3>No CSS (derivado)</h3>
+<ul>
+<li>Todos os 19 arquivos em <code>css/components/*.css</code> consomem Foundation direto em: spacing (<code>var(--ds-spacing-12)</code>), radius não-component (<code>var(--ds-radius-8)</code>), border-width (<code>var(--ds-border-width-1)</code>), typography (<code>var(--ds-font-size-14)</code>, <code>var(--ds-font-weight-medium)</code>, <code>var(--ds-line-height-normal)</code>), shadow, motion, opacity, z-index.</li>
+<li>Cor é o único domínio limpo: zero uso de <code>var(--ds-color-*)</code> raw.</li>
+</ul>
+<h3>Por que isso importa</h3>
+<p>O sistema perdeu propriedades arquiteturais importantes:</p>
+<ol>
+<li><strong>Rastreabilidade quebra.</strong> Um valor <code>0.75rem</code> no CSS pode vir de <code>--ds-spacing-12</code> direto, ou via <code>--ds-space-md</code> → <code>foundation.spacing.3</code>. O primeiro não carrega intenção; o segundo carrega. Buscar &quot;onde usamos o inset médio&quot; com grep falha no primeiro caso.</li>
+<li><strong>Theming fica rígido.</strong> Pra mudar o inset médio global de 12px pra 10px, teria que ir token por token no CSS substituindo <code>--ds-spacing-12</code> por <code>--ds-spacing-10</code> caso a caso. Com Semantic, muda <code>space/inset/md</code> num lugar e propaga.</li>
+<li><strong>Dois consumidores divergem.</strong> Figma binda <code>typography/font/weight/medium</code> direto; CSS usa <code>var(--ds-font-weight-medium)</code>. Quando alguém quiser mudar &quot;peso médio&quot; pra <code>semibold</code> em contextos de label de controle, precisa fazer hunt manual nos dois lados. Com Semantic <code>typography/control/font-weight</code>, muda uma vez.</li>
+</ol>
+<h2>Decisão</h2>
+<h3>A regra</h3>
+<p><strong>Foundation só pode ser consumido por Semantic.</strong> Isso é: o único lugar onde <code>foundation.*</code> aparece como referência é dentro de outro <code>$value: &quot;{foundation.*}&quot;</code> em arquivos JSON de <code>tokens/semantic/</code>, ou dentro de alias de Variable Figma na coleção Semantic.</p>
+<p><strong>Foundation nunca aparece em consumidor final</strong>, ou seja:</p>
+<ul>
+<li>Nenhum <code>var(--ds-{foundation-name}-*)</code> em <code>css/components/*.css</code> ou <code>css/base/*.css</code>.</li>
+<li>Nenhum binding de componente Figma (fills, strokes, paddings, typography props, etc.) apontando pra variável da coleção Foundation.</li>
+<li>Nenhuma referência em código de docs a token Foundation (exceto nas próprias páginas de <code>foundations-*.html</code> que documentam a escala).</li>
+</ul>
+<h3>Cadeia permitida</h3>
+<pre><code>Foundation  ──►  Semantic  ──►  Component  ──►  Consumidor final
+                                            (CSS, Figma binding, docs de componente)
+</code></pre>
+<p>Consumidor final <strong>só</strong> vê Component quando houver contrato Component, ou Semantic durante a migração. Nunca Foundation, nunca valor hardcoded.</p>
+<h3>Exceção explícita — <code>semantic.control.*</code> (ADR-006)</h3>
+<p>Já codificado em ADR-006 e depois simplificado por ADR-015: dimensões e tipografia compartilhadas entre controles interativos vivem em Semantic. Button, Input, Select e Textarea consomem os semantic tokens finais diretamente.</p>
+<h3>Valores específicos de componente</h3>
+<p>Alguns valores são genuinamente específicos de um componente e não têm equivalente abstrato Semantic no momento da auditoria. Exemplos: <code>modal.max-width</code>, <code>avatar.icon-size</code>, <code>textarea.min-height</code>. Na arquitetura vigente pós-ADR-019, isso não autoriza hardcode nem consumo direto de Foundation: primeiro reaproveita-se Semantic quando houver decisão reutilizável; se a decisão for anatômica e específica do componente, cria-se um token Component.</p>
+<h3>Enforcement automatizado</h3>
+<p>O script <code>npm run verify:tokens</code> (<code>scripts/tokens-verify.mjs</code>) é estendido com três checks que falham o CI:</p>
+<ol>
+<li><strong>CSS foundation leak</strong>: scan de <code>css/components/*.css</code> e <code>css/base/*.css</code> por <code>var(--ds-{categorias-foundation}-*)</code> não aliasado.</li>
+<li><strong>Figma foundation leak</strong>: scan do <code>.figma-snapshot.json</code> por bindings apontando pra variáveis da collection Foundation dentro de nodes COMPONENT/COMPONENT_SET.</li>
+<li><strong>Token Registry completude</strong>: toda variável em <code>tokens/**/*.json</code> precisa ter entrada em <code>tokens/registry.yaml</code> com campos <code>sentido</code>, <code>contexto</code>, <code>decisao</code> preenchidos.</li>
+</ol>
+<h3>Quando criar um token Semantic para uma necessidade de componente</h3>
+<p>A primeira execução desta ADR (Fases 0-7) criou tokens component em excesso — 151 novos, dos quais 105 eram aliases 1:1 pra Semantic/Foundation sem variação entre componentes. Exemplos: <code>component.button.transition-duration</code>, <code>component.input.transition-duration</code>, <code>component.checkbox.transition-duration</code> — todos apontando pra <code>{foundation.duration.fast}</code> e resolvendo pro mesmo valor, sem razão arquitetural pra divergir.</p>
+<p>Isso transgrediu a intenção da regra e motivou a eliminação da camada Component. Token Semantic é a camada de intenção compartilhada ou consumível.</p>
+<p><strong>Criar ou reaproveitar Semantic token quando:</strong></p>
+<ol>
+<li><p><strong>Um consumidor final precisa de um valor visual.</strong>
+Ex: <code>modal</code> usa <code>semantic.size.layout.{sm,md,lg}</code> para largura máxima.</p>
+</li>
+<li><p><strong>Há variação por size/state dentro de um padrão reutilizável.</strong>
+Ex: controles interativos usam semantic tokens de tamanho/spacing/typography.</p>
+</li>
+<li><p><strong>A decisão parece específica, mas pode nomear uma intenção.</strong>
+Ex: <code>radius.full</code>, <code>radius.lg</code>, <code>shadow.lg</code>, <code>size.layout.lg</code>.</p>
+</li>
+</ol>
+<p><strong>NÃO fazer:</strong></p>
+<ul>
+<li>Criar wrapper mecânico por componente.</li>
+<li>Usar Foundation direto em CSS/Figma/docs.</li>
+<li>Usar valor literal em consumidor final quando existe Semantic equivalente.</li>
+</ul>
+<p><strong>Exemplo da distinção</strong>:</p>
+<ul>
+<li>Motion (<code>duration.fast</code>, <code>ease.default</code>) é decisão sistêmica: sempre os mesmos valores em todo lugar. Vive em <strong>Semantic</strong> (<code>motion.duration.fast</code>, <code>motion.ease.default</code>), não em cada Component.</li>
+<li>Border-radius é intenção semântica de forma (<code>radius.sm/md/lg/full</code>) e o componente escolhe o semantic token aplicável.</li>
+</ul>
+<p>Aplicação retroativa: <strong>Fase 8</strong> do plano de execução remove os 105 tokens redundantes criados na Fase 5.</p>
+<h3>Token Registry</h3>
+<p>Criado como parte desta ADR: arquivo único <code>tokens/registry.yaml</code> que cataloga todos os tokens do sistema (Foundation, Semantic) com metadados por entrada:</p>
+<ul>
+<li><code>layer</code> — camada da arquitetura</li>
+<li><code>type</code> — tipo DTCG</li>
+<li><code>references</code> — alias (null se raw)</li>
+<li><code>sentido</code> — o que o token representa</li>
+<li><code>escopo</code> — scopes Figma aplicáveis</li>
+<li><code>contexto</code> — quando usar</li>
+<li><code>usos</code> — auto-calculado (CSS + Figma + outros tokens)</li>
+<li><code>decisao</code> — link pra ADR que motiva a existência do token</li>
+</ul>
+<p>Gerado em MD (<code>docs/token-registry.md</code>) via <code>scripts/build-token-registry.mjs</code>. Integrado ao <code>sync-tokens-from-figma</code>: toda variável nova detectada no Figma exige entrada no registry antes do sync finalizar.</p>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li><strong>Rastreabilidade restaurada</strong>: cada uso de valor no CSS ou Figma passa por um token com intenção nomeada. <code>grep</code> recupera contexto.</li>
+<li><strong>Theming escala</strong>: mudanças semânticas (ex: &quot;densidade média quer menos padding&quot;) mudam um alias, propagam pra todo sistema.</li>
+<li><strong>Figma e código convergem</strong>: os dois consomem Component quando há contrato de componente, ou Semantic durante a migração, não Foundation direto em caminhos diferentes.</li>
+<li><strong>CI pega regressão</strong>: qualquer PR que introduzir foundation leak em CSS de componente ou binding Figma falha o verify.</li>
+<li><strong>Decisões ficam explícitas</strong>: Token Registry obriga preencher <code>sentido</code>/<code>contexto</code>/<code>decisao</code> pra cada token. Tokens sem justificativa documentada não entram no sistema.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li><strong>Trabalho grande de remediação</strong>: ~3.500 bindings Figma pra rebind, 19 CSS de componente pra reescrever, ~20-30 Semantic novas pra criar. Estimado em 17-24h, dividido em 5 PRs.</li>
+<li><strong>Processo de sync mais rígido</strong>: adicionar variável nova no Figma agora exige entrada no registry com metadados obrigatórios antes do sync completar. Fricção proposital pra forçar intenção.</li>
+<li><strong>Sem atalhos para exceções</strong>: quando um componente precisar de uma intenção nova, a decisão deve virar Semantic antes de aparecer em CSS/Figma/docs.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>(a) Aceitar o estado atual e só documentar</h3>
+<p>Descartada. Rastreabilidade quebrada não é aceitável num sistema que se propõe white-label e teme ter usuários diferentes com necessidades de customização diferente.</p>
+<h3>(b) Manter Component → Foundation como exceção</h3>
+<p>Descartada como regra geral. Componentes têm valores específicos, mas Component não pode apontar direto para Foundation nem virar wrapper mecânico. Quando o contrato for anatômico, o caminho preferencial é Component → Semantic → Foundation.</p>
+<h3>(c) Criar camada adicional entre Foundation e Semantic (ex: &quot;Alias&quot;)</h3>
+<p>Descartada. Três camadas já são o suficiente; adicionar uma quarta complica o modelo mental sem resolver o problema real. O problema é Foundation aparecendo em consumidor final, não a arquitetura de camadas em si.</p>
+<h3>(d) Só corrigir no Figma e deixar CSS como está</h3>
+<p>Descartada. Foundation leak em CSS de componente é equivalente à do Figma — mesma quebra de rastreabilidade e theming. Corrigir um lado e não o outro perpetua a inconsistência.</p>
+<h2>Plano de execução</h2>
+<p>Fases 0-7. Divisão em 5 PRs:</p>
+<ul>
+<li><strong>PR #A</strong>: ADR-013 + Token Registry skeleton + check de completude</li>
+<li><strong>PR #B</strong>: Audit de reuso Semantic + expansão no Figma + sync parcial</li>
+<li><strong>PR #C</strong>: Rebind de 3.479 bindings Figma + remoção de raw values da antiga collection Component</li>
+<li><strong>PR #D</strong>: Semantic tokens necessários + 19 CSS atualizados + checks de leak</li>
+<li><strong>PR #E</strong>: Docs finais + integração registry↔sync</li>
+</ul>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-001-migracao-tokens.md">ADR-001</a> — arquitetura Foundation → Semantic → Component original.</li>
+<li><a href="./ADR-003-fontes-verdade.md">ADR-003</a> — Figma como autoridade de valor.</li>
+<li><a href="./ADR-005-brand-foundation-e-estados-explicitos.md">ADR-005</a> — brand como foundation, convenção <code>-default</code>.</li>
+<li><a href="./ADR-006-semantic-control-tokens.md">ADR-006</a> — tokens de controle, parcialmente substituídos pela simplificação de ADR-015.</li>
+<li><a href="./ADR-011-renaming-tokens-semanticos-de-cor.md">ADR-011</a> — renaming de semantic de cor; princípio 9 é o precedente direto deste ADR.</li>
+<li><a href="./ADR-019-component-tokens-contrato-anatomico.md">ADR-019</a> — reintrodução da camada Component como contrato anatômico.</li>
+<li><code>tokens/registry.yaml</code> — Token Registry (artefato criado por esta ADR).</li>
+<li><code>scripts/tokens-verify.mjs</code> — checks de enforcement.</li>
+<li><code>CLAUDE.md</code> — seção &quot;Hierarquia de verdade&quot; atualizada com referência a este ADR.</li>
+<li>Design systems de referência consultados: IBM Carbon (Token Explorer), GitHub Primer (primer/primitives YAML + CI), Material Design 3, Shopify Polaris, Adobe Spectrum.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

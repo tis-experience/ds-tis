@@ -1,0 +1,363 @@
+/* ============================================================
+   COMPONENT: Button — aligned with Figma specs
+   Sizes: sm=32px, md=40px, lg=48px
+   ============================================================ */
+
+.ds-button {
+  --_ds-button-focus-ring-color: var(--ds-focus-ring-color-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-button-gap-md);
+  font-family: var(--ds-button-label-font-family-default);
+  font-weight: var(--ds-button-label-font-weight-default);
+  line-height: var(--ds-button-label-line-height-md);
+  text-decoration: none;
+  border: var(--ds-button-border-width-default) solid transparent;
+  border-radius: var(--ds-button-radius-default);
+  cursor: pointer;
+  transition: background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+  white-space: nowrap;
+  user-select: none;
+
+  /* Default size: md (40px) */
+  height: var(--ds-button-height-md);
+  padding: var(--ds-button-padding-y-md) var(--ds-button-padding-x-md);
+  font-size: var(--ds-button-label-font-size-md);
+  min-width: var(--ds-button-min-width-md);
+}
+
+.ds-button:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--_ds-button-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-button[disabled],
+.ds-button--disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ds-button__icon {
+  width: var(--ds-button-icon-size-md);
+  height: var(--ds-button-icon-size-md);
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ds-button-icon-stroke-width-md);
+}
+
+.ds-button__label {
+  padding-inline: var(--ds-button-label-frame-padding-x-default);
+}
+
+/* ---------------------------------------------------------
+   Sizes
+   --------------------------------------------------------- */
+.ds-button--sm {
+  height: var(--ds-button-height-sm);
+  padding: var(--ds-button-padding-y-sm) var(--ds-button-padding-x-sm);
+  font-size: var(--ds-button-label-font-size-sm);
+  line-height: var(--ds-button-label-line-height-sm);
+  min-width: var(--ds-button-min-width-sm);
+  gap: var(--ds-button-gap-sm);
+}
+
+.ds-button--sm .ds-button__icon {
+  width: var(--ds-button-icon-size-sm);
+  height: var(--ds-button-icon-size-sm);
+  stroke-width: var(--ds-button-icon-stroke-width-sm);
+}
+
+.ds-button--lg {
+  height: var(--ds-button-height-lg);
+  padding: var(--ds-button-padding-y-lg) var(--ds-button-padding-x-lg);
+  font-size: var(--ds-button-label-font-size-lg);
+  line-height: var(--ds-button-label-line-height-lg);
+  min-width: var(--ds-button-min-width-lg);
+  gap: var(--ds-button-gap-lg);
+}
+
+.ds-button--lg .ds-button__icon {
+  width: var(--ds-button-icon-size-lg);
+  height: var(--ds-button-icon-size-lg);
+  stroke-width: var(--ds-button-icon-stroke-width-lg);
+}
+
+/* ---------------------------------------------------------
+   Variant: Brand (primary filled — action/primary/default)
+   --------------------------------------------------------- */
+.ds-button--brand {
+  background-color: var(--ds-button-bg-brand-default);
+  color: var(--ds-button-content-color-brand-default);
+  border-color: transparent;
+}
+
+.ds-button--brand:focus-visible {
+  background-color: var(--ds-button-bg-brand-focus);
+  color: var(--ds-button-content-color-brand-focus);
+}
+
+.ds-button--brand:hover {
+  background-color: var(--ds-button-bg-brand-hover);
+  color: var(--ds-button-content-color-brand-hover);
+}
+
+.ds-button--brand:active {
+  background-color: var(--ds-button-bg-brand-pressed);
+  color: var(--ds-button-content-color-brand-pressed);
+}
+
+.ds-button--brand[disabled],
+.ds-button--brand.ds-button--disabled {
+  background-color: var(--ds-button-bg-brand-disabled);
+  color: var(--ds-button-content-color-brand-disabled);
+}
+
+/* ---------------------------------------------------------
+   Variant: Toned (alpha-tinted primary — action/primary/toned)
+   --------------------------------------------------------- */
+.ds-button--toned {
+  background-color: var(--ds-button-bg-toned-default);
+  color: var(--ds-button-content-color-toned-default);
+  border-color: transparent;
+}
+
+.ds-button--toned:focus-visible {
+  background-color: var(--ds-button-bg-toned-focus);
+  color: var(--ds-button-content-color-toned-focus);
+}
+
+.ds-button--toned:hover {
+  background-color: var(--ds-button-bg-toned-hover);
+  color: var(--ds-button-content-color-toned-hover);
+}
+
+.ds-button--toned:active {
+  background-color: var(--ds-button-bg-toned-pressed);
+  color: var(--ds-button-content-color-toned-pressed);
+}
+
+.ds-button--toned[disabled],
+.ds-button--toned.ds-button--disabled {
+  background-color: var(--ds-button-bg-toned-disabled);
+  color: var(--ds-button-content-color-toned-disabled);
+}
+
+/* ---------------------------------------------------------
+   Variant: Outline (neutral — action/secondary/outline)
+   --------------------------------------------------------- */
+.ds-button--outline {
+  background-color: transparent;
+  color: var(--ds-button-content-color-outline-default);
+  border-color: var(--ds-button-border-color-outline-default);
+}
+
+.ds-button--outline:focus-visible {
+  color: var(--ds-button-content-color-outline-focus);
+  border-color: var(--ds-button-border-color-outline-focus);
+}
+
+.ds-button--outline:hover {
+  background-color: var(--ds-button-bg-outline-hover);
+  color: var(--ds-button-content-color-outline-hover);
+  border-color: var(--ds-button-border-color-outline-hover);
+}
+
+.ds-button--outline:active {
+  background-color: var(--ds-button-bg-outline-pressed);
+  color: var(--ds-button-content-color-outline-pressed);
+  border-color: var(--ds-button-border-color-outline-pressed);
+}
+
+.ds-button--outline[disabled],
+.ds-button--outline.ds-button--disabled {
+  background-color: transparent;
+  color: var(--ds-button-content-color-outline-disabled);
+  border-color: var(--ds-button-border-color-outline-disabled);
+}
+
+/* ---------------------------------------------------------
+   Variant: Ghost (primary color, no background — action/primary/ghost)
+   --------------------------------------------------------- */
+.ds-button--ghost {
+  background-color: transparent;
+  color: var(--ds-button-content-color-ghost-default);
+  border-color: transparent;
+}
+
+.ds-button--ghost:focus-visible {
+  color: var(--ds-button-content-color-ghost-focus);
+}
+
+.ds-button--ghost:hover {
+  background-color: var(--ds-button-bg-ghost-hover);
+  color: var(--ds-button-content-color-ghost-hover);
+}
+
+.ds-button--ghost:active {
+  background-color: var(--ds-button-bg-ghost-pressed);
+  color: var(--ds-button-content-color-ghost-pressed);
+}
+
+.ds-button--ghost[disabled],
+.ds-button--ghost.ds-button--disabled {
+  background-color: transparent;
+  color: var(--ds-button-content-color-ghost-disabled);
+}
+
+/* ---------------------------------------------------------
+   Variant: Success
+   --------------------------------------------------------- */
+.ds-button--success {
+  --_ds-button-focus-ring-color: var(--ds-focus-ring-color-success);
+  background-color: var(--ds-button-bg-success-default);
+  color: var(--ds-button-content-color-success-default);
+  border-color: transparent;
+}
+
+.ds-button--success:focus-visible {
+  background-color: var(--ds-button-bg-success-focus);
+  color: var(--ds-button-content-color-success-focus);
+}
+
+.ds-button--success:hover {
+  background-color: var(--ds-button-bg-success-hover);
+  color: var(--ds-button-content-color-success-hover);
+}
+
+.ds-button--success:active {
+  background-color: var(--ds-button-bg-success-pressed);
+  color: var(--ds-button-content-color-success-pressed);
+}
+
+.ds-button--success[disabled],
+.ds-button--success.ds-button--disabled {
+  background-color: var(--ds-button-bg-success-disabled);
+  color: var(--ds-button-content-color-success-disabled);
+}
+
+/* ---------------------------------------------------------
+   Variant: Danger (action/danger/default)
+   --------------------------------------------------------- */
+.ds-button--danger {
+  --_ds-button-focus-ring-color: var(--ds-focus-ring-color-error);
+  background-color: var(--ds-button-bg-danger-default);
+  color: var(--ds-button-content-color-danger-default);
+  border-color: transparent;
+}
+
+.ds-button--danger:focus-visible {
+  background-color: var(--ds-button-bg-danger-focus);
+  color: var(--ds-button-content-color-danger-focus);
+}
+
+.ds-button--danger:hover {
+  background-color: var(--ds-button-bg-danger-hover);
+  color: var(--ds-button-content-color-danger-hover);
+}
+
+.ds-button--danger:active {
+  background-color: var(--ds-button-bg-danger-pressed);
+  color: var(--ds-button-content-color-danger-pressed);
+}
+
+.ds-button--danger[disabled],
+.ds-button--danger.ds-button--disabled {
+  background-color: var(--ds-button-bg-danger-disabled);
+  color: var(--ds-button-content-color-danger-disabled);
+}
+
+/* ---------------------------------------------------------
+   Icon Only
+   --------------------------------------------------------- */
+.ds-button--icon-only {
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.ds-button--icon-only.ds-button--sm {
+  width: var(--ds-button-icon-only-width-sm);
+  min-width: var(--ds-button-icon-only-width-sm);
+  padding: var(--ds-button-icon-only-padding-sm);
+}
+
+.ds-button--icon-only:not(.ds-button--sm):not(.ds-button--lg) {
+  width: var(--ds-button-icon-only-width-md);
+  min-width: var(--ds-button-icon-only-width-md);
+  padding: var(--ds-button-icon-only-padding-md);
+}
+
+.ds-button--icon-only.ds-button--lg {
+  width: var(--ds-button-icon-only-width-lg);
+  min-width: var(--ds-button-icon-only-width-lg);
+  padding: var(--ds-button-icon-only-padding-lg);
+}
+
+.ds-button .ds-icon {
+  width: var(--ds-button-icon-size-md);
+  height: var(--ds-button-icon-size-md);
+  color: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ds-button-icon-stroke-width-md);
+}
+
+.ds-button--sm .ds-icon {
+  width: var(--ds-button-icon-size-sm);
+  height: var(--ds-button-icon-size-sm);
+  stroke-width: var(--ds-button-icon-stroke-width-sm);
+}
+
+.ds-button--lg .ds-icon {
+  width: var(--ds-button-icon-size-lg);
+  height: var(--ds-button-icon-size-lg);
+  stroke-width: var(--ds-button-icon-stroke-width-lg);
+}
+
+/* ---------------------------------------------------------
+   Full Width
+   --------------------------------------------------------- */
+.ds-button--full {
+  width: 100%;
+}
+
+/* ---------------------------------------------------------
+   Loading
+   --------------------------------------------------------- */
+.ds-button--loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.ds-button--loading .ds-button__label,
+.ds-button--loading .ds-button__icon {
+  visibility: hidden;
+}
+
+.ds-button__spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-button--brand .ds-spinner,
+.ds-button--success .ds-spinner,
+.ds-button--danger .ds-spinner {
+  border-color: var(--ds-spinner-track-border-color-on-color);
+  border-top-color: var(--ds-spinner-indicator-border-color-on-color);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-button { transition: none; }
+}

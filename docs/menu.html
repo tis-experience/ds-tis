@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title">Menu</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Menu é a base visual para listas de comandos. Use Action Menu quando um Button abre uma lista de ações contextuais.</span><span data-lang="en">Menu is the visual base for command lists. Use Action Menu when a Button opens a contextual list of actions.</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Menu quando</span><span data-lang="en">Use Menu when</span></div>
+      <span data-lang="pt">A interface precisa apresentar comandos, atalhos ou ações de um objeto. Para um trigger completo, use o padrão Action Menu.</span><span data-lang="en">The interface needs to present commands, shortcuts, or object actions. For a complete trigger pattern, use Action Menu.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Menu quando</span><span data-lang="en">Don't use Menu when</span></div>
+      <span data-lang="pt">O usuário está escolhendo um valor de formulário; nesse caso use Select, Radio ou Checkbox. Se houver busca ou edição de texto, use <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span><span data-lang="en">The user is choosing a form value; use Select, Radio, or Checkbox instead. If search or text entry is required, use <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl);">
+      <div class="ds-menu" role="menu" aria-label="Menu anatomy" inert>
+        <button class="ds-menu__item" role="menuitem" type="button" style="position:relative;">
+          <i data-lucide="pencil" class="ds-menu__icon ds-icon"></i>
+          <span class="ds-menu__item-label">Rename</span>
+          <span class="ds-menu__shortcut">R</span>
+          <span style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-5xl));inset-inline-start:50%;block-size:var(--ds-space-5xl);inline-size:var(--ds-menu-surface-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-5xl) + var(--ds-space-lg)));inset-inline-start:50%;transform:translateX(-50%);">1</span>
+        </button>
+        <button class="ds-menu__item" role="menuitem" type="button">
+          <i data-lucide="copy" class="ds-menu__icon ds-icon"></i>
+          <span class="ds-menu__item-label">Duplicate</span>
+          <span class="ds-menu__shortcut">D</span>
+        </button>
+        <div class="ds-menu__separator" role="separator"></div>
+        <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button">
+          <i data-lucide="trash-2" class="ds-menu__icon ds-icon"></i>
+          <span class="ds-menu__item-label">Delete</span>
+        </button>
+      </div>
+    </div>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>Item</strong> (<code>.ds-menu__item</code>) — comando acionável com label obrigatório.<br>
+      <strong>Ícone</strong> (<code>.ds-menu__icon</code>) — opcional, decorativo quando o texto já nomeia a ação.<br>
+      <strong>Shortcut</strong> (<code>.ds-menu__shortcut</code>) — opcional, apenas informativo.<br>
+      <strong>Separator</strong> (<code>.ds-menu__separator</code>) — separa grupos de ações relacionadas.</span>
+      <span data-lang="en"><strong>Item</strong> (<code>.ds-menu__item</code>) — actionable command with a required label.<br>
+      <strong>Icon</strong> (<code>.ds-menu__icon</code>) — optional and decorative when text already names the action.<br>
+      <strong>Shortcut</strong> (<code>.ds-menu__shortcut</code>) — optional and informational only.<br>
+      <strong>Separator</strong> (<code>.ds-menu__separator</code>) — separates related action groups.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <div class="ds-menu" role="menu" aria-label="File actions">
+            <button class="ds-menu__item" role="menuitem" type="button">
+              <i data-lucide="pencil" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Rename file</span>
+              <span class="ds-menu__shortcut">R</span>
+            </button>
+            <button class="ds-menu__item" role="menuitem" type="button">
+              <i data-lucide="copy" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Duplicate</span>
+              <span class="ds-menu__shortcut">D</span>
+            </button>
+            <button class="ds-menu__item" role="menuitem" type="button">
+              <i data-lucide="download" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Download</span>
+            </button>
+            <div class="ds-menu__separator" role="separator"></div>
+            <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button">
+              <i data-lucide="trash-2" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Delete file</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-menu" role="menu" aria-label="File actions"&gt;
+  &lt;button class="ds-menu__item" role="menuitem" type="button"&gt;
+    &lt;span class="ds-menu__item-label"&gt;Rename file&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="ds-menu__separator" role="separator"&gt;&lt;/div&gt;
+  &lt;button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button"&gt;
+    &lt;span class="ds-menu__item-label"&gt;Delete file&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Action Menu</span><span data-lang="en">Action Menu</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Action Menu combina um Button trigger com um Menu posicionado. O produto deve controlar abertura, fechamento, foco inicial, setas do teclado, Escape e retorno de foco ao trigger.</span><span data-lang="en">Action Menu combines a Button trigger with a positioned Menu. The product must control open/close behavior, initial focus, arrow keys, Escape, and focus return to the trigger.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas" style="min-height:var(--ds-size-layout-xs);justify-content:center;">
+          <div class="ds-action-menu" data-open="true">
+            <button class="ds-button ds-button--outline ds-action-menu__trigger" id="project-actions-trigger" type="button" aria-haspopup="menu" aria-expanded="true" aria-controls="project-actions-menu">
+              <span class="ds-button__label">Project actions</span>
+              <i data-lucide="chevron-down" class="ds-button__icon ds-icon"></i>
+            </button>
+            <div class="ds-menu ds-action-menu__content" id="project-actions-menu" role="menu" aria-labelledby="project-actions-trigger">
+              <button class="ds-menu__item" role="menuitem" type="button">
+                <i data-lucide="pencil" class="ds-menu__icon ds-icon"></i>
+                <span class="ds-menu__item-label">Edit details</span>
+              </button>
+              <button class="ds-menu__item" role="menuitem" type="button">
+                <i data-lucide="copy" class="ds-menu__icon ds-icon"></i>
+                <span class="ds-menu__item-label">Duplicate project</span>
+              </button>
+              <div class="ds-menu__separator" role="separator"></div>
+              <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button">
+                <i data-lucide="trash-2" class="ds-menu__icon ds-icon"></i>
+                <span class="ds-menu__item-label">Delete project</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-action-menu" data-open="true"&gt;
+  &lt;button class="ds-button ds-button--outline ds-action-menu__trigger"
+          aria-haspopup="menu" aria-expanded="true" aria-controls="menu-id"&gt;
+    &lt;span class="ds-button__label"&gt;Project actions&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="ds-menu ds-action-menu__content" id="menu-id" role="menu"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados e seleção</span><span data-lang="en">States and selection</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <div class="ds-menu" role="menu" aria-label="View density">
+            <button class="ds-menu__item" role="menuitemradio" aria-checked="true" type="button">
+              <i data-lucide="check" class="ds-menu__check ds-icon"></i>
+              <span class="ds-menu__item-label">Comfortable</span>
+            </button>
+            <button class="ds-menu__item" role="menuitemradio" aria-checked="false" type="button">
+              <i data-lucide="check" class="ds-menu__check ds-icon"></i>
+              <span class="ds-menu__item-label">Compact</span>
+            </button>
+            <button class="ds-menu__item" role="menuitem" aria-disabled="true" type="button">
+              <i data-lucide="lock" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Admin only</span>
+            </button>
+            <div class="ds-menu__separator" role="separator"></div>
+            <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button">
+              <i data-lucide="trash-2" class="ds-menu__icon ds-icon"></i>
+              <span class="ds-menu__item-label">Delete view</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;button class="ds-menu__item" role="menuitemradio" aria-checked="true"&gt;...&lt;/button&gt;
+&lt;button class="ds-menu__item" role="menuitem" aria-disabled="true"&gt;...&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-menu" role="menu" aria-label="Actions">
+            <button class="ds-menu__item" role="menuitem" type="button"><span class="ds-menu__item-label">Edit</span></button>
+            <button class="ds-menu__item" role="menuitem" type="button"><span class="ds-menu__item-label">Share</span></button>
+            <div class="ds-menu__separator" role="separator"></div>
+            <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button"><span class="ds-menu__item-label">Delete</span></button>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Agrupe ações relacionadas com separadores; coloque ações destrutivas por último.</span><span data-lang="en">Group related actions with separators; place destructive actions last.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-menu" role="menu" aria-label="Bad">
+            <button class="ds-menu__item" role="menuitem" type="button"><span class="ds-menu__item-label">Brazil</span></button>
+            <button class="ds-menu__item" role="menuitem" type="button"><span class="ds-menu__item-label">Chile</span></button>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não use Menu para seleção de valor de formulário — use <a href="select.html" style="color:var(--ds-link-content-default)">Select</a> ou <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span><span data-lang="en">Don't use Menu for form value selection — use <a href="select.html" style="color:var(--ds-link-content-default)">Select</a> or <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td>Verbos de ação em sentence case</td><td>"Rename file", "Delete project"</td></tr>
+        <tr><td>Shortcuts apenas informativos</td><td>"R" ao lado de Rename — não substitui a ação</td></tr>
+        <tr><td>Destructive com linguagem clara</td><td>"Delete project" — não "Remove"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Parte</th><th>CSS</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>Surface</td><td><code>.ds-menu</code></td><td><code>component.menu.surface.*</code></td></tr>
+        <tr><td>Item</td><td><code>.ds-menu__item</code></td><td><code>component.menu.item.{height,gap,padding-x,radius,bg,content}</code></td></tr>
+        <tr><td>Destructive</td><td><code>.ds-menu__item--destructive</code></td><td><code>component.menu.item.{content,icon,meta}.color.destructive</code></td></tr>
+        <tr><td>Icon</td><td><code>.ds-menu__icon</code></td><td><code>component.menu.item.icon.{color,size,stroke-width}</code></td></tr>
+        <tr><td>Overlay gap</td><td><code>.ds-action-menu__content</code></td><td><code>component.action-menu.overlay.gap.default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-menu</code></td><td><span data-lang="pt">Container do menu (<code>role="menu"</code>)</span><span data-lang="en">Menu container (<code>role="menu"</code>)</span></td></tr>
+        <tr><td><code>ds-menu__item</code></td><td><span data-lang="pt">Item de comando</span><span data-lang="en">Command item</span></td></tr>
+        <tr><td><code>ds-menu__item--destructive</code></td><td><span data-lang="pt">Ação destrutiva</span><span data-lang="en">Destructive action</span></td></tr>
+        <tr><td><code>ds-menu__separator</code></td><td><span data-lang="pt">Separador de grupos</span><span data-lang="en">Group separator</span></td></tr>
+        <tr><td><code>ds-action-menu</code></td><td><span data-lang="pt">Wrapper trigger + popup</span><span data-lang="en">Trigger + popup wrapper</span></td></tr>
+        <tr><td><code>ds-action-menu__trigger</code></td><td><span data-lang="pt">Button que abre o menu</span><span data-lang="en">Button that opens the menu</span></td></tr>
+        <tr><td><code>ds-action-menu__content</code></td><td><span data-lang="pt">Menu posicionado no overlay</span><span data-lang="en">Positioned menu in overlay</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Arrow Down</code> / <code>Arrow Up</code></td><td><span data-lang="pt">Move foco entre itens</span><span data-lang="en">Moves focus between items</span></td></tr>
+        <tr><td><code>Home</code> / <code>End</code></td><td><span data-lang="pt">Primeiro / último item</span><span data-lang="en">First / last item</span></td></tr>
+        <tr><td><code>Enter</code> / <code>Space</code></td><td><span data-lang="pt">Ativa o item focado</span><span data-lang="en">Activates focused item</span></td></tr>
+        <tr><td><code>Escape</code></td><td><span data-lang="pt">Fecha o menu e retorna foco ao trigger</span><span data-lang="en">Closes menu and returns focus to trigger</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><code>role="menu"</code>, <code>role="menuitem"</code>, <code>aria-haspopup</code>, <code>aria-expanded</code></td><td>&#10003;</td></tr>
+        <tr><td>2.1.1 Keyboard (A)</td><td><span data-lang="pt">Navegação por setas, Enter/Space, Escape implementada pelo produto</span><span data-lang="en">Arrow navigation, Enter/Space, Escape implemented by product</span></td><td>&#10003;</td></tr>
+        <tr><td>2.4.3 Focus Order (A)</td><td><span data-lang="pt">Foco inicial no primeiro item ao abrir; retorno ao trigger ao fechar</span><span data-lang="en">Initial focus on first item when open; return to trigger on close</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="button.html" class="ds-related__link">Button</a>
+      <a href="combobox.html" class="ds-related__link">Combobox</a>
+      <a href="select.html" class="ds-related__link">Select</a>
+      <a href="tooltip.html" class="ds-related__link">Tooltip</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

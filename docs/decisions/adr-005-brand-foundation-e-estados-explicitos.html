@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-005 — Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-005 — Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por [ADR-014](ADR-014-action-tokens-role-style.md): collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.</strong> · Data: 2026-04-14</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-14
+<strong>Status:</strong> Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por <a href="ADR-014-action-tokens-role-style.md">ADR-014</a>: collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.
+<strong>Atualiza:</strong> ADR-001 (seção sobre camada Brand)</p>
+<h2>Implementação</h2>
+<p>Os três pontos do ADR foram executados via ADR-011 e commits anteriores:</p>
+<ol>
+<li><strong>Brand como foundation:</strong> <code>tokens/foundation/brand.json</code> existe com <code>foundation.brand.primary</code> → <code>{foundation.color.blue.600}</code> e <code>foundation.brand.secondary</code> → <code>{foundation.color.purple.600}</code>. <code>tokens/semantic/light.json</code> e <code>dark.json</code> referenciam <code>{foundation.brand.primary}</code> e <code>{foundation.brand.secondary}</code> nos tokens <code>.default</code> (light.json linha 88, dark.json linha 86).</li>
+<li><strong>Sufixo <code>-default</code> explícito:</strong> nenhum CSS de componente em <code>css/components/*.css</code> usa os nomes antigos (<code>--ds-color-primary</code>, <code>--ds-color-secondary</code>, <code>--ds-feedback-success</code> sem sufixo, etc.). Todos consomem <code>--ds-*-default</code>.</li>
+<li><strong><code>font.size.base</code> removido:</strong> <code>tokens/foundation/typography.json</code> não contém mais a chave. Zero ocorrências de <code>--ds-font-size-base</code> em qualquer CSS do repo.</li>
+</ol>
+<p>Fechamento formal em 0.5.2: correção do <code>canonicalToCssVar</code> em <code>scripts/tokens-verify.mjs</code> (alinhamento com o transform <code>name/strip-layer</code> de <code>build-tokens.mjs</code>), zerando 65 falsos positivos que mascaravam a verificação.</p>
+<h2>Pré-requisitos</h2>
+<ul>
+<li>Verificação Figma ↔ JSON em CI estável (ADR-003, introduzida em 0.5.1). Sem isso, a migração de brand para foundation pode gerar divergências silenciosas entre Figma e código.</li>
+</ul>
+<h2>Estimativa de esforço</h2>
+<p>6 horas. Distribuídas em: 2h edição de JSONs (criar <code>tokens/foundation/brand.json</code>, ajustar referências em light/dark), 1h build e ajuste do Style Dictionary, 2h rename das CSS custom properties nos 18 componentes via script (<code>--ds-color-primary</code> → <code>--ds-color-primary-default</code> etc.), 1h atualização da coleção Brand no Figma e validação visual.</p>
+<h2>Passos concretos para sair do estado Proposta</h2>
+<ol>
+<li>Criar <code>tokens/foundation/brand.json</code> com <code>foundation.brand.primary</code> e <code>foundation.brand.secondary</code> resolvendo para os valores de cada tema.</li>
+<li>Ajustar <code>tokens/semantic/light.json</code> e <code>dark.json</code>: <code>semantic.brand.default</code> e <code>semantic.accent.default</code> passam a referenciar <code>{foundation.brand.primary}</code> e <code>{foundation.brand.secondary}</code>.</li>
+<li>Remover <code>foundation.typography.font.size.base</code> de <code>tokens/foundation/typography.json</code>; substituir 7 referências CSS por <code>--ds-font-size-16</code>.</li>
+<li>Executar <code>npm run build:tokens</code> e conferir que o CSS gerado inclui todas as novas variáveis <code>-default</code>.</li>
+<li>Rodar find-and-replace em <code>css/components/**/*.css</code> para renomear as variáveis listadas na decisão.</li>
+<li>Atualizar a coleção Brand no Figma (via <code>use_figma</code>) para refletir a nova estrutura.</li>
+<li>Rodar <code>npm run verify:tokens</code> para garantir que Figma e JSON batem.</li>
+<li>Documentar no CHANGELOG como breaking change. Bump minor (0.x.y → 0.x+1.0).</li>
+</ol>
+<h2>Contexto</h2>
+<p>A revisão dos tokens JSON gerados na migração DTCG (ADR-001) revelou três problemas estruturais:</p>
+<ol>
+<li><p>O ADR-001 descartou a camada Brand (&quot;perde propósito sem multi-marca&quot;). Na prática, brand cumpre um papel diferente de multi-marca: é a ponte entre paleta e intenção. Os tokens primary e secondary alimentam 42+ referências em 13 componentes (button, checkbox, radio, toggle, tabs, input, select, textarea, avatar, badge, spinner, focus ring). Sem um nó explícito, essa relação fica implícita na camada semantic.</p>
+</li>
+<li><p>O CSS atual mistura convenções de naming: alguns grupos têm sufixo -default (--ds-background-default, --ds-text-default) e outros não (--ds-color-primary, --ds-feedback-success). A causa é que tokens com estados interativos (hover, active) usavam o nome do grupo sem sufixo como &quot;base state&quot;. Isso cria ambiguidade e exige transforms customizados no Style Dictionary.</p>
+</li>
+<li><p>font.size.base e font.size.md são duplicatas (ambos 1rem). base é consumido em 7 arquivos CSS, md em nenhum. A escala usa t-shirt sizes (xs, sm, md, lg, xl) em todas as outras categorias, mas tipografia tem esse caso especial.</p>
+</li>
+</ol>
+<h2>Decisão</h2>
+<h3>1. Brand como subcamada da foundation</h3>
+<p>Criar tokens/foundation/brand.json com 2 tokens: foundation.brand.primary e foundation.brand.secondary.</p>
+<p>Regras:</p>
+<ul>
+<li>Brand é foundation: valor bruto, sem estados. Nenhum .hover, .active, .subtle nesta camada.</li>
+<li>semantic.color.primary.default referencia {foundation.brand.primary}, não a paleta direta.</li>
+<li>Os demais estados semânticos (hover, active, subtle, muted, foreground, text) referenciam a paleta foundation diretamente (ex: {foundation.color.blue.700} para hover).</li>
+<li>Na troca de tema, brand.json e o semantic completo são substituídos. Brand define a cor base; o semantic define toda a família de estados.</li>
+<li>No Figma, Brand permanece como coleção separada com modos por tema (Default, Ocean, Forest). Semantic aponta pra Brand no token .default e pra Foundation paleta nos demais.</li>
+<li>No dark mode, brand resolve pra um shade diferente (ex: blue.400 em vez de blue.600). Isso é tratado via source file alternativo no Style Dictionary (brand-dark.json) ou via modos na coleção Figma.</li>
+</ul>
+<h3>2. Estado .default sempre explícito no CSS</h3>
+<p>Todo token que vive dentro de um grupo com siblings gera sufixo -default no CSS. Sem exceção. A regra do Style Dictionary é geração direta: path → CSS name, sem transforms de colapso.</p>
+<p>Tokens que serão renomeados na migração CSS:</p>
+<ul>
+<li>--ds-color-primary → --ds-color-primary-default</li>
+<li>--ds-color-secondary → --ds-color-secondary-default</li>
+<li>--ds-feedback-success → --ds-feedback-success-default</li>
+<li>--ds-feedback-warning → --ds-feedback-warning-default</li>
+<li>--ds-feedback-error → --ds-feedback-error-default</li>
+<li>--ds-feedback-info → --ds-feedback-info-default</li>
+<li>--ds-text-link → --ds-text-link-default</li>
+</ul>
+<p>Tokens que já usam -default (sem mudança): --ds-background-default, --ds-text-default, --ds-surface-default, --ds-border-default, --ds-overlay-default.</p>
+<p>O rename CSS (~80 substituições em componentes) acontece quando o Style Dictionary assumir a geração.</p>
+<h3>3. Remover font.size.base, manter font.size.md</h3>
+<p>Remover foundation.typography.font.size.base do JSON. A escala tipográfica fica consistente com t-shirt sizes: 2xs, xs, sm, md, lg, xl, 2xl, ... 9xl. O rename das 7 referências CSS (--ds-font-size-base → --ds-font-size-16) acontece junto com o rename do item 2.</p>
+<h2>Consequências</h2>
+<ul>
+<li>Novo arquivo: tokens/foundation/brand.json (2 tokens)</li>
+<li>semantic.color.primary.default e secondary.default passam a referenciar {foundation.brand.*}</li>
+<li>font.size.base removido de typography.json</li>
+<li>~80 find-and-replace em css/components/ e css/tokens/ quando Style Dictionary for configurado</li>
+<li>Contagem foundation: 217 tokens (124 colors + 2 brand + 32 typography + 20 spacing + 8 radius + 7 shadows + 7 opacity + 7 motion + 6 z-index + 4 stroke)</li>
+<li>Coleção Brand no Figma mantida com 2 variáveis e modos por tema</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<p>Manter Brand no semantic (semantic.color.brand.primary.*): Descartada. Brand é valor bruto (mapeamento de paleta → role) e não tem estados — pertence ao foundation por definição.</p>
+<p>Manter CSS sem sufixo -default nos brand tokens via transform: Descartada. Cria exceção que exige transform customizado no Style Dictionary e gera inconsistência no naming.</p>
+<p>Manter font.size.base como alias de md: Descartada. Alias no JSON gera duas CSS vars pro mesmo valor, e consumidores não sabem qual usar.</p>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

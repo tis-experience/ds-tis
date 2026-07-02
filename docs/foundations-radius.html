@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radius — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-radius-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--ds-dimension-16); margin-bottom: var(--ds-dimension-32); }
+    .ds-radius-item { text-align: center; }
+    .ds-radius-item__box { width: 100%; aspect-ratio: 1; border: var(--ds-border-width-2) solid var(--ds-border-brand); background-color: var(--ds-toned-background-default); margin-bottom: var(--ds-dimension-8); }
+    .ds-radius-item__name { font-size: var(--ds-font-size-12); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-strong); }
+    .ds-radius-item__value { font-size: var(--ds-font-size-12); color: var(--ds-content-default); font-family: var(--ds-font-family-mono); }
+    .ds-token-table { width: 100%; border-collapse: collapse; font-size: var(--ds-font-size-14); margin-bottom: var(--ds-dimension-32); }
+    .ds-token-table th { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-2) solid var(--ds-border-default); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); }
+    .ds-token-table td { padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); }
+    .ds-token-table code { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Radius</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Tokens de border radius controlam o arredondamento dos cantos dos elementos. A escala vai de cantos retos até formas totalmente circulares.</span><span data-lang="en">Border radius tokens control the roundness of element corners. The scale ranges from sharp edges to fully circular shapes.</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Visual Reference</span><span data-lang="en">Visual Reference</span></h2>
+    <div class="ds-radius-grid">
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:0.125rem"></div>
+        <div class="ds-radius-item__name">2</div>
+        <div class="ds-radius-item__value">0.125rem (2px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:0.25rem"></div>
+        <div class="ds-radius-item__name">4</div>
+        <div class="ds-radius-item__value">0.25rem (4px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:0.5rem"></div>
+        <div class="ds-radius-item__name">8</div>
+        <div class="ds-radius-item__value">0.5rem (8px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:0.75rem"></div>
+        <div class="ds-radius-item__name">12</div>
+        <div class="ds-radius-item__value">0.75rem (12px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:1rem"></div>
+        <div class="ds-radius-item__name">16</div>
+        <div class="ds-radius-item__value">1rem (16px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:1.5rem"></div>
+        <div class="ds-radius-item__name">24</div>
+        <div class="ds-radius-item__value">1.5rem (24px)</div>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-item__box" style="border-radius:9999px"></div>
+        <div class="ds-radius-item__name">9999</div>
+        <div class="ds-radius-item__value">9999px (pill/circle)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Token Reference</span><span data-lang="en">Token Reference</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Valor</span><span data-lang="en">Value</span></th><th>Pixels</th><th><span data-lang="pt">Uso</span><span data-lang="en">Usage</span></th></tr></thead>
+      <tbody>
+        <tr><td colspan="4" style="padding:var(--ds-dimension-12);background-color:var(--ds-background-subtle);font-size:var(--ds-font-size-12);font-weight:var(--ds-font-weight-semibold);color:var(--ds-content-default);text-transform:uppercase;letter-spacing:0.05em;"><span data-lang="pt">Foundation (naming numérico)</span><span data-lang="en">Foundation (numeric naming)</span></td></tr>
+        <tr><td><code>--ds-radius-2</code></td><td>0.125rem</td><td>2px</td><td><span data-lang="pt">Arredondamento sutil para elementos pequenos</span><span data-lang="en">Subtle rounding for small elements</span></td></tr>
+        <tr><td><code>--ds-radius-4</code></td><td>0.25rem</td><td>4px</td><td>Badges, tags</td></tr>
+        <tr><td><code>--ds-radius-8</code></td><td>0.5rem</td><td>8px</td><td><span data-lang="pt">Buttons, inputs, radius padrão de componentes</span><span data-lang="en">Buttons, inputs, default component radius</span></td></tr>
+        <tr><td><code>--ds-radius-12</code></td><td>0.75rem</td><td>12px</td><td><span data-lang="pt">Cards, modais, containers maiores</span><span data-lang="en">Cards, modals, larger containers</span></td></tr>
+        <tr><td><code>--ds-radius-16</code></td><td>1rem</td><td>16px</td><td><span data-lang="pt">Containers proeminentes</span><span data-lang="en">Prominent containers</span></td></tr>
+        <tr><td><code>--ds-radius-24</code></td><td>1.5rem</td><td>24px</td><td><span data-lang="pt">Seções hero, cards grandes</span><span data-lang="en">Hero sections, large cards</span></td></tr>
+        <tr><td><code>--ds-radius-999</code></td><td>9999px</td><td>—</td><td><span data-lang="pt">Círculos, pills</span><span data-lang="en">Circles, pills</span></td></tr>
+        <tr><td colspan="4" style="padding:var(--ds-dimension-12);background-color:var(--ds-background-subtle);font-size:var(--ds-font-size-12);font-weight:var(--ds-font-weight-semibold);color:var(--ds-content-default);text-transform:uppercase;letter-spacing:0.05em;"><span data-lang="pt">Semantic (t-shirt — alias para Foundation)</span><span data-lang="en">Semantic (t-shirt — alias for Foundation)</span></td></tr>
+        <tr><td><code>--ds-radius-sm</code></td><td>var(--ds-radius-4)</td><td>4px</td><td><span data-lang="pt">Tags, badges, chips pequenos</span><span data-lang="en">Tags, badges, small chips</span></td></tr>
+        <tr><td><code>--ds-radius-md</code></td><td>var(--ds-radius-8)</td><td>8px</td><td><span data-lang="pt">Cards, alerts — radius padrão médio</span><span data-lang="en">Cards, alerts — default medium radius</span></td></tr>
+        <tr><td><code>--ds-radius-lg</code></td><td>var(--ds-radius-12)</td><td>12px</td><td><span data-lang="pt">Cards grandes, containers</span><span data-lang="en">Large cards, containers</span></td></tr>
+        <tr><td><code>--ds-radius-xl</code></td><td>var(--ds-radius-16)</td><td>16px</td><td><span data-lang="pt">Modais, sheets, dialogs</span><span data-lang="en">Modals, sheets, dialogs</span></td></tr>
+        <tr><td><code>--ds-radius-full</code></td><td>var(--ds-radius-999)</td><td>9999px</td><td><span data-lang="pt">Pills, circles, avatars</span><span data-lang="en">Pills, circles, avatars</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">JSON (DTCG)</h2>
+<div class="ds-code-block">{
+  "foundation": {
+    "radius": {
+      "2":    { "$type": "dimension", "$value": "0.125rem" },
+      "4":    { "$type": "dimension", "$value": "0.25rem" },
+      "8":    { "$type": "dimension", "$value": "0.5rem" },
+      "12":   { "$type": "dimension", "$value": "0.75rem" },
+      "16":   { "$type": "dimension", "$value": "1rem" },
+      "24":   { "$type": "dimension", "$value": "1.5rem" },
+      "999":  { "$type": "dimension", "$value": 999 }
+    }
+  }
+}</div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

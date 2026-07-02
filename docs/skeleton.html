@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skeleton — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Skeleton</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Formas placeholder com animação de pulso, usadas para indicar conteúdo em carregamento. Skeletons fornecem uma prévia de baixa fidelidade do layout antes dos dados chegarem.</span><span data-lang="en">Placeholder shapes with a pulse animation, used to indicate loading content. Skeletons provide a low-fidelity preview of the layout before data arrives.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use skeletons quando</span><span data-lang="en">Use skeletons when</span></div>
+      <span data-lang="pt">O conteúdo esta carregando é a estrutura do layout e conhecida antecipadamente: páginas, cards, listas, tabelas e seções de perfil. Skeletons preveem a forma do conteúdo que esta chegando para que a interface pareca mais rapida.</span><span data-lang="en">Content is loading and the layout structure is known ahead of time: pages, cards, lists, tables, and profile sections. Skeletons preview the shape of incoming content so the interface feels faster.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use skeletons quando</span><span data-lang="en">Don't use skeletons when</span></div>
+      <span data-lang="pt">Uma única ação esta carregando (use um <a href="spinner.html" style="color:var(--ds-link-content-default)">Spinner</a> no button) ou quando a estrutura do conteúdo e desconhecida e imprevisível (use um Spinner).</span><span data-lang="en">A single action is loading (use a <a href="spinner.html" style="color:var(--ds-link-content-default)">Spinner</a> in the button instead) or when the content structure is unknown and unpredictable (use a Spinner).</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Shape (<code>.ds-skeleton</code>) — bloco visual sem conteúdo semântico próprio.<br>
+      <strong>2</strong> Variante de forma — text, circle ou rectangle.<br>
+      <strong>3</strong> Container de loading — aplica <code>aria-busy="true"</code> no conteúdo que está sendo carregado; shapes individuais podem usar <code>aria-hidden="true"</code>.</span>
+      <span data-lang="en"><strong>1</strong> Shape (<code>.ds-skeleton</code>) — visual block with no semantic content of its own.<br>
+      <strong>2</strong> Shape variant — text, circle, or rectangle.<br>
+      <strong>3</strong> Loading container — apply <code>aria-busy="true"</code> to the content being loaded; individual shapes can use <code>aria-hidden="true"</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton de texto</span><span data-lang="en">Text skeleton</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Representa linhas de conteúdo de texto. Use larguras variadas para simular formas naturais de paragrafo.</span><span data-lang="en">Represents lines of text content. Use varying widths to simulate natural paragraph shapes.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--column" role="status" aria-busy="true" aria-label="Loading text content">
+        <div class="ds-skeleton ds-skeleton--text" style="width:100%;"></div>
+        <div class="ds-skeleton ds-skeleton--text" style="width:85%;"></div>
+        <div class="ds-skeleton ds-skeleton--text" style="width:70%;"></div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div aria-busy="true" aria-label="Loading text content"&gt;
+  &lt;div class="ds-skeleton ds-skeleton--text" style="width:100%;"&gt;&lt;/div&gt;
+  &lt;div class="ds-skeleton ds-skeleton--text" style="width:85%;"&gt;&lt;/div&gt;
+  &lt;div class="ds-skeleton ds-skeleton--text" style="width:70%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton circular</span><span data-lang="en">Circle skeleton</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Perfeito para placeholders de avatar ou ícone.</span><span data-lang="en">Perfect for avatar or icon placeholders.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered" role="status" aria-busy="true" aria-label="Loading avatars">
+        <div class="ds-skeleton ds-skeleton--circle"></div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div class="ds-skeleton ds-skeleton--circle"&gt;&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton retangular</span><span data-lang="en">Rectangle skeleton</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Bloco de largura total para imagens, banners ou grandes áreas de conteúdo.</span><span data-lang="en">Full-width block for images, banners, or large content areas.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--column" role="status" aria-busy="true" aria-label="Loading image">
+        <div class="ds-skeleton ds-skeleton--rectangle" style="width:100%;"></div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div class="ds-skeleton ds-skeleton--rectangle" style="width:100%;"&gt;&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Composição: card de perfil</span><span data-lang="en">Composition: profile card</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Combinando diferentes formas de skeleton para criar um placeholder de carregamento realista para um card de perfil.</span><span data-lang="en">Combining different skeleton shapes to create a realistic loading placeholder for a profile card.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <div role="status" style="border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-12);padding:var(--ds-dimension-24);width:100%;max-width:360px;display:flex;flex-direction:column;gap:var(--ds-dimension-16);" aria-busy="true" aria-label="Loading profile card">
+          <!-- Avatar + name row -->
+          <div style="display:flex;align-items:center;gap:var(--ds-dimension-12);">
+            <div class="ds-skeleton ds-skeleton--circle" style="width:48px;height:48px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:var(--ds-dimension-8);">
+              <div class="ds-skeleton ds-skeleton--text" style="width:60%;height:14px;"></div>
+              <div class="ds-skeleton ds-skeleton--text" style="width:40%;height:12px;"></div>
+            </div>
+          </div>
+          <!-- Bio text lines -->
+          <div style="display:flex;flex-direction:column;gap:var(--ds-dimension-8);">
+            <div class="ds-skeleton ds-skeleton--text" style="width:100%;height:12px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:90%;height:12px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:75%;height:12px;"></div>
+          </div>
+          <!-- Action row -->
+          <div style="display:flex;gap:var(--ds-dimension-12);">
+            <div class="ds-skeleton ds-skeleton--rectangle" style="width:100px;height:36px;border-radius:var(--ds-radius-8);"></div>
+            <div class="ds-skeleton ds-skeleton--rectangle" style="width:100px;height:36px;border-radius:var(--ds-radius-8);"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div aria-busy="true" aria-label="Loading profile card"&gt;
+  &lt;!-- Avatar + name --&gt;
+  &lt;div style="display:flex;align-items:center;gap:var(--ds-dimension-12);"&gt;
+    &lt;div class="ds-skeleton ds-skeleton--circle" style="width:48px;height:48px;"&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;div class="ds-skeleton ds-skeleton--text" style="width:60%;height:14px;"&gt;&lt;/div&gt;
+      &lt;div class="ds-skeleton ds-skeleton--text" style="width:40%;height:12px;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- Bio --&gt;
+  &lt;div class="ds-skeleton ds-skeleton--text" style="width:100%;height:12px;"&gt;&lt;/div&gt;
+  &lt;div class="ds-skeleton ds-skeleton--text" style="width:90%;height:12px;"&gt;&lt;/div&gt;
+  &lt;!-- Actions --&gt;
+  &lt;div class="ds-skeleton ds-skeleton--rectangle" style="width:100px;height:36px;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Composição: lista de cards</span><span data-lang="en">Composition: card list</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Um estado de carregamento para uma lista de cards de conteúdo com imagem, título e descricao.</span><span data-lang="en">A loading state for a list of content cards with image, title, and description.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas" role="status" aria-busy="true" aria-label="Loading card list">
+        <div style="border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-12);padding:var(--ds-dimension-16);width:100%;max-width:280px;display:flex;flex-direction:column;gap:var(--ds-dimension-12);">
+          <div class="ds-skeleton ds-skeleton--rectangle" style="height:140px;border-radius:var(--ds-radius-8);"></div>
+          <div class="ds-skeleton ds-skeleton--text" style="width:60%;height:16px;"></div>
+          <div style="display:flex;flex-direction:column;gap:var(--ds-dimension-8);">
+            <div class="ds-skeleton ds-skeleton--text" style="width:100%;height:12px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:90%;height:12px;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-4);">
+            <div class="ds-skeleton ds-skeleton--circle" style="width:24px;height:24px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:80px;height:12px;"></div>
+          </div>
+        </div>
+
+        <div style="border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-12);padding:var(--ds-dimension-16);width:100%;max-width:280px;display:flex;flex-direction:column;gap:var(--ds-dimension-12);">
+          <div class="ds-skeleton ds-skeleton--rectangle" style="height:140px;border-radius:var(--ds-radius-8);"></div>
+          <div class="ds-skeleton ds-skeleton--text" style="width:50%;height:16px;"></div>
+          <div style="display:flex;flex-direction:column;gap:var(--ds-dimension-8);">
+            <div class="ds-skeleton ds-skeleton--text" style="width:100%;height:12px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:85%;height:12px;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-4);">
+            <div class="ds-skeleton ds-skeleton--circle" style="width:24px;height:24px;"></div>
+            <div class="ds-skeleton ds-skeleton--text" style="width:80px;height:12px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div aria-busy="true" aria-label="Loading card list"&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="ds-skeleton ds-skeleton--rectangle" style="height:140px;"&gt;&lt;/div&gt;
+    &lt;div class="ds-skeleton ds-skeleton--text" style="width:60%;height:16px;"&gt;&lt;/div&gt;
+    &lt;div class="ds-skeleton ds-skeleton--text" style="width:100%;height:12px;"&gt;&lt;/div&gt;
+    &lt;div class="ds-skeleton ds-skeleton--text" style="width:90%;height:12px;"&gt;&lt;/div&gt;
+    &lt;div style="display:flex;align-items:center;gap:var(--ds-dimension-8);"&gt;
+      &lt;div class="ds-skeleton ds-skeleton--circle" style="width:24px;height:24px;"&gt;&lt;/div&gt;
+      &lt;div class="ds-skeleton ds-skeleton--text" style="width:80px;height:12px;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;gap:var(--ds-dimension-12);align-items:flex-start;">
+          <div style="display:flex;align-items:center;gap:var(--ds-dimension-12);">
+            <div class="ds-skeleton ds-skeleton--circle" style="width:40px;height:40px;flex-shrink:0;"></div>
+            <div style="display:flex;flex-direction:column;gap:var(--ds-dimension-8);">
+              <div class="ds-skeleton ds-skeleton--text" style="width:120px;height:12px;"></div>
+              <div class="ds-skeleton ds-skeleton--text" style="width:80px;height:10px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Combine as formas do skeleton com o conteúdo real: circulos para avatars, linhas de texto para paragrafos, retangulos para imagens.</span><span data-lang="en">Match skeleton shapes to actual content: circles for avatars, text lines for paragraphs, rectangles for images.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-skeleton ds-skeleton--rectangle" style="width:100%;height:60px;"></div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não use um único retangulo genérico para todos os estados de carregamento — isso não preve o layout real.</span><span data-lang="en">Don't use a single generic rectangle for all loading states -- it doesn't preview the real layout.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">fundo</span><span data-lang="en">background</span></td><td><code>semantic.background.subtle</code></td><td><code>--ds-background-subtle</code></td></tr>
+        <tr><td><span data-lang="pt">animação (pulso de opacidade)</span><span data-lang="en">animation (opacity pulse)</span></td><td><span data-lang="pt">valores literais (sem token)</span><span data-lang="en">literal values (no token)</span></td><td><span data-lang="pt"><code>opacity: 1</code> → <code>0.4</code> → <code>1</code> (keyframe @ds-pulse)</span><span data-lang="en"><code>opacity: 1</code> → <code>0.4</code> → <code>1</code> (keyframe @ds-pulse)</span></td></tr>
+        <tr><td><span data-lang="pt">altura (texto)</span><span data-lang="en">height (text)</span></td><td><code>component.skeleton.text.height.default</code></td><td><code>--ds-skeleton-text-height-default</code></td></tr>
+        <tr><td><span data-lang="pt">radius (texto)</span><span data-lang="en">radius (text)</span></td><td><code>component.skeleton.text.radius.default</code></td><td><code>--ds-skeleton-text-radius-default</code></td></tr>
+        <tr><td><span data-lang="pt">tamanho (circulo)</span><span data-lang="en">size (circle)</span></td><td><code>component.skeleton.circle.size.default</code></td><td><code>--ds-skeleton-circle-size-default</code></td></tr>
+        <tr><td><span data-lang="pt">radius (circulo)</span><span data-lang="en">radius (circle)</span></td><td><code>component.skeleton.circle.radius.default</code></td><td><code>--ds-skeleton-circle-radius-default</code></td></tr>
+        <tr><td><span data-lang="pt">altura (retangulo)</span><span data-lang="en">height (rectangle)</span></td><td><code>component.skeleton.rectangle.height.default</code></td><td><code>--ds-skeleton-rectangle-height-default</code></td></tr>
+        <tr><td><span data-lang="pt">radius (retangulo)</span><span data-lang="en">radius (rectangle)</span></td><td><code>component.skeleton.rectangle.radius.default</code></td><td><code>--ds-skeleton-rectangle-radius-default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       6. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-skeleton</code></td><td><span data-lang="pt">Classe base do skeleton com animação de pulso</span><span data-lang="en">Base skeleton class with pulse animation</span></td></tr>
+        <tr><td><code>ds-skeleton--text</code></td><td><span data-lang="pt">Placeholder de linha de texto com altura default 12px e radius md</span><span data-lang="en">Text line placeholder with 12px default height and md radius</span></td></tr>
+        <tr><td><code>ds-skeleton--circle</code></td><td><span data-lang="pt">Placeholder circular com tamanho default 40px</span><span data-lang="en">Circular placeholder with 40px default size</span></td></tr>
+        <tr><td><code>ds-skeleton--rectangle</code></td><td><span data-lang="pt">Placeholder de bloco retangular com altura default 120px e radius md</span><span data-lang="en">Rectangular block placeholder with 120px default height and md radius</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       7. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><span data-lang="pt"><code>aria-busy="true"</code> no container de carregamento + <code>aria-label</code> descrevendo o que esta carregando</span><span data-lang="en"><code>aria-busy="true"</code> on the loading container + <code>aria-label</code> describing what is loading</span></td><td>&#10003;</td></tr>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td><span data-lang="pt"><code>aria-hidden="true"</code> em elementos skeleton individuais (são decorativos)</span><span data-lang="en"><code>aria-hidden="true"</code> on individual skeleton elements (they are decorative)</span></td><td>&#10003;</td></tr>
+        <tr><td>2.3.3 Animation from Interactions (AAA)</td><td><span data-lang="pt">Respeita <code>prefers-reduced-motion</code> — animação de pulso pausada ou removida</span><span data-lang="en">Respects <code>prefers-reduced-motion</code> -- pulse animation paused or removed</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Resumo dos atributos ARIA</span><span data-lang="en">ARIA attributes summary</span></div>
+      <span data-lang="pt"><code>aria-busy="true"</code> — defina no container que contem os placeholders de skeleton durante o carregamento. Remova quando o conteúdo real aparecer.<br>
+      <code>aria-hidden="true"</code> — defina em formas skeleton individuais (são placeholders visuais, não conteúdo significativo).<br>
+      <code>prefers-reduced-motion</code> — o CSS do skeleton respeita esta media query pausando a animação de pulso.</span><span data-lang="en"><code>aria-busy="true"</code> — set on the container that holds skeleton placeholders while loading. Remove it once real content appears.<br>
+      <code>aria-hidden="true"</code> — set on individual skeleton shapes (they are visual placeholders, not meaningful content).<br>
+      <code>prefers-reduced-motion</code> — the skeleton CSS respects this media query by pausing the pulse animation.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       8. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="spinner.html" class="ds-related__link">Spinner</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

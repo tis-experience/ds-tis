@@ -1,0 +1,61 @@
+/* ============================================================
+   COMPONENT: Link — text style pra hyperlinks inline em prosa
+   Bold + underline. Tamanhos espelham body/* (xs/sm/md/lg).
+   Estados WCAG/W3C: default, :hover, :active, :focus-visible.
+   :visited intencionalmente omitido (decisão do owner).
+   ============================================================ */
+
+.ds-link {
+  font-weight: var(--ds-body-font-weight-bold);
+  text-decoration: underline;
+  color: var(--ds-link-content-default);
+  cursor: pointer;
+  transition: color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-link:hover {
+  color: var(--ds-link-content-hover);
+}
+
+.ds-link:active {
+  color: var(--ds-link-content-active);
+}
+
+/* :visited intencionalmente omitido — decisão do owner */
+
+.ds-link:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+  border-radius: var(--ds-radius-sm);
+}
+
+/* ---------------------------------------------------------
+   Sizes — herdam dimensões de body/*
+   --------------------------------------------------------- */
+
+.ds-link--xs {
+  font-size: var(--ds-body-font-size-xs);   /* 12px */
+  line-height: var(--ds-body-line-height-xs); /* 18px */
+}
+
+.ds-link--sm {
+  font-size: var(--ds-body-font-size-sm);   /* 14px */
+  line-height: var(--ds-body-line-height-sm); /* 20px */
+}
+
+.ds-link--md {
+  font-size: var(--ds-body-font-size-md);   /* 16px */
+  line-height: var(--ds-body-line-height-md); /* 24px */
+}
+
+.ds-link--lg {
+  font-size: var(--ds-body-font-size-lg);   /* 18px */
+  line-height: var(--ds-body-line-height-xl); /* 32px (Figma body/lg uses lh xl) */
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-link { transition: none; }
+}

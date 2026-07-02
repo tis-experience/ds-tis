@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z-index — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-token-table { width: 100%; border-collapse: collapse; font-size: var(--ds-font-size-14); margin-bottom: var(--ds-dimension-32); }
+    .ds-token-table th { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-2) solid var(--ds-border-default); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); }
+    .ds-token-table td { padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); vertical-align: middle; }
+    .ds-token-table code { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); }
+    .ds-zindex-stack { position: relative; isolation: isolate; height: 320px; margin-bottom: var(--ds-dimension-32); border: var(--ds-border-width-1) solid var(--ds-border-default); border-radius: var(--ds-radius-12); overflow: hidden; background-color: var(--ds-background-default); }
+    .ds-zindex-layer { position: absolute; border-radius: var(--ds-radius-8); display: flex; align-items: flex-start; justify-content: flex-start; padding: var(--ds-dimension-12); font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-1) solid; }
+    .ds-zindex-layer--0 { left: 16px; top: 16px; width: calc(100% - 32px); height: calc(100% - 32px); background-color: var(--ds-background-subtle); border-color: var(--ds-border-default); color: var(--ds-content-default); z-index: 0; }
+    .ds-zindex-layer--10 { left: 32px; top: 48px; width: 240px; height: 200px; background-color: var(--ds-surface-raised); border-color: var(--ds-border-default); color: var(--ds-content-strong); z-index: 10; box-shadow: var(--ds-shadow-sm); }
+    .ds-zindex-layer--20 { left: 100px; top: 80px; width: 240px; height: 160px; background-color: var(--ds-surface-overlay); border-color: var(--ds-border-default); color: var(--ds-content-strong); z-index: 20; box-shadow: var(--ds-shadow-md); }
+    .ds-zindex-layer--30 { right: 48px; top: 40px; width: 200px; height: 120px; background-color: var(--ds-surface-elevated); border-color: var(--ds-border-default); color: var(--ds-content-strong); z-index: 30; box-shadow: var(--ds-shadow-lg); }
+    .ds-zindex-layer--40 { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 260px; height: 100px; background-color: var(--ds-surface-default); border-color: var(--ds-brand-background-default); color: var(--ds-content-strong); z-index: 40; box-shadow: var(--ds-shadow-xl); }
+    .ds-zindex-layer--50 { right: 16px; bottom: 16px; width: 160px; height: 48px; display: flex; align-items: center; justify-content: center; background-color: var(--ds-brand-background-default); border-color: var(--ds-brand-background-default); color: var(--ds-brand-content-default); z-index: 50; box-shadow: var(--ds-shadow-lg); }
+    .ds-callout { padding: var(--ds-dimension-16) var(--ds-dimension-20); border-radius: var(--ds-radius-12); background-color: var(--ds-feedback-warning-background-subtle); border: var(--ds-border-width-1) solid var(--ds-feedback-warning-border-default); margin-bottom: var(--ds-dimension-32); font-size: var(--ds-font-size-14); line-height: var(--ds-line-height-relaxed); color: var(--ds-content-strong); }
+    .ds-callout__title { font-weight: var(--ds-font-weight-semibold); margin-bottom: var(--ds-dimension-4); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Z-index</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Escala de z-index que define a ordem de empilhamento de elementos posicionados. A escala usa incrementos de 10 para deixar espaco para valores intermediarios quando necessario.</span><span data-lang="en">Z-index scale that defines the stacking order of positioned elements. The scale uses increments of 10 to leave room for intermediate values when needed.</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Contexto de empilhamento</span><span data-lang="en">Stacking context</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Representação visual de como as camadas se empilham. Maior z-index = mais proximo do usuário.</span><span data-lang="en">Visual representation of how layers stack. Higher z-index = closer to the user.</span></p>
+
+    <div class="ds-zindex-stack">
+      <div class="ds-zindex-layer ds-zindex-layer--0"><span data-lang="pt">z-0 · conteúdo da página</span><span data-lang="en">z-0 · page content</span></div>
+      <div class="ds-zindex-layer ds-zindex-layer--10">z-10 · sticky headers</div>
+      <div class="ds-zindex-layer ds-zindex-layer--20">z-20 · dropdowns, popovers</div>
+      <div class="ds-zindex-layer ds-zindex-layer--30">z-30 · sidesheets, overlays</div>
+      <div class="ds-zindex-layer ds-zindex-layer--40"><span data-lang="pt">z-40 · modais, dialogs</span><span data-lang="en">z-40 · modals, dialogs</span></div>
+      <div class="ds-zindex-layer ds-zindex-layer--50"><span data-lang="pt">z-50 · toast, notificações</span><span data-lang="en">z-50 · toast, notifications</span></div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Tokens</h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Valor</span><span data-lang="en">Value</span></th><th><span data-lang="pt">Camada</span><span data-lang="en">Layer</span></th><th><span data-lang="pt">Componentes</span><span data-lang="en">Components</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-z-0</code></td><td>0</td><td><span data-lang="pt">Conteúdo base</span><span data-lang="en">Base content</span></td><td><span data-lang="pt">Fluxo padrão da página, cards, seções</span><span data-lang="en">Default page flow, cards, sections</span></td></tr>
+        <tr><td><code>--ds-z-10</code></td><td>10</td><td>Sticky</td><td><span data-lang="pt">Sticky headers, cabecalhos de tabela, toolbars fixas</span><span data-lang="en">Sticky headers, table headers, fixed toolbars</span></td></tr>
+        <tr><td><code>--ds-z-20</code></td><td>20</td><td>Dropdown</td><td><span data-lang="pt">Dropdowns, popovers, tooltips, menus select</span><span data-lang="en">Dropdowns, popovers, tooltips, select menus</span></td></tr>
+        <tr><td><code>--ds-z-30</code></td><td>30</td><td>Overlay</td><td><span data-lang="pt">Sidesheets, overlays de navegação, backdrop</span><span data-lang="en">Sidesheets, navigation overlays, backdrop</span></td></tr>
+        <tr><td><code>--ds-z-40</code></td><td>40</td><td>Modal</td><td><span data-lang="pt">Modais, dialogs, prompts de confirmação</span><span data-lang="en">Modals, dialogs, confirmation prompts</span></td></tr>
+        <tr><td><code>--ds-z-50</code></td><td>50</td><td><span data-lang="pt">Topo</span><span data-lang="en">Topmost</span></td><td><span data-lang="pt">Notificacoes toast, indicadores de loading globais</span><span data-lang="en">Toast notifications, global loading indicators</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relação com elevação</span><span data-lang="en">Relationship with elevation</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Z-index controla a ordem de empilhamento. Elevação (sombras + superfícies) controla a profundidade visual. Frequentemente se correlacionam, mas são sistemas independentes:</span><span data-lang="en">Z-index controls stacking order. Elevation (shadows + surfaces) controls visual depth. They often correlate but are independent systems:</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Camada</span><span data-lang="en">Layer</span></th><th>Z-index</th><th><span data-lang="pt">Sombra</span><span data-lang="en">Shadow</span></th><th><span data-lang="pt">Superfície</span><span data-lang="en">Surface</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Cards, paineis</span><span data-lang="en">Cards, panels</span></td><td><code>--ds-z-0</code></td><td><code>--ds-shadow-sm</code></td><td><code>--ds-surface-raised</code></td></tr>
+        <tr><td>Dropdowns</td><td><code>--ds-z-20</code></td><td><code>--ds-shadow-md</code></td><td><code>--ds-surface-overlay</code></td></tr>
+        <tr><td><span data-lang="pt">Modais</span><span data-lang="en">Modals</span></td><td><code>--ds-z-40</code></td><td><code>--ds-shadow-xl</code></td><td><code>--ds-surface-elevated</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Regras</span><span data-lang="en">Rules</span></h2>
+    <div class="ds-callout">
+      <div class="ds-callout__title"><span data-lang="pt">Sempre use tokens, nunca numeros magicos</span><span data-lang="en">Always use tokens, never magic numbers</span></div>
+      <span data-lang="pt">Valores de z-index hardcoded (<code>z-index: 9999</code>) quebram o contrato de empilhamento e causam bugs difíceis de rastrear. Se um componente precisa ficar acima de outro, deve usar o proximo token na escala. Se a escala existente não cobre um caso, isso e um sinal para avaliar se um novo token é necessario (o que requer uma ADR).</span><span data-lang="en">Hardcoded z-index values (<code>z-index: 9999</code>) break the stacking contract and cause bugs that are hard to trace. If a component needs to stack above another, it should use the next token in the scale. If the existing scale doesn't cover a case, that's a signal to evaluate whether a new token is needed (which requires an ADR).</span>
+    </div>
+
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Justificativa</span><span data-lang="en">Rationale</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Use apenas tokens <code>--ds-z-*</code></span><span data-lang="en">Only use <code>--ds-z-*</code> tokens</span></td><td><span data-lang="pt">Empilhamento previsivel em todo o app</span><span data-lang="en">Predictable stacking across the entire app</span></td></tr>
+        <tr><td><span data-lang="pt">Tooltips e dropdowns compartilham <code>--ds-z-20</code></span><span data-lang="en">Tooltips and dropdowns share <code>--ds-z-20</code></span></td><td><span data-lang="pt">Nunca coexistem -- abrir um fecha o outro</span><span data-lang="en">They never coexist -- opening one closes the other</span></td></tr>
+        <tr><td><span data-lang="pt">Backdrop do modal usa <code>--ds-z-30</code>, conteúdo do modal usa <code>--ds-z-40</code></span><span data-lang="en">Modal backdrop uses <code>--ds-z-30</code>, modal content uses <code>--ds-z-40</code></span></td><td><span data-lang="pt">Backdrop fica abaixo do dialog mas acima de todo o restante</span><span data-lang="en">Backdrop sits below the dialog but above all other content</span></td></tr>
+        <tr><td><span data-lang="pt">Toasts sempre no topo (<code>--ds-z-50</code>)</span><span data-lang="en">Toasts always on top (<code>--ds-z-50</code>)</span></td><td><span data-lang="pt">Notificacoes devem ser visíveis mesmo sobre modais</span><span data-lang="en">Notifications must be visible even over modals</span></td></tr>
+        <tr><td><span data-lang="pt">Incrementos de 10</span><span data-lang="en">Increments of 10</span></td><td><span data-lang="pt">Deixa espaco para valores intermediarios se surgirem casos extremos</span><span data-lang="en">Leaves room for intermediate values if edge cases arise</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">JSON (DTCG)</h2>
+<div class="ds-code-block">{
+  "foundation": {
+    "z": {
+      "0":  { "$type": "number", "$value": 0 },
+      "10": { "$type": "number", "$value": 10 },
+      "20": { "$type": "number", "$value": 20 },
+      "30": { "$type": "number", "$value": 30 },
+      "40": { "$type": "number", "$value": 40 },
+      "50": { "$type": "number", "$value": 50 }
+    }
+  }
+}</div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

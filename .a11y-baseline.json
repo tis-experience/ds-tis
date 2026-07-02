@@ -1,0 +1,5 @@
+{
+  "generatedAt": "__rolling__",
+  "acceptedFingerprints": [],
+  "note": "Violações WCAG conhecidas e aceitas como baseline. Reduzir incrementalmente. Regenerar com `npm run test:a11y -- --update-baseline` após corrigir violações."
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borders — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-border-row { display: flex; align-items: center; gap: var(--ds-dimension-16); padding: var(--ds-dimension-12) 0; border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); }
+    .ds-border-row__preview { width: 200px; flex-shrink: 0; }
+    .ds-border-row__line { width: 100%; border-top-style: solid; border-top-color: var(--ds-content-strong); }
+    .ds-border-row__token { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); color: var(--ds-content-strong); width: 200px; flex-shrink: 0; }
+    .ds-border-row__value { font-size: var(--ds-font-size-12); color: var(--ds-content-default); }
+    .ds-token-table { width: 100%; border-collapse: collapse; font-size: var(--ds-font-size-14); margin-bottom: var(--ds-dimension-32); }
+    .ds-token-table th { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-2) solid var(--ds-border-default); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); }
+    .ds-token-table td { padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); vertical-align: middle; }
+    .ds-token-table code { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); }
+    .ds-token-swatch { width: 32px; height: 32px; border-radius: var(--ds-radius-8); border: var(--ds-border-width-1) solid var(--ds-border-default); display: inline-block; vertical-align: middle; }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Borders</span><span data-lang="en">Borders</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Tokens de largura de borda e tokens semânticos de cor de borda usados em todos os componentes para limites visuais consistentes.</span><span data-lang="en">Border width tokens and semantic border color tokens used across components for consistent visual boundaries.</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Border Widths</span><span data-lang="en">Border Widths</span></h2>
+    <div style="margin-bottom:var(--ds-dimension-32)">
+      <div class="ds-border-row">
+        <div class="ds-border-row__token">--ds-border-width-1</div>
+        <div class="ds-border-row__value">1px</div>
+        <div class="ds-border-row__preview"><div class="ds-border-row__line" style="border-top-width:1px"></div></div>
+      </div>
+      <div class="ds-border-row">
+        <div class="ds-border-row__token">--ds-border-width-2</div>
+        <div class="ds-border-row__value">2px</div>
+        <div class="ds-border-row__preview"><div class="ds-border-row__line" style="border-top-width:2px"></div></div>
+      </div>
+      <div class="ds-border-row">
+        <div class="ds-border-row__token">--ds-border-width-4</div>
+        <div class="ds-border-row__value">4px</div>
+        <div class="ds-border-row__preview"><div class="ds-border-row__line" style="border-top-width:4px"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Semantic Border Widths</span><span data-lang="en">Semantic Border Widths</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Referência</span><span data-lang="en">Reference</span></th><th><span data-lang="pt">Valor</span><span data-lang="en">Value</span></th><th><span data-lang="pt">Uso</span><span data-lang="en">Usage</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-border-width-subtle</code></td><td><code>border-width-1</code></td><td>1px</td><td><span data-lang="pt">Separadores sutis</span><span data-lang="en">Subtle separators</span></td></tr>
+        <tr><td><code>--ds-border-width-default</code></td><td><code>border-width-1</code></td><td>1px</td><td><span data-lang="pt">Bordas padrão de componentes</span><span data-lang="en">Default component borders</span></td></tr>
+        <tr><td><code>--ds-border-width-strong</code></td><td><code>border-width-2</code></td><td>2px</td><td><span data-lang="pt">Bordas enfatizadas</span><span data-lang="en">Emphasized borders</span></td></tr>
+        <tr><td><code>--ds-border-width-focus</code></td><td><code>border-width-2</code></td><td>2px</td><td><span data-lang="pt">Indicadores de foco</span><span data-lang="en">Focus indicators</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Border Colors</span><span data-lang="en">Border Colors</span></h2>
+    <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);">
+      <span data-lang="pt">Cores de borda semânticas (<code>--ds-border-default</code>, <code>--ds-border-focus</code>, <code>--ds-feedback-*-border</code>, etc) vivem na camada semântica e adaptam ao modo light/dark. A referência completa com valores light/dark está em <a href="foundations-theme-colors.html">Theme Colors</a>, nas seções <strong>Border</strong> e <strong>Feedback</strong>.</span>
+      <span data-lang="en">Semantic border colors (<code>--ds-border-default</code>, <code>--ds-border-focus</code>, <code>--ds-feedback-*-border</code>, etc) live in the semantic layer and adapt to light/dark mode. The full reference with light/dark values is in <a href="foundations-theme-colors.html">Theme Colors</a>, under <strong>Border</strong> and <strong>Feedback</strong> sections.</span>
+    </p>
+
+    <h3 style="font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-semibold);color:var(--ds-content-default);margin-bottom:var(--ds-dimension-12);"><span data-lang="pt">Bordas de controles de formulário</span><span data-lang="en">Form control borders</span></h3>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Referência</span><span data-lang="en">Reference</span></th><th><span data-lang="pt">Uso</span><span data-lang="en">Usage</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-border-control-default</code></td><td><code>feedback.error.border / neutral-500</code></td><td><span data-lang="pt">Borda padrão de controles de formulário (Input, Select, Textarea, Checkbox, Radio). Contraste ≥ 3:1 conforme WCAG 1.4.11.</span><span data-lang="en">Default border for form controls (Input, Select, Textarea, Checkbox, Radio). ≥ 3:1 contrast per WCAG 1.4.11.</span></td></tr>
+        <tr><td><code>--ds-border-control-hover</code></td><td><code>neutral-600 (light) / neutral-400 (dark)</code></td><td><span data-lang="pt">Borda no hover de controles de formulário.</span><span data-lang="en">Border on hover for form controls.</span></td></tr>
+        <tr><td><code>--ds-border-control-disabled</code></td><td><code>neutral-300 (light) / neutral-700 (dark)</code></td><td><span data-lang="pt">Borda de controles desabilitados. Isento de contraste WCAG (1.4.3).</span><span data-lang="en">Border for disabled controls. Exempt from WCAG contrast requirements (1.4.3).</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-semibold);color:var(--ds-content-default);margin-bottom:var(--ds-dimension-12);"><span data-lang="pt">Bordas semânticas adicionais</span><span data-lang="en">Additional semantic borders</span></h3>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Referência</span><span data-lang="en">Reference</span></th><th><span data-lang="pt">Uso</span><span data-lang="en">Usage</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-border-error</code></td><td><code>feedback.error.border</code></td><td><span data-lang="pt">Borda de validação de erro em campos de formulário.</span><span data-lang="en">Error validation border for form fields.</span></td></tr>
+        <tr><td><code>--ds-border-brand</code></td><td><code>brand.default</code></td><td><span data-lang="pt">Borda de foco ou seleção em brand (alias de brand.default).</span><span data-lang="en">Focus or selection border in brand color (alias of brand.default).</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">JSON (DTCG)</h2>
+<div class="ds-code-block">{
+  "foundation": {
+    "border": {
+      "width": {
+        "1": { "$type": "dimension", "$value": "1px" },
+        "2": { "$type": "dimension", "$value": "2px" },
+        "4": { "$type": "dimension", "$value": "4px" }
+      }
+    }
+  }
+}</div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

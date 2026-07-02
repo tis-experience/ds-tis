@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Avatar</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Representações circulares de usuário com escala de tamanho do DS. Avatars podem exibir uma imagem, iniciais de texto ou um ícone como fallback.</span><span data-lang="en">Circular user representations using the DS size scale. Avatars can display an image, text initials, or an icon as a fallback.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use avatars quando</span><span data-lang="en">Use avatars when</span></div>
+      <span data-lang="pt">Representando um usuário, equipe ou entidade: cabecalhos de perfil, autores de comentarios, listas de membros, menus de usuário e threads de conversa.</span><span data-lang="en">Representing a user, team, or entity: profile headers, comment authors, team member lists, user menus, and conversation threads.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use avatars quando</span><span data-lang="en">Don't use avatars when</span></div>
+      <span data-lang="pt">Exibindo uma imagem de conteúdo (use <code>&lt;img&gt;</code>) ou criando um button de ícone (use <a href="button.html" style="color:var(--ds-link-content-default)">Button</a> com variante icon-only).</span><span data-lang="en">Displaying a content image (use <code>&lt;img&gt;</code> instead) or creating an icon button (use <a href="button.html" style="color:var(--ds-link-content-default)">Button</a> with icon-only variant).</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Container (<code>.ds-avatar</code>) — círculo com tamanho fixo e overflow controlado.<br>
+      <strong>2</strong> Conteúdo — imagem, iniciais ou ícone de fallback.<br>
+      <strong>3</strong> Size modifier — <code>--sm</code>, <code>--md</code> ou <code>--lg</code>, alinhado à escala de size do DS.</span>
+      <span data-lang="en"><strong>1</strong> Container (<code>.ds-avatar</code>) — circle with fixed size and controlled overflow.<br>
+      <strong>2</strong> Content — image, initials, or fallback icon.<br>
+      <strong>3</strong> Size modifier — <code>--sm</code>, <code>--md</code>, or <code>--lg</code>, aligned to the DS size scale.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com iniciais</span><span data-lang="en">Initials avatar</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Quando nenhuma imagem esta disponível, exiba 1-2 caracteres de iniciais. Use <code>sm</code>, <code>md</code> ou <code>lg</code> conforme a densidade da interface.</span><span data-lang="en">When no image is available, display 1-2 character initials. Use <code>sm</code>, <code>md</code>, or <code>lg</code> based on interface density.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <span class="ds-avatar ds-avatar--sm">JD</span>
+        <span class="ds-avatar ds-avatar--md">JD</span>
+        <span class="ds-avatar ds-avatar--lg">JD</span>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;span class="ds-avatar ds-avatar--sm"&gt;JD&lt;/span&gt;
+&lt;span class="ds-avatar ds-avatar--md"&gt;JD&lt;/span&gt;
+&lt;span class="ds-avatar ds-avatar--lg"&gt;JD&lt;/span&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com imagem</span><span data-lang="en">Image avatar</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Quando uma imagem e fornecida, ela preenche o circulo do avatar. Sempre inclua texto <code>alt</code> descritivo.</span><span data-lang="en">When an image is provided it fills the avatar circle. Always include descriptive <code>alt</code> text.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <span class="ds-avatar ds-avatar--sm">
+          <img src="https://api.dicebear.com/9.x/initials/svg?seed=AB&backgroundColor=c0aede" alt="AB's avatar">
+        </span>
+        <span class="ds-avatar ds-avatar--md">
+          <img src="https://api.dicebear.com/9.x/initials/svg?seed=CD&backgroundColor=b6e3f4" alt="CD's avatar">
+        </span>
+        <span class="ds-avatar ds-avatar--lg">
+          <img src="https://api.dicebear.com/9.x/initials/svg?seed=EF&backgroundColor=ffd5dc" alt="EF's avatar">
+        </span>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;span class="ds-avatar ds-avatar--md"&gt;
+  &lt;img src="avatar.jpg" alt="Jane Doe's avatar"&gt;
+&lt;/span&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com ícone</span><span data-lang="en">Icon avatar</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Use o modificador <code>ds-avatar--icon</code> com um ícone Lucide como fallback genérico quando nenhuma imagem nem iniciais estao disponíveis.</span><span data-lang="en">Use the <code>ds-avatar--icon</code> modifier with a Lucide icon as a generic fallback when neither image nor initials are available.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <span class="ds-avatar ds-avatar--sm ds-avatar--icon" role="img" aria-label="User avatar">
+          <i data-lucide="user" class="ds-icon"></i>
+        </span>
+        <span class="ds-avatar ds-avatar--md ds-avatar--icon" role="img" aria-label="User avatar">
+          <i data-lucide="user" class="ds-icon"></i>
+        </span>
+        <span class="ds-avatar ds-avatar--lg ds-avatar--icon" role="img" aria-label="User avatar">
+          <i data-lucide="user" class="ds-icon"></i>
+        </span>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;span class="ds-avatar ds-avatar--md ds-avatar--icon" role="img" aria-label="User avatar"&gt;
+  &lt;i data-lucide="user" class="ds-icon"&gt;&lt;/i&gt;
+&lt;/span&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Grupo de avatars</span><span data-lang="en">Avatar group</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Exiba múltiplos avatars juntos para representar uma equipe ou grupo de usuários.</span><span data-lang="en">Display multiple avatars together to represent a team or group of users.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <div style="display:flex;">
+          <span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:4;">AK</span>
+          <span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:3;">MR</span>
+          <span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:2;">TS</span>
+          <span class="ds-avatar ds-avatar--md ds-avatar--icon" style="border:2px solid var(--ds-surface-raised);position:relative;z-index:1;" role="img" aria-label="More users">
+            <span style="font-size:var(--ds-font-size-12);font-weight:var(--ds-font-weight-semibold);">+3</span>
+          </span>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div style="display:flex;"&gt;
+  &lt;span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:4;"&gt;AK&lt;/span&gt;
+  &lt;span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:3;"&gt;MR&lt;/span&gt;
+  &lt;span class="ds-avatar ds-avatar--md" style="margin-right:-8px;border:2px solid var(--ds-surface-raised);position:relative;z-index:2;"&gt;TS&lt;/span&gt;
+  &lt;span class="ds-avatar ds-avatar--md ds-avatar--icon" style="border:2px solid var(--ds-surface-raised);position:relative;z-index:1;" role="img" aria-label="3 more users"&gt;
+    &lt;span&gt;+3&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-avatar ds-avatar--md">JD</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Forneca um fallback (iniciais ou ícone) para imagens ausentes.</span><span data-lang="en">Provide a fallback (initials or icon) for missing images.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-avatar ds-avatar--md" style="background:var(--ds-background-disabled);color:var(--ds-content-subtle);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="16" height="16" rx="2"/><line x1="2" y1="2" x2="18" y2="18"/><line x1="18" y1="2" x2="2" y2="18"/></svg>
+          </span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mostrar um ícone de imagem quebrada quando a origem falha ao carregar.</span><span data-lang="en">Show a broken image icon when the source fails to load.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">fundo (fallback)</span><span data-lang="en">background (fallback)</span></td><td><code>semantic.brand.background.default</code></td><td><code>--ds-brand-background-default</code></td></tr>
+        <tr><td><span data-lang="pt">texto (iniciais)</span><span data-lang="en">text (initials)</span></td><td><code>semantic.brand.content.default</code></td><td><code>--ds-brand-content-default</code></td></tr>
+        <tr><td>size (sm/md/lg)</td><td><code>component.avatar.size.sm/md/lg</code></td><td><code>--ds-avatar-size-*</code> (32/40/64px)</td></tr>
+        <tr><td>root radius</td><td><code>component.avatar.radius.default</code></td><td><code>--ds-avatar-radius-default</code></td></tr>
+        <tr><td>initials font-size (sm/md/lg)</td><td><code>component.avatar.initials.font-size.sm/md/lg</code></td><td><code>--ds-avatar-initials-font-size-*</code> (14/14/20px)</td></tr>
+        <tr><td>initials line-height (sm/md/lg)</td><td><code>component.avatar.initials.line-height.sm/md/lg</code></td><td><code>--ds-avatar-initials-line-height-*</code> (20/20/32px)</td></tr>
+        <tr><td>initials font-weight (sm/md/lg)</td><td><code>component.avatar.initials.font-weight.sm/md/lg</code></td><td><code>--ds-avatar-initials-font-weight-*</code> (700/700/600)</td></tr>
+        <tr><td>icon size (sm/md/lg)</td><td><code>component.avatar.icon.size.sm/md/lg</code></td><td><code>--ds-avatar-icon-size-*</code> (20/24/32px)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       6. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-avatar</code></td><td><span data-lang="pt">Classe base do avatar</span><span data-lang="en">Base avatar class</span></td></tr>
+        <tr><td><code>ds-avatar--sm</code></td><td><span data-lang="pt">Tamanho pequeno (32px)</span><span data-lang="en">Small size (32px)</span></td></tr>
+        <tr><td><code>ds-avatar--md</code></td><td><span data-lang="pt">Tamanho médio (40px)</span><span data-lang="en">Medium size (40px)</span></td></tr>
+        <tr><td><code>ds-avatar--lg</code></td><td><span data-lang="pt">Tamanho grande (64px)</span><span data-lang="en">Large size (64px)</span></td></tr>
+        <tr><td><code>ds-avatar--icon</code></td><td><span data-lang="pt">Variante fallback com ícone</span><span data-lang="en">Icon fallback variant</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       7. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Contexto</span><span data-lang="en">Context</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th><span data-lang="pt">Implementação</span><span data-lang="en">Implementation</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Avatar decorativo</span><span data-lang="en">Decorative avatar</span></td><td><span data-lang="pt">Oculto da tecnologia assistiva</span><span data-lang="en">Hidden from assistive technology</span></td><td><span data-lang="pt"><code>aria-hidden="true"</code> ou <code>alt=""</code> na imagem</span><span data-lang="en"><code>aria-hidden="true"</code> or <code>alt=""</code> on image</span></td></tr>
+        <tr><td><span data-lang="pt">Avatar significativo (link para perfil)</span><span data-lang="en">Meaningful avatar (links to profile)</span></td><td><span data-lang="pt">Texto alternativo descritivo</span><span data-lang="en">Descriptive alternative text</span></td><td><span data-lang="pt"><code>alt="Nome do Usuario"</code> na imagem</span><span data-lang="en"><code>alt="User Name"</code> on image</span></td></tr>
+        <tr><td><span data-lang="pt">Avatar com ícone</span><span data-lang="en">Icon avatar</span></td><td><span data-lang="pt">Nome acessível para contexto</span><span data-lang="en">Accessible name for context</span></td><td><span data-lang="pt"><code>aria-label="User avatar"</code> no container</span><span data-lang="en"><code>aria-label="User avatar"</code> on container</span></td></tr>
+        <tr><td><span data-lang="pt">Avatar com iniciais</span><span data-lang="en">Initials avatar</span></td><td><span data-lang="pt">Conteúdo de texto e lido por leitores de tela</span><span data-lang="en">Text content is read by screen readers</span></td><td><span data-lang="pt">Nenhum atributo extra necessario</span><span data-lang="en">No extra attributes needed</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Resumo dos atributos ARIA</span><span data-lang="en">ARIA attributes summary</span></div>
+      <span data-lang="pt"><code>aria-hidden="true"</code> — use em avatars puramente decorativos (ex: ao lado de um nome de usuário visível).<br>
+      <code>alt="Nome do Usuario"</code> — use em avatars com imagem que transmitem identidade (ex: links de perfil).<br>
+      <code>aria-label</code> — use em avatars com ícone para descrever o usuário ou contexto.</span><span data-lang="en"><code>aria-hidden="true"</code> — use on purely decorative avatars (e.g., next to a visible username).<br>
+      <code>alt="User Name"</code> — use on image avatars that convey identity (e.g., profile links).<br>
+      <code>aria-label</code> — use on icon avatars to describe the user or context.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       8. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="badge.html" class="ds-related__link">Badge</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

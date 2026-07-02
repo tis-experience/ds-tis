@@ -1,0 +1,329 @@
+{
+  "component": {
+    "alert": {
+      "padding": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.md}",
+          "$description": "Padding do Alert."
+        }
+      },
+      "gap": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Gap horizontal do Alert."
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.lg}",
+          "$description": "Radius do Alert."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width do Alert quando stroke esta ativo."
+        }
+      },
+      "icon": {
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone Alert."
+          }
+        },
+        "color": {
+          "success": {
+            "filled": {
+              "$value": "{semantic.icon.color.success-contrast}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/success/content/contrast."
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.success}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/success/content/default."
+            }
+          },
+          "warning": {
+            "filled": {
+              "$value": "{semantic.icon.color.warning-contrast}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/warning/content/contrast."
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.warning}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/warning/content/default."
+            }
+          },
+          "error": {
+            "filled": {
+              "$value": "{semantic.icon.color.error-contrast}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/error/content/contrast."
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.error}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/error/content/default."
+            }
+          },
+          "info": {
+            "filled": {
+              "$value": "{semantic.icon.color.info-contrast}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/info/content/contrast."
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.default}",
+              "$type": "color",
+              "$description": "Cor do ícone do Alert. Alias para feedback/info/content/default."
+            }
+          }
+        },
+        "stroke-width": {
+          "default": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical do content Alert."
+          }
+        }
+      },
+      "title": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do title Alert."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do title Alert."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight do title Alert."
+          }
+        },
+        "color": {
+          "success": {
+            "filled": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "subtle": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          },
+          "warning": {
+            "filled": {
+              "$value": "{semantic.feedback.warning.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "filled": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "filled": {
+              "$value": "{semantic.feedback.info.content-contrast}",
+              "$type": "color"
+            }
+          }
+        }
+      },
+      "description": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size da description Alert."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height da description Alert."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight da description Alert."
+          }
+        },
+        "color": {
+          "success": {
+            "filled": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "subtle": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          },
+          "warning": {
+            "filled": {
+              "$value": "{semantic.feedback.warning.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "filled": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "filled": {
+              "$value": "{semantic.feedback.info.content-contrast}",
+              "$type": "color"
+            }
+          }
+        }
+      },
+      "close": {
+        "icon-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone Close Alert."
+          }
+        },
+        "icon": {
+          "color": {
+            "success": {
+              "filled": {
+                "$value": "{semantic.icon.color.success-contrast}",
+                "$type": "color"
+              }
+            },
+            "warning": {
+              "filled": {
+                "$value": "{semantic.icon.color.warning-contrast}",
+                "$type": "color"
+              }
+            },
+            "error": {
+              "filled": {
+                "$value": "{semantic.icon.color.error-contrast}",
+                "$type": "color"
+              }
+            },
+            "info": {
+              "filled": {
+                "$value": "{semantic.icon.color.info-contrast}",
+                "$type": "color"
+              }
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.default}",
+              "$type": "color"
+            }
+          },
+          "stroke-width": {
+            "default": {
+              "$value": "{semantic.icon.stroke-width.regular.20}",
+              "$type": "dimension"
+            }
+          }
+        }
+      },
+      "bg": {
+        "success": {
+          "filled": {
+            "$value": "{semantic.feedback.success.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.success.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "warning": {
+          "filled": {
+            "$value": "{semantic.feedback.warning.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.warning.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "error": {
+          "filled": {
+            "$value": "{semantic.feedback.error.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.error.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "info": {
+          "filled": {
+            "$value": "{semantic.feedback.info.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.info.background.subtle}",
+            "$type": "color"
+          }
+        }
+      },
+      "border-color": {
+        "success": {
+          "subtle": {
+            "$value": "{semantic.feedback.success.border-default}",
+            "$type": "color"
+          }
+        },
+        "warning": {
+          "subtle": {
+            "$value": "{semantic.feedback.warning.border-default}",
+            "$type": "color"
+          }
+        },
+        "error": {
+          "subtle": {
+            "$value": "{semantic.feedback.error.border-default}",
+            "$type": "color"
+          }
+        },
+        "info": {
+          "subtle": {
+            "$value": "{semantic.feedback.info.border-default}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

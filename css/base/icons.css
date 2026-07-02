@@ -1,0 +1,73 @@
+/* ============================================================
+   Iconography helpers
+   ============================================================ */
+
+.ds-icon {
+  width: var(--ds-size-md);
+  height: var(--ds-size-md);
+  color: var(--ds-icon-color-default);
+  stroke: currentColor;
+  stroke-width: var(--ds-icon-stroke-width-regular-24);
+  fill: none;
+  flex-shrink: 0;
+}
+
+.ds-icon--16 {
+  width: var(--ds-dimension-16);
+  height: var(--ds-dimension-16);
+  stroke-width: var(--ds-icon-stroke-width-regular-16);
+}
+
+.ds-icon--20 {
+  width: var(--ds-size-sm);
+  height: var(--ds-size-sm);
+  stroke-width: var(--ds-icon-stroke-width-regular-20);
+}
+
+.ds-icon--24 {
+  width: var(--ds-size-md);
+  height: var(--ds-size-md);
+  stroke-width: var(--ds-icon-stroke-width-regular-24);
+}
+
+.ds-icon--32 {
+  width: var(--ds-size-lg);
+  height: var(--ds-size-lg);
+  stroke-width: var(--ds-icon-stroke-width-regular-32);
+}
+
+.ds-icon--strong.ds-icon--16 {
+  stroke-width: var(--ds-icon-stroke-width-strong-16);
+}
+
+.ds-icon--strong.ds-icon--20 {
+  stroke-width: var(--ds-icon-stroke-width-strong-20);
+}
+
+.ds-icon--strong.ds-icon--24 {
+  stroke-width: var(--ds-icon-stroke-width-strong-24);
+}
+
+.ds-icon--subtle {
+  color: var(--ds-icon-color-subtle);
+}
+
+.ds-icon--inverse {
+  color: var(--ds-icon-color-inverse);
+}
+
+.ds-icon--success {
+  color: var(--ds-icon-color-success);
+}
+
+.ds-icon--warning {
+  color: var(--ds-icon-color-warning);
+}
+
+.ds-icon--error {
+  color: var(--ds-icon-color-error);
+}
+
+.ds-icon--disabled {
+  color: var(--ds-icon-color-disabled);
+}

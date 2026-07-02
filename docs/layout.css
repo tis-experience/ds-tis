@@ -1,0 +1,1005 @@
+/* ============================================================
+   LAYOUT — Documentation Site Layout
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Internationalization (i18n)
+   --------------------------------------------------------- */
+/* Default: show PT, hide EN.
+   Usa body como âncora para garantir especificidade superior a qualquer
+   regra de display herdada (user agent, extensões, estilos de componente). */
+body [data-lang="en"] { display: none; }
+
+/* When EN is active: show EN, hide PT */
+html[lang="en"] body [data-lang="en"] { display: inline; }
+html[lang="en"] body [data-lang="pt"] { display: none; }
+
+
+/* ---------------------------------------------------------
+   Site Header
+   --------------------------------------------------------- */
+/* --_hfg: header foreground — white in both modes on brand bg */
+.ds-site-header {
+  --_hfg: var(--ds-brand-content-default); /* light: neutral-50 (white) */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--ds-brand-background-default); /* light: 600-level brand */
+  border-bottom: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--ds-dimension-24);
+  /* Chrome do site fica acima de toda a escala --ds-z-* (que vai até 50/toast).
+     +10 garante que conteúdo da página jamais sobreponha a topbar. */
+  z-index: calc(var(--ds-z-50) + 10);
+}
+
+/* Dark mode: brand-900 sólido. Mantém identidade da marca e separa visualmente
+   da sidebar (que usa --ds-surface-raised). Foundation aqui é OK — docs/layout.css
+   é chrome do site de docs, não componente reutilizável. */
+[data-mode="dark"] .ds-site-header {
+  --_hfg: var(--ds-content-strong); /* neutral-50 = white, always */
+  background-color: var(--ds-color-brand-900);
+}
+
+.ds-site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-dimension-12);
+  text-decoration: none;
+  color: var(--_hfg);
+}
+
+.ds-site-header__logo {
+  width: 32px;
+  height: 32px;
+  background-color: var(--_hfg);
+  border-radius: var(--ds-radius-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-brand-background-default);
+  font-weight: var(--ds-font-weight-bold);
+  font-size: var(--ds-font-size-14);
+}
+
+[data-mode="dark"] .ds-site-header__logo {
+  color: var(--ds-color-brand-900);
+}
+
+.ds-site-header__title {
+  font-size: var(--ds-font-size-18);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.ds-site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-dimension-12);
+}
+
+/* Theme Switcher */
+.ds-theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-dimension-8);
+}
+
+.ds-theme-switcher__label {
+  font-size: var(--ds-font-size-14);
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: var(--ds-font-weight-medium);
+}
+
+.ds-theme-switcher__select {
+  font-size: var(--ds-font-size-14);
+  padding: var(--ds-dimension-4) var(--ds-dimension-32) var(--ds-dimension-4) var(--ds-dimension-12);
+  border: var(--ds-border-width-1) solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--ds-radius-8);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--_hfg);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.ds-theme-switcher__select:focus-visible {
+  outline: var(--ds-border-width-focus) solid rgba(255, 255, 255, 0.6);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+/* Mode toggle — ghost button on brand background */
+.ds-site-header .ds-button--ghost {
+  color: var(--_hfg);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ds-site-header .ds-button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--_hfg);
+}
+
+.ds-site-header .ds-button--ghost:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile menu toggle */
+.ds-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--ds-dimension-8);
+  cursor: pointer;
+  color: var(--_hfg);
+  border-radius: var(--ds-radius-8);
+}
+
+.ds-menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ds-menu-toggle:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+.ds-menu-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---------------------------------------------------------
+   Sidebar Navigation
+   --------------------------------------------------------- */
+.ds-sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background-color: var(--ds-surface-raised);
+  border-right: var(--ds-border-width-1) solid var(--ds-border-default);
+  overflow-y: auto;
+  padding: var(--ds-dimension-24) 0;
+  z-index: var(--ds-z-30);
+}
+
+.ds-sidebar__section {
+  margin-bottom: var(--ds-dimension-24);
+}
+
+.ds-sidebar__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 var(--ds-dimension-24) var(--ds-dimension-8);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--ds-font-size-12);
+  font-family: inherit;
+  font-weight: var(--ds-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-letter-spacing-wider);
+  color: var(--ds-content-strong);
+  text-align: left;
+}
+
+.ds-sidebar__heading:hover {
+  color: var(--ds-brand-background-default);
+}
+
+.ds-sidebar__heading:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+  border-radius: var(--ds-radius-4);
+}
+
+.ds-sidebar__chevron,
+.ds-sidebar__group-chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--ds-content-subtle);
+  transition: transform var(--ds-duration-fast) var(--ds-ease-default);
+}
+
+.ds-sidebar__section--expanded .ds-sidebar__chevron,
+.ds-sidebar__group--expanded .ds-sidebar__group-chevron {
+  transform: rotate(180deg);
+}
+
+.ds-sidebar__nav {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--ds-duration-moderate) var(--ds-ease-default);
+}
+
+.ds-sidebar__section--expanded .ds-sidebar__nav {
+  max-height: 800px;
+}
+
+.ds-sidebar__nav li {
+  margin-bottom: 0;
+}
+
+.ds-sidebar__link {
+  display: block;
+  padding: var(--ds-dimension-8) var(--ds-dimension-24) var(--ds-dimension-8) calc(var(--ds-dimension-24) + 20px);
+  color: var(--ds-content-default);
+  text-decoration: none;
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-medium);
+  transition: color var(--ds-duration-fast) var(--ds-ease-default),
+              background-color var(--ds-duration-fast) var(--ds-ease-default);
+  border-left: 3px solid transparent;
+}
+
+.ds-sidebar__link:hover {
+  color: var(--ds-content-strong);
+  background-color: var(--ds-overlay-subtle);
+}
+
+.ds-sidebar__link:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+.ds-sidebar__link--active {
+  color: var(--ds-content-strong);
+  border-left-color: var(--ds-brand-background-default);
+  background-color: var(--ds-toned-background-default);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+/* ---------------------------------------------------------
+   Sidebar — Nested groups (Form > children)
+   --------------------------------------------------------- */
+.ds-sidebar__group {
+  list-style: none;
+}
+
+.ds-sidebar__group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: var(--ds-dimension-8) var(--ds-dimension-24) var(--ds-dimension-8) calc(var(--ds-dimension-24) + 20px);
+  color: var(--ds-content-default);
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-medium);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: color var(--ds-duration-fast) var(--ds-ease-default),
+              background-color var(--ds-duration-fast) var(--ds-ease-default);
+}
+
+.ds-sidebar__group-toggle:hover {
+  color: var(--ds-content-strong);
+  background-color: var(--ds-overlay-subtle);
+}
+
+.ds-sidebar__group-toggle:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: calc(var(--ds-border-width-focus) * -1);
+}
+
+.ds-sidebar__sub-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--ds-duration-moderate) var(--ds-ease-default);
+}
+
+.ds-sidebar__group--expanded .ds-sidebar__sub-nav {
+  max-height: 600px;
+}
+
+/* Sub-items: indent extra (alinha visualmente com o label do parent) */
+.ds-sidebar__sub-nav .ds-sidebar__link {
+  padding-left: calc(var(--ds-dimension-24) + 20px + var(--ds-dimension-16));
+  font-size: var(--ds-font-size-14);
+}
+
+/* ---------------------------------------------------------
+   Main Content
+   --------------------------------------------------------- */
+.ds-main {
+  margin-left: 280px;
+  margin-top: 64px;
+  padding: var(--ds-dimension-40) var(--ds-dimension-40);
+  max-width: 1040px;
+  min-height: calc(100vh - 64px);
+}
+
+/* ---------------------------------------------------------
+   Content Sections
+   --------------------------------------------------------- */
+.ds-section {
+  margin-bottom: var(--ds-dimension-64);
+}
+
+.ds-section__title {
+  font-size: var(--ds-font-size-28);
+  font-weight: var(--ds-font-weight-bold);
+  margin-bottom: var(--ds-dimension-8);
+  letter-spacing: var(--ds-letter-spacing-tight);
+}
+
+.ds-section__subtitle {
+  font-size: var(--ds-font-size-18);
+  color: var(--ds-content-default);
+  margin-bottom: var(--ds-dimension-32);
+  line-height: var(--ds-line-height-relaxed);
+}
+
+.ds-subsection {
+  margin-bottom: var(--ds-dimension-40);
+}
+
+.ds-subsection__title {
+  font-size: var(--ds-font-size-20);
+  font-weight: var(--ds-font-weight-semibold);
+  margin-bottom: var(--ds-dimension-16);
+  padding-bottom: var(--ds-dimension-8);
+  border-bottom: var(--ds-border-width-1) solid var(--ds-border-default);
+}
+
+/* ---------------------------------------------------------
+   Component Preview Cards
+   --------------------------------------------------------- */
+.ds-preview {
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-12);
+  margin-bottom: var(--ds-dimension-24);
+  overflow: hidden;
+}
+
+.ds-preview__canvas {
+  padding: var(--ds-dimension-32);
+  background-color: var(--ds-background-default);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-dimension-16);
+  align-items: flex-start;
+}
+
+.ds-preview__canvas--centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.ds-preview__canvas--column {
+  flex-direction: column;
+}
+
+.ds-preview__code {
+  border-top: var(--ds-border-width-1) solid var(--ds-border-default);
+  position: relative;
+}
+
+.ds-preview__code pre {
+  margin: 0;
+  border-radius: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.ds-preview__copy {
+  position: absolute;
+  top: var(--ds-dimension-8);
+  right: var(--ds-dimension-8);
+  background-color: var(--ds-color-neutral-700);
+  color: var(--ds-color-neutral-200);
+  border: var(--ds-border-width-1) solid var(--ds-color-neutral-600);
+  border-radius: var(--ds-radius-8);
+  padding: var(--ds-dimension-4) var(--ds-dimension-8);
+  font-size: var(--ds-font-size-12);
+  cursor: pointer;
+  font-family: var(--ds-font-family-sans);
+  transition: background-color var(--ds-duration-fast) var(--ds-ease-default);
+}
+
+.ds-preview__copy:hover {
+  background-color: var(--ds-color-neutral-600);
+}
+
+.ds-preview__copy:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+/* Preview tabs (Preview / Code) */
+.ds-preview__tabs {
+  display: flex;
+  border-bottom: var(--ds-border-width-1) solid var(--ds-border-default);
+  background-color: var(--ds-background-subtle);
+}
+
+.ds-preview__tab {
+  padding: var(--ds-dimension-8) var(--ds-dimension-16);
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-content-default);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--ds-duration-fast) var(--ds-ease-default);
+}
+
+.ds-preview__tab:hover {
+  color: var(--ds-content-strong);
+}
+
+.ds-preview__tab--active {
+  color: var(--ds-link-content-default);
+  border-bottom-color: var(--ds-link-content-default);
+}
+
+.ds-preview__tab:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+/* Markdown-generated pages define this banner inline; keep text contrast
+   accessible from the shared docs stylesheet. */
+body .ds-md-generated-banner,
+body .ds-md-generated-banner code {
+  color: var(--ds-content-strong);
+}
+
+.ds-preview__panel {
+  display: none;
+}
+
+.ds-preview__panel--active {
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   Token Swatch Grid
+   --------------------------------------------------------- */
+.ds-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--ds-dimension-12);
+  margin-bottom: var(--ds-dimension-24);
+}
+
+.ds-swatch {
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-12);
+  overflow: hidden;
+  background-color: var(--ds-surface-default);
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-swatch__color {
+  width: 100%;
+  height: 96px;
+  border-bottom: var(--ds-border-width-1) solid var(--ds-border-default);
+}
+
+.ds-swatch__color--checker {
+  position: relative;
+  background-color: var(--ds-color-neutral-50);
+  background-image:
+    linear-gradient(45deg, var(--ds-color-neutral-200) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--ds-color-neutral-200) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--ds-color-neutral-200) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--ds-color-neutral-200) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.ds-swatch__overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.ds-swatch__info {
+  padding: var(--ds-dimension-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-dimension-4);
+}
+
+.ds-swatch__name,
+.ds-swatch__value {
+  display: block;
+  line-height: 1.4;
+}
+
+.ds-swatch__name code,
+.ds-swatch__value code {
+  display: inline-block;
+  font-size: var(--ds-font-size-11);
+  word-break: break-all;
+  white-space: normal;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+.ds-swatch__divider {
+  height: 1px;
+  background-color: var(--ds-border-default);
+  margin: var(--ds-dimension-4) 0;
+}
+
+.ds-swatch__contrast-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-dimension-4);
+  font-size: var(--ds-font-size-11);
+  color: var(--ds-content-default);
+  line-height: 1.4;
+}
+
+.ds-swatch__contrast-label {
+  font-family: var(--ds-font-family-mono);
+}
+
+.ds-swatch__contrast-ratio {
+  font-family: var(--ds-font-family-mono);
+  color: var(--ds-content-strong);
+  margin-left: auto;
+  margin-right: var(--ds-dimension-4);
+}
+
+.ds-swatch__badge {
+  font-size: 9px;
+  font-weight: var(--ds-font-weight-semibold);
+  padding: 1px 4px;
+  border-radius: var(--ds-radius-2);
+  color: var(--ds-color-neutral-50);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ds-swatch__badge--aaa,
+.ds-swatch__badge--aa {
+  background-color: var(--ds-feedback-success-background-default);
+  color: var(--ds-feedback-success-content-contrast);
+}
+.ds-swatch__badge--aa-large {
+  background-color: var(--ds-feedback-warning-background-default);
+  color: var(--ds-feedback-warning-content-contrast);
+}
+.ds-swatch__badge--fail {
+  background-color: var(--ds-feedback-error-background-default);
+  color: var(--ds-feedback-error-content-contrast);
+}
+
+/* ---------------------------------------------------------
+   Props / API Table
+   --------------------------------------------------------- */
+.ds-props-table {
+  font-size: var(--ds-font-size-14);
+  margin-bottom: var(--ds-dimension-24);
+}
+
+.ds-props-table code {
+  font-size: var(--ds-font-size-12);
+}
+
+/* ---------------------------------------------------------
+   A11y Notes
+   --------------------------------------------------------- */
+.ds-a11y-note {
+  background-color: var(--ds-feedback-info-background-subtle);
+  border-left: var(--ds-border-width-4) solid var(--ds-feedback-info-background-default);
+  padding: var(--ds-dimension-16);
+  border-radius: 0 var(--ds-radius-8) var(--ds-radius-8) 0;
+  margin-bottom: var(--ds-dimension-24);
+}
+
+.ds-a11y-note__title {
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-feedback-info-content-default);
+  margin-bottom: var(--ds-dimension-4);
+}
+
+.ds-a11y-note__text {
+  font-size: var(--ds-font-size-14);
+  color: var(--ds-content-strong);
+  margin-bottom: 0;
+}
+
+/* Component grid for index page */
+.ds-component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--ds-dimension-16);
+}
+
+.ds-component-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-dimension-24) var(--ds-dimension-16);
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-8);
+  text-decoration: none;
+  color: var(--ds-content-strong);
+  font-weight: var(--ds-font-weight-medium);
+  font-size: var(--ds-font-size-16);
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-default),
+              box-shadow var(--ds-duration-fast) var(--ds-ease-default);
+}
+
+.ds-component-card:hover {
+  border-color: var(--ds-brand-background-default);
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.ds-component-card:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+/* Quickstart code block */
+.ds-quickstart {
+  background: var(--ds-background-subtle);
+  padding: var(--ds-dimension-16) var(--ds-dimension-20);
+  border-radius: var(--ds-radius-8);
+  font-family: var(--ds-font-family-mono);
+  font-size: var(--ds-font-size-14);
+  overflow-x: auto;
+  margin: var(--ds-dimension-8) 0 var(--ds-dimension-16);
+}
+
+/* ---------------------------------------------------------
+   Responsive — Mobile
+   --------------------------------------------------------- */
+@media (max-width: 768px) {
+  .ds-site-header {
+    padding: 0 var(--ds-dimension-12);
+  }
+
+  .ds-site-header__title {
+    display: none;
+  }
+
+  .ds-theme-switcher__label {
+    display: none;
+  }
+
+  .ds-theme-switcher__select {
+    max-width: 120px;
+  }
+
+  .ds-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ds-sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--ds-duration-slow) var(--ds-ease-default);
+    /* Acompanha a topbar no nível de chrome — DOM order (header → overlay → sidebar)
+       garante o empilhamento correto quando o drawer abre. */
+    z-index: calc(var(--ds-z-50) + 10);
+  }
+
+  .ds-sidebar--open {
+    transform: translateX(0);
+  }
+
+  .ds-main {
+    margin-left: 0;
+    padding: var(--ds-dimension-24) var(--ds-dimension-16);
+  }
+
+  .ds-preview__canvas {
+    padding: var(--ds-dimension-16);
+  }
+
+  .ds-swatch-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* Overlay for mobile sidebar — mesmo nível de chrome da topbar; DOM order
+   (header → overlay → sidebar) define o empilhamento. */
+.ds-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--ds-background-overlay);
+  z-index: calc(var(--ds-z-50) + 10);
+}
+
+.ds-sidebar-overlay--visible {
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-sidebar__link,
+  .ds-sidebar { transition: none; }
+}
+
+/* ============================================================
+   DOCS UTILITY CLASSES
+   ============================================================
+   Componentes de documentação compartilhados entre todas as
+   páginas em docs/. Antes estavam duplicados inline em cada
+   docs/*.html — centralizados aqui em 0.8.x para fix único.
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Tabelas de tokens (usadas em foundations-* e component pages)
+   --------------------------------------------------------- */
+.ds-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ds-body-font-size-sm);
+  margin-bottom: var(--ds-dimension-32);
+}
+
+.ds-token-table th {
+  text-align: left;
+  padding: var(--ds-dimension-8) var(--ds-dimension-12);
+  border-bottom: var(--ds-border-width-2) solid var(--ds-border-default);
+  font-weight: var(--ds-body-font-weight-semibold);
+  color: var(--ds-content-default);
+}
+
+.ds-token-table td {
+  padding: var(--ds-dimension-8) var(--ds-dimension-12);
+  border-bottom: var(--ds-border-width-default) solid var(--ds-border-subtle);
+  vertical-align: middle;
+}
+
+.ds-token-table code {
+  font-size: var(--ds-body-font-size-xs);
+  font-family: var(--ds-font-family-mono);
+}
+
+/* ---------------------------------------------------------
+   Code block (DTCG JSON em foundations-*, anywhere a code dump is needed).
+   Sempre escuro em ambos os modos — padrão universal de code blocks
+   (terminal/editor). Foundation direto é aceito aqui por ser estrutura
+   do site de docs (não componente do DS).
+   --------------------------------------------------------- */
+.ds-code-block {
+  background-color: var(--ds-color-neutral-900);
+  color: var(--ds-color-neutral-50);
+  padding: var(--ds-dimension-16) var(--ds-dimension-20);
+  border-radius: var(--ds-radius-lg);
+  font-family: var(--ds-font-family-mono);
+  font-size: var(--ds-body-font-size-xs);
+  line-height: var(--ds-line-height-relaxed);
+  overflow-x: auto;
+  margin-bottom: var(--ds-dimension-24);
+  white-space: pre;
+}
+
+.ds-code-block:focus-visible {
+  outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+  outline-offset: var(--ds-border-width-focus);
+}
+
+/* Override do <pre> global (reset.css usa --ds-background-inverse, que
+   flipa pra branco em dark). Code blocks no docs site são sempre escuros. */
+main.ds-main pre {
+  background-color: var(--ds-color-neutral-900);
+  color: var(--ds-color-neutral-50);
+}
+
+main.ds-main a:not([class]) {
+  color: var(--ds-link-content-default);
+}
+
+main.ds-main a:not([class]):hover {
+  color: var(--ds-link-content-hover);
+}
+
+/* ---------------------------------------------------------
+   Callouts (info / success / warning)
+   --------------------------------------------------------- */
+.ds-callout {
+  padding: var(--ds-dimension-16) var(--ds-dimension-20);
+  border-radius: var(--ds-radius-lg);
+  margin-bottom: var(--ds-dimension-24);
+  font-size: var(--ds-body-font-size-sm);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-content-strong);
+}
+
+.ds-callout--info {
+  background-color: var(--ds-feedback-info-background-subtle);
+  border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default);
+}
+
+.ds-callout--success {
+  background-color: var(--ds-feedback-success-background-subtle);
+  border: var(--ds-border-width-default) solid var(--ds-feedback-success-border-default);
+}
+
+.ds-callout--warning {
+  background-color: var(--ds-feedback-warning-background-subtle);
+  border: var(--ds-border-width-default) solid var(--ds-feedback-warning-border-default);
+}
+
+.ds-callout__title {
+  font-weight: var(--ds-body-font-weight-semibold);
+  margin-bottom: var(--ds-dimension-4);
+}
+
+.ds-callout a {
+  color: var(--ds-content-strong) !important;
+  text-decoration: underline;
+  text-underline-offset: var(--ds-dimension-2);
+}
+
+.ds-callout a:hover {
+  color: var(--ds-content-strong) !important;
+}
+
+/* ---------------------------------------------------------
+   Do / Don't (cards comparativos)
+   --------------------------------------------------------- */
+.ds-dodont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-dimension-16);
+  align-items: start;
+  margin-bottom: var(--ds-dimension-32);
+}
+
+.ds-dodont__item {
+  border-radius: var(--ds-radius-lg);
+  overflow: hidden;
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+}
+
+.ds-dodont__preview {
+  padding: var(--ds-dimension-24);
+  background-color: var(--ds-background-default);
+  border-bottom: var(--ds-border-width-default) solid var(--ds-border-default);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-dimension-12);
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-dodont__label {
+  padding: var(--ds-dimension-8) var(--ds-dimension-16) var(--ds-dimension-4);
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-semibold);
+}
+
+.ds-dodont__label--do {
+  background-color: var(--ds-feedback-success-background-subtle);
+  color: var(--ds-feedback-success-content-default);
+  border-top: 3px solid var(--ds-feedback-success-background-subtle);
+}
+
+.ds-dodont__label--dont {
+  background-color: var(--ds-feedback-error-background-subtle);
+  color: var(--ds-feedback-error-content-default);
+  border-top: 3px solid var(--ds-feedback-error-background-subtle);
+}
+
+.ds-dodont__desc {
+  padding: var(--ds-dimension-4) var(--ds-dimension-16) var(--ds-dimension-12);
+  font-size: var(--ds-body-font-size-sm);
+  color: var(--ds-content-strong);
+}
+
+.ds-dodont__desc a {
+  color: var(--ds-content-strong) !important;
+  text-decoration: underline;
+  text-underline-offset: var(--ds-dimension-2);
+}
+
+.ds-dodont__item:has(.ds-dodont__label--do) .ds-dodont__desc {
+  background-color: var(--ds-feedback-success-background-subtle);
+}
+
+.ds-dodont__item:has(.ds-dodont__label--dont) .ds-dodont__desc {
+  background-color: var(--ds-feedback-error-background-subtle);
+}
+
+@media (max-width: 768px) {
+  .ds-dodont {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------
+   Anatomy (component anatomy preview)
+   --------------------------------------------------------- */
+.ds-anatomy {
+  padding: var(--ds-dimension-32);
+  background-color: var(--ds-background-default);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-lg);
+  margin-bottom: var(--ds-dimension-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ds-anatomy__marker {
+  position: absolute;
+  width: var(--ds-size-sm);
+  height: var(--ds-size-sm);
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-brand-background-default);
+  color: var(--ds-brand-content-default);
+  font-size: var(--ds-body-font-size-2xs);
+  font-weight: var(--ds-body-font-weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-anatomy-legend {
+  font-size: var(--ds-body-font-size-sm);
+  color: var(--ds-content-default);
+  margin-bottom: var(--ds-dimension-32);
+  line-height: var(--ds-body-line-height-md);
+}
+
+.ds-anatomy-legend strong {
+  color: var(--ds-content-strong);
+}
+
+/* ---------------------------------------------------------
+   Related (cards de links pra tópicos relacionados)
+   --------------------------------------------------------- */
+.ds-related {
+  display: flex;
+  gap: var(--ds-dimension-12);
+  flex-wrap: wrap;
+  margin-bottom: var(--ds-dimension-32);
+}
+
+.ds-related__link {
+  padding: var(--ds-dimension-8) var(--ds-dimension-16);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-md);
+  font-size: var(--ds-body-font-size-sm);
+  color: var(--ds-link-content-default);
+  text-decoration: none;
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-related__link:hover {
+  border-color: var(--ds-brand-background-default);
+  background-color: var(--ds-overlay-subtle);
+}

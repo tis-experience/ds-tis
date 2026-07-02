@@ -1,0 +1,576 @@
+{
+  "component": {
+    "button": {
+      "height": {
+        "sm": {
+          "$value": "{semantic.size.lg}",
+          "$type": "dimension",
+          "$description": "Altura do Button sm."
+        },
+        "md": {
+          "$value": "{semantic.size.xl}",
+          "$type": "dimension",
+          "$description": "Altura do Button md."
+        },
+        "lg": {
+          "$value": "{semantic.size.2xl}",
+          "$type": "dimension",
+          "$description": "Altura do Button lg."
+        }
+      },
+      "min-width": {
+        "sm": {
+          "$value": "{semantic.control.button.min-width.sm}",
+          "$type": "dimension",
+          "$description": "Largura mínima específica do Button sm. Component-specific; não há Semantic reutilizável."
+        },
+        "md": {
+          "$value": "{semantic.control.button.min-width.md}",
+          "$type": "dimension",
+          "$description": "Largura mínima específica do Button md. Component-specific; não há Semantic reutilizável."
+        },
+        "lg": {
+          "$value": "{semantic.control.button.min-width.lg}",
+          "$type": "dimension",
+          "$description": "Largura mínima específica do Button lg. Component-specific; não há Semantic reutilizável."
+        }
+      },
+      "padding-x": {
+        "sm": {
+          "$value": "{semantic.space.sm}",
+          "$type": "dimension",
+          "$description": "Padding horizontal do Button sm."
+        },
+        "md": {
+          "$value": "{semantic.space.md}",
+          "$type": "dimension",
+          "$description": "Padding horizontal do Button md."
+        },
+        "lg": {
+          "$value": "{semantic.space.lg}",
+          "$type": "dimension",
+          "$description": "Padding horizontal do Button lg."
+        }
+      },
+      "padding-y": {
+        "sm": {
+          "$value": "{semantic.space.sm}",
+          "$type": "dimension",
+          "$description": "Padding vertical do Button sm."
+        },
+        "md": {
+          "$value": "{semantic.space.control.padding.10}",
+          "$type": "dimension",
+          "$description": "Padding vertical do Button md."
+        },
+        "lg": {
+          "$value": "{semantic.space.md}",
+          "$type": "dimension",
+          "$description": "Padding vertical do Button lg."
+        }
+      },
+      "gap": {
+        "sm": {
+          "$value": "{semantic.space.2xs}",
+          "$type": "dimension",
+          "$description": "Gap interno do Button sm."
+        },
+        "md": {
+          "$value": "{semantic.space.xs}",
+          "$type": "dimension",
+          "$description": "Gap interno do Button md."
+        },
+        "lg": {
+          "$value": "{semantic.space.sm}",
+          "$type": "dimension",
+          "$description": "Gap interno do Button lg."
+        }
+      },
+      "radius": {
+        "default": {
+          "$value": "{semantic.radius.md}",
+          "$type": "dimension",
+          "$description": "Radius do Button."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$value": "{semantic.border.width.default}",
+          "$type": "dimension",
+          "$description": "Border width do Button quando stroke está ativo."
+        }
+      },
+      "icon-only-width": {
+        "sm": {
+          "$value": "{semantic.size.lg}",
+          "$type": "dimension",
+          "$description": "Largura do Button somente-ícone sm."
+        },
+        "md": {
+          "$value": "{semantic.size.xl}",
+          "$type": "dimension",
+          "$description": "Largura do Button somente-ícone md."
+        },
+        "lg": {
+          "$value": "{semantic.size.2xl}",
+          "$type": "dimension",
+          "$description": "Largura do Button somente-ícone lg."
+        }
+      },
+      "icon-only-padding": {
+        "sm": {
+          "$value": "{semantic.space.control.padding.6}",
+          "$type": "dimension",
+          "$description": "Padding simétrico do Button somente-ícone sm."
+        },
+        "md": {
+          "$value": "{semantic.space.sm}",
+          "$type": "dimension",
+          "$description": "Padding simétrico do Button somente-ícone md."
+        },
+        "lg": {
+          "$value": "{semantic.space.md}",
+          "$type": "dimension",
+          "$description": "Padding simétrico do Button somente-ícone lg."
+        }
+      },
+      "bg": {
+        "brand": {
+          "default": {
+            "$value": "{semantic.brand.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button brand default."
+          },
+          "hover": {
+            "$value": "{semantic.brand.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button brand hover."
+          },
+          "pressed": {
+            "$value": "{semantic.brand.background.active}",
+            "$type": "color",
+            "$description": "Bg do Button brand pressed."
+          },
+          "focus": {
+            "$value": "{semantic.brand.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button brand focus."
+          },
+          "disabled": {
+            "$value": "{semantic.brand.background.disabled}",
+            "$type": "color",
+            "$description": "Bg do Button brand disabled."
+          }
+        },
+        "toned": {
+          "default": {
+            "$value": "{semantic.toned.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button toned default."
+          },
+          "hover": {
+            "$value": "{semantic.toned.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button toned hover."
+          },
+          "pressed": {
+            "$value": "{semantic.toned.background.active}",
+            "$type": "color",
+            "$description": "Bg do Button toned pressed."
+          },
+          "focus": {
+            "$value": "{semantic.toned.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button toned focus."
+          },
+          "disabled": {
+            "$value": "{semantic.toned.background.disabled}",
+            "$type": "color",
+            "$description": "Bg do Button toned disabled."
+          }
+        },
+        "outline": {
+          "hover": {
+            "$value": "{semantic.outline.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button outline hover."
+          },
+          "pressed": {
+            "$value": "{semantic.background.subtle}",
+            "$type": "color",
+            "$description": "Bg do Button outline pressed."
+          }
+        },
+        "ghost": {
+          "hover": {
+            "$value": "{semantic.ghost.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button ghost hover."
+          },
+          "pressed": {
+            "$value": "{semantic.ghost.background.active}",
+            "$type": "color",
+            "$description": "Bg do Button ghost pressed."
+          }
+        },
+        "success": {
+          "default": {
+            "$value": "{semantic.feedback.success.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button success default."
+          },
+          "hover": {
+            "$value": "{semantic.feedback.success.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button success hover."
+          },
+          "pressed": {
+            "$value": "{semantic.feedback.success.background.active}",
+            "$type": "color",
+            "$description": "Bg do Button success pressed."
+          },
+          "focus": {
+            "$value": "{semantic.feedback.success.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button success focus."
+          },
+          "disabled": {
+            "$value": "{semantic.feedback.success.background.disabled}",
+            "$type": "color",
+            "$description": "Bg do Button success disabled."
+          }
+        },
+        "danger": {
+          "default": {
+            "$value": "{semantic.feedback.error.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button danger default."
+          },
+          "hover": {
+            "$value": "{semantic.feedback.error.background.hover}",
+            "$type": "color",
+            "$description": "Bg do Button danger hover."
+          },
+          "pressed": {
+            "$value": "{semantic.feedback.error.background.active}",
+            "$type": "color",
+            "$description": "Bg do Button danger pressed."
+          },
+          "focus": {
+            "$value": "{semantic.feedback.error.background.default}",
+            "$type": "color",
+            "$description": "Bg do Button danger focus."
+          },
+          "disabled": {
+            "$value": "{semantic.feedback.error.background.disabled}",
+            "$type": "color",
+            "$description": "Bg do Button danger disabled."
+          }
+        }
+      },
+      "border-color": {
+        "outline": {
+          "default": {
+            "$value": "{semantic.outline.border-default}",
+            "$type": "color",
+            "$description": "Border color do Button outline default."
+          },
+          "hover": {
+            "$value": "{semantic.outline.border-hover}",
+            "$type": "color",
+            "$description": "Border color do Button outline hover."
+          },
+          "pressed": {
+            "$value": "{semantic.border.control-default}",
+            "$type": "color",
+            "$description": "Border color do Button outline pressed."
+          },
+          "focus": {
+            "$value": "{semantic.border.focus}",
+            "$type": "color",
+            "$description": "Border color do Button outline focus."
+          },
+          "disabled": {
+            "$value": "{semantic.border.control-disabled}",
+            "$type": "color",
+            "$description": "Border color do Button outline disabled."
+          }
+        }
+      },
+      "label-frame": {
+        "padding-x": {
+          "default": {
+            "$value": "{semantic.space.xs}",
+            "$type": "dimension",
+            "$description": "Padding horizontal do Label Frame Button."
+          }
+        }
+      },
+      "label": {
+        "font-family": {
+          "default": {
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$type": "string",
+            "$description": "Font-family do label Button."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$type": "string",
+            "$description": "Font-weight do label Button."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$type": "dimension",
+            "$description": "Letter-spacing do label Button."
+          }
+        },
+        "font-size": {
+          "sm": {
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$type": "dimension",
+            "$description": "Font-size do label Button sm."
+          },
+          "md": {
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$type": "dimension",
+            "$description": "Font-size do label Button md."
+          },
+          "lg": {
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$type": "dimension",
+            "$description": "Font-size do label Button lg."
+          }
+        },
+        "line-height": {
+          "sm": {
+            "$value": "{semantic.typography.body.line-height.2xs}",
+            "$type": "dimension",
+            "$description": "Line-height do label Button sm."
+          },
+          "md": {
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$type": "dimension",
+            "$description": "Line-height do label Button md."
+          },
+          "lg": {
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$type": "dimension",
+            "$description": "Line-height do label Button lg."
+          }
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "$value": "{semantic.size.xs}",
+            "$type": "dimension",
+            "$description": "Tamanho do ícone Button sm."
+          },
+          "md": {
+            "$value": "{semantic.size.sm}",
+            "$type": "dimension",
+            "$description": "Tamanho do ícone Button md."
+          },
+          "lg": {
+            "$value": "{semantic.size.md}",
+            "$type": "dimension",
+            "$description": "Tamanho do ícone Button lg."
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.icon.stroke-width.regular.24}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$value": "{semantic.radius.lg}",
+            "$type": "dimension",
+            "$description": "Radius do focus ring Button."
+          }
+        }
+      },
+      "content": {
+        "color": {
+          "brand": {
+            "default": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button brand default."
+            },
+            "hover": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button brand hover."
+            },
+            "pressed": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button brand pressed."
+            },
+            "focus": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button brand focus."
+            },
+            "disabled": {
+              "$value": "{semantic.brand.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button brand disabled."
+            }
+          },
+          "toned": {
+            "default": {
+              "$value": "{semantic.toned.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button toned default."
+            },
+            "hover": {
+              "$value": "{semantic.link.content-hover}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button toned hover."
+            },
+            "pressed": {
+              "$value": "{semantic.link.content-hover}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button toned pressed."
+            },
+            "focus": {
+              "$value": "{semantic.toned.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button toned focus."
+            },
+            "disabled": {
+              "$value": "{semantic.toned.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button toned disabled."
+            }
+          },
+          "outline": {
+            "default": {
+              "$value": "{semantic.outline.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button outline default."
+            },
+            "hover": {
+              "$value": "{semantic.outline.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button outline hover."
+            },
+            "pressed": {
+              "$value": "{semantic.outline.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button outline pressed."
+            },
+            "focus": {
+              "$value": "{semantic.outline.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button outline focus."
+            },
+            "disabled": {
+              "$value": "{semantic.outline.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button outline disabled."
+            }
+          },
+          "ghost": {
+            "default": {
+              "$value": "{semantic.ghost.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button ghost default."
+            },
+            "hover": {
+              "$value": "{semantic.ghost.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button ghost hover."
+            },
+            "pressed": {
+              "$value": "{semantic.ghost.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button ghost pressed."
+            },
+            "focus": {
+              "$value": "{semantic.ghost.content-default}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button ghost focus."
+            },
+            "disabled": {
+              "$value": "{semantic.ghost.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button ghost disabled."
+            }
+          },
+          "success": {
+            "default": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button success default."
+            },
+            "hover": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button success hover."
+            },
+            "pressed": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button success pressed."
+            },
+            "focus": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button success focus."
+            },
+            "disabled": {
+              "$value": "{semantic.feedback.success.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button success disabled."
+            }
+          },
+          "danger": {
+            "default": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button danger default."
+            },
+            "hover": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button danger hover."
+            },
+            "pressed": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button danger pressed."
+            },
+            "focus": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button danger focus."
+            },
+            "disabled": {
+              "$value": "{semantic.feedback.error.content-disabled}",
+              "$type": "color",
+              "$description": "Cor de conteúdo do Button danger disabled."
+            }
+          }
+        }
+      }
+    }
+  }
+}

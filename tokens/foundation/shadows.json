@@ -1,0 +1,27 @@
+{
+  "foundation": {
+    "shadow": {
+      "sm": {
+        "$type": "shadow",
+        "$value": "0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.04)"
+      },
+      "md": {
+        "$type": "shadow",
+        "$value": "0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.04)"
+      },
+      "lg": {
+        "$type": "shadow",
+        "$value": "0 10px 15px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.08)"
+      },
+      "xl": {
+        "$type": "shadow",
+        "$value": "0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -2px rgba(0, 0, 0, 0.1)"
+      },
+      "none": {
+        "$type": "shadow",
+        "$value": "none"
+      },
+      "$description": "Official elevation scale. Figma Effect Styles elevation/1..4 map to sm/md/lg/xl; none is the CSS reset for elevation-0. Values are CSS shorthand strings. TODO: convert to DTCG shadow objects ({offsetX, offsetY, blur, spread, color}) when multi-platform pipeline is configured."
+    }
+  }
+}

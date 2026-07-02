@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-019 — — Reintrodução de Component tokens como contrato anatômico — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-019 — — Reintrodução de Component tokens como contrato anatômico</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-05-11</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceita</li>
+<li><strong>Data:</strong> 2026-05-11</li>
+<li><strong>Substitui:</strong> partes de ADR-013 e ADR-015 que eliminavam a camada Component como regra geral</li>
+<li><strong>Relaciona:</strong> ADR-006, ADR-013, ADR-015, ADR-017</li>
+</ul>
+<h2>Contexto</h2>
+<p>ADR-013 estabilizou a arquitetura em duas camadas, Foundation -&gt; Semantic, depois de uma migração que eliminou a antiga collection Component. A decisão corrigiu um problema real: muitos tokens Component eram wrappers mecânicos 1:1 sem contrato próprio, por exemplo um token por componente apenas para repetir a mesma cor, motion ou dimensão já expressa por Semantic.</p>
+<p>A auditoria dimensional de controles de formulario mostrou outro problema. Componentes com a mesma variant nominal (<code>sm</code>, <code>md</code>, <code>lg</code>) podem precisar de partes anatômicas com tamanhos diferentes:</p>
+<ul>
+<li>Input e Button usam 32/40/48 como altura visual e área interativa.</li>
+<li>Checkbox e Radio usam 32/40/48 como área interativa, mas o ícone visual é 16/20/24.</li>
+<li>Toggle usa 32/40/48 como área interativa, mas a track visual precisa manter proporções próprias.</li>
+</ul>
+<p>Sem Component tokens, a implementação precisa escolher entre duas opções ruins:</p>
+<ol>
+<li>Consumir <code>semantic.size.xs/sm/md</code> diretamente em <code>Checkbox sm/md/lg</code>, o que parece inconsistente para quem lê a documentação do componente.</li>
+<li>Criar nomes Semantic artificiais ou específicos demais, como <code>control.track-width</code>, tentando esconder uma decisão que na prática pertence ao Toggle.</li>
+</ol>
+<p>Design systems de referência usam uma camada equivalente a Component tokens para expor contratos anatômicos de componente. Material Web distingue tokens de sistema (<code>--md-sys-*</code>) de tokens de componente (<code>--md-switch-*</code>, <code>--md-checkbox-*</code>). Carbon documenta component tokens como propriedades associadas a um componente específico. Spectrum modela <code>component</code>, <code>anatomy</code>, <code>property</code>, <code>variant</code> e <code>state</code> como eixos legítimos de classificação de tokens.</p>
+<h2>Decisao</h2>
+<p>Reintroduzir a camada <strong>Component</strong> como camada de contrato anatômico e de consumo dos componentes.</p>
+<p>Nova cadeia:</p>
+<pre><code class="language-txt">Foundation/Core -&gt; Semantic/System -&gt; Component -&gt; implementacao
+</code></pre>
+<h3>Responsabilidades por camada</h3>
+<h4>Foundation/Core</h4>
+<p>Primitivos sem intenção de uso:</p>
+<pre><code class="language-txt">foundation.dimension.40
+foundation.color.brand.600
+foundation.radius.4
+foundation.border.width.1
+</code></pre>
+<p>Foundation não fala de componente, estado de UI ou anatomia.</p>
+<h4>Semantic/System</h4>
+<p>Decisões reutilizáveis do sistema:</p>
+<pre><code class="language-txt">semantic.size.xl
+semantic.space.md
+semantic.primary.background.default
+semantic.feedback.error.content.default
+semantic.border.control.default
+</code></pre>
+<p>Semantic não deve conter nome de componente. <code>control</code> continua permitido quando o conceito é reutilizável por vários controles, não quando nomeia uma parte exclusiva de um componente.</p>
+<h4>Component</h4>
+<p>Contrato publico e anatômico de cada componente:</p>
+<pre><code class="language-txt">component.checkbox.target.height.sm
+component.checkbox.box.size.sm
+component.checkbox.mark.size.sm
+component.toggle.track.width.md
+component.toggle.thumb.size.md
+component.input.height.md
+</code></pre>
+<p>Component tokens podem ser alias 1:1 para Semantic quando esse alias documenta uma parte pública e estável da anatomia do componente. O problema a evitar não é o alias 1:1; é criar wrapper sem anatomia, sem contrato e sem uso claro.</p>
+<h3>Naming</h3>
+<p>Formato canônico DTCG:</p>
+<pre><code class="language-txt">component.&lt;component&gt;.[&lt;part&gt;.]&lt;property&gt;.&lt;variant-or-state&gt;
+</code></pre>
+<p>Formato canônico no Figma:</p>
+<pre><code class="language-txt">&lt;component&gt;/[&lt;part&gt;/]&lt;property&gt;/&lt;variant-or-state&gt;
+</code></pre>
+<p>No Figma, o prefixo de camada nao entra no nome da variable porque a propria collection <code>Component</code> ja define a camada. Assim, <code>button/height/md</code> na collection <code>Component</code> corresponde a <code>component.button.height.md</code> em DTCG. Nao usar <code>component/button/...</code> dentro da collection <code>Component</code>, porque isso duplica a camada como <code>Component/component/...</code> na UI.</p>
+<p>O segmento <code>&lt;part&gt;</code> é opcional. Ele deve aparecer quando existe anatomia real ou ambiguidade entre partes do componente (<code>checkbox.target</code>, <code>checkbox.box</code>, <code>toggle.track</code>, <code>toggle.thumb</code>, <code>button.label</code>, <code>button.icon</code>, <code>button.focus-ring</code>). Quando a propriedade pertence ao componente como um todo ou à superfície principal, o path deve ser mais curto:</p>
+<pre><code class="language-txt">component.button.height.md
+component.button.bg.brand.default
+component.input.height.sm
+component.avatar.size.md
+</code></pre>
+<p>Não usar <code>root</code> como parte genérica apenas para representar o nó externo. Isso aumenta o nome sem adicionar contrato anatômico público. Se em algum componente o wrapper externo tiver semântica própria diferente da superfície principal, a parte deve receber um nome funcional mais claro.</p>
+<p>Campos:</p>
+<ul>
+<li><code>&lt;component&gt;</code>: slug estável do componente (<code>button</code>, <code>input</code>, <code>checkbox</code>, <code>radio</code>, <code>toggle</code>).</li>
+<li><code>&lt;part&gt;</code>: anatomia pública quando necessária (<code>target</code>, <code>box</code>, <code>track</code>, <code>thumb</code>, <code>icon</code>, <code>label</code>, <code>helper</code>, <code>description</code>, <code>focus-ring</code>).</li>
+<li><code>&lt;property&gt;</code>: propriedade visual ou estrutural (<code>height</code>, <code>width</code>, <code>size</code>, <code>bg</code>, <code>border</code>, <code>radius</code>, <code>font-size</code>, <code>line-height</code>, <code>gap</code>, <code>inset</code>).</li>
+<li><code>&lt;variant-or-state&gt;</code>: size, state ou role quando necessário (<code>sm</code>, <code>md</code>, <code>lg</code>, <code>default</code>, <code>hover</code>, <code>selected</code>, <code>disabled</code>, <code>error</code>).</li>
+</ul>
+<p>Exemplos aceitos:</p>
+<pre><code class="language-txt">component.checkbox.target.height.sm -&gt; semantic.size.lg
+component.checkbox.box.size.sm -&gt; semantic.size.xs
+component.input.height.sm -&gt; semantic.size.lg
+component.toggle.target.height.md -&gt; semantic.size.xl
+component.toggle.track.height.md -&gt; semantic.size.md
+</code></pre>
+<p>Exemplos rejeitados:</p>
+<pre><code class="language-txt">component.button.bg.brand.default -&gt; semantic.primary.background.default
+</code></pre>
+<p>Rejeitado quando for apenas duplicação de uma decisão de role/style já expressa por Semantic e não houver contrato anatômico adicional. Se a documentação do componente precisar expor essa decisão como API de customização, o token Component passa a ser aceitável.</p>
+<h3>Regra de consumo</h3>
+<p>CSS e bindings Figma de componentes devem consumir Component tokens quando existir token Component para aquela anatomia.</p>
+<p>Durante a migração, componentes ainda podem consumir Semantic diretamente até receberem seus Component tokens. Novos trabalhos estruturais em componentes devem preferir a camada Component.</p>
+<h3>Valores especificos de componente</h3>
+<p>O caminho preferencial e Component -&gt; Semantic -&gt; Foundation.</p>
+<p>Se uma dimensão específica de componente não existir em Semantic, a decisão deve seguir esta ordem:</p>
+<ol>
+<li>Verificar se a escala Semantic existente resolve o caso.</li>
+<li>Criar ou reaproveitar um token Semantic se a decisao for reutilizavel fora do componente.</li>
+<li>Criar um token Component se a decisao for anatômica e especifica do componente.</li>
+</ol>
+<p>Quando a decisão for específica e ainda assim precisar de valor fora da escala Semantic, a ADR da mudança deve explicitar se o valor entra em Semantic como novo padrão reutilizável ou se fica como contrato Component. Essa exceção não pode ser implícita.</p>
+<h2>Consequencias</h2>
+<h3>Positivas</h3>
+<ul>
+<li>A variant de componente (<code>Checkbox sm</code>, <code>Input sm</code>, <code>Toggle sm</code>) deixa de ser confundida com o nome do token global usado internamente.</li>
+<li>A documentacao pode mostrar o contrato do componente sem expor a engenharia interna da escala global.</li>
+<li>Figma, CSS e docs passam a ter uma camada comum para anatomia de componente.</li>
+<li>Evita nomes Semantic falsamente genericos para decisoes exclusivas de componente.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li>Reintroduz uma terceira camada e aumenta o número de tokens.</li>
+<li>Exige migração incremental de componentes existentes.</li>
+<li>Requer disciplina para não recriar a antiga camada Component como espelho mecânico de tudo.</li>
+<li>Exige ajustes em build, docs, API, registry e verificação.</li>
+</ul>
+<h2>Plano de migracao</h2>
+<ol>
+<li>Reativar suporte de pipeline a <code>tokens/component/*.json</code> e <code>css/tokens/generated/component.css</code>.</li>
+<li>Criar a collection <code>Component</code> no Figma, com modo <code>Default</code>, quando a sessao Figma estiver autenticada.</li>
+<li>Pilotar Checkbox, Radio e Toggle porque concentram a diferenca entre area interativa e ícone visual.</li>
+<li>Documentar a matriz dimensional:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th align="right">Variant</th>
+<th align="right">Area interativa</th>
+<th align="right">Forma visual</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Checkbox/Radio</td>
+<td align="right">sm</td>
+<td align="right">32</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td>Checkbox/Radio</td>
+<td align="right">md</td>
+<td align="right">40</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td>Checkbox/Radio</td>
+<td align="right">lg</td>
+<td align="right">48</td>
+<td align="right">24</td>
+</tr>
+<tr>
+<td>Toggle</td>
+<td align="right">sm</td>
+<td align="right">32</td>
+<td align="right">28x16</td>
+</tr>
+<tr>
+<td>Toggle</td>
+<td align="right">md</td>
+<td align="right">40</td>
+<td align="right">44x24</td>
+</tr>
+<tr>
+<td>Toggle</td>
+<td align="right">lg</td>
+<td align="right">48</td>
+<td align="right">56x32</td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li>Migrar os demais componentes em PRs separados.</li>
+</ol>
+<h2>Alternativas consideradas</h2>
+<h3>Manter apenas Foundation -&gt; Semantic</h3>
+<p>Descartada. Funciona para tokens globais, mas torna confusa a relacao entre variant de componente e valor absoluto usado por partes internas.</p>
+<h3>Criar nomes Semantic especificos de componente</h3>
+<p>Descartada. <code>semantic.size.toggle.*</code> mistura decisao de componente com camada de sistema e torna o Semantic menos previsivel.</p>
+<h3>Usar <code>control.*</code> para tudo que foge da escala</h3>
+<p>Descartada como regra geral. <code>control</code> deve representar padroes reutilizaveis entre controles. Usar <code>control.track-width</code> para uma anatomia que so existe no Toggle cria falsa genericidade.</p>
+<h2>Referencias</h2>
+<ul>
+<li>Material Web: system tokens e component tokens (<code>--md-sys-*</code>, <code>--md-switch-*</code>, <code>--md-checkbox-*</code>).</li>
+<li>Carbon Design System: component tokens como propriedades associadas a componentes especificos.</li>
+<li>Spectrum Design Data: eixos <code>component</code>, <code>anatomy</code>, <code>property</code>, <code>variant</code> e <code>state</code>.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

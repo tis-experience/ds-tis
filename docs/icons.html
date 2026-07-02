@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icons — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-icon-toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(140px, auto));
+      gap: var(--ds-dimension-12);
+      align-items: end;
+      margin-bottom: var(--ds-dimension-20);
+    }
+
+    .ds-icon-control {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-dimension-6);
+    }
+
+    .ds-icon-control label {
+      color: var(--ds-content-default);
+      font-size: var(--ds-body-font-size-sm);
+      font-weight: var(--ds-body-font-weight-semibold);
+    }
+
+    .ds-icon-control input,
+    .ds-icon-control select {
+      height: var(--ds-size-lg);
+      border: var(--ds-border-width-default) solid var(--ds-border-default);
+      border-radius: var(--ds-radius-md);
+      background: var(--ds-surface-default);
+      color: var(--ds-content-default);
+      padding-inline: var(--ds-dimension-12);
+    }
+
+    .ds-icon-control input:focus-visible,
+    .ds-icon-control select:focus-visible {
+      outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
+      outline-offset: var(--ds-border-width-focus);
+    }
+
+    .ds-icon-meta {
+      color: var(--ds-content-subtle);
+      font-size: var(--ds-body-font-size-sm);
+      margin-bottom: var(--ds-dimension-16);
+    }
+
+    .ds-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
+      gap: var(--ds-dimension-12);
+    }
+
+    .ds-icon-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-dimension-10);
+      min-height: 116px;
+      padding: var(--ds-dimension-16);
+      border: var(--ds-border-width-default) solid var(--ds-border-subtle);
+      border-radius: var(--ds-radius-lg);
+      background: var(--ds-surface-default);
+      color: var(--ds-content-default);
+    }
+
+    .ds-icon-card__preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--ds-dimension-48);
+      height: var(--ds-dimension-48);
+      border-radius: var(--ds-radius-md);
+      background: var(--ds-background-subtle);
+    }
+
+    .ds-icon-card code {
+      overflow-wrap: anywhere;
+      color: var(--ds-content-default);
+    }
+
+    .ds-icon-card[hidden] {
+      display: none;
+    }
+
+    .ds-icon-demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ds-dimension-20);
+      align-items: center;
+    }
+
+    .ds-icon-demo-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--ds-dimension-8);
+      color: var(--ds-content-default);
+    }
+
+    @media (max-width: 760px) {
+      .ds-icon-toolbar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Icons</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Biblioteca vanilla Lucide para uso no site e em exemplos do DS, mantendo SVGs de stroke com tokens semânticos de iconografia.</span>
+      <span data-lang="en">Vanilla Lucide library for the DS site and examples, keeping stroke SVGs driven by semantic iconography tokens.</span>
+    </p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Contrato</span><span data-lang="en">Contract</span></h2>
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title"><span data-lang="pt">Ícone é recurso compartilhado, não componente final</span><span data-lang="en">Icon is a shared resource, not a final component</span></div>
+      <span data-lang="pt">Use <code>semantic.icon.*</code> para a biblioteca e exemplos isolados. Dentro de componentes finais, use sempre o token Component da anatomia, como <code>button/content/color/brand/default</code>, <code>select/icon/color/default</code> ou <code>alert/icon/color/success/default</code>.</span>
+      <span data-lang="en">Use <code>semantic.icon.*</code> for the library and standalone examples. Inside final components, always use the anatomical Component token, such as <code>button/content/color/brand/default</code>, <code>select/icon/color/default</code>, or <code>alert/icon/color/success/default</code>.</span>
+    </div>
+    <table class="ds-token-table">
+      <thead><tr><th>Aspecto</th><th>Token</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td>Color</td><td><code>semantic.icon.color.*</code></td><td><span data-lang="pt">Stroke/fill de ícones de biblioteca, sem reutilizar tokens de borda.</span><span data-lang="en">Library icon stroke/fill, without reusing border tokens.</span></td></tr>
+        <tr><td>Size</td><td><code>semantic.size.sm/md/lg</code></td><td><span data-lang="pt">Escala compartilhada: 20, 24 e 32px; 16px usa <code>foundation.dimension.16</code>.</span><span data-lang="en">Shared scale: 20, 24, and 32px; 16px uses <code>foundation.dimension.16</code>.</span></td></tr>
+        <tr><td>Stroke width</td><td><code>semantic.icon.stroke-width.{regular,strong}.{size}</code></td><td><span data-lang="pt">Peso de linha por tamanho; <code>strong</code> existe para acompanhar textos bold ou estados críticos.</span><span data-lang="en">Line weight by size; <code>strong</code> exists to pair with bold text or critical states.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Uso vanilla</span><span data-lang="en">Vanilla usage</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas">
+        <div class="ds-icon-demo-row">
+          <span class="ds-icon-demo-item"><i data-lucide="circle-check" class="ds-icon ds-icon--20 ds-icon--success"></i> Success</span>
+          <span class="ds-icon-demo-item"><i data-lucide="triangle-alert" class="ds-icon ds-icon--20 ds-icon--warning"></i> Warning</span>
+          <span class="ds-icon-demo-item"><i data-lucide="circle-alert" class="ds-icon ds-icon--20 ds-icon--strong ds-icon--error"></i> Error strong</span>
+          <span class="ds-icon-demo-item"><i data-lucide="info" class="ds-icon ds-icon--20 ds-icon--subtle"></i> Subtle</span>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;script src="docs/assets/vendor/lucide.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;lucide.createIcons({ attrs: { class: 'ds-icon ds-icon--20' } });&lt;/script&gt;
+
+&lt;i data-lucide="circle-check" class="ds-icon ds-icon--20 ds-icon--success"&gt;&lt;/i&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Biblioteca</span><span data-lang="en">Library</span></h2>
+    <div class="ds-icon-toolbar">
+      <div class="ds-icon-control">
+        <label for="icon-search"><span data-lang="pt">Buscar</span><span data-lang="en">Search</span></label>
+        <input id="icon-search" type="search" placeholder="search, circle-check, alert..." autocomplete="off">
+      </div>
+      <div class="ds-icon-control">
+        <label for="icon-size">Size</label>
+        <select id="icon-size">
+          <option value="16">16px</option>
+          <option value="20" selected>20px</option>
+          <option value="24">24px</option>
+          <option value="32">32px</option>
+        </select>
+      </div>
+      <div class="ds-icon-control">
+        <label for="icon-weight">Weight</label>
+        <select id="icon-weight">
+          <option value="regular" selected>Regular</option>
+          <option value="strong">Strong</option>
+        </select>
+      </div>
+      <div class="ds-icon-control">
+        <label for="icon-color">Color</label>
+        <select id="icon-color">
+          <option value="default" selected>Default</option>
+          <option value="subtle">Subtle</option>
+          <option value="success">Success</option>
+          <option value="warning">Warning</option>
+          <option value="error">Error</option>
+          <option value="disabled">Disabled</option>
+        </select>
+      </div>
+    </div>
+    <p class="ds-icon-meta" id="icon-meta">Carregando biblioteca...</p>
+    <div class="ds-icon-grid" id="icon-grid" aria-live="polite"></div>
+  </div>
+</main>
+
+<script src="assets/vendor/lucide.min.js"></script>
+<script src="assets/lucide-icon-manifest.js"></script>
+<script>
+  (function () {
+    var manifest = window.DS_LUCIDE_ICON_MANIFEST;
+    var grid = document.getElementById('icon-grid');
+    var meta = document.getElementById('icon-meta');
+    var search = document.getElementById('icon-search');
+    var size = document.getElementById('icon-size');
+    var weight = document.getElementById('icon-weight');
+    var color = document.getElementById('icon-color');
+    var VISIBLE_LIMIT = 240;
+
+    if (!manifest || !window.lucide || !grid) {
+      if (meta) meta.textContent = 'Icon library failed to load.';
+      return;
+    }
+
+    function render() {
+      var query = search.value.trim().toLowerCase();
+      var filtered = manifest.names.filter(function (name) {
+        return query === '' || name.indexOf(query) !== -1;
+      });
+      var visible = filtered.slice(0, VISIBLE_LIMIT);
+      var iconClass = 'ds-icon ds-icon--' + size.value
+        + (weight.value === 'strong' ? ' ds-icon--strong' : '')
+        + (color.value !== 'default' ? ' ds-icon--' + color.value : '');
+
+      grid.innerHTML = visible.map(function (name) {
+        return '<div class="ds-icon-card">'
+          + '<div class="ds-icon-card__preview"><i data-lucide="' + name + '" class="' + iconClass + '"></i></div>'
+          + '<code>' + name + '</code>'
+          + '</div>';
+      }).join('');
+
+      window.lucide.createIcons({
+        icons: window.lucide.icons,
+        attrs: { 'aria-hidden': 'true' }
+      });
+
+      meta.textContent = filtered.length + ' de ' + manifest.count
+        + ' ícones Lucide v' + manifest.version
+        + (filtered.length > VISIBLE_LIMIT ? ' — exibindo os primeiros ' + VISIBLE_LIMIT + ', refine a busca.' : '');
+    }
+
+    [search, size, weight, color].forEach(function (control) {
+      control.addEventListener('input', render);
+      control.addEventListener('change', render);
+    });
+
+    render();
+    window.lucide.createIcons({ icons: window.lucide.icons });
+  })();
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

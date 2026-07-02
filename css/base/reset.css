@@ -1,0 +1,80 @@
+/* Google Fonts — Inter + DM Mono */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--ds-body-font-family-sans);
+  font-size: var(--ds-body-font-size-md);
+  line-height: var(--ds-body-line-height-md);
+  color: var(--ds-content-strong);
+  background-color: var(--ds-background-default);
+}
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; }
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+/* ---------------------------------------------------------
+   Code / Pre
+   --------------------------------------------------------- */
+code, pre {
+  font-family: var(--ds-body-font-family-mono);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+code {
+  background-color: var(--ds-background-subtle);
+  padding: var(--ds-dimension-2) var(--ds-dimension-4);
+  border-radius: var(--ds-radius-sm);
+  color: var(--ds-link-content-default);
+}
+
+pre {
+  background-color: var(--ds-background-inverse);
+  color: var(--ds-content-inverse);
+  padding: var(--ds-dimension-16);
+  border-radius: var(--ds-radius-lg);
+  overflow-x: auto;
+  margin-bottom: var(--ds-dimension-16);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: var(--ds-body-font-size-sm);
+}
+
+/* ---------------------------------------------------------
+   Tables
+   --------------------------------------------------------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: var(--ds-dimension-12) var(--ds-dimension-16);
+  text-align: left;
+  border-bottom: var(--ds-border-width-default) solid var(--ds-border-default);
+}
+
+th {
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-sm);
+  color: var(--ds-content-default);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

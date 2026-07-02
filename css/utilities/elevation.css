@@ -1,0 +1,24 @@
+/* ==========================================================================
+   Elevation Utilities
+   Shadow/elevation classes using design tokens.
+   ========================================================================== */
+
+.ds-elevation-0 {
+  box-shadow: var(--ds-shadow-none);
+}
+
+.ds-elevation-1 {
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.ds-elevation-2 {
+  box-shadow: var(--ds-shadow-md);
+}
+
+.ds-elevation-3 {
+  box-shadow: var(--ds-shadow-lg);
+}
+
+.ds-elevation-4 {
+  box-shadow: var(--ds-shadow-xl);
+}

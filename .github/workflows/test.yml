@@ -1,0 +1,80 @@
+name: Test
+
+on:
+  pull_request:
+    paths:
+      - "tokens/**"
+      - "css/**"
+      - "docs/**"
+      - "scripts/**"
+      - "tests/visual/**"
+      - "build-tokens.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/test.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tokens/**"
+      - "css/**"
+      - "docs/**"
+      - "scripts/**"
+      - "tests/visual/**"
+      - "build-tokens.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/test.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build tokens (necessário pro test-css-references comparar)
+        run: npm run build:tokens
+
+      - name: Token integrity (aliases, descriptions, modes)
+        run: node scripts/test-token-integrity.mjs
+
+      - name: CSS reference resolution (var() + @import)
+        run: node scripts/test-css-references.mjs
+
+      - name: Generator output (sync-docs, tokens-verify, build-llms)
+        run: node scripts/test-generators.mjs
+
+      - name: Self-test (provoca regressões e valida que detectores pegam)
+        run: node scripts/test-self.mjs
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: A11y (axe-core WCAG 2.2 AA contra .a11y-baseline.json)
+        run: node scripts/test-a11y.mjs
+
+      - name: Visual regression (Playwright + pixelmatch)
+        run: node scripts/test-visual.mjs
+
+      - name: Upload visual regression artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-artifacts
+          path: |
+            tests/visual/actual/
+            tests/visual/diff/
+          if-no-files-found: ignore

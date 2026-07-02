@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title">Foundations</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Design tokens são os blocos fundamentais do design system. Tokens foundation armazenam valores brutos; tokens semânticos adicionam significado e habilitam temas. Para entender como as camadas se relacionam, veja <a href="token-architecture.html" style="color:var(--ds-link-content-default);">Token Architecture</a>.</span><span data-lang="en">Design tokens are the building blocks of the design system. Foundation tokens hold raw values; semantic tokens add meaning and enable theming. To understand how the layers relate, see <a href="token-architecture.html" style="color:var(--ds-link-content-default);">Token Architecture</a>.</span></p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--ds-dimension-24);margin-top:var(--ds-dimension-32)">
+
+      <a href="foundations-colors.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-12);margin-bottom:var(--ds-dimension-12)">
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-color-brand-500)"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-color-neutral-500)"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-color-red-500)"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-color-green-500)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Colors</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Paletas de cores primitivas usadas por aliases semânticos e temas.</span><span data-lang="en">Primitive color palettes used by semantic aliases and themes.</span></p>
+      </a>
+
+      <a href="foundations-theme-colors.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-12);margin-bottom:var(--ds-dimension-12)">
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-background-default);border:1px solid var(--ds-border-default)"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-surface-raised);border:1px solid var(--ds-border-default)"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-brand-background-default)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Theme Colors</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Tokens de cor semânticos para background, texto, borda e feedback.</span><span data-lang="en">Semantic color tokens for background, text, border, and feedback.</span></p>
+      </a>
+
+      <a href="foundations-typography.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="margin-bottom:var(--ds-dimension-12)">
+          <span style="font-size:var(--ds-font-size-24);font-weight:var(--ds-font-weight-bold);line-height:1">Aa</span>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Typography</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Escalas de fonte, estilos de texto, pesos e alturas de linha.</span><span data-lang="en">Font scales, text styles, weights, and line-heights.</span></p>
+      </a>
+
+      <a href="foundations-spacing.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:3px;align-items:end;margin-bottom:var(--ds-dimension-12)">
+          <div style="width:8px;height:8px;background:var(--ds-brand-background-default);border-radius:2px"></div>
+          <div style="width:8px;height:16px;background:var(--ds-brand-background-default);border-radius:2px"></div>
+          <div style="width:8px;height:24px;background:var(--ds-brand-background-default);border-radius:2px"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Spacing</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Espaçamento foundation e aliases semânticos para layout e componentes.</span><span data-lang="en">Foundation spacing and semantic aliases for layout and components.</span></p>
+      </a>
+
+      <a href="foundations-radius.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-12);margin-bottom:var(--ds-dimension-12)">
+          <div style="width:24px;height:24px;border:2px solid var(--ds-brand-background-default);border-radius:var(--ds-radius-4)"></div>
+          <div style="width:24px;height:24px;border:2px solid var(--ds-brand-background-default);border-radius:var(--ds-radius-12)"></div>
+          <div style="width:24px;height:24px;border:2px solid var(--ds-brand-background-default);border-radius:var(--ds-radius-999)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Radius</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Escala de border-radius de cantos retos até full.</span><span data-lang="en">Border-radius scale from square corners to full radius.</span></p>
+      </a>
+
+      <a href="foundations-elevation.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-12);margin-bottom:var(--ds-dimension-12)">
+          <div style="width:32px;height:24px;background:var(--ds-surface-default);border-radius:var(--ds-radius-4);box-shadow:var(--ds-shadow-sm)"></div>
+          <div style="width:32px;height:24px;background:var(--ds-surface-default);border-radius:var(--ds-radius-4);box-shadow:var(--ds-shadow-lg)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Elevation</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Escala de elevação com sombras, surfaces e reset técnico.</span><span data-lang="en">Elevation scale with shadows, surfaces, and technical reset.</span></p>
+      </a>
+
+      <a href="foundations-borders.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:var(--ds-dimension-12)">
+          <div style="height:1px;width:48px;background:var(--ds-border-default)"></div>
+          <div style="height:2px;width:48px;background:var(--ds-border-strong)"></div>
+          <div style="height:4px;width:48px;background:var(--ds-border-brand)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Borders</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Larguras de borda e tokens semânticos de cor de borda.</span><span data-lang="en">Border widths and semantic border color tokens.</span></p>
+      </a>
+
+      <a href="foundations-motion.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-8);align-items:center;margin-bottom:var(--ds-dimension-12)">
+          <div style="width:12px;height:12px;border-radius:var(--ds-radius-999);background:var(--ds-brand-background-default);opacity:0.3"></div>
+          <div style="width:12px;height:12px;border-radius:var(--ds-radius-999);background:var(--ds-brand-background-default);opacity:0.6"></div>
+          <div style="width:12px;height:12px;border-radius:var(--ds-radius-999);background:var(--ds-brand-background-default)"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Motion</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Durações e easings para transições e animações.</span><span data-lang="en">Durations and easings for transitions and animations.</span></p>
+      </a>
+
+      <a href="foundations-opacity.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:var(--ds-dimension-8);align-items:center;margin-bottom:var(--ds-dimension-12)">
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-brand-background-default);opacity:0.25"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-brand-background-default);opacity:0.5"></div>
+          <div style="width:24px;height:24px;border-radius:var(--ds-radius-4);background:var(--ds-brand-background-default);opacity:1"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Opacity</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Opacidade para estados desabilitados, overlays e loading.</span><span data-lang="en">Opacity for disabled states, overlays, and loading.</span></p>
+      </a>
+
+      <a href="foundations-zindex.html" style="display:block;padding:var(--ds-dimension-24);background:var(--ds-surface-default);border:1px solid var(--ds-border-default);border-radius:var(--ds-radius-12);text-decoration:none;color:inherit;transition:box-shadow 200ms ease">
+        <div style="display:flex;gap:2px;align-items:end;margin-bottom:var(--ds-dimension-12)">
+          <div style="width:16px;height:8px;background:var(--ds-brand-background-default);border-radius:2px;opacity:0.3"></div>
+          <div style="width:16px;height:16px;background:var(--ds-brand-background-default);border-radius:2px;opacity:0.6"></div>
+          <div style="width:16px;height:24px;background:var(--ds-brand-background-default);border-radius:2px"></div>
+        </div>
+        <h2 style="font-size:var(--ds-font-size-18);font-weight:var(--ds-font-weight-semibold);margin:0 0 var(--ds-dimension-4)">Z-index</h2>
+        <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin:0"><span data-lang="pt">Ordem de empilhamento do conteúdo base até notificações toast.</span><span data-lang="en">Stacking order from base content to toast notifications.</span></p>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

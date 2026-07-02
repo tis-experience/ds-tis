@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- 1. HEADER -->
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Cadastro</span><span data-lang="en">Sign Up</span></h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Formulário de criação de conta com validação em linha, feedback de erro via Alert e aceite de termos. Usa Form Field para estrutura acessível.</span>
+      <span data-lang="en">Account creation form with inline validation, Alert error feedback, and terms acceptance. Uses Form Field for accessible structure.</span>
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-16)">
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Select</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Checkbox</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Alert</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Button</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Form Field</span>
+    </div>
+  </div>
+
+  <!-- 2. PREVIEW -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Preview</h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+        <button onclick="openPreviewInNewTab()" aria-label="Abrir preview em nova aba" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--ds-content-subtle);padding:0 var(--ds-dimension-12);font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);display:flex;align-items:center;gap:var(--ds-dimension-6);white-space:nowrap;" onmouseenter="this.style.color='var(--ds-content-strong)'" onmouseleave="this.style.color='var(--ds-content-subtle)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Abrir em nova aba</button>
+      </div>
+      <div class="ds-preview__canvas" style="padding:0;display:block">
+        <div style="min-height:660px;display:flex;align-items:center;justify-content:center;background:var(--ds-background-subtle);padding:var(--ds-dimension-40)">
+          <div style="background:var(--ds-surface-default);border-radius:var(--ds-radius-lg);padding:var(--ds-dimension-40);width:100%;max-width:440px;box-shadow:0 8px 32px rgba(0,0,0,.08);box-sizing:border-box">
+
+            <div style="text-align:center;margin-bottom:var(--ds-dimension-32)">
+              <div style="width:48px;height:48px;background:var(--ds-brand-background-default);border-radius:var(--ds-radius-md);display:inline-flex;align-items:center;justify-content:center;margin-bottom:var(--ds-dimension-16)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/>
+                  <rect x="13" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/>
+                  <rect x="3" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/>
+                  <rect x="13" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/>
+                </svg>
+              </div>
+              <h2 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)">
+                <span data-lang="pt">Crie sua conta</span><span data-lang="en">Create your account</span>
+              </h2>
+              <p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0">
+                <span data-lang="pt">Gratuito para começar, sem cartão de crédito</span>
+                <span data-lang="en">Free to start, no credit card required</span>
+              </p>
+            </div>
+
+            <div class="ds-alert ds-alert--info ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24)" role="status">
+              <div class="ds-alert__content">
+                <span class="ds-alert__description">
+                  <span data-lang="pt">Use um e-mail corporativo para desbloquear recursos de equipe.</span>
+                  <span data-lang="en">Use a work email to unlock team features.</span>
+                </span>
+              </div>
+            </div>
+
+            <form novalidate>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--ds-dimension-12);margin-bottom:var(--ds-dimension-16)">
+                <div class="ds-field" style="min-width:0">
+                  <div class="ds-field__label-row">
+                    <label class="ds-field__label" for="su-fname"><span data-lang="pt">Nome</span><span data-lang="en">First name</span></label>
+                    <span class="ds-field__required" aria-hidden="true">*</span>
+                  </div>
+                  <div class="ds-input ds-input--lg">
+                    <input class="ds-input__field" type="text" id="su-fname" autocomplete="given-name" required>
+                  </div>
+                </div>
+                <div class="ds-field" style="min-width:0">
+                  <div class="ds-field__label-row">
+                    <label class="ds-field__label" for="su-lname"><span data-lang="pt">Sobrenome</span><span data-lang="en">Last name</span></label>
+                    <span class="ds-field__required" aria-hidden="true">*</span>
+                  </div>
+                  <div class="ds-input ds-input--lg">
+                    <input class="ds-input__field" type="text" id="su-lname" autocomplete="family-name" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ds-field" style="margin-bottom:var(--ds-dimension-16)">
+                <div class="ds-field__label-row">
+                  <label class="ds-field__label" for="su-email">E-mail</label>
+                  <span class="ds-field__required" aria-hidden="true">*</span>
+                </div>
+                <div class="ds-input ds-input--lg">
+                  <input class="ds-input__field" type="email" id="su-email" placeholder="seu@email.com" autocomplete="email" required>
+                </div>
+              </div>
+
+              <div class="ds-field ds-field--error" style="margin-bottom:var(--ds-dimension-16)">
+                <div class="ds-field__label-row">
+                  <label class="ds-field__label" for="su-password"><span data-lang="pt">Senha</span><span data-lang="en">Password</span></label>
+                  <span class="ds-field__required" aria-hidden="true">*</span>
+                </div>
+                <div class="ds-input ds-input--lg ds-input--error">
+                  <input class="ds-input__field" type="password" id="su-password" placeholder="••••••••" autocomplete="new-password" aria-describedby="su-password-error" required>
+                </div>
+                <span class="ds-field__error" id="su-password-error" role="alert">
+                  <span data-lang="pt">Use ao menos 8 caracteres com letras e números.</span>
+                  <span data-lang="en">Use at least 8 characters with letters and numbers.</span>
+                </span>
+              </div>
+
+              <div class="ds-field" style="margin-bottom:var(--ds-dimension-24)">
+                <div class="ds-field__label-row">
+                  <label class="ds-field__label" for="su-country"><span data-lang="pt">País</span><span data-lang="en">Country</span></label>
+                </div>
+                <div class="ds-select ds-select--lg">
+                  <select class="ds-select__field" id="su-country" autocomplete="country-name">
+                    <option value="">Selecione...</option>
+                    <option>Brasil</option>
+                    <option>Portugal</option>
+                    <option>United States</option>
+                    <option>Spain</option>
+                  </select>
+                  <span class="ds-select__arrow" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <label class="ds-checkbox-label" style="margin-bottom:var(--ds-dimension-24)">
+                <input class="ds-checkbox" type="checkbox" id="su-terms" required>
+                <span class="ds-checkbox__content">
+                  <span class="ds-checkbox__label">
+                    <span data-lang="pt">Concordo com os <a class="ds-link" href="#">Termos de uso</a> e a <a class="ds-link" href="#">Política de privacidade</a></span>
+                    <span data-lang="en">I agree to the <a class="ds-link" href="#">Terms of service</a> and <a class="ds-link" href="#">Privacy policy</a></span>
+                  </span>
+                </span>
+              </label>
+
+              <button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit">
+                <span class="ds-button__label"><span data-lang="pt">Criar conta</span><span data-lang="en">Create account</span></span>
+              </button>
+            </form>
+
+            <p style="text-align:center;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:var(--ds-dimension-24) 0 0">
+              <span data-lang="pt">Já tem uma conta? <a class="ds-link" href="#">Entrar</a></span>
+              <span data-lang="en">Already have an account? <a class="ds-link" href="#">Sign in</a></span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Cadastro&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/design-system.css"&gt;
+  &lt;style&gt;
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ds-background-subtle);
+      padding: var(--ds-dimension-40);
+    }
+    .signup-card {
+      background: var(--ds-surface-default);
+      border-radius: var(--ds-radius-lg);
+      padding: var(--ds-dimension-40);
+      width: 100%; max-width: 440px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+    }
+    .signup-name-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ds-dimension-12); margin-bottom: var(--ds-dimension-16); }
+    .signup-name-row &gt; * { min-width: 0; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class="signup-card"&gt;
+
+  &lt;div style="text-align:center;margin-bottom:var(--ds-dimension-32)"&gt;
+    &lt;h1 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)"&gt;Crie sua conta&lt;/h1&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0"&gt;Gratuito para começar, sem cartão de crédito&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="ds-alert ds-alert--info ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24)" role="status"&gt;
+    &lt;div class="ds-alert__content"&gt;
+      &lt;span class="ds-alert__description"&gt;Use um e-mail corporativo para desbloquear recursos de equipe.&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;form novalidate&gt;
+    &lt;div class="signup-name-row"&gt;
+      &lt;div class="ds-field"&gt;
+        &lt;div class="ds-field__label-row"&gt;
+          &lt;label class="ds-field__label" for="fname"&gt;Nome&lt;/label&gt;
+          &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="ds-input ds-input--lg"&gt;
+          &lt;input class="ds-input__field" type="text" id="fname" autocomplete="given-name" required&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-field"&gt;
+        &lt;div class="ds-field__label-row"&gt;
+          &lt;label class="ds-field__label" for="lname"&gt;Sobrenome&lt;/label&gt;
+          &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="ds-input ds-input--lg"&gt;
+          &lt;input class="ds-input__field" type="text" id="lname" autocomplete="family-name" required&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-16)"&gt;
+      &lt;div class="ds-field__label-row"&gt;
+        &lt;label class="ds-field__label" for="email"&gt;E-mail&lt;/label&gt;
+        &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-input ds-input--lg"&gt;
+        &lt;input class="ds-input__field" type="email" id="email" placeholder="seu@email.com" autocomplete="email" required&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-16)"&gt;
+      &lt;div class="ds-field__label-row"&gt;
+        &lt;label class="ds-field__label" for="password"&gt;Senha&lt;/label&gt;
+        &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-input ds-input--lg"&gt;
+        &lt;input class="ds-input__field" type="password" id="password"
+               placeholder="••••••••" autocomplete="new-password" required&gt;
+      &lt;/div&gt;
+      &lt;span class="ds-field__helper"&gt;Mínimo 8 caracteres com letras e números.&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-24)"&gt;
+      &lt;div class="ds-field__label-row"&gt;
+        &lt;label class="ds-field__label" for="country"&gt;País&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-select ds-select--lg"&gt;
+        &lt;select class="ds-select__field" id="country" autocomplete="country-name"&gt;
+          &lt;option value=""&gt;Selecione...&lt;/option&gt;
+          &lt;option&gt;Brasil&lt;/option&gt;
+          &lt;option&gt;Portugal&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;span class="ds-select__arrow" aria-hidden="true"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;label class="ds-checkbox-label" style="margin-bottom:var(--ds-dimension-24)"&gt;
+      &lt;input class="ds-checkbox" type="checkbox" id="terms" required&gt;
+      &lt;span class="ds-checkbox__content"&gt;
+        &lt;span class="ds-checkbox__label"&gt;
+          Concordo com os &lt;a class="ds-link" href="/terms"&gt;Termos de uso&lt;/a&gt;
+          e a &lt;a class="ds-link" href="/privacy"&gt;Política de privacidade&lt;/a&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/label&gt;
+
+    &lt;button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit"&gt;
+      &lt;span class="ds-button__label"&gt;Criar conta&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/form&gt;
+
+  &lt;p style="text-align:center;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:var(--ds-dimension-24) 0 0"&gt;
+    Já tem uma conta? &lt;a class="ds-link" href="/login"&gt;Entrar&lt;/a&gt;
+  &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. USAGE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Notas de uso</span><span data-lang="en">Usage notes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Padrão</span><span data-lang="en">Pattern</span></th><th><span data-lang="pt">Decisão</span><span data-lang="en">Decision</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Campo de senha com estado de erro</span><span data-lang="en">Password field with error state</span></td><td><span data-lang="pt">Mostra <code>ds-field--error</code> + <code>ds-input--error</code> + <code>ds-field__error</code> juntos — o preview demonstra a composição completa.</span><span data-lang="en">Shows <code>ds-field--error</code> + <code>ds-input--error</code> + <code>ds-field__error</code> together — the preview demonstrates the full composition.</span></td></tr>
+        <tr><td><code>ds-alert--info--subtle</code></td><td><span data-lang="pt">Dica contextual não bloqueia o fluxo — use <code>role="status"</code> para que leitores de tela anunciem sem interromper.</span><span data-lang="en">Contextual tip doesn't block the flow — use <code>role="status"</code> so screen readers announce without interrupting.</span></td></tr>
+        <tr><td><span data-lang="pt">Grid de nome em 2 colunas</span><span data-lang="en">Two-column name grid</span></td><td><span data-lang="pt">Reduz a altura do formulário e agrupa campos relacionados. No mobile, colapse para 1 coluna via media query.</span><span data-lang="en">Reduces form height and groups related fields. On mobile, collapse to 1 column via media query.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. RELATED -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Templates relacionados</span><span data-lang="en">Related templates</span></h2>
+    <div class="ds-related">
+      <a href="login.html" class="ds-related__link">Login</a>
+      <a href="index.html" class="ds-related__link"><span data-lang="pt">Ver todos os templates</span><span data-lang="en">All templates</span></a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/main.js"></script>
+<script>
+function openPreviewInNewTab() {
+  var code = document.querySelector('.ds-preview__code pre code').textContent;
+  var cssUrl = new URL('../../css/design-system.css', window.location.href).href;
+  var html = code.replace(/"css\/design-system\.css"/, '"' + cssUrl + '"');
+  var blob = new Blob([html], { type: 'text/html' });
+  var url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(function() { URL.revokeObjectURL(url); }, 30000);
+}
+</script>
+</body>
+</html>

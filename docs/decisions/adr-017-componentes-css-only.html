@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-017 — — Componentes CSS-only (sem equivalência no Figma) — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-017 — — Componentes CSS-only (sem equivalência no Figma)</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceito</strong> · Data: 2026-04-30</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceito</li>
+<li><strong>Data:</strong> 2026-04-30</li>
+<li><strong>Relaciona:</strong> ADR-003 (Figma como fonte de verdade), ADR-016 (Tokens sem equivalência no Figma)</li>
+</ul>
+<h2>Contexto</h2>
+<p>A regra geral do DS (ADR-003) é que componentes existem em Figma como fonte canônica de design e são espelhados em CSS. ADR-016 já documentou que algumas <strong>categorias de token</strong> não têm equivalência Figma e vivem só em JSON. Esta ADR documenta o análogo para <strong>componentes</strong>: alguns componentes existem só no CSS porque sua razão de existir é uma característica do HTML/DOM que não tem equivalente em Figma.</p>
+<p>O caso concreto é <strong>Form Field</strong> (<code>.ds-field</code>):</p>
+<ul>
+<li>No <strong>HTML</strong>, não existe um elemento &quot;form control composto&quot; — para construir um campo acessível precisamos compor <code>&lt;label&gt;</code> + <code>&lt;input/select/textarea&gt;</code> + <code>&lt;span&gt;</code> (helper) + <code>&lt;span role=&quot;alert&quot;&gt;</code> (error), com <code>for=</code>, <code>aria-describedby</code>, <code>aria-invalid</code> ligando os pedaços. Form Field é o wrapper CSS que dá esse composto consistente.</li>
+<li>No <strong>Figma</strong>, cada componente de form (Input Text, Select, Textarea, Checkbox, Radio, Toggle) já carrega <strong>Label, Required, Helper Text e Description inline em cada variant</strong>. Designer não precisa compor — ele coloca o componente Input no canvas e Label + Required + Helper já aparecem. O wrapper só existiria no Figma para repetir o que cada componente já tem.</li>
+</ul>
+<p>Tratamentos errados que essa ADR previne:</p>
+<ul>
+<li>Auditor reclama que &quot;Form Field não existe no Figma&quot; e classifica como <strong>drift / componente faltando</strong>. Não é. É decisão arquitetural.</li>
+<li>Designer/dev tenta authorar Form Field no Figma para &quot;completar paridade&quot;. Cria duplicação visual e bind ambíguo.</li>
+<li>IA repete a auditoria sem contexto e refaz a mesma classificação errada.</li>
+</ul>
+<h2>Decisão</h2>
+<h3>Componentes CSS-only</h3>
+<p>Um componente é classificado como <strong>CSS-only</strong> quando:</p>
+<ol>
+<li>Sua razão de existir é uma necessidade de composição/markup do HTML/DOM, não uma decisão visual.</li>
+<li>Os componentes Figma equivalentes já cobrem visualmente tudo o que o componente CSS-only cobre estruturalmente.</li>
+<li>Authorar o componente no Figma criaria duplicação ou ambiguidade de bind, sem agregar valor visual.</li>
+</ol>
+<p>Esses componentes:</p>
+<ul>
+<li><strong>Existem em</strong> <code>css/components/*.css</code> e <code>docs/&lt;componente&gt;.html</code>.</li>
+<li><strong>Não existem no Figma</strong> e <strong>não devem ser authorados lá</strong>.</li>
+<li>Têm seu equivalente visual coberto pelos componentes Figma de granularidade adequada (Form Field ↔ Input/Select/Textarea/Checkbox/Radio/Toggle, cada um já com Label/Required/Helper/Description inline).</li>
+</ul>
+<h3>Lista atual de componentes CSS-only</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>CSS file</th>
+<th>Razão</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Form Field</strong></td>
+<td><code>css/components/form-field.css</code></td>
+<td>Wrapper para compor <code>&lt;label&gt;</code> + control + helper + error em HTML. Cada componente Figma de form já carrega esses elementos inline em cada variant.</td>
+</tr>
+</tbody></table>
+<p>Adicionar componente novo à lista exige amend desta ADR.</p>
+<h3>Marcação no inventário</h3>
+<p><code>scripts/sync-docs.mjs</code> marca componentes CSS-only com <code>cssOnly: true</code> no array <code>knownComponents</code>. A tabela em <code>docs/component-inventory.md</code> mostra <code>— (CSS-only, ADR-017)</code> em vez de status Figma para esses componentes. A nota explicativa fica visível na seção &quot;Nota sobre binding&quot;.</p>
+<h3>Verificação</h3>
+<p><code>npm run verify:tokens</code> e auditorias futuras Figma↔Repo <strong>devem ignorar</strong> componentes marcados <code>cssOnly: true</code> ao reportar &quot;componente faltando no Figma&quot;. O sinal de drift só vale para componentes que esperamos ter equivalência Figma.</p>
+<h2>Consequências</h2>
+<ul>
+<li><strong>Designers</strong> sabem que não precisam authorar Form Field. Para usar uma campo de form em mockup, instanciam Input/Select/Textarea direto, que já mostram Label/Required/Helper.</li>
+<li><strong>Devs</strong> continuam consumindo <code>.ds-field</code> no HTML para acessibilidade composta. Sem mudança na API de uso.</li>
+<li><strong>IAs / auditores</strong> não classificam Form Field como drift quando comparam Figma vs Repo. Auditoria filtra por <code>cssOnly</code>.</li>
+<li><strong>Adicionar futuros CSS-only</strong>: precisa amend desta ADR + entrada em <code>knownComponents</code>. Exemplos potenciais (não decididos hoje): Field Group, Stack, Cluster — primitivos de layout que HTML/CSS expressa com flex/grid mas Figma resolve via auto-layout no próprio componente.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>(a) Authorar Form Field no Figma para &quot;paridade&quot;</h3>
+<p>Descartada. Cria duplicação visual: o que o designer vê no Form Field do Figma seria igual ao que ele já vê em Input/Select/etc. Mais variants pra manter, mais bindings pra auditar, sem ganho visual ou de comunicação.</p>
+<h3>(b) Remover Form Field do CSS e fazer cada componente carregar tudo (mirror do Figma)</h3>
+<p>Descartada. HTML não tem essa composição embutida — Input só renderiza o <code>&lt;input&gt;</code>. Sem o wrapper, cada uso precisa replicar markup com label + helper + error + IDs + ARIA. Decisão errada para acessibilidade e ergonomia de dev.</p>
+<h3>(c) Não classificar e tolerar a divergência</h3>
+<p>Descartada. Sem classificação explícita, toda auditoria nova gera o mesmo falso-positivo. Não é decisão custosa de codificar — uma flag <code>cssOnly: true</code> resolve.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-003-fontes-verdade.md">ADR-003</a> — Figma como fonte de verdade (regra geral).</li>
+<li><a href="./ADR-016-tokens-sem-equivalencia-no-figma.md">ADR-016</a> — análogo desta ADR para tokens.</li>
+<li><code>css/components/form-field.css</code> — implementação canônica.</li>
+<li><code>docs/form-field.html</code> — doc de uso, anatomy, a11y.</li>
+<li><code>scripts/sync-docs.mjs</code> — mecanismo de marcação no inventário.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

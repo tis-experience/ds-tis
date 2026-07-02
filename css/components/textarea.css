@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Textarea – .ds-textarea
+   ========================================================================== */
+
+/* Wrapper
+   ========================================================================== */
+
+.ds-textarea {
+  display: flex;
+  width: 100%;
+  border: var(--ds-field-border-width) solid var(--ds-field-border-color-default);
+  border-radius: var(--ds-field-radius);
+  background: var(--ds-field-bg-default);
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Sizes
+   ========================================================================== */
+
+.ds-textarea,
+.ds-textarea--md {
+  font-size: var(--ds-textarea-text-font-size-md);
+  line-height: var(--ds-textarea-text-line-height-md);
+}
+
+.ds-textarea--sm {
+  font-size: var(--ds-textarea-text-font-size-sm);
+  line-height: var(--ds-textarea-text-line-height-sm);
+}
+
+.ds-textarea--lg {
+  font-size: var(--ds-textarea-text-font-size-lg);
+  line-height: var(--ds-textarea-text-line-height-lg);
+}
+
+/* Field
+   ========================================================================== */
+
+.ds-textarea__field {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--ds-field-value-color-default);
+  font-size: inherit;
+  font-family: var(--ds-textarea-text-font-family-default);
+  font-weight: var(--ds-textarea-text-font-weight-default);
+  letter-spacing: var(--ds-textarea-text-letter-spacing-default);
+  resize: vertical;
+  min-height: var(--ds-textarea-field-min-height-md);
+  min-width: 0;
+  padding: var(--ds-field-padding-y-md) var(--ds-textarea-padding-x-md);
+  line-height: inherit;
+}
+
+.ds-textarea--sm .ds-textarea__field {
+  min-height: var(--ds-textarea-field-min-height-sm);
+  padding: var(--ds-field-padding-y-sm) var(--ds-textarea-padding-x-sm);
+}
+
+.ds-textarea--lg .ds-textarea__field {
+  min-height: var(--ds-textarea-field-min-height-lg);
+  padding: var(--ds-field-padding-y-lg) var(--ds-textarea-padding-x-lg);
+}
+
+.ds-textarea__field::placeholder {
+  color: var(--ds-field-placeholder-color-default);
+}
+
+/* States
+   ========================================================================== */
+
+/* Hover */
+.ds-textarea:hover:not(.ds-textarea--disabled):not(:focus-within) {
+  border-color: var(--ds-field-border-color-hover);
+}
+
+/* Focused */
+.ds-textarea:focus-within {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-focus);
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Error */
+.ds-textarea--error,
+.ds-field--error .ds-textarea {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error);
+}
+
+.ds-textarea--error:hover:not(.ds-textarea--disabled):not(:focus-within),
+.ds-field--error .ds-textarea:hover:not(.ds-textarea--disabled):not(:focus-within) {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error-hover);
+}
+
+.ds-textarea--error:focus-within,
+.ds-field--error .ds-textarea:focus-within {
+  border-color: var(--ds-field-border-color-error);
+  outline-color: var(--ds-focus-ring-color-error);
+}
+
+/* Filled */
+.ds-textarea--filled {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-filled);
+}
+
+.ds-textarea--filled.ds-textarea--error,
+.ds-field--error .ds-textarea--filled {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error);
+}
+
+.ds-textarea--filled.ds-textarea--error:hover:not(.ds-textarea--disabled):not(:focus-within),
+.ds-field--error .ds-textarea--filled:hover:not(.ds-textarea--disabled):not(:focus-within) {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error-hover);
+}
+
+/* Disabled */
+.ds-textarea--disabled,
+.ds-textarea:has(.ds-textarea__field:disabled) {
+  background: var(--ds-field-bg-disabled);
+  border-color: var(--ds-field-border-color-disabled);
+  pointer-events: none;
+}
+
+.ds-textarea--disabled .ds-textarea__field,
+.ds-textarea__field:disabled {
+  color: var(--ds-field-value-color-disabled);
+  resize: none;
+}
+
+.ds-textarea--disabled .ds-textarea__field::placeholder,
+.ds-textarea__field:disabled::placeholder {
+  color: var(--ds-field-placeholder-color-disabled);
+}
+
+/* Readonly */
+.ds-textarea--readonly,
+.ds-textarea:has(.ds-textarea__field:read-only) {
+  background: var(--ds-field-bg-readonly);
+  border-color: var(--ds-field-border-color-readonly);
+}
+
+.ds-textarea--readonly .ds-textarea__field,
+.ds-textarea__field:read-only {
+  color: var(--ds-field-value-color-readonly);
+}
+
+.ds-textarea--readonly:focus-within,
+.ds-textarea:has(.ds-textarea__field:read-only):focus-within {
+  background: var(--ds-field-bg-readonly);
+  border-color: var(--ds-field-border-color-readonly);
+  outline-color: var(--ds-focus-ring-color-readonly);
+}
+
+/* Character Counter
+   ========================================================================== */
+
+.ds-field__counter {
+  font-size: var(--ds-body-font-size-xs);
+  color: var(--ds-content-default);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-field__counter--over {
+  color: var(--ds-feedback-error-content-default);
+  font-weight: var(--ds-body-font-weight-medium);
+}
+
+/* ---------------------------------------------------------
+   Field anatomy — Label row, Required indicator
+   --------------------------------------------------------- */
+
+/*
+  Uses shared .ds-field wrapper and .ds-field__helper from form-field.css.
+  .ds-field__counter (above) is the character counter — separate from .ds-field__helper.
+
+  HTML structure:
+  <div class="ds-field">
+    <div class="ds-textarea__label-row">
+      <label class="ds-textarea__label" for="field-id">Rótulo</label>
+      <span class="ds-textarea__required" aria-hidden="true">*</span>
+    </div>
+    <div class="ds-textarea">
+      <textarea class="ds-textarea__field" id="field-id"
+                aria-required="true"
+                aria-describedby="field-id-helper"></textarea>
+    </div>
+    <div style="display:flex; justify-content:space-between">
+      <span class="ds-field__helper" id="field-id-helper">Texto auxiliar</span>
+      <span class="ds-field__counter">0/200</span>
+    </div>
+  </div>
+*/
+
+/*
+  Field anatomy (Label row, Required, Helper) uses shared .ds-field__* classes
+  defined in form-field.css. See form-field.css for .ds-field__label-row, .ds-field__label,
+  .ds-field__required, .ds-field__helper, .ds-field--no-label, .ds-field--no-helper.
+  .ds-field__counter (above) is the character counter — distinct from .ds-field__helper.
+*/
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-textarea { transition: none; }
+}

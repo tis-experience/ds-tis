@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- 1. HEADER -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Dashboard</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Painel de controle com métricas em cards, abas de conteúdo, estado de carregamento via Skeleton e alert contextual. Base para produtos SaaS e apps de gestão.</span>
+      <span data-lang="en">Control panel with metric cards, content tabs, Skeleton loading state, and contextual alert. Foundation for SaaS products and management apps.</span>
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-16)">
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Card</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Tabs</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Badge</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Avatar</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Skeleton</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Alert</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Button</span>
+    </div>
+  </div>
+
+  <!-- 2. PREVIEW -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Preview</h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+        <button onclick="openPreviewInNewTab()" aria-label="Abrir preview em nova aba" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--ds-content-subtle);padding:0 var(--ds-dimension-12);font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);display:flex;align-items:center;gap:var(--ds-dimension-6);white-space:nowrap;" onmouseenter="this.style.color='var(--ds-content-strong)'" onmouseleave="this.style.color='var(--ds-content-subtle)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Abrir em nova aba</button>
+      </div>
+      <div class="ds-preview__canvas" style="padding:0;display:block">
+        <div style="background:var(--ds-background-subtle);padding:var(--ds-dimension-32);min-height:640px">
+
+          <!-- App header row -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--ds-dimension-32)">
+            <div>
+              <h2 style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)">
+                <span data-lang="pt">Visão geral</span><span data-lang="en">Overview</span>
+              </h2>
+              <p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0">
+                <span data-lang="pt">Período: últimos 30 dias</span><span data-lang="en">Period: last 30 days</span>
+              </p>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--ds-dimension-12)">
+              <button class="ds-button ds-button--outline ds-button--sm">
+                <span class="ds-button__label"><span data-lang="pt">Exportar</span><span data-lang="en">Export</span></span>
+              </button>
+              <div class="ds-avatar" aria-label="Ana Lima" title="Ana Lima">AL</div>
+            </div>
+          </div>
+
+          <!-- Alert -->
+          <div class="ds-alert ds-alert--info ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24)" role="status">
+            <div class="ds-alert__content">
+              <p class="ds-alert__title">
+                <span data-lang="pt">Novo relatório disponível</span><span data-lang="en">New report available</span>
+              </p>
+              <span class="ds-alert__description">
+                <span data-lang="pt">O relatório mensal de maio foi gerado. <a class="ds-link" href="#">Ver relatório</a></span>
+                <span data-lang="en">The May monthly report has been generated. <a class="ds-link" href="#">View report</a></span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Metric cards -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--ds-dimension-16);margin-bottom:var(--ds-dimension-32)">
+
+            <div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)">
+              <p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)">
+                <span data-lang="pt">Receita total</span><span data-lang="en">Total revenue</span>
+              </p>
+              <p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)">R$ 48.320</p>
+              <span class="ds-badge ds-badge--success ds-badge--subtle">
+                <span data-lang="pt">↑ 12% vs mês anterior</span><span data-lang="en">↑ 12% vs last month</span>
+              </span>
+            </div>
+
+            <div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)">
+              <p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)">
+                <span data-lang="pt">Novos clientes</span><span data-lang="en">New clients</span>
+              </p>
+              <p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)">1.284</p>
+              <span class="ds-badge ds-badge--success ds-badge--subtle">
+                <span data-lang="pt">↑ 8% vs mês anterior</span><span data-lang="en">↑ 8% vs last month</span>
+              </span>
+            </div>
+
+            <div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)">
+              <p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)">
+                <span data-lang="pt">Taxa de churn</span><span data-lang="en">Churn rate</span>
+              </p>
+              <p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)">2,4%</p>
+              <span class="ds-badge ds-badge--warning ds-badge--subtle">
+                <span data-lang="pt">↑ 0,3% vs mês anterior</span><span data-lang="en">↑ 0.3% vs last month</span>
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Tabs + content -->
+          <div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-24)">
+            <div class="ds-tabs" role="tablist" aria-label="Dashboard sections" style="margin-bottom:var(--ds-dimension-24)">
+              <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">
+                <span data-lang="pt">Transações</span><span data-lang="en">Transactions</span>
+              </button>
+              <button class="ds-tab" role="tab" aria-selected="false">
+                <span data-lang="pt">Clientes</span><span data-lang="en">Clients</span>
+              </button>
+              <button class="ds-tab" role="tab" aria-selected="false">
+                <span data-lang="pt">Produtos</span><span data-lang="en">Products</span>
+              </button>
+            </div>
+
+            <!-- Skeleton loading rows -->
+            <div style="display:flex;flex-direction:column;gap:var(--ds-dimension-12)">
+              <div style="display:flex;align-items:center;gap:var(--ds-dimension-12)">
+                <div class="ds-skeleton ds-skeleton--circle" style="width:32px;height:32px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:var(--ds-dimension-6)">
+                  <div class="ds-skeleton ds-skeleton--text" style="width:55%"></div>
+                  <div class="ds-skeleton ds-skeleton--text" style="width:35%"></div>
+                </div>
+                <div class="ds-skeleton ds-skeleton--text" style="width:80px"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--ds-dimension-12)">
+                <div class="ds-skeleton ds-skeleton--circle" style="width:32px;height:32px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:var(--ds-dimension-6)">
+                  <div class="ds-skeleton ds-skeleton--text" style="width:45%"></div>
+                  <div class="ds-skeleton ds-skeleton--text" style="width:30%"></div>
+                </div>
+                <div class="ds-skeleton ds-skeleton--text" style="width:80px"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--ds-dimension-12)">
+                <div class="ds-skeleton ds-skeleton--circle" style="width:32px;height:32px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:var(--ds-dimension-6)">
+                  <div class="ds-skeleton ds-skeleton--text" style="width:60%"></div>
+                  <div class="ds-skeleton ds-skeleton--text" style="width:25%"></div>
+                </div>
+                <div class="ds-skeleton ds-skeleton--text" style="width:80px"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--ds-dimension-12)">
+                <div class="ds-skeleton ds-skeleton--circle" style="width:32px;height:32px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:var(--ds-dimension-6)">
+                  <div class="ds-skeleton ds-skeleton--text" style="width:40%"></div>
+                  <div class="ds-skeleton ds-skeleton--text" style="width:20%"></div>
+                </div>
+                <div class="ds-skeleton ds-skeleton--text" style="width:80px"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Dashboard&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/design-system.css"&gt;
+  &lt;style&gt;
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background: var(--ds-background-subtle); min-height: 100vh; margin: 0; padding: var(--ds-dimension-32); }
+    .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--ds-dimension-16); margin-bottom: var(--ds-dimension-32); }
+    .dash-row { display: flex; align-items: center; gap: var(--ds-dimension-12); margin-bottom: var(--ds-dimension-12); }
+    .dash-row-meta { flex: 1; display: flex; flex-direction: column; gap: var(--ds-dimension-6); }
+    @media (max-width: 768px) { .dash-grid { grid-template-columns: 1fr; } }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- App header --&gt;
+&lt;div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--ds-dimension-32)"&gt;
+  &lt;div&gt;
+    &lt;h1 style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)"&gt;Visão geral&lt;/h1&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0"&gt;Período: últimos 30 dias&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div style="display:flex;align-items:center;gap:var(--ds-dimension-12)"&gt;
+    &lt;button class="ds-button ds-button--outline ds-button--sm"&gt;
+      &lt;span class="ds-button__label"&gt;Exportar&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="ds-avatar" aria-label="Ana Lima" title="Ana Lima"&gt;AL&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Alert --&gt;
+&lt;div class="ds-alert ds-alert--info ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24)" role="status"&gt;
+  &lt;div class="ds-alert__content"&gt;
+    &lt;p class="ds-alert__title"&gt;Novo relatório disponível&lt;/p&gt;
+    &lt;span class="ds-alert__description"&gt;O relatório mensal de maio foi gerado. &lt;a class="ds-link" href="#"&gt;Ver relatório&lt;/a&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Metric cards --&gt;
+&lt;div class="dash-grid"&gt;
+  &lt;div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)"&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)"&gt;Receita total&lt;/p&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)"&gt;R$ 48.320&lt;/p&gt;
+    &lt;span class="ds-badge ds-badge--success ds-badge--subtle"&gt;↑ 12% vs mês anterior&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)"&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)"&gt;Novos clientes&lt;/p&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)"&gt;1.284&lt;/p&gt;
+    &lt;span class="ds-badge ds-badge--success ds-badge--subtle"&gt;↑ 8% vs mês anterior&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-20)"&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-8)"&gt;Taxa de churn&lt;/p&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-2xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-8)"&gt;2,4%&lt;/p&gt;
+    &lt;span class="ds-badge ds-badge--warning ds-badge--subtle"&gt;↑ 0,3% vs mês anterior&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Table card with tabs --&gt;
+&lt;div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-24)"&gt;
+  &lt;div class="ds-tabs" role="tablist" aria-label="Dashboard sections" style="margin-bottom:var(--ds-dimension-24)"&gt;
+    &lt;button class="ds-tab ds-tab--active" role="tab" aria-selected="true" id="tab-tx" aria-controls="panel-tx"&gt;Transações&lt;/button&gt;
+    &lt;button class="ds-tab" role="tab" aria-selected="false" id="tab-cl" aria-controls="panel-cl"&gt;Clientes&lt;/button&gt;
+    &lt;button class="ds-tab" role="tab" aria-selected="false" id="tab-pr" aria-controls="panel-pr"&gt;Produtos&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Replace skeleton rows with real data once loaded --&gt;
+  &lt;div id="panel-tx" role="tabpanel" aria-labelledby="tab-tx"&gt;
+    &lt;div class="dash-row"&gt;
+      &lt;div class="ds-skeleton ds-skeleton--circle" style="width:32px;height:32px;flex-shrink:0"&gt;&lt;/div&gt;
+      &lt;div class="dash-row-meta"&gt;
+        &lt;div class="ds-skeleton ds-skeleton--text" style="width:55%"&gt;&lt;/div&gt;
+        &lt;div class="ds-skeleton ds-skeleton--text" style="width:35%"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-skeleton ds-skeleton--text" style="width:80px"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Repeat rows as needed --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. USAGE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Notas de uso</span><span data-lang="en">Usage notes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Padrão</span><span data-lang="en">Pattern</span></th><th><span data-lang="pt">Decisão</span><span data-lang="en">Decision</span></th></tr></thead>
+      <tbody>
+        <tr><td>Skeleton <span data-lang="pt">como estado inicial</span><span data-lang="en">as initial state</span></td><td><span data-lang="pt">Substitua as linhas de Skeleton pelos dados reais ao receber a resposta da API. Skeleton evita layout shift (CLS) e comunica que há conteúdo chegando.</span><span data-lang="en">Replace Skeleton rows with real data once the API responds. Skeleton prevents layout shift (CLS) and communicates that content is incoming.</span></td></tr>
+        <tr><td><code>ds-card--outlined</code></td><td><span data-lang="pt">Cards de métrica usam <code>--outlined</code> (borda, sem sombra) pois estão sobre fundo sutil — sombra acumularia visualmente.</span><span data-lang="en">Metric cards use <code>--outlined</code> (border, no shadow) since they sit on a subtle background — shadows would stack visually.</span></td></tr>
+        <tr><td><code>ds-badge--success/warning</code></td><td><span data-lang="pt">Cor semântica comunica variação positiva/negativa sem depender só de ícone ou texto — atende WCAG 1.4.1 (uso de cor).</span><span data-lang="en">Semantic color communicates positive/negative variation without relying solely on icon or text — meets WCAG 1.4.1 (use of color).</span></td></tr>
+        <tr><td>Grid <span data-lang="pt">responsivo</span><span data-lang="en">responsive</span></td><td><span data-lang="pt">Colapse de 3 para 1 coluna via media query no mobile — os cards de métrica são igualmente importantes em telas pequenas.</span><span data-lang="en">Collapse from 3 to 1 column via media query on mobile — metric cards are equally important on small screens.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. RELATED -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Templates relacionados</span><span data-lang="en">Related templates</span></h2>
+    <div class="ds-related">
+      <a href="settings.html" class="ds-related__link"><span data-lang="pt">Configurações</span><span data-lang="en">Settings</span></a>
+      <a href="index.html" class="ds-related__link"><span data-lang="pt">Ver todos os templates</span><span data-lang="en">All templates</span></a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/main.js"></script>
+<script>
+function openPreviewInNewTab() {
+  var code = document.querySelector('.ds-preview__code pre code').textContent;
+  var cssUrl = new URL('../../css/design-system.css', window.location.href).href;
+  var html = code.replace(/"css\/design-system\.css"/, '"' + cssUrl + '"');
+  var blob = new Blob([html], { type: 'text/html' });
+  var url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(function() { URL.revokeObjectURL(url); }, 30000);
+}
+</script>
+</body>
+</html>

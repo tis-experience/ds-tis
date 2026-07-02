@@ -1,0 +1,83 @@
+/* ============================================================
+   COMPONENT: Badge
+   ============================================================ */
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-badge-gap-default);
+  padding: var(--ds-badge-padding-y-default) var(--ds-badge-padding-x-default);
+  /* Figma: Badge label = Inter Bold 12 / 18 (label/xs) */
+  font-size: var(--ds-badge-label-font-size-default);
+  font-weight: var(--ds-badge-label-font-weight-default);
+  line-height: var(--ds-badge-label-line-height-default);
+  border-radius: var(--ds-badge-radius-default);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Solid style (filled background)
+   --------------------------------------------------------- */
+.ds-badge--brand.ds-badge--solid {
+  background-color: var(--ds-badge-bg-brand-solid);
+  color: var(--ds-badge-label-color-brand-solid);
+}
+
+.ds-badge--success.ds-badge--solid {
+  background-color: var(--ds-badge-bg-success-solid);
+  color: var(--ds-badge-label-color-success-solid);
+}
+
+.ds-badge--warning.ds-badge--solid {
+  background-color: var(--ds-badge-bg-warning-solid);
+  color: var(--ds-badge-label-color-warning-solid);
+}
+
+.ds-badge--error.ds-badge--solid {
+  background-color: var(--ds-badge-bg-error-solid);
+  color: var(--ds-badge-label-color-error-solid);
+}
+
+.ds-badge--info.ds-badge--solid {
+  background-color: var(--ds-badge-bg-info-solid);
+  color: var(--ds-badge-label-color-info-solid);
+}
+
+.ds-badge--neutral.ds-badge--solid {
+  background-color: var(--ds-badge-bg-neutral-default);
+  color: var(--ds-badge-label-color-neutral-solid);
+}
+
+/* ---------------------------------------------------------
+   Subtle style (light background)
+   --------------------------------------------------------- */
+.ds-badge--brand.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-brand-subtle);
+  color: var(--ds-badge-label-color-brand-subtle);
+}
+
+.ds-badge--success.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-success-subtle);
+  color: var(--ds-badge-label-color-success-subtle);
+}
+
+.ds-badge--warning.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-warning-subtle);
+  color: var(--ds-badge-label-color-warning-subtle);
+}
+
+.ds-badge--error.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-error-subtle);
+  color: var(--ds-badge-label-color-error-subtle);
+}
+
+.ds-badge--info.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-info-subtle);
+  color: var(--ds-badge-label-color-info-subtle);
+}
+
+.ds-badge--neutral.ds-badge--subtle {
+  background-color: var(--ds-badge-bg-neutral-default);
+  color: var(--ds-badge-label-color-neutral-subtle);
+  border: var(--ds-badge-border-width-default) solid var(--ds-badge-border-color-neutral-subtle);
+}

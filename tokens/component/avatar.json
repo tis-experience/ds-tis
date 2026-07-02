@@ -1,0 +1,130 @@
+{
+  "component": {
+    "avatar": {
+      "size": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.size.lg}",
+          "$description": "Tamanho do Avatar sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.size.xl}",
+          "$description": "Tamanho do Avatar md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.size.3xl}",
+          "$description": "Tamanho do Avatar lg."
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.full}",
+          "$description": "Radius circular do Avatar."
+        }
+      },
+      "initials": {
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size das iniciais Avatar sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size das iniciais Avatar md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xl}",
+            "$description": "Font-size das iniciais Avatar lg."
+          }
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height das iniciais Avatar sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height das iniciais Avatar md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xl}",
+            "$description": "Line-height das iniciais Avatar lg."
+          }
+        },
+        "font-weight": {
+          "sm": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight das iniciais Avatar sm."
+          },
+          "md": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight das iniciais Avatar md."
+          },
+          "lg": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.semibold}",
+            "$description": "Font-weight das iniciais Avatar lg."
+          }
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xl}",
+            "$description": "Tamanho do ícone SVG fallback do Avatar sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.2xl}",
+            "$description": "Tamanho do ícone SVG fallback do Avatar md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.4xl}",
+            "$description": "Tamanho do ícone SVG fallback do Avatar lg."
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.icon.stroke-width.regular.24}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.icon.stroke-width.regular.32}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "bg": {
+        "default": {
+          "$value": "{semantic.brand.background.default}",
+          "$type": "color"
+        }
+      },
+      "content": {
+        "color": {
+          "default": {
+            "$value": "{semantic.brand.content-default}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

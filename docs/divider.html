@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divider — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Divider</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Separadores visuais para layouts horizontais e verticais. Use dividers para criar limites claros entre seções de conteúdo.</span><span data-lang="en">Visual separators for horizontal and vertical layouts. Use dividers to create clear boundaries between sections of content.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use dividers quando</span><span data-lang="en">Use dividers when</span></div>
+      <span data-lang="pt">Separando visualmente seções de conteúdo, itens de lista ou grupos de elementos relacionados. Use dividers horizontais entre blocos empilhados e dividers verticais entre itens inline.</span><span data-lang="en">Visually separating content sections, list items, or groups of related elements. Use horizontal dividers between stacked blocks and vertical dividers between inline items.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use dividers quando</span><span data-lang="en">Don't use dividers when</span></div>
+      <span data-lang="pt">O espaçamento sozinho já fornece separação suficiente — usar dividers em excesso adiciona ruído visual. Se o espaço em branco transmite o agrupamento claramente, um divider é desnecessário.</span><span data-lang="en">Spacing alone provides sufficient separation — overusing dividers adds visual noise and clutter. If whitespace conveys the grouping clearly, a divider is unnecessary.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Elemento separador (<code>.ds-divider</code>) — <code>&lt;hr&gt;</code> decorativo ou elemento com <code>role="separator"</code> quando semântico.<br>
+      <strong>2</strong> Orientação — horizontal por padrão; vertical com <code>.ds-divider--vertical</code>.<br>
+      <strong>3</strong> Token de borda — usa cor semântica de divider/border, não cor hardcoded.</span>
+      <span data-lang="en"><strong>1</strong> Separator element (<code>.ds-divider</code>) — decorative <code>&lt;hr&gt;</code> or element with <code>role="separator"</code> when semantic.<br>
+      <strong>2</strong> Orientation — horizontal by default; vertical with <code>.ds-divider--vertical</code>.<br>
+      <strong>3</strong> Border token — uses semantic divider/border color, not hardcoded color.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Divider horizontal</span><span data-lang="en">Horizontal divider</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O divider padrão ocupa toda a largura do container e adiciona separação vertical entre o conteúdo.</span><span data-lang="en">The default divider spans the full width of its container and adds vertical separation between content.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--column" style="gap:0;">
+        <p style="margin:0;padding:var(--ds-space-lg) 0;color:var(--ds-content-default);">Content above the divider</p>
+        <hr class="ds-divider">
+        <p style="margin:0;padding:var(--ds-space-lg) 0;color:var(--ds-content-default);">Content below the divider</p>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;p&gt;Content above the divider&lt;/p&gt;
+&lt;hr class="ds-divider"&gt;
+&lt;p&gt;Content below the divider&lt;/p&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Em uma lista</span><span data-lang="en">In a list</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Dividers entre itens de lista criam agrupamento visual.</span><span data-lang="en">Dividers between list items create visual grouping.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--column" style="gap:0;max-width:400px;">
+        <div style="padding:var(--ds-space-md) 0;">
+          <p style="margin:0;font-weight:var(--ds-body-font-weight-medium);">Notifications</p>
+          <p style="margin:var(--ds-space-xs) 0 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Manage your notification preferences</p>
+        </div>
+        <hr class="ds-divider">
+        <div style="padding:var(--ds-space-md) 0;">
+          <p style="margin:0;font-weight:var(--ds-body-font-weight-medium);">Privacy</p>
+          <p style="margin:var(--ds-space-xs) 0 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Control who can see your profile</p>
+        </div>
+        <hr class="ds-divider">
+        <div style="padding:var(--ds-space-md) 0;">
+          <p style="margin:0;font-weight:var(--ds-body-font-weight-medium);">Security</p>
+          <p style="margin:var(--ds-space-xs) 0 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Two-factor authentication and password</p>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div&gt;
+  &lt;p&gt;Notifications&lt;/p&gt;
+  &lt;p&gt;Manage your notification preferences&lt;/p&gt;
+&lt;/div&gt;
+&lt;hr class="ds-divider"&gt;
+&lt;div&gt;
+  &lt;p&gt;Privacy&lt;/p&gt;
+  &lt;p&gt;Control who can see your profile&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Divider vertical</span><span data-lang="en">Vertical divider</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Use <code>ds-divider--vertical</code> dentro de um flex container para separar itens horizontalmente.</span><span data-lang="en">Use <code>ds-divider--vertical</code> inside a flex container to separate items horizontally.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered" style="height:80px;">
+        <span style="color:var(--ds-content-default);">Left</span>
+        <hr class="ds-divider ds-divider--vertical">
+        <span style="color:var(--ds-content-default);">Center</span>
+        <hr class="ds-divider ds-divider--vertical">
+        <span style="color:var(--ds-content-default);">Right</span>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div style="display:flex;align-items:center;gap:var(--ds-space-lg);"&gt;
+  &lt;span&gt;Left&lt;/span&gt;
+  &lt;hr class="ds-divider ds-divider--vertical"&gt;
+  &lt;span&gt;Center&lt;/span&gt;
+  &lt;hr class="ds-divider ds-divider--vertical"&gt;
+  &lt;span&gt;Right&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Em uma toolbar</span><span data-lang="en">In a toolbar</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Dividers verticais separam grupos de ações em uma toolbar.</span><span data-lang="en">Vertical dividers separate groups of actions in a toolbar.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__canvas ds-preview__canvas--centered">
+        <div style="display:flex;align-items:center;gap:var(--ds-space-sm);">
+          <button class="ds-button ds-button--ghost ds-button--sm">Cut</button>
+          <button class="ds-button ds-button--ghost ds-button--sm">Copy</button>
+          <button class="ds-button ds-button--ghost ds-button--sm">Paste</button>
+          <hr class="ds-divider ds-divider--vertical" style="height:24px;">
+          <button class="ds-button ds-button--ghost ds-button--sm">Undo</button>
+          <button class="ds-button ds-button--ghost ds-button--sm">Redo</button>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;div style="display:flex;align-items:center;gap:var(--ds-space-sm);"&gt;
+  &lt;button class="ds-button ds-button--ghost ds-button--sm"&gt;Cut&lt;/button&gt;
+  &lt;button class="ds-button ds-button--ghost ds-button--sm"&gt;Copy&lt;/button&gt;
+  &lt;button class="ds-button ds-button--ghost ds-button--sm"&gt;Paste&lt;/button&gt;
+  &lt;hr class="ds-divider ds-divider--vertical" style="height:24px;"&gt;
+  &lt;button class="ds-button ds-button--ghost ds-button--sm"&gt;Undo&lt;/button&gt;
+  &lt;button class="ds-button ds-button--ghost ds-button--sm"&gt;Redo&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;gap:0;">
+          <p style="margin:0;padding:var(--ds-space-md) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Section A</p>
+          <hr class="ds-divider" style="width:100%;">
+          <p style="margin:0;padding:var(--ds-space-md) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Section B</p>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Use dividers horizontais entre blocos de conteúdo e dividers verticais entre itens inline.</span><span data-lang="en">Use horizontal dividers between content blocks and vertical dividers between inline items.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;gap:0;">
+          <p style="margin:0;padding:var(--ds-space-sm) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Item 1</p>
+          <hr class="ds-divider" style="width:100%;">
+          <p style="margin:0;padding:var(--ds-space-sm) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Item 2</p>
+          <hr class="ds-divider" style="width:100%;">
+          <p style="margin:0;padding:var(--ds-space-sm) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Item 3</p>
+          <hr class="ds-divider" style="width:100%;">
+          <p style="margin:0;padding:var(--ds-space-sm) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Item 4</p>
+          <hr class="ds-divider" style="width:100%;">
+          <p style="margin:0;padding:var(--ds-space-sm) 0;font-size:var(--ds-body-font-size-sm);color:var(--ds-content-default);">Item 5</p>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não coloque um divider entre cada item da lista — isso adiciona ruído visual e reduz a legibilidade.</span><span data-lang="en">Don't place a divider between every single list item -- it adds visual noise and reduces readability.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">cor da linha</span><span data-lang="en">line color</span></td><td><code>component.divider.line.color.default</code></td><td><code>--ds-divider-line-color-default</code></td></tr>
+        <tr><td><span data-lang="pt">espessura da linha</span><span data-lang="en">line thickness</span></td><td><code>component.divider.line.thickness.default</code></td><td><code>--ds-divider-line-thickness-default</code></td></tr>
+        <tr><td><span data-lang="pt">raio da linha</span><span data-lang="en">line radius</span></td><td><code>component.divider.line.radius.default</code></td><td><code>--ds-divider-line-radius-default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       6. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-divider</code></td><td><span data-lang="pt">Divider horizontal (padrão)</span><span data-lang="en">Horizontal divider (default)</span></td></tr>
+        <tr><td><code>ds-divider--vertical</code></td><td><span data-lang="pt">Divider vertical (para flex containers)</span><span data-lang="en">Vertical divider (for flex containers)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       7. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Contexto</span><span data-lang="en">Context</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th><span data-lang="pt">Implementação</span><span data-lang="en">Implementation</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt"><code>&lt;hr&gt;</code> semântico</span><span data-lang="en">Semantic <code>&lt;hr&gt;</code></span></td><td><span data-lang="pt"><code>role="separator"</code> implícito</span><span data-lang="en">Implicit <code>role="separator"</code></span></td><td><span data-lang="pt">Nenhum atributo extra necessário — o navegador fornece a role</span><span data-lang="en">No extra attributes needed -- the browser provides the role</span></td></tr>
+        <tr><td><span data-lang="pt"><code>&lt;div&gt;</code> divider decorativo</span><span data-lang="en">Decorative <code>&lt;div&gt;</code> divider</span></td><td><span data-lang="pt">Oculto da tecnologia assistiva</span><span data-lang="en">Hidden from assistive technology</span></td><td><code>aria-hidden="true"</code></td></tr>
+        <tr><td><span data-lang="pt">Contexto interativo</span><span data-lang="en">Interactive context</span></td><td><span data-lang="pt">Comunica a separação a leitores de tela</span><span data-lang="en">Communicates separation to screen readers</span></td><td><code>role="separator"</code></td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-space-lg)">
+      <div class="ds-callout__title"><span data-lang="pt">Prefira HTML semântico</span><span data-lang="en">Prefer semantic HTML</span></div>
+      <span data-lang="pt">Use <code>&lt;hr class="ds-divider"&gt;</code> em vez de um <code>&lt;div&gt;</code> estilizado. O elemento <code>&lt;hr&gt;</code> tem <code>role="separator"</code> implícito, então nenhum ARIA extra é necessário.</span><span data-lang="en">Use <code>&lt;hr class="ds-divider"&gt;</code> instead of a styled <code>&lt;div&gt;</code>. The <code>&lt;hr&gt;</code> element has implicit <code>role="separator"</code>, so no extra ARIA is needed.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       8. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="card.html" class="ds-related__link">Card</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

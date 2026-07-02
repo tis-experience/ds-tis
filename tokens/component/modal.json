@@ -1,0 +1,271 @@
+{
+  "component": {
+    "modal": {
+      "overlay": {
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.background.overlay}",
+            "$description": "Background do overlay Modal."
+          }
+        },
+        "padding": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Padding do overlay Modal."
+          }
+        },
+        "z-index": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.z.modal}",
+            "$description": "Z-index do overlay Modal."
+          }
+        }
+      },
+      "max-width": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.size.layout.sm}",
+          "$description": "Max-width do Modal sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.size.layout.md}",
+          "$description": "Max-width do Modal md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.size.layout.lg}",
+          "$description": "Max-width do Modal lg."
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.lg}",
+          "$description": "Radius do Modal."
+        }
+      },
+      "shadow": {
+        "default": {
+          "$type": "shadow",
+          "$value": "{semantic.shadow.modal}",
+          "$description": "Shadow do Modal."
+        }
+      },
+      "bg": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.surface.elevated}",
+          "$description": "Background da superfície Modal."
+        }
+      },
+      "container": {
+        "padding": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Padding do container Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Padding do container Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xl}",
+            "$description": "Padding do container Modal lg."
+          }
+        },
+        "gap": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Gap vertical do container Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Gap vertical do container Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Gap vertical do container Modal lg."
+          }
+        }
+      },
+      "header": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Gap horizontal do header Modal."
+          }
+        }
+      },
+      "heading": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical entre title e description Modal."
+          }
+        }
+      },
+      "body": {
+        "gap": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap interno do body Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Gap interno do body Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Gap interno do body Modal lg."
+          }
+        },
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Cor do texto principal Modal."
+          }
+        }
+      },
+      "title": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}",
+            "$description": "Cor do title Modal."
+          }
+        }
+      },
+      "description": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Cor da description Modal."
+          }
+        }
+      },
+      "content-slot": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap fallback do content slot Modal."
+          }
+        }
+      },
+      "footer": {
+        "gap": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal do footer Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Gap horizontal do footer Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Gap horizontal do footer Modal lg."
+          }
+        }
+      },
+      "close": {
+        "padding": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.control.padding.6}",
+            "$description": "Padding do frame de hit-area do close Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding do frame de hit-area do close Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Padding do frame de hit-area do close Modal lg."
+          }
+        },
+        "icon-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho da instância Lucide interna ao close Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho da instância Lucide interna ao close Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho da instância Lucide interna ao close Modal lg."
+          }
+        },
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Tamanho do frame de hit-area do close Modal sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Tamanho do frame de hit-area do close Modal md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Tamanho do frame de hit-area do close Modal lg."
+          }
+        },
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Cor do ícone de fechar da Modal."
+          }
+        },
+        "icon": {
+          "stroke-width": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.24}",
+              "$description": "Stroke-width do ícone de fechar Modal."
+            }
+          }
+        }
+      },
+      "action": {
+        "fill": {
+          "brand": {
+            "$type": "color",
+            "$value": "{semantic.brand.background.default}",
+            "$description": "Fill brand para ação principal Modal."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-018 — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-018 — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}`</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceito</strong> · Data: 2026-05-06</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceito</li>
+<li><strong>Data:</strong> 2026-05-06</li>
+<li><strong>Relaciona:</strong> ADR-011 (renaming de tokens semânticos de cor original)</li>
+</ul>
+<h2>Contexto</h2>
+<p><code>semantic.content.*</code> era o <strong>único conjunto de tokens do DS com naming ordinal</strong> (<code>secondary</code>, <code>tertiary</code> = 2º, 3º). Todas as outras categorias semânticas usam intent descritivo:</p>
+<ul>
+<li><code>border.{default, subtle, strong, ...}</code></li>
+<li><code>surface.{default, raised, elevated, overlay}</code></li>
+<li><code>background.{default, subtle, disabled, inverse}</code></li>
+</ul>
+<p><code>content.secondary</code> e <code>content.tertiary</code> quebravam essa convenção, comunicando posição em vez de peso visual. Em revisão de design tokens, a inconsistência ficou aparente: por que <code>border.subtle</code> mas <code>content.secondary</code>? Ambos são &quot;menos prominente&quot; — devem usar o mesmo vocabulário.</p>
+<p>Desafio adicional: o que <code>content.default</code> representava — conteúdo de ênfase máxima (títulos, body forte) — não está no eixo &quot;ordinal&quot; nem no eixo &quot;subtle/strong&quot;. <code>default</code> é uma <strong>âncora</strong> (&quot;o caso padrão&quot;), não um nível na escala. O sistema usa <code>default</code> consistentemente como âncora em todas as categorias (<code>border.default</code>, <code>surface.default</code>, etc.) — então <code>default</code> precisa significar &quot;body text, o caso padrão&quot;, não &quot;texto de ênfase máxima&quot;.</p>
+<h2>Decisão</h2>
+<p>Renomear:</p>
+<table>
+<thead>
+<tr>
+<th>Antes</th>
+<th>Depois</th>
+<th>Valor (não muda)</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>content.default</code></td>
+<td><strong><code>content.strong</code></strong></td>
+<td><code>neutral.900</code> (light) / <code>neutral.50</code> (dark)</td>
+<td>Títulos, badge labels solid, modal/card title, active tab — texto que precisa &quot;pop&quot;</td>
+</tr>
+<tr>
+<td><code>content.secondary</code></td>
+<td><strong><code>content.default</code></strong></td>
+<td><code>neutral.600</code> (light) / <code>neutral.400</code> (dark)</td>
+<td>Body text, descriptions, form labels — o caso padrão (use este na maioria dos casos)</td>
+</tr>
+<tr>
+<td><code>content.tertiary</code></td>
+<td><strong><code>content.subtle</code></strong></td>
+<td><code>neutral.500</code> (light) / <code>neutral.400</code> (dark)</td>
+<td>Placeholders, ícones decorativos, helper text</td>
+</tr>
+</tbody></table>
+<p><code>content.disabled</code> e <code>content.inverse</code> ficam como estavam (não estão no eixo de ênfase).</p>
+<h3>Estratégia de migração</h3>
+<p><strong>Strict rename — valores 100% preservados.</strong> Cada uso de <code>--ds-content-default</code> no CSS foi migrado para <code>--ds-content-strong</code> (mantendo o tom mais escuro). Cada uso de <code>--ds-content-secondary</code> foi migrado para <code>--ds-content-default</code> (mantendo neutral-600). Cada <code>--ds-content-tertiary</code> virou <code>--ds-content-subtle</code> (mantendo neutral-500).</p>
+<p>Visual outcome <strong>idêntico ao pré-migration</strong> — só os nomes mudaram.</p>
+<p>Nenhuma re-avaliação caso-a-caso de &quot;este consumer devia ser strong ou default?&quot; foi feita nesta ADR. Isso é decisão de design separada por componente, sem urgência arquitetural.</p>
+<h3>Ordem de execução</h3>
+<ol>
+<li>Rename keys em <code>tokens/semantic/{light,dark}.json</code></li>
+<li>Rename keys em <code>tokens/registry.json</code></li>
+<li><code>npm run build:tokens</code> — regenera CSS (variables CSS renomeadas automaticamente)</li>
+<li><code>sed</code>-replace de <code>--ds-content-{default,secondary,tertiary}</code> → <code>--ds-content-{strong,default,subtle}</code> em <code>css/components/*.css</code>, <code>css/base/*.css</code>, <code>docs/**/*.html</code>, <code>docs/**/*.md</code> (total: ~70 arquivos, ~150+ ocorrências)</li>
+<li>Rename Variables <code>content/{default,secondary,tertiary}</code> → <code>content/{strong,default,subtle}</code> na collection Semantic do Figma via <code>use_figma</code> (passou por nome temporário pra evitar clash). Bindings de componentes auto-seguem por ID.</li>
+<li><code>npm run build:api</code> — regenera <code>docs/api/components.json</code> e <code>tokens.json</code> com nomes novos</li>
+<li><code>npm run sync:docs</code> — regenera inventários</li>
+</ol>
+<h3>Não-decisão: mistura morfológica <code>default + strong/subtle</code></h3>
+<p>Foi questionado se <code>default</code> está na mesma &quot;linha morfológica&quot; de <code>strong</code> e <code>subtle</code>. <strong>Não está</strong>: <code>strong</code> e <code>subtle</code> são adjetivos de intensidade (gradiente de ênfase), enquanto <code>default</code> é substantivo de status/papel (&quot;o caso padrão&quot;). Decidimos <strong>manter a mistura</strong> porque:</p>
+<ul>
+<li><code>default</code> cumpre a função de <strong>âncora</strong> em todas as categorias do DS (<code>border.default</code>, <code>surface.default</code>, <code>background.default</code>). Mudar <code>default</code> em uma categoria sem mudar nas outras quebraria a consistência funcional.</li>
+<li>Atlassian, Polaris, Carbon, Material — todos os DSs grandes usam <code>default</code> como âncora junto com adjetivos de gradiente nas mesmas categorias. É padrão de indústria reconhecido.</li>
+<li>A consistência <strong>funcional</strong> (default = âncora em todo lugar) já existe e é o que importa pra dev/designer escolher token rapidamente. Buscar consistência morfológica pura custaria meses (renomear <code>default</code> em todas as categorias) e ganharia pouco.</li>
+</ul>
+<h2>Consequências</h2>
+<ul>
+<li><strong>Vocabulário consistente</strong> entre <code>border</code> e <code>content</code> (e demais categorias gradiente). Designer/dev consulta um padrão único.</li>
+<li><strong>Zero impacto visual</strong> — valores não mudaram, só nomes.</li>
+<li><strong>Documentação tem que ser atualizada</strong> caso mencione <code>content.secondary</code> ou <code>content.tertiary</code> por nome — feito via sed nas docs HTMLs e MDs.</li>
+<li><strong>ADRs antigas</strong> ainda referenciam <code>content.secondary</code>/<code>content.tertiary</code> em texto narrativo. Não atualizadas (são histórico — descrevem decisão tomada na época). Apenas tabelas de &quot;estado atual&quot; foram corrigidas.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>(a) Manter <code>default / secondary / tertiary</code></h3>
+<p>Descartada. É o único conjunto ordinal do DS — quebra padrão estabelecido em <code>border</code>, <code>surface</code>, <code>background</code>.</p>
+<h3>(b) <code>default / muted / subtle</code></h3>
+<p>Descartada por feedback do owner (&quot;não usamos mais muted&quot;). Não é vocabulário ativo do DS.</p>
+<h3>(c) <code>default / subtle / subtlest</code> (padrão Atlassian, superlativo)</h3>
+<p>Descartada. Mantém <code>default</code> como mais forte e adiciona dois subtle — mas perde a expressividade de &quot;strong&quot; pra textos de ênfase, e &quot;subtlest&quot; é palavra rara.</p>
+<h3>(d) <code>default / caption / placeholder</code> (purpose-based, padrão Carbon)</h3>
+<p>Descartada. Naming purpose-based não escala — <code>placeholder</code> não cobre todos os usos de <code>tertiary</code> (icon de chevron Select, etc.). Naming gradiente (<code>subtle</code>) é mais geral.</p>
+<h3>(e) <code>default / subtle / subdued</code> (padrão Polaris)</h3>
+<p>Descartada. <code>subdued</code> é palavra menos usada no projeto e não traz vantagem sobre <code>subtle</code> (mesma intensidade conceitual).</p>
+<h3>(f) <code>strong / regular / subtle</code> (consistência morfológica total — Caminho 2)</h3>
+<p>Descartada por escopo. Exigiria renomear <code>default</code> em <strong>todas</strong> as categorias do DS (<code>border.default → border.regular</code>, etc.) — meses de migração. Aceitamos a mistura morfológica <code>default + strong/subtle</code> como padrão de indústria.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-011-renaming-tokens-semanticos-de-cor.md">ADR-011</a> — primeira reestruturação do naming semântico de cor.</li>
+<li><code>tokens/semantic/light.json</code> + <code>dark.json</code> — fonte canônica.</li>
+<li>Auditoria Figma↔Repo (<code>audit/audit-report.md</code>) — descobriu o problema durante #4 (Badge Neutral Subtle).</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

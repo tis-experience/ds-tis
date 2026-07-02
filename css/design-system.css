@@ -1,0 +1,13 @@
+/* Design System Core — Entry Point */
+
+/* Tokens */
+@import 'tokens/index.css';
+
+/* Base */
+@import 'base/index.css';
+
+/* Components */
+@import 'components/index.css';
+
+/* Utilities */
+@import 'utilities/index.css';

@@ -1,0 +1,65 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+# Único job de validação. Não escreve no repo.
+# Pages é deployado pelo workflow nativo `pages-build-deployment`
+# que dispara automaticamente em push para main.
+#
+# Se este job falhar, o site continua servindo o último deploy bem-sucedido
+# (Pages é independente). O dev é notificado para corrigir.
+#
+# Política: artefatos derivados são commitados pelo dev localmente após
+# `npm run build:all`. CI valida apenas o que é determinístico:
+# `css/tokens/generated/` (Style Dictionary, sem dependências de ambiente).
+# Outros derivados em `docs/` (api/, llms*, tokens-sync*) podem regenerar
+# diferente no CI por dependerem de `.figma-snapshot.json` local ou de
+# ordens não-determinísticas — drift cosmético lá é aceitável.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium (necessário pro test-a11y em build:all)
+        run: npx playwright install --with-deps chromium
+
+      - name: Build everything (tokens + docs + api + llms + verify)
+        env:
+          FIGMA_PAT: ${{ secrets.FIGMA_PAT }}
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+        run: npm run build:all
+
+      - name: Security check — block sensitive content in artifacts
+        run: npm run security:check
+
+      - name: Verify generated CSS tokens match committed state
+        run: |
+          # Apenas css/tokens/generated/ é validado: Style Dictionary é
+          # determinístico, então drift aqui = dev esqueceu de rodar
+          # `npm run build:tokens` antes do push. Sinal alto, ruído zero.
+          if ! git diff --quiet css/tokens/generated/; then
+            echo "::error::CSS gerado de tokens não bate com o que foi commitado."
+            echo "::error::Rode 'npm run build:tokens' localmente, commit o diff e re-push."
+            git diff --stat css/tokens/generated/
+            exit 1
+          fi
+          echo "✅ CSS gerado de tokens bate com o output de build:tokens."

@@ -1,0 +1,161 @@
+/* ============================================================
+   COMPONENT: Alert
+   ============================================================ */
+
+.ds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-alert-gap-default);
+  padding: var(--ds-alert-padding-default);
+  border-radius: var(--ds-alert-radius-default);
+  font-size: var(--ds-alert-description-font-size-default);
+  line-height: var(--ds-alert-description-line-height-default);
+}
+
+/* Icon — Figma: container size/md (24), ícone 20 (size/sm) */
+.ds-alert__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ds-alert-icon-size-default);
+  height: var(--ds-alert-icon-size-default);
+}
+
+.ds-alert__icon .ds-icon {
+  width: var(--ds-alert-icon-size-default);
+  height: var(--ds-alert-icon-size-default);
+  color: currentColor;
+  stroke-width: var(--ds-alert-icon-stroke-width-default);
+}
+
+/* Icon color em Subtle — tematizado por feedback via component tokens.
+   Em Filled, icon herda `color` do wrapper que já é content-contrast. */
+.ds-alert--success.ds-alert--subtle .ds-alert__icon {
+  color: var(--ds-alert-icon-color-success-subtle);
+}
+.ds-alert--warning.ds-alert--subtle .ds-alert__icon {
+  color: var(--ds-alert-icon-color-warning-subtle);
+}
+.ds-alert--error.ds-alert--subtle .ds-alert__icon {
+  color: var(--ds-alert-icon-color-error-subtle);
+}
+.ds-alert--info.ds-alert--subtle .ds-alert__icon {
+  color: var(--ds-alert-icon-color-info-subtle);
+}
+
+.ds-alert__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-alert-content-gap-default);
+}
+
+/* Title — label/md: 14px Bold / 20px */
+.ds-alert__title {
+  font-size: var(--ds-alert-title-font-size-default);
+  font-weight: var(--ds-alert-title-font-weight-default);
+  line-height: var(--ds-alert-title-line-height-default);
+}
+
+.ds-alert__description {
+  font-size: var(--ds-alert-description-font-size-default);
+  font-weight: var(--ds-alert-description-font-weight-default);
+  line-height: var(--ds-alert-description-line-height-default);
+}
+
+.ds-alert__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ds-alert-close-icon-size-default);
+  height: var(--ds-alert-close-icon-size-default);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-alert__close:hover {
+  opacity: 1;
+}
+
+.ds-alert__close .ds-icon {
+  width: var(--ds-alert-close-icon-size-default);
+  height: var(--ds-alert-close-icon-size-default);
+  color: currentColor;
+  stroke-width: var(--ds-alert-close-icon-stroke-width-default);
+}
+
+.ds-alert__close:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+  border-radius: var(--ds-radius-sm);
+}
+
+/* ---------------------------------------------------------
+   Filled style
+   --------------------------------------------------------- */
+.ds-alert--success.ds-alert--filled {
+  background-color: var(--ds-alert-bg-success-filled);
+  color: var(--ds-alert-description-color-success-filled);
+}
+
+.ds-alert--warning.ds-alert--filled {
+  background-color: var(--ds-alert-bg-warning-filled);
+  color: var(--ds-alert-description-color-warning-filled);
+}
+
+.ds-alert--error.ds-alert--filled {
+  background-color: var(--ds-alert-bg-error-filled);
+  color: var(--ds-alert-description-color-error-filled);
+}
+
+.ds-alert--info.ds-alert--filled {
+  background-color: var(--ds-alert-bg-info-filled);
+  color: var(--ds-alert-description-color-info-filled);
+}
+
+/* ---------------------------------------------------------
+   Subtle style
+   --------------------------------------------------------- */
+.ds-alert--success.ds-alert--subtle {
+  background-color: var(--ds-alert-bg-success-subtle);
+  color: var(--ds-alert-description-color-subtle);
+  border: var(--ds-alert-border-width-default) solid var(--ds-alert-border-color-success-subtle);
+}
+
+.ds-alert--warning.ds-alert--subtle {
+  background-color: var(--ds-alert-bg-warning-subtle);
+  color: var(--ds-alert-description-color-subtle);
+  border: var(--ds-alert-border-width-default) solid var(--ds-alert-border-color-warning-subtle);
+}
+
+.ds-alert--error.ds-alert--subtle {
+  background-color: var(--ds-alert-bg-error-subtle);
+  color: var(--ds-alert-description-color-subtle);
+  border: var(--ds-alert-border-width-default) solid var(--ds-alert-border-color-error-subtle);
+}
+
+.ds-alert--info.ds-alert--subtle {
+  background-color: var(--ds-alert-bg-info-subtle);
+  color: var(--ds-alert-description-color-subtle);
+  border: var(--ds-alert-border-width-default) solid var(--ds-alert-border-color-info-subtle);
+}
+
+/* Description uses secondary content tone in subtle variants */
+.ds-alert--subtle .ds-alert__description {
+  color: var(--ds-alert-description-color-subtle);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-alert__close { transition: none; }
+}

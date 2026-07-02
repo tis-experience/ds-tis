@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Select</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Menus Select permitem que usuários escolham uma opção de uma lista dropdown. Usa um padrão de wrapper com <code>&lt;select&gt;</code> nativo e um indicador de seta customizado.</span><span data-lang="en">Select menus allow users to choose one option from a dropdown list. Uses a wrapper pattern with native <code>&lt;select&gt;</code> and a custom arrow indicator.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Select quando</span><span data-lang="en">Use Select when</span></div>
+      <span data-lang="pt">O usuário deve escolher exatamente uma opção de uma lista predefinida de 5 ou mais itens.</span><span data-lang="en">The user must choose exactly one option from a predefined list of 5 or more items.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Select quando</span><span data-lang="en">Don't use Select when</span></div>
+      <span data-lang="pt">Menos de 5 opções — use <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a>. Múltiplas seleções permitidas — use grupo de <a href="checkbox.html" style="color:var(--ds-link-content-default)">Checkbox</a>. Usuário precisa buscar ou filtrar — use <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span><span data-lang="en">Fewer than 5 options — use <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a> instead. Multiple selections allowed — use <a href="checkbox.html" style="color:var(--ds-link-content-default)">Checkbox group</a>. User needs to search or filter — use <a href="combobox.html" style="color:var(--ds-link-content-default)">Combobox</a>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="display:inline-flex;flex-direction:column;gap:var(--ds-dimension-4);min-width:300px;">
+
+        <!-- 7: Label -->
+        <div style="position:relative;" inert>
+          <label class="ds-field__label">Country<span class="ds-field__required">*</span></label>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">7</span>
+        </div>
+
+        <div style="position:relative;" inert>
+        <div class="ds-select ds-select--error" style="width:100%;">
+          <i data-lucide="languages" class="ds-select__icon ds-icon"></i>
+          <select class="ds-select__field" aria-label="Select example">
+            <option selected>Select a country</option>
+          </select>
+          <span class="ds-select__arrow"></span>
+        </div>
+        <!-- 1: Wrapper top center -->
+        <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+        <!-- 2: Icon left -->
+        <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">2</span>
+        <!-- 3: Field top center -->
+        <span style="position:absolute;top:-28px;left:68%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:68%;transform:translateX(-50%);">3</span>
+        <!-- 4: Arrow right -->
+        <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:50%;right:-48px;transform:translateY(-50%);">4</span>
+        </div>
+
+        <!-- 5: Error -->
+        <div class="ds-field--error" style="position:relative;display:flex;align-items:flex-start;height:18px;" inert>
+          <span class="ds-field__error">Please select a country.</span>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">5</span>
+        </div>
+
+        <!-- 6: Helper -->
+        <div style="position:relative;display:flex;align-items:flex-start;height:18px;" inert>
+          <span class="ds-field__helper">Choose one country from the list.</span>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">6</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Wrapper (<code>.ds-select</code>) — container com borda, radius.<br>
+      <strong>2</strong> Ícone (opcional, <code>.ds-select__icon</code>) — ícone à esquerda, decorativo.<br>
+      <strong>3</strong> Campo (<code>.ds-select__field</code>) — elemento nativo <code>&lt;select&gt;</code>.<br>
+      <strong>4</strong> Seta (<code>.ds-select__arrow</code>) — chevron customizado, <code>pointer-events: none</code>.<br>
+      <strong>5</strong> Mensagem de erro (<code>.ds-field__error</code>) — externa, via Form Field.<br>
+      <strong>6</strong> Texto auxiliar (<code>.ds-field__helper</code>) — externo, via Form Field.<br>
+      <strong>7</strong> Label (<code>.ds-field__label</code>) — externo, via Form Field.</span><span data-lang="en"><strong>1</strong> Wrapper (<code>.ds-select</code>) — container with border, radius.<br>
+      <strong>2</strong> Icon (optional, <code>.ds-select__icon</code>) — leading icon, decorative.<br>
+      <strong>3</strong> Field (<code>.ds-select__field</code>) — native <code>&lt;select&gt;</code> element.<br>
+      <strong>4</strong> Arrow (<code>.ds-select__arrow</code>) — custom chevron, <code>pointer-events: none</code>.<br>
+      <strong>5</strong> Error message (<code>.ds-field__error</code>) — external, via Form Field.<br>
+      <strong>6</strong> Helper text (<code>.ds-field__helper</code>) — external, via Form Field.<br>
+      <strong>7</strong> Label (<code>.ds-field__label</code>) — external, via Form Field.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. DEFAULT (live preview)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-select">
+            <select class="ds-select__field" aria-label="Select example">
+              <option value="" disabled selected>Choose an option</option>
+              <option value="1">Option One</option>
+              <option value="2">Option Two</option>
+              <option value="3">Option Three</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-select"&gt;
+  &lt;select class="ds-select__field"&gt;
+    &lt;option value="" disabled selected&gt;Choose an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option One&lt;/option&gt;
+    &lt;option value="2"&gt;Option Two&lt;/option&gt;
+    &lt;option value="3"&gt;Option Three&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. SIZES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-select ds-select--sm">
+            <select class="ds-select__field" aria-label="Select example">
+              <option>Small (32px)</option>
+              <option>Option A</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+          <div class="ds-select ds-select--md">
+            <select class="ds-select__field" aria-label="Select example">
+              <option>Medium (40px)</option>
+              <option>Option A</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+          <div class="ds-select ds-select--lg">
+            <select class="ds-select__field" aria-label="Select example">
+              <option>Large (48px)</option>
+              <option>Option A</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-select ds-select--sm"&gt;
+  &lt;select class="ds-select__field"&gt;...&lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="ds-select ds-select--md"&gt;
+  &lt;select class="ds-select__field"&gt;...&lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="ds-select ds-select--lg"&gt;
+  &lt;select class="ds-select__field"&gt;...&lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <table class="ds-token-table">
+      <thead><tr><th>Size</th><th>Height</th><th>Font</th><th>Padding</th><th>Touch target</th></tr></thead>
+      <tbody>
+        <tr><td>Small (<code>--sm</code>)</td><td>32px (<code>component.select.height.sm</code>)</td><td><code>component.select.text.font-size.sm</code></td><td><code>component.select.padding-x.sm</code> / <code>component.field.padding-y.sm</code></td><td>32px — meets WCAG 2.5.8 min (24px)</td></tr>
+        <tr><td>Medium (<code>--md</code>)</td><td>40px (<code>component.select.height.md</code>)</td><td><code>component.select.text.font-size.md</code></td><td><code>component.select.padding-x.md</code> / <code>component.field.padding-y.md</code></td><td>40px</td></tr>
+        <tr><td>Large (<code>--lg</code>)</td><td>48px (<code>component.select.height.lg</code>)</td><td><code>component.select.text.font-size.lg</code></td><td><code>component.select.padding-x.lg</code> / <code>component.field.padding-y.lg</code></td><td>48px — meets AAA 44px target</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       6. WITH ICON
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Com ícone</span><span data-lang="en">With icon</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-select">
+            <i data-lucide="languages" class="ds-select__icon ds-icon"></i>
+            <select class="ds-select__field" aria-label="Select example">
+              <option>English</option>
+              <option>Portuguese</option>
+              <option>Spanish</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-select"&gt;
+  &lt;i data-lucide="languages" class="ds-select__icon ds-icon"&gt;&lt;/i&gt;
+  &lt;select class="ds-select__field"&gt;
+    &lt;option&gt;English&lt;/option&gt;
+    &lt;option&gt;Portuguese&lt;/option&gt;
+    &lt;option&gt;Spanish&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       7. STATES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">No Figma, <code>State</code> representa apenas estados visuais exclusivos: <code>Default</code>, <code>Hover</code>, <code>Focus</code> e <code>Disabled</code>. <code>Filled</code>, <code>Error</code> e <code>Read-only</code> são propriedades separadas; <code>Error</code> combina com Default/Hover/Focus, e <code>Read-only</code> combina com Default/Focus.</span><span data-lang="en">In Figma, <code>State</code> only represents exclusive visual states: <code>Default</code>, <code>Hover</code>, <code>Focus</code>, and <code>Disabled</code>. <code>Filled</code>, <code>Error</code>, and <code>Read-only</code> are separate properties; <code>Error</code> combines with Default/Hover/Focus, and <code>Read-only</code> combines with Default/Focus.</span>
+    </p>
+
+    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Error</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-field ds-field--error">
+            <label class="ds-field__label" for="demo-country">Country<span class="ds-field__required">*</span></label>
+            <div class="ds-select ds-select--error">
+              <select class="ds-select__field" aria-label="Select example" id="demo-country" aria-invalid="true" aria-describedby="country-error">
+                <option value="" disabled selected>Select a country</option>
+                <option>Brazil</option>
+                <option>United States</option>
+              </select>
+              <span class="ds-select__arrow"></span>
+            </div>
+            <span class="ds-field__error" id="country-error">Please select a country.</span>
+            <span class="ds-field__helper">Choose one country from the list.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field ds-field--error"&gt;
+  &lt;label class="ds-field__label" for="country"&gt;Country&lt;span class="ds-field__required"&gt;*&lt;/span&gt;&lt;/label&gt;
+  &lt;div class="ds-select ds-select--error"&gt;
+    &lt;select class="ds-select__field" id="country" aria-invalid="true" aria-describedby="country-error"&gt;
+      &lt;option value="" disabled selected&gt;Select a country&lt;/option&gt;
+      &lt;option&gt;Brazil&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__error" id="country-error"&gt;Please select a country.&lt;/span&gt;
+  &lt;span class="ds-field__helper"&gt;Choose one country from the list.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Disabled</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-select">
+            <select class="ds-select__field" aria-label="Select example" disabled>
+              <option>Disabled option</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-select"&gt;
+  &lt;select class="ds-select__field" disabled&gt;
+    &lt;option&gt;Disabled option&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Readonly</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-select ds-select--readonly">
+            <select class="ds-select__field" aria-label="Select example" disabled>
+              <option>Read-only value</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;!-- Native select has no readonly; use disabled + ds-select--readonly for styling --&gt;
+&lt;div class="ds-select ds-select--readonly"&gt;
+  &lt;select class="ds-select__field" disabled&gt;
+    &lt;option&gt;Read-only value&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <table class="ds-token-table" style="margin-top:var(--ds-dimension-16)">
+      <thead><tr><th>Figma property</th><th>Value / CSS trigger</th><th>Visual change</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>State</td><td>Default</td><td>Neutral border</td><td><code>component.field.border-color.default</code></td></tr>
+        <tr><td>State</td><td>Hover / <code>:hover</code></td><td>Darker border</td><td><code>component.field.border-color.hover</code></td></tr>
+        <tr><td>State</td><td>Focus / <code>:focus-visible</code></td><td>2px outline ring, component radius</td><td><code>component.field.border-color.focus</code>, <code>component.focus-ring.*</code>, <code>component.select.focus-ring.radius.default</code></td></tr>
+        <tr><td>State</td><td>Disabled / <code>[disabled]</code></td><td>Muted bg + content, no pointer events</td><td><code>component.field.bg.disabled</code>, <code>component.field.value.color.disabled</code>, <code>component.field.placeholder.color.disabled</code></td></tr>
+        <tr><td>Error</td><td>True / <code>.ds-select--error</code> or <code>.ds-field--error .ds-select</code></td><td>Red border and error focus ring</td><td><code>component.field.border-color.error</code>, <code>component.focus-ring.color.error</code></td></tr>
+        <tr><td>Error + State</td><td>True + Hover / <code>.ds-select--error:hover</code></td><td>Darker red border</td><td><code>component.field.border-color.error-hover</code></td></tr>
+        <tr><td>Read-only</td><td>True / <code>.ds-select--readonly</code> + <code>[disabled]</code></td><td>Readonly bg and content treatment; native select has no real readonly focus</td><td><code>component.field.bg.readonly</code>, <code>component.field.value.color.readonly</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       8. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-select" style="width:100%;max-width:260px">
+            <select class="ds-select__field" aria-label="Select example">
+              <option value="" disabled selected>Choose a country</option>
+              <option>Argentina</option>
+              <option>Brazil</option>
+              <option>Chile</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Inclua uma opção placeholder desabilitada: <code>&lt;option value="" disabled selected&gt;Choose a country&lt;/option&gt;</code>.</span><span data-lang="en">Include a disabled placeholder option: <code>&lt;option value="" disabled selected&gt;Choose a country&lt;/option&gt;</code>.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-select" style="width:100%;max-width:260px">
+            <select class="ds-select__field" aria-label="Select example">
+              <option selected>Argentina</option>
+              <option>Brazil</option>
+              <option>Chile</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Pré-selecionar uma opção real a menos que seja um padrão genuíno.</span><span data-lang="en">Pre-select a real option unless it's a genuine default.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-select" style="width:100%;max-width:260px">
+            <select class="ds-select__field" aria-label="Select example">
+              <option value="" disabled selected>Choose a country</option>
+              <option>Argentina</option>
+              <option>Brazil</option>
+              <option>Chile</option>
+              <option>Colombia</option>
+              <option>Peru</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Ordene as opções logicamente -- alfabeticamente para países, por frequência para escolhas comuns.</span><span data-lang="en">Order options logically -- alphabetical for countries, by frequency for common choices.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-select" style="width:100%;max-width:260px">
+            <select class="ds-select__field" aria-label="Select example">
+              <option value="" disabled selected>Enable notifications?</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+            <span class="ds-select__arrow"></span>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não use select para escolhas booleanas -- use <a href="toggle.html" style="color:var(--ds-link-content-default)">Toggle</a> ou <a href="checkbox.html" style="color:var(--ds-link-content-default)">Checkbox</a>.</span><span data-lang="en">Don't use a select for boolean choices -- use <a href="toggle.html" style="color:var(--ds-link-content-default)">Toggle</a> or <a href="checkbox.html" style="color:var(--ds-link-content-default)">Checkbox</a>.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       9. CONTENT GUIDELINES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td>Placeholder: "Choose a..." or "Select a..." in sentence case</td><td>"Choose a country" -- not "CHOOSE A COUNTRY" or "Country"</td></tr>
+        <tr><td>Option text should be concise and consistent</td><td>"Brazil", "United States" -- not "The Federative Republic of Brazil"</td></tr>
+        <tr><td>Don't mix option types</td><td>All countries, or all languages -- not countries mixed with regions</td></tr>
+        <tr><td>Use sentence case for options</td><td>"Credit card" -- not "Credit Card" or "CREDIT CARD"</td></tr>
+        <tr><td>Always pair with a <code>&lt;label&gt;</code></td><td><code>&lt;label for="country"&gt;Country&lt;/label&gt;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       10. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Select consome tokens Component no CSS e nos bindings do Figma. Esses tokens documentam o contrato público do componente e aliasam Semantic quando o valor é reutilizável.</span><span data-lang="en">Select consumes Component tokens in CSS and Figma bindings. These tokens document the component's public contract and alias Semantic when the value is reusable.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token Component</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>bg</td><td><code>component.field.bg.{default|focus|filled|error|disabled|readonly}</code></td><td><code>--ds-field-bg-*</code></td></tr>
+        <tr><td>border color</td><td><code>component.field.border-color.{default|hover|focus|filled|error|disabled|readonly}</code></td><td><code>--ds-field-border-color-*</code></td></tr>
+        <tr><td>border width</td><td><code>component.field.border-width</code></td><td><code>--ds-field-border-width</code></td></tr>
+        <tr><td>content color</td><td><code>component.field.value.color.{default|disabled|readonly}</code></td><td><code>--ds-field-value-color-*</code></td></tr>
+        <tr><td>placeholder color</td><td><code>component.field.placeholder.color.{default|disabled}</code></td><td><code>--ds-field-placeholder-color-*</code></td></tr>
+        <tr><td>chevron</td><td><code>component.field.icon.{color|size|stroke-width}.*</code> + <code>component.field.icon-frame.padding-x.default</code></td><td><code>--ds-field-icon-*</code>, <code>--ds-field-icon-frame-padding-x-default</code></td></tr>
+        <tr><td>height</td><td><code>component.select.height.{sm|md|lg}</code></td><td><code>--ds-select-height-*</code></td></tr>
+        <tr><td>gap</td><td><code>component.field.gap.{sm|md|lg}</code></td><td><code>--ds-field-gap-*</code></td></tr>
+        <tr><td>padding</td><td><code>component.select.padding-x.*</code> / <code>component.field.padding-y.*</code></td><td><code>--ds-select-padding-x-*</code> / <code>--ds-field-padding-y-*</code></td></tr>
+        <tr><td>radius</td><td><code>component.field.radius</code></td><td><code>--ds-field-radius</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.focus-ring.*</code> + <code>component.select.focus-ring.radius.default</code></td><td><code>--ds-focus-ring-*</code> + <code>--ds-select-focus-ring-radius-default</code></td></tr>
+        <tr><td>typography</td><td><code>component.field.text.*</code> + <code>component.form-field.{label|helper|required}.*</code></td><td><code>--ds-field-text-*</code>, <code>--ds-form-field-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       11. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-select</code></td><td><span data-lang="pt">Elemento wrapper do select</span><span data-lang="en">Wrapper element for the select</span></td></tr>
+        <tr><td><code>ds-select__field</code></td><td><span data-lang="pt">O elemento nativo <code>&lt;select&gt;</code></span><span data-lang="en">The native <code>&lt;select&gt;</code> element</span></td></tr>
+        <tr><td><code>ds-select__arrow</code></td><td><span data-lang="pt">Indicador de seta dropdown customizado</span><span data-lang="en">Custom dropdown arrow indicator</span></td></tr>
+        <tr><td><code>ds-select__icon</code></td><td><span data-lang="pt">Ícone à esquerda dentro do wrapper</span><span data-lang="en">Leading icon inside the wrapper</span></td></tr>
+        <tr><td><code>ds-select--sm</code></td><td><span data-lang="pt">Tamanho pequeno (altura 32px)</span><span data-lang="en">Small size (32px height)</span></td></tr>
+        <tr><td><code>ds-select--md</code></td><td><span data-lang="pt">Tamanho médio (altura 40px, padrão)</span><span data-lang="en">Medium size (40px height, default)</span></td></tr>
+        <tr><td><code>ds-select--lg</code></td><td><span data-lang="pt">Tamanho grande (altura 48px)</span><span data-lang="en">Large size (48px height)</span></td></tr>
+        <tr><td><code>ds-select--error</code></td><td><span data-lang="pt">Estado de erro com borda vermelha</span><span data-lang="en">Error state with red border</span></td></tr>
+        <tr><td><code>ds-select--disabled</code></td><td><span data-lang="pt">Estado desabilitado (ou use o nativo <code>disabled</code>)</span><span data-lang="en">Disabled state (or use native <code>disabled</code>)</span></td></tr>
+        <tr><td><code>ds-select--readonly</code></td><td><span data-lang="pt">Estado visual somente leitura (combine com o nativo <code>disabled</code>)</span><span data-lang="en">Readonly visual state (combine with native <code>disabled</code>)</span></td></tr>
+        <tr><td><code>ds-field__error</code></td><td><span data-lang="pt">Linha de erro com ícone automático e mensagem (exibida quando <code>ds-field--error</code> está definido)</span><span data-lang="en">Error row with automatic icon and message (shown when <code>ds-field--error</code> is set)</span></td></tr>
+        <tr><td><code>ds-field__label-row</code></td><td><span data-lang="pt">Linha horizontal com label e asterisco de obrigatório</span><span data-lang="en">Horizontal row with label and required asterisk</span></td></tr>
+        <tr><td><code>ds-field__required</code></td><td><span data-lang="pt">Asterisco <code>*</code> em feedback/error/content/default (decorativo, aria-hidden)</span><span data-lang="en">Asterisk <code>*</code> in feedback/error/content/default (decorative, aria-hidden)</span></td></tr>
+        <tr><td><code>ds-field--no-label</code></td><td><span data-lang="pt">Oculta o label row quando Show Label = false</span><span data-lang="en">Hides the label row when Show Label = false</span></td></tr>
+        <tr><td><code>ds-field--no-helper</code></td><td><span data-lang="pt">Oculta o helper text quando Show Helper Text = false</span><span data-lang="en">Hides helper text when Show Helper Text = false</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       11b. FIGMA PROPERTIES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Propriedades Figma</span><span data-lang="en">Figma properties</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Show Label</code></td><td>Boolean</td><td><code>true</code></td><td><span data-lang="pt">Exibe ou oculta o label row (incluindo asterisco de obrigatório)</span><span data-lang="en">Shows or hides the label row (including required asterisk)</span></td></tr>
+        <tr><td><code>Label</code></td><td>Text</td><td>"Rótulo"</td><td><span data-lang="pt">Texto do label (label/md)</span><span data-lang="en">Label text (label/md)</span></td></tr>
+        <tr><td><code>Required</code></td><td>Boolean</td><td><code>false</code></td><td><span data-lang="pt">Exibe o asterisco <code>*</code> em feedback/error/content/default ao lado do label</span><span data-lang="en">Shows <code>*</code> in feedback/error/content/default next to the label</span></td></tr>
+        <tr><td><code>Show Helper Text</code></td><td>Boolean</td><td><code>true</code></td><td><span data-lang="pt">Exibe ou oculta o texto auxiliar abaixo do controle</span><span data-lang="en">Shows or hides the helper text below the control</span></td></tr>
+        <tr><td><code>Helper Text</code></td><td>Text</td><td>"Texto auxiliar"</td><td><span data-lang="pt">Anotação em caption/sm (content/secondary)</span><span data-lang="en">Caption/sm annotation (content/secondary)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       12. KEYBOARD INTERACTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td><span data-lang="pt">Move o foco para o select</span><span data-lang="en">Moves focus to the select</span></td></tr>
+        <tr><td><code>Space</code> / <code>Enter</code></td><td><span data-lang="pt">Abre o dropdown (nativo do navegador)</span><span data-lang="en">Opens the dropdown (browser-native)</span></td></tr>
+        <tr><td><code>Arrow Up</code> / <code>Arrow Down</code></td><td><span data-lang="pt">Navega entre as opções</span><span data-lang="en">Navigates options</span></td></tr>
+        <tr><td><code>Escape</code></td><td><span data-lang="pt">Fecha o dropdown</span><span data-lang="en">Closes dropdown</span></td></tr>
+        <tr><td>Any letter</td><td><span data-lang="pt">Pula para a primeira opção que começa com aquela letra</span><span data-lang="en">Jumps to first option starting with that letter</span></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:var(--ds-dimension-8);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Todas as interações de teclado são tratadas nativamente pelo elemento <code>&lt;select&gt;</code>. Nenhum JavaScript customizado é necessário. Selects desabilitados são removidos da ordem de tabulação automaticamente.</span><span data-lang="en">All keyboard interactions are handled natively by the <code>&lt;select&gt;</code> element. No custom JavaScript is required. Disabled selects are removed from tab order automatically.</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       13. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>2.4.11 Focus Appearance (AA)</td><td>Focus ring 2px + 2px gap, contrast >= 3:1 against adjacent colors</td><td>&#10003;</td></tr>
+        <tr><td>2.5.8 Target Size min (AA)</td><td>Smallest size (32px) exceeds 24px minimum</td><td>&#10003;</td></tr>
+        <tr><td>2.5.5 Target Size (AAA)</td><td>Large (48px) meets 44px touch target</td><td>&#10003;</td></tr>
+        <tr><td>1.4.3 Contrast (AA)</td><td>Text and arrow contrast >= 4.5:1 against background. Disabled exempt.</td><td>&#10003;</td></tr>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td>Use native <code>&lt;select&gt;</code> element. Associate with <code>&lt;label&gt;</code> via <code>for</code>/<code>id</code>.</td><td>&#10003;</td></tr>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td>Error states use <code>aria-invalid="true"</code> and <code>aria-describedby</code>.</td><td>&#10003;</td></tr>
+        <tr><td>1.4.1 Use of Color (A)</td><td>Error state has visible red border + text message, not just color.</td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Notas de implementação</span><span data-lang="en">Implementation notes</span></div>
+      <span data-lang="pt">A seta customizada (<code>.ds-select__arrow</code>) usa <code>pointer-events: none</code> -- é puramente decorativa e não interfere com interação de clique ou teclado.<br><br>
+      O <code>&lt;select&gt;</code> nativo não possui atributo <code>readonly</code>. O DS usa <code>disabled</code> combinado com a classe <code>ds-select--readonly</code> para diferenciação visual. Diferente de disabled, readonly deve comunicar visualmente que o valor está definido mas não é editável.</span><span data-lang="en">The custom arrow (<code>.ds-select__arrow</code>) uses <code>pointer-events: none</code> -- it is purely decorative and does not interfere with click or keyboard interaction.<br><br>
+      Native <code>&lt;select&gt;</code> has no <code>readonly</code> attribute. The DS uses <code>disabled</code> combined with the <code>ds-select--readonly</code> class for visual differentiation. Unlike disabled, readonly should visually communicate that the value is set but not editable.</span>
+    </div>
+
+    <div class="ds-callout ds-callout--warning" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Required e label invisível</span><span data-lang="en">Required and invisible label</span></div>
+      <span data-lang="pt">Quando <code>Required = true</code>, adicione <code>aria-required="true"</code> no <code>&lt;select&gt;</code> — o asterisco visual (<code>.ds-field__required</code>) é decorativo (<code>aria-hidden="true"</code>). Quando <code>Show Label = false</code>, use <code>aria-label</code> no <code>&lt;select&gt;</code>. O Helper Text deve ser vinculado via <code>aria-describedby</code>.</span><span data-lang="en">When <code>Required = true</code>, add <code>aria-required="true"</code> to the <code>&lt;select&gt;</code> — the visual asterisk (<code>.ds-field__required</code>) is decorative (<code>aria-hidden="true"</code>). When <code>Show Label = false</code>, use <code>aria-label</code> on the <code>&lt;select&gt;</code>. Helper Text should be linked via <code>aria-describedby</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       14. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="input.html" class="ds-related__link">Input</a>
+      <a href="radio.html" class="ds-related__link">Radio</a>
+      <a href="checkbox.html" class="ds-related__link">Checkbox</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

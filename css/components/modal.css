@@ -1,0 +1,230 @@
+/* ============================================================
+   COMPONENT: Modal / Dialog
+   ============================================================ */
+
+/* Overlay */
+.ds-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--ds-modal-overlay-bg-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--ds-modal-overlay-z-index-default);
+  padding: var(--ds-modal-overlay-padding-default);
+}
+
+/* Dialog */
+.ds-modal {
+  --_ds-modal-focus-ring-bleed: calc(var(--ds-focus-ring-width) * 2);
+
+  background-color: var(--ds-modal-bg-default);
+  border-radius: var(--ds-modal-radius-default);
+  box-shadow: var(--ds-modal-shadow-default);
+  width: 100%;
+  max-height: calc(100vh - var(--ds-space-section-sm));
+  padding: var(--ds-modal-container-padding-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-modal-container-gap-sm);
+  overflow: visible;
+}
+
+/* Sizes */
+.ds-modal--sm { max-width: var(--ds-modal-max-width-sm); }
+.ds-modal--md {
+  max-width: var(--ds-modal-max-width-md);
+  padding: var(--ds-modal-container-padding-md);
+  gap: var(--ds-modal-container-gap-md);
+}
+
+.ds-modal--lg {
+  max-width: var(--ds-modal-max-width-lg);
+  padding: var(--ds-modal-container-padding-lg);
+  gap: var(--ds-modal-container-gap-lg);
+}
+
+/* Header */
+.ds-modal__header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ds-modal-header-gap-default);
+}
+
+.ds-modal__heading {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-modal-heading-gap-default);
+  padding-right: calc(var(--ds-modal-close-size-sm) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal--md .ds-modal__heading {
+  padding-right: calc(var(--ds-modal-close-size-md) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal--lg .ds-modal__heading {
+  padding-right: calc(var(--ds-modal-close-size-lg) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal__title {
+  margin: 0;
+  font-size: var(--ds-body-font-size-xl);
+  font-weight: var(--ds-body-font-weight-semibold);
+  color: var(--ds-modal-title-color-default);
+  line-height: var(--ds-body-line-height-xl);
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+  padding-right: calc(var(--ds-modal-close-size-sm) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal__heading .ds-modal__title {
+  padding-right: 0;
+}
+
+.ds-modal--md .ds-modal__title {
+  font-size: var(--ds-body-font-size-2xl);
+  line-height: var(--ds-body-line-height-2xl);
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+  padding-right: calc(var(--ds-modal-close-size-md) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal--lg .ds-modal__title {
+  font-size: var(--ds-body-font-size-3xl);
+  line-height: var(--ds-body-line-height-3xl);
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+  padding-right: calc(var(--ds-modal-close-size-lg) + var(--ds-modal-header-gap-default));
+}
+
+.ds-modal--md .ds-modal__heading .ds-modal__title,
+.ds-modal--lg .ds-modal__heading .ds-modal__title {
+  padding-right: 0;
+}
+
+.ds-modal__description {
+  margin: 0;
+  color: var(--ds-modal-description-color-default);
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+}
+
+.ds-modal--md .ds-modal__description {
+  font-size: var(--ds-body-font-size-sm);
+  line-height: var(--ds-body-line-height-sm);
+}
+
+.ds-modal--lg .ds-modal__description {
+  font-size: var(--ds-body-font-size-md);
+  line-height: var(--ds-body-line-height-md);
+}
+
+.ds-modal__close {
+  position: absolute;
+  top: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-sm));
+  right: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-sm));
+  flex-shrink: 0;
+  width: var(--ds-modal-close-size-sm);
+  height: var(--ds-modal-close-size-sm);
+  background: none;
+  border: none;
+  padding: var(--ds-modal-close-padding-sm);
+  cursor: pointer;
+  color: var(--ds-modal-close-color-default);
+  border-radius: var(--ds-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-modal__close .ds-icon {
+  width: var(--ds-modal-close-icon-size-sm);
+  height: var(--ds-modal-close-icon-size-sm);
+  color: currentColor;
+  stroke-width: var(--ds-modal-close-icon-stroke-width-default);
+}
+
+.ds-modal--md .ds-modal__close {
+  top: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-md));
+  right: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-md));
+  width: var(--ds-modal-close-size-md);
+  height: var(--ds-modal-close-size-md);
+  padding: var(--ds-modal-close-padding-md);
+}
+
+.ds-modal--md .ds-modal__close .ds-icon {
+  width: var(--ds-modal-close-icon-size-md);
+  height: var(--ds-modal-close-icon-size-md);
+}
+
+.ds-modal--lg .ds-modal__close {
+  top: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-lg));
+  right: calc(var(--ds-space-sm) - var(--ds-modal-container-padding-lg));
+  width: var(--ds-modal-close-size-lg);
+  height: var(--ds-modal-close-size-lg);
+  padding: var(--ds-modal-close-padding-lg);
+}
+
+.ds-modal--lg .ds-modal__close .ds-icon {
+  width: var(--ds-modal-close-icon-size-lg);
+  height: var(--ds-modal-close-icon-size-lg);
+}
+
+.ds-modal__close:hover {
+  color: var(--ds-content-strong);
+}
+
+.ds-modal__close:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Body — escala por size do modal (espelha Figma):
+   sm → font-size sm + line-height sm
+   md → font-size md + line-height md
+   lg → font-size lg + line-height xl */
+.ds-modal__body {
+  overflow-y: auto;
+  margin: calc(var(--_ds-modal-focus-ring-bleed) * -1);
+  padding: var(--_ds-modal-focus-ring-bleed);
+  color: var(--ds-modal-body-color-default);
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+}
+
+.ds-modal--md .ds-modal__body {
+  font-size: var(--ds-body-font-size-md);
+  line-height: var(--ds-body-line-height-md);
+}
+
+.ds-modal--lg .ds-modal__body {
+  font-size: var(--ds-body-font-size-lg);
+  line-height: var(--ds-body-line-height-xl);
+}
+
+/* Footer */
+.ds-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-modal-footer-gap-sm);
+  /* Figma: footer não tem divider/border-top. */
+}
+
+.ds-modal--md .ds-modal__footer {
+  gap: var(--ds-modal-footer-gap-md);
+}
+
+.ds-modal--lg .ds-modal__footer {
+  gap: var(--ds-modal-footer-gap-lg);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-modal__close { transition: none; }
+}

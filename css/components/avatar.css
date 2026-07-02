@@ -1,0 +1,76 @@
+/* ============================================================
+   COMPONENT: Avatar
+   ============================================================ */
+
+/* Base avatar */
+.ds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ds-avatar-radius-default);
+  background-color: var(--ds-avatar-bg-default);
+  color: var(--ds-avatar-content-color-default);
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-avatar-initials-font-weight-md);
+  flex-shrink: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Default size: md (Figma: 40×40, initials 14/20 Bold) */
+.ds-avatar {
+  width: var(--ds-avatar-size-md);
+  height: var(--ds-avatar-size-md);
+  font-size: var(--ds-avatar-initials-font-size-md);
+  line-height: var(--ds-avatar-initials-line-height-md);
+}
+
+/* ---------------------------------------------------------
+   Sizes — Figma initials scale 14/14/20 (sm/md/lg)
+   --------------------------------------------------------- */
+.ds-avatar--sm {
+  width: var(--ds-avatar-size-sm);
+  height: var(--ds-avatar-size-sm);
+  font-size: var(--ds-avatar-initials-font-size-sm);
+  line-height: var(--ds-avatar-initials-line-height-sm);
+  font-weight: var(--ds-avatar-initials-font-weight-sm);
+}
+
+.ds-avatar--lg {
+  width: var(--ds-avatar-size-lg);
+  height: var(--ds-avatar-size-lg);
+  font-size: var(--ds-avatar-initials-font-size-lg);
+  line-height: var(--ds-avatar-initials-line-height-lg);
+  font-weight: var(--ds-avatar-initials-font-weight-lg);
+}
+
+/* ---------------------------------------------------------
+   Types
+   --------------------------------------------------------- */
+
+/* Image avatar */
+.ds-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Icon avatar */
+.ds-avatar--icon .ds-icon {
+  width: var(--ds-avatar-icon-size-md);
+  height: var(--ds-avatar-icon-size-md);
+  color: currentColor;
+  stroke-width: var(--ds-avatar-icon-stroke-width-md);
+}
+
+.ds-avatar--sm.ds-avatar--icon .ds-icon {
+  width: var(--ds-avatar-icon-size-sm);
+  height: var(--ds-avatar-icon-size-sm);
+  stroke-width: var(--ds-avatar-icon-stroke-width-sm);
+}
+
+.ds-avatar--lg.ds-avatar--icon .ds-icon {
+  width: var(--ds-avatar-icon-size-lg);
+  height: var(--ds-avatar-icon-size-lg);
+  stroke-width: var(--ds-avatar-icon-stroke-width-lg);
+}

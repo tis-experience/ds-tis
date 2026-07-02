@@ -1,0 +1,72 @@
+{
+  "component": {
+    "skeleton": {
+      "text": {
+        "height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.content-placeholder.text.height.default}",
+            "$description": "Altura do Skeleton Text."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do Skeleton Text."
+          }
+        },
+        "fill": {
+          "default": {
+            "$value": "{semantic.background.subtle}",
+            "$type": "color"
+          }
+        }
+      },
+      "circle": {
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Tamanho do Skeleton Circle."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius circular do Skeleton Circle."
+          }
+        },
+        "fill": {
+          "default": {
+            "$value": "{semantic.background.subtle}",
+            "$type": "color"
+          }
+        }
+      },
+      "rectangle": {
+        "height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.content-placeholder.rectangle.height.default}",
+            "$description": "Altura default do Skeleton Rectangle."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do Skeleton Rectangle."
+          }
+        },
+        "fill": {
+          "default": {
+            "$value": "{semantic.background.subtle}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

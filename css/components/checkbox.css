@@ -1,0 +1,296 @@
+/* ============================================================
+   COMPONENT: Checkbox
+   ============================================================ */
+
+/* Item wrapper — agrupa checkbox label + description + helper text
+   verticalmente. Use quando precisar de Description/Helper opt-in
+   (matches Figma "Show Description"/"Show Helper Text" booleans). */
+.ds-checkbox-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-checkbox-content-gap-default);
+}
+
+/* Description text — abaixo do label, mesmo size, regular weight (Figma) */
+.ds-checkbox-description {
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-form-field-description-color-default);
+  /* indent pra alinhar com label, passando o checkbox + gap */
+  padding-left: calc(var(--ds-size-sm) + var(--ds-space-sm) + var(--ds-space-xs));
+}
+
+/* Helper text — menor + mais sutil que description (Figma) */
+.ds-checkbox-helper {
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-xs);
+  color: var(--ds-form-field-helper-color-default);
+  padding-left: calc(var(--ds-size-sm) + var(--ds-space-sm) + var(--ds-space-xs));
+}
+
+/* Checkbox label wrapper */
+.ds-checkbox-label {
+  --checkbox-target-height: var(--ds-checkbox-target-height-md);
+  --checkbox-box-size: var(--ds-checkbox-box-size-md);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-checkbox-target-gap-default);
+  cursor: pointer;
+  padding: var(--ds-space-xs) var(--ds-space-xs);
+  min-height: var(--checkbox-target-height);
+  font-size: var(--ds-form-field-label-font-size-default);
+  color: var(--ds-form-field-label-color-default);
+}
+
+/* Custom checkbox */
+.ds-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: var(--checkbox-box-size);
+  height: var(--checkbox-box-size);
+  border: var(--ds-checkbox-box-border-width-default) solid var(--ds-checkbox-box-border-color-unchecked-default);
+  border-radius: var(--ds-checkbox-box-radius-default);
+  background-color: var(--ds-checkbox-box-fill-unchecked-default);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Checkmark (checked state) */
+.ds-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--checkbox-box-size);
+  height: var(--checkbox-box-size);
+  background-color: var(--ds-checkbox-mark-fill-checked-default);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.72408 12.4323L13.8699 6.28643C14.0609 6.09546 14.3039 5.99997 14.5991 5.99997C14.8942 5.99997 15.1373 6.09546 15.3282 6.28643C15.5192 6.47741 15.6147 6.72046 15.6147 7.0156C15.6147 7.31074 15.5192 7.55379 15.3282 7.74477L8.45325 14.6198C8.24491 14.8281 8.00186 14.9323 7.72408 14.9323C7.4463 14.9323 7.20325 14.8281 6.99491 14.6198L4.28658 11.9114C4.09561 11.7205 4.00012 11.4774 4.00012 11.1823C4.00012 10.8871 4.09561 10.6441 4.28658 10.4531C4.47755 10.2621 4.72061 10.1666 5.01575 10.1666C5.31089 10.1666 5.55394 10.2621 5.74491 10.4531L7.72408 12.4323Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.72408 12.4323L13.8699 6.28643C14.0609 6.09546 14.3039 5.99997 14.5991 5.99997C14.8942 5.99997 15.1373 6.09546 15.3282 6.28643C15.5192 6.47741 15.6147 6.72046 15.6147 7.0156C15.6147 7.31074 15.5192 7.55379 15.3282 7.74477L8.45325 14.6198C8.24491 14.8281 8.00186 14.9323 7.72408 14.9323C7.4463 14.9323 7.20325 14.8281 6.99491 14.6198L4.28658 11.9114C4.09561 11.7205 4.00012 11.4774 4.00012 11.1823C4.00012 10.8871 4.09561 10.6441 4.28658 10.4531C4.47755 10.2621 4.72061 10.1666 5.01575 10.1666C5.31089 10.1666 5.55394 10.2621 5.74491 10.4531L7.72408 12.4323Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Checked */
+.ds-checkbox:checked {
+  background-color: var(--ds-checkbox-box-fill-checked-default);
+  border-width: 0;
+}
+
+.ds-checkbox:checked::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Indeterminate */
+.ds-checkbox:indeterminate {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-default);
+  border-width: 0;
+}
+
+.ds-checkbox:indeterminate::after {
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 2px;
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-default);
+  -webkit-mask: none;
+  mask: none;
+  transform: translate(-50%, -50%) scale(1);
+  border-radius: 1px;
+}
+
+/* Hover */
+.ds-checkbox:hover:not(:disabled) {
+  background-color: var(--ds-checkbox-box-fill-unchecked-hover);
+  border-color: var(--ds-checkbox-box-border-color-unchecked-hover);
+}
+
+.ds-checkbox:checked:hover:not(:disabled) {
+  background-color: var(--ds-checkbox-box-fill-checked-hover);
+}
+
+.ds-checkbox:checked:hover:not(:disabled)::after {
+  background-color: var(--ds-checkbox-mark-fill-checked-hover);
+}
+
+.ds-checkbox:indeterminate:hover:not(:disabled) {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-hover);
+}
+
+.ds-checkbox:indeterminate:hover:not(:disabled)::after {
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-hover);
+}
+
+/* Focus */
+.ds-checkbox:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Disabled */
+.ds-checkbox:disabled {
+  background-color: var(--ds-checkbox-box-fill-unchecked-disabled);
+  border-color: var(--ds-checkbox-box-border-color-unchecked-disabled);
+  cursor: not-allowed;
+}
+
+.ds-checkbox:checked:disabled {
+  background-color: var(--ds-checkbox-box-fill-checked-disabled);
+  border-width: 0;
+}
+
+.ds-checkbox:checked:disabled::after {
+  background-color: var(--ds-checkbox-mark-fill-checked-disabled);
+}
+
+.ds-checkbox:indeterminate:disabled {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-disabled);
+  border-width: 0;
+}
+
+.ds-checkbox:indeterminate:disabled::after {
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-disabled);
+}
+
+.ds-checkbox-label:has(.ds-checkbox:disabled) {
+  cursor: not-allowed;
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* Error state */
+.ds-checkbox-group--error .ds-checkbox {
+  border-color: var(--ds-checkbox-box-border-color-unchecked-error);
+}
+
+.ds-checkbox-group__error {
+  font-size: var(--ds-form-field-error-font-size-default);
+  font-weight: var(--ds-form-field-error-font-weight-default);
+  line-height: var(--ds-form-field-error-line-height-default);
+  color: var(--ds-form-field-error-color-default);
+  margin-top: var(--ds-space-xs);
+  display: none;
+}
+
+.ds-checkbox-group--error .ds-checkbox-group__error {
+  display: block;
+}
+
+/* ---------------------------------------------------------
+   Sizes
+   --------------------------------------------------------- */
+
+/* Small */
+.ds-checkbox-label:has(.ds-checkbox--sm) {
+  --checkbox-target-height: var(--ds-checkbox-target-height-sm);
+  --checkbox-box-size: var(--ds-checkbox-box-size-sm);
+}
+
+.ds-checkbox--sm {
+  width: var(--ds-checkbox-box-size-sm);
+  height: var(--ds-checkbox-box-size-sm);
+}
+
+.ds-checkbox--sm::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.17926 9.94581L11.0959 5.02914C11.2487 4.87636 11.4432 4.79998 11.6793 4.79998C11.9154 4.79998 12.1098 4.87636 12.2626 5.02914C12.4154 5.18192 12.4918 5.37636 12.4918 5.61248C12.4918 5.84859 12.4154 6.04303 12.2626 6.19581L6.7626 11.6958C6.59593 11.8625 6.40149 11.9458 6.17926 11.9458C5.95704 11.9458 5.7626 11.8625 5.59593 11.6958L3.42926 9.52914C3.27649 9.37636 3.2001 9.18192 3.2001 8.94581C3.2001 8.7097 3.27649 8.51525 3.42926 8.36248C3.58204 8.2097 3.77649 8.13331 4.0126 8.13331C4.24871 8.13331 4.44315 8.2097 4.59593 8.36248L6.17926 9.94581Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.17926 9.94581L11.0959 5.02914C11.2487 4.87636 11.4432 4.79998 11.6793 4.79998C11.9154 4.79998 12.1098 4.87636 12.2626 5.02914C12.4154 5.18192 12.4918 5.37636 12.4918 5.61248C12.4918 5.84859 12.4154 6.04303 12.2626 6.19581L6.7626 11.6958C6.59593 11.8625 6.40149 11.9458 6.17926 11.9458C5.95704 11.9458 5.7626 11.8625 5.59593 11.6958L3.42926 9.52914C3.27649 9.37636 3.2001 9.18192 3.2001 8.94581C3.2001 8.7097 3.27649 8.51525 3.42926 8.36248C3.58204 8.2097 3.77649 8.13331 4.0126 8.13331C4.24871 8.13331 4.44315 8.2097 4.59593 8.36248L6.17926 9.94581Z'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox--sm:indeterminate::after {
+  width: 8px;
+  height: 1.5px;
+}
+
+/* Large */
+.ds-checkbox-label:has(.ds-checkbox--lg) {
+  --checkbox-target-height: var(--ds-checkbox-target-height-lg);
+  --checkbox-box-size: var(--ds-checkbox-box-size-lg);
+}
+
+.ds-checkbox--lg {
+  width: var(--ds-checkbox-box-size-lg);
+  height: var(--ds-checkbox-box-size-lg);
+}
+
+.ds-checkbox--lg::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.2689 14.9188L16.6439 7.54375C16.8731 7.31458 17.1647 7.2 17.5189 7.2C17.8731 7.2 18.1647 7.31458 18.3939 7.54375C18.6231 7.77292 18.7376 8.06458 18.7376 8.41875C18.7376 8.77292 18.6231 9.06458 18.3939 9.29375L10.1439 17.5438C9.8939 17.7938 9.60223 17.9187 9.2689 17.9187C8.93556 17.9187 8.6439 17.7938 8.3939 17.5438L5.1439 14.2938C4.91473 14.0646 4.80015 13.7729 4.80015 13.4187C4.80015 13.0646 4.91473 12.7729 5.1439 12.5437C5.37306 12.3146 5.66473 12.2 6.0189 12.2C6.37306 12.2 6.66473 12.3146 6.8939 12.5437L9.2689 14.9188Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.2689 14.9188L16.6439 7.54375C16.8731 7.31458 17.1647 7.2 17.5189 7.2C17.8731 7.2 18.1647 7.31458 18.3939 7.54375C18.6231 7.77292 18.7376 8.06458 18.7376 8.41875C18.7376 8.77292 18.6231 9.06458 18.3939 9.29375L10.1439 17.5438C9.8939 17.7938 9.60223 17.9187 9.2689 17.9187C8.93556 17.9187 8.6439 17.7938 8.3939 17.5438L5.1439 14.2938C4.91473 14.0646 4.80015 13.7729 4.80015 13.4187C4.80015 13.0646 4.91473 12.7729 5.1439 12.5437C5.37306 12.3146 5.66473 12.2 6.0189 12.2C6.37306 12.2 6.66473 12.3146 6.8939 12.5437L9.2689 14.9188Z'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox--lg:indeterminate::after {
+  width: 12px;
+  height: 2.5px;
+}
+
+/* ---------------------------------------------------------
+   Field anatomy — Content frame, Description, Helper Text
+   --------------------------------------------------------- */
+
+/*
+  HTML structure:
+  <label class="ds-checkbox-label">
+    <input type="checkbox" class="ds-checkbox">
+    <span class="ds-checkbox__content">
+      <span class="ds-checkbox__label">Rótulo</span>           <!-- Show Label boolean -->
+      <span class="ds-checkbox__description">Descrição</span>  <!-- Show Description boolean -->
+      <span class="ds-checkbox__helper">Texto auxiliar</span>  <!-- Show Helper Text boolean -->
+    </span>
+  </label>
+
+  Accessibility:
+  - Label hidden + Description visible → add id to .ds-checkbox__description
+    and aria-labelledby="[id]" to <input>
+  - Both hidden → add explicit aria-label to <input>
+  - Helper Text → add id to .ds-checkbox__helper and aria-describedby="[id]" to <input>
+*/
+
+/* Vertical stack: Label → Description → Helper Text */
+.ds-checkbox__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-checkbox-content-gap-default);
+  min-width: 0;
+}
+
+/* Label text (label/md: 14px medium / 20px) */
+.ds-checkbox__label {
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-form-field-label-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  line-height: var(--ds-form-field-label-line-height-default);
+  color: var(--ds-form-field-label-color-default);
+}
+
+/* Description (body/sm: 14px regular / 20px) */
+.ds-checkbox__description {
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-form-field-description-color-default);
+  white-space: pre-wrap;
+}
+
+/* Helper text (caption/sm: 11px regular / 18px) */
+.ds-checkbox__helper {
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-xs);
+  color: var(--ds-form-field-helper-color-default);
+}
+
+.ds-checkbox-label:has(.ds-checkbox:disabled) .ds-checkbox__label {
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-checkbox-label,
+  .ds-checkbox,
+  .ds-checkbox::after { transition: none; }
+}

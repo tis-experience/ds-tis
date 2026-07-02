@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badge — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Badge</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Badges são pequenos indicadores de status usados para rotular, categorizar ou destacar informações. A API combina estilos solid e subtle com variantes semânticas de cor.</span><span data-lang="en">Badges are small status indicators used to label, categorize, or highlight information. The API combines solid and subtle styles with semantic color variants.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use badges quando</span><span data-lang="en">Use badges when</span></div>
+      <span data-lang="pt">Rotular, categorizar ou mostrar status: contagens, tags, estados ativo/inativo, níveis de severidade.</span><span data-lang="en">Labeling, categorizing, or showing status: counts, tags, active/inactive states, severity levels.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use badges quando</span><span data-lang="en">Don't use badges when</span></div>
+      <span data-lang="pt">O conteúdo precisa de descricao ou ação (use Alert), o elemento deve ser grande e interativo (use Button), ou voce precisa de um indicador de contagem flutuante (notification dot — futuro).</span><span data-lang="en">The content needs a description or action (use Alert), the element should be large and interactive (use Button), or you need a floating count indicator (notification dot — future).</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="position:relative;display:inline-flex;align-items:center;" inert>
+        <span class="ds-badge ds-badge--brand ds-badge--solid" style="font-size:var(--ds-font-size-14);">Active</span>
+        <!-- 1: Container top -->
+        <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+        <!-- 2: Text bottom -->
+        <span style="position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="bottom:-48px;left:50%;transform:translateX(-50%);">2</span>
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Container (<code>.ds-badge</code>) — span em formato pill com cor de fundo e border-radius.<br>
+      <strong>2</strong> Texto — conteúdo do label, 1-2 palavras.</span><span data-lang="en"><strong>1</strong> Container (<code>.ds-badge</code>) — pill-shaped span with background color and border-radius.<br>
+      <strong>2</strong> Text — label content, 1-2 words.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+
+  <!-- Solid Variants -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Variantes Solid</span><span data-lang="en">Solid Variants</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <span class="ds-badge ds-badge--brand ds-badge--solid">Brand</span>
+          <span class="ds-badge ds-badge--success ds-badge--solid">Success</span>
+          <span class="ds-badge ds-badge--warning ds-badge--solid">Warning</span>
+          <span class="ds-badge ds-badge--error ds-badge--solid">Error</span>
+          <span class="ds-badge ds-badge--info ds-badge--solid">Info</span>
+          <span class="ds-badge ds-badge--neutral ds-badge--solid">Neutral</span>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;span class="ds-badge ds-badge--brand ds-badge--solid"&gt;Brand&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--success ds-badge--solid"&gt;Success&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--warning ds-badge--solid"&gt;Warning&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--error ds-badge--solid"&gt;Error&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--info ds-badge--solid"&gt;Info&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--neutral ds-badge--solid"&gt;Neutral&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subtle Variants -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Variantes Subtle</span><span data-lang="en">Subtle Variants</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <span class="ds-badge ds-badge--brand ds-badge--subtle">Brand</span>
+          <span class="ds-badge ds-badge--success ds-badge--subtle">Success</span>
+          <span class="ds-badge ds-badge--warning ds-badge--subtle">Warning</span>
+          <span class="ds-badge ds-badge--error ds-badge--subtle">Error</span>
+          <span class="ds-badge ds-badge--info ds-badge--subtle">Info</span>
+          <span class="ds-badge ds-badge--neutral ds-badge--subtle">Neutral</span>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;span class="ds-badge ds-badge--brand ds-badge--subtle"&gt;Brand&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--success ds-badge--subtle"&gt;Success&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--warning ds-badge--subtle"&gt;Warning&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--error ds-badge--subtle"&gt;Error&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--info ds-badge--subtle"&gt;Info&lt;/span&gt;
+&lt;span class="ds-badge ds-badge--neutral ds-badge--subtle"&gt;Neutral&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-badge ds-badge--success ds-badge--solid">Active</span>
+          <span class="ds-badge ds-badge--info ds-badge--subtle">Beta</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mantenha labels com 1-2 palavras. "New", "Beta", "Active".</span><span data-lang="en">Keep labels to 1-2 words. "New", "Beta", "Active".</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-badge ds-badge--brand ds-badge--solid">This feature is currently in beta testing</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar frases em badges. Devem ser labels curtos, não descricoes.</span><span data-lang="en">Use sentences in badges. They should be short labels, not descriptions.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-badge ds-badge--success ds-badge--solid">Approved</span>
+          <span class="ds-badge ds-badge--error ds-badge--solid">Rejected</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Use cor semantica correspondente ao significado: success para positivo, error para negativo.</span><span data-lang="en">Use semantic color matching meaning: success for positive, error for negative.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <span class="ds-badge ds-badge--error ds-badge--solid">Approved</span>
+          <span class="ds-badge ds-badge--success ds-badge--solid">Rejected</span>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar cor decorativamente ou em contradicao com o significado do label.</span><span data-lang="en">Use color decoratively or in contradiction with the label meaning.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       6. CONTENT GUIDELINES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">1-2 palavras, sentence case</span><span data-lang="en">1-2 words, sentence case</span></td><td>"New", "Beta", "Active"</td></tr>
+        <tr><td><span data-lang="pt">Status: vocabulario consistente</span><span data-lang="en">Status: consistent vocabulary</span></td><td><span data-lang="pt">"Active" / "Inactive" — não "On" / "Off"</span><span data-lang="en">"Active" / "Inactive" — not "On" / "Off"</span></td></tr>
+        <tr><td><span data-lang="pt">Contagens: use numeros, não palavras</span><span data-lang="en">Counts: use numbers, not words</span></td><td><span data-lang="pt">"3" — não "Three"</span><span data-lang="en">"3" — not "Three"</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       7. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Tokens mostrados para a variante brand. Outras variantes de cor seguem o mesmo padrão com seus respectivos grupos de cor.</span><span data-lang="en">Tokens shown for the brand variant. Other color variants follow the same pattern with their respective color groups.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>bg (brand solid)</td><td><code>semantic.brand.background.default</code></td><td><code>--ds-brand-background-default</code></td></tr>
+        <tr><td>text (brand solid)</td><td><code>semantic.brand.content-default</code></td><td><code>--ds-brand-content-default</code></td></tr>
+        <tr><td>bg (brand subtle)</td><td><code>semantic.toned.background.default</code></td><td><code>--ds-toned-background-default</code></td></tr>
+        <tr><td>text (brand subtle)</td><td><code>semantic.toned.content-default</code></td><td><code>--ds-toned-content-default</code></td></tr>
+        <tr><td>padding-x</td><td><code>component.badge.padding-x.default</code></td><td><code>--ds-badge-padding-x-default</code></td></tr>
+        <tr><td>padding-y</td><td><code>component.badge.padding-y.default</code></td><td><code>--ds-badge-padding-y-default</code></td></tr>
+        <tr><td>gap</td><td><code>component.badge.gap.default</code></td><td><code>--ds-badge-gap-default</code></td></tr>
+        <tr><td>border-radius</td><td><code>component.badge.radius.default</code></td><td><code>--ds-badge-radius-default</code></td></tr>
+        <tr><td>border-width</td><td><code>component.badge.border-width.default</code></td><td><code>--ds-badge-border-width-default</code></td></tr>
+        <tr><td>label font-size</td><td><code>component.badge.label.font-size.default</code></td><td><code>--ds-badge-label-font-size-default</code></td></tr>
+        <tr><td>label line-height</td><td><code>component.badge.label.line-height.default</code></td><td><code>--ds-badge-label-line-height-default</code></td></tr>
+        <tr><td>label font-weight</td><td><code>component.badge.label.font-weight.default</code></td><td><code>--ds-badge-label-font-weight-default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       8. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-badge</code></td><td><span data-lang="pt">Classe base do badge</span><span data-lang="en">Base badge class</span></td></tr>
+        <tr><td><code>ds-badge--solid</code></td><td><span data-lang="pt">Estilo preenchido (solid)</span><span data-lang="en">Solid filled style</span></td></tr>
+        <tr><td><code>ds-badge--subtle</code></td><td><span data-lang="pt">Estilo sutil com fundo claro</span><span data-lang="en">Subtle light background style</span></td></tr>
+        <tr><td><code>ds-badge--brand</code></td><td><span data-lang="pt">Variante de cor brand</span><span data-lang="en">Brand color variant</span></td></tr>
+        <tr><td><code>ds-badge--success</code></td><td><span data-lang="pt">Variante de cor success (verde)</span><span data-lang="en">Success/green color variant</span></td></tr>
+        <tr><td><code>ds-badge--warning</code></td><td><span data-lang="pt">Variante de cor warning (amarelo)</span><span data-lang="en">Warning/yellow color variant</span></td></tr>
+        <tr><td><code>ds-badge--error</code></td><td><span data-lang="pt">Variante de cor error (vermelho)</span><span data-lang="en">Error/red color variant</span></td></tr>
+        <tr><td><code>ds-badge--info</code></td><td><span data-lang="pt">Variante de cor info (azul)</span><span data-lang="en">Info/blue color variant</span></td></tr>
+        <tr><td><code>ds-badge--neutral</code></td><td><span data-lang="pt">Variante de cor neutral (cinza)</span><span data-lang="en">Neutral/gray color variant</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       9. KEYBOARD INTERACTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title"><span data-lang="pt">Não interativo</span><span data-lang="en">Not interactive</span></div>
+      <span data-lang="pt">Badges são elementos de exibicao estaticos e não recebem foco de teclado ou interação.</span><span data-lang="en">Badges are static display elements and do not receive keyboard focus or interaction.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       10. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1.4.1 Use of Color (A)</td><td><span data-lang="pt">O texto transmite o significado, não apenas a cor</span><span data-lang="en">Text conveys meaning, not color alone</span></td><td>&#10003;</td></tr>
+        <tr><td>1.4.3 Contrast (AA)</td><td><span data-lang="pt">Todas as combinacoes de cores atendem ao ratio de contraste 4.5:1</span><span data-lang="en">All color combinations meet 4.5:1 contrast ratio</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Nota de acessibilidade</span><span data-lang="en">Accessibility note</span></div>
+      <span data-lang="pt">Badges são indicadores visuais. Sempre garanta que o texto do badge transmita o significado — não dependa apenas da cor. Se um badge comunica status importante, certifique-se de que faz parte do conteúdo de texto acessível, não apenas um ícone ou indicador de cor.</span><span data-lang="en">Badges are visual indicators. Always ensure the badge text itself conveys the meaning — do not rely on color alone. If a badge communicates important status, make sure it is part of the accessible text content, not just an icon or color indicator.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       11. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="alert.html" class="ds-related__link">Alert</a>
+      <a href="button.html" class="ds-related__link">Button</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+/* ==========================================================================
+   Typography utility classes — alinhadas 1:1 com Text Styles do Figma
+   Naming: .ds-text-{category}-{size}
+   Cada utility espelha um Text Style equivalente em Figma:
+     display/2xl..sm  →  .ds-text-display-{2xl..sm}
+     heading/xl..xs   →  .ds-text-heading-{xl..xs}
+     body/lg..xs      →  .ds-text-body-{lg..xs}
+     label/lg, md, xs →  .ds-text-label-{lg, md, xs}
+     overline/md, sm  →  .ds-text-overline-{md, sm}
+     code/md, sm      →  .ds-text-code-{md, sm}
+   Tokens consumidos exclusivamente da camada Semantic (body.*).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Display — Inter Bold, line-height pareado, letter-spacing tight (sm: normal)
+   -------------------------------------------------------------------------- */
+
+.ds-text-display-2xl {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-9xl);       /* 72px */
+  line-height: var(--ds-body-line-height-9xl);   /* 90px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-display-xl {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-8xl);       /* 64px */
+  line-height: var(--ds-body-line-height-8xl);   /* 80px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-display-lg {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-7xl);       /* 56px */
+  line-height: var(--ds-body-line-height-7xl);   /* 72px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-display-md {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-6xl);       /* 48px */
+  line-height: var(--ds-body-line-height-6xl);   /* 64px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-display-sm {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-5xl);       /* 40px */
+  line-height: var(--ds-body-line-height-5xl);   /* 48px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Heading — Inter, xl bold, lg–xs semibold; letter-spacing tight em xl/lg, normal demais
+   -------------------------------------------------------------------------- */
+
+.ds-text-heading-xl {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-4xl);       /* 32px */
+  line-height: var(--ds-body-line-height-4xl);   /* 44px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-heading-lg {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-3xl);       /* 28px */
+  line-height: var(--ds-body-line-height-3xl);   /* 40px */
+  letter-spacing: var(--ds-body-letter-spacing-tight);
+}
+
+.ds-text-heading-md {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-2xl);       /* 24px */
+  line-height: var(--ds-body-line-height-2xl);   /* 34px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-heading-sm {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-xl);        /* 20px */
+  line-height: var(--ds-body-line-height-xl);    /* 32px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-heading-xs {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-lg);        /* 18px */
+  line-height: var(--ds-body-line-height-lg);    /* 28px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Body — Inter Regular, line-height pareado conforme Text Style do Figma
+   (body/lg usa line-height/xl em Figma — não lg)
+   -------------------------------------------------------------------------- */
+
+.ds-text-body-lg {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-lg);        /* 18px */
+  line-height: var(--ds-body-line-height-xl);    /* 32px (Figma body/lg = lh xl) */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-body-md {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-md);        /* 16px */
+  line-height: var(--ds-body-line-height-md);    /* 24px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-body-sm {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-sm);        /* 14px */
+  line-height: var(--ds-body-line-height-sm);    /* 20px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-body-xs {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-xs);        /* 12px */
+  line-height: var(--ds-body-line-height-xs);    /* 18px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Label — Inter Bold (Figma: label/* é Bold). Letter-spacing normal (zero).
+   .ds-text-label-sm removido (Text Style label/sm deletado em Figma)
+   -------------------------------------------------------------------------- */
+
+.ds-text-label-lg {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-md);        /* 16px */
+  line-height: var(--ds-body-line-height-md);    /* 24px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-label-md {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-sm);        /* 14px */
+  line-height: var(--ds-body-line-height-sm);    /* 20px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+/* label-xs: Figma label/xs = 12px (Bump de 11→12 nesta migração) */
+.ds-text-label-xs {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-bold);
+  font-size: var(--ds-body-font-size-xs);        /* 12px */
+  line-height: var(--ds-body-line-height-xs);    /* 18px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Overline — Inter Semibold, letter-spacing wider (1.5px), uppercase
+   .ds-text-overline-sm bump de 11→12 (alinhando com Figma overline/sm)
+   -------------------------------------------------------------------------- */
+
+.ds-text-overline-md {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-sm);        /* 14px */
+  line-height: var(--ds-body-line-height-sm);    /* 20px */
+  letter-spacing: var(--ds-body-letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+.ds-text-overline-sm {
+  font-family: var(--ds-body-font-family-sans);
+  font-weight: var(--ds-body-font-weight-semibold);
+  font-size: var(--ds-body-font-size-xs);        /* 12px */
+  line-height: var(--ds-body-line-height-xs);    /* 18px */
+  letter-spacing: var(--ds-body-letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Code — DM Mono Regular
+   .ds-text-caption-{md,sm} removidos (Text Styles caption/* deletados em Figma)
+   -------------------------------------------------------------------------- */
+
+.ds-text-code-md {
+  font-family: var(--ds-body-font-family-mono);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-sm);        /* 14px */
+  line-height: var(--ds-body-line-height-md);    /* 24px (Figma code/md = lh md) */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}
+
+.ds-text-code-sm {
+  font-family: var(--ds-body-font-family-mono);
+  font-weight: var(--ds-body-font-weight-regular);
+  font-size: var(--ds-body-font-size-sm);        /* 14px (Figma code/sm = sm igual code/md, só lh diferente) */
+  line-height: var(--ds-body-line-height-sm);    /* 20px */
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+}

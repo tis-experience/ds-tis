@@ -1,0 +1,80 @@
+{
+  "component": {
+    "divider": {
+      "line": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.border.overlay.default}",
+            "$description": "Cor da linha do Divider."
+          }
+        },
+        "thickness": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Espessura da linha do Divider."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Raio da linha do Divider."
+          }
+        }
+      },
+      "inset": {
+        "padding-x": {
+          "hairline": {
+            "$type": "dimension",
+            "$value": "{semantic.space.hairline}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-x.hairline."
+          },
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-x.sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-x.md."
+          },
+          "xs": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-x.xs."
+          },
+          "2xs": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-x.2xs."
+          }
+        },
+        "padding-y": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-y.sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-y.md."
+          },
+          "xs": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-y.xs."
+          },
+          "2xs": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.divider.inset.padding-y.2xs."
+          }
+        }
+      }
+    }
+  }
+}

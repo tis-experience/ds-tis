@@ -1,0 +1,157 @@
+{
+  "component": {
+    "card": {
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.lg}",
+          "$description": "Radius do Card."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width do Card quando stroke está ativo."
+        }
+      },
+      "container": {
+        "padding": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Padding interno do container de conteúdo do Card."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Gap vertical entre header, body e footer no container de conteúdo do Card."
+          }
+        }
+      },
+      "header": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap vertical do header Card."
+          }
+        }
+      },
+      "body": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do body Card."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do body Card."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight do body Card."
+          }
+        },
+        "color": {
+          "default": {
+            "$value": "{semantic.content.default}",
+            "$type": "color"
+          }
+        }
+      },
+      "footer": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap interno do footer slot do Card."
+          }
+        }
+      },
+      "title": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xl}",
+            "$description": "Font-size do title Card."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xl}",
+            "$description": "Line-height do title Card."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.semibold}",
+            "$description": "Font-weight do title Card."
+          }
+        },
+        "color": {
+          "default": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          }
+        }
+      },
+      "subtitle": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do subtitle Card."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do subtitle Card."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight do subtitle Card."
+          }
+        },
+        "color": {
+          "default": {
+            "$value": "{semantic.content.default}",
+            "$type": "color"
+          }
+        }
+      },
+      "bg": {
+        "default": {
+          "$value": "{semantic.surface.default}",
+          "$type": "color"
+        },
+        "elevated": {
+          "$value": "{semantic.surface.raised}",
+          "$type": "color"
+        }
+      },
+      "border-color": {
+        "outlined": {
+          "$value": "{semantic.border.default}",
+          "$type": "color"
+        }
+      }
+    }
+  }
+}

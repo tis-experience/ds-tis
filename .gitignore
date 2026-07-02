@@ -1,0 +1,28 @@
+node_modules/
+
+# Variáveis de ambiente locais (nunca commitar)
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Configurações locais de agentes IA
+.claude/settings.local.json
+.gemini/settings.json
+.codex/config.toml
+
+# Figma snapshot gerado via MCP (sync Figma → JSON)
+.figma-snapshot.json
+.figma-snapshot.*.json
+figma-snapshot.json
+
+# Dumps de revert de ações pontuais em Figma (issue #24.x)
+.figma-revert-*.json
+.figma-revert-*.mjs
+
+# Visual regression — baseline é versionado, mas actual e diff não
+tests/visual/actual/
+tests/visual/diff/

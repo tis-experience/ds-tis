@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Input</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Campos de texto permitem que usuários insiram e editem texto. Usa um padrão de wrapper com um elemento de campo interno para estilização consistente.</span><span data-lang="en">Text inputs allow users to enter and edit text. Uses a wrapper pattern with an inner field element for consistent styling.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use quando</span><span data-lang="en">Use when</span></div>
+      <span data-lang="pt">O usuário precisa inserir um valor de texto curto, de uma única linha: nome, email, telefone, URL, consulta de busca, senha.</span><span data-lang="en">The user needs to enter a short, single-line text value: name, email, phone, URL, search query, password.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use quando</span><span data-lang="en">Don't use when</span></div>
+      <span data-lang="pt">A entrada esperada é multilinha (use Textarea), o usuário deve escolher de um conjunto fixo de opções (use Select, Checkbox ou Radio), ou o valor é binário liga/desliga (use Toggle).</span><span data-lang="en">The expected input is multi-line (use Textarea), the user must pick from a fixed set of options (use Select, Checkbox, or Radio), or the value is binary on/off (use Toggle).</span>
+    </div>
+
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Situação</span><span data-lang="en">Situation</span></th><th><span data-lang="pt">Use em vez disso</span><span data-lang="en">Use instead</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Texto multilinha</span><span data-lang="en">Multi-line text</span></td><td>Textarea</td></tr>
+        <tr><td><span data-lang="pt">Escolher de uma lista</span><span data-lang="en">Choosing from a list</span></td><td>Select</td></tr>
+        <tr><td><span data-lang="pt">Sim/não ou liga/desliga</span><span data-lang="en">Yes/no or on/off</span></td><td>Toggle ou Checkbox</td></tr>
+        <tr><td><span data-lang="pt">Busca com autocomplete</span><span data-lang="en">Searching with autocomplete</span></td><td><span data-lang="pt">Componente de busca customizado (futuro)</span><span data-lang="en">Custom search component (future)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="display:inline-flex;flex-direction:column;gap:var(--ds-dimension-4);min-width:300px;">
+
+        <!-- 4: Label -->
+        <div style="position:relative;" inert>
+          <label class="ds-field__label">Email<span class="ds-field__required">*</span></label>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">4</span>
+        </div>
+
+        <!-- 1: Wrapper · 2: Icon · 3: Field -->
+        <div style="position:relative;" inert>
+          <div class="ds-input ds-input--error">
+            <i data-lucide="mail" class="ds-input__icon ds-icon"></i>
+            <input type="text" class="ds-input__field" value="invalid" aria-invalid="true">
+          </div>
+          <!-- 1: Wrapper top center -->
+          <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+          <!-- 2: Icon top-left -->
+          <span style="position:absolute;top:-28px;left:11px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:-48px;left:2px;">2</span>
+          <!-- 3: Field top-right -->
+          <span style="position:absolute;top:-28px;right:11px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:-48px;right:2px;">3</span>
+        </div>
+
+        <!-- 5: Error -->
+        <div class="ds-field--error" style="position:relative;display:flex;align-items:flex-start;height:18px;" inert>
+          <span class="ds-field__error">Please enter a valid email.</span>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">5</span>
+        </div>
+
+        <!-- 6: Helper -->
+        <div style="position:relative;display:flex;align-items:flex-start;height:18px;" inert>
+          <span class="ds-field__helper">We'll never share your email.</span>
+          <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">6</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt">
+        <strong>1</strong> Wrapper (<code>.ds-input</code>) — container com borda, radius, background, padding e gap.<br>
+        <strong>2</strong> Ícone (opcional, <code>.ds-input__icon</code>) — frame 24px; ícone 16/20/24px em sm/md/lg.<br>
+        <strong>3</strong> Campo (<code>.ds-input__field</code>) — o elemento nativo <code>&lt;input&gt;</code>.<br>
+        <strong>4</strong> Label (<code>.ds-field__label</code>) — externo, via Form Field.<br>
+        <strong>5</strong> Mensagem de erro (<code>.ds-field__error</code>) — externa, via Form Field.<br>
+        <strong>6</strong> Texto auxiliar (<code>.ds-field__helper</code>) — externo, via Form Field.
+      </span>
+      <span data-lang="en">
+        <strong>1</strong> Wrapper (<code>.ds-input</code>) — container with border, radius, background, padding and gap.<br>
+        <strong>2</strong> Icon (optional, <code>.ds-input__icon</code>) — 24px frame; 16/20/24px ícone in sm/md/lg.<br>
+        <strong>3</strong> Field (<code>.ds-input__field</code>) — the native <code>&lt;input&gt;</code> element.<br>
+        <strong>4</strong> Label (<code>.ds-field__label</code>) — external, via Form Field.<br>
+        <strong>5</strong> Error message (<code>.ds-field__error</code>) — external, via Form Field.<br>
+        <strong>6</strong> Helper text (<code>.ds-field__helper</code>) — external, via Form Field.
+      </span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. DEFAULT (live preview)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-input">
+            <input type="text" class="ds-input__field" placeholder="Enter text...">
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-input"&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Enter text..."&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. SIZES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-input ds-input--sm">
+            <input type="text" class="ds-input__field" placeholder="Small (32px)">
+          </div>
+          <div class="ds-input ds-input--md">
+            <input type="text" class="ds-input__field" placeholder="Medium (40px)">
+          </div>
+          <div class="ds-input ds-input--lg">
+            <input type="text" class="ds-input__field" placeholder="Large (48px)">
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-input ds-input--sm"&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Small (32px)"&gt;
+&lt;/div&gt;
+
+&lt;div class="ds-input ds-input--md"&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Medium (40px)"&gt;
+&lt;/div&gt;
+
+&lt;div class="ds-input ds-input--lg"&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Large (48px)"&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       6. WITH ICON
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Com ícone</span><span data-lang="en">With Icon</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-input">
+            <i data-lucide="search" class="ds-input__icon ds-icon"></i>
+            <input type="text" class="ds-input__field" placeholder="Leading icon">
+          </div>
+          <div class="ds-input">
+            <input type="text" class="ds-input__field" placeholder="Trailing icon">
+            <i data-lucide="eye" class="ds-input__icon ds-icon"></i>
+          </div>
+          <div class="ds-input">
+            <i data-lucide="mail" class="ds-input__icon ds-icon"></i>
+            <input type="text" class="ds-input__field" placeholder="Both sides">
+            <i data-lucide="x" class="ds-input__icon ds-icon"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;!-- Leading icon --&gt;
+&lt;div class="ds-input"&gt;
+  &lt;i data-lucide="search" class="ds-input__icon ds-icon"&gt;&lt;/i&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Leading icon"&gt;
+&lt;/div&gt;
+
+&lt;!-- Trailing icon --&gt;
+&lt;div class="ds-input"&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Trailing icon"&gt;
+  &lt;i data-lucide="eye" class="ds-input__icon ds-icon"&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;!-- Both sides --&gt;
+&lt;div class="ds-input"&gt;
+  &lt;i data-lucide="mail" class="ds-input__icon ds-icon"&gt;&lt;/i&gt;
+  &lt;input type="text" class="ds-input__field" placeholder="Both sides"&gt;
+  &lt;i data-lucide="x" class="ds-input__icon ds-icon"&gt;&lt;/i&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       7. STATES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">No Figma, <code>State</code> representa apenas estados visuais exclusivos: <code>Default</code>, <code>Hover</code>, <code>Focus</code> e <code>Disabled</code>. <code>Filled</code>, <code>Error</code> e <code>Read-only</code> são propriedades separadas; <code>Error</code> combina com Default/Hover/Focus, e <code>Read-only</code> combina com Default/Focus.</span><span data-lang="en">In Figma, <code>State</code> only represents exclusive visual states: <code>Default</code>, <code>Hover</code>, <code>Focus</code>, and <code>Disabled</code>. <code>Filled</code>, <code>Error</code>, and <code>Read-only</code> are separate properties; <code>Error</code> combines with Default/Hover/Focus, and <code>Read-only</code> combines with Default/Focus.</span>
+    </p>
+
+    <h3>Error</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-field ds-field--error">
+            <label class="ds-field__label" for="state-error-input">Email address</label>
+            <div class="ds-input ds-input--error">
+              <input type="email" class="ds-input__field" id="state-error-input" value="invalid-email" aria-invalid="true" aria-describedby="state-error-msg">
+            </div>
+            <span class="ds-field__error" id="state-error-msg">Please enter a valid email address.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field ds-field--error"&gt;
+  &lt;label class="ds-field__label" for="email"&gt;Email address&lt;/label&gt;
+  &lt;div class="ds-input ds-input--error"&gt;
+    &lt;input type="email" class="ds-input__field" id="email"
+           value="invalid-email" aria-invalid="true"
+           aria-describedby="email-error"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__error" id="email-error"&gt;Please enter a valid email address.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3>Disabled</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-input">
+            <input type="text" class="ds-input__field" aria-label="Disabled input example" value="Disabled input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-input"&gt;
+  &lt;input type="text" class="ds-input__field" value="Disabled input" disabled&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <h3>Readonly</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-input">
+            <input type="text" class="ds-input__field" aria-label="Read-only input example" value="Read-only value" readonly>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-input"&gt;
+  &lt;input type="text" class="ds-input__field" value="Read-only value" readonly&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <table class="ds-token-table" style="margin-top:var(--ds-dimension-16)">
+      <thead><tr><th>Figma property</th><th>Value / CSS trigger</th><th>Visual change</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>State</td><td>Default</td><td>Neutral surface and border</td><td><code>component.field.bg.default</code>, <code>component.field.border-color.default</code></td></tr>
+        <tr><td>State</td><td>Hover / <code>:hover</code></td><td>Darker border</td><td><code>component.field.border-color.hover</code></td></tr>
+        <tr><td>State</td><td>Focus / <code>:focus-within</code></td><td>2px outline ring, component radius</td><td><code>component.field.border-color.focus</code>, <code>component.focus-ring.*</code>, <code>component.input.focus-ring.radius.default</code></td></tr>
+        <tr><td>State</td><td>Disabled / <code>[disabled]</code> or <code>.ds-input--disabled</code></td><td>Muted bg, border and content</td><td><code>component.field.bg.disabled</code>, <code>component.field.value.color.disabled</code></td></tr>
+        <tr><td>Error</td><td>True / <code>.ds-input--error</code> or <code>.ds-field--error .ds-input</code></td><td>Red border and error focus ring</td><td><code>component.field.border-color.error</code>, <code>component.focus-ring.color.error</code></td></tr>
+        <tr><td>Error + State</td><td>True + Hover / <code>.ds-input--error:hover</code></td><td>Darker red border</td><td><code>component.field.border-color.error-hover</code></td></tr>
+        <tr><td>Read-only</td><td>True / <code>[readonly]</code> or <code>.ds-input--readonly</code></td><td>Readonly bg with neutral focus ring</td><td><code>component.field.bg.readonly</code>, <code>component.focus-ring.color.readonly</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       8. WITH FORM FIELD
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Com Form Field</span><span data-lang="en">With Form Field</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-field">
+            <label class="ds-field__label" for="demo-name">Full name</label>
+            <div class="ds-input">
+              <input type="text" class="ds-input__field" id="demo-name" placeholder="John Doe">
+            </div>
+            <span class="ds-field__helper">Enter your first and last name.</span>
+          </div>
+
+          <div class="ds-field ds-field--error">
+            <label class="ds-field__label" for="demo-email">Email<span class="ds-field__required">*</span></label>
+            <div class="ds-input">
+              <input type="email" class="ds-input__field" id="demo-email" value="invalid" aria-invalid="true" aria-describedby="email-error">
+            </div>
+            <span class="ds-field__error" id="email-error">Please enter a valid email address.</span>
+            <span class="ds-field__helper">We'll never share your email.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;label class="ds-field__label" for="name"&gt;Full name&lt;/label&gt;
+  &lt;div class="ds-input"&gt;
+    &lt;input type="text" class="ds-input__field" id="name" placeholder="John Doe"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__helper"&gt;Enter your first and last name.&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="ds-field ds-field--error"&gt;
+  &lt;label class="ds-field__label" for="email"&gt;Email&lt;span class="ds-field__required"&gt;*&lt;/span&gt;&lt;/label&gt;
+  &lt;div class="ds-input"&gt;
+    &lt;input type="email" class="ds-input__field" id="email" aria-invalid="true" aria-describedby="email-error"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__error" id="email-error"&gt;Please enter a valid email address.&lt;/span&gt;
+  &lt;span class="ds-field__helper"&gt;We'll never share your email.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       9. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;">
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-name-do">Full name</label>
+            <div class="ds-input">
+              <input type="text" class="ds-input__field" id="dodont-name-do" placeholder="John Doe">
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Sempre use dentro de um wrapper Form Field com um label visível.</span><span data-lang="en">Always use inside a Form Field wrapper with a visible label.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;">
+          <div class="ds-input">
+            <input type="text" class="ds-input__field" placeholder="Enter your full name">
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar placeholder como único label — ele desaparece quando o usuário começa a digitar.</span><span data-lang="en">Use a placeholder as the only label — it disappears when the user starts typing.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;gap:var(--ds-dimension-16);">
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-email-do">Email address</label>
+            <div class="ds-input" style="width:100%;">
+              <input type="email" class="ds-input__field" id="dodont-email-do" placeholder="john@example.com">
+            </div>
+          </div>
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-zip-do">Zip code</label>
+            <div class="ds-input" style="max-width:120px;">
+              <input type="text" class="ds-input__field" id="dodont-zip-do" placeholder="12345">
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Ajuste o tamanho do input ao comprimento esperado do conteúdo. Use largura total para emails, larguras menores para CEPs.</span><span data-lang="en">Match the input size to the expected content length. Use full-width for emails, shorter widths for zip codes.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;gap:var(--ds-dimension-16);">
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-email-dont">Email address</label>
+            <div class="ds-input">
+              <input type="email" class="ds-input__field" id="dodont-email-dont" placeholder="john@example.com">
+            </div>
+          </div>
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-zip-dont">Zip code</label>
+            <div class="ds-input">
+              <input type="text" class="ds-input__field" id="dodont-zip-dont" placeholder="12345">
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Usar todos os inputs com a mesma largura independente do conteúdo.</span><span data-lang="en">Make all inputs the same width regardless of content.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;">
+          <div class="ds-field ds-field--error">
+            <label class="ds-field__label" for="dodont-err-do">Email<span class="ds-field__required">*</span></label>
+            <div class="ds-input ds-input--error">
+              <input type="email" class="ds-input__field" id="dodont-err-do" value="" aria-invalid="true" aria-describedby="dodont-err-do-msg">
+            </div>
+            <span class="ds-field__error" id="dodont-err-do-msg">Email is required. Enter a valid email address.</span>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mostre o estado de erro com <code>ds-input--error</code> E <code>ds-field--error</code>, com <code>aria-invalid="true"</code> e uma mensagem de erro clara.</span><span data-lang="en">Show error state with <code>ds-input--error</code> AND <code>ds-field--error</code>, with <code>aria-invalid="true"</code> and a clear error message.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;">
+          <div class="ds-field">
+            <label class="ds-field__label" for="dodont-err-dont">Email<span class="ds-field__required">*</span></label>
+            <div class="ds-input ds-input--error">
+              <input type="email" class="ds-input__field" id="dodont-err-dont" value="">
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mostrar estilização de erro sem uma mensagem de erro — o usuário precisa saber o que deu errado.</span><span data-lang="en">Show error styling without an error message — the user needs to know what went wrong.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       10. CONTENT GUIDELINES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">O texto do placeholder deve ser um valor de exemplo, não uma instrução</span><span data-lang="en">Placeholder text should be an example value, not an instruction</span></td><td><span data-lang="pt">"john@example.com" — não "Enter your email"</span><span data-lang="en">"john@example.com" — not "Enter your email"</span></td></tr>
+        <tr><td><span data-lang="pt">Labels devem ter 1-3 palavras, substantivo ou frase nominal</span><span data-lang="en">Labels should be 1-3 words, noun or noun phrase</span></td><td>"Email address", "Phone number"</td></tr>
+        <tr><td><span data-lang="pt">Texto auxiliar é opcional, use para dicas de formato</span><span data-lang="en">Helper text is optional, use for format hints</span></td><td><span data-lang="pt">"Deve ter pelo menos 8 caracteres"</span><span data-lang="en">"Must be at least 8 characters"</span></td></tr>
+        <tr><td><span data-lang="pt">Mensagens de erro devem dizer o que deu errado E como corrigir</span><span data-lang="en">Error messages should say what went wrong AND how to fix it</span></td><td><span data-lang="pt">"Email é obrigatório. Insira um endereço de email válido."</span><span data-lang="en">"Email is required. Enter a valid email address."</span></td></tr>
+        <tr><td><span data-lang="pt">Campos obrigatórios: adicione indicador de obrigatório ao label</span><span data-lang="en">Required fields: add required indicator to the label</span></td><td><code>&lt;span class="ds-field__required"&gt;*&lt;/span&gt;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       11. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Tokens consumidos pelo componente Input em seus estados.</span><span data-lang="en">Tokens consumed by the Input component across its states.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>bg (default/disabled/error/filled/focus/readonly)</td><td><code>component.field.bg.*</code></td><td><code>--ds-field-bg-*</code></td></tr>
+        <tr><td>border-color (default/hover/focus/error/filled/disabled/readonly)</td><td><code>component.field.border-color.*</code></td><td><code>--ds-field-border-color-*</code></td></tr>
+        <tr><td>border-width</td><td><code>component.field.border-width</code></td><td><code>--ds-field-border-width</code></td></tr>
+        <tr><td>border-radius</td><td><code>component.field.radius</code></td><td><code>--ds-field-radius</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.focus-ring.*</code> + <code>component.input.focus-ring.radius.default</code></td><td><code>--ds-focus-ring-*</code> + <code>--ds-input-focus-ring-radius-default</code></td></tr>
+        <tr><td>content color</td><td><code>component.field.value.color.{default,disabled,readonly}</code></td><td><code>--ds-field-value-color-*</code></td></tr>
+        <tr><td>placeholder color</td><td><code>component.field.placeholder.color.{default,disabled}</code></td><td><code>--ds-field-placeholder-color-*</code></td></tr>
+        <tr><td>icon color</td><td><code>component.input.icon.color.{default,disabled}</code></td><td><code>--ds-input-icon-color-*</code></td></tr>
+        <tr><td>height (sm/md/lg)</td><td><code>component.input.height.{sm,md,lg}</code></td><td><code>--ds-input-height-*</code></td></tr>
+        <tr><td>padding-x (sm/md/lg)</td><td><code>component.input.padding-x.{sm,md,lg}</code></td><td><code>--ds-input-padding-x-*</code></td></tr>
+        <tr><td>padding-y (sm/md/lg)</td><td><code>component.field.padding-y.{sm,md,lg}</code></td><td><code>--ds-field-padding-y-*</code></td></tr>
+        <tr><td>gap (sm/md/lg)</td><td><code>component.input.gap.{sm,md,lg}</code></td><td><code>--ds-input-gap-*</code></td></tr>
+        <tr><td>text-frame padding-x</td><td><code>component.input.text-frame.padding-x.default</code></td><td><code>--ds-input-text-frame-padding-x-default</code></td></tr>
+        <tr><td>icon</td><td><code>component.input.icon.{color,size,stroke-width}.{sm,md,lg}</code> + <code>component.input.icon-frame.padding-x.default</code></td><td><code>--ds-input-icon-*</code>, <code>--ds-input-icon-frame-padding-x-default</code></td></tr>
+        <tr><td>text typography</td><td><code>component.input.text.{font-family,font-size,font-weight,letter-spacing,line-height}.*</code></td><td><code>--ds-input-text-*</code></td></tr>
+        <tr><td>label typography/color</td><td><code>component.form-field.label.*</code></td><td><code>--ds-form-field-label-*</code></td></tr>
+        <tr><td>required typography/color</td><td><code>component.form-field.required.*</code></td><td><code>--ds-form-field-required-*</code></td></tr>
+        <tr><td>helper typography/color</td><td><code>component.form-field.helper.*</code></td><td><code>--ds-form-field-helper-*</code></td></tr>
+        <tr><td>stack/label-row gap</td><td><code>component.form-field.stack.gap.default</code>, <code>component.form-field.label-row.gap.default</code></td><td><code>--ds-form-field-stack-gap-default</code>, <code>--ds-form-field-label-row-gap-default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       12. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead>
+        <tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>ds-input</code></td><td><span data-lang="pt">Elemento wrapper do input</span><span data-lang="en">Wrapper element for the input</span></td></tr>
+        <tr><td><code>ds-input__field</code></td><td><span data-lang="pt">O elemento nativo <code>&lt;input&gt;</code></span><span data-lang="en">The native <code>&lt;input&gt;</code> element</span></td></tr>
+        <tr><td><code>ds-input__icon</code></td><td><span data-lang="pt">Ícone à esquerda dentro do wrapper</span><span data-lang="en">Leading icon inside the wrapper</span></td></tr>
+        <tr><td><code>ds-input--sm</code></td><td><span data-lang="pt">Tamanho pequeno (altura 32px)</span><span data-lang="en">Small size (32px height)</span></td></tr>
+        <tr><td><code>ds-input--md</code></td><td><span data-lang="pt">Tamanho médio (altura 40px, padrão)</span><span data-lang="en">Medium size (40px height, default)</span></td></tr>
+        <tr><td><code>ds-input--lg</code></td><td><span data-lang="pt">Tamanho grande (altura 48px)</span><span data-lang="en">Large size (48px height)</span></td></tr>
+        <tr><td><code>ds-input--error</code></td><td><span data-lang="pt">Estado de erro com borda vermelha</span><span data-lang="en">Error state with red border</span></td></tr>
+        <tr><td><code>ds-input--disabled</code></td><td><span data-lang="pt">Estado desabilitado (ou use o nativo <code>disabled</code>)</span><span data-lang="en">Disabled state (or use native <code>disabled</code>)</span></td></tr>
+        <tr><td><code>ds-input--readonly</code></td><td><span data-lang="pt">Estado somente leitura (ou use o nativo <code>readonly</code>)</span><span data-lang="en">Readonly state (or use native <code>readonly</code>)</span></td></tr>
+        <tr><td><code>ds-field</code></td><td><span data-lang="pt">Wrapper de campo de formulário com label, auxiliar e erro</span><span data-lang="en">Form field wrapper with label, helper, and error</span></td></tr>
+        <tr><td><code>ds-field__label</code></td><td><span data-lang="pt">Label do campo</span><span data-lang="en">Field label</span></td></tr>
+        <tr><td><code>ds-field__helper</code></td><td><span data-lang="pt">Texto auxiliar abaixo do input</span><span data-lang="en">Helper text below the input</span></td></tr>
+        <tr><td><code>ds-field__error</code></td><td><span data-lang="pt">Linha de erro com ícone automático e mensagem (exibida quando <code>ds-field--error</code> está definido)</span><span data-lang="en">Error row with automatic icon and message (shown when <code>ds-field--error</code> is set)</span></td></tr>
+        <tr><td><code>ds-field--error</code></td><td><span data-lang="pt">Estado de erro no wrapper do campo</span><span data-lang="en">Error state on the field wrapper</span></td></tr>
+        <tr><td><code>ds-field__label-row</code></td><td><span data-lang="pt">Linha horizontal com label e asterisco de obrigatório</span><span data-lang="en">Horizontal row with label and required asterisk</span></td></tr>
+        <tr><td><code>ds-field__required</code></td><td><span data-lang="pt">Asterisco <code>*</code> em feedback/error/content/default (decorativo, aria-hidden)</span><span data-lang="en">Asterisk <code>*</code> in feedback/error/content/default (decorative, aria-hidden)</span></td></tr>
+        <tr><td><code>ds-field--no-label</code></td><td><span data-lang="pt">Oculta o label row quando Show Label = false</span><span data-lang="en">Hides the label row when Show Label = false</span></td></tr>
+        <tr><td><code>ds-field--no-helper</code></td><td><span data-lang="pt">Oculta o helper text quando Show Helper Text = false</span><span data-lang="en">Hides helper text when Show Helper Text = false</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       12b. FIGMA PROPERTIES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Propriedades Figma</span><span data-lang="en">Figma properties</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Show Label</code></td><td>Boolean</td><td><code>true</code></td><td><span data-lang="pt">Exibe ou oculta o label row (incluindo asterisco de obrigatório)</span><span data-lang="en">Shows or hides the label row (including required asterisk)</span></td></tr>
+        <tr><td><code>Label</code></td><td>Text</td><td>"Rótulo"</td><td><span data-lang="pt">Texto do label (label/md)</span><span data-lang="en">Label text (label/md)</span></td></tr>
+        <tr><td><code>Required</code></td><td>Boolean</td><td><code>false</code></td><td><span data-lang="pt">Exibe o asterisco <code>*</code> em feedback/error/content/default ao lado do label</span><span data-lang="en">Shows <code>*</code> in feedback/error/content/default next to the label</span></td></tr>
+        <tr><td><code>Show Helper Text</code></td><td>Boolean</td><td><code>true</code></td><td><span data-lang="pt">Exibe ou oculta o texto auxiliar abaixo do controle</span><span data-lang="en">Shows or hides the helper text below the control</span></td></tr>
+        <tr><td><code>Helper Text</code></td><td>Text</td><td>"Texto auxiliar"</td><td><span data-lang="pt">Anotação em caption/sm (content/secondary)</span><span data-lang="en">Caption/sm annotation (content/secondary)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       13. KEYBOARD INTERACTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td><span data-lang="pt">Move o foco para dentro / fora do input</span><span data-lang="en">Moves focus into / out of the input</span></td></tr>
+        <tr><td><span data-lang="pt">Qualquer caractere</span><span data-lang="en">Any character</span></td><td><span data-lang="pt">Digita no campo</span><span data-lang="en">Types into the field</span></td></tr>
+        <tr><td><code>Escape</code></td><td><span data-lang="pt">Remove o foco (padrão do navegador)</span><span data-lang="en">Clears focus (browser default)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       14. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td><span data-lang="pt">Label associado via <code>for</code>/<code>id</code></span><span data-lang="en">Label associated via <code>for</code>/<code>id</code></span></td><td>&#10003;</td></tr>
+        <tr><td>1.3.5 Identify Input Purpose (AA)</td><td><span data-lang="pt">Use o atributo <code>autocomplete</code> para campos de dados pessoais</span><span data-lang="en">Use <code>autocomplete</code> attribute for personal data fields</span></td><td>&#10003; (when implemented)</td></tr>
+        <tr><td>2.4.11 Focus Appearance (AA)</td><td><span data-lang="pt">Focus ring 2px + offset de 2px</span><span data-lang="en">Focus ring 2px + 2px offset</span></td><td>&#10003;</td></tr>
+        <tr><td>3.3.1 Error Identification (A)</td><td><span data-lang="pt">Estado de erro + mensagem via <code>aria-invalid</code> + <code>aria-describedby</code></span><span data-lang="en">Error state + message via <code>aria-invalid</code> + <code>aria-describedby</code></span></td><td>&#10003;</td></tr>
+        <tr><td>3.3.2 Labels or Instructions (A)</td><td><span data-lang="pt">Label visível sempre presente</span><span data-lang="en">Visible label always present</span></td><td>&#10003;</td></tr>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><span data-lang="pt">O <code>&lt;input&gt;</code> nativo fornece o role</span><span data-lang="en">Native <code>&lt;input&gt;</code> provides role</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Resumo de atributos ARIA</span><span data-lang="en">ARIA attributes summary</span></div>
+      <span data-lang="pt"><code>for</code> / <code>id</code> — sempre associe <code>&lt;label&gt;</code> com <code>&lt;input&gt;</code> usando atributos correspondentes.<br>
+      <code>aria-invalid="true"</code> — definido no input nativo quando em estado de erro.<br>
+      <code>aria-describedby</code> — vincule o input ao ID do elemento de mensagem de erro para que leitores de tela anunciem o erro.<br>
+      <code>autocomplete</code> — use valores apropriados (<code>name</code>, <code>email</code>, <code>tel</code>, etc.) para campos de dados pessoais.</span><span data-lang="en"><code>for</code> / <code>id</code> — always pair <code>&lt;label&gt;</code> with <code>&lt;input&gt;</code> using matching attributes.<br>
+      <code>aria-invalid="true"</code> — set on the native input when in error state.<br>
+      <code>aria-describedby</code> — link the input to the error message element ID so screen readers announce the error.<br>
+      <code>autocomplete</code> — use appropriate values (<code>name</code>, <code>email</code>, <code>tel</code>, etc.) for personal data fields.</span>
+    </div>
+
+    <div class="ds-callout ds-callout--warning" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Required e label invisível</span><span data-lang="en">Required and invisible label</span></div>
+      <span data-lang="pt">Quando <code>Required = true</code>, adicione <code>aria-required="true"</code> no <code>&lt;input&gt;</code> — o asterisco visual (<code>.ds-field__required</code>) é decorativo (<code>aria-hidden="true"</code>). Quando <code>Show Label = false</code>, use <code>aria-label</code> no <code>&lt;input&gt;</code>. O Helper Text deve ser vinculado via <code>aria-describedby</code>.</span><span data-lang="en">When <code>Required = true</code>, add <code>aria-required="true"</code> to the <code>&lt;input&gt;</code> — the visual asterisk (<code>.ds-field__required</code>) is decorative (<code>aria-hidden="true"</code>). When <code>Show Label = false</code>, use <code>aria-label</code> on the <code>&lt;input&gt;</code>. Helper Text should be linked via <code>aria-describedby</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       15. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="textarea.html" class="ds-related__link">Textarea</a>
+      <a href="select.html" class="ds-related__link">Select</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "name": "ds-tis",
+  "version": "1.0.0-beta.5",
+  "description": "White-label CSS design system with DTCG tokens, component contracts, and light/dark mode",
+  "main": "css/design-system.css",
+  "style": "css/design-system.css",
+  "files": [
+    "css/"
+  ],
+  "keywords": [
+    "design-system",
+    "css",
+    "tokens",
+    "white-label",
+    "dark-mode"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build:tokens": "node build-tokens.mjs",
+    "sync:docs": "node scripts/sync-docs.mjs",
+    "verify:tokens": "node scripts/tokens-verify.mjs",
+    "build:api": "node scripts/build-api.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "build:llms": "node scripts/build-llms.mjs",
+    "build:all": "npm run build:tokens && npm run build:icons && npm run sync:docs && npm run build:api && npm run build:llms && npm run verify:tokens && npm test",
+    "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-a11y.mjs",
+    "test:self": "node scripts/test-self.mjs",
+    "test:a11y": "node scripts/test-a11y.mjs",
+    "test:visual": "node scripts/test-visual.mjs",
+    "test:visual:update": "node scripts/test-visual.mjs --update",
+    "sync:tokens-from-figma": "node scripts/sync-tokens-from-figma.mjs",
+    "sync:tokens-from-figma:write": "node scripts/sync-tokens-from-figma.mjs --write",
+    "build:registry": "node scripts/build-token-registry.mjs",
+    "build:registry:init": "node scripts/build-token-registry.mjs --init",
+    "verify:registry": "node scripts/build-token-registry.mjs --check",
+    "security:check": "node scripts/security-check.mjs",
+    "figma:plugin:check": "node --check figma-plugin/snapshot-exporter/code.js",
+    "verify:figma-structure": "node scripts/verify-figma-structure.mjs",
+    "audit:component-tokens": "node scripts/verify-figma-structure.mjs --strict-unused",
+    "agent:preflight": "node scripts/agent-preflight.mjs",
+    "verify:agent-docs": "node scripts/verify-agent-docs.mjs",
+    "agents:create-run": "node scripts/agents/create-run.mjs",
+    "agents:validate-run": "node scripts/agents/validate-run.mjs",
+    "agents:next-step": "node scripts/agents/next-step.mjs",
+    "agents:gate": "node scripts/agents/gate.mjs",
+    "agents:validate-matrix": "node scripts/agents/validate-matrix.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.2",
+    "@tokens-studio/sd-transforms": "^2.0.3",
+    "lucide": "^1.18.0",
+    "marked": "^18.0.2",
+    "pixelmatch": "^7.1.0",
+    "playwright": "^1.59.1",
+    "pngjs": "^7.0.0",
+    "style-dictionary": "^5.4.0"
+  }
+}

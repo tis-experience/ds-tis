@@ -1,0 +1,398 @@
+/* ==========================================================================
+   Select – .ds-select — aligned with Figma specs
+   Sizes: sm=32px, md=40px, lg=48px
+   ========================================================================== */
+
+/* Wrapper
+   ========================================================================== */
+
+.ds-select {
+  --select-padding-x: var(--ds-select-padding-x-md);
+  --select-padding-y: var(--ds-field-padding-y-md);
+  --select-gap: var(--ds-select-gap-md);
+  --select-chevron-frame-size: var(--ds-select-chevron-size-md);
+  --select-icon-frame-size: var(--ds-select-icon-size-md);
+  --select-border-width: var(--ds-field-border-width);
+  --select-field-leading-size: 0px;
+  --select-field-leading-gap: 0px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ds-select-gap-md);
+  height: var(--ds-select-height-md);
+  padding: var(--ds-field-padding-y-md) var(--ds-select-padding-x-md);
+  border: var(--ds-field-border-width) solid var(--ds-field-border-color-default);
+  border-radius: var(--ds-field-radius);
+  background: var(--ds-field-bg-default);
+  color: var(--ds-field-value-color-default);
+  font-family: var(--ds-select-text-font-family-default);
+  font-size: var(--ds-select-text-font-size-md);
+  font-weight: var(--ds-select-text-font-weight-default);
+  letter-spacing: var(--ds-select-text-letter-spacing-default);
+  line-height: var(--ds-select-text-line-height-md);
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Sizes
+   ========================================================================== */
+
+.ds-select,
+.ds-select--md {
+  height: var(--ds-select-height-md);
+  gap: var(--ds-select-gap-md);
+  padding: var(--ds-field-padding-y-md) var(--ds-select-padding-x-md);
+  font-size: var(--ds-select-text-font-size-md);
+  line-height: var(--ds-select-text-line-height-md);
+}
+
+.ds-select--sm {
+  --select-padding-x: var(--ds-select-padding-x-sm);
+  --select-padding-y: var(--ds-field-padding-y-sm);
+  --select-gap: var(--ds-select-gap-sm);
+  --select-chevron-frame-size: var(--ds-select-chevron-size-sm);
+  --select-icon-frame-size: var(--ds-select-icon-size-sm);
+
+  height: var(--ds-select-height-sm);
+  gap: var(--ds-select-gap-sm);
+  padding: var(--ds-field-padding-y-sm) var(--ds-select-padding-x-sm);
+  font-size: var(--ds-select-text-font-size-sm);
+  line-height: var(--ds-select-text-line-height-sm);
+}
+
+.ds-select--lg {
+  --select-padding-x: var(--ds-select-padding-x-lg);
+  --select-padding-y: var(--ds-field-padding-y-lg);
+  --select-gap: var(--ds-select-gap-lg);
+  --select-chevron-frame-size: var(--ds-select-chevron-size-lg);
+  --select-icon-frame-size: var(--ds-select-icon-size-lg);
+
+  height: var(--ds-select-height-lg);
+  gap: var(--ds-select-gap-lg);
+  padding: var(--ds-field-padding-y-lg) var(--ds-select-padding-x-lg);
+  font-size: var(--ds-select-text-font-size-lg);
+  line-height: var(--ds-select-text-line-height-lg);
+}
+
+/* Field (native select)
+   ========================================================================== */
+
+.ds-select__field {
+  flex: 1;
+  align-self: stretch;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--ds-field-value-color-default);
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  min-width: 0;
+  margin-top: calc(-1 * (var(--select-padding-y) + var(--select-border-width)));
+  margin-bottom: calc(-1 * (var(--select-padding-y) + var(--select-border-width)));
+  margin-left: calc(
+    -1 * (
+      var(--select-padding-x) +
+      var(--select-border-width) +
+      var(--select-field-leading-size) +
+      var(--select-field-leading-gap)
+    )
+  );
+  margin-right: calc(-1 * (var(--select-padding-x) + var(--select-border-width)));
+  padding-left: calc(
+    var(--select-padding-x) +
+    var(--select-border-width) +
+    var(--select-field-leading-size) +
+    var(--select-field-leading-gap) +
+    var(--ds-select-text-frame-padding-x-default)
+  );
+  padding-right: calc(
+    var(--select-padding-x) +
+    var(--select-border-width) +
+    var(--select-chevron-frame-size) +
+    var(--ds-select-chevron-frame-padding-x-default) +
+    var(--ds-select-chevron-frame-padding-x-default) +
+    var(--select-gap) +
+    var(--ds-select-text-frame-padding-x-default)
+  );
+}
+
+.ds-select:has(.ds-select__icon) {
+  --select-field-leading-size: calc(
+    var(--select-icon-frame-size) +
+    var(--ds-select-icon-frame-padding-x-default) +
+    var(--ds-select-icon-frame-padding-x-default)
+  );
+  --select-field-leading-gap: var(--select-gap);
+}
+
+.ds-select__field:invalid,
+.ds-select__field option:disabled[value=""],
+.ds-select__field option[value=""] {
+  color: var(--ds-field-placeholder-color-default);
+}
+
+.ds-select:has(.ds-select__field option:checked[value=""]) .ds-select__field {
+  color: var(--ds-field-placeholder-color-default);
+}
+
+.ds-select--disabled:has(.ds-select__field option:checked[value=""]) .ds-select__field,
+.ds-select:has(.ds-select__field:disabled option:checked[value=""]) .ds-select__field {
+  color: var(--ds-field-placeholder-color-disabled);
+}
+
+/* Chevron indicator
+   ========================================================================== */
+
+.ds-select__arrow {
+  --select-chevron-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  position: absolute;
+  right: var(--ds-select-padding-x-md);
+  top: 50%;
+  box-sizing: content-box;
+  width: var(--ds-select-chevron-size-md);
+  height: var(--ds-select-chevron-size-md);
+  padding-left: var(--ds-select-chevron-frame-padding-x-default);
+  padding-right: var(--ds-select-chevron-frame-padding-x-default);
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ds-select-chevron-color-default);
+  line-height: 1;
+  background-color: currentColor;
+  -webkit-mask: var(--select-chevron-mask) center / var(--ds-select-chevron-size-md) var(--ds-select-chevron-size-md) no-repeat;
+  mask: var(--select-chevron-mask) center / var(--ds-select-chevron-size-md) var(--ds-select-chevron-size-md) no-repeat;
+}
+
+.ds-select--sm .ds-select__arrow {
+  right: var(--ds-select-padding-x-sm);
+  width: var(--ds-select-chevron-size-sm);
+  height: var(--ds-select-chevron-size-sm);
+  -webkit-mask-size: var(--ds-select-chevron-size-sm) var(--ds-select-chevron-size-sm);
+  mask-size: var(--ds-select-chevron-size-sm) var(--ds-select-chevron-size-sm);
+}
+
+.ds-select--lg .ds-select__arrow {
+  right: var(--ds-select-padding-x-lg);
+  width: var(--ds-select-chevron-size-lg);
+  height: var(--ds-select-chevron-size-lg);
+  -webkit-mask-size: var(--ds-select-chevron-size-lg) var(--ds-select-chevron-size-lg);
+  mask-size: var(--ds-select-chevron-size-lg) var(--ds-select-chevron-size-lg);
+}
+
+/* Icon
+   ========================================================================== */
+
+.ds-select__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  width: var(--ds-select-icon-size-md);
+  height: var(--ds-select-icon-size-md);
+  padding-left: var(--ds-select-icon-frame-padding-x-default);
+  padding-right: var(--ds-select-icon-frame-padding-x-default);
+  color: var(--ds-select-icon-color-default);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ds-select-icon-stroke-width-md);
+  font-size: var(--ds-select-icon-size-md);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.ds-select--sm .ds-select__icon {
+  width: var(--ds-select-icon-size-sm);
+  height: var(--ds-select-icon-size-sm);
+  font-size: var(--ds-select-icon-size-sm);
+  stroke-width: var(--ds-select-icon-stroke-width-sm);
+}
+
+.ds-select--lg .ds-select__icon {
+  width: var(--ds-select-icon-size-lg);
+  height: var(--ds-select-icon-size-lg);
+  font-size: var(--ds-select-icon-size-lg);
+  stroke-width: var(--ds-select-icon-stroke-width-lg);
+}
+
+/* States
+   ========================================================================== */
+
+/* Hover */
+.ds-select:hover:not(.ds-select--disabled):not(:focus-within) {
+  border-color: var(--ds-field-border-color-hover);
+}
+
+/* Focused */
+.ds-select:focus-within {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-focus);
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Filled */
+.ds-select--filled {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-filled);
+}
+
+.ds-select--filled .ds-select__field {
+  color: var(--ds-field-value-color-default);
+}
+
+/* Error */
+.ds-select--error,
+.ds-field--error .ds-select {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error);
+}
+
+.ds-select--error:hover:not(.ds-select--disabled):not(:focus-within),
+.ds-field--error .ds-select:hover:not(.ds-select--disabled):not(:focus-within) {
+  background: var(--ds-field-bg-default);
+  border-color: var(--ds-field-border-color-error-hover);
+}
+
+.ds-select--error .ds-select__field,
+.ds-select--error .ds-select__field:invalid,
+.ds-field--error .ds-select .ds-select__field,
+.ds-field--error .ds-select .ds-select__field:invalid {
+  color: var(--ds-field-value-color-default);
+}
+
+.ds-select--error:focus-within,
+.ds-field--error .ds-select:focus-within {
+  border-color: var(--ds-field-border-color-error);
+  outline-color: var(--ds-focus-ring-color-error);
+}
+
+/* Disabled */
+.ds-select--disabled,
+.ds-select:has(.ds-select__field:disabled) {
+  background: var(--ds-field-bg-disabled);
+  border-color: var(--ds-field-border-color-disabled);
+  color: var(--ds-field-value-color-disabled);
+  pointer-events: none;
+}
+
+.ds-select--disabled .ds-select__field,
+.ds-select__field:disabled {
+  color: var(--ds-field-value-color-disabled);
+  opacity: 1;
+}
+
+.ds-select--disabled .ds-select__field:invalid,
+.ds-select__field:disabled:invalid {
+  color: var(--ds-field-placeholder-color-disabled);
+}
+
+.ds-select--disabled .ds-select__arrow,
+.ds-select:has(.ds-select__field:disabled) .ds-select__arrow {
+  color: var(--ds-select-chevron-color-disabled);
+}
+
+.ds-select--disabled .ds-select__icon,
+.ds-select:has(.ds-select__field:disabled) .ds-select__icon {
+  color: var(--ds-select-icon-color-disabled);
+}
+
+/* Readonly */
+.ds-select--readonly {
+  background: var(--ds-field-bg-readonly);
+  border-color: var(--ds-field-border-color-readonly);
+}
+
+.ds-select--readonly .ds-select__field {
+  color: var(--ds-field-value-color-readonly);
+}
+
+.ds-select--readonly:focus-within {
+  background: var(--ds-field-bg-readonly);
+  border-color: var(--ds-field-border-color-readonly);
+  outline-color: var(--ds-focus-ring-color-readonly);
+}
+
+/* Composed field anatomy
+   ========================================================================== */
+
+.ds-field:has(.ds-select) {
+  gap: var(--ds-form-field-stack-gap-default);
+}
+
+.ds-field:has(.ds-select) .ds-field__label-row {
+  gap: var(--ds-form-field-label-row-gap-default);
+}
+
+.ds-field:has(.ds-select) .ds-field__label {
+  color: var(--ds-form-field-label-color-default);
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-form-field-label-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+  line-height: var(--ds-form-field-label-line-height-default);
+}
+
+.ds-field:has(.ds-select--sm) .ds-field__label {
+  font-size: var(--ds-form-field-label-font-size-default);
+  line-height: var(--ds-form-field-label-line-height-default);
+}
+
+.ds-field:has(.ds-select--lg) .ds-field__label {
+  font-size: var(--ds-form-field-label-font-size-default);
+  line-height: var(--ds-form-field-label-line-height-default);
+}
+
+.ds-field:has(.ds-select) .ds-field__required {
+  color: var(--ds-form-field-required-color-default);
+  font-family: var(--ds-form-field-required-font-family-default);
+  font-size: var(--ds-form-field-required-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+  line-height: var(--ds-form-field-required-line-height-default);
+}
+
+.ds-field:has(.ds-select) .ds-field__helper {
+  color: var(--ds-form-field-helper-color-default);
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  letter-spacing: var(--ds-body-letter-spacing-normal);
+  line-height: var(--ds-body-line-height-xs);
+}
+
+.ds-field:has(.ds-select--sm) .ds-field__helper {
+  font-size: var(--ds-body-font-size-xs);
+  line-height: var(--ds-body-line-height-xs);
+}
+
+.ds-field:has(.ds-select--lg) .ds-field__helper {
+  font-size: var(--ds-body-font-size-xs);
+  line-height: var(--ds-body-line-height-xs);
+}
+
+.ds-field--error:has(.ds-select) .ds-field__label {
+  color: var(--ds-form-field-label-color-default);
+}
+
+.ds-field:has(.ds-select--disabled) .ds-field__helper,
+.ds-field:has(.ds-select__field:disabled) .ds-field__helper {
+  color: var(--ds-form-field-helper-color-disabled);
+}
+
+/* ---------------------------------------------------------
+   Error message styling lives em form-field.css.
+   Compor Select dentro de .ds-field pra usar o pattern composto.
+   --------------------------------------------------------- */
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-select { transition: none; }
+}

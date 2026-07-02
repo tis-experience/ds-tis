@@ -1,0 +1,20 @@
+/* ============================================================
+   COMPONENT: Divider
+   ============================================================ */
+
+/* Horizontal divider (default) — Figma: fill border/subtle, radius/md */
+.ds-divider {
+  border: none;
+  height: var(--ds-divider-line-thickness-default);
+  width: 100%;
+  background-color: var(--ds-divider-line-color-default);
+  border-radius: var(--ds-divider-line-radius-default);
+  margin: var(--ds-space-md) 0;
+}
+
+/* Vertical divider */
+.ds-divider--vertical {
+  width: var(--ds-divider-line-thickness-default);
+  height: 100%;
+  margin: 0 var(--ds-space-md);
+}

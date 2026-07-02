@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-016 — — Tokens sem equivalência no Figma (CSS-only) — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-016 — — Tokens sem equivalência no Figma (CSS-only)</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceito</strong> · Data: 2026-04-30</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceito</li>
+<li><strong>Data:</strong> 2026-04-30</li>
+<li><strong>Relaciona:</strong> ADR-003 (Figma como fonte de verdade), ADR-013 (2-layer architecture)</li>
+</ul>
+<h2>Contexto</h2>
+<p>ADR-003 define Figma Variables como fonte de verdade de <strong>valores de token</strong>, com JSON consolidando o que vive no Figma e CSS sendo derivado. A regra operacional consequente — &quot;nunca editar <code>tokens/*.json</code> à mão; alterações vêm do Figma&quot; — assume que toda categoria de token tem representação nativa em Figma Variables.</p>
+<p><strong>Nem toda categoria tem.</strong> Há propriedades CSS que o Figma não expressa como Variable:</p>
+<table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Equivalência Figma</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>color</code>, <code>dimension</code>, <code>radius</code>, <code>opacity</code>, <code>border-width</code>, <code>typography</code></td>
+<td>Variables nativas</td>
+<td>Figma é fonte de verdade</td>
+</tr>
+<tr>
+<td><code>shadow</code></td>
+<td><strong>Effect Styles</strong> (não Variables) — Figma trata sombra como style composto, não como variável bindável</td>
+<td>Dupla fonte: Effect Style para preview visual, JSON para CSS</td>
+</tr>
+<tr>
+<td><code>motion</code> (<code>duration</code>, <code>ease</code>)</td>
+<td>Nenhuma — Smart Animate é runtime, não token</td>
+<td><strong>JSON é fonte de verdade</strong></td>
+</tr>
+<tr>
+<td><code>z-index</code></td>
+<td>Nenhuma — Figma usa ordem de camada, não z-index numérico</td>
+<td><strong>JSON é fonte de verdade</strong></td>
+</tr>
+</tbody></table>
+<p>Forçar essas categorias para o Figma é cargo culting da regra: cria Variables que ninguém binda a nada, polui pickers, e desvia a edição da fonte real (CSS de componente que consome).</p>
+<p>A regra &quot;Figma é fonte de verdade&quot; deveria ter sido escrita &quot;<strong>Figma é fonte de verdade para propriedades que Figma sabe representar nativamente</strong>&quot;. Esta ADR codifica essa qualificação.</p>
+<h2>Decisão</h2>
+<h3>Categorias CSS-only (JSON canônico)</h3>
+<p>As seguintes categorias <strong>vivem só em JSON</strong> (<code>tokens/foundation/*.json</code>, <code>tokens/semantic/*.json</code>) e CSS gerado. Não existem como Figma Variables. Edição direta no JSON é permitida e esperada:</p>
+<ul>
+<li><strong><code>motion.*</code></strong> — <code>foundation.duration.{fast,normal,slow}</code>, <code>foundation.ease.{default,...}</code>, e qualquer alias semantic correspondente</li>
+<li><strong><code>z.*</code></strong> — <code>foundation.z.{0,10,20,30,40,50}</code>, <code>semantic.z.{tooltip,modal,...}</code></li>
+<li><strong><code>shadow.*</code></strong> (parcial) — <code>foundation.shadow.{sm,md,lg,xl,2xl}</code> é canônico no JSON. O Figma mantém <code>elevation/1..4</code> como Effect Styles para preview visual e composição em mockups, mas a fonte da CSS é o JSON. Quando os dois divergem, JSON ganha; Effect Styles são atualizados manualmente para refletir.</li>
+</ul>
+<h3>Categorias Figma-canônicas (regra padrão)</h3>
+<p>Para todas as demais categorias — <code>color</code>, <code>dimension</code>, <code>radius</code>, <code>opacity</code>, <code>border-width</code>, <code>typography</code>, <code>space</code>, <code>size</code>, <code>surface</code>, <code>background</code>, <code>content</code>, <code>border</code>, etc. — <strong>vale a regra padrão de ADR-003</strong>: Figma é fonte de verdade, JSON espelha via sync, edição direta no JSON é proibida.</p>
+<h3>Enforcement</h3>
+<ul>
+<li><code>npm run sync:tokens-from-figma</code> ignora categorias CSS-only ao comparar Figma vs JSON. Não reporta <code>MISSING_IN_FIGMA</code> para tokens em <code>motion.*</code>, <code>z.*</code>, <code>shadow.*</code>.</li>
+<li><code>npm run verify:tokens</code> valida normalmente: tokens CSS-only ainda precisam de <code>$type</code>, <code>$value</code>, alias chain válida, paridade light/dark.</li>
+<li>Adicionar uma nova categoria à lista CSS-only <strong>exige nova ADR ou amendment a esta</strong>. A presunção continua sendo &quot;Figma é fonte&quot;; a exceção precisa ser justificada.</li>
+</ul>
+<h3>Critério para adicionar categoria à lista</h3>
+<p>Uma categoria é CSS-only quando atende <strong>um dos dois</strong>:</p>
+<ol>
+<li><strong>Nenhuma representação Figma</strong>: a propriedade CSS não tem conceito equivalente em Figma (z-index, transition timing).</li>
+<li><strong>Representação Figma não-bindável</strong>: a propriedade existe em Figma mas como style composto não-variável (shadow → Effect Style). Nesse caso, JSON é canônico para CSS; o objeto Figma é mantido manualmente para preview.</li>
+</ol>
+<p>Categorias que têm Variable Figma — mesmo se subutilizadas hoje — <strong>não</strong> entram na lista. Elas são débito de adoção, não exceção arquitetural.</p>
+<h2>Consequências</h2>
+<ul>
+<li><strong>Designers</strong> podem ignorar Variables do Figma para motion/z-index/shadow. Quando um componente Figma precisar mostrar shadow, usa Effect Style local (<code>elevation/1..4</code>) — não há Variable a bindar.</li>
+<li><strong>Devs/IAs</strong> podem editar <code>tokens/foundation/{motion,z-index,shadows}.json</code> e <code>tokens/semantic/*.json</code> (entradas em <code>motion.*</code>, <code>z.*</code>, <code>shadow.*</code>) diretamente, rodar <code>npm run build:tokens</code>, commitar. Não exige passagem pelo Figma.</li>
+<li><strong>Sync Figma → JSON</strong> continua sendo o caminho para todas as outras categorias. A lista CSS-only é uma exceção pequena e bem delimitada.</li>
+<li><strong>Drift histórico</strong>: as paletas Foundation <code>blue/purple/cyan/emerald/indigo</code> (55 vars no JSON, 0 consumers no Figma) <strong>não</strong> entram na lista. Elas são débito de remoção, não CSS-only — categoria <code>color</code> tem representação Figma plena.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>(a) Forçar todas as categorias para o Figma</h3>
+<p>Descartada. Criar Variables sem uso real polui o sistema, força designers a navegar por categorias irrelevantes, e ainda assim não resolve shadow (que conceitualmente é Effect Style).</p>
+<h3>(b) Mover essas categorias para arquivo separado fora de <code>tokens/</code></h3>
+<p>Descartada. JSON DTCG é o formato canônico do design system inteiro; criar segundo formato/local fragmenta o pipeline. Style Dictionary, registry, llms.txt, todos esperam encontrar em <code>tokens/</code>.</p>
+<h3>(c) Implementar shadow como Variables no Figma via composição</h3>
+<p>Descartada. Figma Variables não suportam composição shadow nativamente. Workarounds (variable por offset/blur/spread) são frágeis e quebram preview ao publicar library.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-003-fontes-verdade.md">ADR-003</a> — Figma como fonte de valor (regra geral, agora qualificada).</li>
+<li><a href="./ADR-013-camadas-de-consumo-de-tokens.md">ADR-013</a> — arquitetura 2-layer (Foundation → Semantic).</li>
+<li><code>tokens/foundation/{motion,shadows,z-index}.json</code> — categorias cobertas por esta ADR.</li>
+<li><code>docs/system-principles.md</code> — princípio &quot;Hierarquia de verdade&quot; atualizado para refletir esta exceção.</li>
+<li><code>CLAUDE.md</code> — regra operacional de edição de JSON atualizada.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

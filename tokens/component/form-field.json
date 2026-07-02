@@ -1,0 +1,192 @@
+{
+  "component": {
+    "form-field": {
+      "gap": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Gap vertical entre label, controle, helper e erro no Form Field."
+        }
+      },
+      "label-row": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Gap horizontal entre label e indicador required no Form Field."
+          }
+        }
+      },
+      "label": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}",
+            "$description": "Cor default do label Form Field."
+          },
+          "disabled": {
+            "$value": "{semantic.content.disabled}",
+            "$type": "color"
+          },
+          "readonly": {
+            "$value": "{semantic.content.default}",
+            "$type": "color"
+          }
+        },
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do label Form Field."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do label Form Field."
+          }
+        },
+        "font-family": {
+          "default": {
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$type": "string"
+          }
+        }
+      },
+      "required": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.feedback.error.content-default}",
+            "$description": "Cor do indicador required Form Field."
+          }
+        },
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do indicador required Form Field."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do indicador required Form Field."
+          }
+        },
+        "font-family": {
+          "default": {
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$type": "string"
+          }
+        }
+      },
+      "helper": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Cor do helper text Form Field."
+          },
+          "disabled": {
+            "$value": "{semantic.content.disabled}",
+            "$type": "color"
+          }
+        }
+      },
+      "error": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.feedback.error.content-default}",
+            "$description": "Cor da mensagem de erro Form Field."
+          }
+        },
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xs}",
+            "$description": "Font-size da mensagem de erro Form Field."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xs}",
+            "$description": "Line-height da mensagem de erro Form Field."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight da mensagem de erro Form Field."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap horizontal entre ícone e texto da mensagem de erro Form Field."
+          }
+        },
+        "padding-top": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Padding superior do container Error Message no Form Field."
+          }
+        },
+        "icon": {
+          "color": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.error}",
+              "$description": "Cor do ícone da mensagem de erro Form Field."
+            }
+          },
+          "size": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.size.xs}",
+              "$description": "Tamanho do ícone da mensagem de erro Form Field."
+            }
+          },
+          "stroke-width": {
+            "default": {
+              "$value": "{semantic.icon.stroke-width.strong.16}",
+              "$type": "dimension"
+            }
+          }
+        },
+        "icon-frame": {
+          "padding-x": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.space.2xs}",
+              "$description": "Padding horizontal do frame externo do ícone da mensagem de erro Form Field."
+            }
+          }
+        }
+      },
+      "stack": {
+        "gap": {
+          "default": {
+            "$value": "{semantic.space.xs}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "description": {
+        "color": {
+          "default": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

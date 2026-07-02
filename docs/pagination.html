@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagination — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title">Pagination</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Controle de navegação entre páginas de um dataset. Indica a posição atual e permite ir para páginas anterior, seguinte ou específicas.</span><span data-lang="en">Navigation control for moving between pages of a dataset. Indicates the current position and lets users go to the previous, next, or a specific page.</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use pagination quando</span><span data-lang="en">Use pagination when</span></div>
+      <span data-lang="pt">Listas ou tabelas com muitos itens, resultados de busca paginados ou qualquer dataset onde o usuário precisa navegar entre subconjuntos discretos de conteúdo.</span><span data-lang="en">Lists or tables with many items, paginated search results, or any dataset where users need to move between discrete content subsets.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use pagination quando</span><span data-lang="en">Don't use pagination when</span></div>
+      <span data-lang="pt">A navegação é hierárquica (use Breadcrumb), alterna seções (use Tabs), segue um fluxo sequencial (use stepper) ou o dataset é pequeno demais para paginar.</span><span data-lang="en">Navigation is hierarchical (use Breadcrumb), switches sections (use Tabs), follows a sequential flow (use a stepper), or the dataset is too small to paginate.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:64px;">
+      <nav class="ds-pagination" aria-label="Pagination" inert>
+        <ul class="ds-pagination__list">
+          <li class="ds-pagination__item">
+            <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page" disabled tabindex="-1"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+          </li>
+          <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1" tabindex="-1">1</a></li>
+          <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+          <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
+          <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10" tabindex="-1">10</a></li>
+          <li class="ds-pagination__item">
+            <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page" tabindex="-1"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="ds-anatomy-legend">
+      <strong>1</strong> <span data-lang="pt"><code>&lt;nav aria-label="Pagination"&gt;</code> — landmark de navegação.</span><span data-lang="en"><code>&lt;nav aria-label="Pagination"&gt;</code> — navigation landmark.</span><br>
+      <strong>2</strong> <span data-lang="pt"><code>.ds-pagination__list</code> — lista <code>&lt;ul&gt;</code> de controles.</span><span data-lang="en"><code>.ds-pagination__list</code> — <code>&lt;ul&gt;</code> list of controls.</span><br>
+      <strong>3</strong> <span data-lang="pt">Prev/Next — Button Ghost Icon Only.</span><span data-lang="en">Prev/Next — Ghost Icon Only Button.</span><br>
+      <strong>4</strong> <span data-lang="pt"><code>.ds-pagination__page</code> — link para página numerada.</span><span data-lang="en"><code>.ds-pagination__page</code> — link to a numbered page.</span><br>
+      <strong>5</strong> <span data-lang="pt"><code>.ds-pagination__page--current</code> — página ativa com <code>aria-current="page"</code>.</span><span data-lang="en"><code>.ds-pagination__page--current</code> — active page with <code>aria-current="page"</code>.</span><br>
+      <strong>6</strong> <span data-lang="pt"><code>.ds-pagination__ellipsis</code> — indicador não interativo.</span><span data-lang="en"><code>.ds-pagination__ellipsis</code> — non-interactive indicator.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">10 páginas com ellipsis e página 5 ativa. Prev/Next sempre visíveis; desabilitados nos limites.</span><span data-lang="en">10 pages with ellipsis and page 5 active. Prev/Next always visible; disabled at boundaries.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <nav class="ds-pagination" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1">1</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 4">4</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 6">6</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10">10</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;nav class="ds-pagination" aria-label="Pagination"&gt;
+  &lt;ul class="ds-pagination__list"&gt;...&lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Small — primeira página</h3>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Prev desabilitado na página 1.</span><span data-lang="en">Prev disabled on page 1.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <nav class="ds-pagination ds-pagination--sm" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only ds-button--sm" aria-label="Previous page" disabled><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 1">1</span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 2">2</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 3">3</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only ds-button--sm" aria-label="Next page"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;nav class="ds-pagination ds-pagination--sm"&gt;...&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Medium — padrão</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <nav class="ds-pagination" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1">1</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 4">4</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 6">6</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10">10</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;nav class="ds-pagination"&gt;...&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Large — última página</h3>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Next desabilitado na última página.</span><span data-lang="en">Next disabled on the last page.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <nav class="ds-pagination ds-pagination--lg" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only ds-button--lg" aria-label="Previous page"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 18">18</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 19">19</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 20">20</span></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only ds-button--lg" aria-label="Next page" disabled><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;nav class="ds-pagination ds-pagination--lg"&gt;...&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <table class="ds-token-table" style="margin-top:var(--ds-dimension-16)">
+      <thead><tr><th>Size</th><th>Height</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>Small (<code>--sm</code>)</td><td>32px</td><td><code>component.pagination.page.height.sm</code></td></tr>
+        <tr><td>Medium (default)</td><td>40px</td><td><code>component.pagination.page.height.md</code></td></tr>
+        <tr><td>Large (<code>--lg</code>)</td><td>48px</td><td><code>component.pagination.page.height.lg</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview"><nav class="ds-pagination" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1">1</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 4">4</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 6">6</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10">10</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav></div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Mantenha Prev/Next sempre visíveis; desabilite nos limites em vez de ocultar.</span><span data-lang="en">Keep Prev/Next always visible; disable at boundaries instead of hiding.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview"><nav class="ds-pagination" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1">1</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 2">2</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 3">3</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 4">4</a></li>
+            <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 6">6</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 7">7</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 8">8</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 9">9</a></li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10">10</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav></div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não liste todas as páginas quando há muitas — use ellipsis.</span><span data-lang="en">Don't list every page when there are many — use ellipsis.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Labels de página com número</span><span data-lang="en">Page labels use numbers</span></td><td><code>aria-label="Page 5"</code> — not "Fifth page"</td></tr>
+        <tr><td><span data-lang="pt">Prev/Next descritivos em icon-only</span><span data-lang="en">Descriptive Prev/Next for icon-only</span></td><td><code>aria-label="Previous page"</code> / <code>"Next page"</code></td></tr>
+        <tr><td><span data-lang="pt">Ellipsis não interativo</span><span data-lang="en">Ellipsis is non-interactive</span></td><td><code>aria-hidden="true"</code> no ellipsis — não use link</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>gap</td><td><code>component.pagination.gap.default</code></td><td><code>--ds-pagination-gap-default</code></td></tr>
+        <tr><td>page height</td><td><code>component.pagination.page.height.{sm|md|lg}</code></td><td><code>--ds-pagination-page-height-*</code></td></tr>
+        <tr><td>page min-width</td><td><code>component.pagination.page.min-width.*</code></td><td><code>--ds-pagination-page-min-width-*</code></td></tr>
+        <tr><td>current bg</td><td><code>component.pagination.page.bg.current</code></td><td><code>--ds-pagination-page-bg-current</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.focus-ring.*</code></td><td><code>--ds-focus-ring-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-pagination</code></td><td><span data-lang="pt">Container (<code>&lt;nav&gt;</code>); size md por padrão</span><span data-lang="en">Container (<code>&lt;nav&gt;</code>); md size by default</span></td></tr>
+        <tr><td><code>ds-pagination--sm</code> / <code>--lg</code></td><td><span data-lang="pt">Escala 32px / 48px</span><span data-lang="en">32px / 48px scale</span></td></tr>
+        <tr><td><code>ds-pagination__list</code></td><td><span data-lang="pt">Lista <code>&lt;ul&gt;</code> de itens</span><span data-lang="en"><code>&lt;ul&gt;</code> list of items</span></td></tr>
+        <tr><td><code>ds-pagination__page</code></td><td><span data-lang="pt">Link ou texto de página numerada</span><span data-lang="en">Numbered page link or text</span></td></tr>
+        <tr><td><code>ds-pagination__page--current</code></td><td><span data-lang="pt">Página ativa (brand fill, bold)</span><span data-lang="en">Active page (brand fill, bold)</span></td></tr>
+        <tr><td><code>ds-pagination__ellipsis</code></td><td><span data-lang="pt">Ellipsis não interativo</span><span data-lang="en">Non-interactive ellipsis</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td><span data-lang="pt">Move o foco entre Prev, links de página e Next</span><span data-lang="en">Moves focus between Prev, page links, and Next</span></td></tr>
+        <tr><td><code>Enter</code> / <code>Space</code></td><td><span data-lang="pt">Ativa o controle focado</span><span data-lang="en">Activates the focused control</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td><code>&lt;nav aria-label="Pagination"&gt;</code> + lista <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code></td><td>&#10003;</td></tr>
+        <tr><td>2.4.4 Link Purpose (A)</td><td><code>aria-label</code> descritivo em cada página e em Prev/Next icon-only</td><td>&#10003;</td></tr>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><code>aria-current="page"</code> na página ativa; <code>disabled</code> nos limites</td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="breadcrumb.html" class="ds-related__link">Breadcrumb</a>
+      <a href="tabs.html" class="ds-related__link">Tabs</a>
+      <a href="button.html" class="ds-related__link">Button</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

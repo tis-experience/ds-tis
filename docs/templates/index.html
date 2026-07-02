@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+  <style>
+    .ds-template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--ds-dimension-20);
+    }
+    .ds-template-card {
+      border: var(--ds-border-width-1) solid var(--ds-border-default);
+      border-radius: var(--ds-radius-8);
+      background: var(--ds-surface-default);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ds-template-card__body {
+      padding: var(--ds-dimension-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-dimension-8);
+      flex: 1;
+    }
+    .ds-template-card__title {
+      font-size: var(--ds-font-size-16);
+      font-weight: var(--ds-font-weight-semibold);
+      color: var(--ds-content-strong);
+      margin: 0;
+    }
+    .ds-template-card__desc {
+      font-size: var(--ds-font-size-14);
+      color: var(--ds-content-default);
+      margin: 0;
+      line-height: var(--ds-line-height-relaxed);
+    }
+    .ds-template-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ds-dimension-4);
+    }
+    .ds-template-card__cta {
+      margin-top: auto;
+      padding-top: var(--ds-dimension-12);
+      display: flex;
+      gap: var(--ds-dimension-8);
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Galeria de Templates</span><span data-lang="en">Template Gallery</span></h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Páginas completas construídas exclusivamente com componentes e tokens do Design System Core. Copie, adapte e implemente em minutos.</span>
+      <span data-lang="en">Complete pages built exclusively with Design System Core components and tokens. Copy, adapt, and ship in minutes.</span>
+    </p>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title"><span data-lang="pt">Como usar</span><span data-lang="en">How to use</span></div>
+      <span data-lang="pt">Cada template é uma página HTML autocontida que importa apenas <code>css/design-system.css</code>. Abra a aba <strong>Código</strong> em qualquer template, copie o HTML e hospede com os assets do DS.</span>
+      <span data-lang="en">Each template is a self-contained HTML page that only imports <code>css/design-system.css</code>. Open the <strong>Code</strong> tab in any template, copy the HTML, and host it with the DS assets.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-template-grid">
+
+      <!-- Login -->
+      <div class="ds-template-card">
+        <div class="ds-template-card__body">
+          <h3 class="ds-template-card__title"><span data-lang="pt">Login</span><span data-lang="en">Login</span></h3>
+          <p class="ds-template-card__desc">
+            <span data-lang="pt">Autenticação com email e senha, link de recuperação e acesso ao cadastro.</span>
+            <span data-lang="en">Email and password authentication with recovery link and sign-up access.</span>
+          </p>
+          <div class="ds-template-card__tags">
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Button</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Form Field</span>
+          </div>
+          <div class="ds-template-card__cta">
+            <a class="ds-button ds-button--brand ds-button--sm" href="login.html" style="display:inline-flex"><span class="ds-button__label"><span data-lang="pt">Documentação</span><span data-lang="en">Documentation</span></span></a>
+            <button class="ds-button ds-button--ghost ds-button--sm" onclick="openTemplate('login.html')" style="display:inline-flex;gap:var(--ds-dimension-6);cursor:pointer"><span class="ds-button__label"><span data-lang="pt">Template</span><span data-lang="en">Template</span></span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sign Up -->
+      <div class="ds-template-card">
+        <div class="ds-template-card__body">
+          <h3 class="ds-template-card__title"><span data-lang="pt">Cadastro</span><span data-lang="en">Sign Up</span></h3>
+          <p class="ds-template-card__desc">
+            <span data-lang="pt">Criação de conta com validação em linha, aceite de termos e feedback de erro.</span>
+            <span data-lang="en">Account creation with inline validation, terms acceptance, and error feedback.</span>
+          </p>
+          <div class="ds-template-card__tags">
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Select</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Checkbox</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Alert</span>
+          </div>
+          <div class="ds-template-card__cta">
+            <a class="ds-button ds-button--brand ds-button--sm" href="signup.html" style="display:inline-flex"><span class="ds-button__label"><span data-lang="pt">Documentação</span><span data-lang="en">Documentation</span></span></a>
+            <button class="ds-button ds-button--ghost ds-button--sm" onclick="openTemplate('signup.html')" style="display:inline-flex;gap:var(--ds-dimension-6);cursor:pointer"><span class="ds-button__label"><span data-lang="pt">Template</span><span data-lang="en">Template</span></span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="ds-template-card">
+        <div class="ds-template-card__body">
+          <h3 class="ds-template-card__title">Dashboard</h3>
+          <p class="ds-template-card__desc">
+            <span data-lang="pt">Painel com métricas, abas de conteúdo e estado de carregamento com Skeleton.</span>
+            <span data-lang="en">Panel with metrics, content tabs, and Skeleton loading state.</span>
+          </p>
+          <div class="ds-template-card__tags">
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Card</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Tabs</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Badge</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Skeleton</span>
+          </div>
+          <div class="ds-template-card__cta">
+            <a class="ds-button ds-button--brand ds-button--sm" href="dashboard.html" style="display:inline-flex"><span class="ds-button__label"><span data-lang="pt">Documentação</span><span data-lang="en">Documentation</span></span></a>
+            <button class="ds-button ds-button--ghost ds-button--sm" onclick="openTemplate('dashboard.html')" style="display:inline-flex;gap:var(--ds-dimension-6);cursor:pointer"><span class="ds-button__label"><span data-lang="pt">Template</span><span data-lang="en">Template</span></span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="ds-template-card">
+        <div class="ds-template-card__body">
+          <h3 class="ds-template-card__title"><span data-lang="pt">Configurações</span><span data-lang="en">Settings</span></h3>
+          <p class="ds-template-card__desc">
+            <span data-lang="pt">Página de preferências com abas, campos de perfil e toggles de notificação.</span>
+            <span data-lang="en">Preferences page with tabs, profile fields, and notification toggles.</span>
+          </p>
+          <div class="ds-template-card__tags">
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Tabs</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Toggle</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Avatar</span>
+          </div>
+          <div class="ds-template-card__cta">
+            <a class="ds-button ds-button--brand ds-button--sm" href="settings.html" style="display:inline-flex"><span class="ds-button__label"><span data-lang="pt">Documentação</span><span data-lang="en">Documentation</span></span></a>
+            <button class="ds-button ds-button--ghost ds-button--sm" onclick="openTemplate('settings.html')" style="display:inline-flex;gap:var(--ds-dimension-6);cursor:pointer"><span class="ds-button__label"><span data-lang="pt">Template</span><span data-lang="en">Template</span></span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="ds-template-card">
+        <div class="ds-template-card__body">
+          <h3 class="ds-template-card__title"><span data-lang="pt">Contato</span><span data-lang="en">Contact</span></h3>
+          <p class="ds-template-card__desc">
+            <span data-lang="pt">Formulário completo com seleção de assunto, validação e confirmação de envio.</span>
+            <span data-lang="en">Complete form with subject selection, validation, and submission confirmation.</span>
+          </p>
+          <div class="ds-template-card__tags">
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Textarea</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Select</span>
+            <span class="ds-badge ds-badge--neutral ds-badge--subtle">Radio</span>
+          </div>
+          <div class="ds-template-card__cta">
+            <a class="ds-button ds-button--brand ds-button--sm" href="contact.html" style="display:inline-flex"><span class="ds-button__label"><span data-lang="pt">Documentação</span><span data-lang="en">Documentation</span></span></a>
+            <button class="ds-button ds-button--ghost ds-button--sm" onclick="openTemplate('contact.html')" style="display:inline-flex;gap:var(--ds-dimension-6);cursor:pointer"><span class="ds-button__label"><span data-lang="pt">Template</span><span data-lang="en">Template</span></span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/main.js"></script>
+<script>
+async function openTemplate(url) {
+  var resp = await fetch(url);
+  var html = await resp.text();
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(html, 'text/html');
+  var code = doc.querySelector('.ds-preview__code pre code').textContent;
+  var cssUrl = new URL('../../css/design-system.css', window.location.href).href;
+  var resolved = code.replace(/"css\/design-system\.css"/, '"' + cssUrl + '"');
+  var blob = new Blob([resolved], { type: 'text/html' });
+  var blobUrl = URL.createObjectURL(blob);
+  window.open(blobUrl, '_blank');
+  setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 30000);
+}
+</script>
+</body>
+</html>

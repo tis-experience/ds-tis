@@ -1,0 +1,104 @@
+{
+  "component": {
+    "combobox": {
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$value": "{semantic.radius.lg}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "height": {
+        "lg": {
+          "$value": "{semantic.size.2xl}",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "{semantic.size.xl}",
+          "$type": "dimension"
+        },
+        "sm": {
+          "$value": "{semantic.size.lg}",
+          "$type": "dimension"
+        }
+      },
+      "listbox": {
+        "container": {
+          "bg": {
+            "default": {
+              "$value": "{semantic.surface.elevated}",
+              "$type": "color"
+            }
+          },
+          "border-color": {
+            "default": {
+              "$value": "{semantic.border.subtle}",
+              "$type": "color"
+            }
+          },
+          "gap": {
+            "default": {
+              "$value": "{semantic.space.2xs}",
+              "$type": "dimension"
+            }
+          },
+          "padding": {
+            "default": {
+              "$value": "{semantic.space.sm}",
+              "$type": "dimension"
+            }
+          },
+          "radius": {
+            "default": {
+              "$value": "{semantic.radius.lg}",
+              "$type": "dimension"
+            }
+          }
+        }
+      },
+      "option": {
+        "bg": {
+          "selected": {
+            "$value": "{semantic.outline.background.hover}",
+            "$type": "color"
+          }
+        },
+        "content": {
+          "color": {
+            "selected": {
+              "$value": "{semantic.content.strong}",
+              "$type": "color"
+            }
+          }
+        },
+        "gap": {
+          "default": {
+            "$value": "{semantic.space.sm}",
+            "$type": "dimension"
+          }
+        },
+        "radius": {
+          "default": {
+            "$value": "{semantic.radius.sm}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "padding-x": {
+        "lg": {
+          "$value": "{semantic.space.md}",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "{semantic.space.sm}",
+          "$type": "dimension"
+        },
+        "sm": {
+          "$value": "{semantic.space.xs}",
+          "$type": "dimension"
+        }
+      }
+    }
+  }
+}

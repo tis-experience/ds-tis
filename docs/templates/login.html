@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- 1. HEADER -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Login</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Autenticação simples com email e senha, recuperação de acesso e link para cadastro. Ideal para produtos SaaS e apps internos.</span>
+      <span data-lang="en">Simple email-and-password authentication with account recovery and sign-up link. Ideal for SaaS products and internal apps.</span>
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-16)">
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Button</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Form Field</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Link</span>
+    </div>
+  </div>
+
+  <!-- 2. PREVIEW -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Preview</h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+        <button onclick="openPreviewInNewTab()" aria-label="Abrir preview em nova aba" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--ds-content-subtle);padding:0 var(--ds-dimension-12);font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);display:flex;align-items:center;gap:var(--ds-dimension-6);white-space:nowrap;" onmouseenter="this.style.color='var(--ds-content-strong)'" onmouseleave="this.style.color='var(--ds-content-subtle)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Abrir em nova aba</button>
+      </div>
+      <div class="ds-preview__canvas" style="padding:0;display:block">
+        <div style="min-height:540px;display:flex;align-items:center;justify-content:center;background:var(--ds-background-subtle);padding:var(--ds-dimension-40)">
+          <div style="background:var(--ds-surface-default);border-radius:var(--ds-radius-lg);padding:var(--ds-dimension-40);width:100%;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,.08)">
+
+            <div style="text-align:center;margin-bottom:var(--ds-dimension-32)">
+              <div style="width:48px;height:48px;background:var(--ds-brand-background-default);border-radius:var(--ds-radius-md);display:inline-flex;align-items:center;justify-content:center;margin-bottom:var(--ds-dimension-16)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/>
+                  <rect x="13" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/>
+                  <rect x="3" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/>
+                  <rect x="13" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/>
+                </svg>
+              </div>
+              <h2 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)">
+                <span data-lang="pt">Bem-vindo de volta</span><span data-lang="en">Welcome back</span>
+              </h2>
+              <p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0">
+                <span data-lang="pt">Faça login para continuar</span><span data-lang="en">Sign in to continue</span>
+              </p>
+            </div>
+
+            <form novalidate>
+              <div class="ds-field" style="margin-bottom:var(--ds-dimension-16)">
+                <div class="ds-field__label-row">
+                  <label class="ds-field__label" for="prev-email">E-mail</label>
+                </div>
+                <div class="ds-input ds-input--lg">
+                  <input class="ds-input__field" type="email" id="prev-email" placeholder="seu@email.com" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="ds-field" style="margin-bottom:var(--ds-dimension-8)">
+                <div class="ds-field__label-row">
+                  <label class="ds-field__label" for="prev-password"><span data-lang="pt">Senha</span><span data-lang="en">Password</span></label>
+                </div>
+                <div class="ds-input ds-input--lg">
+                  <input class="ds-input__field" type="password" id="prev-password" placeholder="••••••••" autocomplete="current-password">
+                </div>
+              </div>
+
+              <div style="text-align:right;margin-bottom:var(--ds-dimension-24)">
+                <a class="ds-link" href="#" style="font-size:var(--ds-body-font-size-sm)">
+                  <span data-lang="pt">Esqueci minha senha</span><span data-lang="en">Forgot password?</span>
+                </a>
+              </div>
+
+              <button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit">
+                <span class="ds-button__label"><span data-lang="pt">Entrar</span><span data-lang="en">Sign in</span></span>
+              </button>
+            </form>
+
+            <div style="display:flex;align-items:center;gap:var(--ds-dimension-12);margin:var(--ds-dimension-24) 0">
+              <span aria-hidden="true" style="flex:1;height:1px;background:var(--ds-border-default)"></span>
+              <span style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-subtle)">ou</span>
+              <span aria-hidden="true" style="flex:1;height:1px;background:var(--ds-border-default)"></span>
+            </div>
+
+            <a class="ds-button ds-button--outline ds-button--lg ds-button--full" href="#">
+              <span class="ds-button__label"><span data-lang="pt">Criar conta</span><span data-lang="en">Create account</span></span>
+            </a>
+
+            <p style="text-align:center;font-size:var(--ds-body-font-size-xs);color:var(--ds-content-subtle);margin:var(--ds-dimension-24) 0 0">
+              <span data-lang="pt">Ao entrar, você concorda com os <a class="ds-link" href="#">Termos de uso</a></span>
+              <span data-lang="en">By signing in, you agree to our <a class="ds-link" href="#">Terms of use</a></span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Login&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/design-system.css"&gt;
+  &lt;style&gt;
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ds-background-subtle);
+      padding: var(--ds-dimension-40);
+    }
+    .login-card {
+      background: var(--ds-surface-default);
+      border-radius: var(--ds-radius-lg);
+      padding: var(--ds-dimension-40);
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .08);
+    }
+    .login-logo {
+      width: 48px; height: 48px;
+      background: var(--ds-brand-background-default);
+      border-radius: var(--ds-radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-dimension-12);
+      margin: var(--ds-dimension-24) 0;
+    }
+    .login-divider span { flex: 1; height: 1px; background: var(--ds-border-default); }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class="login-card"&gt;
+
+  &lt;div style="text-align:center;margin-bottom:var(--ds-dimension-32)"&gt;
+    &lt;div class="login-logo" style="margin:0 auto var(--ds-dimension-16)"&gt;
+      &lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;
+        &lt;rect x="3" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/&gt;
+        &lt;rect x="13" y="3" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/&gt;
+        &lt;rect x="3" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)" opacity=".55"/&gt;
+        &lt;rect x="13" y="13" width="8" height="8" rx="1.5" fill="var(--ds-brand-content-default)"/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;h1 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)"&gt;Bem-vindo de volta&lt;/h1&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0"&gt;Faça login para continuar&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;form novalidate&gt;
+    &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-16)"&gt;
+      &lt;div class="ds-field__label-row"&gt;
+        &lt;label class="ds-field__label" for="email"&gt;E-mail&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-input ds-input--lg"&gt;
+        &lt;input class="ds-input__field" type="email" id="email"
+               placeholder="seu@email.com" autocomplete="email" required&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-8)"&gt;
+      &lt;div class="ds-field__label-row"&gt;
+        &lt;label class="ds-field__label" for="password"&gt;Senha&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class="ds-input ds-input--lg"&gt;
+        &lt;input class="ds-input__field" type="password" id="password"
+               placeholder="••••••••" autocomplete="current-password" required&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div style="text-align:right;margin-bottom:var(--ds-dimension-24)"&gt;
+      &lt;a class="ds-link" href="/forgot-password"
+         style="font-size:var(--ds-body-font-size-sm)"&gt;Esqueci minha senha&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit"&gt;
+      &lt;span class="ds-button__label"&gt;Entrar&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/form&gt;
+
+  &lt;div class="login-divider"&gt;
+    &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;span style="font-size:var(--ds-body-font-size-sm);color:var(--ds-content-subtle)"&gt;ou&lt;/span&gt;
+    &lt;span aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;a class="ds-button ds-button--outline ds-button--lg ds-button--full" href="/signup"&gt;
+    &lt;span class="ds-button__label"&gt;Criar conta&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;p style="text-align:center;font-size:var(--ds-body-font-size-xs);color:var(--ds-content-subtle);margin:var(--ds-dimension-24) 0 0"&gt;
+    Ao entrar, você concorda com os &lt;a class="ds-link" href="/terms"&gt;Termos de uso&lt;/a&gt;
+  &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. USAGE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Notas de uso</span><span data-lang="en">Usage notes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Decisão</span><span data-lang="en">Decision</span></th><th><span data-lang="pt">Por quê</span><span data-lang="en">Why</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>autocomplete="email"</code> e <code>autocomplete="current-password"</code></td><td><span data-lang="pt">Habilita preenchimento automático do gerenciador de senhas do browser — obrigatório por WCAG 1.3.5.</span><span data-lang="en">Enables browser/password-manager autofill — required by WCAG 1.3.5.</span></td></tr>
+        <tr><td><code>type="email"</code></td><td><span data-lang="pt">Abre teclado numérico/email no mobile e valida formato nativamente.</span><span data-lang="en">Opens numeric/email keyboard on mobile and validates format natively.</span></td></tr>
+        <tr><td><code>novalidate</code> no <code>&lt;form&gt;</code></td><td><span data-lang="pt">Desativa a validação nativa do browser para que você controle as mensagens de erro via DS Form Field.</span><span data-lang="en">Disables native browser validation so you control error messages via DS Form Field.</span></td></tr>
+        <tr><td><span data-lang="pt">Um único <code>ds-button--brand</code></span><span data-lang="en">Single <code>ds-button--brand</code></span></td><td><span data-lang="pt">Ação primária única por formulário. O botão de cadastro usa <code>--outline</code> para hierarquia clara.</span><span data-lang="en">Single primary action per form. Sign-up button uses <code>--outline</code> for clear hierarchy.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. RELATED -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Templates relacionados</span><span data-lang="en">Related templates</span></h2>
+    <div class="ds-related">
+      <a href="signup.html" class="ds-related__link"><span data-lang="pt">Cadastro</span><span data-lang="en">Sign Up</span></a>
+      <a href="index.html" class="ds-related__link"><span data-lang="pt">Ver todos os templates</span><span data-lang="en">All templates</span></a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/main.js"></script>
+<script>
+function openPreviewInNewTab() {
+  var code = document.querySelector('.ds-preview__code pre code').textContent;
+  var cssUrl = new URL('../../css/design-system.css', window.location.href).href;
+  var html = code.replace(/"css\/design-system\.css"/, '"' + cssUrl + '"');
+  var blob = new Blob([html], { type: 'text/html' });
+  var url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(function() { URL.revokeObjectURL(url); }, 30000);
+}
+</script>
+</body>
+</html>

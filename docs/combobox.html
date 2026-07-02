@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combobox — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title">Combobox</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Combobox combina um campo de texto editável com um listbox popup para buscar, filtrar e escolher uma opção. Usa tokens compartilhados de <code>field/*</code> e <code>form-field/*</code> (ADR-020) e tokens locais <code>combobox/*</code> para listbox e option.</span>
+      <span data-lang="en">Combobox combines an editable text field with a listbox popup to search, filter, and choose one option. It uses shared <code>field/*</code> and <code>form-field/*</code> tokens (ADR-020) plus local <code>combobox/*</code> tokens for listbox and option anatomy.</span>
+    </p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Combobox quando</span><span data-lang="en">Use Combobox when</span></div>
+      <span data-lang="pt">O usuário precisa digitar para filtrar opções, escolher de listas longas ou editar o valor antes de confirmar a seleção.</span>
+      <span data-lang="en">The user needs to type to filter options, choose from long lists, or edit the value before confirming selection.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Combobox quando</span><span data-lang="en">Don't use Combobox when</span></div>
+      <span data-lang="pt">Menos de 5 opções fixas — prefira <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a>. Lista fechada sem busca — use <a href="select.html" style="color:var(--ds-link-content-default)">Select</a>. Menu de ações — use <a href="menu.html" style="color:var(--ds-link-content-default)">Menu</a>.</span>
+      <span data-lang="en">Fewer than 5 fixed options — prefer <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a>. Closed list without search — use <a href="select.html" style="color:var(--ds-link-content-default)">Select</a>. Action menus — use <a href="menu.html" style="color:var(--ds-link-content-default)">Menu</a>.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:64px;">
+      <div class="ds-field" style="max-width:360px;position:relative;" inert>
+        <label class="ds-field__label">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
+        <div class="ds-combobox ds-combobox--md ds-combobox--filled" style="position:relative;">
+          <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
+          <input class="ds-combobox__input" type="text" value="Brazil" readonly tabindex="-1" aria-hidden="true">
+          <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+        </div>
+        <ul class="ds-combobox__listbox" role="presentation" style="position:relative;margin-top:var(--ds-space-xs);">
+          <li class="ds-combobox__option" style="position:relative;">Brazil
+            <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">5</span>
+          </li>
+        </ul>
+        <p class="ds-field__helper">Type to filter countries.</p>
+      </div>
+    </div>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Field (<code>.ds-combobox</code>) — wrapper com input, ícone, clear e chevron.<br>
+      <strong>2</strong> Input (<code>.ds-combobox__input</code>) — texto editável com <code>role="combobox"</code>.<br>
+      <strong>3</strong> Ícone (<code>.ds-combobox__icon</code>) — opcional, decorativo.<br>
+      <strong>4</strong> Listbox (<code>.ds-combobox__listbox</code>) — popup com opções filtráveis.<br>
+      <strong>5</strong> Option (<code>.ds-combobox__option</code>) — item selecionável com <code>role="option"</code>.<br>
+      <strong>6</strong> Label e helper — externos via <code>ds-field</code> (ADR-020).</span>
+      <span data-lang="en"><strong>1</strong> Field (<code>.ds-combobox</code>) — wrapper with input, icon, clear, and chevron.<br>
+      <strong>2</strong> Input (<code>.ds-combobox__input</code>) — editable text with <code>role="combobox"</code>.<br>
+      <strong>3</strong> Icon (<code>.ds-combobox__icon</code>) — optional, decorative.<br>
+      <strong>4</strong> Listbox (<code>.ds-combobox__listbox</code>) — popup with filterable options.<br>
+      <strong>5</strong> Option (<code>.ds-combobox__option</code>) — selectable item with <code>role="option"</code>.<br>
+      <strong>6</strong> Label and helper — external via <code>ds-field</code> (ADR-020).</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-combobox ds-combobox--md">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" aria-label="Country" placeholder="Choose a country">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-combobox ds-combobox--md"&gt;
+  &lt;input class="ds-combobox__input" type="text" role="combobox"
+         aria-expanded="false" aria-label="Country" placeholder="Choose a country"&gt;
+  &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Listbox aberto</span><span data-lang="en">Open listbox</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. O produto controla abertura, filtro, foco e seleção via JavaScript.</span>
+      <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. The product controls open state, filtering, focus, and selection via JavaScript.</span>
+    </p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview" style="overflow:visible;">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px;min-height:340px;overflow:visible;">
+          <div class="ds-field" style="position:relative;">
+            <label class="ds-field__label" for="cb-demo">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
+            <div class="ds-combobox ds-combobox--md ds-combobox--filled">
+              <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
+              <input class="ds-combobox__input" id="cb-demo" type="text" role="combobox" aria-expanded="true" aria-controls="cb-demo-list" aria-autocomplete="list" value="Brazil">
+              <button type="button" class="ds-combobox__clear" aria-label="Clear selection"><i data-lucide="x" class="ds-icon" aria-hidden="true"></i></button>
+              <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+            </div>
+            <ul class="ds-combobox__listbox" id="cb-demo-list" role="listbox" aria-label="Countries">
+              <li class="ds-combobox__option" role="option">Argentina</li>
+              <li class="ds-combobox__option" role="option" aria-selected="true">Brazil</li>
+              <li class="ds-combobox__option" role="option">Chile</li>
+              <li class="ds-combobox__option" role="option" aria-disabled="true">Colombia (unavailable)</li>
+            </ul>
+            <p class="ds-field__helper">Type to filter countries.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;label class="ds-field__label" for="country"&gt;Country&lt;/label&gt;
+  &lt;div class="ds-combobox ds-combobox--md ds-combobox--filled"&gt;
+    &lt;input class="ds-combobox__input" id="country" type="text" role="combobox"
+           aria-expanded="true" aria-controls="country-list" aria-autocomplete="list"&gt;
+    &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon"&gt;&lt;/i&gt;
+  &lt;/div&gt;
+  &lt;ul class="ds-combobox__listbox" id="country-list" role="listbox"&gt;
+    &lt;li class="ds-combobox__option" role="option" aria-selected="true"&gt;Brazil&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p class="ds-field__helper"&gt;Type to filter countries.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-combobox ds-combobox--sm">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" aria-label="Small combobox" placeholder="Small (32px)">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+          <div class="ds-combobox ds-combobox--md">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" aria-label="Medium combobox" placeholder="Medium (40px)">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+          <div class="ds-combobox ds-combobox--lg">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" aria-label="Large combobox" placeholder="Large (48px)">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-combobox ds-combobox--sm"&gt;...&lt;/div&gt;
+&lt;div class="ds-combobox ds-combobox--md"&gt;...&lt;/div&gt;
+&lt;div class="ds-combobox ds-combobox--lg"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <table class="ds-token-table">
+      <thead><tr><th>Size</th><th>Height</th><th>Padding</th></tr></thead>
+      <tbody>
+        <tr><td>Small (<code>--sm</code>)</td><td><code>component.combobox.height.sm</code> (32px)</td><td><code>component.combobox.padding-x.sm</code></td></tr>
+        <tr><td>Medium (<code>--md</code>)</td><td><code>component.combobox.height.md</code> (40px)</td><td><code>component.combobox.padding-x.md</code></td></tr>
+        <tr><td>Large (<code>--lg</code>)</td><td><code>component.combobox.height.lg</code> (48px)</td><td><code>component.combobox.padding-x.lg</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
+    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Error</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-field ds-field--error">
+            <label class="ds-field__label" for="cb-err">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
+            <div class="ds-combobox ds-combobox--md ds-combobox--error">
+              <input class="ds-combobox__input" id="cb-err" type="text" role="combobox" aria-expanded="false" aria-invalid="true" aria-describedby="cb-err-msg" placeholder="Choose a country">
+              <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+            </div>
+            <span class="ds-field__error" id="cb-err-msg">Please select a country.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-field ds-field--error"&gt;
+  &lt;div class="ds-combobox ds-combobox--error"&gt;
+    &lt;input class="ds-combobox__input" aria-invalid="true" aria-describedby="err"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__error" id="err"&gt;Please select a country.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Disabled</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-combobox ds-combobox--md ds-combobox--disabled">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" disabled placeholder="Disabled combobox">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-combobox ds-combobox--disabled"&gt;
+  &lt;input class="ds-combobox__input" disabled&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-combobox ds-combobox--md" style="width:100%;max-width:260px">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" placeholder="Search countries…">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Permita busca por digitação e destaque a opção selecionada com <code>aria-selected="true"</code>.</span><span data-lang="en">Allow type-ahead search and mark the selected option with <code>aria-selected="true"</code>.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-combobox ds-combobox--md" style="width:100%;max-width:260px">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" placeholder="Yes / No">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não use combobox para escolhas booleanas — use <a href="toggle.html" style="color:var(--ds-link-content-default)">Toggle</a> ou <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a>.</span><span data-lang="en">Don't use combobox for boolean choices — use <a href="toggle.html" style="color:var(--ds-link-content-default)">Toggle</a> or <a href="radio.html" style="color:var(--ds-link-content-default)">Radio</a>.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td>Placeholder em sentence case</td><td>"Choose a country" — not "COUNTRY"</td></tr>
+        <tr><td>Options concisas e consistentes</td><td>"Brazil", "United States"</td></tr>
+        <tr><td>Sempre com <code>ds-field</code> + label</td><td><code>&lt;label for="country"&gt;Country&lt;/label&gt;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token Component</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>field surface</td><td><code>component.field.*</code></td><td><code>--ds-field-*</code></td></tr>
+        <tr><td>height</td><td><code>component.combobox.height.{sm|md|lg}</code></td><td><code>--ds-combobox-height-*</code></td></tr>
+        <tr><td>padding</td><td><code>component.combobox.padding-x.*</code></td><td><code>--ds-combobox-padding-x-*</code></td></tr>
+        <tr><td>listbox</td><td><code>component.combobox.listbox.container.*</code></td><td><code>--ds-combobox-listbox-*</code></td></tr>
+        <tr><td>option</td><td><code>component.combobox.option.*</code> + <code>component.menu.item.*</code></td><td><code>--ds-combobox-option-*</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.focus-ring.*</code></td><td><code>--ds-focus-ring-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-combobox</code></td><td><span data-lang="pt">Wrapper do field</span><span data-lang="en">Field wrapper</span></td></tr>
+        <tr><td><code>ds-combobox__input</code></td><td><span data-lang="pt">Input editável com <code>role="combobox"</code></span><span data-lang="en">Editable input with <code>role="combobox"</code></span></td></tr>
+        <tr><td><code>ds-combobox__listbox</code></td><td><span data-lang="pt">Container popup das opções</span><span data-lang="en">Options popup container</span></td></tr>
+        <tr><td><code>ds-combobox__option</code></td><td><span data-lang="pt">Item do listbox (<code>role="option"</code>)</span><span data-lang="en">Listbox item (<code>role="option"</code>)</span></td></tr>
+        <tr><td><code>ds-combobox--sm/md/lg</code></td><td><span data-lang="pt">Tamanhos 32 / 40 / 48px</span><span data-lang="en">32 / 40 / 48px sizes</span></td></tr>
+        <tr><td><code>ds-combobox--error</code></td><td><span data-lang="pt">Estado de erro</span><span data-lang="en">Error state</span></td></tr>
+        <tr><td><code>ds-combobox--disabled</code></td><td><span data-lang="pt">Estado desabilitado</span><span data-lang="en">Disabled state</span></td></tr>
+        <tr><td><code>ds-combobox--filled</code></td><td><span data-lang="pt">Valor preenchido</span><span data-lang="en">Filled value</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Arrow Down</code> / <code>Arrow Up</code></td><td><span data-lang="pt">Move o foco entre opções no listbox aberto</span><span data-lang="en">Moves focus between options when listbox is open</span></td></tr>
+        <tr><td><code>Enter</code></td><td><span data-lang="pt">Seleciona a opção focada e fecha o listbox</span><span data-lang="en">Selects focused option and closes listbox</span></td></tr>
+        <tr><td><code>Escape</code></td><td><span data-lang="pt">Fecha o listbox e retorna foco ao input</span><span data-lang="en">Closes listbox and returns focus to input</span></td></tr>
+        <tr><td>Typing</td><td><span data-lang="pt">Filtra opções (implementação do produto)</span><span data-lang="en">Filters options (product implementation)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><code>role="combobox"</code>, <code>aria-expanded</code>, <code>aria-controls</code>, <code>role="listbox"</code> / <code>role="option"</code></td><td>&#10003;</td></tr>
+        <tr><td>1.3.1 Info and Relationships (A)</td><td><span data-lang="pt">Label via <code>ds-field</code>; erro com <code>aria-invalid</code> + <code>aria-describedby</code></span><span data-lang="en">Label via <code>ds-field</code>; error with <code>aria-invalid</code> + <code>aria-describedby</code></span></td><td>&#10003;</td></tr>
+        <tr><td>2.4.11 Focus Appearance (AA)</td><td><span data-lang="pt">Focus ring visível no field e nas opções</span><span data-lang="en">Visible focus ring on field and options</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="select.html" class="ds-related__link">Select</a>
+      <a href="input.html" class="ds-related__link">Input</a>
+      <a href="menu.html" class="ds-related__link">Menu</a>
+      <a href="form-field.html" class="ds-related__link">Form Field</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

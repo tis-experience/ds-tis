@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Conformidade WCAG 2.2 AA em todos os componentes.</span><span data-lang="en">WCAG 2.2 AA compliance across all components.</span></p>
+  </div>
+
+  <!-- Focus Management -->
+  <div class="ds-section">
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Gerenciamento de foco</span><span data-lang="en">Focus Management</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Todos os componentes interativos usam um indicador de foco baseado em outline via tokens <code style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 6px;border-radius:var(--ds-radius-4);">--ds-focus-ring-*</code>. Essa abordagem garante que o focus ring seja visível contra qualquer cor de fundo, atendendo ao Criterio de Sucesso WCAG 2.2 2.4.7 (Focus Visible).</span><span data-lang="en">All interactive components use an outline-based focus indicator via <code style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 6px;border-radius:var(--ds-radius-4);">--ds-focus-ring-*</code> tokens. This approach ensures the focus ring is visible against any background color, meeting WCAG 2.2 Success Criterion 2.4.7 (Focus Visible).</span>
+      </p>
+      <div class="ds-preview">
+        <div class="ds-preview__tabs" role="tablist">
+          <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+          <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+        </div>
+        <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+          <div class="ds-preview__canvas">
+            <p style="font-size:var(--ds-font-size-14);color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);width:100%;"><span data-lang="pt">Navegue com Tab por estes elementos para ver o focus ring:</span><span data-lang="en">Tab through these elements to see the focus ring:</span></p>
+            <button class="ds-button ds-button--brand ds-button--md"><span class="ds-button__label">Brand Button</span></button>
+            <button class="ds-button ds-button--outline ds-button--md"><span class="ds-button__label">Outline Button</span></button>
+            <button class="ds-button ds-button--ghost ds-button--md"><span class="ds-button__label">Ghost Button</span></button>
+            <input class="ds-input" type="text" placeholder="Text input" style="max-width:200px;">
+          </div>
+        </div>
+        <div class="ds-preview__panel" data-panel="code">
+          <div class="ds-preview__code">
+            <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+            <pre tabindex="0"><code>/* Focus ring tokens */
+--ds-focus-ring-width: 2px;   /* outline stroke */
+--ds-focus-ring-offset: 2px;  /* gap between element and ring */
+--ds-focus-ring-color: var(--ds-brand-background-default);
+
+/* Applied via :focus-visible on all interactive elements */
+.ds-button:focus-visible,
+.ds-input:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="ds-a11y-note">
+        <div class="ds-a11y-note__title"><span data-lang="pt">Por que :focus-visible?</span><span data-lang="en">Why :focus-visible?</span></div>
+        <p class="ds-a11y-note__text"><span data-lang="pt">Usamos <code style="font-family:var(--ds-font-family-mono);">:focus-visible</code> ao invés de <code style="font-family:var(--ds-font-family-mono);">:focus</code> para que o ring apareça apenas durante a navegação por teclado, não em cliques do mouse. Isso da aos usuários de teclado indicadores claros sem adicionar ruído visual para usuários de ponteiro.</span><span data-lang="en">We use <code style="font-family:var(--ds-font-family-mono);">:focus-visible</code> instead of <code style="font-family:var(--ds-font-family-mono);">:focus</code> so the ring only appears during keyboard navigation, not on mouse clicks. This gives keyboard users clear indicators without adding visual noise for pointer users.</span></p>
+      </div>
+    </div>
+
+    <!-- Color Contrast -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Contraste de cores</span><span data-lang="en">Color Contrast</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Todos os pares de cores no design system atendem ou excedem os requisitos de contraste WCAG 2.2 AA em ambos os modos light e dark. No modo dark, cores de marca e feedback usam tons mais claros (nível 400), então os tokens de foreground automaticamente alternam para texto escuro (<code>neutral-900</code>) para manter o contraste. O token <code>text/on-brand</code> cuida disso: branco no modo light, <code>neutral-900</code> no modo dark.</span><span data-lang="en">All color pairings in the design system meet or exceed WCAG 2.2 AA contrast requirements in both light and dark modes. In dark mode, brand and feedback colors use lighter shades (400-level), so foreground tokens automatically switch to dark text (<code>neutral-900</code>) to maintain contrast. The <code>text/on-brand</code> token handles this: white in light mode, <code>neutral-900</code> in dark mode.</span>
+      </p>
+      <table class="ds-props-table" style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Tipo de elemento</span><span data-lang="en">Element Type</span></th>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Ratio mínimo</span><span data-lang="en">Minimum Ratio</span></th>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG Criterion</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Texto normal (&lt; 18px)</span><span data-lang="en">Normal text (&lt; 18px)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><strong>4.5 : 1</strong></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">1.4.3 Contraste (Mínimo)</span><span data-lang="en">1.4.3 Contrast (Minimum)</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Texto grande (&ge; 18px ou 14px bold)</span><span data-lang="en">Large text (&ge; 18px or 14px bold)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><strong>3 : 1</strong></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">1.4.3 Contraste (Mínimo)</span><span data-lang="en">1.4.3 Contrast (Minimum)</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Componentes de UI (bordas, ícones)</span><span data-lang="en">UI components (borders, icons)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><strong>3 : 1</strong></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">1.4.11 Contraste não-texto</span><span data-lang="en">1.4.11 Non-text Contrast</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Indicadores de foco</span><span data-lang="en">Focus indicators</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><strong>3 : 1</strong></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">2.4.11 Aparencia do foco</span><span data-lang="en">2.4.11 Focus Appearance</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Keyboard Navigation -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Navegação por teclado</span><span data-lang="en">Keyboard Navigation</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Todo componente interativo e totalmente operavel via teclado. As seguintes teclas são suportadas:</span><span data-lang="en">Every interactive component is fully operable via keyboard. The following keys are supported:</span>
+      </p>
+      <table class="ds-props-table" style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Tab</kbd></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Move o foco para o proximo elemento interativo</span><span data-lang="en">Move focus to the next interactive element</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Shift + Tab</kbd></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Move o foco para o elemento interativo anterior</span><span data-lang="en">Move focus to the previous interactive element</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Enter</kbd> / <kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Space</kbd></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Ativar buttons, toggles, checkboxes e radio buttons</span><span data-lang="en">Activate buttons, toggles, checkboxes, and radio buttons</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Arrow keys</kbd></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Navegar dentro de tabs, grupos de radio e dropdowns de select</span><span data-lang="en">Navigate within tabs, radio groups, and select dropdowns</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><kbd style="font-family:var(--ds-font-family-mono);background:var(--ds-background-subtle);padding:2px 8px;border:var(--ds-border-width-1) solid var(--ds-border-default);border-radius:var(--ds-radius-4);font-size:var(--ds-font-size-12);">Escape</kbd></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Fechar modais, tooltips e dropdowns; retornar o foco ao gatilho</span><span data-lang="en">Close modals, tooltips, and dropdowns; return focus to trigger</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Reduced Motion -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Reduced Motion</span><span data-lang="en">Reduced Motion</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Usuários que preferem movimento reduzido (via configuracoes do SO) verao todas as transições e animações removidas ou encurtadas. Isso respeita o WCAG 2.3.3 (Animation from Interactions).</span><span data-lang="en">Users who prefer reduced motion (via OS settings) will see all transitions and animations removed or shortened. This respects WCAG 2.3.3 (Animation from Interactions).</span>
+      </p>
+      <div class="ds-preview">
+        <div class="ds-preview__tabs" role="tablist">
+          <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+        </div>
+        <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+          <div class="ds-preview__code" style="border-top:none;">
+            <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+            <pre tabindex="0"><code>@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Touch Targets -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Alvos de toque</span><span data-lang="en">Touch Targets</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Todos os elementos interativos mantem um tamanho mínimo de alvo de toque de <strong>44 &times; 44 pixels CSS</strong>, em conformidade com o WCAG 2.5.8 (Target Size). Isso se aplica a buttons, checkboxes, radio buttons, toggles e outros controles clicáveis.</span><span data-lang="en">All interactive elements maintain a minimum touch target size of <strong>44 &times; 44 CSS pixels</strong>, in line with WCAG 2.5.8 (Target Size). This applies to buttons, checkboxes, radio buttons, toggles, and other clickable controls.</span>
+      </p>
+      <ul style="color:var(--ds-content-default);padding-left:var(--ds-dimension-24);line-height:var(--ds-line-height-loose);">
+        <li><span data-lang="pt">Buttons pequenos (<code style="font-family:var(--ds-font-family-mono);">ds-button--sm</code>) usam padding para atingir a altura mínima de 44px.</span><span data-lang="en">Small buttons (<code style="font-family:var(--ds-font-family-mono);">ds-button--sm</code>) use padding to meet the 44px minimum height.</span></li>
+        <li><span data-lang="pt">Inputs de checkbox e radio tem uma área de label clicável que satisfaz o tamanho do alvo.</span><span data-lang="en">Checkbox and radio inputs have a clickable label area that satisfies the target size.</span></li>
+        <li><span data-lang="pt">Buttons somente com ícone são dimensionados em no mínimo 44px via padding interno.</span><span data-lang="en">Icon-only buttons are sized at minimum 44px via internal padding.</span></li>
+      </ul>
+    </div>
+
+    <!-- ARIA Attributes -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Atributos ARIA</span><span data-lang="en">ARIA Attributes</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Componentes que requerem atributos ARIA para compatibilidade com leitores de tela:</span><span data-lang="en">Components that require ARIA attributes for screen-reader compatibility:</span>
+      </p>
+      <table class="ds-props-table" style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">Componente</span><span data-lang="en">Component</span></th>
+            <th style="text-align:left;padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-2) solid var(--ds-border-default);"><span data-lang="pt">ARIA obrigatorio</span><span data-lang="en">Required ARIA</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Button (somente ícone)</span><span data-lang="en">Button (icon-only)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>aria-label</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Button (carregando)</span><span data-lang="en">Button (loading)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>aria-disabled="true"</code>, <code>aria-busy="true"</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Toggle</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="switch"</code>, <code>aria-checked</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Modal</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="dialog"</code>, <code>aria-modal="true"</code>, <code>aria-labelledby</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Tooltip</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="tooltip"</code>, <code>aria-describedby</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Tabs</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="tablist"</code>, <code>role="tab"</code>, <code>role="tabpanel"</code>, <code>aria-selected</code>, <code>aria-controls</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Alert</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="alert"</code> or <code>role="status"</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Breadcrumb</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt"><code>aria-label="Breadcrumb"</code>, <code>aria-current="page"</code> no item atual</span><span data-lang="en"><code>aria-label="Breadcrumb"</code>, <code>aria-current="page"</code> on current item</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);">Spinner</td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><code>role="status"</code>, <code>aria-label="Loading"</code></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Form Field (erro)</span><span data-lang="en">Form Field (error)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt"><code>aria-invalid="true"</code>, <code>aria-describedby</code> apontando para a mensagem de erro</span><span data-lang="en"><code>aria-invalid="true"</code>, <code>aria-describedby</code> pointing to error message</span></td>
+          </tr>
+          <tr>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt">Avatar (decorativo)</span><span data-lang="en">Avatar (decorative)</span></td>
+            <td style="padding:var(--ds-dimension-8) var(--ds-dimension-12);border-bottom:var(--ds-border-width-1) solid var(--ds-border-default);"><span data-lang="pt"><code>aria-hidden="true"</code> ou <code>alt=""</code> para imagens</span><span data-lang="en"><code>aria-hidden="true"</code> or <code>alt=""</code> for images</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Automated testing -->
+  <div class="ds-section">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Validação automatizada</span><span data-lang="en">Automated validation</span></h2>
+    <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+      <span data-lang="pt">CI roda <strong>axe-core</strong> via Playwright em todas as páginas de docs (light + dark mode) e bloqueia merges em violações novas <code>critical</code> ou <code>serious</code>. Tags WCAG: 2A, 2AA, 2.1A, 2.1AA, 2.2AA. Violações conhecidas são fixadas em <code>.a11y-baseline.json</code> pra permitir progresso incremental — meta é reduzir o conjunto a cada PR que toque o componente afetado.</span>
+      <span data-lang="en">CI runs <strong>axe-core</strong> via Playwright on all docs pages (light + dark) and blocks merges on new <code>critical</code> or <code>serious</code> violations. WCAG tags: 2A, 2AA, 2.1A, 2.1AA, 2.2AA. Known violations are pinned in <code>.a11y-baseline.json</code> for incremental progress — goal is to reduce the set on each PR that touches the affected component.</span>
+    </p>
+    <div class="ds-preview">
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+        <div class="ds-preview__code" style="border-top:none;">
+          <pre tabindex="0"><code>npm run test:a11y                       # full scan, falha em violações novas
+npm run test:a11y -- --filter button    # filtra por nome de página
+npm run test:a11y -- --mode dark        # só um modo
+npm run test:a11y -- --update-baseline  # após corrigir, atualiza .a11y-baseline.json</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

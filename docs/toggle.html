@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <div class="ds-section">
+    <h1 class="ds-section__title">Toggle</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Toggles (switches) permitem que o usuário ative ou desative uma configuração instantaneamente. Construido com um checkbox nativo estilizado e <code>role="switch"</code>.</span><span data-lang="en">Toggles (switches) let users turn a setting on or off instantly. Built with a styled native checkbox and <code>role="switch"</code>.</span></p>
+  </div>
+
+  <!-- ============================================================
+       2. WHEN TO USE / WHEN NOT TO USE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use toggles quando</span><span data-lang="en">Use toggles when</span></div>
+      <span data-lang="pt">O usuário precisa ativar/desativar uma configuração com efeito imediato. Modo escuro, notificações, feature flags, preferencias de salvamento automatico.</span><span data-lang="en">The user needs to turn an on/off setting that takes effect immediately. Dark mode, notifications, feature flags, auto-save preferences.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use toggles quando</span><span data-lang="en">Don't use toggles when</span></div>
+      <span data-lang="pt">A mudança requer envio de formulário — use um <a href="checkbox.html">Checkbox</a>. Quando há mais de duas opcoes — use <a href="radio.html">Radio</a> ou <a href="select.html">Select</a>.</span><span data-lang="en">The change requires form submission — use a <a href="checkbox.html">Checkbox</a> instead. When there are more than two options — use <a href="radio.html">Radio</a> or <a href="select.html">Select</a>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       3. ANATOMY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+
+    <div class="ds-anatomy" style="padding:64px;">
+      <div style="position:relative;display:inline-flex;align-items:flex-start;" inert>
+        <label class="ds-toggle-label">
+          <input type="checkbox" class="ds-toggle" role="switch" checked>
+          <span class="ds-toggle__content">
+            <span class="ds-toggle__label">Label text</span>
+          </span>
+        </label>
+        <!-- 1: Toggle input top (above switch) -->
+        <span style="position:absolute;top:-28px;left:25px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:-48px;left:15px;">1</span>
+        <!-- 2: Track left -->
+        <span style="position:absolute;left:-28px;top:12px;height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:2px;left:-48px;">2</span>
+        <!-- 3: Thumb bottom (below switch center) -->
+        <span style="position:absolute;bottom:-28px;left:25px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="bottom:-48px;left:15px;">3</span>
+        <!-- 4: Content frame right -->
+        <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="top:50%;right:-48px;transform:translateY(-50%);">4</span>
+      </div>
+    </div>
+
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Input (<code>.ds-toggle</code>) — <code>&lt;input type="checkbox"&gt;</code> estilizado com <code>role="switch"</code>.<br>
+      <strong>2</strong> Track — fundo CSS que muda de cor conforme o estado checked.<br>
+      <strong>3</strong> Thumb — pseudo-elemento CSS que desliza esquerda/direita.<br>
+      <strong>4</strong> Content Frame (<code>.ds-toggle__content</code>) — envolve label, description e helper.</span><span data-lang="en"><strong>1</strong> Input (<code>.ds-toggle</code>) — styled <code>&lt;input type="checkbox"&gt;</code> with <code>role="switch"</code>.<br>
+      <strong>2</strong> Track — CSS background that changes color based on checked state.<br>
+      <strong>3</strong> Thumb — CSS pseudo-element that slides left/right.<br>
+      <strong>4</strong> Content Frame (<code>.ds-toggle__content</code>) — wraps label, description and helper text.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4. VARIANTS (live previews)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch">
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Notifications</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-toggle-label"&gt;
+  &lt;input type="checkbox" class="ds-toggle" role="switch"&gt;
+  &lt;span class="ds-toggle__content"&gt;
+    &lt;span class="ds-toggle__label"&gt;Notifications&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description + Helper -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Com descrição e texto auxiliar</span><span data-lang="en">With description and helper text</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Automatic updates</span>
+              <span class="ds-toggle__description">Keep your software up to date with the latest features and security patches.</span>
+              <span class="ds-toggle__helper">Requires a stable internet connection.</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;label class="ds-toggle-label"&gt;
+  &lt;input type="checkbox" class="ds-toggle" role="switch" checked&gt;
+  &lt;span class="ds-toggle__content"&gt;
+    &lt;span class="ds-toggle__label"&gt;Automatic updates&lt;/span&gt;
+    &lt;span class="ds-toggle__description"&gt;Keep your software up to date...&lt;/span&gt;
+    &lt;span class="ds-toggle__helper"&gt;Requires a stable internet connection.&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. SIZES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos</span><span data-lang="en">Sizes</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle ds-toggle--sm" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Small</span>
+            </span>
+          </label>
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Medium (default)</span>
+            </span>
+          </label>
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle ds-toggle--lg" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Large</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;!-- Small --&gt;
+&lt;input type="checkbox" class="ds-toggle ds-toggle--sm" role="switch"&gt;
+
+&lt;!-- Medium --&gt;
+&lt;input type="checkbox" class="ds-toggle" role="switch"&gt;
+
+&lt;!-- Large --&gt;
+&lt;input type="checkbox" class="ds-toggle ds-toggle--lg" role="switch"&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       6. DISABLED
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Desabilitado</span><span data-lang="en">Disabled</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" disabled>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Disabled off</span>
+            </span>
+          </label>
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked disabled>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Disabled on</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;input type="checkbox" class="ds-toggle" role="switch" disabled&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       7. STATES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>State</th><th>CSS trigger</th><th>Visual change</th><th>Token</th></tr></thead>
+      <tbody>
+        <tr><td>Off</td><td>---</td><td>Neutral track with dark thumb</td><td><code>component.toggle.track.fill.off.default</code>, <code>component.toggle.thumb.fill.off.default</code></td></tr>
+        <tr><td>Off hover</td><td><code>:hover</code></td><td>Darker neutral track/thumb</td><td><code>component.toggle.track.fill.off.hover</code>, <code>component.toggle.thumb.fill.off.hover</code></td></tr>
+        <tr><td>On</td><td><code>:checked</code></td><td>Primary track with light thumb</td><td><code>component.toggle.track.fill.on.default</code>, <code>component.toggle.thumb.fill.on.default</code></td></tr>
+        <tr><td>On hover</td><td><code>:checked:hover</code></td><td>Darker primary track</td><td><code>component.toggle.track.fill.on.hover</code>, <code>component.toggle.thumb.fill.on.hover</code></td></tr>
+        <tr><td>Focus</td><td><code>:focus-visible</code></td><td>2px outline ring</td><td><code>component.toggle.focus-ring.radius.default + component.focus-ring.*</code></td></tr>
+        <tr><td>Disabled</td><td><code>[disabled]</code></td><td>Muted track, thumb and label</td><td><code>component.toggle.track.fill.*.disabled</code>, <code>semantic.content.disabled</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       8. BEST PRACTICES (Do / Don't)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Dark mode</span>
+            </span>
+          </label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Labels descrevem a configuração: "Dark mode", "Email notifications".</span><span data-lang="en">Labels describe the setting: "Dark mode", "Email notifications".</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Enable dark mode</span>
+            </span>
+          </label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">"Enable dark mode" e redundante com o estado do toggle.</span><span data-lang="en">"Enable dark mode" is redundant with the toggle state itself.</span></div>
+      </div>
+    </div>
+
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;gap:var(--ds-dimension-16);">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch" checked>
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Auto-save</span>
+            </span>
+          </label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Posicione o toggle a esquerda do conteúdo. O alinhamento deve ser ao topo.</span><span data-lang="en">Place toggle left of content. Alignment should be to the top.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview" style="flex-direction:column;gap:var(--ds-dimension-12);">
+          <label class="ds-toggle-label">
+            <input type="checkbox" class="ds-toggle" role="switch">
+            <span class="ds-toggle__content">
+              <span class="ds-toggle__label">Delete all data</span>
+            </span>
+          </label>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não use toggle para ações que precisam de confirmação. Use um Button + dialog.</span><span data-lang="en">Don't use toggle for actions needing confirmation. Use a Button + dialog instead.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       9. CONTENT GUIDELINES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Diretrizes de conteúdo</span><span data-lang="en">Content guidelines</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Use um substantivo para o label</span><span data-lang="en">Use a noun phrase for the label</span></td><td>"Dark mode", "Auto-save", "Email notifications"</td></tr>
+        <tr><td><span data-lang="pt">Não use "Enable/Disable"</span><span data-lang="en">Don't use "Enable/Disable"</span></td><td><span data-lang="pt">"Notifications" — não "Enable notifications"</span><span data-lang="en">"Notifications" — not "Enable notifications"</span></td></tr>
+        <tr><td><span data-lang="pt">Mantenha labels curtos (1-3 palavras)</span><span data-lang="en">Keep labels short (1-3 words)</span></td><td><span data-lang="pt">"Auto-save" — não "Automatically save my work every 5 minutes"</span><span data-lang="en">"Auto-save" — not "Automatically save my work every 5 minutes"</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       10. TOKEN MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token Component</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
+      <tbody>
+        <tr><td>target height/gap</td><td><code>component.toggle.target.{height,gap}.*</code></td><td><code>--ds-toggle-target-*</code></td></tr>
+        <tr><td>track size</td><td><code>component.toggle.track.{width,height}.*</code></td><td><code>--ds-toggle-track-*</code></td></tr>
+        <tr><td>track fill</td><td><code>component.toggle.track.fill.*.*</code></td><td><code>--ds-toggle-track-fill-*</code></td></tr>
+        <tr><td>track border</td><td><code>component.toggle.track.border-color.*.*</code></td><td><code>--ds-toggle-track-border-color-*</code></td></tr>
+        <tr><td>thumb size/fill</td><td><code>component.toggle.thumb.{size,fill}.*</code></td><td><code>--ds-toggle-thumb-*</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.toggle.focus-ring.radius.default + component.focus-ring.*</code></td><td><code>--ds-focus-ring-* + --ds-toggle-focus-ring-radius-default</code></td></tr>
+        <tr><td>label/helper/description</td><td><code>component.form-field.*</code></td><td><code>--ds-form-field-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       11. CSS CLASSES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-toggle</code></td><td><span data-lang="pt">Switch estilizado (checkbox nativo)</span><span data-lang="en">Custom styled switch (native checkbox)</span></td></tr>
+        <tr><td><code>ds-toggle-label</code></td><td><span data-lang="pt">Wrapper do controle (envolve track + conteúdo)</span><span data-lang="en">Control wrapper (wraps track + content)</span></td></tr>
+        <tr><td><code>ds-toggle--sm</code></td><td><span data-lang="pt">Tamanho pequeno (28x16px)</span><span data-lang="en">Small size (28x16px)</span></td></tr>
+        <tr><td><code>ds-toggle--lg</code></td><td><span data-lang="pt">Tamanho grande (56x32px)</span><span data-lang="en">Large size (56x32px)</span></td></tr>
+        <tr><td><code>ds-toggle__content</code></td><td><span data-lang="pt">Frame vertical com label, description e helper text</span><span data-lang="en">Vertical frame stacking label, description, and helper text</span></td></tr>
+        <tr><td><code>ds-toggle__label</code></td><td><span data-lang="pt">Texto do label (label/md)</span><span data-lang="en">Label text (label/md)</span></td></tr>
+        <tr><td><code>ds-toggle__description</code></td><td><span data-lang="pt">Texto descritivo multiline (body/sm)</span><span data-lang="en">Multiline description text (body/sm)</span></td></tr>
+        <tr><td><code>ds-toggle__helper</code></td><td><span data-lang="pt">Texto auxiliar (caption/sm)</span><span data-lang="en">Helper annotation (caption/sm)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       11. KEYBOARD INTERACTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Interação por teclado</span><span data-lang="en">Keyboard interaction</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Tecla</span><span data-lang="en">Key</span></th><th><span data-lang="pt">Ação</span><span data-lang="en">Action</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td><span data-lang="pt">Move o foco para o toggle</span><span data-lang="en">Moves focus to the toggle</span></td></tr>
+        <tr><td><code>Space</code></td><td><span data-lang="pt">Alterna ligado/desligado</span><span data-lang="en">Toggles on/off</span></td></tr>
+        <tr><td><code>Enter</code></td><td><span data-lang="pt">NÃO alterna (comportamento padrão de switch)</span><span data-lang="en">Does NOT toggle (standard switch behavior)</span></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:var(--ds-dimension-8);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Toggles desabilitados (<code>[disabled]</code>) são removidos da ordem de tabulação automaticamente pelo navegador.</span><span data-lang="en">Disabled toggles (<code>[disabled]</code>) are removed from tab order automatically by the browser.</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       12. ACCESSIBILITY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>4.1.2 Name, Role, Value (A)</td><td><span data-lang="pt"><code>role="switch"</code> + <code>aria-checked</code> gerenciados pelo checkbox nativo</span><span data-lang="en"><code>role="switch"</code> + <code>aria-checked</code> managed by native checkbox</span></td><td>&#10003;</td></tr>
+        <tr><td>2.4.11 Focus Appearance (AA)</td><td><span data-lang="pt">Focus ring visível via <code>:focus-visible</code></span><span data-lang="en">Focus ring visible via <code>:focus-visible</code></span></td><td>&#10003;</td></tr>
+        <tr><td>2.5.8 Target Size min (AA)</td><td><span data-lang="pt">Label estende a área de clique além do toggle</span><span data-lang="en">Label extends click target beyond the toggle itself</span></td><td>&#10003;</td></tr>
+        <tr><td>1.4.1 Use of Color (A)</td><td><span data-lang="pt">Posição + cor comunicam o estado (thumb desliza esquerda/direita)</span><span data-lang="en">Position + color both communicate state (thumb slides left/right)</span></td><td>&#10003;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--info" style="margin-top:var(--ds-dimension-16)">
+      <div class="ds-callout__title"><span data-lang="pt">Resumo de atributos ARIA</span><span data-lang="en">ARIA attributes summary</span></div>
+      <span data-lang="pt"><code>role="switch"</code> — obrigatório no checkbox para que leitores de tela o anunciem como switch.<br>
+      <code>aria-checked</code> — gerenciado automaticamente pelo <code>&lt;input type="checkbox"&gt;</code> nativo.<br>
+      O conteúdo textual deve estar dentro de <code>.ds-toggle__content</code>.</span><span data-lang="en"><code>role="switch"</code> — required on the checkbox so screen readers announce it as a switch.<br>
+      <code>aria-checked</code> — managed automatically by the native <code>&lt;input type="checkbox"&gt;</code>.<br>
+      Textual content must be inside <code>.ds-toggle__content</code>.</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       13. RELATED COMPONENTS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="checkbox.html" class="ds-related__link">Checkbox</a>
+      <a href="radio.html" class="ds-related__link">Radio</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

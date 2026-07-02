@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-012 — Tokens de line-height e letter-spacing divergem por design entre Figma e JSON — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-012 — Tokens de line-height e letter-spacing divergem por design entre Figma e JSON</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-04-21</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-21
+<strong>Status:</strong> Aceita</p>
+<h2>Contexto</h2>
+<p>Em 21/04/2026, durante os PRs #17-#22 (0.5.10 → 0.5.15), implementamos o sync Figma → JSON via MCP e consolidamos a hierarquia de verdade (&quot;Figma é autoridade de valor; JSON é consolidação canônica&quot;). Ao rodar o sync, 37 tokens de typography aparecem como divergentes:</p>
+<ul>
+<li><strong>23 NEW_IN_FIGMA</strong>: <code>typography/font/line-height/*</code> (<code>tight</code>, <code>snug</code>, <code>normal</code>, <code>relaxed</code>, e <code>16</code>, <code>18</code>, <code>20</code>, <code>22</code>, <code>24</code>, <code>26</code>, <code>28</code>, <code>34</code>, <code>40</code>, <code>44</code>, <code>50</code>, <code>60</code>, <code>70</code>, <code>80</code>, <code>90</code>), <code>typography/font/letter-spacing/*</code> (<code>tight</code>, <code>normal</code>, <code>wide</code>, <code>wider</code>).</li>
+<li><strong>14 MISSING_IN_FIGMA</strong>: <code>foundation.typography.line.height.*</code> (<code>none</code>, <code>tight</code>, <code>snug</code>, <code>normal</code>, <code>relaxed</code>, <code>loose</code>, <code>control.sm/md/lg</code>), <code>foundation.typography.letter.spacing.*</code> (<code>tighter</code>, <code>tight</code>, <code>normal</code>, <code>wide</code>, <code>wider</code>).</li>
+</ul>
+<p>Não é &quot;um lado está desatualizado&quot;. Figma e JSON <strong>representam o mesmo conceito em unidades incompatíveis</strong> porque Figma e CSS têm capacidades diferentes:</p>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Figma Variables</th>
+<th>CSS / JSON</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unidade pra <code>line-height</code></td>
+<td><strong>PX obrigatório</strong> (Plugin API só aceita <code>{unit: &quot;PIXELS&quot;|&quot;PERCENT&quot;, value: number}</code>)</td>
+<td><strong>Ratio unitless</strong> preferido (herdável, escalável), ou <code>rem</code>/<code>em</code></td>
+</tr>
+<tr>
+<td>Unidade pra <code>letter-spacing</code></td>
+<td><strong>PX obrigatório</strong></td>
+<td><strong><code>em</code> preferido</strong> (proporcional ao font-size)</td>
+</tr>
+<tr>
+<td>Tipagem DTCG</td>
+<td>não há <code>$type: dimension</code> com unidade flexível</td>
+<td><code>$value: &quot;1.25&quot;</code> (ratio) ou <code>&quot;0.5rem&quot;</code></td>
+</tr>
+<tr>
+<td>Consumo</td>
+<td>24 dos 28 text styles consomem via <code>boundVariables</code></td>
+<td>20 consumos de <code>--ds-line-height-*</code> em 8 componentes CSS</td>
+</tr>
+</tbody></table>
+<p><strong>Consequência</strong>: converter um lado pro outro causa perda real.</p>
+<ul>
+<li>Converter JSON pra PX: quebra acessibilidade (WCAG 1.4.4 &quot;Resize Text&quot;). Elementos em <code>px</code> não escalam com o zoom de texto do browser. Elementos em <code>rem</code>/<code>em</code>/unitless escalam.</li>
+<li>Converter Figma pra ratio: não funciona. A Plugin API não aceita unidade unitless em <code>lineHeight</code> de text style. O Figma registra internamente como PERCENT (<code>150 → 150%</code>) ou PIXELS, mas o binding precisa de Variable do tipo <code>FLOAT</code> com valor numérico que o Figma interpreta como px ou %.</li>
+</ul>
+<h2>Decisão</h2>
+<p>Tokens de <code>line-height</code> e <code>letter-spacing</code> têm <strong>representação divergente por design</strong> entre Figma e JSON. Ambos os lados são canônicos no seu contexto de consumo.</p>
+<h3>Regra</h3>
+<ol>
+<li><strong>Figma</strong> mantém <code>typography/font/line-height/*</code> e <code>typography/font/letter-spacing/*</code> como autoridade para os <strong>text styles do Figma</strong>. Valores em PX (números puros; Figma interpreta como px quando aplicado a text node).</li>
+<li><strong>JSON</strong> mantém <code>foundation.typography.line.height.*</code> e <code>foundation.typography.letter.spacing.*</code> como autoridade para o <strong>CSS gerado</strong>. Valores em ratio unitless (line-height) e <code>em</code> (letter-spacing).</li>
+<li>O sync Figma → JSON <strong>não sincroniza</strong> esses tokens — cada lado evolui independentemente dentro da sua representação.</li>
+<li>Mudanças visuais de typography que afetam os dois lados (ex: deixar um heading mais &quot;aberto&quot;) exigem <strong>atualização manual em ambos</strong> — Figma via text style, JSON via <code>foundation/typography.json</code>.</li>
+</ol>
+<h3>Mecanismo técnico</h3>
+<p>No <code>scripts/lib/figma-dtcg.mjs</code>, introduzimos duas listas de regex para tokens Foundation que só existem em um lado:</p>
+<pre><code class="language-js">const FIGMA_ONLY_PATHS = [
+  /^foundation\.typography\.font\.line-height\./,
+  /^foundation\.typography\.font\.letter-spacing\./,
+];
+const JSON_ONLY_PATHS = [
+  /^foundation\.typography\.line\.height\./,
+  /^foundation\.typography\.letter\.spacing\./,
+];
+</code></pre>
+<p>Na função <code>compareStates</code>:</p>
+<ul>
+<li>Tokens com path casando <code>FIGMA_ONLY_PATHS</code> que seriam <code>NEW_IN_FIGMA</code> → vão pra categoria <code>BY_DESIGN</code> (informativa).</li>
+<li>Tokens com path casando <code>JSON_ONLY_PATHS</code> que seriam <code>MISSING_IN_FIGMA</code> → idem.</li>
+<li>Categoria <code>BY_DESIGN</code> é listada no relatório mas <strong>não conta como drift</strong>. Exit code 0 quando é o único resto.</li>
+</ul>
+<h3>Extensão em ADR-013 — aliases divergentes</h3>
+<p>Tokens Semantic/Component que <strong>existem nos dois lados</strong> mas apontam para Foundation em subárvores divergentes (Figma → <code>foundation.typography.font.line-height.*</code> px, JSON → <code>foundation.typography.line.height.*</code> ratio) são também classificados como <code>BY_DESIGN</code>, não <code>VALUE_DRIFT</code>. Motivo: a divergência vem da mesma razão arquitetural (Figma px vs CSS ratio) propagada através do alias. Exemplo: <code>semantic.typography.body.line-height.md</code> resolve em 24px no Figma e ratio 1.5 no CSS — ambos canônicos.</p>
+<p>Detecção via função <code>isDivergentAliasByDesign</code> em <code>figma-dtcg.mjs</code>: quando Figma alias casa <code>^{foundation.typography.font.line-height.</code> e JSON alias casa <code>^{foundation.typography.line.height.</code> (ou letter-spacing equivalente), é BY_DESIGN divergent-alias.</p>
+<h3>Extensão 2 — tokens Component JSON-only por limitação Figma</h3>
+<p>Categorias que Figma Variables <strong>não consegue representar</strong>: sombras como composite (objeto com offset/blur/color), cubic-bezier easings, durações de motion (Figma só tem prototype motion, não variables), e z-index (Figma não tem primitivo de stack order). Tokens Component que aliasam para essas categorias Foundation vivem só no JSON — o CSS consome, mas não há equivalente Figma.</p>
+<p>Lista de targets JSON-only (em <code>JSON_ONLY_COMPONENT_ALIAS_TARGETS</code> de <code>figma-dtcg.mjs</code>):</p>
+<ul>
+<li><code>{foundation.shadow.*}</code> — shadow objects</li>
+<li><code>{foundation.z.*}</code> — z-index layers</li>
+<li><code>{foundation.duration.*}</code> — motion duration</li>
+<li><code>{foundation.ease.*}</code> — cubic-bezier easings</li>
+</ul>
+<p>Quando <code>compareStates</code> encontra um token <code>component.*</code> presente no JSON mas ausente no Figma <strong>e</strong> seu valor casa um desses targets, classifica como <code>BY_DESIGN</code> (side: <code>json-only-component</code>) em vez de <code>MISSING_IN_FIGMA</code>. Eliminam-se os 26 erros &quot;falsos&quot; que surgiriam do Phase 5 refactor (ADR-013).</p>
+<p>Se no futuro o Figma expandir Variables pra suportar qualquer dessas categorias, basta remover a regex da lista e essas variáveis podem migrar pro Figma como aliases reais.</p>
+<h3>Diferença semântica vs <code>CSS_ONLY</code></h3>
+<p>Este ADR introduz <code>BY_DESIGN</code>; não se confunde com a categoria <code>CSS_ONLY</code> existente:</p>
+<ul>
+<li><code>CSS_ONLY</code> (introduzido em 0.5.11 pós-PR #18): tokens que <strong>existem dos dois lados</strong> mas têm <strong>valores representados diferentemente</strong> (ex: <code>foundation.typography.font.family.sans</code> = <code>&quot;Inter&quot;</code> no Figma vs stack completa <code>&#39;Inter&#39;, system-ui, ...</code> no JSON). Sync ignora a diferença de valor.</li>
+<li><code>BY_DESIGN</code> (este ADR): tokens que <strong>existem só de um lado</strong> por escolha arquitetural. Sync ignora a ausência do outro lado.</li>
+</ul>
+<h2>Consequências</h2>
+<ul>
+<li>Dry-run do sync sai mais limpo: <code>0 VALUE_DRIFT, 0 NEW_IN_FIGMA, 0 MISSING_IN_FIGMA, 0 ALIAS_BROKEN, 9 CSS_ONLY, 37 BY_DESIGN</code>. Divergências reais ficam visíveis sem o ruído de 37 falsos positivos.</li>
+<li>Quem for ajustar typography precisa saber que os dois lados são independentes. Documentado em <code>docs/process-figma-sync.md</code> e reforçado por <code>$description</code> nos tokens afetados (follow-up).</li>
+<li>Se no futuro DTCG/CSS ganharem suporte nativo a composite typography tokens (issue #27), dá pra revisitar essa decisão e unificar.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<p><strong>(a) Unificar em PX.</strong> Remove rem/ratio do JSON, adota PX nos dois lados. Descartada por quebrar WCAG 1.4.4 e a convenção CSS moderna (unitless line-height é recomendado pela especificação CSS desde Level 2).</p>
+<p><strong>(b) Unificar em ratio/em.</strong> Remove os PX do Figma. Descartada porque a Plugin API do Figma não aceita line-height unitless; e porque designer precisa trabalhar em px absoluto durante composição visual.</p>
+<p><strong>(c) Criar &quot;composite typography tokens&quot;</strong> (DTCG <code>$type: typography</code>). Agruparia fontFamily + fontWeight + fontSize + lineHeight + letterSpacing num único token nomeado (ex: <code>display/2xl</code>). Resolve parcialmente mas exige migração grande. Movido pra issue #27 como evolução futura; não bloqueia este ADR.</p>
+<p><strong>(d) Duplicar tudo de um lado no outro (manter ambos, sincronizar manualmente).</strong> Descartada — dobra o custo de manutenção e convida drift silencioso. Melhor aceitar a divergência explicitamente.</p>
+<h2>Referências</h2>
+<ul>
+<li><a href="./ADR-001-migracao-tokens.md">ADR-001</a> — arquitetura Foundation → Semantic → Component.</li>
+<li><a href="./ADR-003-fontes-verdade.md">ADR-003</a> revisada — Figma = autoridade de valor.</li>
+<li><a href="./ADR-006-semantic-control-tokens.md">ADR-006</a> — tokens semânticos de controle (inclui <code>typography.control.*</code>).</li>
+<li><code>docs/process-figma-sync.md</code> — fluxo operacional do sync.</li>
+<li>Issue #23 (origem desta decisão).</li>
+<li>Issue #27 — composite typography tokens (evolução futura).</li>
+<li><a href="https://www.w3.org/TR/css-values-4/">CSS Values and Units Level 4 §3.5</a> — unidades relativas (rem, em).</li>
+<li><a href="https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html">WCAG 2.2 — 1.4.4 Resize Text</a> — requisito de acessibilidade que justifica ratio/rem.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

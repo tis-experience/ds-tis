@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-010 — Remoção de `foundation.color.white` e `foundation.color.black` puros — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-010 — Remoção de `foundation.color.white` e `foundation.color.black` puros</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — Implementada em 0.5.0</strong> · Data: 2026-04-16</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-16
+<strong>Status:</strong> Aceita — Implementada em 0.5.0</p>
+<h2>Implementação</h2>
+<ul>
+<li><code>foundation.color.white</code> e <code>foundation.color.black</code> removidos de <code>tokens/foundation/colors.json</code> em <code>f9f7609</code> (<code>fix(tokens): migrate theme overrides and foundation to ADR-011 naming; remove white/black (ADR-010)</code>).</li>
+<li><code>neutral.950</code> suavizado para <code>#070C17</code> no mesmo commit.</li>
+<li>Bindings semânticos que apontavam para <code>{foundation.color.white}</code> migrados para <code>{foundation.color.neutral.50}</code>.</li>
+<li>Arquivos CSS legados removidos em <code>07cc24d</code> (<code>chore(tokens): remove orphaned CSS files (ADR-010 closes)</code>).</li>
+</ul>
+<h2>Contexto</h2>
+<p>A foundation atual contém dois tokens de cor pura:</p>
+<pre><code>foundation.color.white  = #FFFFFF (L OKLCH = 1.000)
+foundation.color.black  = #000000 (L OKLCH = 0.000)
+</code></pre>
+<p>Ambos são consumidos em bindings semânticos ativos do light mode:</p>
+<ul>
+<li><code>background.default</code>, <code>surface.default</code>, <code>surface.raised</code> → white</li>
+<li><code>text.on-brand</code>, <code>color.primary.foreground</code> → white</li>
+<li><code>feedback.success.foreground</code>, <code>feedback.error.foreground</code> → white</li>
+</ul>
+<p>O uso de branco e preto puros como cores sólidas de UI tem problemas conhecidos e documentados na literatura de design e ergonomia visual:</p>
+<p><strong>Branco puro (#FFFFFF):</strong></p>
+<ul>
+<li>Reflectância máxima causa strain ocular em sessões longas. Papel branco real reflete ~88% da luz, o que mapeia para L≈0.96. O olho não está adaptado a 100% de brilho.</li>
+<li>Em ambientes escuros, dispara miose (contração pupilar) repetida ao alternar entre tela e ambiente, causando fadiga.</li>
+<li>Aumenta percepção de glare em telas brilhantes.</li>
+</ul>
+<p><strong>Preto puro (#000000):</strong></p>
+<ul>
+<li>Em telas OLED, pixels totalmente desligados criam efeito &quot;buraco&quot; em torno de texto branco, com smear visível em scroll.</li>
+<li>Contraste 21:1 com branco é cansativo em leitura corrida (estudos de tipografia recomendam 13–18:1 como sweet spot).</li>
+<li>iOS, Material 3, Linear, Vercel, Polaris — todos os DSs maduros recentes evitam #000 como background.</li>
+</ul>
+<p>A escala neutral atual já tem a versão &quot;saudável&quot; desses extremos:</p>
+<pre><code>neutral.50  = #F8FAFC  (L = 0.984, off-white slate)
+neutral.950 = #020617  (L = 0.129, near-black)
+</code></pre>
+<p>A neutral.50 é tecnicamente correta como off-white. A neutral.950 está no limite inferior aceitável e merece suavização.</p>
+<h2>Decisão</h2>
+<p>Remover <code>foundation.color.white</code> e <code>foundation.color.black</code> da paleta foundation, usando <code>neutral.50</code> e <code>neutral.950</code> como extremos universais. Suavizar ligeiramente <code>neutral.950</code> para reduzir efeito OLED-hole.</p>
+<h3>Mudanças em foundation/colors.json</h3>
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th>atual</th>
+<th>novo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>foundation.color.white</code></td>
+<td>#FFFFFF</td>
+<td><strong>REMOVER</strong></td>
+</tr>
+<tr>
+<td><code>foundation.color.black</code></td>
+<td>#000000</td>
+<td><strong>REMOVER</strong></td>
+</tr>
+<tr>
+<td><code>foundation.color.neutral.950</code></td>
+<td>#020617 (L=0.129)</td>
+<td><code>#070C17</code> (L=0.150)</td>
+</tr>
+</tbody></table>
+<p>A suavização de neutral.950 mantém o tom slate (mesmo hue OKLCH ~262), aumenta L de 0.129 para 0.150, e reduz contraste com branco de 20.17:1 para ~19:1 — diferença imperceptível para legibilidade mas suficiente para evitar pixel-off em OLED.</p>
+<h3>Mudanças em semantic/light.json</h3>
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th>binding atual</th>
+<th>binding novo</th>
+<th>impacto contraste</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>background.default</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>text.default: 17.85 → 17.06:1</td>
+</tr>
+<tr>
+<td><code>surface.default</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>igual</td>
+</tr>
+<tr>
+<td><code>surface.raised</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>igual</td>
+</tr>
+<tr>
+<td><code>text.on-brand</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>sobre primary.default: 5.17 → 4.94:1</td>
+</tr>
+<tr>
+<td><code>color.primary.foreground</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>sobre primary.default: 5.17 → 4.94:1</td>
+</tr>
+<tr>
+<td><code>feedback.success.foreground</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>depende da nova paleta (ADR-008)</td>
+</tr>
+<tr>
+<td><code>feedback.error.foreground</code></td>
+<td><code>{foundation.color.white}</code></td>
+<td><code>{foundation.color.neutral.50}</code></td>
+<td>sobre error.default: 4.83 → 4.65:1 ✅</td>
+</tr>
+</tbody></table>
+<p>Todas as combinações continuam passando WCAG 1.4.3 AA (4.5:1) ou estão no limite aceitável. A diferença é perceptualmente irrelevante.</p>
+<h3>Mudanças em semantic/dark.json</h3>
+<p><code>text.on-brand</code> e <code>*.foreground</code> que apontam para <code>neutral.900</code> permanecem como estão (já não usavam white em dark mode).</p>
+<p><code>background.default</code>, <code>surface.default</code>, <code>surface.raised</code> apontam para <code>neutral.950</code> ou <code>neutral.900</code> (já não usavam black). Apenas o valor de <code>neutral.950</code> muda automaticamente para a nova versão suavizada.</p>
+<h2>Consequências</h2>
+<h3>Pipeline</h3>
+<ol>
+<li>Remover entradas <code>white</code> e <code>black</code> em <code>tokens/foundation/colors.json</code></li>
+<li>Atualizar <code>tokens/foundation/colors.json</code> substituindo o valor de <code>neutral.950</code></li>
+<li>Atualizar <code>tokens/semantic/light.json</code> em todos os bindings que apontavam para <code>{foundation.color.white}</code></li>
+<li>Regenerar CSS via Style Dictionary (vai remover <code>--ds-color-white</code>, <code>--ds-color-black</code>, atualizar <code>--ds-color-neutral-950</code>)</li>
+<li>Atualizar Figma Variables removendo <code>color/white</code> e <code>color/black</code> da coleção Foundation, e atualizando <code>color/neutral/950</code></li>
+<li>Buscar uso direto de <code>#FFFFFF</code>, <code>#FFF</code>, <code>white</code>, <code>#000000</code>, <code>#000</code>, <code>black</code> no código CSS dos componentes e substituir por referências a tokens</li>
+<li>Validar que nenhum component token ainda referencia <code>{foundation.color.white}</code> ou <code>.black</code></li>
+</ol>
+<h3>Componentes afetados</h3>
+<p>Mudança visual mínima em todos os componentes que renderizam fundo branco ou texto branco sobre cor sólida. A diferença entre #FFFFFF e #F8FAFC é aproximadamente 2% em luminância — perceptível apenas em comparação direta lado a lado.</p>
+<h3>Tokens de overlay</h3>
+<p>Os tokens <code>foundation.color.overlay.white.*</code> e <code>foundation.color.overlay.black.*</code> permanecem, pois usam rgba aplicado como sobreposição (não como cor sólida de superfície). Os problemas de strain e OLED-hole não se aplicam a overlays semitransparentes.</p>
+<h3>Casos de uso para preto/branco puro</h3>
+<p>Se algum caso futuro precisar de pureza absoluta (ex: render para impressão, alto contraste forçado, sinalização de teste), o valor pode ser declarado inline com <code>$description</code> justificando, sem reintroduzir o token foundation.</p>
+<h3>Documentação</h3>
+<ul>
+<li>Atualizar <code>token-schema.md</code> removendo <code>white</code> e <code>black</code> da lista de tokens em <code>colors.json</code> e atualizando o valor de <code>neutral.950</code></li>
+<li>Atualizar tabela de mapeamento JSON ↔ CSS ↔ Figma</li>
+<li>Adicionar nota em <code>system-principles.md</code> sobre a abolição de cores puras como princípio do DS</li>
+<li>No site de docs, página de Foundation/Colors precisa refletir a remoção</li>
+</ul>
+<h3>Compatibilidade</h3>
+<p>Estruturalmente breaking (tokens removidos). Não breaking visualmente para o usuário final. Como o DS ainda não tem consumers externos formais, o risco é baixo. Bump minor version. Code review nos componentes para garantir que ninguém referencia <code>--ds-color-white</code> ou <code>--ds-color-black</code> diretamente após a regeneração.</p>
+<h3>Atualizar regra inviolável do token-schema</h3>
+<p>Adicionar à lista de regras invioláveis em <code>token-schema.md</code>:</p>
+<blockquote>
+<p><strong>11. Cores puras (#FFFFFF e #000000) não são tokens foundation.</strong> Use <code>neutral.50</code> como off-white e <code>neutral.950</code> como near-black. Casos excepcionais devem usar valor inline com <code>$description</code> justificando.</p>
+</blockquote>
+<h2>Alternativas consideradas</h2>
+<p><strong>A. Manter <code>white</code> e <code>black</code> mas desencorajar uso via documentação.</strong></p>
+<p>Sem enforcement automático, a tendência é que apareçam em PRs futuros por hábito ou por copy-paste de outros projetos. Descartada porque &quot;não usar&quot; precisa ser uma propriedade do sistema, não da disciplina.</p>
+<p><strong>B. Renomear <code>white</code> → <code>neutral.0</code> e <code>black</code> → <code>neutral.1000</code>, mantendo valores puros.</strong></p>
+<p>Resolve apenas o naming, não o problema visual. Descartada.</p>
+<p><strong>C. Criar <code>foundation.color.surface.top</code> e <code>surface.bottom</code> como tokens semânticos novos para essa camada.</strong></p>
+<p>Adiciona uma camada conceitual nova só para acomodar dois valores. A escala neutral já cobre essa função (50 e 950 são exatamente os extremos da escala). Descartada por excesso de abstração.</p>
+<p><strong>D. Suavizar neutral.950 sem remover white/black.</strong></p>
+<p>Resolve metade do problema. Descartada porque o uso de white puro como background.default continua sendo o ponto mais problemático em sessões longas.</p>
+<h2>Referências</h2>
+<ul>
+<li>W3C WAI Working Group — orientação informal sobre evitar contraste máximo em interfaces de leitura prolongada</li>
+<li>Material Design 3 — uso de surface tonal em vez de white puro</li>
+<li>iOS Human Interface Guidelines — system colors usam off-white/near-black</li>
+<li>ADR-008 (recalibração de paletas — relacionado, mas independente)</li>
+<li>ADR-009 (border.control vs border.default — independente)</li>
+<li>token-schema.md — atualizar regras invioláveis</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

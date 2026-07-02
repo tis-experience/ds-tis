@@ -1,0 +1,182 @@
+name: Sync tokens from Figma (manual)
+
+# Disparo exclusivamente manual. O sync automático exigiria Enterprise (REST API
+# de variables) ou um plugin Figma custom com webhook — ver docs/backlog.md.
+# Fluxo: snapshot gerado fora do CI (via MCP + use_figma numa sessão Claude Code),
+# entregue como input ou pré-existente no branch. Este workflow aplica o snapshot.
+on:
+  workflow_dispatch:
+    inputs:
+      branch-name:
+        description: "Nome da branch a criar (default: sync/tokens-<data>)"
+        required: false
+        default: ""
+      dry-run:
+        description: "Executar em modo dry-run (não aplica mudanças, só reporta)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      # O snapshot (.figma-snapshot.json) não está no repo (é gitignored).
+      # Num fluxo completo, seria gerado pelo agente Claude Code via use_figma
+      # e entregue aqui (ex: como artifact de um job anterior ou commit temporário).
+      # Por ora, o workflow verifica se o arquivo existe e aborta com instrução
+      # clara se não estiver presente — evita dry-runs enganosos.
+      - name: Verificar snapshot
+        run: |
+          if [ ! -f .figma-snapshot.json ]; then
+            echo "::error::.figma-snapshot.json não encontrado."
+            echo ""
+            echo "O snapshot deve ser gerado numa sessão Claude Code antes de rodar este workflow:"
+            echo "  1. Abrir sessão Claude Code com MCP Figma autenticado"
+            echo "  2. Pedir ao agente para executar o dump das Variables (use_figma)"
+            echo "  3. O agente salva .figma-snapshot.json no repo (gitignored)"
+            echo "  4. Commitar o snapshot num branch temporário e rodar este workflow_dispatch"
+            echo ""
+            echo "Ver docs/process-figma-sync.md para o passo-a-passo completo."
+            exit 1
+          fi
+          echo "Snapshot encontrado: $(jq '.metadata // {} | keys' .figma-snapshot.json 2>/dev/null || echo '(sem metadata)')"
+
+      - name: Determinar branch name
+        id: branch
+        run: |
+          NAME="${{ github.event.inputs.branch-name }}"
+          if [ -z "$NAME" ]; then
+            NAME="sync/tokens-$(date +%Y-%m-%d)"
+          fi
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+          echo "Branch: $NAME"
+
+      - name: Criar branch
+        run: |
+          git checkout -b "${{ steps.branch.outputs.name }}"
+
+      - name: Dry-run — comparar snapshot com tokens
+        id: dryrun
+        env:
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+        run: |
+          node scripts/sync-tokens-from-figma.mjs 2>&1 | tee /tmp/sync-dry-run.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      - name: Aplicar mudanças (VALUE_DRIFT)
+        if: github.event.inputs.dry-run != 'true'
+        id: apply
+        env:
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+        run: |
+          node scripts/sync-tokens-from-figma.mjs --write 2>&1 | tee /tmp/sync-write.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      - name: Verificar mudanças no git
+        id: changes
+        run: |
+          git diff --name-only > /tmp/changed-files.txt
+          if [ -s /tmp/changed-files.txt ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Arquivos modificados:"
+            cat /tmp/changed-files.txt
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "Nenhuma mudança detectada — Figma e JSON já estão em dia."
+          fi
+
+      - name: Commit e push
+        if: steps.changes.outputs.has_changes == 'true' && github.event.inputs.dry-run != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tokens/ css/tokens/generated/ CHANGELOG.md
+          git commit -m "chore(tokens): sync Figma Variables → JSON [$(date +%Y-%m-%d)]
+
+          Gerado por workflow sync-tokens-from-figma.yml (disparo manual).
+          Snapshot: .figma-snapshot.json (gitignored, gerado por agente Claude Code).
+
+          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          git push origin "${{ steps.branch.outputs.name }}"
+
+      - name: Abrir PR
+        if: steps.changes.outputs.has_changes == 'true' && github.event.inputs.dry-run != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const dryRunLog = fs.existsSync('/tmp/sync-write.txt')
+              ? fs.readFileSync('/tmp/sync-write.txt', 'utf8').slice(0, 3000)
+              : '(log não disponível)';
+            const changedFiles = fs.readFileSync('/tmp/changed-files.txt', 'utf8').trim();
+            const today = new Date().toISOString().slice(0, 10);
+
+            const pr = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `chore(tokens): sync Figma Variables → JSON [${today}]`,
+              head: '${{ steps.branch.outputs.name }}',
+              base: 'main',
+              body: [
+                '## Summary',
+                '',
+                '- Gerado por `workflow_dispatch` em `sync-tokens-from-figma.yml`.',
+                '- Snapshot Figma lido de `.figma-snapshot.json` (gerado por agente Claude Code).',
+                '- Apenas `VALUE_DRIFT` é aplicado automaticamente. `NEW_IN_FIGMA` e `MISSING_IN_FIGMA` exigem revisão manual.',
+                '',
+                '## Arquivos modificados',
+                '```',
+                changedFiles,
+                '```',
+                '',
+                '## Log do sync',
+                '```',
+                dryRunLog,
+                '```',
+                '',
+                '## Test plan',
+                '- [ ] Revisar `git diff tokens/` — valores batem com as Figma Variables?',
+                '- [ ] `npm run build:tokens` passou sem erro (log do CI)',
+                '- [ ] `--ds-shadow-*` e outros tokens críticos renderizam corretamente no browser',
+                '- [ ] Nenhum token em `NEW_IN_FIGMA` ou `MISSING_IN_FIGMA` foi silenciado sem revisão',
+              ].join('\n'),
+            });
+            console.log(`PR aberto: ${pr.data.html_url}`);
+
+      - name: Sumário — sem mudanças
+        if: steps.changes.outputs.has_changes == 'false'
+        run: |
+          echo "## ✅ Figma e JSON já estão em dia" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Nenhum VALUE_DRIFT encontrado. Nenhum arquivo foi modificado." >> $GITHUB_STEP_SUMMARY
+
+      - name: Sumário — dry-run
+        if: github.event.inputs.dry-run == 'true'
+        run: |
+          echo "## 🔍 Dry-run — divergências encontradas" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat /tmp/sync-dry-run.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Rode novamente com **dry-run = false** para aplicar as mudanças." >> $GITHUB_STEP_SUMMARY

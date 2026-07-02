@@ -1,0 +1,63 @@
+{
+  "component": {
+    "spinner": {
+      "size": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.size.xs}",
+          "$description": "Tamanho do Spinner sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.size.md}",
+          "$description": "Tamanho do Spinner md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.size.lg}",
+          "$description": "Tamanho do Spinner lg."
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.full}",
+          "$description": "Radius circular do Spinner."
+        }
+      },
+      "ring": {
+        "stroke-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.strong}",
+            "$description": "Stroke width do ring Spinner."
+          }
+        }
+      },
+      "track": {
+        "border-color": {
+          "default": {
+            "$value": "{semantic.border.overlay.default}",
+            "$type": "color"
+          },
+          "on-color": {
+            "$value": "{semantic.border.overlay.medium}",
+            "$type": "color"
+          }
+        }
+      },
+      "indicator": {
+        "border-color": {
+          "default": {
+            "$value": "{semantic.border.brand}",
+            "$type": "color"
+          },
+          "on-color": {
+            "$value": "{semantic.border.inverse}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <!-- 1. HEADER -->
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Contato</span><span data-lang="en">Contact</span></h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Formulário completo de contato com seleção de assunto via Select, textarea para mensagem, Radio group para prioridade, confirmação de envio via Alert e validação de campos obrigatórios.</span>
+      <span data-lang="en">Complete contact form with subject selection via Select, message textarea, Radio group for priority, submission confirmation via Alert, and required field validation.</span>
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--ds-dimension-8);margin-top:var(--ds-dimension-16)">
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Input</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Textarea</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Select</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Radio</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Checkbox</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Alert</span>
+      <span class="ds-badge ds-badge--neutral ds-badge--subtle">Button</span>
+    </div>
+  </div>
+
+  <!-- 2. PREVIEW -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Preview</h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs">
+        <button class="ds-preview__tab ds-preview__tab--active" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" data-tab="code">Code</button>
+        <button onclick="openPreviewInNewTab()" aria-label="Abrir preview em nova aba" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--ds-content-subtle);padding:0 var(--ds-dimension-12);font-size:var(--ds-font-size-14);font-weight:var(--ds-font-weight-medium);display:flex;align-items:center;gap:var(--ds-dimension-6);white-space:nowrap;" onmouseenter="this.style.color='var(--ds-content-strong)'" onmouseleave="this.style.color='var(--ds-content-subtle)'"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Abrir em nova aba</button>
+      </div>
+      <div class="ds-preview__canvas" style="padding:0;display:block">
+        <div style="background:var(--ds-background-subtle);padding:var(--ds-dimension-40);min-height:700px;display:flex;align-items:flex-start;justify-content:center">
+          <div style="width:100%;max-width:560px">
+
+            <!-- Success alert (post-submit state) -->
+            <div class="ds-alert ds-alert--success ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24)" role="alert">
+              <div class="ds-alert__content">
+                <p class="ds-alert__title"><span data-lang="pt">Mensagem enviada!</span><span data-lang="en">Message sent!</span></p>
+                <span class="ds-alert__description">
+                  <span data-lang="pt">Retornaremos em até 2 dias úteis para o e-mail informado.</span>
+                  <span data-lang="en">We'll respond within 2 business days to the email provided.</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="ds-card ds-card--outlined" style="padding:var(--ds-dimension-32)">
+
+              <h2 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)">
+                <span data-lang="pt">Fale conosco</span><span data-lang="en">Get in touch</span>
+              </h2>
+              <p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-24)">
+                <span data-lang="pt">Preencha o formulário e nossa equipe entrará em contato.</span>
+                <span data-lang="en">Fill in the form and our team will get back to you.</span>
+              </p>
+
+              <form novalidate>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--ds-dimension-16);margin-bottom:var(--ds-dimension-16)">
+                  <div class="ds-field">
+                    <div class="ds-field__label-row">
+                      <label class="ds-field__label" for="ct-name"><span data-lang="pt">Nome</span><span data-lang="en">Name</span></label>
+                      <span class="ds-field__required" aria-hidden="true">*</span>
+                    </div>
+                    <div class="ds-input ds-input--lg">
+                      <input class="ds-input__field" type="text" id="ct-name" autocomplete="given-name" required>
+                    </div>
+                  </div>
+                  <div class="ds-field">
+                    <div class="ds-field__label-row">
+                      <label class="ds-field__label" for="ct-email">E-mail</label>
+                      <span class="ds-field__required" aria-hidden="true">*</span>
+                    </div>
+                    <div class="ds-input ds-input--lg">
+                      <input class="ds-input__field" type="email" id="ct-email" placeholder="seu@email.com" autocomplete="email" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ds-field" style="margin-bottom:var(--ds-dimension-16)">
+                  <div class="ds-field__label-row">
+                    <label class="ds-field__label" for="ct-subject"><span data-lang="pt">Assunto</span><span data-lang="en">Subject</span></label>
+                    <span class="ds-field__required" aria-hidden="true">*</span>
+                  </div>
+                  <div class="ds-select ds-select--lg">
+                    <select class="ds-select__field" id="ct-subject" required>
+                      <option value="">Selecione um assunto...</option>
+                      <option>Dúvida técnica</option>
+                      <option>Proposta comercial</option>
+                      <option>Parceria</option>
+                      <option>Outro</option>
+                    </select>
+                    <span class="ds-select__arrow" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="ds-field" style="margin-bottom:var(--ds-dimension-16)">
+                  <div class="ds-field__label-row">
+                    <label class="ds-field__label" for="ct-message"><span data-lang="pt">Mensagem</span><span data-lang="en">Message</span></label>
+                    <span class="ds-field__required" aria-hidden="true">*</span>
+                  </div>
+                  <div class="ds-textarea">
+                    <textarea class="ds-textarea__field" id="ct-message" rows="5" placeholder="Descreva sua solicitação com detalhes..." required></textarea>
+                  </div>
+                  <span class="ds-field__helper"><span data-lang="pt">Quanto mais detalhes, mais rápido poderemos ajudar.</span><span data-lang="en">The more details you provide, the faster we can help.</span></span>
+                </div>
+
+                <!-- Priority radio group -->
+                <fieldset style="border:none;padding:0;margin:0 0 var(--ds-dimension-24)">
+                  <legend style="font-size:var(--ds-body-font-size-sm);font-weight:var(--ds-body-font-weight-medium);color:var(--ds-content-strong);margin-bottom:var(--ds-dimension-12)">
+                    <span data-lang="pt">Prioridade</span><span data-lang="en">Priority</span>
+                  </legend>
+                  <div style="display:flex;gap:var(--ds-dimension-24)">
+                    <label class="ds-radio-label">
+                      <input class="ds-radio" type="radio" name="priority" value="low">
+                      <span class="ds-radio__content">
+                        <span class="ds-radio__label"><span data-lang="pt">Baixa</span><span data-lang="en">Low</span></span>
+                      </span>
+                    </label>
+                    <label class="ds-radio-label">
+                      <input class="ds-radio" type="radio" name="priority" value="medium" checked>
+                      <span class="ds-radio__content">
+                        <span class="ds-radio__label"><span data-lang="pt">Média</span><span data-lang="en">Medium</span></span>
+                      </span>
+                    </label>
+                    <label class="ds-radio-label">
+                      <input class="ds-radio" type="radio" name="priority" value="high">
+                      <span class="ds-radio__content">
+                        <span class="ds-radio__label"><span data-lang="pt">Alta</span><span data-lang="en">High</span></span>
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <!-- Terms checkbox -->
+                <label class="ds-checkbox-label" style="margin-bottom:var(--ds-dimension-32)">
+                  <input class="ds-checkbox" type="checkbox" id="ct-privacy" required>
+                  <span class="ds-checkbox__content">
+                    <span class="ds-checkbox__label">
+                      <span data-lang="pt">Concordo com a <a class="ds-link" href="#">Política de privacidade</a> e autorizo o contato por e-mail.</span>
+                      <span data-lang="en">I agree to the <a class="ds-link" href="#">Privacy policy</a> and authorize contact by email.</span>
+                    </span>
+                  </span>
+                </label>
+
+                <button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit">
+                  <span class="ds-button__label"><span data-lang="pt">Enviar mensagem</span><span data-lang="en">Send message</span></span>
+                </button>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__code" style="display:none">
+        <button class="ds-preview__copy">Copy</button>
+        <pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Contato&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/design-system.css"&gt;
+  &lt;style&gt;
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background: var(--ds-background-subtle); min-height: 100vh; margin: 0; display: flex; align-items: flex-start; justify-content: center; padding: var(--ds-dimension-40); }
+    .contact-card { background: var(--ds-surface-default); border-radius: var(--ds-radius-lg); padding: var(--ds-dimension-32); width: 100%; max-width: 560px; border: 1px solid var(--ds-border-default); }
+    .contact-name-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ds-dimension-16); margin-bottom: var(--ds-dimension-16); }
+    @media (max-width: 540px) { .contact-name-row { grid-template-columns: 1fr; } body { padding: var(--ds-dimension-16); } }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div style="width:100%;max-width:560px"&gt;
+
+  &lt;!-- Show this alert after successful submission --&gt;
+  &lt;div class="ds-alert ds-alert--success ds-alert--subtle" style="margin-bottom:var(--ds-dimension-24);display:none" role="alert" id="success-alert"&gt;
+    &lt;div class="ds-alert__content"&gt;
+      &lt;p class="ds-alert__title"&gt;Mensagem enviada!&lt;/p&gt;
+      &lt;span class="ds-alert__description"&gt;Retornaremos em até 2 dias úteis.&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="contact-card"&gt;
+    &lt;h1 style="font-size:var(--ds-body-font-size-xl);font-weight:var(--ds-body-font-weight-bold);color:var(--ds-content-strong);margin:0 0 var(--ds-dimension-4)"&gt;Fale conosco&lt;/h1&gt;
+    &lt;p style="font-size:var(--ds-body-font-size-md);color:var(--ds-content-default);margin:0 0 var(--ds-dimension-24)"&gt;Preencha o formulário e nossa equipe entrará em contato.&lt;/p&gt;
+
+    &lt;form id="contact-form" novalidate&gt;
+
+      &lt;div class="contact-name-row"&gt;
+        &lt;div class="ds-field"&gt;
+          &lt;div class="ds-field__label-row"&gt;
+            &lt;label class="ds-field__label" for="name"&gt;Nome&lt;/label&gt;
+            &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class="ds-input ds-input--lg"&gt;
+            &lt;input class="ds-input__field" type="text" id="name" autocomplete="given-name" required&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ds-field"&gt;
+          &lt;div class="ds-field__label-row"&gt;
+            &lt;label class="ds-field__label" for="email"&gt;E-mail&lt;/label&gt;
+            &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class="ds-input ds-input--lg"&gt;
+            &lt;input class="ds-input__field" type="email" id="email" placeholder="seu@email.com" autocomplete="email" required&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-16)"&gt;
+        &lt;div class="ds-field__label-row"&gt;
+          &lt;label class="ds-field__label" for="subject"&gt;Assunto&lt;/label&gt;
+          &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="ds-select ds-select--lg"&gt;
+          &lt;select class="ds-select__field" id="subject" required&gt;
+            &lt;option value=""&gt;Selecione um assunto...&lt;/option&gt;
+            &lt;option&gt;Dúvida técnica&lt;/option&gt;
+            &lt;option&gt;Proposta comercial&lt;/option&gt;
+            &lt;option&gt;Parceria&lt;/option&gt;
+            &lt;option&gt;Outro&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;span class="ds-select__arrow" aria-hidden="true"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="ds-field" style="margin-bottom:var(--ds-dimension-16)"&gt;
+        &lt;div class="ds-field__label-row"&gt;
+          &lt;label class="ds-field__label" for="message"&gt;Mensagem&lt;/label&gt;
+          &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="ds-textarea"&gt;
+          &lt;textarea class="ds-textarea__field" id="message" rows="5" required&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;span class="ds-field__helper"&gt;Quanto mais detalhes, mais rápido poderemos ajudar.&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;fieldset style="border:none;padding:0;margin:0 0 var(--ds-dimension-24)"&gt;
+        &lt;legend style="font-size:var(--ds-body-font-size-sm);font-weight:var(--ds-body-font-weight-medium);color:var(--ds-content-strong);margin-bottom:var(--ds-dimension-12)"&gt;Prioridade&lt;/legend&gt;
+        &lt;div style="display:flex;gap:var(--ds-dimension-24)"&gt;
+          &lt;label class="ds-radio-label"&gt;
+            &lt;input class="ds-radio" type="radio" name="priority" value="low"&gt;
+            &lt;span class="ds-radio__content"&gt;&lt;span class="ds-radio__label"&gt;Baixa&lt;/span&gt;&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class="ds-radio-label"&gt;
+            &lt;input class="ds-radio" type="radio" name="priority" value="medium" checked&gt;
+            &lt;span class="ds-radio__content"&gt;&lt;span class="ds-radio__label"&gt;Média&lt;/span&gt;&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class="ds-radio-label"&gt;
+            &lt;input class="ds-radio" type="radio" name="priority" value="high"&gt;
+            &lt;span class="ds-radio__content"&gt;&lt;span class="ds-radio__label"&gt;Alta&lt;/span&gt;&lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/fieldset&gt;
+
+      &lt;label class="ds-checkbox-label" style="margin-bottom:var(--ds-dimension-32)"&gt;
+        &lt;input class="ds-checkbox" type="checkbox" id="privacy" required&gt;
+        &lt;span class="ds-checkbox__content"&gt;
+          &lt;span class="ds-checkbox__label"&gt;
+            Concordo com a &lt;a class="ds-link" href="/privacy"&gt;Política de privacidade&lt;/a&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/label&gt;
+
+      &lt;button class="ds-button ds-button--brand ds-button--lg ds-button--full" type="submit"&gt;
+        &lt;span class="ds-button__label"&gt;Enviar mensagem&lt;/span&gt;
+      &lt;/button&gt;
+
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    // Replace with your form submission logic
+    document.getElementById('success-alert').style.display = '';
+    this.reset();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. USAGE -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Notas de uso</span><span data-lang="en">Usage notes</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Padrão</span><span data-lang="en">Pattern</span></th><th><span data-lang="pt">Decisão</span><span data-lang="en">Decision</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> <span data-lang="pt">no Radio group</span><span data-lang="en">for Radio group</span></td><td><span data-lang="pt">Semântica nativa de agrupamento — screen readers anunciam a pergunta antes de cada opção, sem JavaScript adicional.</span><span data-lang="en">Native grouping semantics — screen readers announce the question before each option, without additional JavaScript.</span></td></tr>
+        <tr><td><span data-lang="pt">Alert de sucesso oculto inicialmente</span><span data-lang="en">Success alert hidden initially</span></td><td><span data-lang="pt">O alert de confirmação é renderizado no DOM mas oculto (<code>display:none</code>). Exiba-o via JS após o envio e use <code>role="alert"</code> para anúncio automático em leitores de tela.</span><span data-lang="en">The confirmation alert is rendered in the DOM but hidden (<code>display:none</code>). Show it via JS after submission and use <code>role="alert"</code> for automatic screen reader announcement.</span></td></tr>
+        <tr><td><span data-lang="pt">Textarea com ds-field__helper</span><span data-lang="en">Textarea with ds-field__helper</span></td><td><span data-lang="pt">O texto auxiliar abaixo da textarea define a expectativa de qualidade antes do erro — reduz reenvios por mensagens incompletas.</span><span data-lang="en">Helper text below the textarea sets quality expectations before the error — reduces resubmissions due to incomplete messages.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. RELATED -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Templates relacionados</span><span data-lang="en">Related templates</span></h2>
+    <div class="ds-related">
+      <a href="login.html" class="ds-related__link">Login</a>
+      <a href="signup.html" class="ds-related__link"><span data-lang="pt">Cadastro</span><span data-lang="en">Sign Up</span></a>
+      <a href="index.html" class="ds-related__link"><span data-lang="pt">Ver todos os templates</span><span data-lang="en">All templates</span></a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/main.js"></script>
+<script>
+function openPreviewInNewTab() {
+  var code = document.querySelector('.ds-preview__code pre code').textContent;
+  var cssUrl = new URL('../../css/design-system.css', window.location.href).href;
+  var html = code.replace(/"css\/design-system\.css"/, '"' + cssUrl + '"');
+  var blob = new Blob([html], { type: 'text/html' });
+  var url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(function() { URL.revokeObjectURL(url); }, 30000);
+}
+</script>
+</body>
+</html>

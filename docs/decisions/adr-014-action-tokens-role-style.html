@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-014 — Reestruturação Semantic em `action` × `style` × `prop` × `state` — eliminação de brand/accent e themes — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-014 — Reestruturação Semantic em `action` × `style` × `prop` × `state` — eliminação de brand/accent e themes</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — implementada em 0.7.0 e estabilizada em 1.0.0-beta.1</strong> · Data: 2026-04-22</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-22
+<strong>Status:</strong> Aceita — implementada em 0.7.0 e estabilizada em 1.0.0-beta.1</p>
+<blockquote>
+<p><strong>Atualização (2026-04-26):</strong> Naming <code>bg-*</code> → <code>background.*</code> aplicado em todos os tokens Semantic. Theme switcher (Default/Ocean/Forest) removido em 0.8.0 — tokens suportam single brand customizável conforme decidido aqui. ADR-015 (unificação de size) é evolução natural desta estrutura action × style × prop, estendida para dimensões.</p>
+</blockquote>
+<h2>Contexto</h2>
+<p>Os ADRs anteriores (ADR-011 renaming, ADR-013 camadas de consumo) mantiveram a camada Semantic dominada por <code>brand.*</code> (fills diretos da marca) + <code>accent.*</code> (complemento em purple). Com essa estrutura:</p>
+<ul>
+<li>Consumidores (CSS, Figma bindings) resolviam variantes de Button misturando <code>brand.default</code>, <code>brand.toned.default</code>, <code>brand.content.contrast</code>, <code>border.brand</code>, etc. — sem padrão claro.</li>
+<li>Accent era usado apenas em Badge Secondary.</li>
+<li>Três paletas de brand (Default/Ocean/Forest) viviam em uma collection <code>Brand</code> no Figma com modes. Adicionavam complexidade e nunca foram requisito real do produto.</li>
+<li>Na Fase 5 do ADR-013, um agente criou 151 tokens Component como wrappers 1:1 pra compensar a falta de semântica de ação. Resultado: 288 Component tokens sem decisão clara, impossível de manter.</li>
+</ul>
+<p>A pergunta arquitetural ficou: <strong>como representar variantes de ação (Button brand, outline, ghost, danger, secondary neutral, etc.) em Semantic de forma que seja 1) enxuta, 2) previsível, 3) sem duplicação em Component?</strong></p>
+<h2>Decisão</h2>
+<p>Reestruturar a camada Semantic em torno de um eixo <strong>role × style × prop × state</strong> específico para ações interativas, consolidar identidade da marca em uma paleta única na Foundation, e eliminar accent.</p>
+<h3>1. Foundation — <code>color/brand/{50..950}</code> como paleta única</h3>
+<p>Paleta <code>foundation.color.brand.*</code> criada com valores hex (Default = Blue atual). Designer pode reassignar os hex pra customizar a marca do projeto (futuro: color picker runtime).</p>
+<p>Remoções:</p>
+<ul>
+<li>Collection <strong>Brand</strong> no Figma (modes Default/Ocean/Forest) — deletada</li>
+<li><code>tokens/foundation/brand.json</code> — deletado</li>
+<li>CSS themes <code>theme-ocean.css</code> e <code>theme-forest.css</code> — deletados</li>
+</ul>
+<h3>2. Semantic — categorias de ação como peers no root (pós-revisão 2026-04-23)</h3>
+<p>Após revisão de estrutura com alinhamento ao PDF &quot;Naming Tokens in Design Systems&quot; (Nathan Curtis) e exemplos de Carbon/Polaris/Fluent, a estrutura anterior de 5 níveis <code>action.{role}.{style}.{prop}.{state}</code> foi considerada burocrática e redundante. Estrutura revisada:</p>
+<p><strong>Regra de naming</strong>:</p>
+<ul>
+<li><strong>Color tokens</strong>: hierarquia pastas + compound hífen no último nível. <code>{categoria}/{prop-state}</code>.</li>
+<li><strong>Dimensional/structural</strong>: hierarquia ponto (escalas taxonômicas).</li>
+<li><code>default</code> explícito em vars de cor (<code>bg-default</code>, <code>content-default</code>).</li>
+<li><code>bg</code> (não <code>background</code>) em compound; <code>background</code> reservado pra categoria root.</li>
+</ul>
+<p><strong>Categorias de ação como peers no root Semantic</strong> (sem prefix <code>action.</code>):</p>
+<pre><code>semantic.primary/{bg-default, bg-hover, bg-active, bg-disabled, content-default, content-disabled}   # solid brand
+semantic.toned/{bg-default, bg-hover, bg-active, content-default, content-disabled}                   # brand translúcido
+semantic.outline/{bg-hover, bg-active, border-default, border-hover, border-disabled, content-default, content-disabled}  # neutral
+semantic.ghost/{bg-hover, bg-active, content-default, content-disabled}                               # neutral text-only
+semantic.link/{content-default, content-hover, content-disabled}                                       # inline link branded
+</code></pre>
+<p><strong>Total</strong>: 25 tokens (vs 66 atuais, -62%).</p>
+<p><strong>Eliminações</strong>:</p>
+<ul>
+<li><code>secondary</code> e <code>danger</code> <strong>não são mais roles em action</strong>:<ul>
+<li>Button &quot;danger&quot; consome <code>feedback.error.*</code> diretamente</li>
+<li>Button &quot;secondary&quot; (solid cinza) foi eliminado como estilo — visualmente vira <code>outline</code> (borda neutra) ou <code>ghost</code> (só texto)</li>
+</ul>
+</li>
+<li><code>state/*</code> categoria eliminada:<ul>
+<li><code>state.hover</code> → <code>overlay.subtle</code></li>
+<li><code>state.pressed</code> → <code>overlay.default</code></li>
+<li><code>state.focus</code> → <code>focus.ring.color</code></li>
+<li><code>state.disabled-background</code> → <code>background.disabled</code></li>
+</ul>
+</li>
+<li><code>content.link.*</code> movido pra categoria <code>link.*</code> peer</li>
+</ul>
+<p><strong>Feedback renomeado</strong> pra compound consistente: <code>feedback.success.default</code> → <code>feedback.success.bg-default</code>, <code>feedback.success.content.contrast</code> → <code>feedback.success.content-contrast</code>.</p>
+<p><strong><code>border.control/*</code> renomeado</strong>: <code>border.control.default</code> → <code>border.control-default</code>.</p>
+<h3>2.1 — Versão antiga (histórico, revoada em 2026-04-23)</h3>
+<p>A primeira versão do ADR-014 propunha:</p>
+<pre><code>semantic.action.{role: primary|secondary|danger}.{style: default|toned|outline|ghost}.{prop}.{state}
+</code></pre>
+<p>Mas gerou 66 tokens com nomes de 50+ caracteres (<code>--ds-action-primary-default-background-default</code>), &quot;default&quot; duplicado em vários paths, e roles repetidos (3 roles × 4 styles × props × states) sem justificativa prática.</p>
+<p><strong>Troca</strong>: simplicidade e alinhamento com mercado (Carbon/Polaris compound kebab-case) vs matriz combinatória completa.</p>
+<p>(Outras hierarquias — success, info, warning — vêm on-demand quando houver variante de componente que exija.)</p>
+<p><strong>Styles</strong>:</p>
+<ul>
+<li><code>default</code> — preenchimento sólido, alta ênfase</li>
+<li><code>toned</code> — fundo sutil com overlay translúcido, ênfase média</li>
+<li><code>outline</code> — borda + texto colorido, fundo transparente</li>
+<li><code>ghost</code> — apenas texto, sem fundo nem borda</li>
+</ul>
+<p><strong>Props × States</strong>: cada combinação razoável é criada; combinações não aplicáveis (ex: <code>outline.background.default</code> sempre transparente) são omitidas.</p>
+<p>Total Semantic action: ~70 tokens que cobrem todas as variantes de Button/ação explicitamente.</p>
+<h3>3. Semantic — categoria <code>radius</code> expandida</h3>
+<pre><code>semantic.radius.{sm, md, lg, xl, full, component}
+</code></pre>
+<p>Aliases diretos de <code>foundation.radius.*</code>. <code>component</code> é alias de <code>md</code> (valor default de radius em componentes).</p>
+<h3>4. Eliminação de <code>brand/accent</code> em Semantic</h3>
+<ul>
+<li><code>semantic.brand.*</code> (11 tokens) — removidos</li>
+<li><code>semantic.accent.*</code> (6 tokens) — removidos</li>
+</ul>
+<p>Consumidores remapeados:</p>
+<ul>
+<li><code>semantic.content.link.*</code> → aponta direto a <code>foundation.color.brand.{600,700}</code> (exceção a ADR-013: Semantic consumindo Foundation é permitido; link é ação neutra-primary)</li>
+<li><code>semantic.border.focus</code>, <code>border.brand</code>, <code>state.focus</code> → mesma lógica</li>
+<li>Bindings de Figma components → rebindados a <code>semantic.action.primary.*</code></li>
+</ul>
+<h3>5. Component — reduzida drasticamente (185 → ~60 vars)</h3>
+<p>Component collection mantém <strong>apenas</strong> dimensões específicas por componente (modal.max-width, button.height, spinner.size, etc.). Wrappers 1:1 pra Semantic/Foundation eliminados.</p>
+<p>Componentes que NÃO têm tokens próprios (alert, badge, breadcrumb, card, divider, tabs, tooltip) — seus JSONs foram deletados. CSS deles consome Semantic direto.</p>
+<h2>Fluxo de consumo</h2>
+<pre><code>CSS de componente
+    ↓
+semantic.action.{role}.{style}.{prop}.{state}
+    ↓
+foundation.color.{brand|neutral|red}.{step}
+</code></pre>
+<p>Exemplo concreto — Button brand (primary, sólido) CSS:</p>
+<pre><code class="language-css">.ds-button--brand {
+  background-color: var(--ds-action-primary-default-background-default);
+  color: var(--ds-action-primary-default-content-default);
+}
+.ds-button--brand:hover  { background-color: var(--ds-action-primary-default-background-hover); }
+.ds-button--brand:active { background-color: var(--ds-action-primary-default-background-active); }
+</code></pre>
+<p>Button toned:</p>
+<pre><code class="language-css">.ds-button--toned {
+  background-color: var(--ds-action-primary-toned-background-default);
+  color: var(--ds-action-primary-toned-content-default);
+}
+</code></pre>
+<p>Button danger:</p>
+<pre><code class="language-css">.ds-button--danger {
+  background-color: var(--ds-action-danger-default-background-default);
+  color: var(--ds-action-danger-default-content-default);
+}
+</code></pre>
+<p>Semântica explícita, cadeia curta, sem wrappers intermediários.</p>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li><strong>Estrutura enxuta</strong>: Semantic action cobre TODAS variantes em ~70 tokens previsíveis</li>
+<li><strong>Sem 3 themes</strong>: sistema foca em 1 brand, customização runtime via color picker (projeto futuro)</li>
+<li><strong>Component enxuto</strong>: 60 vars justificadas (vs 185 inflado por wrappers)</li>
+<li><strong>Consistência</strong>: mesma estrutura role × style × prop × state aplicável pra qualquer componente novo de ação</li>
+<li><strong>Zero Foundation leak</strong>: nenhum bind de componente Figma ou CSS consome foundation direto</li>
+<li><strong>Rastreabilidade</strong>: uso de <code>action-danger-outline-content-hover</code> é autoexplicativo em grep</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li><strong>Breaking change grande</strong>: toda a cadeia <code>brand.*</code> + <code>accent.*</code> no Semantic foi removida. CSS de componentes inteiramente reescrito.</li>
+<li><strong>Themes removidos</strong>: Ocean e Forest não voltam. Se alguém dependia, precisa reimplementar via override de <code>foundation.color.brand.*</code> no CSS consumidor.</li>
+<li><strong>on-demand risk</strong>: <code>action.success</code>, <code>action.warning</code>, <code>action.info</code> não foram criados. Se Button ganhar variante Success, precisa criar os tokens primeiro. Fricção proposital pra evitar inflação.</li>
+</ul>
+<h3>Bump de versão</h3>
+<p><strong>0.5.x → 0.6.0</strong> (breaking change em toda a estrutura Semantic).</p>
+<h2>Alternativas consideradas</h2>
+<h3>(a) Manter <code>brand.*</code> e adicionar só <code>action.*</code> em paralelo</h3>
+<p>Rejeitada. Duplicação de conceitos — dois tokens pra mesma cor. Não resolve o bloat.</p>
+<h3>(b) Não criar camada <code>action</code> e deixar variantes de Button resolverem no CSS</h3>
+<p>Rejeitada. Viola ADR-013 (CSS consome Foundation direto ou mistura camadas). Perde intenção semântica.</p>
+<h3>(c) Manter accent como 2ª paleta configurável</h3>
+<p>Rejeitada. Accent era usado só em Badge Secondary. Com elimnação de acent, Badge Secondary vira variante neutral (coerente com action.secondary).</p>
+<h3>(d) Tokens por componente (Material Design 3 style — <code>button.filled.container.color</code>)</h3>
+<p>Rejeitada. É exatamente o que a Fase 5 ADR-013 fez e gerou bloat. Inviável em sistema de 18 componentes.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-011: Renaming de Semantic colors (antecessor — <code>text/*</code> → <code>content/*</code>, <code>color/primary/*</code> → <code>brand/*</code>)</li>
+<li>ADR-013: Camadas de consumo — Foundation nunca direto em consumidor final</li>
+<li>Material Design 3: Color roles (precedent pra role-based tokens, mas não adotado por complexidade)</li>
+<li>Fluent 2: Surface/content/fill composition (precedent pra separação prop × state)</li>
+<li>Primer (GitHub): primer/primitives — inspiração pra estrutura enxuta</li>
+<li>Figma Tokens Studio: Role/Style composition pattern</li>
+</ul>
+<h2>Migração</h2>
+<ul>
+<li>Componentes Figma: rebindados automaticamente via <code>use_figma</code> (353 bindings de fills/strokes + 5 consumer vars semantic)</li>
+<li>JSONs de componente: reescritos com o subset de ~60 tokens</li>
+<li>CSS componentes: 18 arquivos reescritos pra consumir nova Semantic</li>
+<li>Snapshot Figma regenerado</li>
+<li><code>verify:tokens</code> passa</li>
+</ul>
+<h2>Reversibilidade</h2>
+<ul>
+<li>Arquivo Figma duplicado manualmente antes da refatoração (checkpoint)</li>
+<li><code>.figma-snapshot-pre-refactor.json</code> preservado</li>
+<li>Trabalho vive em branch <code>refactor/tokens-ground-up</code>; reverter = <code>git revert</code> do PR ou reset-hard</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

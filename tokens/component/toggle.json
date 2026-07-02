@@ -1,0 +1,249 @@
+{
+  "component": {
+    "toggle": {
+      "target": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Altura minima da area interativa Toggle sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Altura minima da area interativa Toggle md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Altura minima da area interativa Toggle lg."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal entre track e content Toggle."
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical entre textos do Toggle."
+          }
+        }
+      },
+      "track": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Altura da track Toggle sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Altura da track Toggle md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Altura da track Toggle lg."
+          }
+        },
+        "width": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.width.sm}",
+            "$description": "Largura especifica da track Toggle sm. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.width.md}",
+            "$description": "Largura especifica da track Toggle md. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.width.lg}",
+            "$description": "Largura especifica da track Toggle lg. Component-specific; nao ha Semantic reutilizavel."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius da track Toggle."
+          }
+        },
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Border width da track Toggle."
+          }
+        },
+        "fill": {
+          "off": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill da track Toggle off default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill da track Toggle off focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.surface.hover}",
+              "$description": "Fill da track Toggle off hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.background.disabled}",
+              "$description": "Fill da track Toggle off disabled."
+            }
+          },
+          "on": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da track Toggle on default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da track Toggle on focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.hover}",
+              "$description": "Fill da track Toggle on hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.disabled}",
+              "$description": "Fill da track Toggle on disabled."
+            }
+          }
+        },
+        "border-color": {
+          "off": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.border.control-default}",
+              "$description": "Border color da track Toggle off default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.border.focus}",
+              "$description": "Border color da track Toggle off focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.border.control-hover}",
+              "$description": "Border color da track Toggle off hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.border.control-disabled}",
+              "$description": "Border color da track Toggle off disabled."
+            }
+          }
+        }
+      },
+      "thumb": {
+        "inset": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Inset/gap do thumb Toggle usado pela implementacao CSS."
+          }
+        },
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.thumb.size.sm}",
+            "$description": "Tamanho do thumb Toggle sm. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.thumb.size.md}",
+            "$description": "Tamanho do thumb Toggle md. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.control.toggle.thumb.size.lg}",
+            "$description": "Tamanho do thumb Toggle lg. Component-specific; nao ha Semantic reutilizavel."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius do thumb Toggle."
+          }
+        },
+        "fill": {
+          "off": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.content.default}",
+              "$description": "Fill do thumb Toggle off default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.content.default}",
+              "$description": "Fill do thumb Toggle off focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.content.hover}",
+              "$description": "Fill do thumb Toggle off hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.content.disabled}",
+              "$description": "Fill do thumb Toggle off disabled."
+            }
+          },
+          "on": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do thumb Toggle on default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do thumb Toggle on focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-hover}",
+              "$description": "Fill do thumb Toggle on hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-disabled}",
+              "$description": "Fill do thumb Toggle on disabled."
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius do focus ring Toggle."
+          }
+        }
+      }
+    }
+  }
+}

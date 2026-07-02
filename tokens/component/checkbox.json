@@ -1,0 +1,242 @@
+{
+  "component": {
+    "checkbox": {
+      "target": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Altura minima da area interativa Checkbox sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Altura minima da area interativa Checkbox md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Altura minima da area interativa Checkbox lg."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal entre control e content Checkbox."
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical entre textos do Checkbox."
+          }
+        }
+      },
+      "group": {
+        "options": {
+          "gap": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.space.sm}",
+              "$description": "Gap entre opções dentro do Checkbox Group."
+            }
+          }
+        }
+      },
+      "box": {
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Tamanho visual da box Checkbox sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho visual da box Checkbox md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho visual da box Checkbox lg."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.sm}",
+            "$description": "Radius da box visual Checkbox."
+          }
+        },
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Border width da box visual Checkbox."
+          }
+        },
+        "fill": {
+          "unchecked": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill da box Checkbox unchecked default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill da box Checkbox unchecked focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.surface.hover}",
+              "$description": "Fill da box Checkbox unchecked hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.background.disabled}",
+              "$description": "Fill da box Checkbox unchecked disabled."
+            }
+          },
+          "checked": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da box Checkbox checked default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da box Checkbox checked focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.hover}",
+              "$description": "Fill da box Checkbox checked hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.disabled}",
+              "$description": "Fill da box Checkbox checked disabled."
+            }
+          },
+          "indeterminate": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da box Checkbox indeterminate default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill da box Checkbox indeterminate focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.hover}",
+              "$description": "Fill da box Checkbox indeterminate hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.disabled}",
+              "$description": "Fill da box Checkbox indeterminate disabled."
+            }
+          }
+        },
+        "border-color": {
+          "unchecked": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.border.control-default}",
+              "$description": "Border color da box Checkbox unchecked default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.border.focus}",
+              "$description": "Border color da box Checkbox unchecked focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.border.control-hover}",
+              "$description": "Border color da box Checkbox unchecked hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.border.control-disabled}",
+              "$description": "Border color da box Checkbox unchecked disabled."
+            },
+            "error": {
+              "$value": "{semantic.border.error}",
+              "$type": "color"
+            },
+            "error-hover": {
+              "$value": "{semantic.border.error-hover}",
+              "$type": "color"
+            }
+          }
+        }
+      },
+      "mark": {
+        "fill": {
+          "checked": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do checkmark Checkbox checked default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do checkmark Checkbox checked focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-hover}",
+              "$description": "Fill do checkmark Checkbox checked hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-disabled}",
+              "$description": "Fill do checkmark Checkbox checked disabled."
+            }
+          },
+          "indeterminate": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill da marca Checkbox indeterminate default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill da marca Checkbox indeterminate focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-hover}",
+              "$description": "Fill da marca Checkbox indeterminate hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-disabled}",
+              "$description": "Fill da marca Checkbox indeterminate disabled."
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do focus ring Checkbox."
+          }
+        }
+      }
+    }
+  }
+}

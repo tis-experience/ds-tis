@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-015 — — Unificação da escala size, eliminação de tokens component-specific e renomeação spacing→dimension — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-015 — — Unificação da escala size, eliminação de tokens component-specific e renomeação spacing→dimension</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceito</strong> · Data: 2026-04-26</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceito</li>
+<li><strong>Data:</strong> 2026-04-26</li>
+<li><strong>Substitui:</strong> sub-decisões de ADR-006 (que introduziu <code>size.control.*</code> e <code>space.control.padding-{x,y}.*</code>)</li>
+<li><strong>Relaciona:</strong> ADR-013, ADR-019</li>
+</ul>
+<blockquote>
+<p><strong>Atualização (2026-05-11):</strong> ADR-019 reintroduz Component tokens como contrato anatômico. Esta ADR continua vigente para a escala Semantic (<code>size.{xs..5xl}</code>) e para a regra de evitar component-specific disfarçado em Semantic. O que muda é que aliases 1:1 voltam a ser aceitos na camada Component quando documentam anatomia pública de componente.</p>
+</blockquote>
+<h2>Contexto</h2>
+<p>A migração 3-layer → 2-layer (ADR-013) eliminou a Component collection mas a Semantic absorveu tokens component-specific (<code>size.avatar.*</code>, <code>size.modal.*</code>, <code>size.spinner.*</code>, <code>size.skeleton.*</code>, <code>size.textarea.*</code>, <code>size.toggle.track-width.*</code>, <code>size.control.*</code>). Eram 25 tokens em <code>semantic.size.*</code>. Auditoria revelou:</p>
+<ul>
+<li><strong>Duplicação por valor:</strong> mesmo número (32, 40, 44) consumido por componentes diferentes via tokens distintos. Ex: <code>size.control.sm</code>, <code>size.avatar.sm</code>, <code>size.spinner.lg</code> — todos <code>dimension/32</code>.</li>
+<li><strong>Component-specific disfarçado de Semantic:</strong> Component layer foi &quot;deletada&quot; mas a abstração que ela representava (1 token por componente × tamanho) sobreviveu sob outro namespace. Mesmo overhead de manutenção.</li>
+<li><strong><code>space.control.padding-{x,y}.{sm,md,lg}</code>:</strong> 6 tokens cobrindo apenas valores que já estavam em <code>space.{sm, md, lg, xl}</code>. Único valor de fato deviante: 10px (padding-y de control md).</li>
+<li><strong>Naming Foundation:</strong> <code>foundation.spacing.N</code> foi adotado como escala numérica geral, mas <code>spacing</code> semanticamente sugere &quot;gap/padding&quot;. Valores como 320, 640, 1280 (modal widths) não se encaixam.</li>
+</ul>
+<h2>Decisão</h2>
+<h3>1. Escala única <code>size.{xs..5xl}</code> para dimensões estruturais</h3>
+<p>Substitui todos os tokens <code>size.{avatar,control,modal,spinner,skeleton,textarea,toggle}.*</code> por uma escala genérica t-shirt:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>px</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>size.xs</code></td>
+<td>16</td>
+<td>Inline icon, indicator pequeno</td>
+</tr>
+<tr>
+<td><code>size.sm</code></td>
+<td>20</td>
+<td>Icon padrão em controle, checkbox/radio sm</td>
+</tr>
+<tr>
+<td><code>size.md</code></td>
+<td>24</td>
+<td>Icon grande, checkbox/radio md, avatar icon</td>
+</tr>
+<tr>
+<td><code>size.lg</code></td>
+<td>32</td>
+<td>Control height sm, avatar md, spinner padrão</td>
+</tr>
+<tr>
+<td><code>size.xl</code></td>
+<td>40</td>
+<td>Control height md (Button/Input/Select default), avatar lg</td>
+</tr>
+<tr>
+<td><code>size.2xl</code></td>
+<td>48</td>
+<td>Control height lg, touch target a11y, avatar xl</td>
+</tr>
+<tr>
+<td><code>size.3xl</code></td>
+<td>64</td>
+<td>Avatar 2xl, textarea sm</td>
+</tr>
+<tr>
+<td><code>size.4xl</code></td>
+<td>96</td>
+<td>Textarea md, skeleton card</td>
+</tr>
+<tr>
+<td><code>size.5xl</code></td>
+<td>128</td>
+<td>Textarea lg, skeleton hero</td>
+</tr>
+</tbody></table>
+<h3>2. Escala <code>size.layout.{xs..2xl}</code> para containers</h3>
+<p>Para dimensões de layout (modal, sidebar, page max-width):</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>px</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>size.layout.xs</code></td>
+<td>320</td>
+</tr>
+<tr>
+<td><code>size.layout.sm</code></td>
+<td>480</td>
+</tr>
+<tr>
+<td><code>size.layout.md</code></td>
+<td>640</td>
+</tr>
+<tr>
+<td><code>size.layout.lg</code></td>
+<td>800</td>
+</tr>
+<tr>
+<td><code>size.layout.xl</code></td>
+<td>1024</td>
+</tr>
+<tr>
+<td><code>size.layout.2xl</code></td>
+<td>1280</td>
+</tr>
+</tbody></table>
+<h3>3. Regra para <code>control.*</code>: somente desvios da escala genérica</h3>
+<p><code>size.control.*</code> e <code>space.control.*</code> deixam de ser namespace de &quot;tudo que é controle&quot; e passam a ser <strong>só</strong> para valores que escapam da escala compartilhada. Exemplos:</p>
+<ul>
+<li><strong>Sobrevive:</strong> <code>space.control.padding.10</code> (10px — único valor que não cabe em <code>space.{2xs..2xl}</code>).</li>
+<li><strong>Eliminados:</strong> <code>size.control.{sm,md,lg}</code> (32/40/48 — valores cabem em <code>size.{lg,xl,2xl}</code>), <code>size.control.icon.{sm,md,lg}</code> (16/20/24 — cabem em <code>size.{xs,sm,md}</code>), <code>space.control.padding-{x,y}.{sm,md,lg}</code> (8/10/12/16/20 — exceto o 10).</li>
+</ul>
+<h3>4. Foundation: <code>foundation.spacing</code> → <code>foundation.dimension</code></h3>
+<p>A escala numérica primitiva passa a se chamar <code>dimension</code> no JSON e CSS gerado:</p>
+<pre><code>foundation.spacing.N  →  foundation.dimension.N
+--ds-spacing-N        →  --ds-dimension-N
+</code></pre>
+<p>Espelha o naming já adotado no Figma. Adiciona valores que faltavam em Foundation: 128, 320, 480, 640, 800, 1024, 1280.</p>
+<h3>5. Ajustes de valor (visual changes aceitos)</h3>
+<p>A unificação obrigou alguns valores antigos a se aproximarem dos degraus da escala:</p>
+<table>
+<thead>
+<tr>
+<th>Antes</th>
+<th>Token antigo</th>
+<th>Depois</th>
+<th>Token novo</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>28</td>
+<td>size.avatar.icon.lg</td>
+<td>24</td>
+<td>size.md</td>
+<td>−4</td>
+</tr>
+<tr>
+<td>28</td>
+<td>size.toggle.track-width.sm</td>
+<td>24</td>
+<td>size.md</td>
+<td>−4</td>
+</tr>
+<tr>
+<td>36</td>
+<td>size.toggle.track-width.md</td>
+<td>40</td>
+<td>size.xl</td>
+<td>+4</td>
+</tr>
+<tr>
+<td>44</td>
+<td>size.toggle.track-width.lg</td>
+<td>48</td>
+<td>size.2xl</td>
+<td>+4</td>
+</tr>
+<tr>
+<td>44</td>
+<td>size.control.min-target</td>
+<td>48</td>
+<td>size.2xl</td>
+<td>+4 (passa Material 48px touch target)</td>
+</tr>
+<tr>
+<td>56</td>
+<td>size.avatar.lg</td>
+<td>64</td>
+<td>size.3xl</td>
+<td>+8</td>
+</tr>
+<tr>
+<td>68</td>
+<td>size.textarea.min-height.sm</td>
+<td>64</td>
+<td>size.3xl</td>
+<td>−4</td>
+</tr>
+<tr>
+<td>80</td>
+<td>size.textarea.min-height.md</td>
+<td>96</td>
+<td>size.4xl</td>
+<td>+16</td>
+</tr>
+<tr>
+<td>112</td>
+<td>size.textarea.min-height.lg</td>
+<td>128</td>
+<td>size.5xl</td>
+<td>+16</td>
+</tr>
+<tr>
+<td>120</td>
+<td>size.skeleton.rect-height</td>
+<td>128</td>
+<td>size.5xl</td>
+<td>+8</td>
+</tr>
+<tr>
+<td>400</td>
+<td>size.modal.max-width.sm</td>
+<td>480</td>
+<td>size.layout.sm</td>
+<td>+80</td>
+</tr>
+<tr>
+<td>520</td>
+<td>size.modal.max-width.md</td>
+<td>640</td>
+<td>size.layout.md</td>
+<td>+120</td>
+</tr>
+</tbody></table>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li><strong>25 tokens <code>size.*</code> → 15 tokens</strong> (40% redução).</li>
+<li>Adicionar componente novo: consulta a escala existente, escolhe o degrau. Não cria token component-specific.</li>
+<li>Picker no Figma fica enxuto e previsível.</li>
+<li>Naming <code>dimension</code> honra que a escala é primitiva numérica, não específica de spacing.</li>
+<li>a11y: touch target sobe de 44 → 48px (Material guideline).</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li><strong>Mudanças visuais perceptíveis</strong> em alguns componentes (Avatar lg 56→64, Modal sm/md, Toggle track-width). Aceitas pelo designer durante cleanup.</li>
+<li>ADR-006 fica parcialmente revogado (a parte de &quot;control tokens&quot;). <code>typography.control.*</code> permanece (não tocado neste ADR).</li>
+<li>Tokens <code>--ds-size-*-*</code> legados deletados — qualquer consumidor externo do CSS gerado (improvável, repo é o único consumer hoje) precisa atualizar.</li>
+</ul>
+<h3>Migração realizada nesta entrega</h3>
+<ul>
+<li><strong>Figma:</strong> 2.062 bindings rebound de zombies legados pra escala nova. Zero zombies remanescentes (auditoria pós-rebind: 251 vars únicas referenciadas, 100% live).</li>
+<li><strong>JSON:</strong> <code>tokens/foundation/spacing.json</code> → <code>dimension.json</code>. <code>semantic.size</code> reescrito. <code>semantic.space.control</code> reduzido a <code>padding.10</code>. Aliases bulk-renomeados.</li>
+<li><strong>CSS:</strong> ~50 refs em <code>css/components/*.css</code>, <code>css/base/*.css</code> e <code>docs/*.html</code> substituídas. Pipeline (<code>build:tokens</code>, <code>sync:docs</code>) regenerado.</li>
+<li><strong>Tests:</strong> <code>test-token-integrity</code>, <code>test-css-references</code>, <code>test-generators</code> — todos passam.</li>
+<li><strong>Scripts ajustados:</strong> <code>build-api.mjs</code>, <code>figma-dtcg.mjs</code>, <code>sync-docs.mjs</code>, <code>tokens-verify.mjs</code>.</li>
+</ul>
+<h2>Reversibilidade</h2>
+<p>Mudança grande mas mecânica: rebind reverso é possível por valor. Branch isolada e testada antes de qualquer publicação. JSON é fonte de verdade derivado de Figma — recriar tokens antigos é trivial se necessário.</p>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

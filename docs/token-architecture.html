@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Architecture — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-token-table { width: 100%; border-collapse: collapse; font-size: var(--ds-font-size-14); margin-bottom: var(--ds-dimension-32); }
+    .ds-token-table th { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-2) solid var(--ds-border-default); font-weight: var(--ds-font-weight-semibold); color: var(--ds-content-default); }
+    .ds-token-table td { padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-subtle); vertical-align: top; }
+    .ds-token-table code { font-size: var(--ds-font-size-12); font-family: var(--ds-font-family-mono); }
+    .ds-callout { padding: var(--ds-dimension-16) var(--ds-dimension-20); border-radius: var(--ds-radius-12); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-font-size-14); line-height: var(--ds-line-height-relaxed); color: var(--ds-content-strong); }
+    .ds-callout--info { background-color: var(--ds-feedback-info-background-subtle); border: var(--ds-border-width-1) solid var(--ds-feedback-info-border-default); }
+    .ds-callout--warning { background-color: var(--ds-feedback-warning-background-subtle); border: var(--ds-border-width-1) solid var(--ds-feedback-warning-border-default); }
+    .ds-callout a { color: var(--ds-content-strong); text-decoration: underline; text-underline-offset: var(--ds-dimension-2); }
+    .ds-callout a:hover { color: var(--ds-content-strong); }
+    .ds-subsection a { color: var(--ds-content-strong); text-decoration: underline; text-underline-offset: var(--ds-dimension-2); }
+    .ds-subsection a:hover { color: var(--ds-content-strong); }
+    .ds-callout__title { font-weight: var(--ds-font-weight-semibold); margin-bottom: var(--ds-dimension-4); }
+    /* Layers — usa vocabulário visual do site (radius-12, border-default,
+       surface-raised, tipografia sans). Sem vocabulário paralelo. */
+    .ds-layers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--ds-dimension-16);
+      margin-bottom: var(--ds-dimension-24);
+    }
+    @media (max-width: 720px) {
+      .ds-layers { grid-template-columns: 1fr; }
+      .ds-token-table { display: block; overflow-x: auto; }
+    }
+    .ds-layer {
+      padding: var(--ds-dimension-24);
+      background-color: var(--ds-surface-default);
+      border: var(--ds-border-width-1) solid var(--ds-border-default);
+      border-radius: var(--ds-radius-12);
+    }
+    .ds-layer__title {
+      margin: 0 0 var(--ds-dimension-4);
+      font-size: var(--ds-font-size-18);
+      font-weight: var(--ds-font-weight-semibold);
+      color: var(--ds-content-strong);
+    }
+    .ds-layer__title-num {
+      color: var(--ds-content-subtle);
+      margin-right: var(--ds-dimension-8);
+      font-weight: var(--ds-font-weight-regular);
+    }
+    .ds-layer__count {
+      font-size: var(--ds-font-size-14);
+      color: var(--ds-content-default);
+    }
+    .ds-layer__role {
+      margin: var(--ds-dimension-12) 0 var(--ds-dimension-16);
+      font-size: var(--ds-font-size-14);
+      line-height: var(--ds-line-height-relaxed);
+      color: var(--ds-content-default);
+    }
+    .ds-layer__entries {
+      margin: 0;
+      display: grid;
+      gap: var(--ds-dimension-8);
+    }
+    .ds-layer__entry {
+      display: flex;
+      align-items: baseline;
+      gap: var(--ds-dimension-8);
+      flex-wrap: wrap;
+      font-size: var(--ds-font-size-14);
+      color: var(--ds-content-strong);
+    }
+    .ds-layer__entry-mode {
+      font-size: var(--ds-font-size-12);
+      color: var(--ds-content-subtle);
+    }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Token Architecture</span><span data-lang="en">Token Architecture</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Design tokens são organizados em três camadas: Foundation/Core, Semantic/System e Component. Cada camada tem um papel específico na cadeia de alias.</span><span data-lang="en">Design tokens are organized in three layers: Foundation/Core, Semantic/System, and Component. Each layer has a specific role in the alias chain.</span></p>
+  </div>
+
+  <!-- ============================================================
+       THREE LAYERS
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Camadas e cadeia de alias</span><span data-lang="en">Layers and alias chain</span></h2>
+    <p style="margin-bottom:var(--ds-space-xl);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Três camadas, uma direção: <strong>Foundation/Core</strong> guarda valores brutos; <strong>Semantic/System</strong> traduz esses valores em decisões reutilizáveis; <strong>Component</strong> expõe o contrato anatômico consumido por CSS, Figma bindings e documentação de componente.</span><span data-lang="en">Three layers, one direction: <strong>Foundation/Core</strong> holds raw values; <strong>Semantic/System</strong> turns them into reusable decisions; <strong>Component</strong> exposes the anatomical contract consumed by CSS, Figma bindings, and component documentation.</span></p>
+
+    <div class="ds-layers">
+      <article class="ds-layer">
+        <h3 class="ds-layer__title"><span class="ds-layer__title-num">01</span>Foundation</h3>
+        <p class="ds-layer__count"><span data-lang="pt">Primitives · hidden from publishing</span><span data-lang="en">Primitives · hidden from publishing</span></p>
+        <p class="ds-layer__role"><span data-lang="pt">Valores brutos com naming numérico. A única camada com hex, rem ou px. Não é consumida diretamente pelos componentes.</span><span data-lang="en">Raw values with numeric naming. The only layer with hex, rem or px. Never consumed directly by components.</span></p>
+        <div class="ds-layer__entries">
+          <div class="ds-layer__entry"><code>color.blue.600</code><span>=</span><code>#2563EB</code></div>
+          <div class="ds-layer__entry"><code>dimension.16</code><span>=</span><code>16px</code></div>
+          <div class="ds-layer__entry"><code>radius.8</code><span>=</span><code>8px</code></div>
+        </div>
+      </article>
+
+      <article class="ds-layer">
+        <h3 class="ds-layer__title"><span class="ds-layer__title-num">02</span>Semantic</h3>
+        <p class="ds-layer__count"><span data-lang="pt">Light/dark · publicada pra Figma</span><span data-lang="en">Light/dark · published to Figma</span></p>
+        <p class="ds-layer__role"><span data-lang="pt">Intenção e significado, com naming t-shirt (sm/md/lg). Referência Foundation via aliases. Light e dark sobrescrevem só esta camada.</span><span data-lang="en">Intent and meaning, with t-shirt naming (sm/md/lg). References Foundation via aliases. Light and dark only override this layer.</span></p>
+        <div class="ds-layer__entries">
+          <div class="ds-layer__entry"><code>primary.background.default</code><span>→</span><code>{foundation.color.brand.600}</code></div>
+          <div class="ds-layer__entry"><code>content.strong</code><span>→</span><code>{foundation.color.neutral.900}</code><span class="ds-layer__entry-mode">light</span></div>
+          <div class="ds-layer__entry"><code>content.strong</code><span>→</span><code>{foundation.color.neutral.50}</code><span class="ds-layer__entry-mode">dark</span></div>
+        </div>
+      </article>
+
+      <article class="ds-layer">
+        <h3 class="ds-layer__title"><span class="ds-layer__title-num">03</span>Component</h3>
+        <p class="ds-layer__count"><span data-lang="pt">JSON + Figma variables · contrato anatômico</span><span data-lang="en">JSON + Figma variables · anatomical contract</span></p>
+        <p class="ds-layer__role"><span data-lang="pt">Nomeia partes públicas de cada componente. Pode aliasar Semantic 1:1 quando isso documenta a API visual do componente.</span><span data-lang="en">Names public parts of each component. May alias Semantic 1:1 when that documents the component visual API.</span></p>
+        <div class="ds-layer__entries">
+          <div class="ds-layer__entry"><code>checkbox.target.height.sm</code><span>→</span><code>{semantic.size.lg}</code></div>
+          <div class="ds-layer__entry"><code>checkbox.box.size.sm</code><span>→</span><code>{semantic.size.xs}</code></div>
+          <div class="ds-layer__entry"><code>toggle.track.width.md</code><span>→</span><span data-lang="pt">contrato do componente</span><span data-lang="en">component contract</span></div>
+        </div>
+      </article>
+    </div>
+
+    <p style="color:var(--ds-content-default);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);margin-bottom:var(--ds-dimension-16);">
+      <span data-lang="pt">A cadeia é sempre <strong>Component → Semantic → Foundation</strong> quando o componente já foi migrado. Trocar a cor primária é mudar o alias de <code>primary.background.default</code> pra outro Foundation — o contrato do componente não muda. Aliases resolvem em <code>:root</code>; <code>[data-mode="dark"]</code> sobrescreve Semantic.</span><span data-lang="en">The chain is always <strong>Component → Semantic → Foundation</strong> once the component has migrated. Changing the primary color means re-aliasing <code>primary.background.default</code> to another Foundation entry — the component contract does not change. Aliases resolve at <code>:root</code>; <code>[data-mode="dark"]</code> overrides Semantic.</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       STRUCTURES AND ICONOGRAPHY
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Structures e iconografia</span><span data-lang="en">Structures and iconography</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);">
+      <span data-lang="pt">Alguns namespaces da camada Component podem representar estruturas anatômicas compartilhadas, não componentes instanciáveis. Uma structure só existe quando há padrão nomeável, pelo menos três consumidores, paridade real de valores e documentação própria. O binding aponta direto para a structure; não se cria uma cadeia intermediária <code>input/* → field/*</code> quando o valor é realmente compartilhado.</span><span data-lang="en">Some Component-layer namespaces may represent shared anatomical structures, not instantiable components. A structure only exists when there is a nameable pattern, at least three consumers, real value parity, and its own documentation. Bindings point directly to the structure; do not create an intermediate <code>input/* → field/*</code> chain when the value is truly shared.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Namespace</span><span data-lang="en">Namespace</span></th><th><span data-lang="pt">Uso</span><span data-lang="en">Use</span></th><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>field/*</code></td><td><span data-lang="pt">Superfície compartilhada de input, select e textarea.</span><span data-lang="en">Shared surface for input, select, and textarea.</span></td><td><span data-lang="pt">Usar apenas onde bg, borda, radius, padding e cores são equivalentes de fato.</span><span data-lang="en">Use only where bg, border, radius, padding, and colors are actually equivalent.</span></td></tr>
+        <tr><td><code>focus-ring/*</code></td><td><span data-lang="pt">Padrão de foco transversal.</span><span data-lang="en">Cross-component focus pattern.</span></td><td><span data-lang="pt">Cor e width podem ser compartilhados; radius acompanha o shape e fica local quando diverge.</span><span data-lang="en">Color and width may be shared; radius follows the shape and stays local when it diverges.</span></td></tr>
+        <tr><td><code>form-field/*</code></td><td><span data-lang="pt">Label, descrição, helper, required, stack e mensagem de erro de campos.</span><span data-lang="en">Label, description, helper, required, stack, and error message for fields.</span></td><td><span data-lang="pt">Absorve padrões comuns dos componentes de formulário e evita duplicar label/helper em cada componente.</span><span data-lang="en">Absorbs common form-component patterns and avoids duplicating label/helper tokens in each component.</span></td></tr>
+        <tr><td><code>target/*</code></td><td><span data-lang="pt">Área interativa de selection controls.</span><span data-lang="en">Interactive area for selection controls.</span></td><td><span data-lang="pt">Permanece por componente até haver motivo forte para promover; é parte da identidade de checkbox, radio e toggle.</span><span data-lang="en">Stays per component unless there is a strong reason to promote it; it is part of checkbox, radio, and toggle identity.</span></td></tr>
+      </tbody>
+    </table>
+	    <div class="ds-callout ds-callout--info">
+	      <div class="ds-callout__title"><span data-lang="pt">Iconografia não é structure</span><span data-lang="en">Iconography is not a structure</span></div>
+	      <span data-lang="pt"><code>icon</code> é vocabulário semântico de iconografia, não uma structure Component. Tokens como <code>icon/color/default</code> e <code>icon/stroke-width/regular/24</code> servem como base reutilizável para bibliotecas de ícones de stroke ou fill. Componentes finais continuam consumindo tokens Component: <code>select/icon/color/default</code>, <code>form-field/error/icon/color/default</code>, <code>avatar/content/color/default</code> ou <code>button/content/color/brand/default</code>, conforme a anatomia. A biblioteca de ícones e o <code>Icon swap</code> podem usar <code>icon/*</code> diretamente porque não são componentes finais do DS.</span><span data-lang="en"><code>icon</code> is semantic iconography vocabulary, not a Component structure. Tokens such as <code>icon/color/default</code> and <code>icon/stroke-width/regular/24</code> are reusable bases for stroke or fill icon libraries. Final components still consume Component tokens: <code>select/icon/color/default</code>, <code>form-field/error/icon/color/default</code>, <code>avatar/content/color/default</code>, or <code>button/content/color/brand/default</code>, depending on the anatomy. The icon library and <code>Icon swap</code> may use <code>icon/*</code> directly because they are not final DS components.</span>
+	    </div>
+	    <div class="ds-callout ds-callout--warning">
+	      <div class="ds-callout__title"><span data-lang="pt">Regras anti-regressão em Figma</span><span data-lang="en">Figma anti-regression rules</span></div>
+	      <span data-lang="pt">Componentes finais não devem usar <code>glyph</code>, fontes de ícone ou <code>Icon Placeholder</code>. Ícones vivos devem ser instâncias Lucide com <code>width</code>, <code>height</code>, cor e <code>stroke-width</code> bindados em tokens Component. Focus rings devem usar <code>focus-ring/color/*</code> e <code>focus-ring/width</code>; apenas o radius pode permanecer local quando acompanha o shape. A camada Component deve apontar somente para Semantic, nunca direto para Foundation ou para outro Component. Após exportar um snapshot Figma atualizado, rode <code>npm run verify:figma-structure</code> para validar essas invariantes.</span><span data-lang="en">Final components must not use <code>glyph</code>, icon fonts, or <code>Icon Placeholder</code>. Live icons must be Lucide instances with <code>width</code>, <code>height</code>, color, and <code>stroke-width</code> bound to Component tokens. Focus rings must use <code>focus-ring/color/*</code> and <code>focus-ring/width</code>; only radius may stay local when it follows the shape. The Component layer must point only to Semantic, never directly to Foundation or another Component. After exporting an updated Figma snapshot, run <code>npm run verify:figma-structure</code> to validate these invariants.</span>
+	    </div>
+	  </div>
+
+  <!-- ============================================================
+       NAMING CONVENTION
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Naming Convention</span><span data-lang="en">Naming convention</span></h2>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+      <span data-lang="pt">Padrão canônico: Foundation e Semantic usam categoria/intenção; Component usa anatomia.</span><span data-lang="en">Canonical pattern: Foundation and Semantic use category/intent; Component uses anatomy.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Formato</span><span data-lang="en">Format</span></th><th><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></th><th><span data-lang="pt">Onde</span><span data-lang="en">Where</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="pt">Caminho JSON</span><span data-lang="en">JSON path</span></td><td><code>foundation.color.brand.500</code></td><td><span data-lang="pt">Arquivos fonte (<code>tokens/</code>)</span><span data-lang="en">Source files (<code>tokens/</code>)</span></td></tr>
+        <tr><td><span data-lang="pt">CSS custom property</span><span data-lang="en">CSS custom property</span></td><td><code>--ds-color-brand-500</code></td><td><span data-lang="pt">Gerado pelo Style Dictionary</span><span data-lang="en">Generated by Style Dictionary</span></td></tr>
+        <tr><td><span data-lang="pt">Variável Figma</span><span data-lang="en">Figma variable</span></td><td><code>color/brand/500</code></td><td><span data-lang="pt">Painel de Variáveis do Figma</span><span data-lang="en">Figma Variables panel</span></td></tr>
+        <tr><td><span data-lang="pt">Component token</span><span data-lang="en">Component token</span></td><td><code>component.checkbox.box.size.md</code></td><td><span data-lang="pt"><code>component.&lt;component&gt;.&lt;part&gt;.&lt;property&gt;.&lt;variant-or-state&gt;</code></span><span data-lang="en"><code>component.&lt;component&gt;.&lt;part&gt;.&lt;property&gt;.&lt;variant-or-state&gt;</code></span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="ds-subsection__title" style="font-size:var(--ds-font-size-18);margin-top:var(--ds-dimension-24);"><span data-lang="pt">Naming de tokens Component</span><span data-lang="en">Component token naming</span></h3>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);">
+      <span data-lang="pt">Tokens Component documentam a API visual do componente. O nome deve descrever a anatomia e o contrato do componente, não repetir o nome do token Semantic usado como alias.</span><span data-lang="en">Component tokens document the component visual API. The name must describe the component anatomy and contract, not repeat the Semantic token name used as an alias.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Parte</span><span data-lang="en">Part</span></th><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th><th><span data-lang="pt">Exemplos</span><span data-lang="en">Examples</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;component&gt;</code></td><td><span data-lang="pt">Nome público do componente em kebab-case.</span><span data-lang="en">Public component name in kebab-case.</span></td><td><code>checkbox</code>, <code>input</code>, <code>spinner</code>, <code>tooltip</code></td></tr>
+        <tr><td><code>&lt;part&gt;</code></td><td><span data-lang="pt">Parte anatômica ou slot visual do componente.</span><span data-lang="en">Anatomical part or visual slot of the component.</span></td><td><code>box</code>, <code>track</code>, <code>indicator</code>, <code>label</code>, <code>icon</code>, <code>focus-ring</code></td></tr>
+        <tr><td><code>&lt;property&gt;</code></td><td><span data-lang="pt">Propriedade visual aplicada naquela parte.</span><span data-lang="en">Visual property applied to that part.</span></td><td><code>fill</code>, <code>bg</code>, <code>color</code>, <code>border-color</code>, <code>stroke-width</code>, <code>font-size</code>, <code>height</code></td></tr>
+        <tr><td><code>&lt;variant&gt;</code></td><td><span data-lang="pt">Variação visual do componente quando ela altera o contrato.</span><span data-lang="en">Component visual variant when it changes the contract.</span></td><td><code>brand</code>, <code>danger</code>, <code>unchecked</code>, <code>selected</code>, <code>on-color</code></td></tr>
+        <tr><td><code>&lt;state&gt;</code></td><td><span data-lang="pt">Estado interativo ou semântico final. Use <code>focus</code> para estado focado e reserve <code>active</code>/<code>pressed</code> para ação pressionada.</span><span data-lang="en">Final interactive or semantic state. Use <code>focus</code> for focused state and reserve <code>active</code>/<code>pressed</code> for pressed interaction.</span></td><td><code>default</code>, <code>hover</code>, <code>focus</code>, <code>disabled</code>, <code>error</code></td></tr>
+      </tbody>
+    </table>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Correto</span><span data-lang="en">Correct</span></th><th><span data-lang="pt">Incorreto</span><span data-lang="en">Incorrect</span></th><th><span data-lang="pt">Motivo</span><span data-lang="en">Reason</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>spinner/track/border-color/default</code></td><td><code>spinner/track/border-color/border-subtle</code></td><td><span data-lang="pt">O componente expõe o estado <code>default</code>; <code>border-subtle</code> é detalhe do alias Semantic.</span><span data-lang="en">The component exposes the <code>default</code> state; <code>border-subtle</code> is a Semantic alias detail.</span></td></tr>
+        <tr><td><code>spinner/indicator/border-color/on-color</code></td><td><code>spinner/indicator/border-color/border-inverse</code></td><td><span data-lang="pt">A variação pública é <code>on-color</code>, não o token semântico usado por baixo.</span><span data-lang="en">The public variant is <code>on-color</code>, not the underlying Semantic token.</span></td></tr>
+        <tr><td><code>badge/label/color/error/subtle</code></td><td><code>badge/label/color/error-content-default</code></td><td><span data-lang="pt">O nome descreve a variante <code>error</code> e o estilo <code>subtle</code>.</span><span data-lang="en">The name describes the <code>error</code> variant and <code>subtle</code> style.</span></td></tr>
+        <tr><td><code>alert/bg/success/filled</code></td><td><code>alert/root/fill/success-background-default</code></td><td><span data-lang="pt">Use a anatomia do componente e o estilo público, não a estrutura do Semantic.</span><span data-lang="en">Use the component anatomy and public style, not the Semantic structure.</span></td></tr>
+        <tr><td><code>tooltip/label/color/default</code></td><td><code>brand/content/default</code></td><td><span data-lang="pt">Componente migrado não recebe cor Semantic diretamente no binding.</span><span data-lang="en">A migrated component does not bind directly to Semantic color.</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">A regra do sufixo <code>-default</code></span><span data-lang="en">The <code>-default</code> suffix rule</span></div>
+      <span data-lang="pt">Todo token terminado em <code>.default</code> gera <code>-default</code> no CSS. Sem exceções, sem colapsar. <code>semantic.brand.background.default</code> vira <code>--ds-brand-background-default</code>, não <code>--ds-color-primary</code>.</span><span data-lang="en">Every token ending in <code>.default</code> generates <code>-default</code> in CSS. No exceptions, no collapsing. <code>semantic.brand.background.default</code> becomes <code>--ds-brand-background-default</code>, not <code>--ds-color-primary</code>.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Colisão entre token pai e subestado</span><span data-lang="en">Parent token and substate collision</span></div>
+      <span data-lang="pt">Quando o Figma expõe um token pai e um subestado no mesmo ramo, por exemplo <code>border/error</code> e <code>border/error/hover</code>, o repo pode manter a chave JSON compatível como <code>border.error-hover</code> enquanto o pipeline Style Dictionary não suportar token com <code>$value</code> e filhos de forma ponta a ponta. A CSS custom property permanece estável como <code>--ds-border-error-hover</code>. Esta é uma exceção técnica de serialização, não um padrão de naming para novos tokens.</span><span data-lang="en">When Figma exposes a parent token and a substate in the same branch, for example <code>border/error</code> and <code>border/error/hover</code>, the repo may keep the compatible JSON key as <code>border.error-hover</code> until the Style Dictionary pipeline supports a token with <code>$value</code> and children end to end. The CSS custom property remains stable as <code>--ds-border-error-hover</code>. This is a technical serialization exception, not a naming pattern for new tokens.</span>
+    </div>
+
+    <h3 class="ds-subsection__title" style="font-size:var(--ds-font-size-18);margin-top:var(--ds-dimension-24);"><span data-lang="pt">Escopos de variáveis no Figma</span><span data-lang="en">Figma variable scopes</span></h3>
+    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);">
+      <span data-lang="pt">O scope da variável segue o contexto da camada. Foundation permanece oculta e sem scope de picker; Semantic é publicada com scope pela intenção do token; Component usa o scope da propriedade anatômica aplicada.</span><span data-lang="en">Variable scope follows the layer context. Foundation remains hidden and out of pickers; Semantic is published with scopes based on token intent; Component uses the scope of the applied anatomical property.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Camada</span><span data-lang="en">Layer</span></th><th><span data-lang="pt">Scope esperado</span><span data-lang="en">Expected scope</span></th><th><span data-lang="pt">Motivo</span><span data-lang="en">Reason</span></th></tr></thead>
+      <tbody>
+        <tr><td>Foundation</td><td><code>[]</code></td><td><span data-lang="pt">Primitives não devem aparecer nos pickers de aplicação.</span><span data-lang="en">Primitives should not appear in application pickers.</span></td></tr>
+        <tr><td>Semantic color/background</td><td><code>FRAME_FILL</code>, <code>SHAPE_FILL</code></td><td><span data-lang="pt">Superfícies e preenchimentos.</span><span data-lang="en">Surfaces and fills.</span></td></tr>
+        <tr><td>Semantic color/content</td><td><code>TEXT_FILL</code>, <code>SHAPE_FILL</code></td><td><span data-lang="pt">Texto e conteúdo preenchido. Não use como cor genérica de stroke.</span><span data-lang="en">Text and filled content. Do not use as a generic stroke color.</span></td></tr>
+        <tr><td>Semantic color/icon</td><td><code>SHAPE_FILL</code>, <code>STROKE_COLOR</code></td><td><span data-lang="pt">Ícones de fill ou stroke, sem misturar com bordas de componentes.</span><span data-lang="en">Fill or stroke icons, without mixing with component borders.</span></td></tr>
+        <tr><td>Semantic color/border</td><td><code>STROKE_COLOR</code></td><td><span data-lang="pt">Bordas, outlines e strokes.</span><span data-lang="en">Borders, outlines, and strokes.</span></td></tr>
+        <tr><td>Semantic icon/stroke-width</td><td><code>STROKE_FLOAT</code></td><td><span data-lang="pt">Peso de stroke de ícones, por tamanho e peso visual.</span><span data-lang="en">Icon stroke weight, by size and visual weight.</span></td></tr>
+        <tr><td>Semantic space</td><td><code>GAP</code></td><td><span data-lang="pt">Espaçamento relacional entre itens.</span><span data-lang="en">Relational spacing between items.</span></td></tr>
+        <tr><td>Semantic size</td><td><code>WIDTH_HEIGHT</code></td><td><span data-lang="pt">Dimensões aplicadas a largura/altura.</span><span data-lang="en">Dimensions applied to width/height.</span></td></tr>
+        <tr><td>Semantic radius</td><td><code>CORNER_RADIUS</code></td><td><span data-lang="pt">Raio de canto.</span><span data-lang="en">Corner radius.</span></td></tr>
+        <tr><td>Semantic typography</td><td><code>FONT_FAMILY</code>, <code>FONT_STYLE</code>, <code>FONT_SIZE</code>, <code>LINE_HEIGHT</code>, <code>LETTER_SPACING</code></td><td><span data-lang="pt">Cada token tipográfico usa apenas o scope da propriedade correspondente.</span><span data-lang="en">Each typography token uses only the scope for its matching property.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       LIGHT/DARK MODE
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Modo light/dark</span><span data-lang="en">Light/dark mode</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">Tokens semânticos têm as mesmas chaves em ambos os modos mas valores diferentes. Tokens Component usam modo único e herdam a troca de tema pelos aliases para Semantic. Tokens de Foundation são invariantes de modo.</span><span data-lang="en">Semantic tokens have the same keys in both modes but different values. Component tokens use a single mode and inherit theme changes through aliases to Semantic. Foundation tokens are mode-invariant.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th>Token</th><th><span data-lang="pt">Valor light</span><span data-lang="en">Light value</span></th><th><span data-lang="pt">Valor dark</span><span data-lang="en">Dark value</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>background.default</code></td><td>neutral-50</td><td>neutral-950</td></tr>
+        <tr><td><code>content.strong</code></td><td>neutral-900</td><td>neutral-50</td></tr>
+        <tr><td><code>content.default</code></td><td>neutral-600</td><td>neutral-400</td></tr>
+        <tr><td><code>primary.background.default</code></td><td>blue-600</td><td>blue-400</td></tr>
+        <tr><td><code>primary.background.hover</code></td><td>blue-700</td><td>blue-300</td></tr>
+        <tr><td><code>overlay.subtle</code></td><td>overlay-black-5</td><td>overlay-white-5</td></tr>
+        <tr><td><code>primary.content-default</code></td><td>white</td><td>neutral-900</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">Tokens invariantes de modo (iguais em ambos): todos os <code>space.*</code>, <code>radius.*</code>, <code>border.width.*</code>, <code>focus.ring.width</code>, <code>focus.ring.offset</code>.</span><span data-lang="en">Mode-invariant tokens (same in both modes): all <code>space.*</code>, <code>radius.*</code>, <code>border.width.*</code>, <code>focus.ring.width</code>, <code>focus.ring.offset</code>.</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       RULES
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Regras</span><span data-lang="en">Rules</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>#</th><th><span data-lang="pt">Regra</span><span data-lang="en">Rule</span></th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><span data-lang="pt">Consumidores finais consomem Component quando há contrato de componente. Exceções temporárias de migração ou bibliotecas internas precisam ser explícitas — nunca Foundation direto.</span><span data-lang="en">Final consumers use Component when a component contract exists. Temporary migration exceptions or internal libraries must be explicit — never Foundation directly.</span></td></tr>
+        <tr><td>2</td><td><span data-lang="pt">Tokens semânticos referenciam foundation, nunca hardcoded. Nenhum hex ou rgba bruto na camada semântica (exceto rgba documentados em ADR).</span><span data-lang="en">Semantic tokens reference foundation, never hardcoded. No raw hex or rgba in the semantic layer (except rgba documented in ADR).</span></td></tr>
+        <tr><td>3</td><td><span data-lang="pt">Foundation é a única camada com valores absolutos. Naming numérico (radius-8, spacing-16) — não t-shirt.</span><span data-lang="en">Foundation is the only layer with absolute values. Numeric naming (radius-8, spacing-16) — not t-shirt.</span></td></tr>
+        <tr><td>4</td><td><span data-lang="pt">Semantic usa naming t-shirt (radius-md, space-sm) — distinto de Foundation pra evitar redundância.</span><span data-lang="en">Semantic uses t-shirt naming (radius-md, space-sm) — distinct from Foundation to avoid redundancy.</span></td></tr>
+        <tr><td>5</td><td><span data-lang="pt">Todo token tem <code>$type</code> conforme spec DTCG.</span><span data-lang="en">Every token has <code>$type</code> per DTCG spec.</span></td></tr>
+        <tr><td>6</td><td><span data-lang="pt">Tokens não óbvios requerem <code>$description</code>.</span><span data-lang="en">Non-obvious tokens require <code>$description</code>.</span></td></tr>
+        <tr><td>7</td><td><span data-lang="pt"><code>light.json</code> e <code>dark.json</code> devem ter exatamente o mesmo conjunto de chaves.</span><span data-lang="en"><code>light.json</code> and <code>dark.json</code> must have exactly the same key set.</span></td></tr>
+        <tr><td>8</td><td><span data-lang="pt">Novas categorias ou quebras de hierarquia requerem um ADR.</span><span data-lang="en">New categories or hierarchy breaks require an ADR.</span></td></tr>
+        <tr><td>9</td><td><span data-lang="pt">Componente migrado não deve bindar cor Semantic diretamente. Crie um token Component com naming anatômico e alias para Semantic.</span><span data-lang="en">A migrated component must not bind Semantic color directly. Create an anatomically named Component token and alias it to Semantic.</span></td></tr>
+        <tr><td>10</td><td><span data-lang="pt">Variáveis Figma nunca devem usar <code>ALL_SCOPES</code>; scopes devem ser explícitos e coerentes com a camada e a propriedade.</span><span data-lang="en">Figma variables must never use <code>ALL_SCOPES</code>; scopes must be explicit and coherent with the layer and property.</span></td></tr>
+        <tr><td>11</td><td><span data-lang="pt">Structures vivem dentro da camada Component, não em collection separada. Só promova um namespace quando houver padrão anatômico nomeável, pelo menos três consumidores, paridade real de valores e documentação própria.</span><span data-lang="en">Structures live inside the Component layer, not in a separate collection. Only promote a namespace when there is a nameable anatomical pattern, at least three consumers, real value parity, and its own documentation.</span></td></tr>
+        <tr><td>12</td><td><span data-lang="pt"><code>icon</code> não é structure: é vocabulário semântico para ícones. Componentes finais devem expor tokens próprios ou structures adequadas; biblioteca de ícones e <code>Icon swap</code> podem usar <code>icon/*</code> diretamente.</span><span data-lang="en"><code>icon</code> is not a structure: it is semantic vocabulary for icons. Final components must expose their own tokens or appropriate structures; icon libraries and <code>Icon swap</code> may use <code>icon/*</code> directly.</span></td></tr>
+        <tr><td>13</td><td><span data-lang="pt">Antes de publicar ou espelhar um componente do Figma no repo, valide por evidência estrutural: todos os variants, bindings, sublayers, propriedades expostas, ícones e exceções reais devem ser auditados. Não considere o componente validado por amostragem ou por inferência do padrão majoritário.</span><span data-lang="en">Before publishing or mirroring a Figma component into the repo, validate it through structural evidence: every variant, binding, sublayer, exposed property, icon, and real exception must be audited. Do not consider a component validated through sampling or by inferring from the majority pattern.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================
+       CROSS-FORMAT MAPPING
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento entre formatos</span><span data-lang="en">Cross-format mapping</span></h2>
+    <div style="display:block;width:100%;max-width:100%;overflow-x:auto;">
+      <table class="ds-token-table">
+        <thead><tr><th><span data-lang="pt">JSON (consolidação)</span><span data-lang="en">JSON (consolidation)</span></th><th><span data-lang="pt">CSS (gerado)</span><span data-lang="en">CSS (generated)</span></th><th><span data-lang="pt">Variáveis Figma</span><span data-lang="en">Figma Variables</span></th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.color.brand.500</code></td><td><code>--ds-color-brand-500</code></td><td><code>color/brand/500</code> (Foundation)</td></tr>
+          <tr><td><code>foundation.dimension.16</code></td><td><code>--ds-dimension-16</code></td><td><code>dimension/16</code> (Foundation)</td></tr>
+          <tr><td><code>semantic.brand.background.default</code></td><td><code>--ds-brand-background-default</code></td><td><code>brand/background/default</code> (Semantic)</td></tr>
+          <tr><td><code>semantic.space.md</code></td><td><code>--ds-space-md</code></td><td><code>space/md</code> (Semantic)</td></tr>
+          <tr><td><code>semantic.size.lg</code></td><td><code>--ds-size-lg</code></td><td><code>size/lg</code> (Semantic)</td></tr>
+          <tr><td><code>component.checkbox.target.height.sm</code></td><td><code>--ds-checkbox-target-height-sm</code></td><td><code>checkbox/target/height/sm</code> (Component)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">A geração de CSS é feita pelo Style Dictionary: caminho direto → nome, sem transforms customizados.</span><span data-lang="en">CSS generation is handled by Style Dictionary: direct path → name, no custom transforms.</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       CSS-ONLY CARVE-OUT (ADR-016)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Categorias CSS-only (sem equivalência no Figma)</span><span data-lang="en">CSS-only categories (no Figma equivalent)</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">Nem toda categoria de token tem representação nativa em Figma Variables. Para essas, o JSON é fonte de verdade — não o Figma. Ver <a href="decisions/adr-016-tokens-sem-equivalencia-no-figma.html">ADR-016</a>.</span><span data-lang="en">Not every token category has a native Figma Variable representation. For those, JSON is the source of truth — not Figma. See <a href="decisions/adr-016-tokens-sem-equivalencia-no-figma.html">ADR-016</a>.</span>
+    </p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Categoria</span><span data-lang="en">Category</span></th><th><span data-lang="pt">Equivalência Figma</span><span data-lang="en">Figma equivalent</span></th><th><span data-lang="pt">Fonte de verdade</span><span data-lang="en">Source of truth</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>motion.*</code> (duration, ease)</td><td><span data-lang="pt">Nenhuma — Smart Animate é runtime, não token</span><span data-lang="en">None — Smart Animate is runtime, not token</span></td><td>JSON</td></tr>
+        <tr><td><code>z.*</code> (z-index)</td><td><span data-lang="pt">Nenhuma — Figma usa ordem de camada</span><span data-lang="en">None — Figma uses layer order</span></td><td>JSON</td></tr>
+        <tr><td><code>shadow.*</code></td><td><span data-lang="pt">Effect Style (não Variable bindável)</span><span data-lang="en">Effect Style (not a bindable Variable)</span></td><td><span data-lang="pt">JSON (canônico para CSS); Effect Styles refletem manualmente para preview</span><span data-lang="en">JSON (canonical for CSS); Effect Styles are mirrored manually for preview</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

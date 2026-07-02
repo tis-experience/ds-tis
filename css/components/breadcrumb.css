@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Breadcrumb
+   ========================================================================== */
+
+.ds-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-breadcrumb-gap-default);
+  font-size: var(--ds-breadcrumb-label-font-size-default);
+  font-weight: var(--ds-breadcrumb-label-font-weight-default);
+  line-height: var(--ds-breadcrumb-label-line-height-default);
+  letter-spacing: var(--ds-breadcrumb-label-letter-spacing-default);
+}
+
+/* Item
+   ========================================================================== */
+
+.ds-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-breadcrumb-item-gap-default);
+  color: var(--ds-breadcrumb-label-color-link);
+  border-radius: var(--ds-breadcrumb-focus-ring-radius-default);
+  text-decoration: none;
+}
+
+.ds-breadcrumb__item:hover {
+  color: var(--ds-link-content-hover);
+  text-decoration: underline;
+}
+
+.ds-breadcrumb__item:active {
+  color: var(--ds-link-content-active);
+}
+
+.ds-breadcrumb__item:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Current (last item)
+   ========================================================================== */
+
+.ds-breadcrumb__item--current {
+  color: var(--ds-breadcrumb-label-color-current);
+  pointer-events: none;
+}
+
+/* Separator
+   ========================================================================== */
+
+.ds-breadcrumb__separator {
+  color: var(--ds-content-subtle);
+  font-size: var(--ds-breadcrumb-separator-font-size-default);
+  font-weight: var(--ds-breadcrumb-separator-font-weight-default);
+  line-height: var(--ds-breadcrumb-separator-line-height-default);
+  letter-spacing: var(--ds-breadcrumb-separator-letter-spacing-default);
+}

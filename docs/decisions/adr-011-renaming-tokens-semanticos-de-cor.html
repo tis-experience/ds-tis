@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-011 — Reestruturação do naming de tokens semânticos de cor — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-011 — Reestruturação do naming de tokens semânticos de cor</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita — Implementada em 0.5.0</strong> · Data: 2026-04-17</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p><strong>Data:</strong> 2026-04-17
+<strong>Status:</strong> Aceita — Implementada em 0.5.0</p>
+<h2>Implementação</h2>
+<ul>
+<li>Estrutura nova de tokens semânticos aplicada em <code>tokens/semantic/light.json</code> e <code>dark.json</code> em <code>f9f7609</code> (<code>fix(tokens): migrate theme overrides and foundation to ADR-011 naming; remove white/black (ADR-010)</code>).</li>
+<li><code>css/base/reset.css</code> migrado para os novos nomes em <code>297accf</code> (<code>fix(base): migrate reset.css tokens to ADR-011 naming</code>).</li>
+<li>CSS regenerado via <code>build-tokens.mjs</code>.</li>
+<li><code>text/on-brand</code>, <code>color/primary/muted</code>, <code>color/secondary/muted</code>, <code>background/muted</code>, <code>state/disabled/foreground</code> eliminados conforme tabela abaixo.</li>
+</ul>
+<h2>Contexto</h2>
+<p>A camada semântica de cor cresceu organicamente desde o ADR-001 e ADR-005, acumulando inconsistências que comprometem a clareza, a semântica e a previsibilidade do sistema:</p>
+<ol>
+<li><p><strong>Tokens <code>text/*</code> usados para conteúdo não-textual.</strong> Ícones, shapes decorativos e thumbs (Toggle) consomem <code>text/secondary</code>, <code>text/tertiary</code> e similares. O nome não corresponde à função real.</p>
+</li>
+<li><p><strong><code>color/primary/*</code> é genérico demais.</strong> O prefixo <code>color</code> não transmite intenção — todos os tokens de cor são &quot;cor&quot;. O que esses tokens representam é a identidade da marca.</p>
+</li>
+<li><p><strong>Duplicação funcional entre <code>text/on-brand</code> e <code>color/primary/foreground</code>.</strong> Ambos resolvem para o mesmo valor e cumprem a mesma função.</p>
+</li>
+<li><p><strong>Inconsistência entre <code>subtle</code> e <code>muted</code>.</strong> Em <code>background/*</code>, subtle = neutral-50 e muted = neutral-100. Em <code>color/primary/*</code>, subtle = blue-100 e muted = blue-50. A relação é invertida entre categorias.</p>
+</li>
+<li><p><strong><code>state/disabled/foreground</code> duplica <code>text/disabled</code>.</strong> Mesmos valores, dois tokens, nomes de categorias diferentes.</p>
+</li>
+</ol>
+<h2>Decisão</h2>
+<p>Reestruturar a camada semântica de cor seguindo dez princípios de naming. A reestruturação afeta 82 tokens semânticos, elimina 5, e reorganiza a hierarquia.</p>
+<h3>Princípios de naming</h3>
+<ol>
+<li>Hierarquia expressa com <code>/</code> em todos os níveis reais. Sem achatamento com <code>-</code>.</li>
+<li>Roles agrupam suas facetas de identidade em sub-categorias: fills no nível raiz do role, <code>toned/</code> para variantes translúcidas (só brand), <code>content/</code> para tokens de conteúdo do role.</li>
+<li>Categorias estruturais agrupam variações de função. <code>background/</code>, <code>surface/</code>, <code>border/</code>, <code>content/</code> no nível raiz.</li>
+<li><code>content</code> como sub-categoria dentro de roles tem duas variantes: <code>default</code> (cor do role como conteúdo sobre fundos neutros ou sutis) e <code>contrast</code> (conteúdo de alto contraste sobre o fill sólido do role).</li>
+<li><code>content/*</code> no nível raiz é exclusivo para conteúdo sobre superfícies neutras (background, surface).</li>
+<li>Sem prefixo <code>on-*</code>. A distinção entre conteúdo sobre fill sólido versus fundo sutil é feita pela escolha entre <code>{role}/content/contrast</code> e <code>{role}/content/default</code>.</li>
+<li>Sem <code>muted</code> nos tokens semânticos. Apenas <code>subtle</code> (escala 100 das paletas). Os usos atuais de muted migram.</li>
+<li><code>background</code> não abrevia para <code>bg</code>. Consistente com os outros nomes de categoria não abreviados.</li>
+<li><code>control</code> permanece como categoria semântica consumida exclusivamente por tokens de componente (ADR-006).</li>
+<li>Convenção <code>-default</code> no CSS (ADR-005) mantida. Todo token terminado em <code>.default</code> gera sufixo <code>-default</code> no CSS gerado.</li>
+</ol>
+<h3>Mapeamento de renomeação</h3>
+<table>
+<thead>
+<tr>
+<th>Token atual</th>
+<th>Token proposto</th>
+<th>Tipo de mudança</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>text/default</code></td>
+<td><code>content/default</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/secondary</code></td>
+<td><code>content/secondary</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/tertiary</code></td>
+<td><code>content/tertiary</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/disabled</code></td>
+<td><code>content/disabled</code></td>
+<td>Rename + unificação</td>
+</tr>
+<tr>
+<td><code>text/inverse</code></td>
+<td><code>content/inverse</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/link/default</code></td>
+<td><code>content/link/default</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/link/hover</code></td>
+<td><code>content/link/hover</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>text/on-brand</code></td>
+<td><strong>eliminado</strong></td>
+<td>Duplicata de <code>color/primary/foreground</code> → <code>brand/content/contrast</code></td>
+</tr>
+<tr>
+<td><code>color/primary/default</code></td>
+<td><code>brand/default</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/hover</code></td>
+<td><code>brand/hover</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/active</code></td>
+<td><code>brand/active</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/subtle</code></td>
+<td><code>brand/subtle</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/disabled</code></td>
+<td><code>brand/disabled</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/muted</code></td>
+<td><strong>eliminado</strong></td>
+<td>1 uso (Button Ghost hover) → <code>state/hover</code></td>
+</tr>
+<tr>
+<td><code>color/primary/toned/default</code></td>
+<td><code>brand/toned/default</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/toned/hover</code></td>
+<td><code>brand/toned/hover</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/toned/active</code></td>
+<td><code>brand/toned/active</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/primary/text</code></td>
+<td><code>brand/content/default</code></td>
+<td>Rename + reestruturação</td>
+</tr>
+<tr>
+<td><code>color/primary/foreground</code></td>
+<td><code>brand/content/contrast</code></td>
+<td>Rename + reestruturação</td>
+</tr>
+<tr>
+<td><code>color/primary/disabled-fg</code></td>
+<td><code>brand/content/contrast-disabled</code></td>
+<td>Rename + reestruturação</td>
+</tr>
+<tr>
+<td><code>color/secondary/default</code></td>
+<td><code>accent/default</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/secondary/hover</code></td>
+<td><code>accent/hover</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/secondary/active</code></td>
+<td><code>accent/active</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/secondary/subtle</code></td>
+<td><code>accent/subtle</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>color/secondary/muted</code></td>
+<td><strong>eliminado</strong></td>
+<td>Sem uso em componentes</td>
+</tr>
+<tr>
+<td><code>color/secondary/text</code></td>
+<td><code>accent/content/default</code></td>
+<td>Rename + reestruturação</td>
+</tr>
+<tr>
+<td><code>color/secondary/foreground</code></td>
+<td><code>accent/content/contrast</code></td>
+<td>Rename + reestruturação</td>
+</tr>
+<tr>
+<td><code>feedback/*/text</code></td>
+<td><code>feedback/*/content/default</code></td>
+<td>Rename + reestruturação (4 roles)</td>
+</tr>
+<tr>
+<td><code>feedback/*/foreground</code></td>
+<td><code>feedback/*/content/contrast</code></td>
+<td>Rename + reestruturação (4 roles)</td>
+</tr>
+<tr>
+<td><code>feedback/*/disabled-fg</code></td>
+<td><code>feedback/*/content/contrast-disabled</code></td>
+<td>Rename (success, error)</td>
+</tr>
+<tr>
+<td><code>background/muted</code></td>
+<td><strong>eliminado</strong></td>
+<td>Button Outline hover → <code>state/hover</code>; Skeleton fill → <code>component.skeleton.fill</code></td>
+</tr>
+<tr>
+<td><code>state/disabled/foreground</code></td>
+<td><strong>eliminado</strong></td>
+<td>Unificado em <code>content/disabled</code></td>
+</tr>
+</tbody></table>
+<h3>Migração de casos especiais</h3>
+<h4><code>background/muted</code> → eliminado</h4>
+<ul>
+<li><strong>Button Outline hover</strong> e hover de Checkbox/Radio/Toggle label: migram para <code>state/hover</code> (overlay black/5% em light, white/5% em dark). Semanticamente correto — é um overlay interativo.</li>
+<li><strong>Skeleton fill</strong>: novo token de componente <code>component.skeleton.fill</code> → <code>{semantic.state.disabled.background}</code>. Resolve corretamente em ambos os modos: neutral-100 light / neutral-800 dark.</li>
+<li><strong>Badge neutral subtle background</strong>: usa <code>state/disabled/background</code> (mesmo valor — neutral-100 light / neutral-800 dark).</li>
+</ul>
+<h4><code>state/disabled/foreground</code> + <code>text/disabled</code> → <code>content/disabled</code></h4>
+<p>Ambos apontavam para o mesmo valor (neutral-400 light / neutral-600 dark). Consolidados em um único token no nível de conteúdo.</p>
+<h3>Impacto em artefatos</h3>
+<table>
+<thead>
+<tr>
+<th>Artefato</th>
+<th>Ação necessária</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokens/semantic/light.json</code> e <code>dark.json</code></td>
+<td>Reescritos com nova estrutura</td>
+</tr>
+<tr>
+<td><code>tokens/component/button.json</code></td>
+<td>Referências atualizadas (<code>brand.toned.*</code>, <code>brand.content.default</code>, <code>content.disabled</code>)</td>
+</tr>
+<tr>
+<td><code>tokens/component/skeleton.json</code></td>
+<td>Novo token <code>skeleton.fill</code> adicionado</td>
+</tr>
+<tr>
+<td>Style Dictionary</td>
+<td>Rebuild. Transformação path → name é automática</td>
+</tr>
+<tr>
+<td>CSS gerado</td>
+<td>~60 custom properties com novos nomes</td>
+</tr>
+<tr>
+<td><code>css/components/*.css</code></td>
+<td>18 arquivos atualizados (zero vars antigas)</td>
+</tr>
+</tbody></table>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li><strong>Clareza semântica:</strong> tokens descrevem função (conteúdo, fill, borda, overlay) em vez de implementação (texto, cor).</li>
+<li><strong>Hierarquia previsível:</strong> roles seguem o mesmo padrão estrutural. Adicionar um novo role (ex: tertiary) segue o template existente.</li>
+<li><strong>Eliminação de ambiguidade:</strong> <code>brand/content/contrast</code> deixa claro que é &quot;conteúdo de alto contraste sobre fill brand&quot;; <code>brand/content/default</code> é &quot;conteúdo na cor brand sobre fundo neutro&quot;.</li>
+<li><strong>Agrupamento visual no Figma:</strong> a coleção Semantic fica organizada em pastas reais por role.</li>
+<li><strong>Redução de tokens:</strong> 5 eliminações líquidas. Menos tokens para manter e decidir.</li>
+<li><strong>Unificação de tokens duplicados:</strong> <code>text/disabled</code> e <code>state/disabled/foreground</code> (mesmo valor, dois locais) → um único <code>content/disabled</code>.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li><strong>Breaking change em toda a stack:</strong> JSON, CSS gerado, Figma Variables, component tokens, CSS de componentes. Exige execução coordenada.</li>
+<li><strong>Custo de atualização mental:</strong> referências a <code>color/primary/default</code>, <code>text/secondary</code> etc. em documentação externa ficam obsoletas.</li>
+<li><strong>Risco de regressão visual:</strong> tokens renomeados mas não rebindados corretamente no Figma podem gerar valores inesperados. Exige auditoria pós-migração.</li>
+</ul>
+<h3>Bump de versão</h3>
+<p><strong>0.4.0 → 0.5.0</strong> (breaking change no naming de tokens semânticos de cor).</p>
+<blockquote>
+<p>Nota histórica: durante o desenvolvimento o pacote ficou temporariamente com versão <code>1.5.0</code> em <code>package.json</code> sem nunca ter sido publicado no npm. Em 0.5.1 a versão foi realinhada para a faixa 0.x (plano de consolidação da documentação).</p>
+</blockquote>
+<h2>Alternativas consideradas</h2>
+<h3>Manter a estrutura atual e ajustar apenas os usos incorretos</h3>
+<p>Rejeitada. O problema é sistêmico no naming, não apenas em usos pontuais.</p>
+<h3>Adotar o modelo Material 3 com prefixo <code>on-*</code></h3>
+<p>Rejeitada. O <code>on-*</code> não cobre o caso de cor do role usada como conteúdo sobre fundo neutro. Ver ADR completo em Knowledge Base.</p>
+<h3>Separar <code>content/*</code> de <code>icon/*</code> em categorias distintas</h3>
+<p>Rejeitada. Dobraria a quantidade de tokens de conteúdo (~15 → ~30) para resolver um problema perceptual que aparece caso a caso, não sistematicamente.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-001: Migração para DTCG + Style Dictionary</li>
+<li>ADR-005: Brand como foundation, convenção <code>-default</code>, focus ring outline</li>
+<li>ADR-006: Semantic control tokens</li>
+<li>ADR-007: Toned color system</li>
+<li>Material Design 3 — Color roles</li>
+<li>Primer UI color system</li>
+<li>Fluent 2 token naming</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

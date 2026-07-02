@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Releases — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Releases</h1>
+    <p class="ds-section__subtitle">Passo a passo de uma release.</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p>Passo a passo de uma release do design system. Pressupõe que você está na branch <code>main</code> com o trabalho da release concluído e revisado.</p>
+<h2>Antes de começar</h2>
+<ul>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code> e <code>npm run verify:tokens</code> rodam sem erro.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>CHANGELOG.md</code> tem entradas em <code>[Não publicado]</code> cobrindo tudo que mudou desde a última versão.</li>
+</ul>
+<h2>Passo a passo</h2>
+<ol>
+<li><p><strong>Definir a versão nova</strong>. Consultar <a href="./process-versioning.md">regras de versionamento</a>. Durante beta, usar sempre o próximo <code>1.0.0-beta.N</code>; não criar minor/patch separado.</p>
+</li>
+<li><p><strong>Atualizar <code>CHANGELOG.md</code></strong>:</p>
+<ul>
+<li>Renomear <code>[Não publicado]</code> para <code>[1.0.0-beta.N] — AAAA-MM-DD</code> durante beta.</li>
+<li>Adicionar nova seção <code>[Não publicado]</code> vazia no topo.</li>
+<li>Atualizar links de comparação no rodapé do arquivo.</li>
+</ul>
+</li>
+<li><p><strong>Atualizar <code>package.json</code></strong>: alterar o campo <code>version</code> para <code>1.0.0-beta.N</code> durante beta.</p>
+</li>
+<li><p><strong>Commit de release</strong>:</p>
+<pre><code class="language-bash">git add CHANGELOG.md package.json package-lock.json docs/
+git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
+</code></pre>
+</li>
+<li><p><strong>Tag</strong>:</p>
+<pre><code class="language-bash">git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;
+</code></pre>
+</li>
+<li><p><strong>Push</strong>:</p>
+<pre><code class="language-bash">git push origin main
+git push origin v1.0.0-beta.N
+</code></pre>
+</li>
+<li><p><strong>CI faz o resto</strong>:</p>
+<ul>
+<li><code>.github/workflows/deploy.yml</code> roda <code>npm run build:all</code>.</li>
+<li>Regenera <code>css/tokens/generated/*.css</code>, <code>docs/adr-index.md</code>, <code>docs/token-schema.md</code>, <code>docs/component-inventory.md</code>, <code>docs/changelog.html</code>, APIs JSON, <code>llms.txt</code>.</li>
+<li>Auto-commita os derivados com <code>[skip ci]</code>.</li>
+<li>Publica o site estático no ambiente definido pelo projeto.</li>
+</ul>
+</li>
+<li><p><strong>Verificar</strong>:</p>
+<ul>
+<li>A página inicial mostra a badge <code>1.0.0-beta.N</code>.</li>
+<li><code>docs/changelog.html</code> lista <code>1.0.0-beta.N</code> como versão mais recente.</li>
+<li><code>docs/api/tokens-sync.json</code> tem timestamp recente e zero erros.</li>
+</ul>
+</li>
+</ol>
+<h2>Se algo der errado</h2>
+<ul>
+<li><strong>CI falhar no build</strong>: conferir logs no GitHub Actions. Se for falha de token ou referência quebrada, corrigir na branch, novo commit, novo push — sem precisar mexer na tag.</li>
+<li><strong>Precisar desfazer</strong>: tags só removem com <code>git push origin :refs/tags/vx.y.z</code>. Desfazer release é operação delicada; prefira publicar um <code>x.y.z+1</code> com correção.</li>
+</ul>
+<h2>Publicação no npm</h2>
+<p>Ainda não fazemos. Pacote está no backlog para ser publicado quando a decisão for tomada. Ver <a href="./backlog.md">backlog</a>.</p>
+
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "component": {
+    "card-interactive": {
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width padrão do Card Interactive."
+        },
+        "selected": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.strong}",
+          "$description": "Border width do Card Interactive no estado selected."
+        }
+      },
+      "border-color": {
+        "default": {
+          "$value": "{semantic.border.default}",
+          "$type": "color",
+          "$description": "Border color padrão do Card Interactive."
+        },
+        "hover": {
+          "$value": "{semantic.border.strong}",
+          "$type": "color",
+          "$description": "Border color do Card Interactive no estado hover."
+        },
+        "selected": {
+          "$value": "{semantic.brand.border.default}",
+          "$type": "color",
+          "$description": "Border color do Card Interactive no estado selected."
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.xl}",
+            "$description": "Radius do focus ring do Card Interactive."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "component": {
+    "pagination": {
+      "gap": {
+        "default": {
+          "$value": "{semantic.space.2xs}",
+          "$type": "dimension"
+        }
+      },
+      "item": {
+        "height": {
+          "sm": {
+            "$value": "{semantic.size.lg}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.size.xl}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.size.2xl}",
+            "$type": "dimension"
+          }
+        },
+        "min-width": {
+          "sm": {
+            "$value": "{semantic.size.lg}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.size.xl}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.size.2xl}",
+            "$type": "dimension"
+          }
+        },
+        "radius": {
+          "default": {
+            "$value": "{semantic.radius.md}",
+            "$type": "dimension"
+          }
+        },
+        "bg": {
+          "default": {
+            "$value": "{semantic.background.transparent}",
+            "$type": "color"
+          },
+          "hover": {
+            "$value": "{semantic.outline.background.hover}",
+            "$type": "color"
+          },
+          "current": {
+            "$value": "{semantic.brand.background.default}",
+            "$type": "color"
+          },
+          "disabled": {
+            "$value": "{semantic.background.transparent}",
+            "$type": "color"
+          }
+        },
+        "content": {
+          "color": {
+            "default": {
+              "$value": "{semantic.content.default}",
+              "$type": "color"
+            },
+            "hover": {
+              "$value": "{semantic.content.default}",
+              "$type": "color"
+            },
+            "current": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color"
+            },
+            "disabled": {
+              "$value": "{semantic.content.disabled}",
+              "$type": "color"
+            }
+          }
+        },
+        "font-family": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$description": "Família tipográfica do número de página Pagination Item."
+          }
+        },
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do Pagination Item size sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$description": "Font-size do Pagination Item size md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.lg}",
+            "$description": "Font-size do Pagination Item size lg."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight regular do número de página Pagination Item."
+          },
+          "current": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight bold da página ativa (State=Active)."
+          }
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do Pagination Item size sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$description": "Line-height do Pagination Item size md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xl}",
+            "$description": "Line-height do Pagination Item size lg (escala body/lg)."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$value": "{semantic.radius.md}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "icon": {
+        "color": {
+          "default": {
+            "$value": "{semantic.icon.color.default}",
+            "$type": "color"
+          }
+        },
+        "size": {
+          "sm": {
+            "$value": "{semantic.size.xs}",
+            "$type": "dimension"
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$type": "dimension"
+          }
+        }
+      }
+    }
+  }
+}

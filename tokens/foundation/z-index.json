@@ -1,0 +1,31 @@
+{
+  "foundation": {
+    "z": {
+      "$description": "Z-index layering values",
+      "0": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "10": {
+        "$value": 10,
+        "$type": "number"
+      },
+      "20": {
+        "$value": 20,
+        "$type": "number"
+      },
+      "30": {
+        "$value": 30,
+        "$type": "number"
+      },
+      "40": {
+        "$value": 40,
+        "$type": "number"
+      },
+      "50": {
+        "$value": 50,
+        "$type": "number"
+      }
+    }
+  }
+}

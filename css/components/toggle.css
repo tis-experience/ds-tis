@@ -1,0 +1,202 @@
+/* ============================================================
+   COMPONENT: Toggle / Switch
+   ============================================================ */
+
+/**
+ * LÓGICA DE ALINHAMENTO (Figma spec):
+ * O Toggle segue o padrão "Content Frame". O interruptor (track) fica à esquerda
+ * e o conteúdo (Label + Desc + Helper) fica à direita em uma coluna flex.
+ * Alinhamento é sempre TOP (flex-start) para suportar textos multilinha.
+ *
+ * ESCALA DIMENSIONAL (ADR-013/015/019):
+ * Proporção corrigida (aprox 1.8x - 2x):
+ * Sm: 28x16px | Md: 44x24px | Lg: 56x32px (Grade 4px).
+ */
+
+.ds-toggle-label {
+  --toggle-target-height: var(--ds-toggle-target-height-md);
+  --toggle-thumb-size: var(--ds-toggle-thumb-size-md);
+
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--ds-toggle-target-gap-default);
+  cursor: pointer;
+  padding: var(--ds-space-xs);
+  min-height: var(--toggle-target-height);
+  color: var(--ds-form-field-label-color-default);
+  user-select: none;
+}
+
+/* Track — Hidden native checkbox styled */
+.ds-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  background-color: var(--ds-toggle-track-fill-off-default);
+  border: var(--ds-toggle-track-border-width-default) solid var(--ds-toggle-track-border-color-off-default);
+  border-radius: var(--ds-toggle-track-radius-default);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+
+  --toggle-height: var(--ds-toggle-track-height-md);
+  --toggle-width: var(--ds-toggle-track-width-md);
+  --thumb-gap: var(--ds-toggle-thumb-inset-default);
+  --track-border-width: var(--ds-toggle-track-border-width-default);
+  
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+}
+
+/* Thumb */
+.ds-toggle::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--thumb-gap) - var(--track-border-width));
+  left: calc(var(--thumb-gap) - var(--track-border-width));
+  width: var(--toggle-thumb-size);
+  height: var(--toggle-thumb-size);
+  border-radius: var(--ds-toggle-thumb-radius-default);
+  background-color: var(--ds-toggle-thumb-fill-off-default);
+  box-shadow: var(--ds-shadow-card);
+  transition: transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+/* Checked (On) State */
+.ds-toggle:checked {
+  background-color: var(--ds-toggle-track-fill-on-default);
+  border-width: 0;
+  --track-border-width: 0px;
+}
+
+.ds-toggle:checked::after {
+  background-color: var(--ds-toggle-thumb-fill-on-default);
+  transform: translateX(calc(var(--toggle-width) - var(--toggle-thumb-size) - (var(--thumb-gap) * 2)));
+}
+
+/* Hover State */
+.ds-toggle:hover:not(:disabled) {
+  background-color: var(--ds-toggle-track-fill-off-hover);
+  border-color: var(--ds-toggle-track-border-color-off-hover);
+}
+
+.ds-toggle:hover:not(:disabled)::after {
+  background-color: var(--ds-toggle-thumb-fill-off-hover);
+}
+
+.ds-toggle:checked:hover:not(:disabled) {
+  background-color: var(--ds-toggle-track-fill-on-hover);
+}
+
+.ds-toggle:checked:hover:not(:disabled)::after {
+  background-color: var(--ds-toggle-thumb-fill-on-hover);
+}
+
+/* Focus State */
+.ds-toggle:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+/* Disabled State */
+.ds-toggle:disabled {
+  background-color: var(--ds-toggle-track-fill-off-disabled);
+  border-color: var(--ds-toggle-track-border-color-off-disabled);
+  cursor: not-allowed;
+}
+
+.ds-toggle:disabled::after {
+  background-color: var(--ds-toggle-thumb-fill-off-disabled);
+}
+
+.ds-toggle:checked:disabled {
+  background-color: var(--ds-toggle-track-fill-on-disabled);
+  border-width: 0;
+}
+
+.ds-toggle:checked:disabled::after {
+  background-color: var(--ds-toggle-thumb-fill-on-disabled);
+}
+
+.ds-toggle-label:has(.ds-toggle:disabled) {
+  cursor: not-allowed;
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* ---------------------------------------------------------
+   Sizes (Figma Specs - Grid 4px)
+   --------------------------------------------------------- */
+
+/* Small (28x16px) */
+.ds-toggle-label:has(.ds-toggle--sm) {
+  --toggle-target-height: var(--ds-toggle-target-height-sm);
+  --toggle-thumb-size: var(--ds-toggle-thumb-size-sm);
+}
+
+.ds-toggle--sm {
+  --toggle-height: var(--ds-toggle-track-height-sm);
+  --toggle-width: var(--ds-toggle-track-width-sm);
+}
+
+/* Large (56x32px) */
+.ds-toggle-label:has(.ds-toggle--lg) {
+  --toggle-target-height: var(--ds-toggle-target-height-lg);
+  --toggle-thumb-size: var(--ds-toggle-thumb-size-lg);
+}
+
+.ds-toggle--lg {
+  --toggle-height: var(--ds-toggle-track-height-lg);
+  --toggle-width: var(--ds-toggle-track-width-lg);
+}
+
+/* ---------------------------------------------------------
+   Content Frame Anatomy
+   --------------------------------------------------------- */
+
+.ds-toggle__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-toggle-content-gap-default);
+  min-width: 0;
+}
+
+/* Label text (label/md: 14px bold) */
+.ds-toggle__label {
+  font-family: var(--ds-form-field-label-font-family-default);
+  font-size: var(--ds-form-field-label-font-size-default);
+  font-weight: var(--ds-body-font-weight-bold);
+  line-height: var(--ds-form-field-label-line-height-default);
+  color: var(--ds-form-field-label-color-default);
+}
+
+/* Description (body/sm: 14px regular) */
+.ds-toggle__description {
+  font-size: var(--ds-body-font-size-sm);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-sm);
+  color: var(--ds-form-field-description-color-default);
+  white-space: pre-wrap;
+}
+
+/* Helper text (caption/sm: 11px regular) */
+.ds-toggle__helper {
+  font-size: var(--ds-body-font-size-xs);
+  font-weight: var(--ds-body-font-weight-regular);
+  line-height: var(--ds-body-line-height-xs);
+  color: var(--ds-form-field-helper-color-default);
+}
+
+.ds-toggle-label:has(.ds-toggle:disabled) .ds-toggle__label {
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-toggle-label,
+  .ds-toggle,
+  .ds-toggle::after { transition: none; }
+}

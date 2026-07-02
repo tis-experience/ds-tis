@@ -1,0 +1,59 @@
+/* ============================================================
+   COMPONENT: Spinner
+   ============================================================ */
+
+@keyframes ds-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Base spinner — Figma: track + indicator via component tokens */
+.ds-spinner {
+  display: inline-block;
+  border-radius: var(--ds-spinner-radius-default);
+  border: var(--ds-spinner-ring-stroke-width-default) solid var(--ds-spinner-track-border-color-default);
+  border-top-color: var(--ds-spinner-indicator-border-color-default);
+  /* motion.duration.slower (600ms) e motion.ease.linear são tokens
+     dedicados a loops contínuos. NÃO usar duration.fast/normal/slow
+     (são pra transições de estado, 150-300ms) nem ease.default (curva
+     quebra rotação constante). */
+  animation: ds-spin var(--ds-motion-duration-slower) var(--ds-motion-ease-linear) infinite;
+  flex-shrink: 0;
+}
+
+/* Default size: md */
+.ds-spinner,
+.ds-spinner--md {
+  width: var(--ds-spinner-size-md);
+  height: var(--ds-spinner-size-md);
+}
+
+/* ---------------------------------------------------------
+   Sizes
+   --------------------------------------------------------- */
+.ds-spinner--sm {
+  width: var(--ds-spinner-size-sm);
+  height: var(--ds-spinner-size-sm);
+}
+
+.ds-spinner--lg {
+  width: var(--ds-spinner-size-lg);
+  height: var(--ds-spinner-size-lg);
+}
+
+/* ---------------------------------------------------------
+   Styles
+   --------------------------------------------------------- */
+.ds-spinner--on-color {
+  border-color: var(--ds-spinner-track-border-color-on-color);
+  border-top-color: var(--ds-spinner-indicator-border-color-on-color);
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-spinner {
+    animation: none;
+    opacity: var(--ds-opacity-disabled);
+  }
+}

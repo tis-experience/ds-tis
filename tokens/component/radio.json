@@ -1,0 +1,248 @@
+{
+  "component": {
+    "radio": {
+      "target": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Altura minima da area interativa Radio sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Altura minima da area interativa Radio md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Altura minima da area interativa Radio lg."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal entre control e content Radio."
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical entre textos do Radio."
+          }
+        }
+      },
+      "group": {
+        "options": {
+          "gap": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.space.sm}",
+              "$description": "Gap entre opções dentro do Radio Group."
+            }
+          }
+        }
+      },
+      "control": {
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Tamanho visual do control Radio sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho visual do control Radio md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho visual do control Radio lg."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius do control Radio."
+          }
+        },
+        "fill": {
+          "unselected": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill do control Radio unselected default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.surface.default}",
+              "$description": "Fill do control Radio unselected focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.surface.hover}",
+              "$description": "Fill do control Radio unselected hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.background.disabled}",
+              "$description": "Fill do control Radio unselected disabled."
+            }
+          },
+          "selected": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill do control Radio selected default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.default}",
+              "$description": "Fill do control Radio selected focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.hover}",
+              "$description": "Fill do control Radio selected hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.background.disabled}",
+              "$description": "Fill do control Radio selected disabled."
+            }
+          }
+        },
+        "border-color": {
+          "unselected": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.border.control-default}",
+              "$description": "Border color do control Radio unselected default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.border.focus}",
+              "$description": "Border color do control Radio unselected focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.border.control-hover}",
+              "$description": "Border color do control Radio unselected hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.border.control-disabled}",
+              "$description": "Border color do control Radio unselected disabled."
+            },
+            "error": {
+              "$value": "{semantic.border.error}",
+              "$type": "color"
+            },
+            "error-hover": {
+              "$value": "{semantic.border.error-hover}",
+              "$type": "color"
+            }
+          },
+          "selected": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.border.default}",
+              "$description": "Border color do control Radio selected default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.border.focus}",
+              "$description": "Border color do control Radio selected focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.border.hover}",
+              "$description": "Border color do control Radio selected hover."
+            }
+          }
+        },
+        "border-width": {
+          "unselected": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.border.width.default}",
+              "$description": "Border width do control Radio unselected."
+            }
+          },
+          "selected": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.border.width.strong}",
+              "$description": "Border width do control Radio selected."
+            }
+          }
+        }
+      },
+      "dot": {
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.control.radio.dot.size.sm}",
+            "$description": "Tamanho do dot Radio sm. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.control.radio.dot.size.md}",
+            "$description": "Tamanho do dot Radio md. Component-specific; nao ha Semantic reutilizavel."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.control.radio.dot.size.lg}",
+            "$description": "Tamanho do dot Radio lg. Component-specific; nao ha Semantic reutilizavel."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius do dot Radio."
+          }
+        },
+        "fill": {
+          "selected": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do dot Radio selected default."
+            },
+            "focus": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-default}",
+              "$description": "Fill do dot Radio selected focus."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-hover}",
+              "$description": "Fill do dot Radio selected hover."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.brand.content-disabled}",
+              "$description": "Fill do dot Radio selected disabled."
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.full}",
+            "$description": "Radius do focus ring Radio."
+          }
+        }
+      }
+    }
+  }
+}

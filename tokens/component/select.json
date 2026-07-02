@@ -1,0 +1,240 @@
+{
+  "component": {
+    "select": {
+      "chevron": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Cor do chevron Select."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.disabled}",
+            "$description": "Cor do chevron Select disabled."
+          }
+        },
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Tamanho do ícone do chevron Select sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone do chevron Select md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho do ícone do chevron Select lg."
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.icon.stroke-width.regular.24}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "chevron-frame": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Padding horizontal do frame externo do chevron Select."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.lg}",
+            "$description": "Radius do focus ring Select."
+          }
+        }
+      },
+      "gap": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Gap interno do Field Select sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Gap interno do Field Select md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Gap interno do Field Select lg."
+        }
+      },
+      "height": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.size.lg}",
+          "$description": "Altura da superfície visual Select sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.size.xl}",
+          "$description": "Altura da superfície visual Select md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.size.2xl}",
+          "$description": "Altura da superfície visual Select lg."
+        }
+      },
+      "icon": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Cor do ícone Select."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.disabled}",
+            "$description": "Cor do ícone Select disabled."
+          }
+        },
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Tamanho do ícone Select sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone Select md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho do ícone Select lg."
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$type": "dimension"
+          },
+          "md": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          },
+          "lg": {
+            "$value": "{semantic.icon.stroke-width.regular.24}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "icon-frame": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Padding horizontal do frame externo de ícone Select."
+          }
+        }
+      },
+      "padding-x": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Padding horizontal do Field Select sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Padding horizontal do Field Select md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.space.md}",
+          "$description": "Padding horizontal do Field Select lg."
+        }
+      },
+      "text": {
+        "font-family": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-family.sans}",
+            "$description": "Font-family do texto Select."
+          }
+        },
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xs}",
+            "$description": "Font-size do texto Select sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size do texto Select md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$description": "Font-size do texto Select lg."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "string",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Font-weight do texto Select."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$description": "Letter-spacing do texto Select."
+          }
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.2xs}",
+            "$description": "Line-height do texto Select sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height do texto Select md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$description": "Line-height do texto Select lg."
+          }
+        }
+      },
+      "text-frame": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Padding horizontal do Text Frame Select."
+          }
+        }
+      }
+    }
+  }
+}

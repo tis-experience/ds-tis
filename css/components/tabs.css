@@ -1,0 +1,79 @@
+/* ============================================================
+   COMPONENT: Tabs
+   ============================================================ */
+
+.ds-tabs {
+  display: flex;
+  border-bottom: var(--ds-tabs-list-border-width-default) solid var(--ds-overlay-default);
+  gap: 0;
+}
+
+/* Tab — Figma: padding pl/pr space/lg, pt space/md (12), pb 0
+   Gap: 10px before the 2px indicator; Label: label/md (14px Bold / 20px) */
+.ds-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: var(--ds-tabs-item-padding-top-default) var(--ds-tabs-item-padding-x-default) var(--ds-tabs-item-indicator-gap-default);
+  font-size: var(--ds-tabs-label-font-size-default);
+  font-weight: var(--ds-tabs-label-font-weight-default);
+  line-height: var(--ds-tabs-label-line-height-default);
+  letter-spacing: var(--ds-tabs-label-letter-spacing-default);
+  color: var(--ds-tabs-label-color-default);
+  background: none;
+  border: none;
+  border-bottom: var(--ds-tabs-indicator-height-default) solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+  margin-bottom: calc(var(--ds-tabs-list-border-width-default) * -1);
+}
+
+.ds-tab:hover:not(:disabled):not(.ds-tab--active) {
+  color: var(--ds-tabs-label-color-hover);
+}
+
+.ds-tab--active {
+  color: var(--ds-tabs-label-color-active);
+  border-bottom-color: var(--ds-tabs-indicator-fill-active);
+}
+
+.ds-tab:focus-visible {
+  outline: none;
+}
+
+.ds-tab:focus-visible::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--ds-focus-ring-width) * -2);
+  right: calc(var(--ds-focus-ring-width) * -2);
+  bottom: calc((var(--ds-focus-ring-width) * -2) - var(--ds-tabs-indicator-height-default));
+  left: calc(var(--ds-focus-ring-width) * -2);
+  box-sizing: border-box;
+  border: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  border-radius: var(--ds-tabs-focus-ring-radius-default);
+  pointer-events: none;
+}
+
+.ds-tab:disabled {
+  color: var(--ds-tabs-label-color-disabled);
+  cursor: not-allowed;
+}
+
+/* Tab panel */
+.ds-tab-panel {
+  padding: var(--ds-tabs-panel-padding-y-default) 0;
+}
+
+.ds-tab-panel[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ds-tab { transition: none; }
+}

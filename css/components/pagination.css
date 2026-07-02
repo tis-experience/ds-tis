@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.ds-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-pagination-gap-default);
+}
+
+.ds-pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-pagination-gap-default);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-pagination__item {
+  display: flex;
+  align-items: center;
+}
+
+/* Page number
+   ========================================================================== */
+
+.ds-pagination__page {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--ds-pagination-item-min-width-md);
+  height: var(--ds-pagination-item-height-md);
+  padding: 0 var(--ds-space-2xs);
+  border: none;
+  border-radius: var(--ds-pagination-item-radius-default);
+  background: var(--ds-pagination-item-bg-default);
+  color: var(--ds-pagination-item-content-color-default);
+  font-family: var(--ds-pagination-item-font-family-default);
+  font-size: var(--ds-pagination-item-font-size-md);
+  font-weight: var(--ds-pagination-item-font-weight-default);
+  line-height: var(--ds-pagination-item-line-height-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+    color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+a.ds-pagination__page:hover:not(.ds-pagination__page--current):not(:disabled):not([aria-disabled="true"]) {
+  background: var(--ds-pagination-item-bg-hover);
+  color: var(--ds-pagination-item-content-color-hover);
+}
+
+.ds-pagination__page--current {
+  background: var(--ds-pagination-item-bg-current);
+  color: var(--ds-pagination-item-content-color-current);
+  font-weight: var(--ds-pagination-item-font-weight-current);
+  cursor: default;
+  pointer-events: none;
+}
+
+.ds-pagination__page:disabled,
+.ds-pagination__page[aria-disabled="true"] {
+  background: var(--ds-pagination-item-bg-disabled);
+  color: var(--ds-pagination-item-content-color-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ds-pagination__page:focus-visible {
+  outline: none;
+}
+
+.ds-pagination__page:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--ds-focus-ring-width) * -1);
+  box-sizing: border-box;
+  border: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  border-radius: var(--ds-pagination-focus-ring-radius-default);
+  pointer-events: none;
+}
+
+/* Ellipsis (non-interactive)
+   ========================================================================== */
+
+.ds-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ds-pagination-item-min-width-md);
+  height: var(--ds-pagination-item-height-md);
+  color: var(--ds-pagination-icon-color-default);
+  pointer-events: none;
+}
+
+.ds-pagination__ellipsis .ds-icon {
+  width: var(--ds-pagination-icon-size-sm);
+  height: var(--ds-pagination-icon-size-sm);
+  stroke-width: var(--ds-pagination-icon-stroke-width-sm);
+}
+
+/* Sizes
+   ========================================================================== */
+
+.ds-pagination--sm .ds-pagination__page,
+.ds-pagination--sm .ds-pagination__ellipsis {
+  min-width: var(--ds-pagination-item-min-width-sm);
+  height: var(--ds-pagination-item-height-sm);
+  font-size: var(--ds-pagination-item-font-size-sm);
+  line-height: var(--ds-pagination-item-line-height-sm);
+}
+
+.ds-pagination--lg .ds-pagination__page,
+.ds-pagination--lg .ds-pagination__ellipsis {
+  min-width: var(--ds-pagination-item-min-width-lg);
+  height: var(--ds-pagination-item-height-lg);
+  font-size: var(--ds-pagination-item-font-size-lg);
+  line-height: var(--ds-pagination-item-line-height-lg);
+}
+
+/* Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-pagination__page {
+    transition: none;
+  }
+}

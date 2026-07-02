@@ -1,0 +1,60 @@
+{
+  "foundation": {
+    "duration": {
+      "$description": "Animation/transition durations. Doc fonte: docs/foundations-motion.html.",
+      "instant": {
+        "$value": "0ms",
+        "$type": "duration",
+        "$description": "0ms. Sem animação (raro — sobrescrever em prefers-reduced-motion ou disable explícito)."
+      },
+      "fast": {
+        "$value": "150ms",
+        "$type": "duration",
+        "$description": "150ms. Transições rápidas (hover, focus, active)."
+      },
+      "moderate": {
+        "$value": "250ms",
+        "$type": "duration",
+        "$description": "250ms. Transições de estado mais elaboradas (toggle, drawer, expand/collapse)."
+      },
+      "slow": {
+        "$value": "400ms",
+        "$type": "duration",
+        "$description": "400ms. Animações enfáticas (entrada de overlay, modal, popover)."
+      },
+      "slower": {
+        "$value": "600ms",
+        "$type": "duration",
+        "$description": "600ms. Loops contínuos (Spinner) e animações enfáticas longas."
+      }
+    },
+    "ease": {
+      "$description": "Cubic-bezier curves. Doc fonte: docs/foundations-motion.html.",
+      "default": {
+        "$value": [0.4, 0, 0.2, 1],
+        "$type": "cubicBezier",
+        "$description": "Curva padrão pra transições UI. Mesmo valor de in-out — alias de conveniência."
+      },
+      "in": {
+        "$value": [0.4, 0, 1, 1],
+        "$type": "cubicBezier",
+        "$description": "Aceleração no início, sem desaceleração. Use pra elementos saindo da tela."
+      },
+      "out": {
+        "$value": [0, 0, 0.2, 1],
+        "$type": "cubicBezier",
+        "$description": "Sem aceleração, desaceleração no final. Use pra elementos entrando na tela."
+      },
+      "in-out": {
+        "$value": [0.4, 0, 0.2, 1],
+        "$type": "cubicBezier",
+        "$description": "Aceleração + desaceleração. Padrão Material; mesmo valor de default."
+      },
+      "linear": {
+        "$value": [0, 0, 1, 1],
+        "$type": "cubicBezier",
+        "$description": "Curva linear (velocidade constante). Para loops onde aceleração quebra a percepção (Spinner)."
+      }
+    }
+  }
+}

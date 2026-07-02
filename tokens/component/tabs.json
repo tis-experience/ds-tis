@@ -1,0 +1,119 @@
+{
+  "component": {
+    "tabs": {
+      "list": {
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Largura da borda da lista de Tabs."
+          }
+        }
+      },
+      "item": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Espaçamento interno horizontal do item de Tabs."
+          }
+        },
+        "padding-top": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Espaçamento interno superior do item de Tabs."
+          }
+        },
+        "indicator-gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Espaço entre o rótulo e o indicador de Tabs."
+          }
+        }
+      },
+      "indicator": {
+        "height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.strong}",
+            "$description": "Altura do indicador de Tabs."
+          }
+        },
+        "fill": {
+          "active": {
+            "$value": "{semantic.brand.background.default}",
+            "$type": "color"
+          }
+        }
+      },
+      "label": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Tamanho da fonte do rótulo de Tabs."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Altura de linha do rótulo de Tabs."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Peso da fonte do rótulo de Tabs."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$description": "Espaçamento entre letras do rótulo de Tabs."
+          }
+        },
+        "color": {
+          "default": {
+            "$value": "{semantic.content.default}",
+            "$type": "color"
+          },
+          "hover": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          },
+          "active": {
+            "$value": "{semantic.content.brand}",
+            "$type": "color"
+          },
+          "disabled": {
+            "$value": "{semantic.content.disabled}",
+            "$type": "color"
+          }
+        }
+      },
+      "panel": {
+        "padding-y": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Espaçamento interno vertical do painel de Tabs."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.sm}",
+            "$description": "Radius do focus ring Tabs."
+          }
+        }
+      }
+    }
+  }
+}

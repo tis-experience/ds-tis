@@ -1,0 +1,101 @@
+{
+  "component": {
+    "breadcrumb": {
+      "gap": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Espaço entre itens e separadores do Breadcrumb."
+        }
+      },
+      "item": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Espaço interno entre partes do item de Breadcrumb."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do focus ring Breadcrumb."
+          }
+        }
+      },
+      "label": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Tamanho da fonte do rótulo de Breadcrumb."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Altura de linha do rótulo de Breadcrumb."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Peso da fonte do rótulo de Breadcrumb."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$description": "Espaçamento entre letras do rótulo de Breadcrumb."
+          }
+        },
+        "color": {
+          "link": {
+            "$value": "{semantic.link.content-default}",
+            "$type": "color"
+          },
+          "current": {
+            "$value": "{semantic.content.default}",
+            "$type": "color"
+          }
+        }
+      },
+      "separator": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xs}",
+            "$description": "Tamanho da fonte do separador de Breadcrumb."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xs}",
+            "$description": "Altura de linha do separador de Breadcrumb."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}",
+            "$description": "Peso da fonte do separador de Breadcrumb."
+          }
+        },
+        "letter-spacing": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.letter-spacing.normal}",
+            "$description": "Espaçamento entre letras do separador de Breadcrumb."
+          }
+        }
+      }
+    }
+  }
+}

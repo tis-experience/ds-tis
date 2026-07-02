@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation guidelines — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Documentation guidelines</h1>
+    <p class="ds-section__subtitle">Templates editoriais para páginas de Foundation, Component, Process e System.</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p>Este guia define o contrato editorial das páginas do Design System Core. Use-o antes de criar, refatorar ou revisar páginas em <code>docs/</code>.</p>
+<h2>Princípios</h2>
+<ol>
+<li><strong>Docs descrevem o estado atual.</strong> A fonte de verdade continua sendo ADR, Figma, JSON e CSS conforme <code>AGENTS.md</code>.</li>
+<li><strong>Estrutura varia por finalidade.</strong> Foundation, Component, Process e System pages não precisam ter o mesmo template.</li>
+<li><strong>Exceções devem ser explícitas.</strong> Se uma página omite uma seção comum, explique o motivo na própria página ou neste guia.</li>
+<li><strong>Nomes oficiais não são inventados na documentação.</strong> Use o nome do Figma, JSON ou CSS. Descrições de uso ficam em colunas de papel/uso.</li>
+<li><strong>Design System Core é o nome do projeto.</strong> Enquanto não houver nome de produto final, não usar outro nome para o DS.</li>
+</ol>
+<h2>Tipos de página</h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Finalidade</th>
+<th>Exemplos</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Foundation</td>
+<td>Explicar escalas, tokens, valores e uso recomendado</td>
+<td>Colors, Spacing, Elevation</td>
+</tr>
+<tr>
+<td>Component</td>
+<td>Ensinar uso, anatomia, estados, tokens, CSS e acessibilidade</td>
+<td>Button, Input, Tabs</td>
+</tr>
+<tr>
+<td>Process</td>
+<td>Explicar fluxo operacional verificável</td>
+<td>Contributing, Releasing, Versioning</td>
+</tr>
+<tr>
+<td>System</td>
+<td>Explicar princípios, arquitetura e normas transversais</td>
+<td>Token Architecture, Accessibility</td>
+</tr>
+</tbody></table>
+<h2>Foundation pages</h2>
+<p>Template recomendado:</p>
+<ol>
+<li>Visão geral.</li>
+<li>Visual reference ou escala.</li>
+<li>Token reference.</li>
+<li>Uso e relações com outros sistemas, quando aplicável.</li>
+<li>Exceções arquiteturais, quando houver ADR.</li>
+<li>JSON (DTCG).</li>
+</ol>
+<p>Variações permitidas:</p>
+<ul>
+<li>Colors e Theme Colors podem usar swatches em vez de tabelas.</li>
+<li>Typography pode incluir preview de tipo.</li>
+<li>Elevation deve mencionar surface, porque depth combina shadow e surface, especialmente em dark mode.</li>
+<li>Motion, Z-index e Shadow/Elevation podem citar exceções CSS-only quando ligadas à ADR-016.</li>
+</ul>
+<h2>Component pages</h2>
+<p>Template recomendado:</p>
+<ol>
+<li>Quando usar.</li>
+<li>Anatomia.</li>
+<li>Variantes, tamanhos, estados e exemplos.</li>
+<li>Boas práticas.</li>
+<li>Diretrizes de conteúdo, quando o componente renderiza texto, label ou mensagem.</li>
+<li>Mapeamento de tokens.</li>
+<li>Classes CSS.</li>
+<li>Propriedades Figma, quando houver variants/properties relevantes para handoff.</li>
+<li>Interação por teclado, quando interativo.</li>
+<li>Accessibility.</li>
+<li>Relacionados.</li>
+</ol>
+<p>Exceções permitidas:</p>
+<ul>
+<li>Componentes não interativos não precisam de Interação por teclado.</li>
+<li>Componentes simples podem ter uma anatomia curta, mas não devem omitir a intenção estrutural.</li>
+<li><code>Form Field</code> segue template próprio porque é CSS-only por ADR-017.</li>
+</ul>
+<h2>Form Field</h2>
+<p><code>Form Field</code> é CSS-only e não deve ser auditado como componente visual ausente no Figma. A página deve deixar claro que:</p>
+<ul>
+<li>existe para compor markup HTML de label, control, helper e error;</li>
+<li>não substitui os componentes Figma de Input, Select, Textarea, Checkbox, Radio ou Toggle;</li>
+<li>mapeia comportamento de DOM e ARIA, não uma nova superfície visual no Figma.</li>
+</ul>
+<h2>Process pages</h2>
+<p>Template recomendado:</p>
+<ol>
+<li>Escopo e fonte de verdade.</li>
+<li>Antes de começar.</li>
+<li>Passo a passo.</li>
+<li>Validação.</li>
+<li>Falhas comuns ou rollback.</li>
+<li>Links relacionados.</li>
+</ol>
+<h2>System pages</h2>
+<p>Template recomendado:</p>
+<ol>
+<li>Princípio ou decisão.</li>
+<li>Impacto em design.</li>
+<li>Impacto em código.</li>
+<li>Tokens ou artefatos relacionados.</li>
+<li>Verificação.</li>
+<li>ADRs e processos relacionados.</li>
+</ol>
+<h2>Labels oficiais de tabelas</h2>
+<p>Use estes labels em português:</p>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CSS variable</td>
+<td>Variável CSS</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Descrição</td>
+</tr>
+<tr>
+<td>WCAG criterion</td>
+<td>Critério WCAG</td>
+</tr>
+<tr>
+<td>Function / role</td>
+<td>Função ou Papel</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Referência</td>
+</tr>
+<tr>
+<td>Class</td>
+<td>Classe</td>
+</tr>
+<tr>
+<td>Property</td>
+<td>Propriedade</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Valor</td>
+</tr>
+<tr>
+<td>Usage</td>
+<td>Uso</td>
+</tr>
+</tbody></table>
+<h2>Authored vs generated</h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Tipo</th>
+<th>Como alterar</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docs/*.html</code> manuais</td>
+<td>Authored</td>
+<td>Editar o HTML direto</td>
+</tr>
+<tr>
+<td><code>docs/*.md</code> publicados por <code>sync:docs</code></td>
+<td>Authored source</td>
+<td>Editar o MD e rodar <code>npm run sync:docs</code></td>
+</tr>
+<tr>
+<td><code>docs/decisions/ADR-*.md</code></td>
+<td>Authored source</td>
+<td>Editar o MD e rodar <code>npm run sync:docs</code></td>
+</tr>
+<tr>
+<td><code>docs/decisions/adr-*.html</code></td>
+<td>Generated</td>
+<td>Não editar à mão</td>
+</tr>
+<tr>
+<td><code>docs/changelog.html</code></td>
+<td>Generated</td>
+<td>Editar <code>CHANGELOG.md</code></td>
+</tr>
+<tr>
+<td><code>docs/token-schema.md</code>, <code>docs/component-inventory.md</code>, <code>docs/adr-index.md</code></td>
+<td>Generated</td>
+<td>Rodar <code>npm run sync:docs</code></td>
+</tr>
+<tr>
+<td><code>docs/llms*.txt</code></td>
+<td>Generated</td>
+<td>Rodar <code>npm run build:llms</code></td>
+</tr>
+</tbody></table>
+<h2>Checklist de revisão</h2>
+<ul>
+<li>A página segue o template do tipo correto.</li>
+<li>Exceções estão declaradas.</li>
+<li>Tokens citados existem e passam em <code>npm run verify:tokens</code>.</li>
+<li>Labels de tabela usam a nomenclatura oficial deste guia.</li>
+<li>Mudança observável está registrada no <code>CHANGELOG.md</code>.</li>
+<li>Arquivos gerados foram atualizados pelo comando correto.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

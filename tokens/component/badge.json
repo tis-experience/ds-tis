@@ -1,0 +1,192 @@
+{
+  "component": {
+    "badge": {
+      "padding-x": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Padding horizontal do Badge."
+        }
+      },
+      "padding-y": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.2xs}",
+          "$description": "Padding vertical do Badge."
+        }
+      },
+      "gap": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Gap interno do Badge."
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.full}",
+          "$description": "Radius pill do Badge."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width do Badge quando stroke esta ativo."
+        }
+      },
+      "label": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.xs}",
+            "$description": "Font-size do label Badge."
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.xs}",
+            "$description": "Line-height do label Badge."
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}",
+            "$description": "Font-weight do label Badge."
+          }
+        },
+        "color": {
+          "brand": {
+            "solid": {
+              "$value": "{semantic.brand.content-default}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.toned.content-default}",
+              "$type": "color"
+            }
+          },
+          "success": {
+            "solid": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.feedback.success.content-default}",
+              "$type": "color"
+            }
+          },
+          "warning": {
+            "solid": {
+              "$value": "{semantic.feedback.warning.content-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.feedback.warning.content-default}",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "solid": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.feedback.error.content-default}",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "solid": {
+              "$value": "{semantic.feedback.info.content-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.feedback.info.content-default}",
+              "$type": "color"
+            }
+          },
+          "neutral": {
+            "solid": {
+              "$value": "{semantic.content.strong}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.content.default}",
+              "$type": "color"
+            }
+          }
+        }
+      },
+      "bg": {
+        "brand": {
+          "solid": {
+            "$value": "{semantic.brand.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.toned.background.default}",
+            "$type": "color"
+          }
+        },
+        "success": {
+          "solid": {
+            "$value": "{semantic.feedback.success.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.success.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "warning": {
+          "solid": {
+            "$value": "{semantic.feedback.warning.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.warning.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "error": {
+          "solid": {
+            "$value": "{semantic.feedback.error.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.error.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "info": {
+          "solid": {
+            "$value": "{semantic.feedback.info.background.default}",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "{semantic.feedback.info.background.subtle}",
+            "$type": "color"
+          }
+        },
+        "neutral": {
+          "default": {
+            "$value": "{semantic.surface.default}",
+            "$type": "color"
+          }
+        }
+      },
+      "border-color": {
+        "neutral": {
+          "subtle": {
+            "$value": "{semantic.border.default}",
+            "$type": "color"
+          }
+        }
+      }
+    }
+  }
+}

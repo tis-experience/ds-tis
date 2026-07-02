@@ -1,0 +1,30 @@
+{
+  "foundation": {
+    "opacity": {
+      "5": {
+        "$type": "number",
+        "$value": 0.05
+      },
+      "10": {
+        "$type": "number",
+        "$value": 0.1
+      },
+      "25": {
+        "$type": "number",
+        "$value": 0.25
+      },
+      "50": {
+        "$type": "number",
+        "$value": 0.5
+      },
+      "75": {
+        "$type": "number",
+        "$value": 0.75
+      },
+      "100": {
+        "$type": "number",
+        "$value": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "foundation": {
+    "border": {
+      "width": {
+        "1": {
+          "$type": "dimension",
+          "$value": "1px"
+        },
+        "2": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "4": {
+          "$type": "dimension",
+          "$value": "4px"
+        }
+      }
+    },
+    "stroke": {
+      "width": {
+        "1_5": {
+          "$type": "dimension",
+          "$value": "1.5px",
+          "$description": "1.5px icon stroke width."
+        },
+        "1_75": {
+          "$type": "dimension",
+          "$value": "1.75px",
+          "$description": "1.75px icon stroke width."
+        },
+        "2": {
+          "$type": "dimension",
+          "$value": "2px",
+          "$description": "2px icon stroke width."
+        },
+        "2_25": {
+          "$type": "dimension",
+          "$value": "2.25px",
+          "$description": "2.25px icon stroke width."
+        },
+        "2_5": {
+          "$type": "dimension",
+          "$value": "2.5px",
+          "$description": "2.5px icon stroke width."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "component": {
+    "field": {
+      "bg": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.surface.default}",
+          "$description": "Field background default."
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{semantic.background.disabled}",
+          "$description": "Field background disabled."
+        },
+        "readonly": {
+          "$type": "color",
+          "$value": "{semantic.surface.default}",
+          "$description": "Field background read-only."
+        }
+      },
+      "border-color": {
+        "default": {
+          "$type": "color",
+          "$value": "{semantic.border.control-default}",
+          "$description": "Field border default."
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "{semantic.border.control-disabled}",
+          "$description": "Field border disabled."
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{semantic.border.error}",
+          "$description": "Field border error."
+        },
+        "error-hover": {
+          "$type": "color",
+          "$value": "{semantic.border.error-hover}",
+          "$description": "Field border error hover."
+        },
+        "filled": {
+          "$type": "color",
+          "$value": "{semantic.border.strong}",
+          "$description": "Field border filled."
+        },
+        "focus": {
+          "$type": "color",
+          "$value": "{semantic.border.focus}",
+          "$description": "Field border focus."
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{semantic.border.control-hover}",
+          "$description": "Field border hover."
+        },
+        "readonly": {
+          "$type": "color",
+          "$value": "{semantic.border.subtle}",
+          "$description": "Field border read-only."
+        }
+      },
+      "border-width": {
+        "$type": "dimension",
+        "$value": "{semantic.border.width.default}",
+        "$description": "Field border width."
+      },
+      "padding-y": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Field vertical padding sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.space.control.padding.10}",
+          "$description": "Field vertical padding md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.space.md}",
+          "$description": "Field vertical padding lg."
+        }
+      },
+      "placeholder": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.subtle}",
+            "$description": "Field placeholder color default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.content.disabled}",
+            "$description": "Field placeholder color disabled."
+          }
+        }
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.radius.md}",
+        "$description": "Field radius."
+      },
+      "value": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}",
+            "$description": "Field value color default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.content.disabled}",
+            "$description": "Field value color disabled."
+          },
+          "readonly": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Field value color read-only."
+          }
+        }
+      },
+      "gap": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Sincronizado a partir da Variable Figma component.field.gap.sm."
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Sincronizado a partir da Variable Figma component.field.gap.md."
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Sincronizado a partir da Variable Figma component.field.gap.lg."
+        }
+      },
+      "icon": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.color.default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.disabled}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.color.disabled."
+          }
+        },
+        "size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.size.sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.size.md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.size.lg."
+          }
+        },
+        "stroke-width": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.stroke-width.sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.stroke-width.md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.24}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon.stroke-width.lg."
+          }
+        }
+      },
+      "icon-frame": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.icon-frame.padding-x.default."
+          }
+        }
+      },
+      "text-frame": {
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Sincronizado a partir da Variable Figma component.field.text-frame.padding-x.default."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "component": {
+    "menu": {
+      "surface": {
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.elevated}",
+            "$description": "Background da superfície Menu."
+          }
+        },
+        "border-color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.border.subtle}",
+            "$description": "Border color da superfície Menu."
+          }
+        },
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Border width da superfície Menu."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.lg}",
+            "$description": "Radius da superfície Menu."
+          }
+        },
+        "padding": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding interno da superfície Menu."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.2xs}",
+            "$description": "Gap vertical entre itens do Menu."
+          }
+        },
+        "shadow": {
+          "default": {
+            "$type": "shadow",
+            "$value": "{semantic.shadow.overlay}",
+            "$description": "Shadow da superfície Menu, alinhado ao Effect Style Figma elevation/2."
+          }
+        }
+      },
+      "item": {
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.lg}",
+            "$description": "Altura mínima do item Menu sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Altura mínima do item Menu md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Altura mínima do item Menu lg."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.sm}",
+            "$description": "Radius do item Menu."
+          }
+        },
+        "gap": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap interno do item Menu sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap interno do item Menu md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap interno do item Menu lg."
+          }
+        },
+        "padding-x": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding horizontal do item Menu sm."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding horizontal do item Menu md."
+          },
+          "lg": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Padding horizontal do item Menu lg."
+          }
+        },
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.raised}",
+            "$description": "Background default do item Menu."
+          },
+          "hover": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.ghost.background.hover}",
+              "$description": "Sincronizado a partir da Variable Figma component.menu.item.bg.hover.default."
+            }
+          },
+          "focused": {
+            "$type": "color",
+            "$value": "{semantic.surface.raised}",
+            "$description": "Background focused do item Menu."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.surface.raised}",
+            "$description": "Background disabled do item Menu."
+          }
+        },
+        "content": {
+          "color": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.content.default}",
+              "$description": "Cor do conteúdo do item Menu."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{semantic.content.strong}",
+              "$description": "Cor do conteúdo do item Menu em hover."
+            },
+            "focused": {
+              "$type": "color",
+              "$value": "{semantic.content.strong}",
+              "$description": "Cor do conteúdo do item Menu em focus."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.content.disabled}",
+              "$description": "Cor do conteúdo do item Menu disabled."
+            },
+            "destructive": {
+              "$type": "color",
+              "$value": "{semantic.feedback.error.content.strong}",
+              "$description": "Cor do conteúdo destructive do item Menu."
+            }
+          }
+        },
+        "meta": {
+          "color": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.content.subtle}",
+              "$description": "Cor de shortcut ou metadado do item Menu."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.content.disabled}",
+              "$description": "Cor de shortcut ou metadado do item Menu disabled."
+            },
+            "destructive": {
+              "$type": "color",
+              "$value": "{semantic.feedback.error.content.strong}",
+              "$description": "Cor de shortcut ou metadado destructive do item Menu."
+            }
+          }
+        },
+        "icon": {
+          "color": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.default}",
+              "$description": "Cor do ícone do item Menu."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.disabled}",
+              "$description": "Cor do ícone do item Menu disabled."
+            },
+            "destructive": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.error-strong}",
+              "$description": "Cor do ícone destructive do item Menu."
+            }
+          },
+          "size": {
+            "sm": {
+              "$type": "dimension",
+              "$value": "{semantic.size.xs}",
+              "$description": "Tamanho do ícone do item Menu sm."
+            },
+            "md": {
+              "$type": "dimension",
+              "$value": "{semantic.size.sm}",
+              "$description": "Tamanho do ícone do item Menu md."
+            },
+            "lg": {
+              "$type": "dimension",
+              "$value": "{semantic.size.md}",
+              "$description": "Tamanho do ícone do item Menu lg."
+            }
+          },
+          "stroke-width": {
+            "sm": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.16}",
+              "$description": "Stroke width do ícone do item Menu sm."
+            },
+            "md": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.20}",
+              "$description": "Stroke width do ícone do item Menu md."
+            },
+            "lg": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.24}",
+              "$description": "Stroke width do ícone do item Menu lg."
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.md}",
+            "$description": "Radius do focus ring do item Menu."
+          }
+        }
+      }
+    }
+  }
+}

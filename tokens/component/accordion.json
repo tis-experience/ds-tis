@@ -1,0 +1,200 @@
+{
+  "component": {
+    "accordion": {
+      "item": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.lg}",
+            "$description": "Accordion Component token aliasing Semantic/radius/lg."
+          }
+        },
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Accordion Component token aliasing Semantic/border/width/default."
+          }
+        },
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.default}",
+            "$description": "Accordion Component token aliasing Semantic/surface/default."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{semantic.surface.default}",
+            "$description": "Accordion hover keeps surface default; hover affordance is carried by brand border."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.background.disabled}",
+            "$description": "Accordion Component token aliasing Semantic/background/disabled."
+          }
+        },
+        "border-color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.border.default}",
+            "$description": "Accordion Component token aliasing Semantic/border/default."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{semantic.brand.border.hover}",
+            "$description": "Accordion hover border uses brand hover stroke to match interactive DS item affordance."
+          },
+          "focus": {
+            "$type": "color",
+            "$value": "{semantic.border.focus}",
+            "$description": "Accordion Component token aliasing Semantic/border/focus."
+          }
+        }
+      },
+      "trigger": {
+        "content": {
+          "color": {
+            "default": {
+              "$type": "color",
+              "$value": "{semantic.content.strong}",
+              "$description": "Accordion Component token aliasing Semantic/content/strong."
+            },
+            "disabled": {
+              "$type": "color",
+              "$value": "{semantic.content.default}",
+              "$description": "Accordion disabled text keeps readable content color; disabled affordance is state/background/icon."
+            }
+          }
+        },
+        "height": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Accordion Component token aliasing Semantic/size/2xl."
+          }
+        },
+        "padding-x": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Accordion Component token aliasing Semantic/space/xl."
+          }
+        },
+        "padding-y": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Accordion Component token aliasing Semantic/space/lg."
+          }
+        },
+        "gap": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Accordion Component token aliasing Semantic/space/md."
+          }
+        }
+      },
+      "content": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Accordion Component token aliasing Semantic/content/default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Accordion disabled content keeps readable content color; disabled affordance is state/background/icon."
+          }
+        },
+        "padding-x": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Accordion Component token aliasing Semantic/space/xl."
+          }
+        },
+        "padding-bottom": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xl}",
+            "$description": "Accordion Component token aliasing Semantic/space/xl."
+          }
+        },
+        "gap": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Accordion Component token aliasing Semantic/space/md."
+          }
+        }
+      },
+      "chevron": {
+        "size": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Accordion Component token aliasing Semantic/size/sm."
+          }
+        },
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Accordion Component token aliasing Semantic/icon/color/default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.disabled}",
+            "$description": "Accordion Component token aliasing Semantic/icon/color/disabled."
+          }
+        },
+        "stroke-width": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$description": "Accordion Component token aliasing Semantic/icon/stroke-width/regular/20."
+          }
+        }
+      },
+      "leading-icon": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Sincronizado a partir da Variable Figma component.accordion.leading-icon.color.default."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.disabled}",
+            "$description": "Sincronizado a partir da Variable Figma component.accordion.leading-icon.color.disabled."
+          }
+        },
+        "size": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Sincronizado a partir da Variable Figma component.accordion.leading-icon.size.md."
+          }
+        },
+        "stroke-width": {
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$description": "Sincronizado a partir da Variable Figma component.accordion.leading-icon.stroke-width.md."
+          }
+        }
+      },
+      "focus-ring": {
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.xl}",
+            "$description": "Sincronizado a partir da Variable Figma component.accordion.focus-ring.radius.default."
+          }
+        }
+      }
+    }
+  }
+}

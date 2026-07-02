@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Versionamento — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Versionamento</h1>
+    <p class="ds-section__subtitle">Regras de bump de versão no design system.</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p>O design system usa <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>. Atualmente está em <strong>fase beta de 1.0</strong> — todas as releases são <code>1.0.0-beta.N</code> até o lançamento oficial decidido pelo design owner.</p>
+<h2>Política de versionamento — fase beta (atual)</h2>
+<p>Cada release <strong>incrementa N</strong> em <code>1.0.0-beta.N</code>. Não há &quot;minor&quot; ou &quot;patch&quot; durante o beta — todo release é igualmente um snapshot do estado do sistema:</p>
+<pre><code>v0.8.0  ←  último release pré-beta (histórico)
+v1.0.0-beta.1  ←  primeiro release beta (consolida pós-0.8.0)
+v1.0.0-beta.2
+v1.0.0-beta.3
+...
+v1.0.0-rc.1   ←  release candidate (decisão do owner)
+v1.0.0        ←  oficial (decisão do owner)
+</code></pre>
+<p><strong>Não existe release minor/patch separado</strong> durante a fase beta. Cada release incrementa apenas <code>N</code>, o CHANGELOG agrupa o trabalho do incremento e a tag git marca o ponto.</p>
+<h3>Quando bumpar (trigger)</h3>
+<p>Bump pra próximo <code>beta.N</code> é por <strong>pacote coerente</strong> + fallback de tempo:</p>
+<h4>1. Mudança considerável (preferencial)</h4>
+<p>Bumpa quando ocorre <strong>uma das seguintes</strong> desde o último beta, ainda que isolada:</p>
+<ul>
+<li>Novo ADR aceito que muda arquitetura ou contrato</li>
+<li>Renomeação de namespace/token público (breaking)</li>
+<li>Novo componente shipado (não em rascunho)</li>
+<li>Eliminação ou consolidação de camada de tokens</li>
+<li>Mudança de fonte de verdade</li>
+<li>Migração estrutural relevante (ex: alinhamento Figma de N componentes)</li>
+</ul>
+<h4>2. Feature completa</h4>
+<p>Bumpa quando um conjunto de mudanças <strong>fecha</strong> uma feature — não em pedaços. Exemplo: adicionar Theming requer foundation + semantic + componentes adaptados + docs.</p>
+<h4>3. Cadência temporal (fallback)</h4>
+<p>Se há acúmulo de patches sem trigger arquitetural ou feature, faça um bump <strong>semanal</strong> consolidando o que houve. Evita <code>[Não publicado]</code> virar dump infinito e mantém o beta versionado em ciclos previsíveis.</p>
+<h3>Quando NÃO bumpar</h3>
+<ul>
+<li>Trabalho em andamento (não shipado).</li>
+<li>Cleanup parcial, ajustes de WIP.</li>
+<li>Cada commit isolado de uma sessão.</li>
+<li>Documentação interna (CLAUDE.md, scripts internos).</li>
+<li>Regeneração automática por CI.</li>
+<li>Refactor de scripts sem impacto observável.</li>
+</ul>
+<h2>Política pós-1.0 (futuro)</h2>
+<p>Quando o owner decidir que está pronto, drop do beta tag → <code>1.0.0</code> oficial. A partir daí, <strong>semver normal</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Exemplo</th>
+<th>Quando</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Patch</strong></td>
+<td>1.0.1</td>
+<td>Correção pontual, ajuste interno sem impacto visível.</td>
+</tr>
+<tr>
+<td><strong>Minor</strong></td>
+<td>1.1.0</td>
+<td>Adição compatível (novo componente, nova foundation, novo token).</td>
+</tr>
+<tr>
+<td><strong>Major</strong></td>
+<td>2.0.0</td>
+<td>Breaking change (renomeação ou remoção de token/classe/API).</td>
+</tr>
+</tbody></table>
+<h2>Critérios de maturidade pra dropping do beta (guia, não gate)</h2>
+<p>1.0 oficial é <strong>decisão do design owner</strong>, não gate técnico. Esta lista funciona como guia de maturidade — não bloqueia release, mas marca prontidão técnica:</p>
+<h3>Arquitetura ✅ satisfeitos em 1.0.0-beta.1</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> 0 erros em <code>verify:tokens</code></li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> 0 leaks Foundation em <code>css/components/*.css</code></li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> 0 leaks Foundation em <code>css/base/*.css</code></li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Componentes auditados Figma vs CSS (alinhamento 1:1)</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> 100% Text Style coverage em textos non-Material de components Figma</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Descriptions designer-focused nos component sets Figma</li>
+</ul>
+<h3>Pendente pra futuras betas</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Form Field</strong> definido — CSS-only por ADR-017, fora de escopo como componente Figma dedicado até surgir demanda real de composição.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <strong><code>docs/brand-principles.md</code></strong> preenchido com conteúdo real</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Snapshot exporter + gates locais Figma↔JSON/Figma structure</strong> — <code>verify:tokens</code>, <code>verify:figma-structure</code> e <code>audit:component-tokens</code> rodam contra snapshot do plugin.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <strong>ADRs históricos</strong> atualizados com notas de evolução — <em>parcial em beta.1: 006/013/014 atualizados</em></li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong><code>docs/process-figma-sync.md</code></strong> atualizado pra naming atual e fluxo do snapshot exporter.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong><code>tokens/registry.json</code></strong> sem warnings (entries com metadados completos).</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Visual regression tests</strong> (Playwright + screenshot diff) — disponível localmente; CI depende de estabilizar fontes/capturas.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>A11y tests</strong> (axe-core) — rodam em <code>npm test</code> contra docs em light/dark com baseline incremental.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <strong>Sync Figma→JSON automatizado</strong> em CI — <em>depende de Enterprise/plugin</em></li>
+</ul>
+<h2>Cadeia única de versão</h2>
+<p>Quatro lugares exibem a versão e <strong>precisam bater</strong>:</p>
+<ul>
+<li><code>package.json</code> (campo <code>version</code>).</li>
+<li><code>CHANGELOG.md</code> (última entrada não rotulada como <code>[Não publicado]</code>).</li>
+<li>Badge no topo de <code>index.html</code> (injetada pelo build).</li>
+<li>Tag git (<code>git tag -a v1.0.0-beta.N</code>).</li>
+</ul>
+<p>Se os quatro baterem, a documentação está em dia. Se divergirem, algo no pipeline está quebrado.</p>
+<h2>CHANGELOG — uma entrada por release</h2>
+<p><code>[Não publicado]</code> é staging. Todas as mudanças desde a última release vão pra lá, <strong>agrupadas por tema</strong> (Adicionado / Mudado / Corrigido / Removido). Quando bumpa, a seção inteira vira <code>[1.0.0-beta.N] — AAAA-MM-DD</code> e nasce um novo <code>[Não publicado]</code> vazio.</p>
+<p>Más práticas a evitar:</p>
+<ul>
+<li>❌ Subseções fragmentadas pra cada ajuste do dia.</li>
+<li>❌ Bump de versão pra cada commit.</li>
+<li>❌ &quot;Mudanças não publicadas&quot; tendo 10 datas diferentes — sinal de que faltou release.</li>
+</ul>
+<p>Boa prática:</p>
+<ul>
+<li>✅ Uma entrada por release, agrupada em <strong>Adicionado / Mudado / Corrigido / Removido</strong>.</li>
+<li>✅ Cada item tem 1-2 linhas explicando <strong>por quê</strong>.</li>
+</ul>
+<h2>Fluxo de bump</h2>
+<ol>
+<li>Confirmar que <code>CHANGELOG.md</code> tem <code>[Não publicado]</code> consolidada (não fragmentada).</li>
+<li>Renomear <code>[Não publicado]</code> para <code>[1.0.0-beta.N] — AAAA-MM-DD</code>.</li>
+<li>Adicionar nova seção vazia <code>[Não publicado]</code> no topo.</li>
+<li>Ajustar <code>package.json</code> com a versão nova.</li>
+<li>Atualizar badge em <code>index.html</code> (<code>&lt;!-- VERSION:1.0.0-beta.N --&gt;</code>).</li>
+<li>Rodar <code>npm run build:all</code> — regenerar artefatos derivados.</li>
+<li>Commit: <code>chore(release): 1.0.0-beta.N</code>.</li>
+<li>Criar tag: <code>git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;</code>.</li>
+<li>Push com tag: <code>git push origin main v1.0.0-beta.N</code>.</li>
+<li>CI regenera CSS/changelog HTML/APIs/llms.txt e publica no GitHub Pages.</li>
+</ol>
+<h2>O que não conta como versionável</h2>
+<ul>
+<li>Mudanças em <code>CLAUDE.md</code> (documentação interna para agentes).</li>
+<li>Mudanças em <code>scripts/archive/</code>.</li>
+<li>Workflows CI sem impacto no deploy.</li>
+<li>Atualizações de <code>.gitignore</code>, configs locais.</li>
+</ul>
+<p>Esses podem ir em commits <code>docs:</code>, <code>chore:</code>, <code>ci:</code> sem bump.</p>
+<h2>Histórico — versionamento pré-beta (0.x)</h2>
+<p>Antes da fase beta, o sistema usava 0.x.y com bumps minor/patch. Tags <code>v0.5.0..v0.8.0</code> permanecem válidas. CHANGELOG preserva todas as entradas históricas. A partir de <code>v1.0.0-beta.1</code>, o esquema beta substitui o 0.x.</p>
+<p>A transição não envolve rewrite de história — o 0.8.0 simplesmente foi o último 0.x antes de entrar em beta.</p>
+
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
