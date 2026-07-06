@@ -1,6 +1,6 @@
 # Token Registry
 
-> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-06-29. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
+> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-02. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
 
 Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra arquitetural de camadas.
 
@@ -124,12 +124,12 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.color.overlay.black.5` | color | — | Sobreposição translúcida em black a 5% de opacidade. | 3 |
 | `foundation.color.overlay.black.60` | color | — | Sobreposição translúcida em black a 60% de opacidade. | 2 |
 | `foundation.color.overlay.black.80` | color | — | Sobreposição translúcida em black a 80% de opacidade. | 0 |
-| `foundation.color.overlay.blue-400.15` | color | — | Sobreposição translúcida em blue-400 a 15% de opacidade. | 0 |
-| `foundation.color.overlay.blue-400.25` | color | — | Sobreposição translúcida em blue-400 a 25% de opacidade. | 0 |
-| `foundation.color.overlay.blue-400.32` | color | — | Sobreposição translúcida em blue-400 a 32% de opacidade. | 0 |
-| `foundation.color.overlay.blue-600.12` | color | — | Sobreposição translúcida em blue-600 a 12% de opacidade. | 2 |
-| `foundation.color.overlay.blue-600.20` | color | — | Sobreposição translúcida em blue-600 a 20% de opacidade. | 2 |
-| `foundation.color.overlay.blue-600.28` | color | — | Sobreposição translúcida em blue-600 a 28% de opacidade. | 2 |
+| `foundation.color.overlay.brand-400.15` | color | — | Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-400.25` | color | — | Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-400.32` | color | — | Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-600.12` | color | — | Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-600.20` | color | — | Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-600.28` | color | — | Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável). | 1 |
 | `foundation.color.overlay.white.10` | color | — | Sobreposição translúcida em white a 10% de opacidade. | 1 |
 | `foundation.color.overlay.white.20` | color | — | Sobreposição translúcida em white a 20% de opacidade. | 1 |
 | `foundation.color.overlay.white.40` | color | — | Sobreposição translúcida em white a 40% de opacidade. | 1 |
@@ -176,7 +176,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `foundation.dimension.0` | dimension | — | Zero absoluto da escala de dimensão. | 4 |
-| `foundation.dimension.1` | dimension | — | Dimensão fixa de 1px para hairline. | 2 |
+| `foundation.dimension.1` | dimension | — | Dimensão fixa de 1px para hairline. | 4 |
 | `foundation.dimension.10` | dimension | — | Dimensão fixa de 10px (0.625rem). | 6 |
 | `foundation.dimension.102` | dimension | — | Dimensao fixa de 102px (6.375rem). | 4 |
 | `foundation.dimension.1024` | dimension | — | Dimensão fixa de 1024px (64rem). | 4 |
@@ -186,7 +186,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.dimension.1280` | dimension | — | Dimensão fixa de 1280px (80rem). | 4 |
 | `foundation.dimension.14` | dimension | — | Dimensão fixa de 14px (0.875rem). | 0 |
 | `foundation.dimension.16` | dimension | — | Dimensão fixa de 16px (1rem). | 10 |
-| `foundation.dimension.2` | dimension | — | Dimensão fixa de 2px (0.125rem). | 8 |
+| `foundation.dimension.2` | dimension | — | Dimensão fixa de 2px (0.125rem). | 7 |
 | `foundation.dimension.20` | dimension | — | Dimensão fixa de 20px (1.25rem). | 8 |
 | `foundation.dimension.24` | dimension | — | Dimensão fixa de 24px (1.5rem). | 8 |
 | `foundation.dimension.28` | dimension | — | Dimensão fixa de 28px (1.75rem). | 6 |
@@ -519,12 +519,12 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `semantic.motion.duration.fast` | duration | → `foundation.duration.fast` | Semantic wrapper pra motion. | 16 |
+| `semantic.motion.duration.fast` | duration | → `foundation.duration.fast` | Semantic wrapper pra motion. | 17 |
 | `semantic.motion.duration.instant` | duration | → `foundation.duration.instant` | 0ms. | 0 |
 | `semantic.motion.duration.moderate` | duration | → `foundation.duration.moderate` | 250ms. | 0 |
 | `semantic.motion.duration.slow` | duration | → `foundation.duration.slow` | 400ms para animações enfáticas. | 0 |
 | `semantic.motion.duration.slower` | duration | → `foundation.duration.slower` | 600ms para loops contínuos. | 1 |
-| `semantic.motion.ease.default` | cubicBezier | → `foundation.ease.default` | Semantic wrapper pra motion. | 16 |
+| `semantic.motion.ease.default` | cubicBezier | → `foundation.ease.default` | Semantic wrapper pra motion. | 17 |
 | `semantic.motion.ease.in` | cubicBezier | → `foundation.ease.in` | Aceleração no início. | 0 |
 | `semantic.motion.ease.in-out` | cubicBezier | → `foundation.ease.in-out` | Aceleração + desaceleração. | 0 |
 | `semantic.motion.ease.linear` | cubicBezier | → `foundation.ease.linear` | Curva linear pra loops onde aceleração quebra rotação constante. | 1 |
@@ -600,7 +600,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.space.2xl` | dimension | → `foundation.dimension.24` | Spacing token 2xl. | 2 |
-| `semantic.space.2xs` | dimension | → `foundation.dimension.2` | Spacing token 2xs. | 22 |
+| `semantic.space.2xs` | dimension | → `foundation.dimension.2` | Spacing token 2xs. | 23 |
 | `semantic.space.3xl` | dimension | → `foundation.dimension.32` | Espaçamento amplo da escala semântica genérica para composição interna de componentes e blocos densos. | 0 |
 | `semantic.space.4xl` | dimension | → `foundation.dimension.40` | Espaçamento amplo intermediário da escala semântica genérica. | 0 |
 | `semantic.space.5xl` | dimension | → `foundation.dimension.48` | Espaçamento alto da escala semântica genérica para composição interna robusta. | 0 |
@@ -634,10 +634,10 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `semantic.toned.background.active` | color | → `foundation.color.overlay.blue-600.28` | Fill de ação brand translúcida em estado active. | 2 |
-| `semantic.toned.background.default` | color | → `foundation.color.overlay.blue-600.12` | Fill de ação brand translúcida em estado default. | 4 |
+| `semantic.toned.background.active` | color | → `foundation.color.overlay.brand-600.28` | Fill de ação brand translúcida em estado active. | 2 |
+| `semantic.toned.background.default` | color | → `foundation.color.overlay.brand-600.12` | Fill de ação brand translúcida em estado default. | 4 |
 | `semantic.toned.background.disabled` | color | → `foundation.color.disabled.brand.toned.light` | Fill de ação brand translúcida em estado disabled. | 2 |
-| `semantic.toned.background.hover` | color | → `foundation.color.overlay.blue-600.20` | Fill de ação brand translúcida em estado hover. | 2 |
+| `semantic.toned.background.hover` | color | → `foundation.color.overlay.brand-600.20` | Fill de ação brand translúcida em estado hover. | 2 |
 | `semantic.toned.content-default` | color | → `foundation.color.brand.700` | Cor de texto/ícone de ação brand translúcida em estado default. | 4 |
 | `semantic.toned.content-disabled` | color | → `foundation.color.disabled.brand.light` | Cor de texto/ícone de ação brand translúcida em estado disabled. | 2 |
 
@@ -696,34 +696,34 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.accordion.chevron.color.default` | color | → `semantic.icon.color.default` | Cor do chevron Accordion no estado default. | 0 |
-| `component.accordion.chevron.color.disabled` | color | → `semantic.icon.color.disabled` | Cor do chevron Accordion no estado disabled. | 0 |
-| `component.accordion.chevron.size.md` | dimension | → `semantic.size.sm` | Tamanho do chevron do Accordion. | 0 |
-| `component.accordion.chevron.stroke-width.md` | dimension | → `semantic.icon.stroke-width.regular.20` | Stroke width do chevron do Accordion. | 0 |
-| `component.accordion.content.color.default` | color | → `semantic.content.default` | Cor do texto de content Accordion no estado default. | 0 |
-| `component.accordion.content.color.disabled` | color | → `semantic.content.default` | Cor do texto de content Accordion no estado disabled. | 0 |
-| `component.accordion.content.gap.md` | dimension | → `semantic.space.md` | Gap interno do content Accordion no tamanho md. | 0 |
-| `component.accordion.content.padding-bottom.md` | dimension | → `semantic.space.xl` | Padding bottom do content Accordion no tamanho md. | 0 |
-| `component.accordion.content.padding-x.md` | dimension | → `semantic.space.xl` | Padding horizontal do content Accordion no tamanho md. | 0 |
-| `component.accordion.focus-ring.radius.default` | dimension | → `semantic.radius.xl` | Radius do focus ring do Accordion. | 0 |
-| `component.accordion.item.bg.default` | color | → `semantic.surface.default` | Background do item Accordion no estado default. | 0 |
-| `component.accordion.item.bg.disabled` | color | → `semantic.background.disabled` | Background do item Accordion no estado disabled. | 0 |
-| `component.accordion.item.bg.hover` | color | → `semantic.surface.default` | Background do item Accordion no estado hover. | 0 |
-| `component.accordion.item.border-color.default` | color | → `semantic.border.default` | Border color do item Accordion no estado default. | 0 |
-| `component.accordion.item.border-color.focus` | color | → `semantic.border.focus` | Border color do item Accordion no estado focus. | 0 |
-| `component.accordion.item.border-color.hover` | color | → `semantic.brand.border.hover` | Border color do item Accordion no estado hover. | 0 |
-| `component.accordion.item.border-width.default` | dimension | → `semantic.border.width.default` | Border width do item Accordion. | 0 |
-| `component.accordion.item.radius.default` | dimension | → `semantic.radius.lg` | Radius do item Accordion. | 0 |
-| `component.accordion.leading-icon.color.default` | color | → `semantic.icon.color.default` | Cor do leading icon Accordion no estado default. | 0 |
-| `component.accordion.leading-icon.color.disabled` | color | → `semantic.icon.color.disabled` | Cor do leading icon Accordion no estado disabled. | 0 |
-| `component.accordion.leading-icon.size.md` | dimension | → `semantic.size.sm` | Tamanho do leading icon do Accordion. | 0 |
-| `component.accordion.leading-icon.stroke-width.md` | dimension | → `semantic.icon.stroke-width.regular.20` | Stroke width do leading icon do Accordion. | 0 |
-| `component.accordion.trigger.content.color.default` | color | → `semantic.content.strong` | Cor do conteúdo do trigger Accordion no estado default. | 0 |
-| `component.accordion.trigger.content.color.disabled` | color | → `semantic.content.default` | Cor do conteúdo do trigger Accordion no estado disabled. | 0 |
-| `component.accordion.trigger.gap.md` | dimension | → `semantic.space.md` | Gap interno do trigger Accordion no tamanho md. | 0 |
-| `component.accordion.trigger.height.md` | dimension | → `semantic.size.2xl` | Altura do trigger Accordion no tamanho md. | 0 |
-| `component.accordion.trigger.padding-x.md` | dimension | → `semantic.space.xl` | Padding horizontal do trigger Accordion no tamanho md. | 0 |
-| `component.accordion.trigger.padding-y.md` | dimension | → `semantic.space.lg` | Padding vertical do trigger Accordion no tamanho md. | 0 |
+| `component.accordion.chevron.color.default` | color | → `semantic.icon.color.default` | Cor do chevron Accordion no estado default. | 1 |
+| `component.accordion.chevron.color.disabled` | color | → `semantic.icon.color.disabled` | Cor do chevron Accordion no estado disabled. | 1 |
+| `component.accordion.chevron.size.md` | dimension | → `semantic.size.sm` | Tamanho do chevron do Accordion. | 1 |
+| `component.accordion.chevron.stroke-width.md` | dimension | → `semantic.icon.stroke-width.regular.20` | Stroke width do chevron do Accordion. | 1 |
+| `component.accordion.content.color.default` | color | → `semantic.content.default` | Cor do texto de content Accordion no estado default. | 1 |
+| `component.accordion.content.color.disabled` | color | → `semantic.content.default` | Cor do texto de content Accordion no estado disabled. | 1 |
+| `component.accordion.content.gap.md` | dimension | → `semantic.space.md` | Gap interno do content Accordion no tamanho md. | 1 |
+| `component.accordion.content.padding-bottom.md` | dimension | → `semantic.space.xl` | Padding bottom do content Accordion no tamanho md. | 1 |
+| `component.accordion.content.padding-x.md` | dimension | → `semantic.space.xl` | Padding horizontal do content Accordion no tamanho md. | 1 |
+| `component.accordion.focus-ring.radius.default` | dimension | → `semantic.radius.xl` | Radius do focus ring do Accordion. | 1 |
+| `component.accordion.item.bg.default` | color | → `semantic.surface.default` | Background do item Accordion no estado default. | 1 |
+| `component.accordion.item.bg.disabled` | color | → `semantic.background.disabled` | Background do item Accordion no estado disabled. | 1 |
+| `component.accordion.item.bg.hover` | color | → `semantic.surface.default` | Background do item Accordion no estado hover. | 1 |
+| `component.accordion.item.border-color.default` | color | → `semantic.border.default` | Border color do item Accordion no estado default. | 1 |
+| `component.accordion.item.border-color.focus` | color | → `semantic.border.focus` | Border color do item Accordion no estado focus. | 1 |
+| `component.accordion.item.border-color.hover` | color | → `semantic.brand.border.hover` | Border color do item Accordion no estado hover. | 1 |
+| `component.accordion.item.border-width.default` | dimension | → `semantic.border.width.default` | Border width do item Accordion. | 1 |
+| `component.accordion.item.radius.default` | dimension | → `semantic.radius.lg` | Radius do item Accordion. | 1 |
+| `component.accordion.leading-icon.color.default` | color | → `semantic.icon.color.default` | Cor do leading icon Accordion no estado default. | 1 |
+| `component.accordion.leading-icon.color.disabled` | color | → `semantic.icon.color.disabled` | Cor do leading icon Accordion no estado disabled. | 1 |
+| `component.accordion.leading-icon.size.md` | dimension | → `semantic.size.sm` | Tamanho do leading icon do Accordion. | 1 |
+| `component.accordion.leading-icon.stroke-width.md` | dimension | → `semantic.icon.stroke-width.regular.20` | Stroke width do leading icon do Accordion. | 1 |
+| `component.accordion.trigger.content.color.default` | color | → `semantic.content.strong` | Cor do conteúdo do trigger Accordion no estado default. | 1 |
+| `component.accordion.trigger.content.color.disabled` | color | → `semantic.content.default` | Cor do conteúdo do trigger Accordion no estado disabled. | 1 |
+| `component.accordion.trigger.gap.md` | dimension | → `semantic.space.md` | Gap interno do trigger Accordion no tamanho md. | 1 |
+| `component.accordion.trigger.height.md` | dimension | → `semantic.size.2xl` | Altura do trigger Accordion no tamanho md. | 1 |
+| `component.accordion.trigger.padding-x.md` | dimension | → `semantic.space.xl` | Padding horizontal do trigger Accordion no tamanho md. | 1 |
+| `component.accordion.trigger.padding-y.md` | dimension | → `semantic.space.lg` | Padding vertical do trigger Accordion no tamanho md. | 1 |
 
 ### component.action-menu
 
@@ -1132,11 +1132,11 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.focus-ring.color.default` | color | → `semantic.border.focus` | Token component para focus ring / color / default. | 16 |
+| `component.focus-ring.color.default` | color | → `semantic.border.focus` | Token component para focus ring / color / default. | 17 |
 | `component.focus-ring.color.error` | color | → `semantic.border.focus-error` | Token component para focus ring / color / error. | 6 |
 | `component.focus-ring.color.readonly` | color | → `semantic.border.control-default` | Token component para focus ring / color / readonly. | 4 |
 | `component.focus-ring.color.success` | color | → `semantic.feedback.success.border-default` | Token component para focus ring / color / success. | 1 |
-| `component.focus-ring.width` | dimension | → `semantic.border.width.focus` | Token component para focus ring / width. | 16 |
+| `component.focus-ring.width` | dimension | → `semantic.border.width.focus` | Token component para focus ring / width. | 17 |
 
 ### component.form-field
 
@@ -2822,71 +2822,71 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
-### `foundation.color.overlay.blue-400.15`
+### `foundation.color.overlay.brand-400.15`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-400 a 15% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - Tokens que referenciam: `semantic.toned.background.default`
 
-### `foundation.color.overlay.blue-400.25`
+### `foundation.color.overlay.brand-400.25`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-400 a 25% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - Tokens que referenciam: `semantic.toned.background.hover`
 
-### `foundation.color.overlay.blue-400.32`
+### `foundation.color.overlay.brand-400.32`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-400 a 32% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - Tokens que referenciam: `semantic.toned.background.active`
 
-### `foundation.color.overlay.blue-600.12`
+### `foundation.color.overlay.brand-600.12`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-600 a 12% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - Tokens que referenciam: `semantic.toned.background.default`, `semantic.toned.background.default`
+  - Tokens que referenciam: `semantic.toned.background.default`
 
-### `foundation.color.overlay.blue-600.20`
+### `foundation.color.overlay.brand-600.20`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-600 a 20% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - Tokens que referenciam: `semantic.toned.background.hover`, `semantic.toned.background.hover`
+  - Tokens que referenciam: `semantic.toned.background.hover`
 
-### `foundation.color.overlay.blue-600.28`
+### `foundation.color.overlay.brand-600.28`
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em blue-600 a 28% de opacidade.
+- **Sentido**: Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável).
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
 - **Usos**:
-  - Tokens que referenciam: `semantic.toned.background.active`, `semantic.toned.background.active`
+  - Tokens que referenciam: `semantic.toned.background.active`
 
 ### `foundation.color.overlay.white.10`
 
@@ -3375,8 +3375,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Token Foundation criado para separar hairline de zero absoluto; `dimension.0` permanece reservado para ausência de espaço/dimensão.
 - **Usos**:
   - CSS:
+    - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `semantic.space.hairline`
+  - Tokens que referenciam: `semantic.space.hairline`, `semantic.space.hairline`
 
 ### `foundation.dimension.10`
 
@@ -3515,9 +3516,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/reset.css` (1×)
-    - `css/tokens/generated/theme-dark.css` (3×)
+    - `css/tokens/generated/theme-dark.css` (2×)
     - `css/tokens/generated/theme-light.css` (2×)
-  - Tokens que referenciam: `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`, `semantic.space.hairline`, `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`
+  - Tokens que referenciam: `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`, `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`
 
 ### `foundation.dimension.20`
 
@@ -6656,6 +6657,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.duration.fast.
 - **Usos**:
   - CSS:
+    - `css/components/accordion.css` (3×)
     - `css/components/alert.css` (1×)
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
@@ -6733,6 +6735,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.ease.default.
 - **Usos**:
   - CSS:
+    - `css/components/accordion.css` (3×)
     - `css/components/alert.css` (1×)
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
@@ -7313,6 +7316,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.2.
 - **Usos**:
   - CSS:
+    - `css/components/accordion.css` (1×)
     - `css/components/combobox.css` (1×)
     - `css/components/menu.css` (1×)
     - `css/components/pagination.css` (1×)
@@ -7641,11 +7645,11 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: semantic
 - **Tipo**: `color`
-- **Alias**: → `foundation.color.overlay.blue-600.28`
+- **Alias**: → `foundation.color.overlay.brand-600.28`
 - **Sentido**: Fill de ação brand translúcida em estado active.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.blue-600.28 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.28 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -7655,11 +7659,11 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: semantic
 - **Tipo**: `color`
-- **Alias**: → `foundation.color.overlay.blue-600.12`
+- **Alias**: → `foundation.color.overlay.brand-600.12`
 - **Sentido**: Fill de ação brand translúcida em estado default.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.blue-600.12 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.12 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (3×)
@@ -7683,11 +7687,11 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: semantic
 - **Tipo**: `color`
-- **Alias**: → `foundation.color.overlay.blue-600.20`
+- **Alias**: → `foundation.color.overlay.brand-600.20`
 - **Sentido**: Fill de ação brand translúcida em estado hover.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.blue-600.20 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.20 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -8204,7 +8208,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.color.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.chevron.color.disabled`
 
@@ -8216,7 +8221,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.color.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.chevron.size.md`
 
@@ -8228,7 +8234,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.size.sm para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (2×)
 
 ### `component.accordion.chevron.stroke-width.md`
 
@@ -8240,7 +8247,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.stroke-width.regular.20 para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.content.color.default`
 
@@ -8252,7 +8260,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (2×)
 
 ### `component.accordion.content.color.disabled`
 
@@ -8264,7 +8273,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.content.gap.md`
 
@@ -8276,7 +8286,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.md para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.content.padding-bottom.md`
 
@@ -8288,7 +8299,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.content.padding-x.md`
 
@@ -8300,7 +8312,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.focus-ring.radius.default`
 
@@ -8312,7 +8325,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.radius.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.bg.default`
 
@@ -8324,7 +8338,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.surface.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.bg.disabled`
 
@@ -8336,7 +8351,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.background.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.bg.hover`
 
@@ -8348,7 +8364,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.surface.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS. O hover do Accordion usa reforço em border brand; o fill permanece controlado por surface.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.border-color.default`
 
@@ -8360,7 +8377,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.border.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (2×)
 
 ### `component.accordion.item.border-color.focus`
 
@@ -8372,7 +8390,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.border.focus para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.border-color.hover`
 
@@ -8384,7 +8403,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.brand.border.hover para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.border-width.default`
 
@@ -8396,7 +8416,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.border.width.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.item.radius.default`
 
@@ -8408,7 +8429,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.radius.lg para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.leading-icon.color.default`
 
@@ -8420,7 +8442,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.color.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.leading-icon.color.disabled`
 
@@ -8432,7 +8455,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.color.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.leading-icon.size.md`
 
@@ -8444,7 +8468,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.size.sm para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (2×)
 
 ### `component.accordion.leading-icon.stroke-width.md`
 
@@ -8456,7 +8481,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.icon.stroke-width.regular.20 para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.content.color.default`
 
@@ -8468,7 +8494,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.content.strong para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.content.color.disabled`
 
@@ -8480,7 +8507,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.gap.md`
 
@@ -8492,7 +8520,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.md para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.height.md`
 
@@ -8504,7 +8533,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.size.2xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.padding-x.md`
 
@@ -8516,7 +8546,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.accordion.trigger.padding-y.md`
 
@@ -8528,7 +8559,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.
 - **Decisão**: Alias para semantic.space.lg para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/accordion.css` (1×)
 
 ### `component.action-menu.overlay.gap.default`
 
@@ -13016,6 +13048,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido no registry para refletir o token presente em tokens/ e evitar valores soltos no CSS/Figma. Alias para semantic.border.focus.
 - **Usos**:
   - CSS:
+    - `css/components/accordion.css` (1×)
     - `css/components/alert.css` (1×)
     - `css/components/breadcrumb.css` (1×)
     - `css/components/button.css` (1×)
@@ -13091,6 +13124,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido no registry para refletir o token presente em tokens/ e evitar valores soltos no CSS/Figma. Alias para semantic.border.width.focus.
 - **Usos**:
   - CSS:
+    - `css/components/accordion.css` (2×)
     - `css/components/alert.css` (2×)
     - `css/components/breadcrumb.css` (2×)
     - `css/components/button.css` (2×)

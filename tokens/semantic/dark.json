@@ -61,15 +61,15 @@
       "background": {
         "default": {
           "$type": "color",
-          "$value": "{foundation.color.overlay.blue-600.12}"
+          "$value": "{foundation.color.overlay.brand-400.15}"
         },
         "hover": {
           "$type": "color",
-          "$value": "{foundation.color.overlay.blue-600.20}"
+          "$value": "{foundation.color.overlay.brand-400.25}"
         },
         "active": {
           "$type": "color",
-          "$value": "{foundation.color.overlay.blue-600.28}"
+          "$value": "{foundation.color.overlay.brand-400.32}"
         },
         "disabled": {
           "$type": "color",

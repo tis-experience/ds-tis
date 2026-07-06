@@ -561,38 +561,38 @@
             "$value": "rgba(255, 255, 255, 0.8)"
           }
         },
-        "blue-600": {
+        "brand-600": {
           "12": {
             "$type": "color",
             "$value": "rgba(37, 99, 235, 0.12)",
-            "$description": "Blue-600 at 12% opacity. Toned default in light mode."
+            "$description": "Brand-600 at 12% opacity. Toned default in light mode. Derived from the brand palette (customizable) — não confundir com a paleta neutra blue usada em feedback.info."
           },
           "20": {
             "$type": "color",
             "$value": "rgba(37, 99, 235, 0.20)",
-            "$description": "Blue-600 at 20% opacity. Toned hover in light mode."
+            "$description": "Brand-600 at 20% opacity. Toned hover in light mode."
           },
           "28": {
             "$type": "color",
             "$value": "rgba(37, 99, 235, 0.28)",
-            "$description": "Blue-600 at 28% opacity. Toned active in light mode."
+            "$description": "Brand-600 at 28% opacity. Toned active in light mode."
           }
         },
-        "blue-400": {
+        "brand-400": {
           "15": {
             "$type": "color",
             "$value": "rgba(96, 165, 250, 0.15)",
-            "$description": "Blue-400 at 15% opacity. Toned default in dark mode."
+            "$description": "Brand-400 at 15% opacity. Toned default in dark mode. Derived from the brand palette (customizable)."
           },
           "25": {
             "$type": "color",
             "$value": "rgba(96, 165, 250, 0.25)",
-            "$description": "Blue-400 at 25% opacity. Toned hover in dark mode."
+            "$description": "Brand-400 at 25% opacity. Toned hover in dark mode."
           },
           "32": {
             "$type": "color",
             "$value": "rgba(96, 165, 250, 0.32)",
-            "$description": "Blue-400 at 32% opacity. Toned active in dark mode."
+            "$description": "Brand-400 at 32% opacity. Toned active in dark mode."
           }
         }
       },

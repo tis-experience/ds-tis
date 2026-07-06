@@ -68,6 +68,16 @@
   <div class="ds-md-content">
 <p><strong>Data:</strong> 2026-04-15
 <strong>Status:</strong> Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.4, sincronização Figma completa em 0.5.6)</p>
+<h2>Atualização (1.0.0-beta.5): overlays toned renomeados para brand-derived</h2>
+<p>Para habilitar customização global de marca em tempo real (theme playground estilo shadcn/Radix), os overlays coloridos deixaram de ser nomeados pela paleta neutra <code>blue</code> e passaram a refletir a paleta <code>brand</code> customizável:</p>
+<ul>
+<li><code>foundation.color.overlay.blue-600.{12,20,28}</code> → <code>foundation.color.overlay.brand-600.{12,20,28}</code> (light).</li>
+<li><code>foundation.color.overlay.blue-400.{15,25,32}</code> → <code>foundation.color.overlay.brand-400.{15,25,32}</code> (dark).</li>
+<li>CSS gerado: <code>--ds-overlay-brand-600-*</code> / <code>--ds-overlay-brand-400-*</code>.</li>
+<li><strong>Correção de bug</strong>: <code>dark.json</code> referenciava por engano <code>overlay.blue-600.{12,20,28}</code> (mesmo alpha do light) em vez das opacidades destinadas ao dark. Agora aponta corretamente para <code>overlay.brand-400.{15,25,32}</code>, e os overlays antes órfãos passam a ter uso.</li>
+</ul>
+<p>Os valores rgba não mudaram (brand default = blue), então não há regressão visual na paleta padrão. A mudança é de <strong>naming/acoplamento</strong>: customizar a paleta brand agora propaga para os botões <code>toned</code> sem editar overlays hardcoded. A paleta neutra <code>blue</code> continua existindo e serve <code>feedback.info</code>.</p>
+<p>O restante desta ADR descreve o estado original (naming <code>blue-*</code>) e permanece como registro histórico.</p>
 <h2>Implementação</h2>
 <p>Toda a camada de código foi executada durante ADR-011:</p>
 <ul>

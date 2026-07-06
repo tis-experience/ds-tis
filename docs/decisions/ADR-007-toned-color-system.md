@@ -3,6 +3,19 @@
 **Data:** 2026-04-15
 **Status:** Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.4, sincronização Figma completa em 0.5.6)
 
+## Atualização (1.0.0-beta.5): overlays toned renomeados para brand-derived
+
+Para habilitar customização global de marca em tempo real (theme playground estilo shadcn/Radix), os overlays coloridos deixaram de ser nomeados pela paleta neutra `blue` e passaram a refletir a paleta `brand` customizável:
+
+- `foundation.color.overlay.blue-600.{12,20,28}` → `foundation.color.overlay.brand-600.{12,20,28}` (light).
+- `foundation.color.overlay.blue-400.{15,25,32}` → `foundation.color.overlay.brand-400.{15,25,32}` (dark).
+- CSS gerado: `--ds-overlay-brand-600-*` / `--ds-overlay-brand-400-*`.
+- **Correção de bug**: `dark.json` referenciava por engano `overlay.blue-600.{12,20,28}` (mesmo alpha do light) em vez das opacidades destinadas ao dark. Agora aponta corretamente para `overlay.brand-400.{15,25,32}`, e os overlays antes órfãos passam a ter uso.
+
+Os valores rgba não mudaram (brand default = blue), então não há regressão visual na paleta padrão. A mudança é de **naming/acoplamento**: customizar a paleta brand agora propaga para os botões `toned` sem editar overlays hardcoded. A paleta neutra `blue` continua existindo e serve `feedback.info`.
+
+O restante desta ADR descreve o estado original (naming `blue-*`) e permanece como registro histórico.
+
 ## Implementação
 
 Toda a camada de código foi executada durante ADR-011:

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Playground — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="theme-playground.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand">
+      <div class="ds-site-header__logo">DS</div>
+      <span class="ds-site-header__title">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title"><span data-lang="pt">Theme Playground</span><span data-lang="en">Theme Playground</span></h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Personalize a marca, corner radius e tipografia em tempo real. O engine gera a paleta completa com contraste acessível e exporta CSS, JSON ou link compartilhável.</span>
+      <span data-lang="en">Customize brand, corner radius, and typography in real time. The engine generates a full accessible palette and exports CSS, JSON, or a shareable link.</span>
+    </p>
+  </div>
+
+  <div class="ds-playground">
+
+    <!-- Controls -->
+    <aside class="ds-playground__panel" aria-label="Theme controls">
+      <div class="ds-field">
+        <label class="ds-field__label" for="brand-hex"><span data-lang="pt">Cor da marca</span><span data-lang="en">Brand color</span></label>
+        <div class="ds-playground__color-row">
+          <input type="color" class="ds-playground__color-input" id="brand-color" value="#2563EB" aria-label="Brand color picker">
+          <div class="ds-input ds-playground__hex-input">
+            <input type="text" class="ds-input__field" id="brand-hex" value="#2563EB" spellcheck="false" aria-label="Brand hex">
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-field">
+        <label class="ds-field__label" for="radius-preset"><span data-lang="pt">Corner radius</span><span data-lang="en">Corner radius</span></label>
+        <div class="ds-select">
+          <select class="ds-select__field" id="radius-preset">
+            <option value="sharp">Sharp (0×)</option>
+            <option value="tight">Tight (0.5×)</option>
+            <option value="default" selected>Default (1×)</option>
+            <option value="round">Round (1.5×)</option>
+            <option value="soft">Soft (2× · botões pill)</option>
+          </select>
+          <span class="ds-select__arrow" aria-hidden="true"></span>
+        </div>
+        <span class="ds-field__helper" id="radius-hint" hidden>
+          <span data-lang="pt">Soft: botões em pill; inputs, textarea e containers internos no máximo 1.5×; cards e modais seguem o teto interno.</span>
+          <span data-lang="en">Soft: pill buttons; inputs, textareas, and inner containers capped at 1.5×; cards and modals follow the inner cap.</span>
+        </span>
+      </div>
+
+      <div class="ds-field">
+        <label class="ds-field__label" for="font-sans"><span data-lang="pt">Fonte sans</span><span data-lang="en">Sans font</span></label>
+        <div class="ds-combobox-anchor">
+          <div class="ds-combobox ds-combobox--md ds-combobox--filled">
+            <input type="text" class="ds-combobox__input" id="font-sans" role="combobox" aria-expanded="false" aria-controls="font-sans-list" aria-autocomplete="list" value="Inter" spellcheck="false">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+          <ul class="ds-combobox__listbox" id="font-sans-list" role="listbox" aria-label="Sans font suggestions" hidden>
+            <li class="ds-combobox__option" role="option" aria-selected="true">Inter</li>
+            <li class="ds-combobox__option" role="option">Roboto</li>
+            <li class="ds-combobox__option" role="option">Open Sans</li>
+            <li class="ds-combobox__option" role="option">Poppins</li>
+            <li class="ds-combobox__option" role="option">Nunito</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ds-field">
+        <label class="ds-field__label" for="font-mono"><span data-lang="pt">Fonte mono</span><span data-lang="en">Mono font</span></label>
+        <div class="ds-combobox-anchor">
+          <div class="ds-combobox ds-combobox--md ds-combobox--filled">
+            <input type="text" class="ds-combobox__input" id="font-mono" role="combobox" aria-expanded="false" aria-controls="font-mono-list" aria-autocomplete="list" value="DM Mono" spellcheck="false">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+          <ul class="ds-combobox__listbox" id="font-mono-list" role="listbox" aria-label="Mono font suggestions" hidden>
+            <li class="ds-combobox__option" role="option" aria-selected="true">DM Mono</li>
+            <li class="ds-combobox__option" role="option">JetBrains Mono</li>
+            <li class="ds-combobox__option" role="option">Fira Code</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ds-field">
+        <span class="ds-field__label" id="playground-mode-label"><span data-lang="pt">Modo</span><span data-lang="en">Mode</span></span>
+        <button type="button" class="ds-button ds-button--outline ds-button--sm ds-playground__mode-btn" id="playground-mode" aria-pressed="false" aria-labelledby="playground-mode-label">
+          <span data-lang="pt">Alternar dark</span><span data-lang="en">Toggle dark</span>
+        </button>
+      </div>
+
+      <div class="ds-playground__actions">
+        <button type="button" class="ds-button ds-button--ghost ds-button--sm" id="reset-theme">
+          <span data-lang="pt">Resetar</span><span data-lang="en">Reset</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Preview -->
+    <div class="ds-playground__preview">
+
+      <div class="ds-playground__block">
+        <h2 class="ds-playground__block-title"><span data-lang="pt">Paleta gerada</span><span data-lang="en">Generated palette</span></h2>
+        <div class="ds-playground__swatches" id="palette-swatches" aria-hidden="true"></div>
+      </div>
+
+      <div class="ds-playground__block">
+        <h2 class="ds-playground__block-title"><span data-lang="pt">Contraste WCAG</span><span data-lang="en">WCAG contrast</span></h2>
+        <div class="ds-playground__contrast" id="contrast-list"></div>
+      </div>
+
+      <div class="ds-playground__block">
+        <h2 class="ds-playground__block-title">Buttons</h2>
+        <div class="ds-playground__buttons">
+          <button type="button" class="ds-button ds-button--brand ds-button--md"><span class="ds-button__label">Brand</span></button>
+          <button type="button" class="ds-button ds-button--toned ds-button--md"><span class="ds-button__label">Toned</span></button>
+          <button type="button" class="ds-button ds-button--outline ds-button--md"><span class="ds-button__label">Outline</span></button>
+          <button type="button" class="ds-button ds-button--ghost ds-button--md"><span class="ds-button__label">Ghost</span></button>
+        </div>
+      </div>
+
+      <div class="ds-playground__block">
+        <h2 class="ds-playground__block-title"><span data-lang="pt">Formulário</span><span data-lang="en">Form</span></h2>
+        <div class="ds-field" style="max-width:20rem">
+          <label class="ds-field__label" for="playground-input">Email</label>
+          <div class="ds-input ds-input--md">
+            <input class="ds-input__field" id="playground-input" type="email" placeholder="voce@empresa.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-playground__block">
+        <h2 class="ds-playground__block-title">Card</h2>
+        <div class="ds-card ds-card--default ds-playground__card">
+          <div class="ds-card__container">
+            <div class="ds-card__header">
+              <h3 class="ds-card__title"><span data-lang="pt">Título do card</span><span data-lang="en">Card title</span></h3>
+              <p class="ds-card__description"><span data-lang="pt">Preview de superfície, borda e radius com os tokens atuais.</span><span data-lang="en">Surface, border, and radius preview with current tokens.</span></p>
+            </div>
+            <div class="ds-card__footer">
+              <button type="button" class="ds-button ds-button--brand ds-button--sm"><span class="ds-button__label"><span data-lang="pt">Ação</span><span data-lang="en">Action</span></span></button>
+              <button type="button" class="ds-button ds-button--ghost ds-button--sm"><span class="ds-button__label"><span data-lang="pt">Cancelar</span><span data-lang="en">Cancel</span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-playground__block ds-playground__export">
+        <h2 class="ds-playground__block-title"><span data-lang="pt">Exportar</span><span data-lang="en">Export</span></h2>
+        <p class="ds-playground__export-hint">
+          <span data-lang="pt"><strong>CSS</strong> — snippet para colar no stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig para integração programática. <strong>Link</strong> — URL compartilhável que restaura este preset no playground.</span>
+          <span data-lang="en"><strong>CSS</strong> — snippet to paste in your stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig for programmatic integration. <strong>Link</strong> — shareable URL that restores this preset in the playground.</span>
+        </p>
+        <div class="ds-playground__export-box">
+          <div class="ds-playground__export-tabs" role="tablist">
+            <button class="ds-playground__export-tab ds-playground__export-tab--active" role="tab" aria-selected="true" data-export-tab="css">CSS</button>
+            <button class="ds-playground__export-tab" role="tab" aria-selected="false" data-export-tab="json">JSON</button>
+            <button class="ds-playground__export-tab" role="tab" aria-selected="false" data-export-tab="link"><span data-lang="pt">Link</span><span data-lang="en">Link</span></button>
+          </div>
+          <div class="ds-playground__export-panel ds-playground__export-panel--active" data-export-panel="css">
+            <textarea id="export-css" class="ds-playground__export-output" readonly aria-label="CSS export" spellcheck="false"></textarea>
+            <button type="button" class="ds-button ds-button--outline ds-button--sm" id="copy-css"><span data-lang="pt">Copiar CSS</span><span data-lang="en">Copy CSS</span></button>
+          </div>
+          <div class="ds-playground__export-panel" data-export-panel="json" hidden>
+            <textarea id="export-json" class="ds-playground__export-output" readonly aria-label="JSON export" spellcheck="false"></textarea>
+            <button type="button" class="ds-button ds-button--outline ds-button--sm" id="copy-json"><span data-lang="pt">Copiar JSON</span><span data-lang="en">Copy JSON</span></button>
+          </div>
+          <div class="ds-playground__export-panel" data-export-panel="link" hidden>
+            <textarea id="export-url" class="ds-playground__export-output" readonly aria-label="Share link export" spellcheck="false"></textarea>
+            <button type="button" class="ds-button ds-button--outline ds-button--sm" id="copy-url"><span data-lang="pt">Copiar link</span><span data-lang="en">Copy link</span></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+<script type="module" src="theme-playground.js"></script>
+</body>
+</html>
