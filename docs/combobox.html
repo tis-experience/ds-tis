@@ -126,8 +126,8 @@
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Listbox aberto</span><span data-lang="en">Open listbox</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
-      <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. O produto controla abertura, filtro, foco e seleção via JavaScript.</span>
-      <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. The product controls open state, filtering, focus, and selection via JavaScript.</span>
+      <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. Envolva <code>.ds-combobox</code> e <code>.ds-combobox__listbox</code> em <code>.ds-combobox-anchor</code> para posicionar o popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) ou JS equivalente para abertura, filtro e seleção.</span>
+      <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. Wrap <code>.ds-combobox</code> and <code>.ds-combobox__listbox</code> in <code>.ds-combobox-anchor</code> to position the popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) or equivalent JS for open state, filtering, and selection.</span>
     </p>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
@@ -136,20 +136,22 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview" style="overflow:visible;">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px;min-height:340px;overflow:visible;">
-          <div class="ds-field" style="position:relative;">
+          <div class="ds-field">
             <label class="ds-field__label" for="cb-demo">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
-            <div class="ds-combobox ds-combobox--md ds-combobox--filled">
-              <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
-              <input class="ds-combobox__input" id="cb-demo" type="text" role="combobox" aria-expanded="true" aria-controls="cb-demo-list" aria-autocomplete="list" value="Brazil">
-              <button type="button" class="ds-combobox__clear" aria-label="Clear selection"><i data-lucide="x" class="ds-icon" aria-hidden="true"></i></button>
-              <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+            <div class="ds-combobox-anchor">
+              <div class="ds-combobox ds-combobox--md ds-combobox--filled ds-combobox--open">
+                <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
+                <input class="ds-combobox__input" id="cb-demo" type="text" role="combobox" aria-expanded="true" aria-controls="cb-demo-list" aria-autocomplete="list" value="Brazil">
+                <button type="button" class="ds-combobox__clear" aria-label="Clear selection"><i data-lucide="x" class="ds-icon" aria-hidden="true"></i></button>
+                <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+              </div>
+              <ul class="ds-combobox__listbox" id="cb-demo-list" role="listbox" aria-label="Countries">
+                <li class="ds-combobox__option" role="option">Argentina</li>
+                <li class="ds-combobox__option" role="option" aria-selected="true">Brazil</li>
+                <li class="ds-combobox__option" role="option">Chile</li>
+                <li class="ds-combobox__option" role="option" aria-disabled="true">Colombia (unavailable)</li>
+              </ul>
             </div>
-            <ul class="ds-combobox__listbox" id="cb-demo-list" role="listbox" aria-label="Countries">
-              <li class="ds-combobox__option" role="option">Argentina</li>
-              <li class="ds-combobox__option" role="option" aria-selected="true">Brazil</li>
-              <li class="ds-combobox__option" role="option">Chile</li>
-              <li class="ds-combobox__option" role="option" aria-disabled="true">Colombia (unavailable)</li>
-            </ul>
             <p class="ds-field__helper">Type to filter countries.</p>
           </div>
         </div>
@@ -159,14 +161,16 @@
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
           <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
   &lt;label class="ds-field__label" for="country"&gt;Country&lt;/label&gt;
-  &lt;div class="ds-combobox ds-combobox--md ds-combobox--filled"&gt;
-    &lt;input class="ds-combobox__input" id="country" type="text" role="combobox"
-           aria-expanded="true" aria-controls="country-list" aria-autocomplete="list"&gt;
-    &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon"&gt;&lt;/i&gt;
+  &lt;div class="ds-combobox-anchor"&gt;
+    &lt;div class="ds-combobox ds-combobox--md ds-combobox--filled ds-combobox--open"&gt;
+      &lt;input class="ds-combobox__input" id="country" type="text" role="combobox"
+             aria-expanded="true" aria-controls="country-list" aria-autocomplete="list"&gt;
+      &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;ul class="ds-combobox__listbox" id="country-list" role="listbox"&gt;
+      &lt;li class="ds-combobox__option" role="option" aria-selected="true"&gt;Brazil&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/div&gt;
-  &lt;ul class="ds-combobox__listbox" id="country-list" role="listbox"&gt;
-    &lt;li class="ds-combobox__option" role="option" aria-selected="true"&gt;Brazil&lt;/li&gt;
-  &lt;/ul&gt;
   &lt;p class="ds-field__helper"&gt;Type to filter countries.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
         </div>

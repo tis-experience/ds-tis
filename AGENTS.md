@@ -238,16 +238,24 @@ Editar um component set no Figma exige preservar a API pública do componente, n
 
 Detalhes em `docs/process-figma-sync.md`. Resumo:
 
+**Export pelo plugin (caminho preferencial):** o navegador salva `figma-snapshot.json` (sem ponto) na raiz do repo.
+
+**Quando o owner sinalizar que o snapshot foi atualizado** (arquivo na pasta, “pronto”, “salvei o export”, etc.), o agente **deve rodar imediatamente**, sem pedir confirmação:
+
 ```bash
-# 1. Regenerar snapshot via agente com Figma MCP / use_figma chunked dump
-# 2. Dry-run
-npm run sync:tokens-from-figma
-# 3. Review divergências (VALUE_DRIFT, NEW_IN_FIGMA, MISSING_IN_FIGMA, ALIAS_BROKEN)
-# 4. Aplicar
-npm run sync:tokens-from-figma:write
-# 5. Verificar
+npm run figma:snapshot:refresh
+```
+
+Esse comando encadeia: `figma:snapshot:install` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Não delegue isso ao owner.
+
+**Após revisar divergências** (se houver VALUE_DRIFT acionável):
+
+```bash
+npm run sync:tokens-from-figma:write   # só quando a estratégia estiver fechada
 npm run verify:tokens
 ```
+
+Fallback sem plugin: regenerar `.figma-snapshot.json` via MCP `use_figma` em chunks (ver `docs/process-figma-sync.md`).
 
 CSS_ONLY e BY_DESIGN são informativos (não drift). VALUE_DRIFT/NEW_IN_FIGMA/MISSING_IN_FIGMA exigem ação.
 

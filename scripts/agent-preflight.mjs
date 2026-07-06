@@ -70,26 +70,46 @@ if (dirty && modifiedCount > 20) warnings.push(`${modifiedCount} arquivos modifi
 
 // ── figma snapshot ───────────────────────────────────────────────────
 const snapshotPath = path.join(ROOT, ".figma-snapshot.json");
+const pendingExportPath = path.join(ROOT, "figma-snapshot.json");
+const pendingExport = fs.existsSync(pendingExportPath);
+const pendingStat = pendingExport ? fs.statSync(pendingExportPath) : null;
+const installedStat = fs.existsSync(snapshotPath) ? fs.statSync(snapshotPath) : null;
+const pendingNewer =
+  pendingExport &&
+  (!installedStat || pendingStat.mtimeMs > installedStat.mtimeMs);
+
 if (fs.existsSync(snapshotPath)) {
-  const stat = fs.statSync(snapshotPath);
+  const stat = installedStat;
   const age = Date.now() - stat.mtimeMs;
   const ageStr = ageHuman(age);
   const stale = age > 24 * 60 * 60 * 1000;
+  const lines = [
+    `arquivo:       .figma-snapshot.json`,
+    `idade:         ${ageStr}${stale ? "  ⚠ stale (>24h)" : ""}`,
+    `tamanho:       ${(stat.size / 1024).toFixed(0)} KB`,
+  ];
+  if (pendingExport) {
+    lines.push(`pendente:      figma-snapshot.json (${pendingNewer ? "mais novo — rodar figma:snapshot:refresh" : "já instalado ou mais antigo"})`);
+  }
+  sections.push(["Figma snapshot", lines]);
+  if (stale) warnings.push(`.figma-snapshot.json tem ${ageStr} — regenerar via plugin ou use_figma se for tocar tokens Figma-canônicos (color/dimension/radius/opacity/border-width/typography)`);
+  if (pendingNewer) warnings.push(`figma-snapshot.json na raiz está mais novo que .figma-snapshot.json — agente deve rodar npm run figma:snapshot:refresh`);
+} else if (pendingExport) {
   sections.push([
     "Figma snapshot",
     [
-      `arquivo:       .figma-snapshot.json`,
-      `idade:         ${ageStr}${stale ? "  ⚠ stale (>24h)" : ""}`,
-      `tamanho:       ${(stat.size / 1024).toFixed(0)} KB`,
+      `arquivo:       figma-snapshot.json (export pendente de instalação)`,
+      `tamanho:       ${(pendingStat.size / 1024).toFixed(0)} KB`,
+      `ação:          npm run figma:snapshot:refresh`,
     ],
   ]);
-  if (stale) warnings.push(`.figma-snapshot.json tem ${ageStr} — regenerar via use_figma se for tocar tokens Figma-canônicos (color/dimension/radius/opacity/border-width/typography)`);
+  warnings.push(`figma-snapshot.json na raiz — agente deve rodar npm run figma:snapshot:refresh`);
 } else {
   sections.push([
     "Figma snapshot",
     [
       `arquivo:       não existe`,
-      `regenerar via: chamar use_figma para dumpar Variables (ver docs/process-figma-sync.md)`,
+      `regenerar via: plugin snapshot-exporter ou use_figma (ver docs/process-figma-sync.md)`,
     ],
   ]);
   warnings.push(`.figma-snapshot.json ausente — verify:tokens não consegue checar drift Figma↔JSON`);

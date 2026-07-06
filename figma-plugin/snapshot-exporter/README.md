@@ -33,14 +33,14 @@ Quando há divergência, o plugin mostra:
 
 ### Fallback manual
 
-1. Clique em **Baixar .figma-snapshot.json**.
-2. Coloque o arquivo baixado na raiz do repo como `.figma-snapshot.json`.
-3. Rode:
+1. Clique em **Baixar .figma-snapshot.json** (o navegador salva como `figma-snapshot.json`).
+2. Coloque o arquivo na raiz do repo e avise o agente (ou rode você mesmo):
 
 ```bash
-node scripts/sync-tokens-from-figma.mjs --require-fresh
-npm run verify:tokens
+npm run figma:snapshot:refresh
 ```
+
+O agente deve executar esse comando assim que o export estiver na pasta — instala como `.figma-snapshot.json`, roda sync (dry-run) e `verify:tokens`.
 
 ## Escopo
 

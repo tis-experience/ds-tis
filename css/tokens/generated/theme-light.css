@@ -13,9 +13,9 @@
   --ds-brand-background-disabled: var(--ds-color-disabled-brand-light);
   --ds-toned-content-default: var(--ds-color-brand-700);
   --ds-toned-content-disabled: var(--ds-color-disabled-brand-light);
-  --ds-toned-background-default: var(--ds-overlay-blue-600-12);
-  --ds-toned-background-hover: var(--ds-overlay-blue-600-20);
-  --ds-toned-background-active: var(--ds-overlay-blue-600-28);
+  --ds-toned-background-default: var(--ds-overlay-brand-600-12);
+  --ds-toned-background-hover: var(--ds-overlay-brand-600-20);
+  --ds-toned-background-active: var(--ds-overlay-brand-600-28);
   --ds-toned-background-disabled: var(--ds-color-disabled-brand-toned-light);
   --ds-outline-content-default: var(--ds-color-neutral-700);
   --ds-outline-content-disabled: var(--ds-color-neutral-400);

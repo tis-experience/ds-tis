@@ -38,7 +38,7 @@
 
   <div class="ds-section">
     <h1 class="ds-section__title"><span data-lang="pt">Theming</span><span data-lang="en">Theming</span></h1>
-    <p class="ds-section__subtitle"><span data-lang="pt">O design system usa uma paleta primária única (Default Blue) e alterna entre light e dark via tokens semânticos. Para trocar a paleta, sobrescreva os tokens primary/toned via um novo seletor <code style="font-family:var(--ds-font-family-mono);">data-theme</code>.</span><span data-lang="en">The design system uses a single primary palette (Default Blue) and switches between light and dark through semantic tokens. To change the palette, override the primary/toned tokens via a new <code style="font-family:var(--ds-font-family-mono);">data-theme</code> selector.</span></p>
+    <p class="ds-section__subtitle"><span data-lang="pt">O design system usa uma paleta primária única (Default Blue) e alterna entre light e dark via tokens semânticos. Para trocar a paleta, sobrescreva os tokens primary/toned via um novo seletor <code style="font-family:var(--ds-font-family-mono);">data-theme</code> — ou experimente interativamente no <a href="theme-playground.html">Theme Playground</a>.</span><span data-lang="en">The design system uses a single primary palette (Default Blue) and switches between light and dark through semantic tokens. To change the palette, override the primary/toned tokens via a new <code style="font-family:var(--ds-font-family-mono);">data-theme</code> selector — or try it interactively in the <a href="theme-playground.html">Theme Playground</a>.</span></p>
   </div>
 
   <!-- How It Works -->
@@ -163,6 +163,22 @@
       </div>
       <p style="color:var(--ds-content-default);margin-top:var(--ds-dimension-16);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);">
         <span data-lang="pt">Depois aplique com <code style="font-family:var(--ds-font-family-mono);">&lt;html data-theme="sunset"&gt;</code>. Todo componente que usa <code style="font-family:var(--ds-font-family-mono);">--ds-brand-background-default</code> adotará sua nova paleta automaticamente.</span><span data-lang="en">Then apply it with <code style="font-family:var(--ds-font-family-mono);">&lt;html data-theme="sunset"&gt;</code>. Every component that uses <code style="font-family:var(--ds-font-family-mono);">--ds-brand-background-default</code> will pick up your new palette automatically.</span>
+      </p>
+    </div>
+
+    <!-- Theme Playground -->
+    <div class="ds-subsection">
+      <h2 class="ds-subsection__title"><span data-lang="pt">Theme Playground</span><span data-lang="en">Theme Playground</span></h2>
+      <p style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">Para gerar um tema completo sem calcular contraste manualmente, use o <a href="theme-playground.html">Theme Playground</a>. Escolha a cor brand, corner radius e fontes; o engine gera a paleta 50–950 com validação WCAG, preview de componentes reais e exportação em três formatos:</span><span data-lang="en">To generate a full theme without hand-calculating contrast, use the <a href="theme-playground.html">Theme Playground</a>. Pick brand color, corner radius, and fonts; the engine builds the 50–950 scale with WCAG checks, live component preview, and three export formats:</span>
+      </p>
+      <ul style="color:var(--ds-content-default);margin-bottom:var(--ds-dimension-16);padding-left:var(--ds-dimension-24);line-height:var(--ds-line-height-loose);">
+        <li><span data-lang="pt"><strong>CSS</strong> — bloco <code style="font-family:var(--ds-font-family-mono);">[data-theme="…"]</code> pronto para colar no seu CSS.</span><span data-lang="en"><strong>CSS</strong> — <code style="font-family:var(--ds-font-family-mono);">[data-theme="…"]</code> block ready to paste into your stylesheet.</span></li>
+        <li><span data-lang="pt"><strong>JSON</strong> — config do theme engine (<code style="font-family:var(--ds-font-family-mono);">js/theme/</code>) para scripts ou integrações.</span><span data-lang="en"><strong>JSON</strong> — theme engine config (<code style="font-family:var(--ds-font-family-mono);">js/theme/</code>) for scripts or integrations.</span></li>
+        <li><span data-lang="pt"><strong>URL</strong> — link compartilhável com o estado codificado (<code style="font-family:var(--ds-font-family-mono);">?c=</code>).</span><span data-lang="en"><strong>URL</strong> — shareable link with encoded state (<code style="font-family:var(--ds-font-family-mono);">?c=</code>).</span></li>
+      </ul>
+      <p style="color:var(--ds-content-default);font-size:var(--ds-font-size-14);line-height:var(--ds-line-height-relaxed);">
+        <span data-lang="pt">O playground altera CSS variables em runtime — não escreve em <code style="font-family:var(--ds-font-family-mono);">tokens/*.json</code> nem no Figma. Para persistir no repo canônico, aplique o CSS exportado ou sincronize tokens manualmente após revisão.</span><span data-lang="en">The playground updates CSS variables at runtime — it does not write to <code style="font-family:var(--ds-font-family-mono);">tokens/*.json</code> or Figma. To persist in the canonical repo, apply the exported CSS or sync tokens manually after review.</span>
       </p>
     </div>
   </div>

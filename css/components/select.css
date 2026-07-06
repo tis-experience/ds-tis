@@ -232,6 +232,7 @@
 .ds-select:focus-within {
   background: var(--ds-field-bg-default);
   border-color: var(--ds-field-border-color-focus);
+  border-radius: var(--ds-field-radius);
   outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
   outline-offset: var(--ds-focus-ring-width);
 }

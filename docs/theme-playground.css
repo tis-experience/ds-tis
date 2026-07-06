@@ -1,0 +1,220 @@
+/* Layout do Theme Playground — não faz parte do DS consumível */
+
+.ds-playground {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: var(--ds-dimension-24);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .ds-playground {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-playground__panel {
+  position: sticky;
+  top: calc(var(--ds-dimension-16) + 56px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-dimension-20);
+  padding: var(--ds-dimension-20);
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-12);
+  background: var(--ds-surface-raised);
+}
+
+@media (max-width: 960px) {
+  .ds-playground__panel {
+    position: static;
+  }
+}
+
+/* Cor da marca: color picker nativo + Input do DS */
+.ds-playground__color-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-dimension-12);
+}
+
+.ds-playground__color-row .ds-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.ds-playground__hex-input .ds-input__field {
+  font-family: var(--ds-font-family-mono);
+}
+
+.ds-playground__color-input {
+  flex-shrink: 0;
+  width: var(--ds-input-height-md);
+  height: var(--ds-input-height-md);
+  padding: var(--ds-dimension-4);
+  border: var(--ds-field-border-width) solid var(--ds-field-border-color-default);
+  border-radius: var(--ds-field-radius);
+  background: var(--ds-field-bg-default);
+  cursor: pointer;
+  transition: border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+              box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-playground__color-input:hover {
+  border-color: var(--ds-field-border-color-hover);
+}
+
+.ds-playground__color-input:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-playground__mode-btn {
+  align-self: flex-start;
+}
+
+.ds-playground__panel {
+  overflow: visible;
+}
+
+.ds-playground__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-dimension-8);
+}
+
+.ds-playground__preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-dimension-24);
+}
+
+.ds-playground__block {
+  padding: var(--ds-dimension-20);
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-12);
+  background: var(--ds-background-default);
+}
+
+.ds-playground__block-title {
+  margin: 0 0 var(--ds-dimension-16);
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-content-default);
+}
+
+.ds-playground__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-dimension-8);
+}
+
+.ds-playground__contrast {
+  display: grid;
+  gap: var(--ds-dimension-8);
+}
+
+.ds-playground__contrast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-dimension-12);
+  padding: var(--ds-dimension-8) var(--ds-dimension-12);
+  border-radius: var(--ds-radius-8);
+  background: var(--ds-background-subtle);
+  font-size: var(--ds-font-size-12);
+}
+
+.ds-playground__badge {
+  font-size: var(--ds-font-size-11);
+  font-weight: var(--ds-font-weight-medium);
+  padding: 2px 8px;
+  border-radius: var(--ds-radius-999);
+}
+
+.ds-playground__badge--pass {
+  background: var(--ds-feedback-success-background-default);
+  color: var(--ds-feedback-success-content-contrast);
+}
+
+.ds-playground__badge--fail {
+  background: var(--ds-feedback-error-background-default);
+  color: var(--ds-feedback-error-content-contrast);
+}
+
+.ds-playground__export-hint {
+  margin: 0 0 var(--ds-dimension-12);
+  font-size: var(--ds-font-size-12);
+  line-height: var(--ds-line-height-relaxed);
+  color: var(--ds-content-subtle);
+}
+
+/* Chrome de export — radius fixo (não escala com preset do tema) */
+.ds-playground__export-box {
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.ds-playground__export-tabs {
+  display: flex;
+  border-bottom: var(--ds-border-width-1) solid var(--ds-border-default);
+  background: var(--ds-background-subtle);
+}
+
+.ds-playground__export-tab {
+  padding: var(--ds-dimension-8) var(--ds-dimension-16);
+  font-size: var(--ds-font-size-14);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-content-default);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.ds-playground__export-tab--active {
+  color: var(--ds-link-content-default);
+  border-bottom-color: var(--ds-link-content-default);
+}
+
+.ds-playground__export-panel {
+  display: none;
+  padding: var(--ds-dimension-12);
+}
+
+.ds-playground__export-panel--active {
+  display: block;
+}
+
+.ds-playground__export-output {
+  display: block;
+  width: 100%;
+  min-height: 10rem;
+  margin: 0 0 var(--ds-dimension-8);
+  font-family: var(--ds-font-family-mono);
+  font-size: var(--ds-font-size-12);
+  line-height: var(--ds-line-height-relaxed);
+  padding: var(--ds-dimension-12);
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+  border-radius: 0.375rem;
+  background: var(--ds-background-subtle);
+  color: var(--ds-content-default);
+  resize: vertical;
+}
+
+.ds-playground__swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
+  gap: var(--ds-dimension-8);
+}
+
+.ds-playground__swatch {
+  aspect-ratio: 1;
+  border-radius: var(--ds-radius-8);
+  border: var(--ds-border-width-1) solid var(--ds-border-default);
+}
+
+.ds-playground__card {
+  max-width: 22rem;
+}
