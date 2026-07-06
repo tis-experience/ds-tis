@@ -196,7 +196,7 @@
   border: var(--ds-border-width-default) solid var(--ds-combobox-listbox-container-border-color-default);
   border-radius: var(--ds-combobox-listbox-container-radius-default);
   box-shadow: var(--ds-shadow-overlay);
-  max-block-size: 16rem;
+  max-block-size: calc(var(--ds-dimension-128) * 2);
   overflow: auto;
 }
 
@@ -232,6 +232,11 @@
 .ds-combobox--lg .ds-combobox__option {
   min-block-size: var(--ds-menu-item-height-lg);
   padding-inline: var(--ds-menu-item-padding-x-lg);
+}
+
+.ds-combobox__option:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: calc(var(--ds-focus-ring-width) * -1);
 }
 
 .ds-combobox__option:hover:not([aria-disabled="true"]),

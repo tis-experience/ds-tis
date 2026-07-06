@@ -222,9 +222,21 @@
     <table class="ds-token-table" style="margin-top:var(--ds-dimension-16)">
       <thead><tr><th>Size</th><th>Height</th><th>Token</th></tr></thead>
       <tbody>
-        <tr><td>Small (<code>--sm</code>)</td><td>32px</td><td><code>component.pagination.page.height.sm</code></td></tr>
-        <tr><td>Medium (default)</td><td>40px</td><td><code>component.pagination.page.height.md</code></td></tr>
-        <tr><td>Large (<code>--lg</code>)</td><td>48px</td><td><code>component.pagination.page.height.lg</code></td></tr>
+        <tr><td>Small (<code>--sm</code>)</td><td>32px</td><td><code>component.pagination.item.height.sm</code></td></tr>
+        <tr><td>Medium (default)</td><td>40px</td><td><code>component.pagination.item.height.md</code></td></tr>
+        <tr><td>Large (<code>--lg</code>)</td><td>48px</td><td><code>component.pagination.item.height.lg</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">API no Figma</span><span data-lang="en">Figma API</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O component set <strong>Pagination Item</strong> expõe <code>Size</code> e <code>Page Number</code>. O composto <strong>Pagination</strong> agrupa prev/next (Button Ghost Icon Only) e itens numerados.</span><span data-lang="en">The <strong>Pagination Item</strong> component set exposes <code>Size</code> and <code>Page Number</code>. The <strong>Pagination</strong> composite groups prev/next (Button Ghost Icon Only) and numbered items.</span></p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Equivalente no repo</span><span data-lang="en">Repo equivalent</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Size</code></td><td><code>VARIANT</code></td><td><code>ds-pagination--sm</code> / <code>--md</code> / <code>--lg</code></td></tr>
+        <tr><td><code>Page Number</code></td><td><code>TEXT</code></td><td><code>.ds-pagination__page</code> (link ou <code>span</code> com <code>aria-current="page"</code>)</td></tr>
       </tbody>
     </table>
   </div>
@@ -298,10 +310,14 @@
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
       <tbody>
         <tr><td>gap</td><td><code>component.pagination.gap.default</code></td><td><code>--ds-pagination-gap-default</code></td></tr>
-        <tr><td>page height</td><td><code>component.pagination.page.height.{sm|md|lg}</code></td><td><code>--ds-pagination-page-height-*</code></td></tr>
-        <tr><td>page min-width</td><td><code>component.pagination.page.min-width.*</code></td><td><code>--ds-pagination-page-min-width-*</code></td></tr>
-        <tr><td>current bg</td><td><code>component.pagination.page.bg.current</code></td><td><code>--ds-pagination-page-bg-current</code></td></tr>
-        <tr><td>focus ring</td><td><code>component.focus-ring.*</code></td><td><code>--ds-focus-ring-*</code></td></tr>
+        <tr><td>item height</td><td><code>component.pagination.item.height.{sm|md|lg}</code></td><td><code>--ds-pagination-item-height-*</code></td></tr>
+        <tr><td>item min-width</td><td><code>component.pagination.item.min-width.*</code></td><td><code>--ds-pagination-item-min-width-*</code></td></tr>
+        <tr><td>item radius</td><td><code>component.pagination.item.radius.default</code></td><td><code>--ds-pagination-item-radius-default</code></td></tr>
+        <tr><td>item bg default/hover/current/disabled</td><td><code>component.pagination.item.bg.*</code></td><td><code>--ds-pagination-item-bg-*</code></td></tr>
+        <tr><td>item content color</td><td><code>component.pagination.item.content.color.*</code></td><td><code>--ds-pagination-item-content-color-*</code></td></tr>
+        <tr><td>item typography</td><td><code>component.pagination.item.font-*</code> / <code>line-height.*</code></td><td><code>--ds-pagination-item-*</code></td></tr>
+        <tr><td>ellipsis icon</td><td><code>component.pagination.icon.*</code></td><td><code>--ds-pagination-icon-*</code></td></tr>
+        <tr><td>focus ring</td><td><code>component.pagination.focus-ring.radius.default</code> + <code>component.focus-ring.*</code></td><td><code>--ds-pagination-focus-ring-radius-default</code>, <code>--ds-focus-ring-*</code></td></tr>
       </tbody>
     </table>
   </div>

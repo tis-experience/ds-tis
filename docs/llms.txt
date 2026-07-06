@@ -1,6 +1,6 @@
 # Design System Core
 
-> Design system white-label em CSS puro com tokens DTCG em JSON, componentes documentados, modos light/dark e paleta brand única customizável. Versão atual: 1.0.0-beta.5.
+> Design system white-label em CSS puro com tokens DTCG em JSON, componentes documentados, modos light/dark e paleta brand única customizável. Versão atual: 1.0.0-beta.6.
 
 Repositório: definir no ambiente de destino.
 Site: documentação local
@@ -98,4 +98,4 @@ Arquivo completo para LLMs: docs/llms-full.txt
 
 ---
 
-Gerado por `scripts/build-llms.mjs`. Versão atual: 1.0.0-beta.5.
+Gerado por `scripts/build-llms.mjs`. Versão atual: 1.0.0-beta.6.

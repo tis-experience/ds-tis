@@ -1,6 +1,6 @@
 # Design System Core — conteúdo consolidado
 
-> Versão 1.0.0-beta.5. Arquivo destinado a consumo por LLMs que precisem
+> Versão 1.0.0-beta.6. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
 > CLAUDE.md, CHANGELOG, todos os MDs em docs/, todos os ADRs e um resumo
 > dos tokens. Páginas HTML-only (componentes, foundations) estão referenciadas
@@ -17,14 +17,14 @@ Para APIs JSON, ver docs/api/
 
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.5-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.6-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
 ```html
-<link rel="stylesheet" href="https://cdn.example.com/ds-tis@1.0.0-beta.5/css/design-system.css">
+<link rel="stylesheet" href="https://cdn.example.com/ds-tis@1.0.0-beta.6/css/design-system.css">
 ```
 
 Uso local:
@@ -206,6 +206,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.6] — 2026-07-06
+
 ### Adicionado
 - **`npm run figma:snapshot:refresh`.** Encadeia install do export `figma-snapshot.json` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em `AGENTS.md` §4.4). `agent:preflight` sinaliza export pendente na raiz.
 - **Accordion público no repo.** Adicionados `css/components/accordion.css`, `docs/accordion.html`, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens `component.accordion.*`.
@@ -227,7 +229,20 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Escala semântica de space expandida.** `semantic.space` passa a incluir `3xl` a `6xl` (`32/40/48/64px`) e `semantic.space.section` sobe para `48/64/80/96/120px` com novo `section.2xl`, mantendo aliases Figma ↔ JSON para gaps, paddings e separação macro.
 
 ### Corrigido
+- **Theme Playground: modo reverte para dark após alternar light/dark e mudar cor.** A inicialização do playground passa a rodar em `DOMContentLoaded` (depois de `initThemeSwitcher` em `main.js`), `syncModeUI` alinha toggles do header/playground e `localStorage` após cada `applyTheme`, e o listener do header deixa de ler `data-mode` stale antes do toggle global.
+- **Theme Playground: controles do painel alinhados ao padrão de formulário do DS.** Campos passam a usar `ds-field`, `ds-input`/`ds-input__field` e `ds-select`/`ds-select__field` em vez de estilos ad hoc; apenas o color picker nativo mantém CSS local mínimo.
+- **Theme Playground: corner radius não atualizava após a primeira troca de preset.** `applyTheme` agora remove vars inline obsoletas (ex.: `--ds-button-radius-default` e `--ds-radius-md` do preset `soft`) antes de aplicar o próximo preset.
+- **Theme Playground: combobox de fontes alinhado ao componente Combobox do DS.** Campos de tipografia passam de `input` + `datalist` (chevron nativo do browser) para `ds-combobox` com chevron Lucide, listbox popup e suporte a digitação livre.
+- **Combobox: anatomia de popup + módulo JS compartilhado.** Wrapper `.ds-combobox-anchor` posiciona o listbox abaixo do field; `[hidden]` e `.ds-combobox--open` controlam visibilidade e chevron; `js/combobox.js` implementa abrir/fechar exclusivo, blur, filtro e teclado (usado no Theme Playground).
+- **Form controls: radius estável no focus.** Combobox deixou de trocar `border-radius` para `radius-lg` em `:focus-within`; Input, Select e Textarea fixam `border-radius: var(--ds-field-radius)` no focus para não “arredondar” visualmente em relação ao estado default.
+- **Theme Playground: exportação vazia e UI de export.** `renderContrast` quebrava em overlays `rgba` e interrompia `renderExports`; contraste agora compõe overlay sobre superfície. Seção Export usa layout próprio (radius fixo, sem conflito com tabs de docs) e explica CSS / JSON / Link.
+- **Theme Playground: preview de Card sem variante.** Card passa a usar `ds-card--default` com anatomia completa (`__container`, `__header`, `__footer`); a borda só existe nas variantes do componente, não no `.ds-card` base.
 - **Overlays toned desacoplados da paleta neutra (base para theme playground).** `foundation.color.overlay.blue-600.{12,20,28}` e `overlay.blue-400.{15,25,32}` renomeados para `overlay.brand-600.*` e `overlay.brand-400.*`, e `semantic.toned.background.*` (light/dark) passam a referenciá-los. Isso faz os botões/badges `toned` derivarem da paleta brand customizável em vez de um azul hardcoded — pré-requisito para personalização global de marca em tempo real. Corrige também o dark, que referenciava por engano os overlays do light (mesmo alpha); agora usa `brand-400.{15,25,32}` e os overlays antes órfãos passam a ter uso. Valores rgba inalterados (brand default = blue), sem regressão visual. **Figma:** variables `color/overlay/blue-*` renomeadas para `color/overlay/brand-*`; aliases `toned/background/*` no modo Dark atualizados para `brand-400`. Ver nota de atualização na ADR-007.
+- **Estabilização Accordion, Combobox e Pagination (run `2026-07-06-stabilize-recent-components`).** Auditoria paralela Figma↔repo com snapshot fresco; gates `test-combobox-docs` e `test-pagination-docs`; documentação alinhada à API Figma e tokens canônicos.
+- **Documentação Pagination.** Corrige paths `component.pagination.page.*` → `item.*`, expande mapeamento de tokens (29 paths) e adiciona seção API no Figma (`Size`, `Page Number`).
+- **Documentação Combobox.** Adiciona API no Figma, exemplo Read-only, classes `__icon`/`__clear`/`--readonly`; `focus-visible` em `.ds-combobox__option`; `max-block-size` do listbox via `calc(var(--ds-dimension-128) * 2)`.
+- **Documentação Accordion.** Adiciona seção Boas práticas (`ds-dodont`) e classe `ds-accordion__item--disabled` na tabela pública.
+- **Docs de overlay brand e milestones.** `foundations-colors.html` e `control-sizing.html` atualizam referências para `--ds-overlay-brand-*`; inventário passa a listar Table, Toast e Popover como próximos componentes.
 - **Accordion sincroniza API e comportamento.** A documentação passa a refletir a propriedade pública `Title` do Figma, documenta `Content Slot`, `Show Leading Icon`, `Leading Icon`, `State` e `Open`, e o site adiciona helper interativo para sincronizar `aria-expanded`, `hidden` e `data-state` em expand/collapse. Novo gate `test-accordion-docs` impede regressão para `Label` como propriedade pública e valida o contrato de comportamento.
 - **Documentação de Combobox, Menu e Pagination.** Páginas completas no padrão Select/Breadcrumb (Quando usar, Anatomia, Padrão com `ds-preview`, tamanhos/estados, Boas práticas `ds-dodont`, Diretrizes de conteúdo, Mapeamento tokens, Classes CSS, Teclado, Accessibility e Relacionados); navegação Components em `js/main.js` e grid de `index.html` reordenados alfabeticamente (Icons primeiro, Menu e Alert incluídos).
 - **CI de PR com check obrigatório.** O workflow `Verify tokens` passa a rodar em todo PR/push para `main`, evitando bloqueio por check requerido ausente quando a mudança não toca arquivos de tokens.
@@ -242,7 +257,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Visual regression passa a rodar no CI.** `test.yml` agora executa `scripts/test-visual.mjs` após a auditoria a11y e publica `tests/visual/actual` + `tests/visual/diff` como artifact quando houver falha; a baseline visual foi atualizada para o estado atual validado em produção.
 - **Baseline de acessibilidade zerada.** Ajustados contrastes em feedback `subtle` no dark mode, links do site de documentação e foco de blocos de código roláveis; `test:a11y` agora passa com `critical=0`, `serious=0`, `moderate=0`, `minor=0` e `.a11y-baseline.json` fica sem violações aceitas.
 - **Auditoria estrutural do Figma passa a escolher o snapshot mais recente.** `verify:figma-structure` agora aceita `figma-snapshot.json` sem ponto e, quando não recebe `--snapshot`, escolhe o arquivo mais novo entre os snapshots locais conhecidos, evitando validar acidentalmente um `.figma-snapshot.structure.json` antigo.
-- **Pendências de maturidade e milestones removem itens stale.** `process-versioning` passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; `component-inventory` troca milestones já resolvidos por próximos passos reais.
+- **Pendências de maturidade e milestones removem itens stale.** `process-versioning` passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; `component-inventory` milestones atualizados para próximos componentes reais (Table, Toast, Popover).
 
 ## [1.0.0-beta.5] — 2026-06-12
 
@@ -1045,7 +1060,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-06. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 19 decisões registradas.
@@ -1590,9 +1605,9 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-06. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.5**
+> Versão atual: **1.0.0-beta.6**
 
 ## Status geral
 
@@ -1669,7 +1684,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
 2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Dropdown, Combobox, Pagination, Table
+3. **Componentes pendentes** — Table, Toast, Popover
 4. **Storybook** — opcional, não bloqueante para o beta atual
 
 
@@ -20586,15 +20601,15 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-06. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.5**
+> Versão atual: **1.0.0-beta.6**
 
 ## Estado atual
 
 | Aspecto | Valor |
 |---------|-------|
-| Versão | 1.0.0-beta.5 |
+| Versão | 1.0.0-beta.6 |
 | Formato canônico | JSON (DTCG) em `tokens/` |
 | CSS gerado | Style Dictionary → `css/tokens/generated/` |
 | Pipeline | ✅ index.css importa apenas generated/ |
@@ -23193,5 +23208,5 @@ Verificação automática de coerência Figma ↔ JSON ↔ CSS: `scripts/tokens-
 ═══════════════════════════════════════════════════════════
 
 Gerado por scripts/build-llms.mjs.
-Versão: 1.0.0-beta.5
+Versão: 1.0.0-beta.6
 Site: documentação local

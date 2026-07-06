@@ -269,7 +269,7 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
 1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
 2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Dropdown, Combobox, Pagination, Table
+3. **Componentes pendentes** — Table, Toast, Popover
 4. **Storybook** — opcional, não bloqueante para o beta atual
 `;
 

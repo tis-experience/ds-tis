@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "count": 23,
   "components": [
     {
@@ -462,7 +462,6 @@
       "cssFile": "css/components/combobox.css",
       "tokens": [
         "ds-border-width-default",
-        "ds-combobox-focus-ring-radius-default",
         "ds-combobox-height-lg",
         "ds-combobox-height-md",
         "ds-combobox-height-sm",
@@ -478,6 +477,7 @@
         "ds-combobox-padding-x-lg",
         "ds-combobox-padding-x-md",
         "ds-combobox-padding-x-sm",
+        "ds-dimension-128",
         "ds-field-bg-default",
         "ds-field-bg-disabled",
         "ds-field-bg-readonly",
@@ -557,6 +557,7 @@
         "filled",
         "lg",
         "md",
+        "open",
         "readonly",
         "sm"
       ],

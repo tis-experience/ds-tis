@@ -1,6 +1,6 @@
 {
   "name": "ds-tis",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "White-label CSS design system with DTCG tokens, component contracts, and light/dark mode",
   "main": "css/design-system.css",
   "style": "css/design-system.css",
@@ -24,7 +24,7 @@
     "build:icons": "node scripts/build-icons.mjs",
     "build:llms": "node scripts/build-llms.mjs",
     "build:all": "npm run build:tokens && npm run build:icons && npm run sync:docs && npm run build:api && npm run build:llms && npm run verify:tokens && npm test",
-    "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-theme-engine.mjs && node scripts/test-a11y.mjs",
+    "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-combobox-docs.mjs && node scripts/test-pagination-docs.mjs && node scripts/test-theme-engine.mjs && node scripts/test-a11y.mjs",
     "test:self": "node scripts/test-self.mjs",
     "test:theme": "node scripts/test-theme-engine.mjs",
     "test:a11y": "node scripts/test-a11y.mjs",

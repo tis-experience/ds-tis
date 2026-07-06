@@ -1,8 +1,8 @@
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-06. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.5**
+> Versão atual: **1.0.0-beta.6**
 
 ## Status geral
 
@@ -79,5 +79,5 @@
 
 1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
 2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Dropdown, Combobox, Pagination, Table
+3. **Componentes pendentes** — Table, Toast, Popover
 4. **Storybook** — opcional, não bloqueante para o beta atual

@@ -565,7 +565,7 @@
           "12": {
             "$type": "color",
             "$value": "rgba(37, 99, 235, 0.12)",
-            "$description": "Brand-600 at 12% opacity. Toned default in light mode. Derived from the brand palette (customizable) — não confundir com a paleta neutra blue usada em feedback.info."
+            "$description": "Brand-600 at 12% opacity. Toned default in light mode."
           },
           "20": {
             "$type": "color",
@@ -582,7 +582,7 @@
           "15": {
             "$type": "color",
             "$value": "rgba(96, 165, 250, 0.15)",
-            "$description": "Brand-400 at 15% opacity. Toned default in dark mode. Derived from the brand palette (customizable)."
+            "$description": "Brand-400 at 15% opacity. Toned default in dark mode."
           },
           "25": {
             "$type": "color",

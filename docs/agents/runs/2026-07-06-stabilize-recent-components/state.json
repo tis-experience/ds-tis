@@ -1,0 +1,90 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-06-stabilize-recent-components",
+  "title": "Estabilizar Accordion, Combobox e Pagination",
+  "createdAt": "2026-07-06",
+  "updatedAt": "2026-07-06",
+  "figmaSnapshot": {
+    "id": "IE68amP9Hya5ieFw1rX8S8",
+    "generatedAt": "2026-07-06T09:32:41.132Z",
+    "path": ".figma-snapshot.json",
+    "exporter": "0.2.0",
+    "promotedFrom": "figma-snapshot.json"
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": ["01-brief.md", "02-figma-spec.md"],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "skipped",
+      "note": "Estabilização — auditoria read-only substitui brief para componentes existentes",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": ["03-figma-build-report.md"],
+      "requires": ["brief"],
+      "needsOwnerApproval": false,
+      "status": "skipped",
+      "note": "Sem escrita Figma nesta run — apenas polish menor documentado na auditoria",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": ["04-figma-audit-report.md"],
+      "requires": ["figma-build"],
+      "needsOwnerApproval": true,
+      "status": "completed",
+      "ownerApproval": "pending",
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": ["05-repo-sync-plan.md"],
+      "requires": ["figma-audit"],
+      "needsOwnerApproval": false,
+      "status": "completed",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": ["06-repo-implementation-report.md"],
+      "requires": ["token-sync"],
+      "needsOwnerApproval": true,
+      "status": "in_progress",
+      "ownerApproval": "pending",
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": ["07-release-report.md"],
+      "requires": ["repo"],
+      "needsOwnerApproval": true,
+      "status": "completed",
+      "ownerApproval": "pending",
+      "updatedAt": "2026-07-06"
+    }
+  ],
+  "checks": {
+    "verify:figma-structure": { "exitCode": 0, "issues": 0 },
+    "verify:tokens": { "exitCode": 1, "errors": 12, "warnings": 6, "note": "overlay blue→brand only" },
+    "audit:component-tokens": { "exitCode": 1, "issues": 15, "scope": "button/form-field typography — out of recent components scope" },
+    "componentTokenParity": {
+      "accordion": { "figma": 28, "json": 28, "drift": 0 },
+      "combobox": { "figma": 16, "json": 16, "drift": 0 },
+      "pagination": { "figma": 29, "json": 29, "drift": 0 }
+    }
+  }
+}
