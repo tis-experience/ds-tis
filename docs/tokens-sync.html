@@ -34,8 +34,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
     <a href="../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="" width="32" height="32">
+      <span class="ds-site-header__title">Design System TIS</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -61,11 +61,11 @@
   </div>
 
   <div class="ds-section">
-    <span class="ds-sync-status ok">Em dia</span>
+    <span class="ds-sync-status warning">1 aviso(s)</span>
     <div class="ds-sync-meta">
       <div><strong>Versão:</strong> 1.0.0-beta.6</div>
       <div><strong>Divergências:</strong> 0</div>
-      <div><strong>Avisos:</strong> 0</div>
+      <div><strong>Avisos:</strong> 1</div>
     </div>
   </div>
 
@@ -75,7 +75,14 @@
       <thead>
         <tr><th>Checagem</th><th>Token</th><th>Mensagem</th><th>JSON</th><th>CSS</th></tr>
       </thead>
-      <tbody><tr><td colspan="5" style="text-align:center;color:var(--ds-content-default)">Nenhuma divergência registrada.</td></tr></tbody>
+      <tbody>
+    <tr>
+      <td><code>JSON ↔ Figma</code></td>
+      <td><code>.figma-snapshot.json</code></td>
+      <td>snapshot Figma tem 27h (> 24h). Regenerar via use_figma antes de concluir sync/release.</td>
+      <td><code>—</code></td>
+      <td><code>—</code></td>
+    </tr></tbody>
     </table>
   </div>
 </main>

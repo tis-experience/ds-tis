@@ -606,6 +606,7 @@
   --ds-tabs-label-letter-spacing-default: var(--ds-body-letter-spacing-normal); /** Espaçamento entre letras do rótulo de Tabs. */
   --ds-tabs-label-color-default: var(--ds-content-default);
   --ds-tabs-label-color-hover: var(--ds-content-strong);
+  --ds-tabs-label-color-active: var(--ds-content-brand);
   --ds-tabs-label-color-disabled: var(--ds-content-disabled);
   --ds-tabs-panel-padding-y-default: var(--ds-space-lg); /** Espaçamento interno vertical do painel de Tabs. */
   --ds-tabs-focus-ring-radius-default: var(--ds-radius-sm); /** Radius do focus ring Tabs. */
@@ -716,5 +717,4 @@
   --ds-select-icon-color-disabled: var(--ds-icon-color-disabled); /** Cor do ícone Select disabled. */
   --ds-spinner-track-border-color-default: var(--ds-border-overlay-default);
   --ds-spinner-track-border-color-on-color: var(--ds-border-overlay-medium);
-  --ds-tabs-label-color-active: var(--ds-content-brand);
 }

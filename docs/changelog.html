@@ -40,8 +40,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
     <a href="../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="" width="32" height="32">
+      <span class="ds-site-header__title">Design System TIS</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -70,6 +70,12 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2>[Não publicado]</h2>
+<h3>Alterado</h3>
+<ul>
+<li><strong>Paleta brand recalibrada para contraste com folga (seed <code>#0056E0</code>).</strong> Escala OKLCH escurecida de forma perceptível em relação ao ajuste anterior (<code>#036EF2</code> / <code>#026DF1</code>): <code>brand/600</code> = <code>#0065ED</code> (fill primário, ~5,1:1 vs branco e ~4,9:1 vs <code>neutral-50</code> em botões), <code>brand/700</code> = <code>#0050DA</code>. <strong><code>semantic.content.brand</code> (light)</strong> passa a usar <code>brand/700</code> em vez de <code>brand/600</code>, garantindo AA texto em fundos neutros e tinted (<code>neutral-100</code>, <code>brand-50</code>, <code>brand-100</code>); fills sólidos e links mantêm a separação 600/700/800. Figma (<code>color/brand/*</code>, overlays, disabled, <code>content/brand</code> Light→700 / Dark→400), JSON/CSS, Theme Playground e <code>foundations-colors.html</code> sincronizados; <code>test-theme-engine</code> valida folga de contraste.</li>
+<li><strong>Branding da documentação.</strong> Topbar passa a exibir o logo TIS (<code>docs/assets/logo-tis-mark.svg</code>) no lugar do ícone &quot;DS&quot; e o título <strong>Design System TIS</strong> em todas as páginas HTML; home atualizada com o mesmo nome.</li>
+<li><strong>Capa Figma corrigida.</strong> A página estava com modo Semantic <strong>Dark</strong>, fazendo <code>content/inverse</code> e <code>brand/content/default</code> renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a <strong>Semantic Light</strong>; labels dos stats rebindados para <code>brand/content/default</code>. Versão atualizada para <code>v1.0.0-beta.6</code>; contagem de componentes <code>19</code>.</li>
+</ul>
 <h2>[1.0.0-beta.6] — 2026-07-06</h2>
 <h3>Adicionado</h3>
 <ul>

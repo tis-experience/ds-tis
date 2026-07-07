@@ -8,6 +8,11 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+### Alterado
+- **Paleta brand recalibrada para contraste com folga (seed `#0056E0`).** Escala OKLCH escurecida de forma perceptível em relação ao ajuste anterior (`#036EF2` / `#026DF1`): `brand/600` = `#0065ED` (fill primário, ~5,1:1 vs branco e ~4,9:1 vs `neutral-50` em botões), `brand/700` = `#0050DA`. **`semantic.content.brand` (light)** passa a usar `brand/700` em vez de `brand/600`, garantindo AA texto em fundos neutros e tinted (`neutral-100`, `brand-50`, `brand-100`); fills sólidos e links mantêm a separação 600/700/800. Figma (`color/brand/*`, overlays, disabled, `content/brand` Light→700 / Dark→400), JSON/CSS, Theme Playground e `foundations-colors.html` sincronizados; `test-theme-engine` valida folga de contraste.
+- **Branding da documentação.** Topbar passa a exibir o logo TIS (`docs/assets/logo-tis-mark.svg`) no lugar do ícone "DS" e o título **Design System TIS** em todas as páginas HTML; home atualizada com o mesmo nome.
+- **Capa Figma corrigida.** A página estava com modo Semantic **Dark**, fazendo `content/inverse` e `brand/content/default` renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a **Semantic Light**; labels dos stats rebindados para `brand/content/default`. Versão atualizada para `v1.0.0-beta.6`; contagem de componentes `19`.
+
 ## [1.0.0-beta.6] — 2026-07-06
 
 ### Adicionado

@@ -399,8 +399,8 @@
       },
       "brand": {
         "$type": "color",
-        "$value": "{semantic.brand.background.default}",
-        "$description": "Conteúdo brand sobre superfície neutra."
+        "$value": "{foundation.color.brand.400}",
+        "$description": "Conteúdo brand sobre superfície neutra em dark mode (equivalente ao fill brand default)."
       }
     },
     "content-placeholder": {
