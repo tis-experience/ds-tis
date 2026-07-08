@@ -195,18 +195,18 @@ function assertDocumentationLogoContract() {
 
     for (const match of headerMatches) {
       const header = match[0];
-      const img = header.match(/<img class="ds-site-header__logo" src="([^"]+)" alt="TIS" width="80" height="36">/);
+      const img = header.match(/<img class="ds-site-header__logo" src="([^"]+)" alt="TIS" width="36" height="36">/);
 
       ok(header.includes('aria-label="TIS Design System"'), `${rel} brand link must expose an accessible label`);
-      ok(Boolean(img), `${rel} must use the full TIS logo with alt and stable dimensions`);
-      ok(!header.includes("logo-tis-mark.svg"), `${rel} must not use the cropped TIS symbol asset`);
+      ok(Boolean(img), `${rel} must use the TIS symbol with alt and stable dimensions`);
+      ok(!header.includes("logo-tis.svg"), `${rel} must not use the full TIS wordmark asset`);
       ok(header.includes("ds-site-header__brand-separator"), `${rel} must render the TIS | Design System separator`);
       ok(header.includes('class="ds-site-header__title">Design System</span>'), `${rel} must render the header title as Design System`);
       ok(!header.includes("Design System TIS"), `${rel} header must not use the old Design System TIS title`);
 
       if (!img) continue;
       const logoPath = path.resolve(path.dirname(absolutePath), img[1]);
-      ok(path.basename(logoPath) === "logo-tis.svg", `${rel} must point to logo-tis.svg`);
+      ok(path.basename(logoPath) === "logo-tis-mark.svg", `${rel} must point to logo-tis-mark.svg`);
       ok(fs.existsSync(logoPath), `${rel} logo src must resolve to an existing file: ${img[1]}`);
     }
   }

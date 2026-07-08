@@ -352,7 +352,7 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, as
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
     <a href="${basePath}index.html" class="ds-site-header__brand" aria-label="TIS Design System">
-      <img class="ds-site-header__logo" src="${assetPath}logo-tis.svg" alt="TIS" width="80" height="36">
+      <img class="ds-site-header__logo" src="${assetPath}logo-tis-mark.svg" alt="TIS" width="36" height="36">
       <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
       <span class="ds-site-header__title">Design System</span>
     </a>
