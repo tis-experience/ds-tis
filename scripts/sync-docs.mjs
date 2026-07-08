@@ -300,8 +300,9 @@ function slugFromAdrFilename(filename) {
   return filename.replace(/\.md$/, '').toLowerCase();
 }
 
-function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref }) {
+function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, assetBase }) {
   const basePath = base || '../';
+  const assetPath = assetBase || 'assets/';
   // layoutHref é relativo ao arquivo gerado, não ao ROOT. Padrão: layout.css
   // no mesmo diretório (páginas em docs/). Para docs/decisions/, quem chama
   // passa explicitamente `layoutHref: '../layout.css'`.
@@ -350,9 +351,10 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref }) 
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="${basePath}index.html" class="ds-site-header__brand">
-      <img class="ds-site-header__logo" src="${basePath}assets/logo-tis-mark.svg" alt="" width="32" height="32">
-      <span class="ds-site-header__title">Design System TIS</span>
+    <a href="${basePath}index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="${assetPath}logo-tis.svg" alt="TIS" width="80" height="36">
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -387,7 +389,7 @@ ${content}
 `;
 }
 
-function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref }) {
+function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref, assetBase }) {
   if (!fs.existsSync(mdPath)) return false;
   const md = fs.readFileSync(mdPath, 'utf8');
   // Se o MD começa com `# Título`, removemos pra não duplicar com o título do layout
@@ -403,7 +405,7 @@ function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref
     if (/aria-hidden=/.test(m)) return m;
     return `<input${pre}type="checkbox"${post} aria-hidden="true">`;
   });
-  const html = wrapPage({ title, subtitle, content, base, layoutHref });
+  const html = wrapPage({ title, subtitle, content, base, layoutHref, assetBase });
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html);
   return true;
@@ -422,6 +424,7 @@ for (const adr of adrs) {
     subtitle: `Status: <strong>${adr.status}</strong> · Data: ${adr.date}`,
     base: '../../',
     layoutHref: '../layout.css',
+    assetBase: '../assets/',
   });
   if (ok) adrHtmlCount++;
 }
@@ -442,7 +445,7 @@ ${adrs.map(a => {
 `;
 fs.writeFileSync(
   path.join(decisionsDir, 'index.html'),
-  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css' })
+  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css', assetBase: '../assets/' })
 );
 console.log(`✅ docs/decisions/index.html`);
 
