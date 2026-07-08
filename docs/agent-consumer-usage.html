@@ -96,21 +96,21 @@
 <p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
 <h2>Imports oficiais</h2>
 <p>Instale o pacote no projeto consumidor:</p>
-<pre><code class="language-bash">npm install ds-tis
+<pre tabindex="0"><code class="language-bash">npm install ds-tis
 </code></pre>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
-<pre><code class="language-js">import &#39;ds-tis/css&#39;;
+<pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
 <p>Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:</p>
-<pre><code class="language-js">import { initComboboxes } from &#39;ds-tis/combobox&#39;;
+<pre tabindex="0"><code class="language-js">import { initComboboxes } from &#39;ds-tis/combobox&#39;;
 
 initComboboxes();
 </code></pre>
 <p>Para customização de tema, use o theme engine público:</p>
-<pre><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
+<pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
 </code></pre>
 <p>Quando fizer sentido partir de um template, use os exports publicados:</p>
-<pre><code class="language-js">import loginTemplate from &#39;ds-tis/templates/login.html?raw&#39;;
+<pre tabindex="0"><code class="language-js">import loginTemplate from &#39;ds-tis/templates/login.html?raw&#39;;
 </code></pre>
 <p>O caminho <code>ds-tis/templates/*</code> referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.</p>
 <h2>Regras de implementação</h2>
@@ -150,7 +150,7 @@ initComboboxes();
 <p>Exemplo de limite correto: &quot;Criei <code>AppTextField</code> no app consumidor usando <code>ds-field</code> + <code>ds-input</code>; isso é wrapper local do app, não componente oficial exportado por <code>ds-tis</code>.&quot;</p>
 <h2>Prompt curto para agent consumidor</h2>
 <p>Copie este bloco para iniciar um agent que vai implementar uma tela usando o DS TIS em um projeto consumidor:</p>
-<pre><code class="language-text">Role: Agent consumidor do DS TIS.
+<pre tabindex="0"><code class="language-text">Role: Agent consumidor do DS TIS.
 
 Artefato de entrada:
 - Pedido da tela/fluxo.

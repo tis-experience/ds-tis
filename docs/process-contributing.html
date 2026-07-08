@@ -69,13 +69,13 @@
 <p>Este é um extrato bilíngue-amigável do <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a> na raiz do repo, formatado para leitura no site de documentação. Quando divergirem, a fonte é o CONTRIBUTING.md.</p>
 <h2>Setup local</h2>
 <p>Requisitos: Node.js 20+, git, SSH configurado com o GitHub.</p>
-<pre><code class="language-bash">git clone &lt;repo-url&gt;
+<pre tabindex="0"><code class="language-bash">git clone &lt;repo-url&gt;
 cd ds-tis
 npm install
 npm run build:tokens
 </code></pre>
 <p>Para ver o site localmente:</p>
-<pre><code class="language-bash">python3 -m http.server 8000
+<pre tabindex="0"><code class="language-bash">python3 -m http.server 8000
 </code></pre>
 <p>Abre <code>http://localhost:8000/</code>.</p>
 <h2>Fluxo de mudança</h2>
@@ -89,7 +89,7 @@ npm run build:tokens
 <h2>Convenções de commit</h2>
 <p>Conventional Commits em português. Prefixos: <code>feat</code>, <code>fix</code>, <code>chore</code>, <code>docs</code>, <code>refactor</code>, <code>style</code>, <code>test</code>, <code>ci</code>.</p>
 <p>Exemplo:</p>
-<pre><code>fix(input): corrigir alinhamento do ícone trailing em sm
+<pre tabindex="0"><code>fix(input): corrigir alinhamento do ícone trailing em sm
 
 - Ajusta margem direita para usar space/control/padding-x
 - Valida em docs/input.html

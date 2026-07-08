@@ -393,6 +393,9 @@ function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref
   // Se o MD começa com `# Título`, removemos pra não duplicar com o título do layout
   const withoutH1 = md.replace(/^#\s+.+\n+/, '');
   let content = marked.parse(withoutH1);
+  // a11y: blocos `<pre>` podem virar regiões roláveis horizontalmente em
+  // Linux/CI; se forem roláveis, precisam receber foco por teclado.
+  content = content.replace(/<pre(?![^>]*\btabindex=)/g, '<pre tabindex="0"');
   // a11y: marked emite `<input disabled type="checkbox">` em task lists; sem
   // `<label>` associado quebra o axe rule `label`. Esses checkboxes são
   // decorativos (markdown task list, não form input) — marca como aria-hidden.

@@ -158,11 +158,11 @@
 <h2>Decisão</h2>
 <h3>1. Estender foundation overlays com variantes coloridas</h3>
 <p>Adicionar tokens de overlay colorido em <code>tokens/foundation/colors.json</code> seguindo o pattern existente de <code>overlay.black</code> e <code>overlay.white</code>:</p>
-<pre><code>foundation.color.overlay.primary.{alpha-step}
+<pre tabindex="0"><code>foundation.color.overlay.primary.{alpha-step}
 </code></pre>
 <p>A cor base em light mode vem de <code>foundation.brand.primary</code> (blue-600) e em dark mode do equivalente dark (blue-400). Os steps de alpha batem com o uso existente de toned: 12, 15, 20, 25, 28, 32.</p>
 <p>Como tokens foundation devem ter valores absolutos (regra 3) e <code>brand.primary</code> já é um alias, os overlays coloridos usam os valores resolvidos da paleta diretamente:</p>
-<pre><code class="language-json">// Em colors.json
+<pre tabindex="0"><code class="language-json">// Em colors.json
 &quot;foundation.color.overlay.blue-600.12&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.12)&quot; }
 &quot;foundation.color.overlay.blue-600.20&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.20)&quot; }
 &quot;foundation.color.overlay.blue-600.28&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.28)&quot; }
@@ -171,13 +171,13 @@
 &quot;foundation.color.overlay.blue-400.32&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(96, 165, 250, 0.32)&quot; }
 </code></pre>
 <p>Para cores de feedback, adicionar conforme necessidade (não agora — expandir quando Alert Toned ou componente similar exigir):</p>
-<pre><code>foundation.color.overlay.red-500.12    (error toned)
+<pre tabindex="0"><code>foundation.color.overlay.red-500.12    (error toned)
 foundation.color.overlay.green-500.12  (success toned)
 foundation.color.overlay.amber-500.12  (warning toned)
 foundation.color.overlay.blue-500.12   (info toned)
 </code></pre>
 <h3>2. Criar tokens semantic toned em light.json e dark.json</h3>
-<pre><code class="language-json">// Em light.json
+<pre tabindex="0"><code class="language-json">// Em light.json
 &quot;semantic.brand.toned.default&quot;:  { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.12}&quot; }
 &quot;semantic.brand.toned.hover&quot;:    { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.20}&quot; }
 &quot;semantic.brand.toned.active&quot;:   { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.28}&quot; }
@@ -207,7 +207,7 @@ foundation.color.overlay.blue-500.12   (info toned)
 <p>Segue o mesmo pattern de três camadas, sem mudança arquitetural.</p>
 <h3>5. Convenção de naming para toned</h3>
 <p>Na camada semantic, estados toned ficam aninhados dentro do grupo da cor pai:</p>
-<pre><code>semantic.brand.default       (opaco, 100%)
+<pre tabindex="0"><code>semantic.brand.default       (opaco, 100%)
 semantic.brand.hover         (opaco, mais escuro)
 semantic.brand.subtle        (opaco, step 100 da paleta)
 semantic.brand.toned.default (transparente, ~12%)
