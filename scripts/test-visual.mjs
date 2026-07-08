@@ -50,7 +50,7 @@ function shouldTest(file) {
   const name = path.basename(file, '.html');
   // Componentes (18) + foundations (10) + índices visuais relevantes.
   // Skip docs com pouco visual/dependentes de markdown gerado.
-  const skip = ['changelog', 'backlog', 'process-contributing', 'process-releasing', 'process-versioning',
+  const skip = ['agent-consumer-usage', 'changelog', 'backlog', 'process-contributing', 'process-releasing', 'process-versioning',
                 'brand-principles', 'design-principles', 'control-sizing', 'token-architecture',
                 'tokens-sync', 'theming'];
   return !skip.includes(name);

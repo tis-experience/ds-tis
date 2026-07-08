@@ -140,6 +140,34 @@ function assertReadmeConsumerGuidance() {
   ok(readme.includes("ds-tis/theme"), "README must document theme package import");
 }
 
+function assertAgentConsumerUsageGuide() {
+  const readme = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
+  const guideMd = fs.readFileSync(path.join(ROOT, "docs/agent-consumer-usage.md"), "utf8");
+  const llmsTxt = fs.readFileSync(path.join(ROOT, "docs/llms.txt"), "utf8");
+
+  ok(readme.includes("docs/agent-consumer-usage.html"), "README must link the agent consumer usage guide");
+  ok(fileExists("docs/agent-consumer-usage.html"), "docs/agent-consumer-usage.html must be generated");
+  ok(llmsTxt.includes("docs/agent-consumer-usage.html"), "docs/llms.txt must reference the agent consumer usage guide");
+  ok(guideMd.includes("Prompt curto para agent consumidor"), "agent consumer guide must include the short prompt block");
+
+  for (const required of [
+    "ds-tis/css",
+    "ds-tis/combobox",
+    "ds-tis/theme",
+    "ds-tis/templates/*",
+    "docs/api/components.json",
+    "docs/api/tokens.json",
+    "docs/llms-full.txt",
+    "ds-field",
+    "ds-input__field",
+    "aria-*",
+    "focus ring",
+    "nao invente wrappers oficiais",
+  ]) {
+    ok(guideMd.includes(required), `agent consumer guide missing ${required}`);
+  }
+}
+
 function assertComponentTokenAuditContract() {
   const buttonCss = fs.readFileSync(path.join(ROOT, "css/components/button.css"), "utf8");
   ok(
@@ -201,6 +229,7 @@ assertPackageConsumerContract();
 await assertPublicModuleImports();
 assertPackDryRun();
 assertReadmeConsumerGuidance();
+assertAgentConsumerUsageGuide();
 assertComponentTokenAuditContract();
 runCommand("npm run audit:component-tokens", "npm", ["run", "audit:component-tokens"]);
 assertAgentRunContract();

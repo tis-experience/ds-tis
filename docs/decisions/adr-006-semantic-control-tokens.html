@@ -150,7 +150,7 @@
 </tr>
 </tbody></table>
 <p>Tokens em <code>light.json</code> e <code>dark.json</code> (mode-invariant, mesmos valores nos dois):</p>
-<pre><code>semantic.typography.control.font-size.sm  → {foundation.typography.font.size.sm}   (0.875rem)
+<pre tabindex="0"><code>semantic.typography.control.font-size.sm  → {foundation.typography.font.size.sm}   (0.875rem)
 semantic.typography.control.font-size.md  → {foundation.typography.font.size.sm}   (0.875rem)
 semantic.typography.control.font-size.lg  → {foundation.typography.font.size.md}   (1rem)
 semantic.typography.control.line-height.sm → {foundation.typography.font.size.md}  (1rem / 16px)
@@ -159,7 +159,7 @@ semantic.typography.control.line-height.lg → {foundation.typography.font.size.
 </code></pre>
 <p>*Nota: 20px (1.25rem) não existe na escala de font-size. Se não houver token foundation equivalente, criar <code>foundation.typography.line-height.control.md</code> com valor <code>1.25rem</code>. Alternativamente, usar <code>foundation.spacing.5</code> (1.25rem / 20px), já que o valor é idêntico. Preferência: criar um token dedicado para evitar confusão semântica entre spacing e line-height.</p>
 <h3>2. Criar tokens semânticos dimensionais de controle</h3>
-<pre><code>semantic.size.control.sm         → 2rem     (32px)  — referencia {foundation.spacing.8}
+<pre tabindex="0"><code>semantic.size.control.sm         → 2rem     (32px)  — referencia {foundation.spacing.8}
 semantic.size.control.md         → 2.5rem   (40px)  — referencia {foundation.spacing.10}
 semantic.size.control.lg         → 3rem     (48px)  — referencia {foundation.spacing.12}
 semantic.size.control.icon.sm    → 1rem     (16px)  — referencia {foundation.spacing.4}
@@ -183,7 +183,7 @@ semantic.space.control.padding-y.lg → {foundation.spacing.3}    (12px)
 </ul>
 <h3>3. Atualizar tokens de componente para referenciar os tokens semânticos de controle</h3>
 <p><code>component.button.*</code> e futuros <code>component.input.*</code>, <code>component.select.*</code> referenciavam os tokens semânticos de controle. Este formato foi substituído por ADR-019, que exige o segmento anatômico no nome do token Component:</p>
-<pre><code>component.button.height.sm → {semantic.size.lg}
+<pre tabindex="0"><code>component.button.height.sm → {semantic.size.lg}
 component.button.height.md → {semantic.size.xl}
 component.button.height.lg → {semantic.size.2xl}
 component.input.height.sm  → {semantic.size.lg}

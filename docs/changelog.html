@@ -70,6 +70,14 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2>[Não publicado]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Guia para agents consumidores.</strong> Nova página pública <code>docs/agent-consumer-usage.html</code> define como agents devem implementar telas em projetos consumidores usando <code>ds-tis/css</code>, <code>ds-tis/combobox</code>, <code>ds-tis/theme</code>, templates, anatomia pública, acessibilidade e checklist de evidência. <code>AGENTS.md</code> agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e <code>verify:agent-docs</code> protege a referência.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.</strong> <code>sync:docs</code> adiciona <code>tabindex=&quot;0&quot;</code> em <code>&lt;pre&gt;</code> gerado por Markdown, evitando violações <code>scrollable-region-focusable</code> quando blocos de código ficam roláveis no CI/Linux.</li>
+</ul>
 <h3>Alterado</h3>
 <ul>
 <li><strong>Cenarios de auditoria executaveis.</strong> Novo <code>npm run test:audit-scenarios</code> valida consumo real do pacote (<code>exports</code>, <code>files</code>, self-imports e <code>npm pack --dry-run</code>), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.</li>

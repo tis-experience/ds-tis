@@ -58,6 +58,7 @@ Links rápidos:
 - [Getting Started](./index.html)
 - [Token Architecture](./docs/token-architecture.html)
 - [Documentation Guidelines](./docs/documentation-guidelines.html)
+- [Guia para agents consumidores](./docs/agent-consumer-usage.html) — como implementar telas em projetos consumidores usando o DS TIS
 - [Component Inventory](./docs/component-inventory.md)
 - [Decisões (ADRs)](./docs/decisions/)
 - [Changelog](./CHANGELOG.md)
