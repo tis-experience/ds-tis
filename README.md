@@ -6,8 +6,36 @@ Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (F
 
 ## Instalação
 
+Como dependência do projeto:
+
+```bash
+npm install ds-tis
+```
+
+Import principal:
+
+```js
+import 'ds-tis/css';
+```
+
+HTML estático ou protótipo sem bundler:
+
 ```html
-<link rel="stylesheet" href="https://cdn.example.com/ds-tis@1.0.0-beta.6/css/design-system.css">
+<link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
+```
+
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar do comportamento de Combobox:
+
+```js
+import { initComboboxes } from 'ds-tis/combobox';
+
+initComboboxes();
+```
+
+O pacote também exporta o theme engine e templates HTML:
+
+```js
+import { applyTheme, toCssSnippet } from 'ds-tis/theme';
 ```
 
 Uso local:
@@ -16,10 +44,10 @@ Uso local:
 git clone <repo-url>
 cd ds-tis
 npm install
-npm run build:tokens
+npm run build:all
 ```
 
-Depois serve o diretório estático (`python3 -m http.server` ou equivalente).
+Depois sirva o diretório estático (`python3 -m http.server` ou equivalente).
 
 ## Documentação completa
 

@@ -2676,7 +2676,6 @@
       "usos": {
         "css": [],
         "tokens": [
-          "semantic.toned.background.default",
           "semantic.toned.background.default"
         ],
         "figma": []
@@ -2696,7 +2695,6 @@
       "usos": {
         "css": [],
         "tokens": [
-          "semantic.toned.background.hover",
           "semantic.toned.background.hover"
         ],
         "figma": []
@@ -2716,7 +2714,6 @@
       "usos": {
         "css": [],
         "tokens": [
-          "semantic.toned.background.active",
           "semantic.toned.background.active"
         ],
         "figma": []
@@ -2735,7 +2732,9 @@
       "decisao": "Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).",
       "usos": {
         "css": [],
-        "tokens": [],
+        "tokens": [
+          "semantic.toned.background.default"
+        ],
         "figma": []
       }
     },
@@ -2752,7 +2751,9 @@
       "decisao": "Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).",
       "usos": {
         "css": [],
-        "tokens": [],
+        "tokens": [
+          "semantic.toned.background.hover"
+        ],
         "figma": []
       }
     },
@@ -2769,7 +2770,9 @@
       "decisao": "Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).",
       "usos": {
         "css": [],
-        "tokens": [],
+        "tokens": [
+          "semantic.toned.background.active"
+        ],
         "figma": []
       }
     },
@@ -5454,6 +5457,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/accordion.css",
+            "count": 3
+          },
+          {
             "file": "css/components/alert.css",
             "count": 1
           },
@@ -5471,7 +5478,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 4
+            "count": 5
           },
           {
             "file": "css/components/input.css",
@@ -5553,6 +5560,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/accordion.css",
+            "count": 3
+          },
+          {
             "file": "css/components/alert.css",
             "count": 1
           },
@@ -5570,7 +5581,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 4
+            "count": 5
           },
           {
             "file": "css/components/input.css",
@@ -5744,14 +5755,15 @@
         "css": [
           {
             "file": "css/tokens/generated/theme-dark.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
           "semantic.brand.background.default",
           "semantic.brand.background.active",
           "semantic.toned.content-default",
-          "semantic.link.content-default"
+          "semantic.link.content-default",
+          "semantic.content.brand"
         ],
         "figma": []
       }
@@ -5828,13 +5840,14 @@
         "css": [
           {
             "file": "css/tokens/generated/theme-light.css",
-            "count": 3
+            "count": 4
           }
         ],
         "tokens": [
           "semantic.brand.background.hover",
           "semantic.toned.content-default",
-          "semantic.link.content-default"
+          "semantic.link.content-default",
+          "semantic.content.brand"
         ],
         "figma": []
       }
@@ -6782,6 +6795,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/accordion.css",
+            "count": 1
+          },
+          {
             "file": "css/components/combobox.css",
             "count": 1
           },
@@ -7328,7 +7345,7 @@
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
-            "count": 3
+            "count": 2
           },
           {
             "file": "css/tokens/generated/theme-light.css",
@@ -7338,7 +7355,6 @@
         "tokens": [
           "semantic.control.toggle.thumb.gap",
           "semantic.space.2xs",
-          "semantic.space.hairline",
           "semantic.control.toggle.thumb.gap",
           "semantic.space.2xs"
         ],
@@ -7968,6 +7984,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/combobox.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
           },
@@ -8555,11 +8575,11 @@
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
-            "count": 2
+            "count": 1
           },
           {
             "file": "css/tokens/generated/theme-light.css",
-            "count": 2
+            "count": 1
           }
         ],
         "tokens": [
@@ -8579,9 +8599,7 @@
           "component.toggle.track.fill.on.default",
           "component.toggle.track.fill.on.focus",
           "semantic.brand.border.default",
-          "semantic.content.brand",
-          "semantic.brand.border.default",
-          "semantic.content.brand"
+          "semantic.brand.border.default"
         ],
         "figma": []
       }
@@ -14932,7 +14950,12 @@
       "contexto": "Component token do contrato anatômico Button. Binda os variants vivos correspondentes no Figma e substitui consumo direto de Semantic no CSS.",
       "decisao": "Alias 1:1 para semantic.typography.body.letter-spacing.normal porque o valor é reutilizável no sistema, mas no Button documenta uma parte pública e estável da anatomia do componente.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/button.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -21244,15 +21267,15 @@
           },
           {
             "file": "css/components/input.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/select.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/textarea.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [],
@@ -21383,6 +21406,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/accordion.css",
+            "count": 1
+          },
+          {
             "file": "css/components/alert.css",
             "count": 1
           },
@@ -21404,7 +21431,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21569,6 +21596,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/accordion.css",
+            "count": 2
+          },
+          {
             "file": "css/components/alert.css",
             "count": 2
           },
@@ -21590,7 +21621,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 2
+            "count": 4
           },
           {
             "file": "css/components/input.css",
@@ -21704,7 +21735,7 @@
     "semantic.content.brand": {
       "layer": "semantic",
       "type": "color",
-      "references": "semantic.brand.background.default",
+      "references": "foundation.color.brand.700",
       "sentido": "Token semantic para content / brand.",
       "escopo": [
         "component-token"
@@ -27007,12 +27038,7 @@
       "contexto": "Usado pelo Combobox para alinhar field, popup listbox e opções à anatomia aprovada em Figma.",
       "decisao": "Alias para semantic.radius.lg para expor a anatomia pública de Combobox na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [
-          {
-            "file": "css/components/combobox.css",
-            "count": 1
-          }
-        ],
+        "css": [],
         "tokens": [],
         "figma": []
       }
@@ -27343,7 +27369,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.radius.lg para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27359,7 +27390,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.border.width.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27375,7 +27411,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.surface.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27391,7 +27432,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.surface.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS. O hover do Accordion usa reforço em border brand; o fill permanece controlado por surface.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27407,7 +27453,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.background.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27423,7 +27474,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.border.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 2
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27439,7 +27495,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.brand.border.hover para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27455,7 +27516,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.border.focus para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27471,7 +27537,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.content.strong para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27487,7 +27558,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27503,7 +27579,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.size.2xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27519,7 +27600,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27535,7 +27621,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.lg para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27551,7 +27642,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.md para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27567,7 +27663,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 2
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27583,7 +27684,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.content.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27599,7 +27705,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27615,7 +27726,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27631,7 +27747,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.space.md para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27647,7 +27768,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.size.sm para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 2
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27663,7 +27789,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.color.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27679,7 +27810,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.color.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27695,7 +27831,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.stroke-width.regular.20 para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27711,7 +27852,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.color.default para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27727,7 +27873,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.color.disabled para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27743,7 +27894,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.size.sm para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 2
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27759,7 +27915,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.icon.stroke-width.regular.20 para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -27775,7 +27936,12 @@
       "contexto": "Usado pelo Accordion para manter item, trigger, content, chevron, leading icon e focus ring alinhados ao componente Figma.",
       "decisao": "Alias para semantic.radius.xl para expor a anatomia pública de Accordion na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/accordion.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -28186,11 +28352,16 @@
       "usos": {
         "css": [
           {
+            "file": "css/tokens/generated/theme-dark.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/theme-light.css",
             "count": 1
           }
         ],
         "tokens": [
+          "semantic.space.hairline",
           "semantic.space.hairline"
         ],
         "figma": []

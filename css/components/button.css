@@ -12,6 +12,7 @@
   font-family: var(--ds-button-label-font-family-default);
   font-weight: var(--ds-button-label-font-weight-default);
   line-height: var(--ds-button-label-line-height-md);
+  letter-spacing: var(--ds-button-label-letter-spacing-default);
   text-decoration: none;
   border: var(--ds-button-border-width-default) solid transparent;
   border-radius: var(--ds-button-radius-default);

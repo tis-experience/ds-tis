@@ -1,9 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
-const ROOT = path.resolve(new URL("..", import.meta.url).pathname);
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pkgPath = require.resolve("lucide/package.json");
 const lucideRoot = path.dirname(pkgPath);
 const lucidePkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));

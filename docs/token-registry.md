@@ -1,6 +1,6 @@
 # Token Registry
 
-> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-02. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
+> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-08. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
 
 Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra arquitetural de camadas.
 
@@ -47,11 +47,11 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.color.brand.100` | color | — | Tom 100 da paleta brand. Tom muito claro — backgrounds, hover states sutis em light mode. | 0 |
 | `foundation.color.brand.200` | color | — | Tom 200 da paleta brand. Tom claro — backgrounds secundários, borders subtle. | 2 |
 | `foundation.color.brand.300` | color | — | Tom 300 da paleta brand. Tom médio-claro — borders default, foregrounds em dark mode. | 2 |
-| `foundation.color.brand.400` | color | — | Tom 400 da paleta brand. Tom médio — fills médios, focus rings. | 5 |
+| `foundation.color.brand.400` | color | — | Tom 400 da paleta brand. Tom médio — fills médios, focus rings. | 6 |
 | `foundation.color.brand.50` | color | — | Tom 50 da paleta brand. Tom muito claro — backgrounds, hover states sutis em light mode. | 0 |
 | `foundation.color.brand.500` | color | — | Tom 500 da paleta brand. Tom médio — fills médios, focus rings. | 5 |
 | `foundation.color.brand.600` | color | — | Tom 600 da paleta brand. Tom forte — fills primários, brand fills. | 5 |
-| `foundation.color.brand.700` | color | — | Tom 700 da paleta brand. Tom escuro — text on light, hover de fills brand. | 4 |
+| `foundation.color.brand.700` | color | — | Tom 700 da paleta brand. Tom escuro — text on light, hover de fills brand. | 5 |
 | `foundation.color.brand.800` | color | — | Tom 800 da paleta brand. Tom muito escuro — emphasis text, active states. | 4 |
 | `foundation.color.brand.900` | color | — | Tom 900 da paleta brand. Tom extremo — surfaces escuras, body text em light mode. | 0 |
 | `foundation.color.brand.950` | color | — | Tom 950 da paleta brand. Tom extremo — surfaces escuras, body text em light mode. | 4 |
@@ -124,12 +124,12 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.color.overlay.black.5` | color | — | Sobreposição translúcida em black a 5% de opacidade. | 3 |
 | `foundation.color.overlay.black.60` | color | — | Sobreposição translúcida em black a 60% de opacidade. | 2 |
 | `foundation.color.overlay.black.80` | color | — | Sobreposição translúcida em black a 80% de opacidade. | 0 |
-| `foundation.color.overlay.brand-400.15` | color | — | Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-400.25` | color | — | Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-400.32` | color | — | Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.12` | color | — | Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.20` | color | — | Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.28` | color | — | Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-400.15` | color | — | Sobreposição translúcida em brand-400 a 15% de opacidade. | 1 |
+| `foundation.color.overlay.brand-400.25` | color | — | Sobreposição translúcida em brand-400 a 25% de opacidade. | 1 |
+| `foundation.color.overlay.brand-400.32` | color | — | Sobreposição translúcida em brand-400 a 32% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.12` | color | — | Sobreposição translúcida em brand-600 a 12% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.20` | color | — | Sobreposição translúcida em brand-600 a 20% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.28` | color | — | Sobreposição translúcida em brand-600 a 28% de opacidade. | 1 |
 | `foundation.color.overlay.white.10` | color | — | Sobreposição translúcida em white a 10% de opacidade. | 1 |
 | `foundation.color.overlay.white.20` | color | — | Sobreposição translúcida em white a 20% de opacidade. | 1 |
 | `foundation.color.overlay.white.40` | color | — | Sobreposição translúcida em white a 40% de opacidade. | 1 |
@@ -182,7 +182,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.dimension.1024` | dimension | — | Dimensão fixa de 1024px (64rem). | 4 |
 | `foundation.dimension.12` | dimension | — | Dimensão fixa de 12px (0.75rem). | 9 |
 | `foundation.dimension.120` | dimension | — | Dimensão fixa de 120px (7.5rem). | 8 |
-| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 4 |
+| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 5 |
 | `foundation.dimension.1280` | dimension | — | Dimensão fixa de 1280px (80rem). | 4 |
 | `foundation.dimension.14` | dimension | — | Dimensão fixa de 14px (0.875rem). | 0 |
 | `foundation.dimension.16` | dimension | — | Dimensão fixa de 16px (1rem). | 10 |
@@ -381,7 +381,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.brand.background.active` | color | → `foundation.color.brand.800` | Fill de ação primária (brand solid) em estado active. | 2 |
-| `semantic.brand.background.default` | color | → `foundation.color.brand.600` | Fill de ação primária (brand solid) em estado default. | 22 |
+| `semantic.brand.background.default` | color | → `foundation.color.brand.600` | Fill de ação primária (brand solid) em estado default. | 20 |
 | `semantic.brand.background.disabled` | color | → `foundation.color.disabled.brand.light` | Fill de ação primária (brand solid) em estado disabled. | 10 |
 | `semantic.brand.background.hover` | color | → `foundation.color.brand.700` | Fill de ação primária (brand solid) em estado hover. | 10 |
 | `semantic.brand.border.default` | color | → `semantic.brand.background.default` | Token semantic para primary / border / default. | 3 |
@@ -395,7 +395,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `semantic.content.brand` | color | → `semantic.brand.background.default` | Token semantic para content / brand. | 2 |
+| `semantic.content.brand` | color | → `foundation.color.brand.700` | Token semantic para content / brand. | 2 |
 | `semantic.content.default` | color | → `foundation.color.neutral.700` | Texto secundário — descrições, helper text, meta-info. | 25 |
 | `semantic.content.disabled` | color | → `foundation.color.neutral.400` | Texto disabled — controles e items inativos. | 15 |
 | `semantic.content.hover` | color | → `foundation.color.neutral.700` | Conteúdo neutro em hover. | 6 |
@@ -956,7 +956,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `component.button.label.font-size.md` | dimension | → `semantic.typography.body.font-size.sm` | font-size do label Button md. | 1 |
 | `component.button.label.font-size.sm` | dimension | → `semantic.typography.body.font-size.sm` | font-size do label Button sm. | 1 |
 | `component.button.label.font-weight.default` | string | → `semantic.typography.body.font-weight.bold` | font-weight do label Button default. | 1 |
-| `component.button.label.letter-spacing.default` | dimension | → `semantic.typography.body.letter-spacing.normal` | letter-spacing do label Button default. | 0 |
+| `component.button.label.letter-spacing.default` | dimension | → `semantic.typography.body.letter-spacing.normal` | letter-spacing do label Button default. | 1 |
 | `component.button.label.line-height.lg` | dimension | → `semantic.typography.body.line-height.md` | line-height do label Button lg. | 1 |
 | `component.button.label.line-height.md` | dimension | → `semantic.typography.body.line-height.sm` | line-height do label Button md. | 1 |
 | `component.button.label.line-height.sm` | dimension | → `semantic.typography.body.line-height.2xs` | line-height do label Button sm. | 1 |
@@ -1055,7 +1055,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.combobox.focus-ring.radius.default` | dimension | → `semantic.radius.lg` | Radius do focus ring do Combobox. | 1 |
+| `component.combobox.focus-ring.radius.default` | dimension | → `semantic.radius.lg` | Radius do focus ring do Combobox. | 0 |
 | `component.combobox.height.lg` | dimension | → `semantic.size.2xl` | Altura do control Combobox no tamanho lg. | 1 |
 | `component.combobox.height.md` | dimension | → `semantic.size.xl` | Altura do control Combobox no tamanho md. | 1 |
 | `component.combobox.height.sm` | dimension | → `semantic.size.lg` | Altura do control Combobox no tamanho sm. | 1 |
@@ -1910,8 +1910,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 50–950 padronizada. Calibrado pra contraste WCAG: 50–200 = backgrounds claros; 300–500 = states de UI; 600–800 = foregrounds e fills sólidos; 900–950 = dark surfaces.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/theme-dark.css` (4×)
-  - Tokens que referenciam: `semantic.brand.background.default`, `semantic.brand.background.active`, `semantic.toned.content-default`, `semantic.link.content-default`
+    - `css/tokens/generated/theme-dark.css` (5×)
+  - Tokens que referenciam: `semantic.brand.background.default`, `semantic.brand.background.active`, `semantic.toned.content-default`, `semantic.link.content-default`, `semantic.content.brand`
 
 ### `foundation.color.brand.50`
 
@@ -1960,8 +1960,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 50–950 padronizada. Calibrado pra contraste WCAG: 50–200 = backgrounds claros; 300–500 = states de UI; 600–800 = foregrounds e fills sólidos; 900–950 = dark surfaces.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/theme-light.css` (3×)
-  - Tokens que referenciam: `semantic.brand.background.hover`, `semantic.toned.content-default`, `semantic.link.content-default`
+    - `css/tokens/generated/theme-light.css` (4×)
+  - Tokens que referenciam: `semantic.brand.background.hover`, `semantic.toned.content-default`, `semantic.link.content-default`, `semantic.content.brand`
 
 ### `foundation.color.brand.800`
 
@@ -2826,7 +2826,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 15% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -2837,7 +2837,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 25% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -2848,7 +2848,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 32% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -2859,7 +2859,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 12% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -2870,7 +2870,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 20% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -2881,7 +2881,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 28% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -3460,6 +3460,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
+    - `css/components/combobox.css` (1×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
   - Tokens que referenciam: `semantic.size.5xl`, `semantic.size.5xl`
@@ -5253,9 +5254,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (15×)
-    - `css/tokens/generated/theme-dark.css` (2×)
-    - `css/tokens/generated/theme-light.css` (2×)
-  - Tokens que referenciam: `component.avatar.bg.default`, `component.badge.bg.brand.solid`, `component.button.bg.brand.default`, `component.button.bg.brand.focus`, `component.checkbox.box.fill.checked.default`, `component.checkbox.box.fill.checked.focus`, `component.checkbox.box.fill.indeterminate.default`, `component.checkbox.box.fill.indeterminate.focus`, `component.modal.action.fill.brand`, `component.pagination.item.bg.current`, `component.radio.control.fill.selected.default`, `component.radio.control.fill.selected.focus`, `component.tabs.indicator.fill.active`, `component.toggle.track.fill.on.default`, `component.toggle.track.fill.on.focus`, `semantic.brand.border.default`, `semantic.content.brand`, `semantic.brand.border.default`, `semantic.content.brand`
+    - `css/tokens/generated/theme-dark.css` (1×)
+    - `css/tokens/generated/theme-light.css` (1×)
+  - Tokens que referenciam: `component.avatar.bg.default`, `component.badge.bg.brand.solid`, `component.button.bg.brand.default`, `component.button.bg.brand.focus`, `component.checkbox.box.fill.checked.default`, `component.checkbox.box.fill.checked.focus`, `component.checkbox.box.fill.indeterminate.default`, `component.checkbox.box.fill.indeterminate.focus`, `component.modal.action.fill.brand`, `component.pagination.item.bg.current`, `component.radio.control.fill.selected.default`, `component.radio.control.fill.selected.focus`, `component.tabs.indicator.fill.active`, `component.toggle.track.fill.on.default`, `component.toggle.track.fill.on.focus`, `semantic.brand.border.default`, `semantic.brand.border.default`
 
 ### `semantic.brand.background.disabled`
 
@@ -5403,7 +5404,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: semantic
 - **Tipo**: `color`
-- **Alias**: → `semantic.brand.background.default`
+- **Alias**: → `foundation.color.brand.700`
 - **Sentido**: Token semantic para content / brand.
 - **Escopo**: component-token
 - **Contexto**: Usado para estabilizar o contrato semantic exposto por semantic.content.brand.
@@ -6662,7 +6663,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (3×)
-    - `css/components/combobox.css` (4×)
+    - `css/components/combobox.css` (5×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (5×)
@@ -6740,7 +6741,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (3×)
-    - `css/components/combobox.css` (4×)
+    - `css/components/combobox.css` (5×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (5×)
@@ -7649,7 +7650,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado active.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.28 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.28 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -7663,7 +7664,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado default.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.12 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.12 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (3×)
@@ -7691,7 +7692,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado hover.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.20 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.20 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -11183,7 +11184,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Component token do contrato anatômico Button. Binda os variants vivos correspondentes no Figma e substitui consumo direto de Semantic no CSS.
 - **Decisão**: Alias 1:1 para semantic.typography.body.letter-spacing.normal porque o valor é reutilizável no sistema, mas no Button documenta uma parte pública e estável da anatomia do componente.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/button.css` (1×)
 
 ### `component.button.label.line-height.lg`
 
@@ -12200,8 +12202,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Combobox para alinhar field, popup listbox e opções à anatomia aprovada em Figma.
 - **Decisão**: Alias para semantic.radius.lg para expor a anatomia pública de Combobox na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - CSS:
-    - `css/components/combobox.css` (1×)
+  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.combobox.height.lg`
 
@@ -12973,9 +12974,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/components/combobox.css` (1×)
-    - `css/components/input.css` (1×)
-    - `css/components/select.css` (1×)
-    - `css/components/textarea.css` (1×)
+    - `css/components/input.css` (2×)
+    - `css/components/select.css` (2×)
+    - `css/components/textarea.css` (2×)
 
 ### `component.field.text-frame.padding-x.default`
 
@@ -13054,7 +13055,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (1×)
     - `css/components/card.css` (1×)
     - `css/components/checkbox.css` (1×)
-    - `css/components/combobox.css` (1×)
+    - `css/components/combobox.css` (2×)
     - `css/components/input.css` (1×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (1×)
@@ -13130,7 +13131,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (2×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (2×)
-    - `css/components/combobox.css` (2×)
+    - `css/components/combobox.css` (4×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (2×)
     - `css/components/menu.css` (2×)
