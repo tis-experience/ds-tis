@@ -55,10 +55,18 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 }
 
 .ds-site-header__logo {
-  width: 32px;
-  height: 32px;
+  width: 80px;
+  height: 36px;
   display: block;
   object-fit: contain;
+  flex-shrink: 0;
+}
+
+.ds-site-header__brand-separator {
+  width: var(--ds-border-width-default);
+  height: var(--ds-dimension-24);
+  background-color: currentColor;
+  opacity: var(--ds-opacity-50);
   flex-shrink: 0;
 }
 
@@ -674,6 +682,10 @@ body .ds-md-generated-banner code {
   }
 
   .ds-site-header__title {
+    display: none;
+  }
+
+  .ds-site-header__brand-separator {
     display: none;
   }
 

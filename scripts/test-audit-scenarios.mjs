@@ -33,6 +33,18 @@ function fileExists(rel) {
   return fs.existsSync(path.join(ROOT, rel));
 }
 
+function listHtmlFiles(dir, files = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const absolutePath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      listHtmlFiles(absolutePath, files);
+    } else if (entry.isFile() && entry.name.endsWith(".html")) {
+      files.push(absolutePath);
+    }
+  }
+  return files;
+}
+
 function runCommand(label, command, args) {
   const finalArgs = command === "npm"
     ? ["--cache", "/private/tmp/npm-cache-ds-tis-scenarios", ...args]
@@ -168,6 +180,38 @@ function assertAgentConsumerUsageGuide() {
   }
 }
 
+function assertDocumentationLogoContract() {
+  const htmlFiles = [
+    path.join(ROOT, "index.html"),
+    ...listHtmlFiles(path.join(ROOT, "docs")),
+  ];
+
+  for (const absolutePath of htmlFiles) {
+    const rel = path.relative(ROOT, absolutePath);
+    const html = fs.readFileSync(absolutePath, "utf8");
+    const headerMatches = [...html.matchAll(/<a href="[^"]+" class="ds-site-header__brand"[^>]*>[\s\S]*?<\/a>/g)];
+
+    ok(headerMatches.length === 1, `${rel} must include one site brand link`);
+
+    for (const match of headerMatches) {
+      const header = match[0];
+      const img = header.match(/<img class="ds-site-header__logo" src="([^"]+)" alt="TIS" width="80" height="36">/);
+
+      ok(header.includes('aria-label="TIS Design System"'), `${rel} brand link must expose an accessible label`);
+      ok(Boolean(img), `${rel} must use the full TIS logo with alt and stable dimensions`);
+      ok(!header.includes("logo-tis-mark.svg"), `${rel} must not use the cropped TIS symbol asset`);
+      ok(header.includes("ds-site-header__brand-separator"), `${rel} must render the TIS | Design System separator`);
+      ok(header.includes('class="ds-site-header__title">Design System</span>'), `${rel} must render the header title as Design System`);
+      ok(!header.includes("Design System TIS"), `${rel} header must not use the old Design System TIS title`);
+
+      if (!img) continue;
+      const logoPath = path.resolve(path.dirname(absolutePath), img[1]);
+      ok(path.basename(logoPath) === "logo-tis.svg", `${rel} must point to logo-tis.svg`);
+      ok(fs.existsSync(logoPath), `${rel} logo src must resolve to an existing file: ${img[1]}`);
+    }
+  }
+}
+
 function assertComponentTokenAuditContract() {
   const buttonCss = fs.readFileSync(path.join(ROOT, "css/components/button.css"), "utf8");
   ok(
@@ -230,6 +274,7 @@ await assertPublicModuleImports();
 assertPackDryRun();
 assertReadmeConsumerGuidance();
 assertAgentConsumerUsageGuide();
+assertDocumentationLogoContract();
 assertComponentTokenAuditContract();
 runCommand("npm run audit:component-tokens", "npm", ["run", "audit:component-tokens"]);
 assertAgentRunContract();

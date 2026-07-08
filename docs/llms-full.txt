@@ -239,6 +239,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
 
 ### Corrigido
+- **Logo da documentação carrega corretamente em todas as rotas.** Topbar passa a usar o logotipo completo `docs/assets/logo-tis.svg` no padrão `TIS | Design System`; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
@@ -246,7 +247,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Empacotamento para consumo real.** `package.json` passa a publicar CSS, templates, helper de Combobox e theme engine, com `exports` para `ds-tis/css`, `ds-tis/combobox` e `ds-tis/theme`; `js/package.json` declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.
 - **Auditoria de Component tokens reconhece componentes CSS-only.** `audit:component-tokens` deixa de tratar `form-field/*` como erro de binding Figma, respeitando ADR-017, e o Button passa a explicitar `letter-spacing` via `--ds-button-label-letter-spacing-default`.
 - **Paleta brand recalibrada para contraste com folga (seed `#0056E0`).** Escala OKLCH escurecida de forma perceptível em relação ao ajuste anterior (`#036EF2` / `#026DF1`): `brand/600` = `#0065ED` (fill primário, ~5,1:1 vs branco e ~4,9:1 vs `neutral-50` em botões), `brand/700` = `#0050DA`. **`semantic.content.brand` (light)** passa a usar `brand/700` em vez de `brand/600`, garantindo AA texto em fundos neutros e tinted (`neutral-100`, `brand-50`, `brand-100`); fills sólidos e links mantêm a separação 600/700/800. Figma (`color/brand/*`, overlays, disabled, `content/brand` Light→700 / Dark→400), JSON/CSS, Theme Playground e `foundations-colors.html` sincronizados; `test-theme-engine` valida folga de contraste.
-- **Branding da documentação.** Topbar passa a exibir o logo TIS (`docs/assets/logo-tis-mark.svg`) no lugar do ícone "DS" e o título **Design System TIS** em todas as páginas HTML; home atualizada com o mesmo nome.
+- **Branding da documentação.** Topbar passa a exibir a marca TIS no lugar do ícone "DS" em todas as páginas HTML; home atualizada com o mesmo nome.
 - **Capa Figma corrigida.** A página estava com modo Semantic **Dark**, fazendo `content/inverse` e `brand/content/default` renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a **Semantic Light**; labels dos stats rebindados para `brand/content/default`. Versão atualizada para `v1.0.0-beta.6`; contagem de componentes `19`.
 
 ## [1.0.0-beta.6] — 2026-07-06
