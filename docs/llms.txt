@@ -14,6 +14,7 @@ Arquivo completo para LLMs: docs/llms-full.txt
 - [Theming](docs/theming.html): como customizar brand e alternar modo.
 - [Accessibility](docs/accessibility.html): WCAG 2.2 AA aplicada.
 - [Design Principles](docs/design-principles.html): princípios do sistema.
+- [Agent Consumer Usage](docs/agent-consumer-usage.html): como agents implementam telas em projetos consumidores usando o DS TIS.
 
 ## Foundations
 

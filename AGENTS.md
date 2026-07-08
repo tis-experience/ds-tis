@@ -118,7 +118,13 @@ Análogo a categorias CSS-only de tokens, alguns **componentes** existem só no 
 2. Quando um componente hospeda conteúdo customizado ou slot (ex: Modal/Card), o conteúdo de exemplo deve ser composto com componentes reais do DS (`Button`, `Input`, `Select`, `Textarea`, etc.) sempre que eles já existirem.
 3. Só criar markup ad hoc em docs quando não existir componente DS correspondente ou quando o exemplo estiver documentando explicitamente um primitive/layout genérico.
 
-### 4.2.2 Criar ou redesenhar componentes com agente IA
+### 4.2.2 Implementar telas em projetos consumidores com agente IA
+
+Se o pedido for para uma IA implementar tela, fluxo, protótipo ou app **fora deste repositório** usando o DS TIS, a entrada obrigatória é `docs/agent-consumer-usage.md` (página pública: `docs/agent-consumer-usage.html`).
+
+Esse guia ensina o agent consumidor a instalar/importar `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme` e `ds-tis/templates/*`, consultar `docs/api/components.json`, `docs/api/tokens.json`, páginas de componentes e `docs/llms-full.txt`, usar anatomia pública, preservar acessibilidade e entregar checklist de evidência. Não use o workflow de criação/redesign de componentes abaixo para esse caso, salvo se o trabalho também pedir mudança no próprio DS.
+
+### 4.2.3 Criar ou redesenhar componentes com agente IA
 
 Novo componente, redesenho estrutural ou novo padrão de documentação **não começa com escrita no Figma nem no repo**. Primeiro siga `docs/process-ai-component-workflow.md` e obtenha aprovação explícita do owner para o brief/spec.
 
@@ -399,10 +405,11 @@ CI (`.github/workflows/deploy.yml`) roda `build:tokens` em cada push pra main e 
 2. `docs/decisions/adr-index.md` — decisões arquiteturais ativas.
 3. `docs/system-principles.md` — princípios operacionais profundos.
 4. `docs/process-ai-component-workflow.md` — gate para agentes antes de criar/redesenhar componentes e padrões.
-5. `docs/token-architecture.html` — arquitetura visual.
-6. `docs/process-figma-sync.md` — fluxo Figma↔JSON.
-7. `docs/backlog.md` — o que ainda está por fazer.
-8. Issue no GitHub ou perguntar ao owner.
+5. `docs/agent-consumer-usage.md` — guia para agents implementarem telas em projetos consumidores usando o DS TIS.
+6. `docs/token-architecture.html` — arquitetura visual.
+7. `docs/process-figma-sync.md` — fluxo Figma↔JSON.
+8. `docs/backlog.md` — o que ainda está por fazer.
+9. Issue no GitHub ou perguntar ao owner.
 
 ---
 

@@ -8,6 +8,9 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+### Adicionado
+- **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
+
 ### Alterado
 - **Cenarios de auditoria executaveis.** Novo `npm run test:audit-scenarios` valida consumo real do pacote (`exports`, `files`, self-imports e `npm pack --dry-run`), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.
 - **Empacotamento para consumo real.** `package.json` passa a publicar CSS, templates, helper de Combobox e theme engine, com `exports` para `ds-tis/css`, `ds-tis/combobox` e `ds-tis/theme`; `js/package.json` declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.

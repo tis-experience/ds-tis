@@ -13,6 +13,7 @@ const requiredFiles = [
   "AGENTS.md",
   "CLAUDE.md",
   "GEMINI.md",
+  "docs/agent-consumer-usage.md",
   "docs/agent-integrations.md",
   "docs/agents/README.md",
   "docs/agents/product-designer-workflow.md",
@@ -37,6 +38,17 @@ const requiredIgnores = [
 const adapterRequirements = [
   { file: "CLAUDE.md", includes: ["AGENTS.md", "docs/agent-integrations.md", "docs/agents/protocol.md"] },
   { file: "GEMINI.md", includes: ["AGENTS.md", "docs/agent-integrations.md", "docs/agents/protocol.md"] },
+];
+
+const sharedInstructionRequirements = [
+  {
+    file: "AGENTS.md",
+    includes: ["docs/agent-consumer-usage.md", "docs/agent-consumer-usage.html"],
+  },
+  {
+    file: "docs/agent-consumer-usage.md",
+    includes: ["docs/api/components.json", "docs/api/tokens.json", "docs/llms-full.txt", "Prompt curto para agent consumidor"],
+  },
 ];
 
 const forbiddenPatterns = [
@@ -85,6 +97,16 @@ if (fs.existsSync(path.join(ROOT, ".gitignore"))) {
 }
 
 for (const { file, includes } of adapterRequirements) {
+  if (!fs.existsSync(path.join(ROOT, file))) continue;
+  const body = read(file);
+  for (const expected of includes) {
+    if (!body.includes(expected)) {
+      errors.push(`${file} deve apontar para ${expected}`);
+    }
+  }
+}
+
+for (const { file, includes } of sharedInstructionRequirements) {
   if (!fs.existsSync(path.join(ROOT, file))) continue;
   const body = read(file);
   for (const expected of includes) {
