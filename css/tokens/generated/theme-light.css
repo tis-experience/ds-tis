@@ -81,6 +81,7 @@
   --ds-content-subtle: var(--ds-color-neutral-600); /** Conteúdo de ênfase reduzida (placeholders, ícones decorativos, helper text). */
   --ds-content-disabled: var(--ds-color-neutral-400); /** Conteúdo em estado disabled. Isento de contraste WCAG. Unifica text/disabled e state/disabled/foreground (ADR-011). */
   --ds-content-inverse: var(--ds-color-neutral-50); /** Conteúdo sobre superfícies inversas (background/inverse). */
+  --ds-content-brand: var(--ds-color-brand-700); /** Conteúdo brand sobre superfície neutra. Step 700 garante WCAG AA em fundos neutros e tinted (50–100); fills sólidos continuam em brand.600. */
   --ds-content-placeholder-rectangle-height-default: var(--ds-dimension-120); /** Altura padrão do placeholder retangular de conteúdo. */
   --ds-content-placeholder-text-height-default: var(--ds-dimension-12); /** Altura padrão do placeholder textual de conteúdo. */
   --ds-control-button-min-width-sm: var(--ds-dimension-80);
@@ -223,7 +224,6 @@
   --ds-brand-border-default: var(--ds-brand-background-default);
   --ds-brand-border-hover: var(--ds-brand-background-hover);
   --ds-brand-border-disabled: var(--ds-brand-background-disabled);
-  --ds-content-brand: var(--ds-brand-background-default); /** Conteúdo brand sobre superfície neutra. */
   --ds-icon-color-default: var(--ds-content-default);
   --ds-icon-color-hover: var(--ds-content-hover);
   --ds-icon-color-active: var(--ds-content-strong);

@@ -27,6 +27,7 @@ if (args.includes("--help") || args.includes("-h")) {
 }
 const strictUnused = args.includes("--strict-unused");
 const MIN_STRUCTURE_EXPORTER_VERSION = "0.2.0";
+const CSS_ONLY_COMPONENTS = new Set(["form-field"]);
 
 const snapshotArgIndex = args.indexOf("--snapshot");
 const DEFAULT_STRUCTURE_SNAPSHOT_PATH = path.join(ROOT, ".figma-snapshot.structure.json");
@@ -136,6 +137,7 @@ const unusedComponentVariablesRaw = Array.isArray(variableUsage?.unusedComponent
   : [];
 const unusedComponentVariables = classifyUnusedComponentVariables(unusedComponentVariablesRaw, registry);
 const unusedSummary = summarizeUnusedComponentVariables(unusedComponentVariables);
+const blockingUnusedComponentVariables = unusedComponentVariables.filter((item) => item.issueCode !== "css-only-component-variable");
 
 if (strictUnused && !variableUsage) {
   issues.push(issue(
@@ -147,7 +149,7 @@ if (strictUnused && !variableUsage) {
 }
 
 if (strictUnused) {
-  for (const item of unusedComponentVariables) {
+  for (const item of blockingUnusedComponentVariables) {
     issues.push(issue(
       "variable",
       item.issueCode,
@@ -189,11 +191,11 @@ if (issues.length > 0) {
     console.log(`  [${item.code}] ${item.target}`);
     if (item.message) console.log(`    ${item.message}`);
   }
-  if (!strictUnused && unusedComponentVariables.length > 0) {
+  if (!strictUnused && blockingUnusedComponentVariables.length > 0) {
     console.log("");
     console.log("Aviso: há Component variables sem uso nos variants finais.");
     console.log("Use --strict-unused para tratar isso como erro.");
-    for (const item of unusedComponentVariables.slice(0, 20)) {
+    for (const item of blockingUnusedComponentVariables.slice(0, 20)) {
       console.log(`  [${item.issueCode}] ${item.name}`);
     }
   }
@@ -233,14 +235,14 @@ function parseVersion(value) {
 }
 
 console.log("✓ Estrutura Figma válida para as invariantes automatizadas.");
-if (!strictUnused && unusedComponentVariables.length > 0) {
+if (!strictUnused && blockingUnusedComponentVariables.length > 0) {
   console.log("");
   console.log("Aviso: Component variables sem uso nos variants finais:");
-  for (const item of unusedComponentVariables.slice(0, 20)) {
+  for (const item of blockingUnusedComponentVariables.slice(0, 20)) {
     console.log(`  [${item.issueCode}] ${item.name}`);
   }
-  if (unusedComponentVariables.length > 20) {
-    console.log(`  ... +${unusedComponentVariables.length - 20}`);
+  if (blockingUnusedComponentVariables.length > 20) {
+    console.log(`  ... +${blockingUnusedComponentVariables.length - 20}`);
   }
   console.log("Rode com --strict-unused para bloquear esses casos.");
 }
@@ -350,6 +352,8 @@ function classifyUnusedComponentVariables(rows, tokenRegistry) {
     const cssUsage = registryEntry?.usos?.css || [];
     const tokenUsage = registryEntry?.usos?.tokens || [];
     const hasRepoUsage = cssUsage.length > 0 || tokenUsage.length > 0;
+    const componentName = row.name.split("/")[0];
+    const isCssOnly = CSS_ONLY_COMPONENTS.has(componentName);
 
     return {
       ...row,
@@ -357,8 +361,13 @@ function classifyUnusedComponentVariables(rows, tokenRegistry) {
       cssUsage,
       tokenUsage,
       hasRepoUsage,
-      issueCode: hasRepoUsage ? "repo-used-not-figma-bound" : "dead-component-variable",
-      message: hasRepoUsage
+      isCssOnly,
+      issueCode: isCssOnly
+        ? "css-only-component-variable"
+        : hasRepoUsage ? "repo-used-not-figma-bound" : "dead-component-variable",
+      message: isCssOnly
+        ? "Component variable pertence a componente CSS-only por ADR-017; não deve ter binding em variant final do Figma."
+        : hasRepoUsage
         ? "Component variable consumida no repo, mas sem binding nos variants finais do Figma."
         : "Component variable sem uso no Figma e sem uso registrado no repo.",
     };
@@ -369,10 +378,12 @@ function summarizeUnusedComponentVariables(rows) {
   const summary = {
     repoUsedNotFigmaBound: 0,
     deadComponentVariable: 0,
+    cssOnlyComponentVariable: 0,
   };
 
   for (const row of rows) {
-    if (row.hasRepoUsage) summary.repoUsedNotFigmaBound += 1;
+    if (row.issueCode === "css-only-component-variable") summary.cssOnlyComponentVariable += 1;
+    else if (row.hasRepoUsage) summary.repoUsedNotFigmaBound += 1;
     else summary.deadComponentVariable += 1;
   }
 

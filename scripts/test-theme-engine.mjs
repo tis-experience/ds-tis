@@ -29,10 +29,16 @@ import { encodeConfig, decodeConfig } from '../js/theme/url-state.js';
 import { mapThemeToVars } from '../js/theme/semantic-mapper.js';
 import { toCssSnippet } from '../js/theme/export.js';
 import { applyTheme } from '../js/theme/apply.js';
+import { DEFAULT_CONFIG } from '../js/theme/config-schema.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
 let checks = 0;
+
+/** Âncora OKLCH da paleta TIS (gera escala 50–950; 600 ajustado para folga WCAG). */
+const TIS_BRAND_ANCHOR = '#0056E0';
+const TIS_BRAND_600 = '#0065ED';
+const TIS_BRAND_700 = '#0050DA';
 
 function ok(cond, msg) {
   checks++;
@@ -52,12 +58,12 @@ for (const hex of ['#2563EB', '#EA580C', '#16A34A', '#000000', '#FFFFFF']) {
   ok(dist <= 3, `round-trip hex→oklch→hex divergiu para ${hex} → ${back} (Δ=${dist})`);
 }
 
-// ── 2. Seed default reproduz a paleta brand do DS ───────────────────
+// ── 2. Âncora TIS reproduz a paleta brand do DS (600 pode divergir p/ WCAG) ──
 const colorsJson = JSON.parse(
   fs.readFileSync(path.join(ROOT, 'tokens/foundation/colors.json'), 'utf-8')
 );
 const dsBrand = colorsJson.foundation.color.brand;
-const scale = generateBrandScale('#2563EB');
+const scale = generateBrandScale(TIS_BRAND_ANCHOR);
 for (const step of STEPS) {
   const expected = hexToRgb(dsBrand[step].$value);
   const got = hexToRgb(scale[step]);
@@ -69,14 +75,23 @@ for (const step of STEPS) {
 // ── 3. Contraste WCAG ───────────────────────────────────────────────
 near(contrastRatio('#000000', '#FFFFFF'), 21, 0.01, 'contraste black/white deve ser 21');
 {
-  const onWhite = contrastRatio('#2563EB', 'rgba(37, 99, 235, 0.12)', { under: '#FFFFFF' });
+  const onWhite = contrastRatio(TIS_BRAND_600, 'rgba(0, 101, 237, 0.12)', { under: '#FFFFFF' });
   ok(onWhite > 1 && onWhite < 21, `contraste rgba sobre branco deve ser finito, veio ${onWhite}`);
 }
 {
-  // brand-600 default (#2563EB) deve preferir foreground claro e passar 3:1
-  const fg = pickAccessibleForeground('#2563EB', { light: '#F8FAFC', dark: '#0F172A', threshold: 3 });
-  ok(fg.fg === '#F8FAFC', `foreground de #2563EB deveria ser claro, veio ${fg.fg}`);
-  ok(fg.passes, `foreground de #2563EB deveria passar 3:1 (ratio ${fg.ratio})`);
+  // brand-600 TIS deve preferir foreground claro e passar 4.5:1 com folga (texto normal)
+  const fg = pickAccessibleForeground(TIS_BRAND_600, { light: '#F8FAFC', dark: '#0F172A', threshold: 4.5 });
+  ok(fg.fg === '#F8FAFC', `foreground de ${TIS_BRAND_600} deveria ser claro, veio ${fg.fg}`);
+  ok(fg.passes, `foreground de ${TIS_BRAND_600} deveria passar 4.5:1 (ratio ${fg.ratio})`);
+  ok(fg.ratio >= 4.85, `foreground de ${TIS_BRAND_600} deveria ter folga >=4.85:1 (ratio ${fg.ratio})`);
+}
+{
+  // content.brand (700) em fundos claros — neutral-100 e brand-100
+  const bgs = { neutral100: '#F1F5F9', brand50: '#EEF6FF', brand100: '#DAEAFE' };
+  for (const [name, bg] of Object.entries(bgs)) {
+    const ratio = contrastRatio(TIS_BRAND_700, bg);
+    ok(ratio >= 4.5, `brand/700 sobre ${name} deveria passar 4.5:1 (ratio ${ratio.toFixed(2)})`);
+  }
 }
 {
   // amarelo claro deve preferir foreground escuro
@@ -86,11 +101,11 @@ near(contrastRatio('#000000', '#FFFFFF'), 21, 0.01, 'contraste black/white deve 
 
 // ── 4. Overlays toned ───────────────────────────────────────────────
 {
-  const light = generateTonedOverlays('#2563EB', 'light');
-  ok(light.default === 'rgba(37, 99, 235, 0.12)', `overlay light default errado: ${light.default}`);
-  ok(light.hover === 'rgba(37, 99, 235, 0.2)', `overlay light hover errado: ${light.hover}`);
-  const dark = generateTonedOverlays('#60A5FA', 'dark');
-  ok(dark.default === 'rgba(96, 165, 250, 0.15)', `overlay dark default errado: ${dark.default}`);
+  const light = generateTonedOverlays(TIS_BRAND_600, 'light');
+  ok(light.default === 'rgba(0, 101, 237, 0.12)', `overlay light default errado: ${light.default}`);
+  ok(light.hover === 'rgba(0, 101, 237, 0.2)', `overlay light hover errado: ${light.hover}`);
+  const dark = generateTonedOverlays('#56A7F8', 'dark');
+  ok(dark.default === 'rgba(86, 167, 248, 0.15)', `overlay dark default errado: ${dark.default}`);
 }
 
 // ── 5. Radius presets ───────────────────────────────────────────────
@@ -123,7 +138,7 @@ near(contrastRatio('#000000', '#FFFFFF'), 21, 0.01, 'contraste black/white deve 
 
 // ── 7. semantic-mapper ──────────────────────────────────────────────
 {
-  const cfg = { brand: { seed: '#2563EB' }, radius: 'default', typography: { sans: 'Inter', mono: 'DM Mono' }, mode: 'light' };
+  const cfg = { ...DEFAULT_CONFIG, mode: 'light' };
   const { vars, contrast } = mapThemeToVars(cfg, 'light');
   ok('--ds-color-brand-600' in vars, 'mapper deve emitir --ds-color-brand-600');
   ok('--ds-overlay-brand-600-12' in vars, 'mapper deve emitir overlay brand-600-12');
@@ -148,8 +163,8 @@ near(contrastRatio('#000000', '#FFFFFF'), 21, 0.01, 'contraste black/white deve 
     removeAttribute() {},
   };
   const base = {
-    brand: { seed: '#2563EB' },
-    typography: { sans: 'Inter', mono: 'DM Mono' },
+    brand: { seed: DEFAULT_CONFIG.brand.seed },
+    typography: { ...DEFAULT_CONFIG.typography },
     mode: 'light',
   };
 

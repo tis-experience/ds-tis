@@ -7,7 +7,7 @@
 
 /** Config padrão = paleta default do DS (blue), radius default, Inter/DM Mono. */
 export const DEFAULT_CONFIG = {
-  brand: { seed: '#2563EB', chromaBoost: 1 },
+  brand: { seed: '#0056E0', chromaBoost: 1 },
   radius: 'default',
   typography: { sans: 'Inter', mono: 'DM Mono' },
   mode: 'light',

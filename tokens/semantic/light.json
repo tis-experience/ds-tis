@@ -410,8 +410,8 @@
       },
       "brand": {
         "$type": "color",
-        "$value": "{semantic.brand.background.default}",
-        "$description": "Conteúdo brand sobre superfície neutra."
+        "$value": "{foundation.color.brand.700}",
+        "$description": "Conteúdo brand sobre superfície neutra. Step 700 garante WCAG AA em fundos neutros e tinted (50–100); fills sólidos continuam em brand.600."
       }
     },
     "content-placeholder": {

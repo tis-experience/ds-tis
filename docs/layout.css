@@ -57,18 +57,9 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 .ds-site-header__logo {
   width: 32px;
   height: 32px;
-  background-color: var(--_hfg);
-  border-radius: var(--ds-radius-8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ds-brand-background-default);
-  font-weight: var(--ds-font-weight-bold);
-  font-size: var(--ds-font-size-14);
-}
-
-[data-mode="dark"] .ds-site-header__logo {
-  color: var(--ds-color-brand-900);
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .ds-site-header__title {
