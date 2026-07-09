@@ -82,6 +82,7 @@
 </ul>
 <h3>Alterado</h3>
 <ul>
+<li><strong>Visual regression com baseline por plataforma.</strong> <code>test:visual</code> mantém a baseline canônica Linux/GitHub Actions em <code>tests/visual/baseline/</code>, passa a usar <code>tests/visual/baseline-darwin/</code> em macOS para evitar falso negativo local por rasterização/fonte, e <code>test:audit-scenarios</code> protege esse contrato.</li>
 <li><strong>Cenarios de auditoria executaveis.</strong> Novo <code>npm run test:audit-scenarios</code> valida consumo real do pacote (<code>exports</code>, <code>files</code>, self-imports e <code>npm pack --dry-run</code>), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.</li>
 <li><strong>Empacotamento para consumo real.</strong> <code>package.json</code> passa a publicar CSS, templates, helper de Combobox e theme engine, com <code>exports</code> para <code>ds-tis/css</code>, <code>ds-tis/combobox</code> e <code>ds-tis/theme</code>; <code>js/package.json</code> declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.</li>
 <li><strong>Auditoria de Component tokens reconhece componentes CSS-only.</strong> <code>audit:component-tokens</code> deixa de tratar <code>form-field/*</code> como erro de binding Figma, respeitando ADR-017, e o Button passa a explicitar <code>letter-spacing</code> via <code>--ds-button-label-letter-spacing-default</code>.</li>
