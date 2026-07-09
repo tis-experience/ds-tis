@@ -212,6 +212,35 @@ function assertDocumentationLogoContract() {
   }
 }
 
+function assertVisualBaselinePlatformContract() {
+  const visualRunner = fs.readFileSync(path.join(ROOT, "scripts/test-visual.mjs"), "utf8");
+
+  ok(
+    visualRunner.includes("CANONICAL_BASELINE_DIR"),
+    "test-visual must keep the Linux/CI baseline explicit",
+  );
+  ok(
+    visualRunner.includes("PLATFORM_BASELINE_DIR"),
+    "test-visual must support platform-specific visual baselines",
+  );
+  ok(
+    visualRunner.includes("DS_VISUAL_BASELINE_DIR"),
+    "test-visual must allow an explicit visual baseline override",
+  );
+  ok(
+    visualRunner.includes("process.platform !== 'linux'"),
+    "test-visual must keep Linux/CI on the canonical baseline",
+  );
+  ok(
+    fileExists("tests/visual/baseline/index-light.png"),
+    "canonical visual baseline must exist for CI",
+  );
+  ok(
+    fileExists("tests/visual/baseline-darwin/index-light.png"),
+    "macOS visual baseline must exist for local runs",
+  );
+}
+
 function assertComponentTokenAuditContract() {
   const buttonCss = fs.readFileSync(path.join(ROOT, "css/components/button.css"), "utf8");
   ok(
@@ -275,6 +304,7 @@ assertPackDryRun();
 assertReadmeConsumerGuidance();
 assertAgentConsumerUsageGuide();
 assertDocumentationLogoContract();
+assertVisualBaselinePlatformContract();
 assertComponentTokenAuditContract();
 runCommand("npm run audit:component-tokens", "npm", ["run", "audit:component-tokens"]);
 assertAgentRunContract();
