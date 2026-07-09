@@ -201,7 +201,15 @@ function assertDocumentationLogoContract() {
       ok(Boolean(img), `${rel} must use the TIS symbol with alt and stable dimensions`);
       ok(!header.includes("logo-tis.svg"), `${rel} must not use the full TIS wordmark asset`);
       ok(header.includes("ds-site-header__brand-separator"), `${rel} must render the TIS | Design System separator`);
-      ok(header.includes('class="ds-site-header__title">Design System</span>'), `${rel} must render the header title as Design System`);
+      ok(
+        header.includes('class="ds-site-header__title ds-site-header__title--brand">TIS</span>'),
+        `${rel} must render the TIS brand word`
+      );
+      ok(
+        header.includes('class="ds-site-header__title ds-site-header__title--product">Design System</span>'),
+        `${rel} must render the header product name as Design System`
+      );
+      ok(!header.includes('style="'), `${rel} brand link must not depend on inline styles`);
       ok(!header.includes("Design System TIS"), `${rel} header must not use the old Design System TIS title`);
 
       if (!img) continue;

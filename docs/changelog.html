@@ -41,8 +41,9 @@
     </button>
     <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
       <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
       <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
-      <span class="ds-site-header__title">Design System</span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -82,6 +83,7 @@
 </ul>
 <h3>Alterado</h3>
 <ul>
+<li><strong>Marca do header da documentação.</strong> Topbar passa a renderizar <code>símbolo TIS + TIS | Design System</code>, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.</li>
 <li><strong>Visual regression com baseline por plataforma.</strong> <code>test:visual</code> mantém a baseline canônica Linux/GitHub Actions em <code>tests/visual/baseline/</code>, passa a usar <code>tests/visual/baseline-darwin/</code> em macOS para evitar falso negativo local por rasterização/fonte, e <code>test:audit-scenarios</code> protege esse contrato.</li>
 <li><strong>Cenarios de auditoria executaveis.</strong> Novo <code>npm run test:audit-scenarios</code> valida consumo real do pacote (<code>exports</code>, <code>files</code>, self-imports e <code>npm pack --dry-run</code>), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.</li>
 <li><strong>Empacotamento para consumo real.</strong> <code>package.json</code> passa a publicar CSS, templates, helper de Combobox e theme engine, com <code>exports</code> para <code>ds-tis/css</code>, <code>ds-tis/combobox</code> e <code>ds-tis/theme</code>; <code>js/package.json</code> declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.</li>
