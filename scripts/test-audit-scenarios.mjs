@@ -190,8 +190,10 @@ function assertDocumentationLogoContract() {
     const rel = path.relative(ROOT, absolutePath);
     const html = fs.readFileSync(absolutePath, "utf8");
     const headerMatches = [...html.matchAll(/<a href="[^"]+" class="ds-site-header__brand"[^>]*>[\s\S]*?<\/a>/g)];
+    const modeToggleMatches = [...html.matchAll(/<button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle"[^>]*>[\s\S]*?<\/button>/g)];
 
     ok(headerMatches.length === 1, `${rel} must include one site brand link`);
+    ok(modeToggleMatches.length === 1, `${rel} must include one site mode toggle`);
 
     for (const match of headerMatches) {
       const header = match[0];
@@ -216,6 +218,17 @@ function assertDocumentationLogoContract() {
       const logoPath = path.resolve(path.dirname(absolutePath), img[1]);
       ok(path.basename(logoPath) === "logo-tis-mark.svg", `${rel} must point to logo-tis-mark.svg`);
       ok(fs.existsSync(logoPath), `${rel} logo src must resolve to an existing file: ${img[1]}`);
+    }
+
+    for (const match of modeToggleMatches) {
+      const modeToggle = match[0];
+
+      ok(modeToggle.includes('class="ds-button__icon ds-site-header__mode-icon"'), `${rel} mode toggle icon must use Button icon anatomy`);
+      ok(modeToggle.includes('fill="none"'), `${rel} mode toggle icon must use stroke icon rendering`);
+      ok(modeToggle.includes('stroke="currentColor"'), `${rel} mode toggle icon must inherit currentColor stroke`);
+      ok(modeToggle.includes('stroke-linejoin="round"'), `${rel} mode toggle icon must preserve rounded Lucide joins`);
+      ok(modeToggle.includes('<span class="ds-button__label">Dark</span>'), `${rel} mode toggle label must use Button label anatomy`);
+      ok(!modeToggle.includes('fill="currentColor"'), `${rel} mode toggle must not use filled icon rendering`);
     }
   }
 }

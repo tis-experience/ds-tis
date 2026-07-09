@@ -51,7 +51,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -78,6 +78,7 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>SVGs do header renderizam sem achatamento visual.</strong> <code>logo-tis-mark.svg</code> passa a ter viewport quadrado compatível com o slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia <code>ds-button__icon</code> em vez de paths preenchidos inline.</li>
 <li><strong>Logo da documentação carrega corretamente em todas as rotas.</strong> Topbar passa a usar o símbolo TIS vetorial <code>docs/assets/logo-tis-mark.svg</code> no padrão <code>símbolo TIS | Design System</code>; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.</li>
 <li><strong>Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.</strong> <code>sync:docs</code> adiciona <code>tabindex=&quot;0&quot;</code> em <code>&lt;pre&gt;</code> gerado por Markdown, evitando violações <code>scrollable-region-focusable</code> quando blocos de código ficam roláveis no CI/Linux.</li>
 </ul>
