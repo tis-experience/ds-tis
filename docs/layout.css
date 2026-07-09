@@ -240,7 +240,7 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 }
 
 .ds-sidebar__section--expanded .ds-sidebar__nav {
-  max-height: 800px;
+  max-height: none;
 }
 
 .ds-sidebar__nav li {
@@ -322,7 +322,7 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 }
 
 .ds-sidebar__group--expanded .ds-sidebar__sub-nav {
-  max-height: 600px;
+  max-height: none;
 }
 
 /* Sub-items: indent extra (alinha visualmente com o label do parent) */
