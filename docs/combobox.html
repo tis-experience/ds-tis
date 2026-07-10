@@ -436,5 +436,11 @@
 </main>
 
 <script src="../js/main.js"></script>
+<script type="module">
+  import { initComboboxes } from '../js/combobox.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    initComboboxes(document.querySelector('main'));
+  });
+</script>
 </body>
 </html>

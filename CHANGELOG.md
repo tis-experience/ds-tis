@@ -9,9 +9,13 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch `foundation.color.brand` via `toDtcgBrandPatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
+- **Theme Playground — resiliência de input.** `applyCurrent()` ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.
+- **`docs/combobox.html` — comboboxes interativos.** Exemplos live carregam `js/combobox.js` e chamam `initComboboxes`.
 - **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
 
 ### Corrigido
+- **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.
 - **Sidebar da documentação não corta itens ao expandir seções.** Containers de navegação e subnavegação expandidos deixam de usar `max-height` fixo e passam a abraçar o conteúdo real, evitando que opções desapareçam quando `Form` ou outras seções estiverem abertas.
 - **SVGs do header renderizam sem achatamento visual.** `logo-tis-mark.svg` passa a ter viewport quadrado compatível com o slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia `ds-button__icon` em vez de paths preenchidos inline.
 - **Logo da documentação carrega corretamente em todas as rotas.** Topbar passa a usar o símbolo TIS vetorial `docs/assets/logo-tis-mark.svg` no padrão `símbolo TIS | Design System`; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.
@@ -30,6 +34,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [1.0.0-beta.6] — 2026-07-06
 
 ### Adicionado
+
 - **`npm run figma:snapshot:refresh`.** Encadeia install do export `figma-snapshot.json` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em `AGENTS.md` §4.4). `agent:preflight` sinaliza export pendente na raiz.
 - **Accordion público no repo.** Adicionados `css/components/accordion.css`, `docs/accordion.html`, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens `component.accordion.*`.
 - **Componente Accordion.** Adicionado o contrato anatômico do Accordion aprovado no Figma para `item`, `trigger`, `content`, `chevron`, `leading-icon` e `focus-ring`, com tokens `component.accordion.*`, CSS gerado, API, registry e documentação de tokens a partir da run `2026-06-29-accordion`. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e `Focus Ring` dedicado com radius `16`.

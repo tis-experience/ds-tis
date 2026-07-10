@@ -27,7 +27,7 @@ import { generateTonedOverlays } from '../js/theme/overlay.js';
 import { generateRadiusScale, generateRadiusTheme } from '../js/theme/radius.js';
 import { encodeConfig, decodeConfig } from '../js/theme/url-state.js';
 import { mapThemeToVars } from '../js/theme/semantic-mapper.js';
-import { toCssSnippet } from '../js/theme/export.js';
+import { toCssSnippet, toDtcgBrandPatch } from '../js/theme/export.js';
 import { applyTheme } from '../js/theme/apply.js';
 import { DEFAULT_CONFIG } from '../js/theme/config-schema.js';
 
@@ -143,15 +143,39 @@ near(contrastRatio('#000000', '#FFFFFF'), 21, 0.01, 'contraste black/white deve 
   ok('--ds-color-brand-600' in vars, 'mapper deve emitir --ds-color-brand-600');
   ok('--ds-overlay-brand-600-12' in vars, 'mapper deve emitir overlay brand-600-12');
   ok('--ds-brand-content-default' in vars, 'mapper deve emitir brand-content-default');
+  ok('--ds-brand-background-default' in vars, 'mapper deve emitir brand-background-default');
+  ok('--ds-toned-background-default' in vars, 'mapper deve emitir toned-background-default');
+  ok('--ds-link-content-default' in vars, 'mapper deve emitir link-content-default');
+  ok('--ds-border-focus' in vars, 'mapper deve emitir border-focus');
+  ok('--ds-focus-ring-color' in vars, 'mapper deve emitir focus-ring-color');
+  ok(vars['--ds-brand-background-default'] === scale['600'], `light brand bg deveria ser brand.600, veio ${vars['--ds-brand-background-default']}`);
   ok('--ds-font-family-sans' in vars, 'mapper deve emitir font-family-sans');
   ok(contrast.passes, `contraste brand fill/foreground deve passar (ratio ${contrast.ratio})`);
 
-  // Snippet CSS deve conter blocos light e dark
+  const dark = mapThemeToVars({ ...cfg, mode: 'dark' }, 'dark');
+  ok(dark.vars['--ds-brand-background-default'] === scale['400'], `dark brand bg deveria ser brand.400, veio ${dark.vars['--ds-brand-background-default']}`);
+  ok(dark.vars['--ds-link-content-hover'] === scale['300'], `dark link hover deveria ser brand.300, veio ${dark.vars['--ds-link-content-hover']}`);
+  ok(dark.vars['--ds-border-focus'] === scale['500'], `dark border-focus deveria ser brand.500, veio ${dark.vars['--ds-border-focus']}`);
+
+  // Snippet CSS deve conter blocos light e dark com overrides semânticos
   const css = toCssSnippet(cfg, 'custom');
   ok(css.includes('[data-theme="custom"]'), 'snippet deve conter seletor data-theme');
+  ok(css.includes('--ds-brand-background-default'), 'snippet deve conter brand-background-default');
+  ok(css.includes('--ds-link-content-default'), 'snippet deve conter link-content-default');
+  ok(css.includes('--ds-border-focus'), 'snippet deve conter border-focus');
+  ok(css.includes('[data-theme="custom"][data-mode="dark"]'), 'snippet deve conter bloco dark mode');
 }
 
-// ── 8. applyTheme remove overrides stale (ex.: soft → default) ───────
+// ── 8. DTCG brand patch ─────────────────────────────────────────────
+{
+  const cfg = { brand: { seed: '#EA580C' }, radius: 'default', typography: { sans: 'Inter', mono: 'DM Mono' }, mode: 'light' };
+  const patch = toDtcgBrandPatch(cfg);
+  ok(patch.foundation?.color?.brand?.['600']?.$type === 'color', 'DTCG patch deve ter brand.600 como color');
+  ok(patch.foundation?.color?.brand?.['600']?.$value?.startsWith('#'), 'DTCG patch brand.600 deve ser hex');
+  ok(Object.keys(patch.foundation.color.brand).length === STEPS.length, 'DTCG patch deve cobrir todos os steps da escala');
+}
+
+// ── 9. applyTheme remove overrides stale (ex.: soft → default) ───────
 {
   const props = new Map();
   const root = {
