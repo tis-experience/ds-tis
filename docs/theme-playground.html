@@ -175,13 +175,14 @@
       <div class="ds-playground__block ds-playground__export">
         <h2 class="ds-playground__block-title"><span data-lang="pt">Exportar</span><span data-lang="en">Export</span></h2>
         <p class="ds-playground__export-hint">
-          <span data-lang="pt"><strong>CSS</strong> — snippet para colar no stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig para integração programática. <strong>Link</strong> — URL compartilhável que restaura este preset no playground.</span>
-          <span data-lang="en"><strong>CSS</strong> — snippet to paste in your stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig for programmatic integration. <strong>Link</strong> — shareable URL that restores this preset in the playground.</span>
+          <span data-lang="pt"><strong>CSS</strong> — snippet para colar no stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig para integração programática. <strong>DTCG</strong> — patch <code>foundation.color.brand</code> para write-back ao repo. <strong>Link</strong> — URL compartilhável que restaura este preset no playground.</span>
+          <span data-lang="en"><strong>CSS</strong> — snippet to paste in your stylesheet (<code>[data-theme]</code>). <strong>JSON</strong> — ThemeConfig for programmatic integration. <strong>DTCG</strong> — <code>foundation.color.brand</code> patch for repo write-back. <strong>Link</strong> — shareable URL that restores this preset in the playground.</span>
         </p>
         <div class="ds-playground__export-box">
           <div class="ds-playground__export-tabs" role="tablist">
             <button class="ds-playground__export-tab ds-playground__export-tab--active" role="tab" aria-selected="true" data-export-tab="css">CSS</button>
             <button class="ds-playground__export-tab" role="tab" aria-selected="false" data-export-tab="json">JSON</button>
+            <button class="ds-playground__export-tab" role="tab" aria-selected="false" data-export-tab="dtcg">DTCG</button>
             <button class="ds-playground__export-tab" role="tab" aria-selected="false" data-export-tab="link"><span data-lang="pt">Link</span><span data-lang="en">Link</span></button>
           </div>
           <div class="ds-playground__export-panel ds-playground__export-panel--active" data-export-panel="css">
@@ -191,6 +192,10 @@
           <div class="ds-playground__export-panel" data-export-panel="json" hidden>
             <textarea id="export-json" class="ds-playground__export-output" readonly aria-label="JSON export" spellcheck="false"></textarea>
             <button type="button" class="ds-button ds-button--outline ds-button--sm" id="copy-json"><span data-lang="pt">Copiar JSON</span><span data-lang="en">Copy JSON</span></button>
+          </div>
+          <div class="ds-playground__export-panel" data-export-panel="dtcg" hidden>
+            <textarea id="export-dtcg" class="ds-playground__export-output" readonly aria-label="DTCG export" spellcheck="false"></textarea>
+            <button type="button" class="ds-button ds-button--outline ds-button--sm" id="copy-dtcg"><span data-lang="pt">Copiar DTCG</span><span data-lang="en">Copy DTCG</span></button>
           </div>
           <div class="ds-playground__export-panel" data-export-panel="link" hidden>
             <textarea id="export-url" class="ds-playground__export-output" readonly aria-label="Share link export" spellcheck="false"></textarea>

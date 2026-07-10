@@ -3,7 +3,7 @@
 
    Espelha os aliases de tokens/semantic/light.json e dark.json:
      light: brand.bg = brand.600/700/800, links = 700/800, focus = 600
-     dark:  brand.bg = brand.400/500/400, links = 400/300/200, focus = 400
+     dark:  brand.bg = brand.400/500/400, links = 400/300/200, focus = 500
 
    Produz três grupos de variáveis:
      1. Foundation brand scale  (--ds-color-brand-50..950)
@@ -51,17 +51,54 @@ export function mapThemeToVars(config, mode) {
   vars['--ds-overlay-brand-400-25'] = dark.hover;
   vars['--ds-overlay-brand-400-32'] = dark.active;
 
-  // 3. Semantic: conteúdo sobre fill brand sólido com contraste garantido.
-  // Light fill = brand.600; dark fill = brand.400. Escolhe neutral-50 ou
-  // neutral-900 pelo melhor contraste (WCAG UI/large 3:1 no mínimo).
-  const brandFill = mode === 'dark' ? scale[400] : scale[600];
-  const fg = pickAccessibleForeground(brandFill, {
-    light: NEUTRAL_LIGHT,
-    dark: NEUTRAL_DARK,
-    threshold: WCAG_AA_UI,
-  });
-  vars['--ds-brand-content-default'] = fg.fg;
-  vars['--ds-brand-content-hover'] = fg.fg;
+  // 3. Semantic brand/toned/link/focus — espelha tokens/semantic/{light,dark}.json
+  // e o patch documentado em docs/theming.html (ex.: Sunset).
+  let brandFill;
+  let fg;
+
+  if (mode === 'dark') {
+    brandFill = scale[400];
+    fg = pickAccessibleForeground(brandFill, {
+      light: NEUTRAL_LIGHT,
+      dark: NEUTRAL_DARK,
+      threshold: WCAG_AA_UI,
+    });
+    vars['--ds-brand-background-default'] = scale[400];
+    vars['--ds-brand-background-hover'] = scale[500];
+    vars['--ds-brand-background-active'] = scale[400];
+    vars['--ds-brand-content-default'] = fg.fg;
+    vars['--ds-brand-content-hover'] = fg.fg;
+    vars['--ds-toned-background-default'] = dark.default;
+    vars['--ds-toned-background-hover'] = dark.hover;
+    vars['--ds-toned-background-active'] = dark.active;
+    vars['--ds-toned-content-default'] = scale[400];
+    vars['--ds-link-content-default'] = scale[400];
+    vars['--ds-link-content-hover'] = scale[300];
+    vars['--ds-link-content-active'] = scale[200];
+    vars['--ds-border-focus'] = scale[500];
+    vars['--ds-focus-ring-color'] = scale[500];
+  } else {
+    brandFill = scale[600];
+    fg = pickAccessibleForeground(brandFill, {
+      light: NEUTRAL_LIGHT,
+      dark: NEUTRAL_DARK,
+      threshold: WCAG_AA_UI,
+    });
+    vars['--ds-brand-background-default'] = scale[600];
+    vars['--ds-brand-background-hover'] = scale[700];
+    vars['--ds-brand-background-active'] = scale[800];
+    vars['--ds-brand-content-default'] = fg.fg;
+    vars['--ds-brand-content-hover'] = fg.fg;
+    vars['--ds-toned-background-default'] = light.default;
+    vars['--ds-toned-background-hover'] = light.hover;
+    vars['--ds-toned-background-active'] = light.active;
+    vars['--ds-toned-content-default'] = scale[700];
+    vars['--ds-link-content-default'] = scale[700];
+    vars['--ds-link-content-hover'] = scale[800];
+    vars['--ds-link-content-active'] = scale[800];
+    vars['--ds-border-focus'] = scale[600];
+    vars['--ds-focus-ring-color'] = scale[600];
+  }
 
   // 4. Radius + tipografia (mode-invariant, mas emitimos em ambos)
   if (config.radius != null) {

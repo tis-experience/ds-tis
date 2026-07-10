@@ -9,6 +9,7 @@ import {
   mapThemeToVars,
   toCssSnippet,
   toJsonConfig,
+  toDtcgBrandPatch,
   encodeConfig,
   decodeConfig,
   contrastRatio,
@@ -31,6 +32,7 @@ const els = {
   resetBtn: $('#reset-theme'),
   copyCss: $('#copy-css'),
   copyJson: $('#copy-json'),
+  copyDtcg: $('#copy-dtcg'),
   copyUrl: $('#copy-url'),
   contrastList: $('#contrast-list'),
   swatches: $('#palette-swatches'),
@@ -38,6 +40,14 @@ const els = {
 
 let currentConfig = { ...DEFAULT_CONFIG };
 let fontLinkEl = null;
+let urlSyncTimer = null;
+
+function debouncedSyncUrl(cfg) {
+  clearTimeout(urlSyncTimer);
+  urlSyncTimer = setTimeout(() => {
+    history.replaceState(null, '', `?c=${encodeConfig(cfg)}`);
+  }, 200);
+}
 
 function readConfigFromForm() {
   return normalizeConfig({
@@ -139,11 +149,13 @@ function renderContrast(cfg) {
 function renderExports(cfg) {
   const cssEl = document.getElementById('export-css');
   const jsonEl = document.getElementById('export-json');
+  const dtcgEl = document.getElementById('export-dtcg');
   const urlEl = document.getElementById('export-url');
   if (!cssEl || !jsonEl || !urlEl) return;
 
   cssEl.value = toCssSnippet(cfg, 'custom');
   jsonEl.value = toJsonConfig(cfg);
+  if (dtcgEl) dtcgEl.value = JSON.stringify(toDtcgBrandPatch(cfg), null, 2);
   const token = encodeConfig(cfg);
   urlEl.value = `${location.origin}${location.pathname}?c=${token}`;
 }
@@ -154,8 +166,14 @@ function updateRadiusHint() {
   els.radiusHint.hidden = !isSoft;
 }
 
-function applyCurrent() {
-  currentConfig = readConfigFromForm();
+function applyCurrent({ syncUrl = true } = {}) {
+  try {
+    currentConfig = readConfigFromForm();
+  } catch {
+    syncFormFromConfig(currentConfig);
+    return null;
+  }
+
   updateRadiusHint();
   loadGoogleFont(currentConfig.typography.sans);
   const { contrast } = applyTheme(currentConfig);
@@ -164,7 +182,11 @@ function applyCurrent() {
   renderSwatches(scale);
   renderContrast(currentConfig);
   renderExports(currentConfig);
-  history.replaceState(null, '', `?c=${encodeConfig(currentConfig)}`);
+  if (syncUrl) {
+    history.replaceState(null, '', `?c=${encodeConfig(currentConfig)}`);
+  } else {
+    debouncedSyncUrl(currentConfig);
+  }
   return contrast;
 }
 
@@ -220,7 +242,7 @@ function initFromUrl() {
 function bindEvents() {
   els.brandColor.addEventListener('input', () => {
     els.brandHex.value = els.brandColor.value.toUpperCase();
-    applyCurrent();
+    applyCurrent({ syncUrl: false });
   });
   els.brandHex.addEventListener('change', () => {
     let v = els.brandHex.value.trim();
@@ -250,6 +272,9 @@ function bindEvents() {
   els.resetBtn.addEventListener('click', resetAll);
   els.copyCss.addEventListener('click', () => copyText(document.getElementById('export-css')?.value ?? '', els.copyCss));
   els.copyJson.addEventListener('click', () => copyText(document.getElementById('export-json')?.value ?? '', els.copyJson));
+  if (els.copyDtcg) {
+    els.copyDtcg.addEventListener('click', () => copyText(document.getElementById('export-dtcg')?.value ?? '', els.copyDtcg));
+  }
   els.copyUrl.addEventListener('click', () => copyText(document.getElementById('export-url')?.value ?? '', els.copyUrl));
 }
 

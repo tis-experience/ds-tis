@@ -9,6 +9,9 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch `foundation.color.brand` via `toDtcgBrandPatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
+- **Theme Playground — resiliência de input.** `applyCurrent()` ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.
+- **`docs/combobox.html` — comboboxes interativos.** Exemplos live carregam `js/combobox.js` e chamam `initComboboxes`.
 - **`npm run figma:snapshot:refresh`.** Encadeia install do export `figma-snapshot.json` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em `AGENTS.md` §4.4). `agent:preflight` sinaliza export pendente na raiz.
 - **Accordion público no repo.** Adicionados `css/components/accordion.css`, `docs/accordion.html`, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens `component.accordion.*`.
 - **Componente Accordion.** Adicionado o contrato anatômico do Accordion aprovado no Figma para `item`, `trigger`, `content`, `chevron`, `leading-icon` e `focus-ring`, com tokens `component.accordion.*`, CSS gerado, API, registry e documentação de tokens a partir da run `2026-06-29-accordion`. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e `Focus Ring` dedicado com radius `16`.
@@ -29,6 +32,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Escala semântica de space expandida.** `semantic.space` passa a incluir `3xl` a `6xl` (`32/40/48/64px`) e `semantic.space.section` sobe para `48/64/80/96/120px` com novo `section.2xl`, mantendo aliases Figma ↔ JSON para gaps, paddings e separação macro.
 
 ### Corrigido
+- **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.
 - **Theme Playground: modo reverte para dark após alternar light/dark e mudar cor.** A inicialização do playground passa a rodar em `DOMContentLoaded` (depois de `initThemeSwitcher` em `main.js`), `syncModeUI` alinha toggles do header/playground e `localStorage` após cada `applyTheme`, e o listener do header deixa de ler `data-mode` stale antes do toggle global.
 - **Theme Playground: controles do painel alinhados ao padrão de formulário do DS.** Campos passam a usar `ds-field`, `ds-input`/`ds-input__field` e `ds-select`/`ds-select__field` em vez de estilos ad hoc; apenas o color picker nativo mantém CSS local mínimo.
 - **Theme Playground: corner radius não atualizava após a primeira troca de preset.** `applyTheme` agora remove vars inline obsoletas (ex.: `--ds-button-radius-default` e `--ds-radius-md` do preset `soft`) antes de aplicar o próximo preset.
