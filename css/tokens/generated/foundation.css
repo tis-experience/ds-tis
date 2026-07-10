@@ -3,17 +3,17 @@
  */
 
 :root {
-  --ds-color-brand-50: #EFF6FF;
-  --ds-color-brand-100: #DBEAFE;
-  --ds-color-brand-200: #BFDBFE;
-  --ds-color-brand-300: #93C5FD;
-  --ds-color-brand-400: #60A5FA;
-  --ds-color-brand-500: #3B82F6;
-  --ds-color-brand-600: #2563EB;
-  --ds-color-brand-700: #1D4ED8;
-  --ds-color-brand-800: #1E40AF;
-  --ds-color-brand-900: #1E3A8A;
-  --ds-color-brand-950: #172554;
+  --ds-color-brand-50: #EEF6FF;
+  --ds-color-brand-100: #DAEAFE;
+  --ds-color-brand-200: #BCDCFE;
+  --ds-color-brand-300: #8EC6FD;
+  --ds-color-brand-400: #56A7FA;
+  --ds-color-brand-500: #2884F7;
+  --ds-color-brand-600: #0065ED;
+  --ds-color-brand-700: #0050DA;
+  --ds-color-brand-800: #0C42B1;
+  --ds-color-brand-900: #143B8B;
+  --ds-color-brand-950: #132655;
   --ds-color-neutral-50: #F8FAFC;
   --ds-color-neutral-100: #F1F5F9;
   --ds-color-neutral-200: #E2E8F0;
@@ -136,15 +136,15 @@
   --ds-overlay-white-40: rgba(255, 255, 255, 0.4);
   --ds-overlay-white-60: rgba(255, 255, 255, 0.6);
   --ds-overlay-white-80: rgba(255, 255, 255, 0.8);
-  --ds-overlay-brand-600-12: rgba(37, 99, 235, 0.12); /** Brand-600 at 12% opacity. Toned default in light mode. Derived from the brand palette (customizable) — não confundir com a paleta neutra blue usada em feedback.info. */
-  --ds-overlay-brand-600-20: rgba(37, 99, 235, 0.20); /** Brand-600 at 20% opacity. Toned hover in light mode. */
-  --ds-overlay-brand-600-28: rgba(37, 99, 235, 0.28); /** Brand-600 at 28% opacity. Toned active in light mode. */
-  --ds-overlay-brand-400-15: rgba(96, 165, 250, 0.15); /** Brand-400 at 15% opacity. Toned default in dark mode. Derived from the brand palette (customizable). */
-  --ds-overlay-brand-400-25: rgba(96, 165, 250, 0.25); /** Brand-400 at 25% opacity. Toned hover in dark mode. */
-  --ds-overlay-brand-400-32: rgba(96, 165, 250, 0.32); /** Brand-400 at 32% opacity. Toned active in dark mode. */
-  --ds-color-disabled-brand-light: rgba(125, 158, 232, 0.5); /** Disabled fill for Button Brand in light mode. */
+  --ds-overlay-brand-600-12: rgba(0, 101, 237, 0.12); /** Brand-600 at 12% opacity. Toned default in light mode. */
+  --ds-overlay-brand-600-20: rgba(0, 101, 237, 0.20); /** Brand-600 at 20% opacity. Toned hover in light mode. */
+  --ds-overlay-brand-600-28: rgba(0, 101, 237, 0.28); /** Brand-600 at 28% opacity. Toned active in light mode. */
+  --ds-overlay-brand-400-15: rgba(86, 167, 250, 0.15); /** Brand-400 at 15% opacity. Toned default in dark mode. */
+  --ds-overlay-brand-400-25: rgba(86, 167, 250, 0.25); /** Brand-400 at 25% opacity. Toned hover in dark mode. */
+  --ds-overlay-brand-400-32: rgba(86, 167, 250, 0.32); /** Brand-400 at 32% opacity. Toned active in dark mode. */
+  --ds-color-disabled-brand-light: rgba(86, 167, 250, 0.5); /** Disabled fill for Button Brand in light mode. */
   --ds-color-disabled-brand-dark: rgba(79, 99, 125, 0.4); /** Disabled fill for Button Brand in dark mode (pre-blended opaque). */
-  --ds-color-disabled-brand-toned-light: rgba(178, 194, 230, 0.2); /** Disabled fill for Button Brand Toned in light mode. */
+  --ds-color-disabled-brand-toned-light: rgba(218, 234, 254, 0.2); /** Disabled fill for Button Brand Toned in light mode. */
   --ds-color-disabled-brand-toned-dark: rgba(79, 99, 125, 0.2); /** Disabled fill for Button Brand Toned in dark mode. */
   --ds-color-disabled-success-light: rgba(122, 184, 145, 0.5); /** Disabled fill for Button Success in light mode. */
   --ds-color-disabled-success-dark: rgba(72, 110, 85, 0.4); /** Disabled fill for Button Success in dark mode. */

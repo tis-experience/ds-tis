@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uso por agents consumidores — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Uso por agents consumidores</h1>
+    <p class="ds-section__subtitle">Como agents devem implementar telas em projetos consumidores usando o DS TIS.</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<p>Este guia é a instrução oficial para agents IA que precisam implementar telas em aplicações consumidoras usando o DS TIS. Ele não substitui <code>AGENTS.md</code>, que é voltado para manutenção deste repositório. Aqui o foco é consumo: montar telas reais com a API pública do pacote, sem inventar uma camada oficial que não existe.</p>
+<p>Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consumidor.</p>
+<h2>Escopo</h2>
+<p>O DS TIS é stack-agnóstico. A base pública é HTML, CSS e JavaScript distribuídos pelo pacote <code>ds-tis</code>. React, Vue, Angular, Svelte ou outro framework podem encapsular essa base dentro do app consumidor, mas esse encapsulamento é responsabilidade do projeto consumidor.</p>
+<p>Não apresente wrappers React/Vue/Angular como API oficial do DS TIS se eles não existem neste repositório.</p>
+<h2>Entradas esperadas</h2>
+<p>Antes de implementar, o agent deve reunir:</p>
+<ul>
+<li>objetivo da tela ou fluxo;</li>
+<li>stack e convenções do projeto consumidor;</li>
+<li>versão instalada do pacote <code>ds-tis</code>, quando disponível;</li>
+<li>rotas, layouts, providers e padrões locais já existentes;</li>
+<li>lista de estados esperados: loading, empty, error, disabled, success, read-only, destructive e responsive;</li>
+<li>restrições de acessibilidade, idioma, dados e permissões.</li>
+</ul>
+<p>Se essas entradas não estiverem claras, inspecione o projeto primeiro. Pergunte ao owner somente quando a decisão mudar comportamento de produto, dados reais, permissões ou arquitetura local.</p>
+<h2>Fontes obrigatórias</h2>
+<p>Antes de escrever markup novo, consulte as fontes públicas do DS:</p>
+<ul>
+<li><code>README.md</code> para instalação e imports principais;</li>
+<li><code>docs/llms.txt</code> para o índice leve consumível por LLMs;</li>
+<li><code>docs/llms-full.txt</code> para contexto textual completo;</li>
+<li><code>docs/api/components.json</code> para componentes, variantes e tokens consumidos;</li>
+<li><code>docs/api/tokens.json</code> para camadas Foundation, Semantic e Component;</li>
+<li>páginas HTML dos componentes em <code>docs/&lt;component&gt;.html</code>;</li>
+<li>templates em <code>docs/templates/</code> e exports <code>ds-tis/templates/*</code>, quando o fluxo se aproxima de um padrão já publicado.</li>
+</ul>
+<p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
+<h2>Imports oficiais</h2>
+<p>Instale o pacote no projeto consumidor:</p>
+<pre tabindex="0"><code class="language-bash">npm install ds-tis
+</code></pre>
+<p>Importe o CSS público uma vez no entrypoint global do app:</p>
+<pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
+</code></pre>
+<p>Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:</p>
+<pre tabindex="0"><code class="language-js">import { initComboboxes } from &#39;ds-tis/combobox&#39;;
+
+initComboboxes();
+</code></pre>
+<p>Para customização de tema, use o theme engine público:</p>
+<pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
+</code></pre>
+<p>Quando fizer sentido partir de um template, use os exports publicados:</p>
+<pre tabindex="0"><code class="language-js">import loginTemplate from &#39;ds-tis/templates/login.html?raw&#39;;
+</code></pre>
+<p>O caminho <code>ds-tis/templates/*</code> referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.</p>
+<h2>Regras de implementação</h2>
+<ol>
+<li>Escolha componentes existentes antes de criar markup ad hoc. Consulte <code>docs/api/components.json</code> e a navegação de componentes.</li>
+<li>Use a anatomia pública do componente conforme documentada. Não use classes internas isoladas como se fossem componentes autônomos.</li>
+<li>Formulários devem compor <code>ds-field</code> com o controle real: <code>ds-input</code>, <code>ds-select</code>, <code>ds-textarea</code>, <code>ds-combobox</code>, <code>ds-checkbox</code>, <code>ds-radio</code> ou <code>ds-toggle</code>. Para Input, o campo nativo continua dentro da anatomia pública com <code>ds-input__field</code>.</li>
+<li>Não hardcode <code>#hex</code>, <code>rgb()</code>, <code>px</code> ou <code>rem</code> quando existir token, classe, variante ou utilitário público do DS para o mesmo papel.</li>
+<li>Preserve a cadeia visual do DS. Tokens públicos aparecem como CSS variables <code>var(--ds-...)</code>; não invente valores locais para cor, spacing, radius, border, typography ou focus ring sem justificar.</li>
+<li>Preserve acessibilidade: landmarks semânticos, heading order, labels, <code>aria-*</code>, <code>aria-describedby</code>, <code>aria-expanded</code>, <code>aria-current</code>, teclado, estados disabled/error/read-only e focus ring visível.</li>
+<li>Estados não são decoração. Implemente loading, empty, error, disabled, hover, focus e responsive quando fizerem parte do fluxo esperado.</li>
+<li>Ícones devem seguir o padrão do projeto consumidor quando houver biblioteca instalada; quando a tela reproduzir exemplos do DS, prefira o mesmo vocabulário visual documentado.</li>
+<li>Não invente wrappers oficiais. Em React/Vue/Angular, crie componentes locais do app apenas como adaptação da anatomia pública e declare esse limite.</li>
+<li>Não altere tokens, CSS gerado ou documentação do DS a partir do projeto consumidor. Se encontrar gap real, registre a limitação e abra demanda para o DS.</li>
+</ol>
+<h2>Fluxo recomendado</h2>
+<ol>
+<li>Leia o pedido, identifique a stack e encontre o entrypoint global onde <code>ds-tis/css</code> deve ser importado.</li>
+<li>Faça inventário das partes da tela: navegação, formulário, feedback, cards, overlays, listas, loading, empty states e ações.</li>
+<li>Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.</li>
+<li>Consulte a página HTML do componente e <code>docs/api/components.json</code> antes de escrever a anatomia.</li>
+<li>Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.</li>
+<li>Inicialize módulos JS públicos necessários, como <code>ds-tis/combobox</code>.</li>
+<li>Aplique tema com <code>ds-tis/theme</code> somente quando a tela tiver requisito de brand/mode em runtime.</li>
+<li>Rode os testes e linters do projeto consumidor. Quando possível, valide acessibilidade com axe, Playwright, browser real ou ferramenta equivalente.</li>
+<li>Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.</li>
+</ol>
+<h2>Adaptação por framework</h2>
+<p>React, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Essa adaptação deve:</p>
+<ul>
+<li>manter os nomes de classes públicas do DS;</li>
+<li>preservar labels, IDs, <code>aria-*</code> e relações <code>for</code>/<code>id</code>;</li>
+<li>expor props locais alinhadas ao produto, não prometer API oficial do DS;</li>
+<li>manter inicialização de módulos JS depois do render/hydration quando necessário;</li>
+<li>evitar recriar comportamento complexo quando o DS já exporta helper público, como <code>ds-tis/combobox</code>.</li>
+</ul>
+<p>Exemplo de limite correto: &quot;Criei <code>AppTextField</code> no app consumidor usando <code>ds-field</code> + <code>ds-input</code>; isso é wrapper local do app, não componente oficial exportado por <code>ds-tis</code>.&quot;</p>
+<h2>Prompt curto para agent consumidor</h2>
+<p>Copie este bloco para iniciar um agent que vai implementar uma tela usando o DS TIS em um projeto consumidor:</p>
+<pre tabindex="0"><code class="language-text">Role: Agent consumidor do DS TIS.
+
+Artefato de entrada:
+- Pedido da tela/fluxo.
+- Stack do projeto consumidor.
+- Arquivos atuais do app que definem layout, estilos globais, rotas e componentes locais.
+- Versao instalada de ds-tis, se existir.
+
+Fontes obrigatorias:
+- README.md
+- docs/llms.txt
+- docs/llms-full.txt
+- docs/api/components.json
+- docs/api/tokens.json
+- docs/&lt;component&gt;.html dos componentes usados
+- docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
+
+Regras:
+- Importe ds-tis/css uma vez no entrypoint global.
+- Use ds-tis/combobox para comportamento de Combobox.
+- Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
+- Escolha componentes existentes antes de criar markup ad hoc.
+- Use anatomia publica dos componentes; nao use classes internas isoladas.
+- Form controls devem compor ds-field + controle real, como ds-input + ds-input__field.
+- Nao hardcode hex/rgb/px/rem quando existir token, classe ou variante publica.
+- Preserve landmarks, labels, aria-*, teclado, focus ring e estados disabled/error/read-only.
+- Em React/Vue/Angular, adapte a anatomia publica em wrappers locais do app; nao invente wrappers oficiais do DS TIS.
+
+Saida esperada:
+- Arquivos alterados.
+- Componentes DS usados e por que foram escolhidos.
+- Imports DS adicionados.
+- Tokens/classes publicas relevantes.
+- Evidencia de acessibilidade e teclado.
+- Limites assumidos ou gaps do DS que precisam virar demanda.
+
+Bloqueado antes de:
+- Criar API oficial do DS que nao existe.
+- Alterar tokens ou CSS do pacote ds-tis dentro do app consumidor.
+- Trocar componente DS existente por markup ad hoc sem justificar.
+- Remover labels, aria-* ou focus ring.
+</code></pre>
+<h2>Checklist de entrega</h2>
+<p>Antes de concluir, o agent deve reportar:</p>
+<ul>
+<li>componentes DS usados e componentes descartados;</li>
+<li>imports adicionados: <code>ds-tis/css</code>, <code>ds-tis/combobox</code>, <code>ds-tis/theme</code> e/ou <code>ds-tis/templates/*</code>;</li>
+<li>classes públicas principais usadas, como <code>ds-field</code>, <code>ds-input</code> e <code>ds-input__field</code>;</li>
+<li>tokens CSS relevantes quando houver customização via <code>var(--ds-...)</code>;</li>
+<li>evidência de acessibilidade: labels, landmarks, <code>aria-*</code>, teclado, focus ring e contraste quando aplicável;</li>
+<li>estados implementados: default, hover, focus, disabled, error, loading, empty e responsive conforme o fluxo;</li>
+<li>limitações assumidas e gaps que precisam ser tratados no DS ou no produto.</li>
+</ul>
+<p>Se um item não se aplica, declare o motivo. Não deixe ausência de estado ou acessibilidade implícita.</p>
+
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

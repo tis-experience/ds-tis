@@ -269,7 +269,7 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
 1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
 2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Dropdown, Combobox, Pagination, Table
+3. **Componentes pendentes** — Table, Toast, Popover
 4. **Storybook** — opcional, não bloqueante para o beta atual
 `;
 
@@ -300,8 +300,9 @@ function slugFromAdrFilename(filename) {
   return filename.replace(/\.md$/, '').toLowerCase();
 }
 
-function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref }) {
+function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, assetBase }) {
   const basePath = base || '../';
+  const assetPath = assetBase || 'assets/';
   // layoutHref é relativo ao arquivo gerado, não ao ROOT. Padrão: layout.css
   // no mesmo diretório (páginas em docs/). Para docs/decisions/, quem chama
   // passa explicitamente `layoutHref: '../layout.css'`.
@@ -350,9 +351,11 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref }) 
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="${basePath}index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="${basePath}index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="${assetPath}logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -360,7 +363,7 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref }) 
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -387,12 +390,15 @@ ${content}
 `;
 }
 
-function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref }) {
+function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref, assetBase }) {
   if (!fs.existsSync(mdPath)) return false;
   const md = fs.readFileSync(mdPath, 'utf8');
   // Se o MD começa com `# Título`, removemos pra não duplicar com o título do layout
   const withoutH1 = md.replace(/^#\s+.+\n+/, '');
   let content = marked.parse(withoutH1);
+  // a11y: blocos `<pre>` podem virar regiões roláveis horizontalmente em
+  // Linux/CI; se forem roláveis, precisam receber foco por teclado.
+  content = content.replace(/<pre(?![^>]*\btabindex=)/g, '<pre tabindex="0"');
   // a11y: marked emite `<input disabled type="checkbox">` em task lists; sem
   // `<label>` associado quebra o axe rule `label`. Esses checkboxes são
   // decorativos (markdown task list, não form input) — marca como aria-hidden.
@@ -400,7 +406,7 @@ function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref
     if (/aria-hidden=/.test(m)) return m;
     return `<input${pre}type="checkbox"${post} aria-hidden="true">`;
   });
-  const html = wrapPage({ title, subtitle, content, base, layoutHref });
+  const html = wrapPage({ title, subtitle, content, base, layoutHref, assetBase });
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html);
   return true;
@@ -419,6 +425,7 @@ for (const adr of adrs) {
     subtitle: `Status: <strong>${adr.status}</strong> · Data: ${adr.date}`,
     base: '../../',
     layoutHref: '../layout.css',
+    assetBase: '../assets/',
   });
   if (ok) adrHtmlCount++;
 }
@@ -439,7 +446,7 @@ ${adrs.map(a => {
 `;
 fs.writeFileSync(
   path.join(decisionsDir, 'index.html'),
-  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css' })
+  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css', assetBase: '../assets/' })
 );
 console.log(`✅ docs/decisions/index.html`);
 
@@ -449,6 +456,7 @@ const mdPages = [
   { src: 'docs/brand-principles.md', out: 'docs/brand-principles.html', title: 'Princípios da marca', subtitle: 'Missão, princípios, tom de voz e identidade visual.' },
   { src: 'docs/backlog.md', out: 'docs/backlog.html', title: 'Backlog', subtitle: 'Itens fora do escopo imediato mas que devem ser implementados.' },
   { src: 'docs/documentation-guidelines.md', out: 'docs/documentation-guidelines.html', title: 'Documentation guidelines', subtitle: 'Templates editoriais para páginas de Foundation, Component, Process e System.' },
+  { src: 'docs/agent-consumer-usage.md', out: 'docs/agent-consumer-usage.html', title: 'Uso por agents consumidores', subtitle: 'Como agents devem implementar telas em projetos consumidores usando o DS TIS.' },
   { src: 'docs/process-contributing.md', out: 'docs/process-contributing.html', title: 'Como contribuir', subtitle: 'Setup local, fluxo de PR, convenções de commit.' },
   { src: 'docs/process-versioning.md', out: 'docs/process-versioning.html', title: 'Versionamento', subtitle: 'Regras de bump de versão no design system.' },
   { src: 'docs/process-releasing.md', out: 'docs/process-releasing.html', title: 'Releases', subtitle: 'Passo a passo de uma release.' },

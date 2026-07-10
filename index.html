@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Começando — Design System</title>
+  <title>Começando — Design System TIS</title>
   <link rel="stylesheet" href="css/design-system.css">
   <link rel="stylesheet" href="docs/layout.css">
   <script>
@@ -17,9 +17,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="docs/assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -27,7 +29,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -38,7 +40,7 @@
 
   <!-- Hero -->
   <div class="ds-section">
-    <h1 class="ds-section__title">Design System <span class="ds-badge ds-badge--primary ds-badge--subtle" style="font-size:0.45em;vertical-align:middle;margin-left:var(--ds-dimension-8);border-radius:var(--ds-radius-sm)"><!-- VERSION:1.0.0-beta.5 -->v1.0.0-beta.5</span></h1>
+    <h1 class="ds-section__title">Design System TIS <span class="ds-badge ds-badge--primary ds-badge--subtle" style="font-size:0.45em;vertical-align:middle;margin-left:var(--ds-dimension-8);border-radius:var(--ds-radius-sm)"><!-- VERSION:1.0.0-beta.6 -->v1.0.0-beta.6</span></h1>
     <p class="ds-section__subtitle">
       <span data-lang="pt">Um design system CSS white-label com tokens DTCG, componentes documentados, suporte multi-tema e acessibilidade WCAG 2.2.</span>
       <span data-lang="en">A white-label CSS design system with DTCG tokens, documented components, multi-theme support, and WCAG 2.2 accessibility.</span>

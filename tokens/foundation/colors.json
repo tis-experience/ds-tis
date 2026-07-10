@@ -4,47 +4,47 @@
       "brand": {
         "50": {
           "$type": "color",
-          "$value": "#EFF6FF"
+          "$value": "#EEF6FF"
         },
         "100": {
           "$type": "color",
-          "$value": "#DBEAFE"
+          "$value": "#DAEAFE"
         },
         "200": {
           "$type": "color",
-          "$value": "#BFDBFE"
+          "$value": "#BCDCFE"
         },
         "300": {
           "$type": "color",
-          "$value": "#93C5FD"
+          "$value": "#8EC6FD"
         },
         "400": {
           "$type": "color",
-          "$value": "#60A5FA"
+          "$value": "#56A7FA"
         },
         "500": {
           "$type": "color",
-          "$value": "#3B82F6"
+          "$value": "#2884F7"
         },
         "600": {
           "$type": "color",
-          "$value": "#2563EB"
+          "$value": "#0065ED"
         },
         "700": {
           "$type": "color",
-          "$value": "#1D4ED8"
+          "$value": "#0050DA"
         },
         "800": {
           "$type": "color",
-          "$value": "#1E40AF"
+          "$value": "#0C42B1"
         },
         "900": {
           "$type": "color",
-          "$value": "#1E3A8A"
+          "$value": "#143B8B"
         },
         "950": {
           "$type": "color",
-          "$value": "#172554"
+          "$value": "#132655"
         },
         "$description": "Paleta da marca. Default = Blue. Designer pode customizar editando os hex. Substitui a collection Brand com modes (Default/Ocean/Forest) — removida em ADR-014."
       },
@@ -564,34 +564,34 @@
         "brand-600": {
           "12": {
             "$type": "color",
-            "$value": "rgba(37, 99, 235, 0.12)",
-            "$description": "Brand-600 at 12% opacity. Toned default in light mode. Derived from the brand palette (customizable) — não confundir com a paleta neutra blue usada em feedback.info."
+            "$value": "rgba(0, 101, 237, 0.12)",
+            "$description": "Brand-600 at 12% opacity. Toned default in light mode."
           },
           "20": {
             "$type": "color",
-            "$value": "rgba(37, 99, 235, 0.20)",
+            "$value": "rgba(0, 101, 237, 0.20)",
             "$description": "Brand-600 at 20% opacity. Toned hover in light mode."
           },
           "28": {
             "$type": "color",
-            "$value": "rgba(37, 99, 235, 0.28)",
+            "$value": "rgba(0, 101, 237, 0.28)",
             "$description": "Brand-600 at 28% opacity. Toned active in light mode."
           }
         },
         "brand-400": {
           "15": {
             "$type": "color",
-            "$value": "rgba(96, 165, 250, 0.15)",
-            "$description": "Brand-400 at 15% opacity. Toned default in dark mode. Derived from the brand palette (customizable)."
+            "$value": "rgba(86, 167, 250, 0.15)",
+            "$description": "Brand-400 at 15% opacity. Toned default in dark mode."
           },
           "25": {
             "$type": "color",
-            "$value": "rgba(96, 165, 250, 0.25)",
+            "$value": "rgba(86, 167, 250, 0.25)",
             "$description": "Brand-400 at 25% opacity. Toned hover in dark mode."
           },
           "32": {
             "$type": "color",
-            "$value": "rgba(96, 165, 250, 0.32)",
+            "$value": "rgba(86, 167, 250, 0.32)",
             "$description": "Brand-400 at 32% opacity. Toned active in dark mode."
           }
         }
@@ -601,7 +601,7 @@
         "brand": {
           "light": {
             "$type": "color",
-            "$value": "rgba(125, 158, 232, 0.5)",
+            "$value": "rgba(86, 167, 250, 0.5)",
             "$description": "Disabled fill for Button Brand in light mode."
           },
           "dark": {
@@ -612,7 +612,7 @@
           "toned": {
             "light": {
               "$type": "color",
-              "$value": "rgba(178, 194, 230, 0.2)",
+              "$value": "rgba(218, 234, 254, 0.2)",
               "$description": "Disabled fill for Button Brand Toned in light mode."
             },
             "dark": {

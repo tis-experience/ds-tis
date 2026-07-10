@@ -17,9 +17,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -27,7 +29,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -210,6 +212,40 @@
   </div>
 
   <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
+    <div class="ds-dodont">
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-accordion" style="max-width:360px">
+            <div class="ds-accordion__item" data-state="open">
+              <button class="ds-accordion__trigger" type="button" aria-expanded="true"><span class="ds-accordion__title">Entrega</span><i data-lucide="chevron-down" class="ds-accordion__chevron ds-icon" aria-hidden="true"></i></button>
+              <div class="ds-accordion__panel"><p>Endereço e janela de recebimento.</p></div>
+            </div>
+            <div class="ds-accordion__item" data-state="closed">
+              <button class="ds-accordion__trigger" type="button" aria-expanded="false"><span class="ds-accordion__title">Pagamento</span><i data-lucide="chevron-down" class="ds-accordion__chevron ds-icon" aria-hidden="true"></i></button>
+              <div class="ds-accordion__panel" hidden><p>Cartão e faturamento.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Agrupe conteúdo relacionado em seções colapsáveis com títulos concisos.</span><span data-lang="en">Group related content in collapsible sections with concise titles.</span></div>
+      </div>
+      <div class="ds-dodont__item">
+        <div class="ds-dodont__preview">
+          <div class="ds-accordion" style="max-width:360px">
+            <div class="ds-accordion__item" data-state="open">
+              <button class="ds-accordion__trigger" type="button" aria-expanded="true"><span class="ds-accordion__title">Visão geral</span><i data-lucide="chevron-down" class="ds-accordion__chevron ds-icon" aria-hidden="true"></i></button>
+              <div class="ds-accordion__panel"><p>Informação essencial para decisão.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Não esconda informação crítica em accordion fechado por padrão.</span><span data-lang="en">Don't hide critical information in a closed accordion by default.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">API no Figma</span><span data-lang="en">Figma API</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O component set vivo expõe <strong>Title</strong>, não Label. Use o nome da propriedade pública do Figma para handoff e documentação; a classe CSS continua <code>.ds-accordion__title</code>.</span><span data-lang="en">The live component set exposes <strong>Title</strong>, not Label. Use the public Figma property name for handoff and documentation; the CSS class remains <code>.ds-accordion__title</code>.</span></p>
     <table class="ds-token-table">
@@ -246,6 +282,7 @@
       <tbody>
         <tr><td><code>ds-accordion</code></td><td><span data-lang="pt">Container do grupo de itens.</span><span data-lang="en">Container for the item group.</span></td></tr>
         <tr><td><code>ds-accordion__item</code></td><td><span data-lang="pt">Container visual de uma seção.</span><span data-lang="en">Visual container for one section.</span></td></tr>
+        <tr><td><code>ds-accordion__item--disabled</code></td><td><span data-lang="pt">Item desabilitado — trigger com <code>disabled</code>.</span><span data-lang="en">Disabled item — trigger with <code>disabled</code>.</span></td></tr>
         <tr><td><code>ds-accordion__trigger</code></td><td><span data-lang="pt">Botão que alterna abertura do painel.</span><span data-lang="en">Button that toggles panel visibility.</span></td></tr>
         <tr><td><code>ds-accordion__leading-icon</code></td><td><span data-lang="pt">Ícone Lucide opcional antes do título.</span><span data-lang="en">Optional Lucide icon before the title.</span></td></tr>
         <tr><td><code>ds-accordion__title</code></td><td><span data-lang="pt">Texto do trigger.</span><span data-lang="en">Trigger text.</span></td></tr>

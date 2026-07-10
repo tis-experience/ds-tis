@@ -104,6 +104,7 @@ Arquivo completo para LLMs: ${docUrl("docs/llms-full.txt")}
 - [Theming](${docUrl("docs/theming.html")}): como customizar brand e alternar modo.
 - [Accessibility](${docUrl("docs/accessibility.html")}): WCAG 2.2 AA aplicada.
 - [Design Principles](${docUrl("docs/design-principles.html")}): princípios do sistema.
+- [Agent Consumer Usage](${docUrl("docs/agent-consumer-usage.html")}): como agents implementam telas em projetos consumidores usando o DS TIS.
 
 ## Foundations
 

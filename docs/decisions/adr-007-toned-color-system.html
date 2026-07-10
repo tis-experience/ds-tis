@@ -39,9 +39,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -49,7 +51,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -158,11 +160,11 @@
 <h2>Decisão</h2>
 <h3>1. Estender foundation overlays com variantes coloridas</h3>
 <p>Adicionar tokens de overlay colorido em <code>tokens/foundation/colors.json</code> seguindo o pattern existente de <code>overlay.black</code> e <code>overlay.white</code>:</p>
-<pre><code>foundation.color.overlay.primary.{alpha-step}
+<pre tabindex="0"><code>foundation.color.overlay.primary.{alpha-step}
 </code></pre>
 <p>A cor base em light mode vem de <code>foundation.brand.primary</code> (blue-600) e em dark mode do equivalente dark (blue-400). Os steps de alpha batem com o uso existente de toned: 12, 15, 20, 25, 28, 32.</p>
 <p>Como tokens foundation devem ter valores absolutos (regra 3) e <code>brand.primary</code> já é um alias, os overlays coloridos usam os valores resolvidos da paleta diretamente:</p>
-<pre><code class="language-json">// Em colors.json
+<pre tabindex="0"><code class="language-json">// Em colors.json
 &quot;foundation.color.overlay.blue-600.12&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.12)&quot; }
 &quot;foundation.color.overlay.blue-600.20&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.20)&quot; }
 &quot;foundation.color.overlay.blue-600.28&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(37, 99, 235, 0.28)&quot; }
@@ -171,13 +173,13 @@
 &quot;foundation.color.overlay.blue-400.32&quot;:  { &quot;$type&quot;: &quot;color&quot;, &quot;$value&quot;: &quot;rgba(96, 165, 250, 0.32)&quot; }
 </code></pre>
 <p>Para cores de feedback, adicionar conforme necessidade (não agora — expandir quando Alert Toned ou componente similar exigir):</p>
-<pre><code>foundation.color.overlay.red-500.12    (error toned)
+<pre tabindex="0"><code>foundation.color.overlay.red-500.12    (error toned)
 foundation.color.overlay.green-500.12  (success toned)
 foundation.color.overlay.amber-500.12  (warning toned)
 foundation.color.overlay.blue-500.12   (info toned)
 </code></pre>
 <h3>2. Criar tokens semantic toned em light.json e dark.json</h3>
-<pre><code class="language-json">// Em light.json
+<pre tabindex="0"><code class="language-json">// Em light.json
 &quot;semantic.brand.toned.default&quot;:  { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.12}&quot; }
 &quot;semantic.brand.toned.hover&quot;:    { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.20}&quot; }
 &quot;semantic.brand.toned.active&quot;:   { &quot;$value&quot;: &quot;{foundation.color.overlay.blue-600.28}&quot; }
@@ -207,7 +209,7 @@ foundation.color.overlay.blue-500.12   (info toned)
 <p>Segue o mesmo pattern de três camadas, sem mudança arquitetural.</p>
 <h3>5. Convenção de naming para toned</h3>
 <p>Na camada semantic, estados toned ficam aninhados dentro do grupo da cor pai:</p>
-<pre><code>semantic.brand.default       (opaco, 100%)
+<pre tabindex="0"><code>semantic.brand.default       (opaco, 100%)
 semantic.brand.hover         (opaco, mais escuro)
 semantic.brand.subtle        (opaco, step 100 da paleta)
 semantic.brand.toned.default (transparente, ~12%)

@@ -39,9 +39,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -49,7 +51,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -70,6 +72,28 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2>[Não publicado]</h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Guia para agents consumidores.</strong> Nova página pública <code>docs/agent-consumer-usage.html</code> define como agents devem implementar telas em projetos consumidores usando <code>ds-tis/css</code>, <code>ds-tis/combobox</code>, <code>ds-tis/theme</code>, templates, anatomia pública, acessibilidade e checklist de evidência. <code>AGENTS.md</code> agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e <code>verify:agent-docs</code> protege a referência.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>SVGs do header renderizam sem achatamento visual.</strong> <code>logo-tis-mark.svg</code> passa a ter viewport quadrado compatível com o slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia <code>ds-button__icon</code> em vez de paths preenchidos inline.</li>
+<li><strong>Logo da documentação carrega corretamente em todas as rotas.</strong> Topbar passa a usar o símbolo TIS vetorial <code>docs/assets/logo-tis-mark.svg</code> no padrão <code>símbolo TIS | Design System</code>; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.</li>
+<li><strong>Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.</strong> <code>sync:docs</code> adiciona <code>tabindex=&quot;0&quot;</code> em <code>&lt;pre&gt;</code> gerado por Markdown, evitando violações <code>scrollable-region-focusable</code> quando blocos de código ficam roláveis no CI/Linux.</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li><strong>Marca do header da documentação.</strong> Topbar passa a renderizar <code>símbolo TIS + TIS | Design System</code>, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.</li>
+<li><strong>Visual regression com baseline por plataforma.</strong> <code>test:visual</code> mantém a baseline canônica Linux/GitHub Actions em <code>tests/visual/baseline/</code>, passa a usar <code>tests/visual/baseline-darwin/</code> em macOS para evitar falso negativo local por rasterização/fonte, e <code>test:audit-scenarios</code> protege esse contrato.</li>
+<li><strong>Cenarios de auditoria executaveis.</strong> Novo <code>npm run test:audit-scenarios</code> valida consumo real do pacote (<code>exports</code>, <code>files</code>, self-imports e <code>npm pack --dry-run</code>), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.</li>
+<li><strong>Empacotamento para consumo real.</strong> <code>package.json</code> passa a publicar CSS, templates, helper de Combobox e theme engine, com <code>exports</code> para <code>ds-tis/css</code>, <code>ds-tis/combobox</code> e <code>ds-tis/theme</code>; <code>js/package.json</code> declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.</li>
+<li><strong>Auditoria de Component tokens reconhece componentes CSS-only.</strong> <code>audit:component-tokens</code> deixa de tratar <code>form-field/*</code> como erro de binding Figma, respeitando ADR-017, e o Button passa a explicitar <code>letter-spacing</code> via <code>--ds-button-label-letter-spacing-default</code>.</li>
+<li><strong>Paleta brand recalibrada para contraste com folga (seed <code>#0056E0</code>).</strong> Escala OKLCH escurecida de forma perceptível em relação ao ajuste anterior (<code>#036EF2</code> / <code>#026DF1</code>): <code>brand/600</code> = <code>#0065ED</code> (fill primário, ~5,1:1 vs branco e ~4,9:1 vs <code>neutral-50</code> em botões), <code>brand/700</code> = <code>#0050DA</code>. <strong><code>semantic.content.brand</code> (light)</strong> passa a usar <code>brand/700</code> em vez de <code>brand/600</code>, garantindo AA texto em fundos neutros e tinted (<code>neutral-100</code>, <code>brand-50</code>, <code>brand-100</code>); fills sólidos e links mantêm a separação 600/700/800. Figma (<code>color/brand/*</code>, overlays, disabled, <code>content/brand</code> Light→700 / Dark→400), JSON/CSS, Theme Playground e <code>foundations-colors.html</code> sincronizados; <code>test-theme-engine</code> valida folga de contraste.</li>
+<li><strong>Branding da documentação.</strong> Topbar passa a exibir a marca TIS no lugar do ícone &quot;DS&quot; em todas as páginas HTML; home atualizada com o mesmo nome.</li>
+<li><strong>Capa Figma corrigida.</strong> A página estava com modo Semantic <strong>Dark</strong>, fazendo <code>content/inverse</code> e <code>brand/content/default</code> renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a <strong>Semantic Light</strong>; labels dos stats rebindados para <code>brand/content/default</code>. Versão atualizada para <code>v1.0.0-beta.6</code>; contagem de componentes <code>19</code>.</li>
+</ul>
+<h2>[1.0.0-beta.6] — 2026-07-06</h2>
 <h3>Adicionado</h3>
 <ul>
 <li><strong><code>npm run figma:snapshot:refresh</code>.</strong> Encadeia install do export <code>figma-snapshot.json</code> → <code>sync:tokens-from-figma</code> (dry-run) → <code>verify:tokens</code>. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em <code>AGENTS.md</code> §4.4). <code>agent:preflight</code> sinaliza export pendente na raiz.</li>
@@ -93,7 +117,20 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Theme Playground: modo reverte para dark após alternar light/dark e mudar cor.</strong> A inicialização do playground passa a rodar em <code>DOMContentLoaded</code> (depois de <code>initThemeSwitcher</code> em <code>main.js</code>), <code>syncModeUI</code> alinha toggles do header/playground e <code>localStorage</code> após cada <code>applyTheme</code>, e o listener do header deixa de ler <code>data-mode</code> stale antes do toggle global.</li>
+<li><strong>Theme Playground: controles do painel alinhados ao padrão de formulário do DS.</strong> Campos passam a usar <code>ds-field</code>, <code>ds-input</code>/<code>ds-input__field</code> e <code>ds-select</code>/<code>ds-select__field</code> em vez de estilos ad hoc; apenas o color picker nativo mantém CSS local mínimo.</li>
+<li><strong>Theme Playground: corner radius não atualizava após a primeira troca de preset.</strong> <code>applyTheme</code> agora remove vars inline obsoletas (ex.: <code>--ds-button-radius-default</code> e <code>--ds-radius-md</code> do preset <code>soft</code>) antes de aplicar o próximo preset.</li>
+<li><strong>Theme Playground: combobox de fontes alinhado ao componente Combobox do DS.</strong> Campos de tipografia passam de <code>input</code> + <code>datalist</code> (chevron nativo do browser) para <code>ds-combobox</code> com chevron Lucide, listbox popup e suporte a digitação livre.</li>
+<li><strong>Combobox: anatomia de popup + módulo JS compartilhado.</strong> Wrapper <code>.ds-combobox-anchor</code> posiciona o listbox abaixo do field; <code>[hidden]</code> e <code>.ds-combobox--open</code> controlam visibilidade e chevron; <code>js/combobox.js</code> implementa abrir/fechar exclusivo, blur, filtro e teclado (usado no Theme Playground).</li>
+<li><strong>Form controls: radius estável no focus.</strong> Combobox deixou de trocar <code>border-radius</code> para <code>radius-lg</code> em <code>:focus-within</code>; Input, Select e Textarea fixam <code>border-radius: var(--ds-field-radius)</code> no focus para não “arredondar” visualmente em relação ao estado default.</li>
+<li><strong>Theme Playground: exportação vazia e UI de export.</strong> <code>renderContrast</code> quebrava em overlays <code>rgba</code> e interrompia <code>renderExports</code>; contraste agora compõe overlay sobre superfície. Seção Export usa layout próprio (radius fixo, sem conflito com tabs de docs) e explica CSS / JSON / Link.</li>
+<li><strong>Theme Playground: preview de Card sem variante.</strong> Card passa a usar <code>ds-card--default</code> com anatomia completa (<code>__container</code>, <code>__header</code>, <code>__footer</code>); a borda só existe nas variantes do componente, não no <code>.ds-card</code> base.</li>
 <li><strong>Overlays toned desacoplados da paleta neutra (base para theme playground).</strong> <code>foundation.color.overlay.blue-600.{12,20,28}</code> e <code>overlay.blue-400.{15,25,32}</code> renomeados para <code>overlay.brand-600.*</code> e <code>overlay.brand-400.*</code>, e <code>semantic.toned.background.*</code> (light/dark) passam a referenciá-los. Isso faz os botões/badges <code>toned</code> derivarem da paleta brand customizável em vez de um azul hardcoded — pré-requisito para personalização global de marca em tempo real. Corrige também o dark, que referenciava por engano os overlays do light (mesmo alpha); agora usa <code>brand-400.{15,25,32}</code> e os overlays antes órfãos passam a ter uso. Valores rgba inalterados (brand default = blue), sem regressão visual. <strong>Figma:</strong> variables <code>color/overlay/blue-*</code> renomeadas para <code>color/overlay/brand-*</code>; aliases <code>toned/background/*</code> no modo Dark atualizados para <code>brand-400</code>. Ver nota de atualização na ADR-007.</li>
+<li><strong>Estabilização Accordion, Combobox e Pagination (run <code>2026-07-06-stabilize-recent-components</code>).</strong> Auditoria paralela Figma↔repo com snapshot fresco; gates <code>test-combobox-docs</code> e <code>test-pagination-docs</code>; documentação alinhada à API Figma e tokens canônicos.</li>
+<li><strong>Documentação Pagination.</strong> Corrige paths <code>component.pagination.page.*</code> → <code>item.*</code>, expande mapeamento de tokens (29 paths) e adiciona seção API no Figma (<code>Size</code>, <code>Page Number</code>).</li>
+<li><strong>Documentação Combobox.</strong> Adiciona API no Figma, exemplo Read-only, classes <code>__icon</code>/<code>__clear</code>/<code>--readonly</code>; <code>focus-visible</code> em <code>.ds-combobox__option</code>; <code>max-block-size</code> do listbox via <code>calc(var(--ds-dimension-128) * 2)</code>.</li>
+<li><strong>Documentação Accordion.</strong> Adiciona seção Boas práticas (<code>ds-dodont</code>) e classe <code>ds-accordion__item--disabled</code> na tabela pública.</li>
+<li><strong>Docs de overlay brand e milestones.</strong> <code>foundations-colors.html</code> e <code>control-sizing.html</code> atualizam referências para <code>--ds-overlay-brand-*</code>; inventário passa a listar Table, Toast e Popover como próximos componentes.</li>
 <li><strong>Accordion sincroniza API e comportamento.</strong> A documentação passa a refletir a propriedade pública <code>Title</code> do Figma, documenta <code>Content Slot</code>, <code>Show Leading Icon</code>, <code>Leading Icon</code>, <code>State</code> e <code>Open</code>, e o site adiciona helper interativo para sincronizar <code>aria-expanded</code>, <code>hidden</code> e <code>data-state</code> em expand/collapse. Novo gate <code>test-accordion-docs</code> impede regressão para <code>Label</code> como propriedade pública e valida o contrato de comportamento.</li>
 <li><strong>Documentação de Combobox, Menu e Pagination.</strong> Páginas completas no padrão Select/Breadcrumb (Quando usar, Anatomia, Padrão com <code>ds-preview</code>, tamanhos/estados, Boas práticas <code>ds-dodont</code>, Diretrizes de conteúdo, Mapeamento tokens, Classes CSS, Teclado, Accessibility e Relacionados); navegação Components em <code>js/main.js</code> e grid de <code>index.html</code> reordenados alfabeticamente (Icons primeiro, Menu e Alert incluídos).</li>
 <li><strong>CI de PR com check obrigatório.</strong> O workflow <code>Verify tokens</code> passa a rodar em todo PR/push para <code>main</code>, evitando bloqueio por check requerido ausente quando a mudança não toca arquivos de tokens.</li>
@@ -108,7 +145,7 @@
 <li><strong>Visual regression passa a rodar no CI.</strong> <code>test.yml</code> agora executa <code>scripts/test-visual.mjs</code> após a auditoria a11y e publica <code>tests/visual/actual</code> + <code>tests/visual/diff</code> como artifact quando houver falha; a baseline visual foi atualizada para o estado atual validado em produção.</li>
 <li><strong>Baseline de acessibilidade zerada.</strong> Ajustados contrastes em feedback <code>subtle</code> no dark mode, links do site de documentação e foco de blocos de código roláveis; <code>test:a11y</code> agora passa com <code>critical=0</code>, <code>serious=0</code>, <code>moderate=0</code>, <code>minor=0</code> e <code>.a11y-baseline.json</code> fica sem violações aceitas.</li>
 <li><strong>Auditoria estrutural do Figma passa a escolher o snapshot mais recente.</strong> <code>verify:figma-structure</code> agora aceita <code>figma-snapshot.json</code> sem ponto e, quando não recebe <code>--snapshot</code>, escolhe o arquivo mais novo entre os snapshots locais conhecidos, evitando validar acidentalmente um <code>.figma-snapshot.structure.json</code> antigo.</li>
-<li><strong>Pendências de maturidade e milestones removem itens stale.</strong> <code>process-versioning</code> passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; <code>component-inventory</code> troca milestones já resolvidos por próximos passos reais.</li>
+<li><strong>Pendências de maturidade e milestones removem itens stale.</strong> <code>process-versioning</code> passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; <code>component-inventory</code> milestones atualizados para próximos componentes reais (Table, Toast, Popover).</li>
 </ul>
 <h2>[1.0.0-beta.5] — 2026-06-12</h2>
 <h3>Corrigido</h3>

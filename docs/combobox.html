@@ -17,9 +17,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -27,7 +29,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -275,6 +277,51 @@
         </div>
       </div>
     </div>
+    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Read-only</h3>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
+          <div class="ds-combobox ds-combobox--md ds-combobox--readonly ds-combobox--filled">
+            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" readonly value="Brazil" aria-label="Country (read-only)">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-combobox ds-combobox--md ds-combobox--readonly ds-combobox--filled"&gt;
+  &lt;input class="ds-combobox__input" readonly value="Brazil" aria-label="Country (read-only)"&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">API no Figma</span><span data-lang="en">Figma API</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O component set vivo compõe field compartilhado (ADR-020) com listbox local. <code>State</code> cobre Default, Hover, Focus e Disabled; <code>Filled</code>, <code>Error</code> e <code>Read-only</code> são propriedades separadas, como em Select.</span><span data-lang="en">The live component set composes the shared field (ADR-020) with a local listbox. <code>State</code> covers Default, Hover, Focus, and Disabled; <code>Filled</code>, <code>Error</code>, and <code>Read-only</code> are separate properties, like Select.</span></p>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Equivalente no repo</span><span data-lang="en">Repo equivalent</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Show Label</code></td><td><code>BOOLEAN</code></td><td><code>ds-field</code> + <code>.ds-field__label</code></td></tr>
+        <tr><td><code>Label</code></td><td><code>TEXT</code></td><td><code>.ds-field__label</code></td></tr>
+        <tr><td><code>Placeholder</code></td><td><code>TEXT</code></td><td><code>placeholder</code> no input</td></tr>
+        <tr><td><code>Content</code></td><td><code>TEXT</code></td><td>valor preenchido em <code>.ds-combobox__input</code></td></tr>
+        <tr><td><code>Show Left Icon</code> / <code>Left Icon</code></td><td><code>BOOLEAN</code> / <code>INSTANCE_SWAP</code></td><td><code>.ds-combobox__icon</code></td></tr>
+        <tr><td><code>Show Clear Button</code> / <code>Clear Icon</code></td><td><code>BOOLEAN</code> / <code>INSTANCE_SWAP</code></td><td><code>.ds-combobox__clear</code></td></tr>
+        <tr><td><code>Chevron Icon</code></td><td><code>INSTANCE_SWAP</code></td><td><code>.ds-combobox__chevron</code></td></tr>
+        <tr><td><code>Show Helper Text</code> / <code>Helper Text</code></td><td><code>BOOLEAN</code> / <code>TEXT</code></td><td><code>.ds-field__helper</code></td></tr>
+        <tr><td><code>Error Message</code></td><td><code>TEXT</code></td><td><code>.ds-field__error</code> + <code>ds-combobox--error</code></td></tr>
+        <tr><td><code>Size</code></td><td><code>VARIANT</code></td><td><code>ds-combobox--sm</code> / <code>--md</code> / <code>--lg</code></td></tr>
+        <tr><td><code>State</code></td><td><code>VARIANT</code></td><td>Default, Hover, Focus, Disabled</td></tr>
+        <tr><td><code>Filled</code> / <code>Error</code> / <code>Read-only</code></td><td><code>BOOLEAN</code></td><td><code>ds-combobox--filled</code>, <code>--error</code>, <code>--readonly</code></td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="ds-subsection">
@@ -339,9 +386,13 @@
         <tr><td><code>ds-combobox__input</code></td><td><span data-lang="pt">Input editável com <code>role="combobox"</code></span><span data-lang="en">Editable input with <code>role="combobox"</code></span></td></tr>
         <tr><td><code>ds-combobox__listbox</code></td><td><span data-lang="pt">Container popup das opções</span><span data-lang="en">Options popup container</span></td></tr>
         <tr><td><code>ds-combobox__option</code></td><td><span data-lang="pt">Item do listbox (<code>role="option"</code>)</span><span data-lang="en">Listbox item (<code>role="option"</code>)</span></td></tr>
+        <tr><td><code>ds-combobox__icon</code></td><td><span data-lang="pt">Ícone leading opcional (Lucide)</span><span data-lang="en">Optional leading icon (Lucide)</span></td></tr>
+        <tr><td><code>ds-combobox__clear</code></td><td><span data-lang="pt">Botão para limpar seleção</span><span data-lang="en">Clear selection button</span></td></tr>
+        <tr><td><code>ds-combobox__chevron</code></td><td><span data-lang="pt">Indicador decorativo do popup</span><span data-lang="en">Decorative popup indicator</span></td></tr>
         <tr><td><code>ds-combobox--sm/md/lg</code></td><td><span data-lang="pt">Tamanhos 32 / 40 / 48px</span><span data-lang="en">32 / 40 / 48px sizes</span></td></tr>
         <tr><td><code>ds-combobox--error</code></td><td><span data-lang="pt">Estado de erro</span><span data-lang="en">Error state</span></td></tr>
         <tr><td><code>ds-combobox--disabled</code></td><td><span data-lang="pt">Estado desabilitado</span><span data-lang="en">Disabled state</span></td></tr>
+        <tr><td><code>ds-combobox--readonly</code></td><td><span data-lang="pt">Somente leitura — valor visível sem edição</span><span data-lang="en">Read-only — visible value without editing</span></td></tr>
         <tr><td><code>ds-combobox--filled</code></td><td><span data-lang="pt">Valor preenchido</span><span data-lang="en">Filled value</span></td></tr>
       </tbody>
     </table>

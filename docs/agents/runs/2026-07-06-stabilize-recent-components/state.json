@@ -1,0 +1,129 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-06-stabilize-recent-components",
+  "title": "Estabilizar Accordion, Combobox e Pagination",
+  "createdAt": "2026-07-06",
+  "updatedAt": "2026-07-08",
+  "figmaSnapshot": {
+    "id": "IE68amP9Hya5ieFw1rX8S8",
+    "generatedAt": "2026-07-06T09:32:41.132Z",
+    "path": ".figma-snapshot.json",
+    "exporter": "0.2.0",
+    "promotedFrom": "figma-snapshot.json"
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": ["01-brief.md", "02-figma-spec.md"],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "note": "Estabilização de componentes existentes; sem criação/redesign de padrão novo.",
+      "ownerApproval": "Owner autorizou corrigir todos os pontos auditáveis em 2026-07-08.",
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": ["03-figma-build-report.md"],
+      "requires": ["brief"],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "note": "Sem criação de componente novo; ajustes Figma pontuais seguem a auditoria desta run.",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": ["04-figma-audit-report.md"],
+      "requires": ["figma-build"],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": "Owner autorizou corrigir todos os pontos auditáveis em 2026-07-08.",
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": ["05-repo-sync-plan.md"],
+      "requires": ["figma-audit"],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": ["06-repo-implementation-report.md"],
+      "requires": ["token-sync"],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": "Owner autorizou corrigir todos os pontos auditáveis em 2026-07-08.",
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": ["07-release-report.md"],
+      "requires": ["repo"],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-08"
+    }
+  ],
+  "checks": {
+    "verify:figma-structure": { "exitCode": 0, "issues": 0 },
+    "verify:tokens": { "exitCode": 0, "errors": 0, "warnings": 0 },
+    "audit:component-tokens": {
+      "exitCode": 0,
+      "issues": 0,
+      "note": "Button label typography rebindado no Figma; Form Field permanece CSS-only por ADR-017."
+    },
+    "componentTokenParity": {
+      "accordion": { "figma": 28, "json": 28, "drift": 0 },
+      "combobox": { "figma": 16, "json": 16, "drift": 0 },
+      "pagination": { "figma": 29, "json": 29, "drift": 0 }
+    },
+    "test:audit-scenarios": {
+      "exitCode": 0,
+      "checks": 57,
+      "note": "Cobre package exports/files, self-imports, npm pack dry-run, README de consumo, Button Component token, snapshot Figma, run de agents e build de icones em caminho com espaco."
+    },
+    "npm:test": {
+      "exitCode": 0,
+      "a11yRuns": 100,
+      "a11yViolations": 0
+    },
+    "test:visual": {
+      "exitCode": 0,
+      "screenshots": 78,
+      "fail": 0,
+      "diff": 0
+    },
+    "security:check": {
+      "exitCode": 0
+    },
+    "npm:pack:dry-run": {
+      "exitCode": 0,
+      "files": 63
+    },
+    "figma:live-audit": {
+      "exitCode": 0,
+      "buttonLabelCount": 90,
+      "buttonBadBindings": 0,
+      "componentStatusExpected": 23,
+      "componentStatusFound": 23,
+      "componentStatusMissing": 0,
+      "componentStatusTopLevelCount": 1,
+      "spinnerChildrenOrderedSmallToLarge": true,
+      "spinnerPropertyOptionsOrderedSmallToLarge": false,
+      "note": "Spinner Size variantOptions continua Large/Medium/Small por limitacao de API; corrigir manualmente no painel Figma se necessario."
+    }
+  }
+}

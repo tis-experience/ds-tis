@@ -39,9 +39,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -49,7 +51,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -89,12 +91,12 @@
 <h2>Decisao</h2>
 <p>Reintroduzir a camada <strong>Component</strong> como camada de contrato anatômico e de consumo dos componentes.</p>
 <p>Nova cadeia:</p>
-<pre><code class="language-txt">Foundation/Core -&gt; Semantic/System -&gt; Component -&gt; implementacao
+<pre tabindex="0"><code class="language-txt">Foundation/Core -&gt; Semantic/System -&gt; Component -&gt; implementacao
 </code></pre>
 <h3>Responsabilidades por camada</h3>
 <h4>Foundation/Core</h4>
 <p>Primitivos sem intenção de uso:</p>
-<pre><code class="language-txt">foundation.dimension.40
+<pre tabindex="0"><code class="language-txt">foundation.dimension.40
 foundation.color.brand.600
 foundation.radius.4
 foundation.border.width.1
@@ -102,7 +104,7 @@ foundation.border.width.1
 <p>Foundation não fala de componente, estado de UI ou anatomia.</p>
 <h4>Semantic/System</h4>
 <p>Decisões reutilizáveis do sistema:</p>
-<pre><code class="language-txt">semantic.size.xl
+<pre tabindex="0"><code class="language-txt">semantic.size.xl
 semantic.space.md
 semantic.primary.background.default
 semantic.feedback.error.content.default
@@ -111,7 +113,7 @@ semantic.border.control.default
 <p>Semantic não deve conter nome de componente. <code>control</code> continua permitido quando o conceito é reutilizável por vários controles, não quando nomeia uma parte exclusiva de um componente.</p>
 <h4>Component</h4>
 <p>Contrato publico e anatômico de cada componente:</p>
-<pre><code class="language-txt">component.checkbox.target.height.sm
+<pre tabindex="0"><code class="language-txt">component.checkbox.target.height.sm
 component.checkbox.box.size.sm
 component.checkbox.mark.size.sm
 component.toggle.track.width.md
@@ -121,14 +123,14 @@ component.input.height.md
 <p>Component tokens podem ser alias 1:1 para Semantic quando esse alias documenta uma parte pública e estável da anatomia do componente. O problema a evitar não é o alias 1:1; é criar wrapper sem anatomia, sem contrato e sem uso claro.</p>
 <h3>Naming</h3>
 <p>Formato canônico DTCG:</p>
-<pre><code class="language-txt">component.&lt;component&gt;.[&lt;part&gt;.]&lt;property&gt;.&lt;variant-or-state&gt;
+<pre tabindex="0"><code class="language-txt">component.&lt;component&gt;.[&lt;part&gt;.]&lt;property&gt;.&lt;variant-or-state&gt;
 </code></pre>
 <p>Formato canônico no Figma:</p>
-<pre><code class="language-txt">&lt;component&gt;/[&lt;part&gt;/]&lt;property&gt;/&lt;variant-or-state&gt;
+<pre tabindex="0"><code class="language-txt">&lt;component&gt;/[&lt;part&gt;/]&lt;property&gt;/&lt;variant-or-state&gt;
 </code></pre>
 <p>No Figma, o prefixo de camada nao entra no nome da variable porque a propria collection <code>Component</code> ja define a camada. Assim, <code>button/height/md</code> na collection <code>Component</code> corresponde a <code>component.button.height.md</code> em DTCG. Nao usar <code>component/button/...</code> dentro da collection <code>Component</code>, porque isso duplica a camada como <code>Component/component/...</code> na UI.</p>
 <p>O segmento <code>&lt;part&gt;</code> é opcional. Ele deve aparecer quando existe anatomia real ou ambiguidade entre partes do componente (<code>checkbox.target</code>, <code>checkbox.box</code>, <code>toggle.track</code>, <code>toggle.thumb</code>, <code>button.label</code>, <code>button.icon</code>, <code>button.focus-ring</code>). Quando a propriedade pertence ao componente como um todo ou à superfície principal, o path deve ser mais curto:</p>
-<pre><code class="language-txt">component.button.height.md
+<pre tabindex="0"><code class="language-txt">component.button.height.md
 component.button.bg.brand.default
 component.input.height.sm
 component.avatar.size.md
@@ -142,14 +144,14 @@ component.avatar.size.md
 <li><code>&lt;variant-or-state&gt;</code>: size, state ou role quando necessário (<code>sm</code>, <code>md</code>, <code>lg</code>, <code>default</code>, <code>hover</code>, <code>selected</code>, <code>disabled</code>, <code>error</code>).</li>
 </ul>
 <p>Exemplos aceitos:</p>
-<pre><code class="language-txt">component.checkbox.target.height.sm -&gt; semantic.size.lg
+<pre tabindex="0"><code class="language-txt">component.checkbox.target.height.sm -&gt; semantic.size.lg
 component.checkbox.box.size.sm -&gt; semantic.size.xs
 component.input.height.sm -&gt; semantic.size.lg
 component.toggle.target.height.md -&gt; semantic.size.xl
 component.toggle.track.height.md -&gt; semantic.size.md
 </code></pre>
 <p>Exemplos rejeitados:</p>
-<pre><code class="language-txt">component.button.bg.brand.default -&gt; semantic.primary.background.default
+<pre tabindex="0"><code class="language-txt">component.button.bg.brand.default -&gt; semantic.primary.background.default
 </code></pre>
 <p>Rejeitado quando for apenas duplicação de uma decisão de role/style já expressa por Semantic e não houver contrato anatômico adicional. Se a documentação do componente precisar expor essa decisão como API de customização, o token Component passa a ser aceitável.</p>
 <h3>Regra de consumo</h3>

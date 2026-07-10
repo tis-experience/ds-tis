@@ -1,6 +1,6 @@
 # Design System Core — conteúdo consolidado
 
-> Versão 1.0.0-beta.5. Arquivo destinado a consumo por LLMs que precisem
+> Versão 1.0.0-beta.6. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
 > CLAUDE.md, CHANGELOG, todos os MDs em docs/, todos os ADRs e um resumo
 > dos tokens. Páginas HTML-only (componentes, foundations) estão referenciadas
@@ -17,14 +17,42 @@ Para APIs JSON, ver docs/api/
 
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.5-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.6-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
+Como dependência do projeto:
+
+```bash
+npm install ds-tis
+```
+
+Import principal:
+
+```js
+import 'ds-tis/css';
+```
+
+HTML estático ou protótipo sem bundler:
+
 ```html
-<link rel="stylesheet" href="https://cdn.example.com/ds-tis@1.0.0-beta.5/css/design-system.css">
+<link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
+```
+
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar do comportamento de Combobox:
+
+```js
+import { initComboboxes } from 'ds-tis/combobox';
+
+initComboboxes();
+```
+
+O pacote também exporta o theme engine e templates HTML:
+
+```js
+import { applyTheme, toCssSnippet } from 'ds-tis/theme';
 ```
 
 Uso local:
@@ -33,10 +61,10 @@ Uso local:
 git clone <repo-url>
 cd ds-tis
 npm install
-npm run build:tokens
+npm run build:all
 ```
 
-Depois serve o diretório estático (`python3 -m http.server` ou equivalente).
+Depois sirva o diretório estático (`python3 -m http.server` ou equivalente).
 
 ## Documentação completa
 
@@ -47,6 +75,7 @@ Links rápidos:
 - [Getting Started](./index.html)
 - [Token Architecture](./docs/token-architecture.html)
 - [Documentation Guidelines](./docs/documentation-guidelines.html)
+- [Guia para agents consumidores](./docs/agent-consumer-usage.html) — como implementar telas em projetos consumidores usando o DS TIS
 - [Component Inventory](./docs/component-inventory.md)
 - [Decisões (ADRs)](./docs/decisions/)
 - [Changelog](./CHANGELOG.md)
@@ -207,6 +236,26 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
+
+### Corrigido
+- **SVGs do header renderizam sem achatamento visual.** `logo-tis-mark.svg` passa a ter viewport quadrado compatível com o slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia `ds-button__icon` em vez de paths preenchidos inline.
+- **Logo da documentação carrega corretamente em todas as rotas.** Topbar passa a usar o símbolo TIS vetorial `docs/assets/logo-tis-mark.svg` no padrão `símbolo TIS | Design System`; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.
+- **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
+
+### Alterado
+- **Marca do header da documentação.** Topbar passa a renderizar `símbolo TIS + TIS | Design System`, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.
+- **Visual regression com baseline por plataforma.** `test:visual` mantém a baseline canônica Linux/GitHub Actions em `tests/visual/baseline/`, passa a usar `tests/visual/baseline-darwin/` em macOS para evitar falso negativo local por rasterização/fonte, e `test:audit-scenarios` protege esse contrato.
+- **Cenarios de auditoria executaveis.** Novo `npm run test:audit-scenarios` valida consumo real do pacote (`exports`, `files`, self-imports e `npm pack --dry-run`), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.
+- **Empacotamento para consumo real.** `package.json` passa a publicar CSS, templates, helper de Combobox e theme engine, com `exports` para `ds-tis/css`, `ds-tis/combobox` e `ds-tis/theme`; `js/package.json` declara ESM apenas no escopo dos módulos públicos. README remove CDN fictício e documenta instalação, import CSS, Combobox e theme engine.
+- **Auditoria de Component tokens reconhece componentes CSS-only.** `audit:component-tokens` deixa de tratar `form-field/*` como erro de binding Figma, respeitando ADR-017, e o Button passa a explicitar `letter-spacing` via `--ds-button-label-letter-spacing-default`.
+- **Paleta brand recalibrada para contraste com folga (seed `#0056E0`).** Escala OKLCH escurecida de forma perceptível em relação ao ajuste anterior (`#036EF2` / `#026DF1`): `brand/600` = `#0065ED` (fill primário, ~5,1:1 vs branco e ~4,9:1 vs `neutral-50` em botões), `brand/700` = `#0050DA`. **`semantic.content.brand` (light)** passa a usar `brand/700` em vez de `brand/600`, garantindo AA texto em fundos neutros e tinted (`neutral-100`, `brand-50`, `brand-100`); fills sólidos e links mantêm a separação 600/700/800. Figma (`color/brand/*`, overlays, disabled, `content/brand` Light→700 / Dark→400), JSON/CSS, Theme Playground e `foundations-colors.html` sincronizados; `test-theme-engine` valida folga de contraste.
+- **Branding da documentação.** Topbar passa a exibir a marca TIS no lugar do ícone "DS" em todas as páginas HTML; home atualizada com o mesmo nome.
+- **Capa Figma corrigida.** A página estava com modo Semantic **Dark**, fazendo `content/inverse` e `brand/content/default` renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a **Semantic Light**; labels dos stats rebindados para `brand/content/default`. Versão atualizada para `v1.0.0-beta.6`; contagem de componentes `19`.
+
+## [1.0.0-beta.6] — 2026-07-06
+
+### Adicionado
 - **`npm run figma:snapshot:refresh`.** Encadeia install do export `figma-snapshot.json` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em `AGENTS.md` §4.4). `agent:preflight` sinaliza export pendente na raiz.
 - **Accordion público no repo.** Adicionados `css/components/accordion.css`, `docs/accordion.html`, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens `component.accordion.*`.
 - **Componente Accordion.** Adicionado o contrato anatômico do Accordion aprovado no Figma para `item`, `trigger`, `content`, `chevron`, `leading-icon` e `focus-ring`, com tokens `component.accordion.*`, CSS gerado, API, registry e documentação de tokens a partir da run `2026-06-29-accordion`. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e `Focus Ring` dedicado com radius `16`.
@@ -227,7 +276,20 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Escala semântica de space expandida.** `semantic.space` passa a incluir `3xl` a `6xl` (`32/40/48/64px`) e `semantic.space.section` sobe para `48/64/80/96/120px` com novo `section.2xl`, mantendo aliases Figma ↔ JSON para gaps, paddings e separação macro.
 
 ### Corrigido
+- **Theme Playground: modo reverte para dark após alternar light/dark e mudar cor.** A inicialização do playground passa a rodar em `DOMContentLoaded` (depois de `initThemeSwitcher` em `main.js`), `syncModeUI` alinha toggles do header/playground e `localStorage` após cada `applyTheme`, e o listener do header deixa de ler `data-mode` stale antes do toggle global.
+- **Theme Playground: controles do painel alinhados ao padrão de formulário do DS.** Campos passam a usar `ds-field`, `ds-input`/`ds-input__field` e `ds-select`/`ds-select__field` em vez de estilos ad hoc; apenas o color picker nativo mantém CSS local mínimo.
+- **Theme Playground: corner radius não atualizava após a primeira troca de preset.** `applyTheme` agora remove vars inline obsoletas (ex.: `--ds-button-radius-default` e `--ds-radius-md` do preset `soft`) antes de aplicar o próximo preset.
+- **Theme Playground: combobox de fontes alinhado ao componente Combobox do DS.** Campos de tipografia passam de `input` + `datalist` (chevron nativo do browser) para `ds-combobox` com chevron Lucide, listbox popup e suporte a digitação livre.
+- **Combobox: anatomia de popup + módulo JS compartilhado.** Wrapper `.ds-combobox-anchor` posiciona o listbox abaixo do field; `[hidden]` e `.ds-combobox--open` controlam visibilidade e chevron; `js/combobox.js` implementa abrir/fechar exclusivo, blur, filtro e teclado (usado no Theme Playground).
+- **Form controls: radius estável no focus.** Combobox deixou de trocar `border-radius` para `radius-lg` em `:focus-within`; Input, Select e Textarea fixam `border-radius: var(--ds-field-radius)` no focus para não “arredondar” visualmente em relação ao estado default.
+- **Theme Playground: exportação vazia e UI de export.** `renderContrast` quebrava em overlays `rgba` e interrompia `renderExports`; contraste agora compõe overlay sobre superfície. Seção Export usa layout próprio (radius fixo, sem conflito com tabs de docs) e explica CSS / JSON / Link.
+- **Theme Playground: preview de Card sem variante.** Card passa a usar `ds-card--default` com anatomia completa (`__container`, `__header`, `__footer`); a borda só existe nas variantes do componente, não no `.ds-card` base.
 - **Overlays toned desacoplados da paleta neutra (base para theme playground).** `foundation.color.overlay.blue-600.{12,20,28}` e `overlay.blue-400.{15,25,32}` renomeados para `overlay.brand-600.*` e `overlay.brand-400.*`, e `semantic.toned.background.*` (light/dark) passam a referenciá-los. Isso faz os botões/badges `toned` derivarem da paleta brand customizável em vez de um azul hardcoded — pré-requisito para personalização global de marca em tempo real. Corrige também o dark, que referenciava por engano os overlays do light (mesmo alpha); agora usa `brand-400.{15,25,32}` e os overlays antes órfãos passam a ter uso. Valores rgba inalterados (brand default = blue), sem regressão visual. **Figma:** variables `color/overlay/blue-*` renomeadas para `color/overlay/brand-*`; aliases `toned/background/*` no modo Dark atualizados para `brand-400`. Ver nota de atualização na ADR-007.
+- **Estabilização Accordion, Combobox e Pagination (run `2026-07-06-stabilize-recent-components`).** Auditoria paralela Figma↔repo com snapshot fresco; gates `test-combobox-docs` e `test-pagination-docs`; documentação alinhada à API Figma e tokens canônicos.
+- **Documentação Pagination.** Corrige paths `component.pagination.page.*` → `item.*`, expande mapeamento de tokens (29 paths) e adiciona seção API no Figma (`Size`, `Page Number`).
+- **Documentação Combobox.** Adiciona API no Figma, exemplo Read-only, classes `__icon`/`__clear`/`--readonly`; `focus-visible` em `.ds-combobox__option`; `max-block-size` do listbox via `calc(var(--ds-dimension-128) * 2)`.
+- **Documentação Accordion.** Adiciona seção Boas práticas (`ds-dodont`) e classe `ds-accordion__item--disabled` na tabela pública.
+- **Docs de overlay brand e milestones.** `foundations-colors.html` e `control-sizing.html` atualizam referências para `--ds-overlay-brand-*`; inventário passa a listar Table, Toast e Popover como próximos componentes.
 - **Accordion sincroniza API e comportamento.** A documentação passa a refletir a propriedade pública `Title` do Figma, documenta `Content Slot`, `Show Leading Icon`, `Leading Icon`, `State` e `Open`, e o site adiciona helper interativo para sincronizar `aria-expanded`, `hidden` e `data-state` em expand/collapse. Novo gate `test-accordion-docs` impede regressão para `Label` como propriedade pública e valida o contrato de comportamento.
 - **Documentação de Combobox, Menu e Pagination.** Páginas completas no padrão Select/Breadcrumb (Quando usar, Anatomia, Padrão com `ds-preview`, tamanhos/estados, Boas práticas `ds-dodont`, Diretrizes de conteúdo, Mapeamento tokens, Classes CSS, Teclado, Accessibility e Relacionados); navegação Components em `js/main.js` e grid de `index.html` reordenados alfabeticamente (Icons primeiro, Menu e Alert incluídos).
 - **CI de PR com check obrigatório.** O workflow `Verify tokens` passa a rodar em todo PR/push para `main`, evitando bloqueio por check requerido ausente quando a mudança não toca arquivos de tokens.
@@ -242,7 +304,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Visual regression passa a rodar no CI.** `test.yml` agora executa `scripts/test-visual.mjs` após a auditoria a11y e publica `tests/visual/actual` + `tests/visual/diff` como artifact quando houver falha; a baseline visual foi atualizada para o estado atual validado em produção.
 - **Baseline de acessibilidade zerada.** Ajustados contrastes em feedback `subtle` no dark mode, links do site de documentação e foco de blocos de código roláveis; `test:a11y` agora passa com `critical=0`, `serious=0`, `moderate=0`, `minor=0` e `.a11y-baseline.json` fica sem violações aceitas.
 - **Auditoria estrutural do Figma passa a escolher o snapshot mais recente.** `verify:figma-structure` agora aceita `figma-snapshot.json` sem ponto e, quando não recebe `--snapshot`, escolhe o arquivo mais novo entre os snapshots locais conhecidos, evitando validar acidentalmente um `.figma-snapshot.structure.json` antigo.
-- **Pendências de maturidade e milestones removem itens stale.** `process-versioning` passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; `component-inventory` troca milestones já resolvidos por próximos passos reais.
+- **Pendências de maturidade e milestones removem itens stale.** `process-versioning` passa a marcar Form Field CSS-only, gates locais de snapshot, registry sem warnings, visual regression local e a11y tests como entregues; `component-inventory` milestones atualizados para próximos componentes reais (Table, Toast, Popover).
 
 ## [1.0.0-beta.5] — 2026-06-12
 
@@ -1045,7 +1107,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 19 decisões registradas.
@@ -1071,6 +1133,185 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 | [ADR-017](decisions/ADR-017-componentes-css-only.md) | — Componentes CSS-only (sem equivalência no Figma) | Aceito | 2026-04-30 |
 | [ADR-018](decisions/ADR-018-content-naming-strong-default-subtle.md) | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito | 2026-05-06 |
 | [ADR-019](decisions/ADR-019-component-tokens-contrato-anatomico.md) | — Reintrodução de Component tokens como contrato anatômico | Aceita | 2026-05-11 |
+
+
+═══════════════════════════════════════════════════════════
+# docs/agent-consumer-usage.md
+═══════════════════════════════════════════════════════════
+
+# Uso do DS TIS por agents em projetos consumidores
+
+Este guia é a instrução oficial para agents IA que precisam implementar telas em aplicações consumidoras usando o DS TIS. Ele não substitui `AGENTS.md`, que é voltado para manutenção deste repositório. Aqui o foco é consumo: montar telas reais com a API pública do pacote, sem inventar uma camada oficial que não existe.
+
+Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consumidor.
+
+## Escopo
+
+O DS TIS é stack-agnóstico. A base pública é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React, Vue, Angular, Svelte ou outro framework podem encapsular essa base dentro do app consumidor, mas esse encapsulamento é responsabilidade do projeto consumidor.
+
+Não apresente wrappers React/Vue/Angular como API oficial do DS TIS se eles não existem neste repositório.
+
+## Entradas esperadas
+
+Antes de implementar, o agent deve reunir:
+
+- objetivo da tela ou fluxo;
+- stack e convenções do projeto consumidor;
+- versão instalada do pacote `ds-tis`, quando disponível;
+- rotas, layouts, providers e padrões locais já existentes;
+- lista de estados esperados: loading, empty, error, disabled, success, read-only, destructive e responsive;
+- restrições de acessibilidade, idioma, dados e permissões.
+
+Se essas entradas não estiverem claras, inspecione o projeto primeiro. Pergunte ao owner somente quando a decisão mudar comportamento de produto, dados reais, permissões ou arquitetura local.
+
+## Fontes obrigatórias
+
+Antes de escrever markup novo, consulte as fontes públicas do DS:
+
+- `README.md` para instalação e imports principais;
+- `docs/llms.txt` para o índice leve consumível por LLMs;
+- `docs/llms-full.txt` para contexto textual completo;
+- `docs/api/components.json` para componentes, variantes e tokens consumidos;
+- `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
+- páginas HTML dos componentes em `docs/<component>.html`;
+- templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
+
+Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.
+
+## Imports oficiais
+
+Instale o pacote no projeto consumidor:
+
+```bash
+npm install ds-tis
+```
+
+Importe o CSS público uma vez no entrypoint global do app:
+
+```js
+import 'ds-tis/css';
+```
+
+Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:
+
+```js
+import { initComboboxes } from 'ds-tis/combobox';
+
+initComboboxes();
+```
+
+Para customização de tema, use o theme engine público:
+
+```js
+import { applyTheme, toCssSnippet } from 'ds-tis/theme';
+```
+
+Quando fizer sentido partir de um template, use os exports publicados:
+
+```js
+import loginTemplate from 'ds-tis/templates/login.html?raw';
+```
+
+O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.
+
+## Regras de implementação
+
+1. Escolha componentes existentes antes de criar markup ad hoc. Consulte `docs/api/components.json` e a navegação de componentes.
+2. Use a anatomia pública do componente conforme documentada. Não use classes internas isoladas como se fossem componentes autônomos.
+3. Formulários devem compor `ds-field` com o controle real: `ds-input`, `ds-select`, `ds-textarea`, `ds-combobox`, `ds-checkbox`, `ds-radio` ou `ds-toggle`. Para Input, o campo nativo continua dentro da anatomia pública com `ds-input__field`.
+4. Não hardcode `#hex`, `rgb()`, `px` ou `rem` quando existir token, classe, variante ou utilitário público do DS para o mesmo papel.
+5. Preserve a cadeia visual do DS. Tokens públicos aparecem como CSS variables `var(--ds-...)`; não invente valores locais para cor, spacing, radius, border, typography ou focus ring sem justificar.
+6. Preserve acessibilidade: landmarks semânticos, heading order, labels, `aria-*`, `aria-describedby`, `aria-expanded`, `aria-current`, teclado, estados disabled/error/read-only e focus ring visível.
+7. Estados não são decoração. Implemente loading, empty, error, disabled, hover, focus e responsive quando fizerem parte do fluxo esperado.
+8. Ícones devem seguir o padrão do projeto consumidor quando houver biblioteca instalada; quando a tela reproduzir exemplos do DS, prefira o mesmo vocabulário visual documentado.
+9. Não invente wrappers oficiais. Em React/Vue/Angular, crie componentes locais do app apenas como adaptação da anatomia pública e declare esse limite.
+10. Não altere tokens, CSS gerado ou documentação do DS a partir do projeto consumidor. Se encontrar gap real, registre a limitação e abra demanda para o DS.
+
+## Fluxo recomendado
+
+1. Leia o pedido, identifique a stack e encontre o entrypoint global onde `ds-tis/css` deve ser importado.
+2. Faça inventário das partes da tela: navegação, formulário, feedback, cards, overlays, listas, loading, empty states e ações.
+3. Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.
+4. Consulte a página HTML do componente e `docs/api/components.json` antes de escrever a anatomia.
+5. Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.
+6. Inicialize módulos JS públicos necessários, como `ds-tis/combobox`.
+7. Aplique tema com `ds-tis/theme` somente quando a tela tiver requisito de brand/mode em runtime.
+8. Rode os testes e linters do projeto consumidor. Quando possível, valide acessibilidade com axe, Playwright, browser real ou ferramenta equivalente.
+9. Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.
+
+## Adaptação por framework
+
+React, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Essa adaptação deve:
+
+- manter os nomes de classes públicas do DS;
+- preservar labels, IDs, `aria-*` e relações `for`/`id`;
+- expor props locais alinhadas ao produto, não prometer API oficial do DS;
+- manter inicialização de módulos JS depois do render/hydration quando necessário;
+- evitar recriar comportamento complexo quando o DS já exporta helper público, como `ds-tis/combobox`.
+
+Exemplo de limite correto: "Criei `AppTextField` no app consumidor usando `ds-field` + `ds-input`; isso é wrapper local do app, não componente oficial exportado por `ds-tis`."
+
+## Prompt curto para agent consumidor
+
+Copie este bloco para iniciar um agent que vai implementar uma tela usando o DS TIS em um projeto consumidor:
+
+```text
+Role: Agent consumidor do DS TIS.
+
+Artefato de entrada:
+- Pedido da tela/fluxo.
+- Stack do projeto consumidor.
+- Arquivos atuais do app que definem layout, estilos globais, rotas e componentes locais.
+- Versao instalada de ds-tis, se existir.
+
+Fontes obrigatorias:
+- README.md
+- docs/llms.txt
+- docs/llms-full.txt
+- docs/api/components.json
+- docs/api/tokens.json
+- docs/<component>.html dos componentes usados
+- docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
+
+Regras:
+- Importe ds-tis/css uma vez no entrypoint global.
+- Use ds-tis/combobox para comportamento de Combobox.
+- Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
+- Escolha componentes existentes antes de criar markup ad hoc.
+- Use anatomia publica dos componentes; nao use classes internas isoladas.
+- Form controls devem compor ds-field + controle real, como ds-input + ds-input__field.
+- Nao hardcode hex/rgb/px/rem quando existir token, classe ou variante publica.
+- Preserve landmarks, labels, aria-*, teclado, focus ring e estados disabled/error/read-only.
+- Em React/Vue/Angular, adapte a anatomia publica em wrappers locais do app; nao invente wrappers oficiais do DS TIS.
+
+Saida esperada:
+- Arquivos alterados.
+- Componentes DS usados e por que foram escolhidos.
+- Imports DS adicionados.
+- Tokens/classes publicas relevantes.
+- Evidencia de acessibilidade e teclado.
+- Limites assumidos ou gaps do DS que precisam virar demanda.
+
+Bloqueado antes de:
+- Criar API oficial do DS que nao existe.
+- Alterar tokens ou CSS do pacote ds-tis dentro do app consumidor.
+- Trocar componente DS existente por markup ad hoc sem justificar.
+- Remover labels, aria-* ou focus ring.
+```
+
+## Checklist de entrega
+
+Antes de concluir, o agent deve reportar:
+
+- componentes DS usados e componentes descartados;
+- imports adicionados: `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
+- classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
+- tokens CSS relevantes quando houver customização via `var(--ds-...)`;
+- evidência de acessibilidade: labels, landmarks, `aria-*`, teclado, focus ring e contraste quando aplicável;
+- estados implementados: default, hover, focus, disabled, error, loading, empty e responsive conforme o fluxo;
+- limitações assumidas e gaps que precisam ser tratados no DS ou no produto.
+
+Se um item não se aplica, declare o motivo. Não deixe ausência de estado ou acessibilidade implícita.
 
 
 ═══════════════════════════════════════════════════════════
@@ -1590,9 +1831,9 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.5**
+> Versão atual: **1.0.0-beta.6**
 
 ## Status geral
 
@@ -1669,7 +1910,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
 2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Dropdown, Combobox, Pagination, Table
+3. **Componentes pendentes** — Table, Toast, Popover
 4. **Storybook** — opcional, não bloqueante para o beta atual
 
 
@@ -2978,7 +3219,7 @@ Se uma decisão arquitetural não está registrada como ADR, ela não foi tomada
 
 # Token Registry
 
-> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-02. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
+> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-08. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
 
 Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra arquitetural de camadas.
 
@@ -3025,11 +3266,11 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.color.brand.100` | color | — | Tom 100 da paleta brand. Tom muito claro — backgrounds, hover states sutis em light mode. | 0 |
 | `foundation.color.brand.200` | color | — | Tom 200 da paleta brand. Tom claro — backgrounds secundários, borders subtle. | 2 |
 | `foundation.color.brand.300` | color | — | Tom 300 da paleta brand. Tom médio-claro — borders default, foregrounds em dark mode. | 2 |
-| `foundation.color.brand.400` | color | — | Tom 400 da paleta brand. Tom médio — fills médios, focus rings. | 5 |
+| `foundation.color.brand.400` | color | — | Tom 400 da paleta brand. Tom médio — fills médios, focus rings. | 6 |
 | `foundation.color.brand.50` | color | — | Tom 50 da paleta brand. Tom muito claro — backgrounds, hover states sutis em light mode. | 0 |
 | `foundation.color.brand.500` | color | — | Tom 500 da paleta brand. Tom médio — fills médios, focus rings. | 5 |
 | `foundation.color.brand.600` | color | — | Tom 600 da paleta brand. Tom forte — fills primários, brand fills. | 5 |
-| `foundation.color.brand.700` | color | — | Tom 700 da paleta brand. Tom escuro — text on light, hover de fills brand. | 4 |
+| `foundation.color.brand.700` | color | — | Tom 700 da paleta brand. Tom escuro — text on light, hover de fills brand. | 5 |
 | `foundation.color.brand.800` | color | — | Tom 800 da paleta brand. Tom muito escuro — emphasis text, active states. | 4 |
 | `foundation.color.brand.900` | color | — | Tom 900 da paleta brand. Tom extremo — surfaces escuras, body text em light mode. | 0 |
 | `foundation.color.brand.950` | color | — | Tom 950 da paleta brand. Tom extremo — surfaces escuras, body text em light mode. | 4 |
@@ -3102,12 +3343,12 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.color.overlay.black.5` | color | — | Sobreposição translúcida em black a 5% de opacidade. | 3 |
 | `foundation.color.overlay.black.60` | color | — | Sobreposição translúcida em black a 60% de opacidade. | 2 |
 | `foundation.color.overlay.black.80` | color | — | Sobreposição translúcida em black a 80% de opacidade. | 0 |
-| `foundation.color.overlay.brand-400.15` | color | — | Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-400.25` | color | — | Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-400.32` | color | — | Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.12` | color | — | Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.20` | color | — | Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável). | 1 |
-| `foundation.color.overlay.brand-600.28` | color | — | Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável). | 1 |
+| `foundation.color.overlay.brand-400.15` | color | — | Sobreposição translúcida em brand-400 a 15% de opacidade. | 1 |
+| `foundation.color.overlay.brand-400.25` | color | — | Sobreposição translúcida em brand-400 a 25% de opacidade. | 1 |
+| `foundation.color.overlay.brand-400.32` | color | — | Sobreposição translúcida em brand-400 a 32% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.12` | color | — | Sobreposição translúcida em brand-600 a 12% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.20` | color | — | Sobreposição translúcida em brand-600 a 20% de opacidade. | 1 |
+| `foundation.color.overlay.brand-600.28` | color | — | Sobreposição translúcida em brand-600 a 28% de opacidade. | 1 |
 | `foundation.color.overlay.white.10` | color | — | Sobreposição translúcida em white a 10% de opacidade. | 1 |
 | `foundation.color.overlay.white.20` | color | — | Sobreposição translúcida em white a 20% de opacidade. | 1 |
 | `foundation.color.overlay.white.40` | color | — | Sobreposição translúcida em white a 40% de opacidade. | 1 |
@@ -3160,7 +3401,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.dimension.1024` | dimension | — | Dimensão fixa de 1024px (64rem). | 4 |
 | `foundation.dimension.12` | dimension | — | Dimensão fixa de 12px (0.75rem). | 9 |
 | `foundation.dimension.120` | dimension | — | Dimensão fixa de 120px (7.5rem). | 8 |
-| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 4 |
+| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 5 |
 | `foundation.dimension.1280` | dimension | — | Dimensão fixa de 1280px (80rem). | 4 |
 | `foundation.dimension.14` | dimension | — | Dimensão fixa de 14px (0.875rem). | 0 |
 | `foundation.dimension.16` | dimension | — | Dimensão fixa de 16px (1rem). | 10 |
@@ -3359,7 +3600,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.brand.background.active` | color | → `foundation.color.brand.800` | Fill de ação primária (brand solid) em estado active. | 2 |
-| `semantic.brand.background.default` | color | → `foundation.color.brand.600` | Fill de ação primária (brand solid) em estado default. | 22 |
+| `semantic.brand.background.default` | color | → `foundation.color.brand.600` | Fill de ação primária (brand solid) em estado default. | 20 |
 | `semantic.brand.background.disabled` | color | → `foundation.color.disabled.brand.light` | Fill de ação primária (brand solid) em estado disabled. | 10 |
 | `semantic.brand.background.hover` | color | → `foundation.color.brand.700` | Fill de ação primária (brand solid) em estado hover. | 10 |
 | `semantic.brand.border.default` | color | → `semantic.brand.background.default` | Token semantic para primary / border / default. | 3 |
@@ -3373,7 +3614,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `semantic.content.brand` | color | → `semantic.brand.background.default` | Token semantic para content / brand. | 2 |
+| `semantic.content.brand` | color | → `foundation.color.brand.700` | Token semantic para content / brand. | 2 |
 | `semantic.content.default` | color | → `foundation.color.neutral.700` | Texto secundário — descrições, helper text, meta-info. | 25 |
 | `semantic.content.disabled` | color | → `foundation.color.neutral.400` | Texto disabled — controles e items inativos. | 15 |
 | `semantic.content.hover` | color | → `foundation.color.neutral.700` | Conteúdo neutro em hover. | 6 |
@@ -3934,7 +4175,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `component.button.label.font-size.md` | dimension | → `semantic.typography.body.font-size.sm` | font-size do label Button md. | 1 |
 | `component.button.label.font-size.sm` | dimension | → `semantic.typography.body.font-size.sm` | font-size do label Button sm. | 1 |
 | `component.button.label.font-weight.default` | string | → `semantic.typography.body.font-weight.bold` | font-weight do label Button default. | 1 |
-| `component.button.label.letter-spacing.default` | dimension | → `semantic.typography.body.letter-spacing.normal` | letter-spacing do label Button default. | 0 |
+| `component.button.label.letter-spacing.default` | dimension | → `semantic.typography.body.letter-spacing.normal` | letter-spacing do label Button default. | 1 |
 | `component.button.label.line-height.lg` | dimension | → `semantic.typography.body.line-height.md` | line-height do label Button lg. | 1 |
 | `component.button.label.line-height.md` | dimension | → `semantic.typography.body.line-height.sm` | line-height do label Button md. | 1 |
 | `component.button.label.line-height.sm` | dimension | → `semantic.typography.body.line-height.2xs` | line-height do label Button sm. | 1 |
@@ -4033,7 +4274,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.combobox.focus-ring.radius.default` | dimension | → `semantic.radius.lg` | Radius do focus ring do Combobox. | 1 |
+| `component.combobox.focus-ring.radius.default` | dimension | → `semantic.radius.lg` | Radius do focus ring do Combobox. | 0 |
 | `component.combobox.height.lg` | dimension | → `semantic.size.2xl` | Altura do control Combobox no tamanho lg. | 1 |
 | `component.combobox.height.md` | dimension | → `semantic.size.xl` | Altura do control Combobox no tamanho md. | 1 |
 | `component.combobox.height.sm` | dimension | → `semantic.size.lg` | Altura do control Combobox no tamanho sm. | 1 |
@@ -4888,8 +5129,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 50–950 padronizada. Calibrado pra contraste WCAG: 50–200 = backgrounds claros; 300–500 = states de UI; 600–800 = foregrounds e fills sólidos; 900–950 = dark surfaces.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/theme-dark.css` (4×)
-  - Tokens que referenciam: `semantic.brand.background.default`, `semantic.brand.background.active`, `semantic.toned.content-default`, `semantic.link.content-default`
+    - `css/tokens/generated/theme-dark.css` (5×)
+  - Tokens que referenciam: `semantic.brand.background.default`, `semantic.brand.background.active`, `semantic.toned.content-default`, `semantic.link.content-default`, `semantic.content.brand`
 
 ### `foundation.color.brand.50`
 
@@ -4938,8 +5179,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 50–950 padronizada. Calibrado pra contraste WCAG: 50–200 = backgrounds claros; 300–500 = states de UI; 600–800 = foregrounds e fills sólidos; 900–950 = dark surfaces.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/theme-light.css` (3×)
-  - Tokens que referenciam: `semantic.brand.background.hover`, `semantic.toned.content-default`, `semantic.link.content-default`
+    - `css/tokens/generated/theme-light.css` (4×)
+  - Tokens que referenciam: `semantic.brand.background.hover`, `semantic.toned.content-default`, `semantic.link.content-default`, `semantic.content.brand`
 
 ### `foundation.color.brand.800`
 
@@ -5804,7 +6045,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 15% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -5815,7 +6056,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 25% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -5826,7 +6067,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-400 a 32% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -5837,7 +6078,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 12% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -5848,7 +6089,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 20% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -5859,7 +6100,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: foundation
 - **Tipo**: `color`
-- **Sentido**: Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável).
+- **Sentido**: Sobreposição translúcida em brand-600 a 28% de opacidade.
 - **Escopo**: fill, background
 - **Contexto**: Use em fundos de modal, scrim de drawer, hover/active de superfícies translúcidas, e overlays de loading. Não consuma direto em componente — passe por Semantic ou utility class.
 - **Decisão**: Alpha tonal escolhido pra preservar legibilidade do conteúdo abaixo (5–10% = subtle hint; 20–40% = clear scrim; 60–80% = focus modal).
@@ -6438,6 +6679,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
+    - `css/components/combobox.css` (1×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
   - Tokens que referenciam: `semantic.size.5xl`, `semantic.size.5xl`
@@ -8231,9 +8473,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (15×)
-    - `css/tokens/generated/theme-dark.css` (2×)
-    - `css/tokens/generated/theme-light.css` (2×)
-  - Tokens que referenciam: `component.avatar.bg.default`, `component.badge.bg.brand.solid`, `component.button.bg.brand.default`, `component.button.bg.brand.focus`, `component.checkbox.box.fill.checked.default`, `component.checkbox.box.fill.checked.focus`, `component.checkbox.box.fill.indeterminate.default`, `component.checkbox.box.fill.indeterminate.focus`, `component.modal.action.fill.brand`, `component.pagination.item.bg.current`, `component.radio.control.fill.selected.default`, `component.radio.control.fill.selected.focus`, `component.tabs.indicator.fill.active`, `component.toggle.track.fill.on.default`, `component.toggle.track.fill.on.focus`, `semantic.brand.border.default`, `semantic.content.brand`, `semantic.brand.border.default`, `semantic.content.brand`
+    - `css/tokens/generated/theme-dark.css` (1×)
+    - `css/tokens/generated/theme-light.css` (1×)
+  - Tokens que referenciam: `component.avatar.bg.default`, `component.badge.bg.brand.solid`, `component.button.bg.brand.default`, `component.button.bg.brand.focus`, `component.checkbox.box.fill.checked.default`, `component.checkbox.box.fill.checked.focus`, `component.checkbox.box.fill.indeterminate.default`, `component.checkbox.box.fill.indeterminate.focus`, `component.modal.action.fill.brand`, `component.pagination.item.bg.current`, `component.radio.control.fill.selected.default`, `component.radio.control.fill.selected.focus`, `component.tabs.indicator.fill.active`, `component.toggle.track.fill.on.default`, `component.toggle.track.fill.on.focus`, `semantic.brand.border.default`, `semantic.brand.border.default`
 
 ### `semantic.brand.background.disabled`
 
@@ -8381,7 +8623,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 - **Camada**: semantic
 - **Tipo**: `color`
-- **Alias**: → `semantic.brand.background.default`
+- **Alias**: → `foundation.color.brand.700`
 - **Sentido**: Token semantic para content / brand.
 - **Escopo**: component-token
 - **Contexto**: Usado para estabilizar o contrato semantic exposto por semantic.content.brand.
@@ -9640,7 +9882,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (3×)
-    - `css/components/combobox.css` (4×)
+    - `css/components/combobox.css` (5×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (5×)
@@ -9718,7 +9960,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (4×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (3×)
-    - `css/components/combobox.css` (4×)
+    - `css/components/combobox.css` (5×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (5×)
@@ -10627,7 +10869,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado active.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.28 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.28 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -10641,7 +10883,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado default.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.12 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.12 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (3×)
@@ -10669,7 +10911,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Sentido**: Fill de ação brand translúcida em estado hover.
 - **Escopo**: background-color
 - **Contexto**: Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.
-- **Decisão**: Aliasado a foundation.color.overlay.brand-600.20 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).
+- **Decisão**: Aliasado a foundation.color.overlay.brand-600.20 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).
 - **Usos**:
   - CSS:
     - `css/tokens/generated/component.css` (1×)
@@ -14161,7 +14403,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Component token do contrato anatômico Button. Binda os variants vivos correspondentes no Figma e substitui consumo direto de Semantic no CSS.
 - **Decisão**: Alias 1:1 para semantic.typography.body.letter-spacing.normal porque o valor é reutilizável no sistema, mas no Button documenta uma parte pública e estável da anatomia do componente.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/button.css` (1×)
 
 ### `component.button.label.line-height.lg`
 
@@ -15178,8 +15421,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado pelo Combobox para alinhar field, popup listbox e opções à anatomia aprovada em Figma.
 - **Decisão**: Alias para semantic.radius.lg para expor a anatomia pública de Combobox na camada Component sem consumo direto de Foundation no CSS.
 - **Usos**:
-  - CSS:
-    - `css/components/combobox.css` (1×)
+  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.combobox.height.lg`
 
@@ -15951,9 +16193,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/components/combobox.css` (1×)
-    - `css/components/input.css` (1×)
-    - `css/components/select.css` (1×)
-    - `css/components/textarea.css` (1×)
+    - `css/components/input.css` (2×)
+    - `css/components/select.css` (2×)
+    - `css/components/textarea.css` (2×)
 
 ### `component.field.text-frame.padding-x.default`
 
@@ -16032,7 +16274,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (1×)
     - `css/components/card.css` (1×)
     - `css/components/checkbox.css` (1×)
-    - `css/components/combobox.css` (1×)
+    - `css/components/combobox.css` (2×)
     - `css/components/input.css` (1×)
     - `css/components/link.css` (1×)
     - `css/components/menu.css` (1×)
@@ -16108,7 +16350,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/button.css` (2×)
     - `css/components/card.css` (2×)
     - `css/components/checkbox.css` (2×)
-    - `css/components/combobox.css` (2×)
+    - `css/components/combobox.css` (4×)
     - `css/components/input.css` (2×)
     - `css/components/link.css` (2×)
     - `css/components/menu.css` (2×)
@@ -20586,15 +20828,15 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-02. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.5**
+> Versão atual: **1.0.0-beta.6**
 
 ## Estado atual
 
 | Aspecto | Valor |
 |---------|-------|
-| Versão | 1.0.0-beta.5 |
+| Versão | 1.0.0-beta.6 |
 | Formato canônico | JSON (DTCG) em `tokens/` |
 | CSS gerado | Style Dictionary → `css/tokens/generated/` |
 | Pipeline | ✅ index.css importa apenas generated/ |
@@ -23193,5 +23435,5 @@ Verificação automática de coerência Figma ↔ JSON ↔ CSS: `scripts/tokens-
 ═══════════════════════════════════════════════════════════
 
 Gerado por scripts/build-llms.mjs.
-Versão: 1.0.0-beta.5
+Versão: 1.0.0-beta.6
 Site: documentação local

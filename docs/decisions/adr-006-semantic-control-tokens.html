@@ -39,9 +39,11 @@
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
-    <a href="../../index.html" class="ds-site-header__brand">
-      <div class="ds-site-header__logo">DS</div>
-      <span class="ds-site-header__title">Design System</span>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
     </a>
   </div>
   <div class="ds-site-header__actions">
@@ -49,7 +51,7 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg> Dark</button>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -150,7 +152,7 @@
 </tr>
 </tbody></table>
 <p>Tokens em <code>light.json</code> e <code>dark.json</code> (mode-invariant, mesmos valores nos dois):</p>
-<pre><code>semantic.typography.control.font-size.sm  → {foundation.typography.font.size.sm}   (0.875rem)
+<pre tabindex="0"><code>semantic.typography.control.font-size.sm  → {foundation.typography.font.size.sm}   (0.875rem)
 semantic.typography.control.font-size.md  → {foundation.typography.font.size.sm}   (0.875rem)
 semantic.typography.control.font-size.lg  → {foundation.typography.font.size.md}   (1rem)
 semantic.typography.control.line-height.sm → {foundation.typography.font.size.md}  (1rem / 16px)
@@ -159,7 +161,7 @@ semantic.typography.control.line-height.lg → {foundation.typography.font.size.
 </code></pre>
 <p>*Nota: 20px (1.25rem) não existe na escala de font-size. Se não houver token foundation equivalente, criar <code>foundation.typography.line-height.control.md</code> com valor <code>1.25rem</code>. Alternativamente, usar <code>foundation.spacing.5</code> (1.25rem / 20px), já que o valor é idêntico. Preferência: criar um token dedicado para evitar confusão semântica entre spacing e line-height.</p>
 <h3>2. Criar tokens semânticos dimensionais de controle</h3>
-<pre><code>semantic.size.control.sm         → 2rem     (32px)  — referencia {foundation.spacing.8}
+<pre tabindex="0"><code>semantic.size.control.sm         → 2rem     (32px)  — referencia {foundation.spacing.8}
 semantic.size.control.md         → 2.5rem   (40px)  — referencia {foundation.spacing.10}
 semantic.size.control.lg         → 3rem     (48px)  — referencia {foundation.spacing.12}
 semantic.size.control.icon.sm    → 1rem     (16px)  — referencia {foundation.spacing.4}
@@ -183,7 +185,7 @@ semantic.space.control.padding-y.lg → {foundation.spacing.3}    (12px)
 </ul>
 <h3>3. Atualizar tokens de componente para referenciar os tokens semânticos de controle</h3>
 <p><code>component.button.*</code> e futuros <code>component.input.*</code>, <code>component.select.*</code> referenciavam os tokens semânticos de controle. Este formato foi substituído por ADR-019, que exige o segmento anatômico no nome do token Component:</p>
-<pre><code>component.button.height.sm → {semantic.size.lg}
+<pre tabindex="0"><code>component.button.height.sm → {semantic.size.lg}
 component.button.height.md → {semantic.size.xl}
 component.button.height.lg → {semantic.size.2xl}
 component.input.height.sm  → {semantic.size.lg}

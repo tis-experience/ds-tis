@@ -3,8 +3,10 @@
  * test-visual.mjs — visual regression testing via Playwright + pixelmatch.
  *
  * Captura screenshot full-page de cada documentação (light + dark) e compara
- * com baseline em `tests/visual/baseline/`. Se diff > THRESHOLD, falha e
- * grava imagem de diff em `tests/visual/diff/` (gitignored).
+ * com a baseline da plataforma atual. Linux/CI usa `tests/visual/baseline/`;
+ * macOS usa `tests/visual/baseline-darwin/` quando existir ou em `--update`.
+ * Se diff > THRESHOLD, falha e grava imagem de diff em `tests/visual/diff/`
+ * (gitignored).
  *
  * Threshold: 0.5% de pixels com diferença significativa. Permite micro-
  * variações de antialiasing/font rendering, bloqueia mudanças visuais reais.
@@ -15,9 +17,9 @@
  *   node scripts/test-visual.mjs --filter button  # filtra por nome
  *   node scripts/test-visual.mjs --mode light     # só um modo
  *
- * Atenção: baseline images são versionadas em git. A referência canônica é o
- * rendering Linux do GitHub Actions; ao atualizar em outro SO, valide que o
- * diff não é apenas variação de fonte/rasterização antes de commitar.
+ * Atenção: baseline images são versionadas em git. A referência canônica de
+ * publicação é o rendering Linux do GitHub Actions. Baselines de outro SO
+ * existem apenas para evitar falso negativo local por fonte/rasterização.
  */
 
 import { chromium } from 'playwright';
@@ -33,7 +35,15 @@ const modeArg = arg('--mode');
 const updateBaseline = args.includes('--update');
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const BASELINE_DIR = path.join(ROOT, 'tests/visual/baseline');
+const CANONICAL_BASELINE_DIR = path.join(ROOT, 'tests/visual/baseline');
+const PLATFORM_BASELINE_DIR = path.join(ROOT, `tests/visual/baseline-${process.platform}`);
+const explicitBaselineDir = process.env.DS_VISUAL_BASELINE_DIR
+  ? path.resolve(ROOT, process.env.DS_VISUAL_BASELINE_DIR)
+  : null;
+const shouldUsePlatformBaseline = process.platform !== 'linux'
+  && (updateBaseline || existsSync(PLATFORM_BASELINE_DIR));
+const BASELINE_DIR = explicitBaselineDir
+  || (shouldUsePlatformBaseline ? PLATFORM_BASELINE_DIR : CANONICAL_BASELINE_DIR);
 const ACTUAL_DIR = path.join(ROOT, 'tests/visual/actual');
 const DIFF_DIR = path.join(ROOT, 'tests/visual/diff');
 
@@ -50,7 +60,7 @@ function shouldTest(file) {
   const name = path.basename(file, '.html');
   // Componentes (18) + foundations (10) + índices visuais relevantes.
   // Skip docs com pouco visual/dependentes de markdown gerado.
-  const skip = ['changelog', 'backlog', 'process-contributing', 'process-releasing', 'process-versioning',
+  const skip = ['agent-consumer-usage', 'changelog', 'backlog', 'process-contributing', 'process-releasing', 'process-versioning',
                 'brand-principles', 'design-principles', 'control-sizing', 'token-architecture',
                 'tokens-sync', 'theming'];
   return !skip.includes(name);
@@ -76,6 +86,7 @@ const modes = modeArg ? [modeArg] : ['light', 'dark'];
 console.log(`═══ test-visual ═══════════════════════════════════════`);
 console.log(`Páginas: ${pages.length} × modos: ${modes.length} = ${pages.length * modes.length} screenshots`);
 console.log(`Threshold: ${THRESHOLD * 100}% pixel diff (pixel-level threshold ${PIXEL_THRESHOLD})`);
+console.log(`Baseline: ${path.relative(ROOT, BASELINE_DIR)} (${explicitBaselineDir ? 'explicit' : process.platform})`);
 if (updateBaseline) console.log(`⚠️  Modo --update: regenerando baseline`);
 console.log('');
 
@@ -166,7 +177,7 @@ console.log(`Pass: ${results.pass}  ·  Fail: ${results.fail}  ·  Baseline: ${r
 
 if (results.fail > 0) {
   console.error(`\n❌ FAIL — ${results.fail} regressão(ões) visual(is). Veja diff em tests/visual/diff/`);
-  console.error(`Se a mudança é intencional: rode \`npm run test:visual -- --update\` pra atualizar baseline.`);
+  console.error(`Se a mudança é intencional: rode \`npm run test:visual -- --update\` no mesmo ambiente pra atualizar a baseline correspondente.`);
   process.exit(1);
 } else if (results.errored.length > 0) {
   console.error(`\n⚠️ ${results.errored.length} erro(s) durante captura — investigar`);

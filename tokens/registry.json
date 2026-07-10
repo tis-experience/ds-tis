@@ -2666,7 +2666,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-600 a 12% de opacidade. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-600 a 12% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -2685,7 +2685,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-600 a 20% de opacidade. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-600 a 20% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -2704,7 +2704,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-600 a 28% de opacidade. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-600 a 28% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -2723,7 +2723,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-400 a 15% de opacidade. Toned default no dark mode. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-400 a 15% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -2742,7 +2742,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-400 a 25% de opacidade. Toned hover no dark mode. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-400 a 25% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -2761,7 +2761,7 @@
       "layer": "foundation",
       "type": "color",
       "references": null,
-      "sentido": "Sobreposição translúcida em brand-400 a 32% de opacidade. Toned active no dark mode. Deriva da paleta brand (customizável).",
+      "sentido": "Sobreposição translúcida em brand-400 a 32% de opacidade.",
       "escopo": [
         "fill",
         "background"
@@ -5478,7 +5478,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 4
+            "count": 5
           },
           {
             "file": "css/components/input.css",
@@ -5581,7 +5581,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 4
+            "count": 5
           },
           {
             "file": "css/components/input.css",
@@ -5755,14 +5755,15 @@
         "css": [
           {
             "file": "css/tokens/generated/theme-dark.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
           "semantic.brand.background.default",
           "semantic.brand.background.active",
           "semantic.toned.content-default",
-          "semantic.link.content-default"
+          "semantic.link.content-default",
+          "semantic.content.brand"
         ],
         "figma": []
       }
@@ -5839,13 +5840,14 @@
         "css": [
           {
             "file": "css/tokens/generated/theme-light.css",
-            "count": 3
+            "count": 4
           }
         ],
         "tokens": [
           "semantic.brand.background.hover",
           "semantic.toned.content-default",
-          "semantic.link.content-default"
+          "semantic.link.content-default",
+          "semantic.content.brand"
         ],
         "figma": []
       }
@@ -7982,6 +7984,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/combobox.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
           },
@@ -8569,11 +8575,11 @@
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
-            "count": 2
+            "count": 1
           },
           {
             "file": "css/tokens/generated/theme-light.css",
-            "count": 2
+            "count": 1
           }
         ],
         "tokens": [
@@ -8593,9 +8599,7 @@
           "component.toggle.track.fill.on.default",
           "component.toggle.track.fill.on.focus",
           "semantic.brand.border.default",
-          "semantic.content.brand",
-          "semantic.brand.border.default",
-          "semantic.content.brand"
+          "semantic.brand.border.default"
         ],
         "figma": []
       }
@@ -8706,7 +8710,7 @@
         "background-color"
       ],
       "contexto": "Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.",
-      "decisao": "Aliasado a foundation.color.overlay.brand-600.12 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).",
+      "decisao": "Aliasado a foundation.color.overlay.brand-600.12 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).",
       "usos": {
         "css": [
           {
@@ -8731,7 +8735,7 @@
         "background-color"
       ],
       "contexto": "Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.",
-      "decisao": "Aliasado a foundation.color.overlay.brand-600.20 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).",
+      "decisao": "Aliasado a foundation.color.overlay.brand-600.20 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).",
       "usos": {
         "css": [
           {
@@ -8754,7 +8758,7 @@
         "background-color"
       ],
       "contexto": "Aplicado em `.ds-button--toned` ou em consumidores Figma equivalentes.",
-      "decisao": "Aliasado a foundation.color.overlay.brand-600.28 — deriva da paleta brand (customizável), desacoplado da paleta neutra blue (ADR-014: action × style × prop × state).",
+      "decisao": "Aliasado a foundation.color.overlay.brand-600.28 — escolha de tom feita no Figma (ADR-014: action × style × prop × state).",
       "usos": {
         "css": [
           {
@@ -14946,7 +14950,12 @@
       "contexto": "Component token do contrato anatômico Button. Binda os variants vivos correspondentes no Figma e substitui consumo direto de Semantic no CSS.",
       "decisao": "Alias 1:1 para semantic.typography.body.letter-spacing.normal porque o valor é reutilizável no sistema, mas no Button documenta uma parte pública e estável da anatomia do componente.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/button.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -21258,15 +21267,15 @@
           },
           {
             "file": "css/components/input.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/select.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/textarea.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [],
@@ -21422,7 +21431,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21612,7 +21621,7 @@
           },
           {
             "file": "css/components/combobox.css",
-            "count": 2
+            "count": 4
           },
           {
             "file": "css/components/input.css",
@@ -21726,7 +21735,7 @@
     "semantic.content.brand": {
       "layer": "semantic",
       "type": "color",
-      "references": "semantic.brand.background.default",
+      "references": "foundation.color.brand.700",
       "sentido": "Token semantic para content / brand.",
       "escopo": [
         "component-token"
@@ -27029,12 +27038,7 @@
       "contexto": "Usado pelo Combobox para alinhar field, popup listbox e opções à anatomia aprovada em Figma.",
       "decisao": "Alias para semantic.radius.lg para expor a anatomia pública de Combobox na camada Component sem consumo direto de Foundation no CSS.",
       "usos": {
-        "css": [
-          {
-            "file": "css/components/combobox.css",
-            "count": 1
-          }
-        ],
+        "css": [],
         "tokens": [],
         "figma": []
       }
