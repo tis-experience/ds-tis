@@ -90,7 +90,7 @@
 <li><code>README.md</code> para instalação e imports principais;</li>
 <li><code>docs/llms.txt</code> para o índice leve consumível por LLMs;</li>
 <li><code>docs/llms-full.txt</code> para contexto textual completo;</li>
-<li><code>docs/api/components.json</code> para componentes, variantes e tokens consumidos;</li>
+<li><code>docs/api/components.json</code> para componentes, variantes, tokens consumidos e metadados de runtime JS (<code>runtime.level</code>, <code>runtime.module</code>, <code>runtime.init</code>);</li>
 <li><code>docs/api/tokens.json</code> para camadas Foundation, Semantic e Component;</li>
 <li>páginas HTML dos componentes em <code>docs/&lt;component&gt;.html</code>;</li>
 <li>templates em <code>docs/templates/</code> e exports <code>ds-tis/templates/*</code>, quando o fluxo se aproxima de um padrão já publicado.</li>
@@ -119,6 +119,37 @@ initActionMenus();
 <pre tabindex="0"><code class="language-js">import loginTemplate from &#39;ds-tis/templates/login.html?raw&#39;;
 </code></pre>
 <p>O caminho <code>ds-tis/templates/*</code> referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.</p>
+<h2>Runtime JS por componente</h2>
+<p>Consulte <code>docs/api/components.json</code> antes de importar módulos JS. Cada componente expõe <code>runtime</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>null</code></td>
+<td>CSS-only — sem módulo JS publicado.</td>
+</tr>
+<tr>
+<td><code>runtime.level: &quot;required&quot;</code></td>
+<td>Comportamento essencial depende de init (ex.: Combobox).</td>
+</tr>
+<tr>
+<td><code>runtime.level: &quot;optional&quot;</code></td>
+<td>Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu).</td>
+</tr>
+<tr>
+<td><code>runtime.module</code></td>
+<td>Export do pacote (<code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>).</td>
+</tr>
+<tr>
+<td><code>runtime.init</code></td>
+<td>Função a chamar após render/hydration (<code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>).</td>
+</tr>
+</tbody></table>
+<p>O array <code>runtimeModules</code> no topo de <code>components.json</code> lista todos os módulos publicados. Não importe JS de componentes com <code>runtime: null</code>.</p>
 <h2>Regras de implementação</h2>
 <ol>
 <li>Escolha componentes existentes antes de criar markup ad hoc. Consulte <code>docs/api/components.json</code> e a navegação de componentes.</li>
@@ -139,7 +170,7 @@ initActionMenus();
 <li>Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.</li>
 <li>Consulte a página HTML do componente e <code>docs/api/components.json</code> antes de escrever a anatomia.</li>
 <li>Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.</li>
-<li>Inicialize módulos JS públicos necessários, como <code>ds-tis/combobox</code>.</li>
+<li>Inicialize módulos JS quando <code>components.json</code> indicar <code>runtime</code> — <code>required</code> sempre; <code>optional</code> quando a tela precisar de teclado, overlay ou focus management completo.</li>
 <li>Aplique tema com <code>ds-tis/theme</code> somente quando a tela tiver requisito de brand/mode em runtime.</li>
 <li>Rode os testes e linters do projeto consumidor. Quando possível, valide acessibilidade com axe, Playwright, browser real ou ferramenta equivalente.</li>
 <li>Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.</li>
@@ -175,7 +206,7 @@ Fontes obrigatorias:
 
 Regras:
 - Importe ds-tis/css uma vez no entrypoint global.
-- Use ds-tis/combobox para comportamento de Combobox.
+- Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -202,7 +233,7 @@ Bloqueado antes de:
 <p>Antes de concluir, o agent deve reportar:</p>
 <ul>
 <li>componentes DS usados e componentes descartados;</li>
-<li>imports adicionados: <code>ds-tis/css</code>, <code>ds-tis/combobox</code>, <code>ds-tis/theme</code> e/ou <code>ds-tis/templates/*</code>;</li>
+<li>imports adicionados: <code>ds-tis/css</code>, módulos JS com <code>runtime</code> em <code>components.json</code>, <code>ds-tis/theme</code> e/ou <code>ds-tis/templates/*</code>;</li>
 <li>classes públicas principais usadas, como <code>ds-field</code>, <code>ds-input</code> e <code>ds-input__field</code>;</li>
 <li>tokens CSS relevantes quando houver customização via <code>var(--ds-...)</code>;</li>
 <li>evidência de acessibilidade: labels, landmarks, <code>aria-*</code>, teclado, focus ring e contraste quando aplicável;</li>

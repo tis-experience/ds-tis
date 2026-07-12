@@ -1,6 +1,40 @@
 {
   "version": "1.0.0-beta.6",
   "count": 23,
+  "runtimeModules": [
+    {
+      "level": "required",
+      "module": "ds-tis/combobox",
+      "init": "initComboboxes",
+      "exports": [
+        "initComboboxes",
+        "syncComboboxState"
+      ],
+      "notes": "Listbox, filtro, seleção e teclado exigem init após render."
+    },
+    {
+      "level": "optional",
+      "module": "ds-tis/modal",
+      "init": "initModals",
+      "exports": [
+        "initModals",
+        "openModal",
+        "closeModal"
+      ],
+      "notes": "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa."
+    },
+    {
+      "level": "optional",
+      "module": "ds-tis/menu",
+      "init": "initActionMenus",
+      "exports": [
+        "initActionMenus",
+        "openActionMenu",
+        "closeActionMenu"
+      ],
+      "notes": "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init."
+    }
+  ],
   "components": [
     {
       "name": "Accordion",
@@ -8,6 +42,8 @@
       "url": "docs/accordion.html",
       "cssClass": "ds-accordion",
       "cssFile": "css/components/accordion.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-accordion-chevron-color-default",
         "ds-accordion-chevron-color-disabled",
@@ -62,6 +98,8 @@
       "url": "docs/button.html",
       "cssClass": "ds-button",
       "cssFile": "css/components/button.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-button-bg-brand-default",
         "ds-button-bg-brand-disabled",
@@ -195,6 +233,8 @@
       "url": "docs/input.html",
       "cssClass": "ds-input",
       "cssFile": "css/components/input.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
         "ds-body-font-weight-bold",
@@ -291,6 +331,8 @@
       "url": "docs/textarea.html",
       "cssClass": "ds-textarea",
       "cssFile": "css/components/textarea.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
         "ds-body-font-weight-medium",
@@ -361,6 +403,8 @@
       "url": "docs/select.html",
       "cssClass": "ds-select",
       "cssFile": "css/components/select.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
         "ds-body-font-weight-bold",
@@ -461,6 +505,17 @@
       "url": "docs/combobox.html",
       "cssClass": "ds-combobox",
       "cssFile": "css/components/combobox.css",
+      "cssOnly": false,
+      "runtime": {
+        "level": "required",
+        "module": "ds-tis/combobox",
+        "init": "initComboboxes",
+        "exports": [
+          "initComboboxes",
+          "syncComboboxState"
+        ],
+        "notes": "Listbox, filtro, seleção e teclado exigem init após render."
+      },
       "tokens": [
         "ds-border-width-default",
         "ds-combobox-height-lg",
@@ -478,7 +533,6 @@
         "ds-combobox-padding-x-lg",
         "ds-combobox-padding-x-md",
         "ds-combobox-padding-x-sm",
-        "ds-dimension-128",
         "ds-field-bg-default",
         "ds-field-bg-disabled",
         "ds-field-bg-readonly",
@@ -549,6 +603,7 @@
         "ds-select-text-line-height-md",
         "ds-select-text-line-height-sm",
         "ds-shadow-overlay",
+        "ds-size-5xl",
         "ds-space-2xs",
         "ds-z-tooltip"
       ],
@@ -573,6 +628,8 @@
       "url": "docs/checkbox.html",
       "cssClass": "ds-checkbox",
       "cssFile": "css/components/checkbox.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
         "ds-body-font-size-xs",
@@ -625,6 +682,7 @@
         "ds-motion-duration-fast",
         "ds-motion-ease-default",
         "ds-size-sm",
+        "ds-space-hairline",
         "ds-space-sm",
         "ds-space-xs"
       ],
@@ -644,6 +702,8 @@
       "url": "docs/radio.html",
       "cssClass": "ds-radio",
       "cssFile": "css/components/radio.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-md",
         "ds-body-font-size-sm",
@@ -721,6 +781,8 @@
       "url": "docs/toggle.html",
       "cssClass": "ds-toggle",
       "cssFile": "css/components/toggle.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
         "ds-body-font-size-xs",
@@ -790,6 +852,8 @@
       "url": "docs/badge.html",
       "cssClass": "ds-badge",
       "cssFile": "css/components/badge.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-badge-bg-brand-solid",
         "ds-badge-bg-brand-subtle",
@@ -845,6 +909,8 @@
       "url": "docs/alert.html",
       "cssClass": "ds-alert",
       "cssFile": "css/components/alert.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-alert-bg-error-filled",
         "ds-alert-bg-error-subtle",
@@ -907,6 +973,8 @@
       "url": "docs/card.html",
       "cssClass": "ds-card",
       "cssFile": "css/components/card.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-card-bg-default",
         "ds-card-bg-elevated",
@@ -962,6 +1030,18 @@
       "url": "docs/modal.html",
       "cssClass": "ds-modal",
       "cssFile": "css/components/modal.css",
+      "cssOnly": false,
+      "runtime": {
+        "level": "optional",
+        "module": "ds-tis/modal",
+        "init": "initModals",
+        "exports": [
+          "initModals",
+          "openModal",
+          "closeModal"
+        ],
+        "notes": "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa."
+      },
       "tokens": [
         "ds-body-font-size-2xl",
         "ds-body-font-size-3xl",
@@ -1037,9 +1117,13 @@
       "url": "docs/tooltip.html",
       "cssClass": "ds-tooltip",
       "cssFile": "css/components/tooltip.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-motion-duration-fast",
         "ds-motion-ease-default",
+        "ds-size-layout-xs",
+        "ds-space-3xl",
         "ds-space-sm",
         "ds-tooltip-arrow-depth-default",
         "ds-tooltip-arrow-fill-default",
@@ -1070,6 +1154,18 @@
       "url": "docs/menu.html",
       "cssClass": "ds-menu",
       "cssFile": "css/components/menu.css",
+      "cssOnly": false,
+      "runtime": {
+        "level": "optional",
+        "module": "ds-tis/menu",
+        "init": "initActionMenus",
+        "exports": [
+          "initActionMenus",
+          "openActionMenu",
+          "closeActionMenu"
+        ],
+        "notes": "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init."
+      },
       "tokens": [
         "ds-action-menu-overlay-gap-default",
         "ds-body-font-family-sans",
@@ -1151,6 +1247,8 @@
       "url": "docs/tabs.html",
       "cssClass": "ds-tabs",
       "cssFile": "css/components/tabs.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-focus-ring-color-default",
         "ds-focus-ring-width",
@@ -1188,6 +1286,8 @@
       "url": "docs/breadcrumb.html",
       "cssClass": "ds-breadcrumb",
       "cssFile": "css/components/breadcrumb.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-breadcrumb-focus-ring-radius-default",
         "ds-breadcrumb-gap-default",
@@ -1220,6 +1320,8 @@
       "url": "docs/pagination.html",
       "cssClass": "ds-pagination",
       "cssFile": "css/components/pagination.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-focus-ring-color-default",
         "ds-focus-ring-width",
@@ -1271,6 +1373,8 @@
       "url": "docs/avatar.html",
       "cssClass": "ds-avatar",
       "cssFile": "css/components/avatar.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-avatar-bg-default",
         "ds-avatar-content-color-default",
@@ -1311,6 +1415,8 @@
       "url": "docs/divider.html",
       "cssClass": "ds-divider",
       "cssFile": "css/components/divider.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-divider-line-color-default",
         "ds-divider-line-radius-default",
@@ -1331,6 +1437,8 @@
       "url": "docs/form-field.html",
       "cssClass": "ds-field",
       "cssFile": "css/components/form-field.css",
+      "cssOnly": true,
+      "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
         "ds-body-font-weight-bold",
@@ -1360,10 +1468,7 @@
         "no-helper",
         "no-label"
       ],
-      "figma": {
-        "fileKey": "IE68amP9Hya5ieFw1rX8S8",
-        "page": "Form Field"
-      }
+      "figma": null
     },
     {
       "name": "Spinner",
@@ -1371,6 +1476,8 @@
       "url": "docs/spinner.html",
       "cssClass": "ds-spinner",
       "cssFile": "css/components/spinner.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-motion-duration-slower",
         "ds-motion-ease-linear",
@@ -1402,6 +1509,8 @@
       "url": "docs/skeleton.html",
       "cssClass": "ds-skeleton",
       "cssFile": "css/components/skeleton.css",
+      "cssOnly": false,
+      "runtime": null,
       "tokens": [
         "ds-skeleton-circle-fill-default",
         "ds-skeleton-circle-radius-default",

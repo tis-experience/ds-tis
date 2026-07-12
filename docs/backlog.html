@@ -71,12 +71,12 @@
 <p>Itens fora do escopo imediato mas que devem ser implementados. Organizados por prioridade.</p>
 <h2>Alta prioridade</h2>
 <h3>Automatizar o sync Figma → JSON em CI</h3>
-<p>Em 0.5.10 implementamos a opção <strong>(b) adaptar pra MCP</strong> (ver <code>docs/process-figma-sync.md</code>): o agente Claude Code dumpa as Variables em <code>.figma-snapshot.json</code> via <code>use_figma</code> em chunks, e <code>scripts/sync-tokens-from-figma.mjs</code> compara/aplica divergências. Funciona, mas exige sessão interativa — não roda em GitHub Actions.</p>
-<p>Pra automatizar de verdade (disparo por webhook ou agendamento), há alguns caminhos:</p>
-<p><strong>(a) Plugin Figma custom</strong> — rodaria dentro do Figma via Plugin API (que não é plano-gated). Botão &quot;Publicar variables&quot; que serializa em DTCG e faz POST/commit pra GitHub (usando GitHub App ou OAuth). Custo: 1–2 semanas de dev + manutenção própria.</p>
-<p><strong>(b) Tokens Studio for Figma (plugin de terceiros)</strong> — plugin com free tier, que faz Figma → JSON + push pra Git via OAuth. Migrar as Variables nativas atuais pra dentro do Tokens Studio exige reconfiguração. Ajusta <code>build-tokens.mjs</code> pro formato que ele exporta. Custo: 2–3 dias + designer precisa aprender o plugin.</p>
-<p><strong>(c) Upgrade para plano Enterprise</strong> — destrava a REST API direta (<code>GET /v1/files/:key/variables/local</code>), possibilitando o script original revertido em 0.5.9. Decisão de negócio (≈ US$ 75/editor/mês).</p>
-<p>Enquanto o disparo manual não virar gargalo, fica como está. Revisitar quando frequência de sync aumentar ou quando o volume de divergências manuais crescer.</p>
+<p><strong>Status (2026-07-12):</strong> automação via REST API (<code>GET /v1/files/:key/variables/local</code>) <strong>fora de escopo</strong> — exige plano Enterprise, que não será adotado. O fluxo canônico permanece <strong>manual via plugin</strong> + <code>npm run figma:snapshot:refresh</code> (ver <code>docs/process-figma-sync.md</code>).</p>
+<p>Caminhos alternativos se o disparo manual virar gargalo:</p>
+<p><strong>(a) Plugin Figma custom</strong> — botão &quot;Publicar variables&quot; que serializa DTCG e abre PR no GitHub (Plugin API não é plano-gated). Custo: 1–2 semanas + manutenção.</p>
+<p><strong>(b) Tokens Studio for Figma</strong> — export Figma → JSON + push Git via OAuth. Exige migrar Variables nativas. Custo: 2–3 dias + curva do plugin.</p>
+<p><strong>(c) <del>Upgrade Enterprise</del></strong> — descartado por decisão de produto/custo.</p>
+<p>Enquanto o volume de sync manual for baixo, manter plugin + refresh local. Revisitar <strong>(a)</strong> se divergências manuais crescerem.</p>
 <h3>Preencher <code>docs/brand-principles.md</code></h3>
 <p>Template existe, conteúdo real ainda não foi definido. Passa por: missão, 3 princípios de design, tom de voz, identidade visual, logo.</p>
 <h3>Reduzir documentação textual do Figma</h3>

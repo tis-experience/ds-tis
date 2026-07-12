@@ -16,6 +16,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Módulos JS opt-in para Modal e Action Menu.** Novos exports `ds-tis/modal` (`initModals`, `openModal`, `closeModal`) e `ds-tis/menu` (`initActionMenus`, `openActionMenu`, `closeActionMenu`) implementam focus trap, Escape, retorno de foco e teclado básico sem quebrar a stack CSS-only do DS.
 - **Suporte a forced-colors.** Novo `css/base/forced-colors.css` preserva focus ring e estados checked/indeterminate/radio/toggle/modal em Windows High Contrast.
 - **Tokens Component para barra indeterminate do Checkbox.** Dimensões da barra indeterminate passam a derivar proporcionalmente de `--ds-checkbox-box-size-*` e `--ds-space-hairline`, eliminando px hardcoded sem criar drift Figma.
+- **Metadados de runtime em `docs/api/components.json`.** `build-api` publica `runtime` por componente (`required`/`optional`/`null`), `runtimeModules` agregado e `cssOnly` para Form Field. `test-api-runtime` valida alinhamento com exports npm.
+- **Publicação npm.** `prepublishOnly` roda `build:all`; `pack:check` combina `npm pack --dry-run` com audit de exports.
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
@@ -31,6 +33,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.
 - **Tooltip deixa de forçar `nowrap`.** Conteúdo ganha `max-width` baseado em `--ds-size-layout-xs` e quebra de linha segura em viewports estreitas.
 - **Link permanece em Semantic por design.** Comentário em `link.css` documenta que `component.link.*` só deve nascer quando o Figma materializar contrato anatômico (hoje é Text Style + `link/content/*`).
+- **Documentação de sync Figma.** `docs/backlog.md` e `docs/process-figma-sync.md` registram que automação via REST API/CI está fora de escopo (plano Pro; Enterprise descartado); fluxo canônico permanece plugin + `figma:snapshot:refresh`.
 - **Empacotamento npm.** `sideEffects` para CSS, exports `./modal` e `./menu`, e teste `test-interactive` protegem o contrato público.
 - **Marca do header da documentação.** Topbar passa a renderizar `símbolo TIS + TIS | Design System`, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.
 - **Visual regression com baseline por plataforma.** `test:visual` mantém a baseline canônica Linux/GitHub Actions em `tests/visual/baseline/`, passa a usar `tests/visual/baseline-darwin/` em macOS para evitar falso negativo local por rasterização/fonte, e `test:audit-scenarios` protege esse contrato.
