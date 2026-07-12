@@ -3,6 +3,12 @@
    Bold + underline. Tamanhos espelham body/* (xs/sm/md/lg).
    Estados WCAG/W3C: default, :hover, :active, :focus-visible.
    :visited intencionalmente omitido (decisão do owner).
+
+   Consome Semantic `link/content/*` e `body/*` direto por design:
+   no Figma Link é Text Style + Semantic Variables, sem collection
+   Component. Não inventar `component.link.*` só no JSON — isso
+   cria DRIFT_FROM_SOURCE. Migrar para ADR-019 quando o Figma
+   materializar contrato anatômico próprio.
    ============================================================ */
 
 .ds-link {

@@ -13,15 +13,25 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Theme Playground — resiliência de input.** `applyCurrent()` ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.
 - **`docs/combobox.html` — comboboxes interativos.** Exemplos live carregam `js/combobox.js` e chamam `initComboboxes`.
 - **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
+- **Módulos JS opt-in para Modal e Action Menu.** Novos exports `ds-tis/modal` (`initModals`, `openModal`, `closeModal`) e `ds-tis/menu` (`initActionMenus`, `openActionMenu`, `closeActionMenu`) implementam focus trap, Escape, retorno de foco e teclado básico sem quebrar a stack CSS-only do DS.
+- **Suporte a forced-colors.** Novo `css/base/forced-colors.css` preserva focus ring e estados checked/indeterminate/radio/toggle/modal em Windows High Contrast.
+- **Tokens Component para barra indeterminate do Checkbox.** Dimensões da barra indeterminate passam a derivar proporcionalmente de `--ds-checkbox-box-size-*` e `--ds-space-hairline`, eliminando px hardcoded sem criar drift Figma.
+- **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
 - **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.
+- **Detector de Foundation leak reconhece `--ds-dimension-*`.** `tokens-verify` passa a flaggar consumo direto de dimension Foundation após ADR-015; Combobox listbox e base CSS migraram para tokens Semantic (`--ds-size-5xl`, `--ds-space-*`, `--ds-size-xs`).
 - **Sidebar da documentação não corta itens ao expandir seções.** Containers de navegação e subnavegação expandidos deixam de usar `max-height` fixo e passam a abraçar o conteúdo real, evitando que opções desapareçam quando `Form` ou outras seções estiverem abertas.
-- **SVGs do header renderizam sem achatamento visual.** `logo-tis-mark.svg` passa a ter viewport quadrado compatível com o slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia `ds-button__icon` em vez de paths preenchidos inline.
+- **SVGs do header renderizam sem achatamento visual.** `logo-tis-mark.svg` passa a ser um vetor geométrico nativo com círculos perfeitos no slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia `ds-button__icon` em vez de paths preenchidos inline.
 - **Logo da documentação carrega corretamente em todas as rotas.** Topbar passa a usar o símbolo TIS vetorial `docs/assets/logo-tis-mark.svg` no padrão `símbolo TIS | Design System`; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
+- **CI bloqueia PR com erros de `verify:tokens`.** Workflow `verify-tokens.yml` deixa de engolir exit code 1.
+- **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.
+- **Tooltip deixa de forçar `nowrap`.** Conteúdo ganha `max-width` baseado em `--ds-size-layout-xs` e quebra de linha segura em viewports estreitas.
+- **Link permanece em Semantic por design.** Comentário em `link.css` documenta que `component.link.*` só deve nascer quando o Figma materializar contrato anatômico (hoje é Text Style + `link/content/*`).
+- **Empacotamento npm.** `sideEffects` para CSS, exports `./modal` e `./menu`, e teste `test-interactive` protegem o contrato público.
 - **Marca do header da documentação.** Topbar passa a renderizar `símbolo TIS + TIS | Design System`, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.
 - **Visual regression com baseline por plataforma.** `test:visual` mantém a baseline canônica Linux/GitHub Actions em `tests/visual/baseline/`, passa a usar `tests/visual/baseline-darwin/` em macOS para evitar falso negativo local por rasterização/fonte, e `test:audit-scenarios` protege esse contrato.
 - **Cenarios de auditoria executaveis.** Novo `npm run test:audit-scenarios` valida consumo real do pacote (`exports`, `files`, self-imports e `npm pack --dry-run`), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.

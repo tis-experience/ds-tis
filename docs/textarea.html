@@ -137,16 +137,30 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
-          <div class="ds-textarea">
-            <textarea class="ds-textarea__field" placeholder="Enter your message..."></textarea>
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="textarea-default">Label</label>
+            </div>
+            <div class="ds-textarea">
+              <textarea class="ds-textarea__field" id="textarea-default" placeholder="Enter your message..." aria-describedby="textarea-default-helper"></textarea>
+            </div>
+            <span class="ds-field__helper" id="textarea-default-helper">Helper text</span>
           </div>
         </div>
       </div>
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-textarea"&gt;
-  &lt;textarea class="ds-textarea__field" placeholder="Enter your message..."&gt;&lt;/textarea&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;div class="ds-field__label-row"&gt;
+    &lt;label class="ds-field__label" for="textarea-default"&gt;Label&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-textarea"&gt;
+    &lt;textarea class="ds-textarea__field" id="textarea-default"
+              placeholder="Enter your message..."
+              aria-describedby="textarea-default-helper"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__helper" id="textarea-default-helper"&gt;Helper text&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>

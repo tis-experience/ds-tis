@@ -103,10 +103,14 @@
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
-<p>Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:</p>
+<p>Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes:</p>
 <pre tabindex="0"><code class="language-js">import { initComboboxes } from &#39;ds-tis/combobox&#39;;
+import { initModals } from &#39;ds-tis/modal&#39;;
+import { initActionMenus } from &#39;ds-tis/menu&#39;;
 
 initComboboxes();
+initModals();
+initActionMenus();
 </code></pre>
 <p>Para customização de tema, use o theme engine público:</p>
 <pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;

@@ -141,7 +141,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Action Menu</span><span data-lang="en">Action Menu</span></h2>
-    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Action Menu combina um Button trigger com um Menu posicionado. O produto deve controlar abertura, fechamento, foco inicial, setas do teclado, Escape e retorno de foco ao trigger.</span><span data-lang="en">Action Menu combines a Button trigger with a positioned Menu. The product must control open/close behavior, initial focus, arrow keys, Escape, and focus return to the trigger.</span></p>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Action Menu combina um Button trigger com um Menu posicionado. Use o módulo opt-in <code>ds-tis/menu</code> (<code>initActionMenus</code>) para abertura, Escape, setas, typeahead e retorno de foco — ou implemente o mesmo contrato no produto.</span><span data-lang="en">Action Menu combines a Button trigger with a positioned Menu. Use the opt-in <code>ds-tis/menu</code> module (<code>initActionMenus</code>) for open/close, Escape, arrow keys, typeahead, and focus return — or implement the same contract in the product.</span></p>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
@@ -175,13 +175,19 @@
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-action-menu" data-open="true"&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-action-menu"&gt;
   &lt;button class="ds-button ds-button--outline ds-action-menu__trigger"
-          aria-haspopup="menu" aria-expanded="true" aria-controls="menu-id"&gt;
+          type="button"
+          aria-haspopup="menu" aria-expanded="false" aria-controls="menu-id"&gt;
     &lt;span class="ds-button__label"&gt;Project actions&lt;/span&gt;
   &lt;/button&gt;
   &lt;div class="ds-menu ds-action-menu__content" id="menu-id" role="menu"&gt;...&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import { initActionMenus } from 'ds-tis/menu';
+  initActionMenus();
+&lt;/script&gt;</code></pre>
         </div>
       </div>
     </div>
@@ -316,7 +322,7 @@
       <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
       <tbody>
         <tr><td>4.1.2 Name, Role, Value (A)</td><td><code>role="menu"</code>, <code>role="menuitem"</code>, <code>aria-haspopup</code>, <code>aria-expanded</code></td><td>&#10003;</td></tr>
-        <tr><td>2.1.1 Keyboard (A)</td><td><span data-lang="pt">Navegação por setas, Enter/Space, Escape implementada pelo produto</span><span data-lang="en">Arrow navigation, Enter/Space, Escape implemented by product</span></td><td>&#10003;</td></tr>
+        <tr><td>2.1.1 Keyboard (A)</td><td><span data-lang="pt">Navegação por setas, Enter/Space, Escape via <code>initActionMenus</code> ou implementação equivalente</span><span data-lang="en">Arrow navigation, Enter/Space, Escape via <code>initActionMenus</code> or equivalent</span></td><td>&#10003;</td></tr>
         <tr><td>2.4.3 Focus Order (A)</td><td><span data-lang="pt">Foco inicial no primeiro item ao abrir; retorno ao trigger ao fechar</span><span data-lang="en">Initial focus on first item when open; return to trigger on close</span></td><td>&#10003;</td></tr>
       </tbody>
     </table>
