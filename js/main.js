@@ -426,6 +426,12 @@
           this.setAttribute('aria-pressed', 'true');
         }
         updateModeToggleText();
+        document.dispatchEvent(new CustomEvent('ds:mode-change', {
+          detail: {
+            mode: document.documentElement.getAttribute('data-mode') === 'dark' ? 'dark' : 'light',
+          },
+          bubbles: true,
+        }));
       });
     }
   }

@@ -63,7 +63,7 @@ export function pickAccessibleForeground(
 export function auditPairs(pairs) {
   return pairs.map((p) => {
     const threshold = p.threshold ?? WCAG_AA_TEXT;
-    const ratio = contrastRatio(p.fg, p.bg);
+    const ratio = contrastRatio(p.fg, p.bg, p.under ? { under: p.under } : undefined);
     return {
       name: p.name,
       fg: p.fg,

@@ -75,7 +75,9 @@ export function mapThemeToVars(config, mode) {
     vars['--ds-link-content-default'] = scale[400];
     vars['--ds-link-content-hover'] = scale[300];
     vars['--ds-link-content-active'] = scale[200];
+    vars['--ds-content-brand'] = scale[400];
     vars['--ds-border-focus'] = scale[500];
+    vars['--ds-border-brand'] = scale[500];
     vars['--ds-focus-ring-color'] = scale[500];
   } else {
     brandFill = scale[600];
@@ -96,7 +98,9 @@ export function mapThemeToVars(config, mode) {
     vars['--ds-link-content-default'] = scale[700];
     vars['--ds-link-content-hover'] = scale[800];
     vars['--ds-link-content-active'] = scale[800];
+    vars['--ds-content-brand'] = scale[700];
     vars['--ds-border-focus'] = scale[600];
+    vars['--ds-border-brand'] = scale[600];
     vars['--ds-focus-ring-color'] = scale[600];
   }
 
