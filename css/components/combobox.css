@@ -196,7 +196,7 @@
   border: var(--ds-border-width-default) solid var(--ds-combobox-listbox-container-border-color-default);
   border-radius: var(--ds-combobox-listbox-container-radius-default);
   box-shadow: var(--ds-shadow-overlay);
-  max-block-size: calc(var(--ds-dimension-128) * 2);
+  max-block-size: calc(var(--ds-size-5xl) * 2);
   overflow: auto;
 }
 
@@ -321,4 +321,10 @@
 
 .ds-combobox--readonly:focus-within {
   outline-color: var(--ds-focus-ring-color-readonly);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-combobox {
+    transition: none;
+  }
 }

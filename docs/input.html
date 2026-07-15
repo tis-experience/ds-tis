@@ -153,16 +153,30 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
-          <div class="ds-input">
-            <input type="text" class="ds-input__field" placeholder="Enter text...">
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="input-default">Label</label>
+            </div>
+            <div class="ds-input">
+              <input type="text" class="ds-input__field" id="input-default" placeholder="Enter text..." aria-describedby="input-default-helper">
+            </div>
+            <span class="ds-field__helper" id="input-default-helper">Helper text</span>
           </div>
         </div>
       </div>
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-input"&gt;
-  &lt;input type="text" class="ds-input__field" placeholder="Enter text..."&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;div class="ds-field__label-row"&gt;
+    &lt;label class="ds-field__label" for="input-default"&gt;Label&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-input"&gt;
+    &lt;input type="text" class="ds-input__field" id="input-default"
+           placeholder="Enter text..."
+           aria-describedby="input-default-helper"&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__helper" id="input-default-helper"&gt;Helper text&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>

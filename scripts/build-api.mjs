@@ -72,6 +72,31 @@ const COMPONENTS = [
   { name: "Skeleton", slug: "skeleton", css: "skeleton.css", html: "skeleton.html" },
 ];
 
+/** Comportamento JS opt-in publicado via package.json exports. */
+const RUNTIME_BY_SLUG = {
+  combobox: {
+    level: "required",
+    module: "ds-tis/combobox",
+    init: "initComboboxes",
+    exports: ["initComboboxes", "syncComboboxState"],
+    notes: "Listbox, filtro, seleção e teclado exigem init após render.",
+  },
+  modal: {
+    level: "optional",
+    module: "ds-tis/modal",
+    init: "initModals",
+    exports: ["initModals", "openModal", "closeModal"],
+    notes: "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa.",
+  },
+  menu: {
+    level: "optional",
+    module: "ds-tis/menu",
+    init: "initActionMenus",
+    exports: ["initActionMenus", "openActionMenu", "closeActionMenu"],
+    notes: "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init.",
+  },
+};
+
 function extractTokensFromCss(cssPath) {
   if (!fs.existsSync(cssPath)) return [];
   const content = fs.readFileSync(cssPath, "utf8");
@@ -94,24 +119,30 @@ function extractVariantsFromCss(cssPath) {
 
 const components = COMPONENTS.map((c) => {
   const cssPath = path.join(ROOT, "css", "components", c.css);
+  const runtime = RUNTIME_BY_SLUG[c.slug] ?? null;
   return {
     name: c.name,
     slug: c.slug,
     url: docUrl(`docs/${c.html}`),
     cssClass: c.cssClass || `ds-${c.slug === "input" ? "input" : c.slug}`,
     cssFile: `css/components/${c.css}`,
+    cssOnly: Boolean(c.cssOnly),
+    runtime,
     tokens: extractTokensFromCss(cssPath),
     variants: extractVariantsFromCss(cssPath),
-    figma: {
-      fileKey: FIGMA_FILE_KEY,
-      page: c.name,
-    },
+    figma: c.cssOnly
+      ? null
+      : {
+          fileKey: FIGMA_FILE_KEY,
+          page: c.figmaPage || c.name,
+        },
   };
 });
 
 writeJson(path.join(API_DIR, "components.json"), {
   version: pkg.version,
   count: components.length,
+  runtimeModules: Object.values(RUNTIME_BY_SLUG),
   components,
 });
 console.log(`✅ docs/api/components.json (${components.length} componentes)`);

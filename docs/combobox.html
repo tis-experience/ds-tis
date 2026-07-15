@@ -13,7 +13,7 @@
 <body>
 
 <header class="ds-site-header">
-  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
     <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
@@ -106,19 +106,41 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
-          <div class="ds-combobox ds-combobox--md">
-            <input class="ds-combobox__input" type="text" role="combobox" aria-expanded="false" aria-label="Country" placeholder="Choose a country">
-            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+          <div class="ds-field">
+            <label class="ds-field__label" for="cb-default">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
+            <div class="ds-combobox-anchor">
+              <div class="ds-combobox ds-combobox--md">
+                <input class="ds-combobox__input" id="cb-default" type="text" role="combobox" aria-expanded="false" aria-controls="cb-default-list" aria-autocomplete="list" placeholder="Choose a country" aria-describedby="cb-default-helper">
+                <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+              </div>
+              <ul class="ds-combobox__listbox" id="cb-default-list" role="listbox" aria-label="Countries" hidden>
+                <li class="ds-combobox__option" role="option">Argentina</li>
+                <li class="ds-combobox__option" role="option">Brazil</li>
+                <li class="ds-combobox__option" role="option">Chile</li>
+              </ul>
+            </div>
+            <p class="ds-field__helper" id="cb-default-helper">Type to filter countries.</p>
           </div>
         </div>
       </div>
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-combobox ds-combobox--md"&gt;
-  &lt;input class="ds-combobox__input" type="text" role="combobox"
-         aria-expanded="false" aria-label="Country" placeholder="Choose a country"&gt;
-  &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"&gt;&lt;/i&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;label class="ds-field__label" for="country"&gt;Country
+    &lt;span class="ds-field__required" aria-hidden="true"&gt;*&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;div class="ds-combobox-anchor"&gt;
+    &lt;div class="ds-combobox ds-combobox--md"&gt;
+      &lt;input class="ds-combobox__input" id="country" type="text" role="combobox"
+             aria-expanded="false" aria-controls="country-list"
+             aria-autocomplete="list" placeholder="Choose a country"
+             aria-describedby="country-helper"&gt;
+      &lt;i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;ul class="ds-combobox__listbox" id="country-list" role="listbox" hidden&gt;…&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;p class="ds-field__helper" id="country-helper"&gt;Type to filter countries.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>
@@ -127,7 +149,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Listbox aberto</span><span data-lang="en">Open listbox</span></h2>
-    <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);">
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
       <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. Envolva <code>.ds-combobox</code> e <code>.ds-combobox__listbox</code> em <code>.ds-combobox-anchor</code> para posicionar o popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) ou JS equivalente para abertura, filtro e seleção.</span>
       <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. Wrap <code>.ds-combobox</code> and <code>.ds-combobox__listbox</code> in <code>.ds-combobox-anchor</code> to position the popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) or equivalent JS for open state, filtering, and selection.</span>
     </p>
@@ -224,7 +246,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Estados</span><span data-lang="en">States</span></h2>
-    <h3 style="margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Error</h3>
+    <h3 style="margin-bottom:var(--ds-space-md);font-size:var(--ds-body-font-size-md);color:var(--ds-content-strong)">Error</h3>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
@@ -254,7 +276,7 @@
         </div>
       </div>
     </div>
-    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Disabled</h3>
+    <h3 style="margin-top:var(--ds-space-2xl);margin-bottom:var(--ds-space-md);font-size:var(--ds-body-font-size-md);color:var(--ds-content-strong)">Disabled</h3>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
@@ -277,7 +299,7 @@
         </div>
       </div>
     </div>
-    <h3 style="margin-top:var(--ds-dimension-24);margin-bottom:var(--ds-dimension-12);font-size:var(--ds-font-size-16);color:var(--ds-content-strong)">Read-only</h3>
+    <h3 style="margin-top:var(--ds-space-2xl);margin-bottom:var(--ds-space-md);font-size:var(--ds-body-font-size-md);color:var(--ds-content-strong)">Read-only</h3>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>

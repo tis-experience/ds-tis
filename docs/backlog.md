@@ -6,17 +6,17 @@ Itens fora do escopo imediato mas que devem ser implementados. Organizados por p
 
 ### Automatizar o sync Figma → JSON em CI
 
-Em 0.5.10 implementamos a opção **(b) adaptar pra MCP** (ver `docs/process-figma-sync.md`): o agente Claude Code dumpa as Variables em `.figma-snapshot.json` via `use_figma` em chunks, e `scripts/sync-tokens-from-figma.mjs` compara/aplica divergências. Funciona, mas exige sessão interativa — não roda em GitHub Actions.
+**Status (2026-07-12):** automação via REST API (`GET /v1/files/:key/variables/local`) **fora de escopo** — exige plano Enterprise, que não será adotado. O fluxo canônico permanece **manual via plugin** + `npm run figma:snapshot:refresh` (ver `docs/process-figma-sync.md`).
 
-Pra automatizar de verdade (disparo por webhook ou agendamento), há alguns caminhos:
+Caminhos alternativos se o disparo manual virar gargalo:
 
-**(a) Plugin Figma custom** — rodaria dentro do Figma via Plugin API (que não é plano-gated). Botão "Publicar variables" que serializa em DTCG e faz POST/commit pra GitHub (usando GitHub App ou OAuth). Custo: 1–2 semanas de dev + manutenção própria.
+**(a) Plugin Figma custom** — botão "Publicar variables" que serializa DTCG e abre PR no GitHub (Plugin API não é plano-gated). Custo: 1–2 semanas + manutenção.
 
-**(b) Tokens Studio for Figma (plugin de terceiros)** — plugin com free tier, que faz Figma → JSON + push pra Git via OAuth. Migrar as Variables nativas atuais pra dentro do Tokens Studio exige reconfiguração. Ajusta `build-tokens.mjs` pro formato que ele exporta. Custo: 2–3 dias + designer precisa aprender o plugin.
+**(b) Tokens Studio for Figma** — export Figma → JSON + push Git via OAuth. Exige migrar Variables nativas. Custo: 2–3 dias + curva do plugin.
 
-**(c) Upgrade para plano Enterprise** — destrava a REST API direta (`GET /v1/files/:key/variables/local`), possibilitando o script original revertido em 0.5.9. Decisão de negócio (≈ US$ 75/editor/mês).
+**(c) ~~Upgrade Enterprise~~** — descartado por decisão de produto/custo.
 
-Enquanto o disparo manual não virar gargalo, fica como está. Revisitar quando frequência de sync aumentar ou quando o volume de divergências manuais crescer.
+Enquanto o volume de sync manual for baixo, manter plugin + refresh local. Revisitar **(a)** se divergências manuais crescerem.
 
 ### Preencher `docs/brand-principles.md`
 

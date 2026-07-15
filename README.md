@@ -24,12 +24,16 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar do comportamento de Combobox:
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar de comportamento opt-in:
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
+import { initModals } from 'ds-tis/modal';
+import { initActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
+initModals();
+initActionMenus();
 ```
 
 O pacote também exporta o theme engine e templates HTML:

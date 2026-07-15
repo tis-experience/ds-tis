@@ -30,7 +30,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, variantes e tokens consumidos;
+- `docs/api/components.json` para componentes, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -51,12 +51,16 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:
+Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes:
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
+import { initModals } from 'ds-tis/modal';
+import { initActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
+initModals();
+initActionMenus();
 ```
 
 Para customização de tema, use o theme engine público:
@@ -72,6 +76,20 @@ import loginTemplate from 'ds-tis/templates/login.html?raw';
 ```
 
 O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.
+
+## Runtime JS por componente
+
+Consulte `docs/api/components.json` antes de importar módulos JS. Cada componente expõe `runtime`:
+
+| Campo | Significado |
+|---|---|
+| `null` | CSS-only — sem módulo JS publicado. |
+| `runtime.level: "required"` | Comportamento essencial depende de init (ex.: Combobox). |
+| `runtime.level: "optional"` | Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu). |
+| `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
+| `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
+
+O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
 
 ## Regras de implementação
 
@@ -93,7 +111,7 @@ O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conte
 3. Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.
 4. Consulte a página HTML do componente e `docs/api/components.json` antes de escrever a anatomia.
 5. Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.
-6. Inicialize módulos JS públicos necessários, como `ds-tis/combobox`.
+6. Inicialize módulos JS quando `components.json` indicar `runtime` — `required` sempre; `optional` quando a tela precisar de teclado, overlay ou focus management completo.
 7. Aplique tema com `ds-tis/theme` somente quando a tela tiver requisito de brand/mode em runtime.
 8. Rode os testes e linters do projeto consumidor. Quando possível, valide acessibilidade com axe, Playwright, browser real ou ferramenta equivalente.
 9. Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.
@@ -134,7 +152,7 @@ Fontes obrigatorias:
 
 Regras:
 - Importe ds-tis/css uma vez no entrypoint global.
-- Use ds-tis/combobox para comportamento de Combobox.
+- Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -163,7 +181,7 @@ Bloqueado antes de:
 Antes de concluir, o agent deve reportar:
 
 - componentes DS usados e componentes descartados;
-- imports adicionados: `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
+- imports adicionados: `ds-tis/css`, módulos JS com `runtime` em `components.json`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
 - classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
 - tokens CSS relevantes quando houver customização via `var(--ds-...)`;
 - evidência de acessibilidade: labels, landmarks, `aria-*`, teclado, focus ring e contraste quando aplicável;

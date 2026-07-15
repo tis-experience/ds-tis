@@ -13,8 +13,8 @@
 }
 
 .ds-icon--16 {
-  width: var(--ds-dimension-16);
-  height: var(--ds-dimension-16);
+  width: var(--ds-size-xs);
+  height: var(--ds-size-xs);
   stroke-width: var(--ds-icon-stroke-width-regular-16);
 }
 

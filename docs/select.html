@@ -144,28 +144,41 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="max-width:400px">
-          <div class="ds-select">
-            <select class="ds-select__field" aria-label="Select example">
-              <option value="" disabled selected>Choose an option</option>
-              <option value="1">Option One</option>
-              <option value="2">Option Two</option>
-              <option value="3">Option Three</option>
-            </select>
-            <span class="ds-select__arrow"></span>
+          <div class="ds-field">
+            <div class="ds-field__label-row">
+              <label class="ds-field__label" for="select-default">Label</label>
+            </div>
+            <div class="ds-select">
+              <select class="ds-select__field" id="select-default" aria-describedby="select-default-helper">
+                <option value="" disabled selected>Choose an option</option>
+                <option value="1">Option One</option>
+                <option value="2">Option Two</option>
+                <option value="3">Option Three</option>
+              </select>
+              <span class="ds-select__arrow"></span>
+            </div>
+            <span class="ds-field__helper" id="select-default-helper">Helper text</span>
           </div>
         </div>
       </div>
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-select"&gt;
-  &lt;select class="ds-select__field"&gt;
-    &lt;option value="" disabled selected&gt;Choose an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option One&lt;/option&gt;
-    &lt;option value="2"&gt;Option Two&lt;/option&gt;
-    &lt;option value="3"&gt;Option Three&lt;/option&gt;
-  &lt;/select&gt;
-  &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-field"&gt;
+  &lt;div class="ds-field__label-row"&gt;
+    &lt;label class="ds-field__label" for="select-default"&gt;Label&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="ds-select"&gt;
+    &lt;select class="ds-select__field" id="select-default"
+            aria-describedby="select-default-helper"&gt;
+      &lt;option value="" disabled selected&gt;Choose an option&lt;/option&gt;
+      &lt;option value="1"&gt;Option One&lt;/option&gt;
+      &lt;option value="2"&gt;Option Two&lt;/option&gt;
+      &lt;option value="3"&gt;Option Three&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;span class="ds-select__arrow"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class="ds-field__helper" id="select-default-helper"&gt;Helper text&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>

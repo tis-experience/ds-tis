@@ -51,6 +51,12 @@ jobs:
       - name: Generator output (sync-docs, tokens-verify, build-llms)
         run: node scripts/test-generators.mjs
 
+      - name: Interactive modules (Modal, Menu, Combobox)
+        run: node scripts/test-interactive.mjs
+
+      - name: Form Field anatomy in docs
+        run: node scripts/test-field-docs.mjs
+
       - name: Self-test (provoca regressões e valida que detectores pegam)
         run: node scripts/test-self.mjs
 

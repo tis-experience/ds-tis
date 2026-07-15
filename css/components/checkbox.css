@@ -95,13 +95,13 @@
 .ds-checkbox:indeterminate::after {
   top: 50%;
   left: 50%;
-  width: 10px;
-  height: 2px;
+  width: calc(var(--ds-checkbox-box-size-md) * 0.625);
+  height: max(var(--ds-space-hairline), calc(var(--ds-checkbox-box-size-md) * 0.125));
   background-color: var(--ds-checkbox-mark-fill-indeterminate-default);
   -webkit-mask: none;
   mask: none;
   transform: translate(-50%, -50%) scale(1);
-  border-radius: 1px;
+  border-radius: var(--ds-space-hairline);
 }
 
 /* Hover */
@@ -201,8 +201,8 @@
 }
 
 .ds-checkbox--sm:indeterminate::after {
-  width: 8px;
-  height: 1.5px;
+  width: calc(var(--ds-checkbox-box-size-sm) * 0.5);
+  height: calc(var(--ds-checkbox-box-size-sm) * 0.09375);
 }
 
 /* Large */
@@ -222,8 +222,8 @@
 }
 
 .ds-checkbox--lg:indeterminate::after {
-  width: 12px;
-  height: 2.5px;
+  width: calc(var(--ds-checkbox-box-size-lg) * 0.5);
+  height: calc(var(--ds-checkbox-box-size-lg) * 0.1041666667);
 }
 
 /* ---------------------------------------------------------

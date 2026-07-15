@@ -6,7 +6,7 @@ Como executar o sync das Figma Variables pros arquivos DTCG em `tokens/`. O cami
 
 A ADR-003 (revisada em 0.5.8) estabelece **Figma como autoridade canônica** dos valores de token. Os JSONs em `tokens/` são consolidação derivada. Idealmente existiria um sync automático via REST API, mas `GET /v1/files/:key/variables/local` exige **plano Enterprise** (nosso plano Pro não destrava). No plano atual, o fluxo usa snapshot local: o plugin Figma `figma-plugin/snapshot-exporter` serializa as Variables e a auditoria estrutural num JSON temporário, e os scripts Node leem esse snapshot para comparar com os JSONs e validar invariantes do Figma.
 
-**Disparo:** manual, dentro do Figma Desktop. Ver alternativas futuras em `docs/backlog.md` ("Automatizar o sync Figma → JSON em CI").
+**Disparo:** manual, dentro do Figma Desktop (plugin `figma-plugin/snapshot-exporter`). Automação via REST API ou GitHub Actions **não está no escopo** — plano Pro não expõe Variables API; upgrade Enterprise foi descartado. Ver `docs/backlog.md` para alternativas futuras (plugin com PR automático, Tokens Studio).
 
 ## Pré-requisitos
 

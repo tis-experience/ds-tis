@@ -190,7 +190,7 @@ function checkJsonIntegrity(lightAll, darkAll) {
 //   Semantic   usa naming T-SHIRT    (radius-md, space-sm, body-font-size-sm)
 //
 // Padrões proibidos (= Foundation direto):
-//   --ds-dimension-{N}                 (numérico) — Semantic equivalente: space-{2xs..2xl}
+//   --ds-dimension-{N}                 (numérico) — Semantic equivalente: space-{2xs..2xl}, size-{xs..5xl}
 //   --ds-radius-{N}                  (numérico) — Semantic equivalente: radius-{xs..2xl,full}
 //   --ds-font-size-{N}               (numérico) — Semantic: body-font-size-* / control-font-size-*
 //   --ds-border-width-{N}            (numérico) — Semantic: border-width-default
@@ -206,7 +206,7 @@ function checkJsonIntegrity(lightAll, darkAll) {
 //   --ds-color-{family}-{N}                     — Semantic semantic intent (primary, neutral, etc.)
 // -----------------------------------------------------------------------------
 
-const FOUNDATION_LEAK_RE = /var\(\s*--ds-(?:spacing-[0-9]+|radius-[0-9]+|border-width-[0-9]+|font-family-(?:sans|display|mono)|font-weight-(?:regular|medium|semibold|bold)|font-size-[0-9]+|line-height-(?:none|tight|snug|normal|relaxed|loose)|letter-spacing-(?:tight|normal|wide)|shadow-(?:xs|sm|md|lg|xl|2xl|none)|duration-(?:fast|normal|slow)|ease-(?:default|in|out|in-out|linear)|opacity-[0-9]+|z-[0-9]+|color-[a-z]+-[0-9]+)\s*\)/gi;
+const FOUNDATION_LEAK_RE = /var\(\s*--ds-(?:spacing-[0-9]+|dimension-[0-9]+|radius-[0-9]+|border-width-[0-9]+|font-family-(?:sans|display|mono)|font-weight-(?:regular|medium|semibold|bold)|font-size-[0-9]+|line-height-(?:none|tight|snug|normal|relaxed|loose)|letter-spacing-(?:tight|normal|wide)|shadow-(?:xs|sm|md|lg|xl|2xl|none)|duration-(?:fast|normal|slow)|ease-(?:default|in|out|in-out|linear)|opacity-[0-9]+|z-[0-9]+|color-[a-z]+-[0-9]+)\s*\)/gi;
 
 function scanCssFileForLeaks(filePath) {
   const content = fs.readFileSync(filePath, "utf8");
@@ -229,11 +229,10 @@ function scanCssFileForLeaks(filePath) {
 
 function checkCssFoundationLeak() {
   const diagnostics = [];
-  // components/ segue regra estrita (ADR-013 Fase 5 já refatorou)
-  // base/ ainda não foi refatorado — downgrade pra warning até o PR de base ser mergeado
+  // components/ e base/ seguem regra estrita (ADR-013): Foundation nunca direto.
   const dirs = [
     { path: path.join(ROOT, "css", "components"), level: "error", scope: "components" },
-    { path: path.join(ROOT, "css", "base"),       level: "warning", scope: "base" },
+    { path: path.join(ROOT, "css", "base"),       level: "error", scope: "base" },
   ];
   for (const { path: dir, level, scope } of dirs) {
     if (!fs.existsSync(dir)) continue;

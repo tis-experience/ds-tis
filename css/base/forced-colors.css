@@ -1,0 +1,62 @@
+/* ============================================================
+   Forced colors (Windows High Contrast) — WCAG 1.4.11 support
+   Usa system colors para preservar contraste quando o SO
+   substitui paletas customizadas.
+   ============================================================ */
+
+@media (forced-colors: active) {
+  .ds-button:focus-visible,
+  .ds-link:focus-visible,
+  .ds-input__field:focus-visible,
+  .ds-select__field:focus-visible,
+  .ds-textarea__field:focus-visible,
+  .ds-combobox__input:focus-visible,
+  .ds-checkbox:focus-visible,
+  .ds-radio:focus-visible,
+  .ds-toggle:focus-visible,
+  .ds-breadcrumb__item:focus-visible,
+  .ds-menu__item:focus-visible,
+  .ds-modal__close:focus-visible,
+  .ds-tabs__tab:focus-visible,
+  .ds-accordion__trigger:focus-visible,
+  .ds-pagination__item:focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+
+  .ds-checkbox:checked,
+  .ds-checkbox:indeterminate {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+
+  .ds-checkbox:checked::after,
+  .ds-checkbox:indeterminate::after {
+    background-color: HighlightText;
+  }
+
+  .ds-radio:checked {
+    border-color: Highlight;
+  }
+
+  .ds-radio:checked::after {
+    background-color: Highlight;
+  }
+
+  .ds-toggle:checked {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+
+  .ds-toggle__thumb {
+    background-color: Canvas;
+  }
+
+  .ds-modal-overlay {
+    background-color: Canvas;
+  }
+
+  .ds-modal {
+    border: 1px solid CanvasText;
+  }
+}

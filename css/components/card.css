@@ -151,3 +151,9 @@
   border-color: var(--ds-card-interactive-border-color-selected);
   border-width: var(--ds-card-interactive-border-width-selected);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-card--interactive {
+    transition: none;
+  }
+}

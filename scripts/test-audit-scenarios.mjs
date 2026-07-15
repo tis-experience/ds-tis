@@ -75,6 +75,8 @@ function assertPackageConsumerContract() {
     "css/",
     "docs/templates/",
     "js/combobox.js",
+    "js/menu.js",
+    "js/modal.js",
     "js/package.json",
     "js/theme/",
   ];
@@ -84,6 +86,10 @@ function assertPackageConsumerContract() {
     "./css/design-system.css",
     "./combobox",
     "./combobox.js",
+    "./modal",
+    "./modal.js",
+    "./menu",
+    "./menu.js",
     "./theme",
     "./theme/*",
     "./templates/*",
@@ -110,10 +116,14 @@ function assertPackageConsumerContract() {
 
 async function assertPublicModuleImports() {
   const combobox = await import("ds-tis/combobox");
+  const modal = await import("ds-tis/modal");
+  const menu = await import("ds-tis/menu");
   const theme = await import("ds-tis/theme");
 
   ok(typeof combobox.initComboboxes === "function", "ds-tis/combobox must export initComboboxes()");
   ok(typeof combobox.syncComboboxState === "function", "ds-tis/combobox must export syncComboboxState()");
+  ok(typeof modal.initModals === "function", "ds-tis/modal must export initModals()");
+  ok(typeof menu.initActionMenus === "function", "ds-tis/menu must export initActionMenus()");
   ok(typeof theme.applyTheme === "function", "ds-tis/theme must export applyTheme()");
   ok(typeof theme.toCssSnippet === "function", "ds-tis/theme must export toCssSnippet()");
   ok(typeof theme.generateBrandScale === "function", "ds-tis/theme must export generateBrandScale()");
