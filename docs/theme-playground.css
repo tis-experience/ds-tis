@@ -114,6 +114,16 @@
   gap: var(--ds-dimension-8);
 }
 
+.ds-playground__contrast-banner {
+  margin-bottom: var(--ds-dimension-12);
+  padding: var(--ds-dimension-10) var(--ds-dimension-12);
+  border-radius: var(--ds-radius-8);
+  font-size: var(--ds-font-size-12);
+  line-height: var(--ds-line-height-relaxed);
+  background: var(--ds-feedback-error-background-subtle);
+  color: var(--ds-feedback-error-content-default);
+}
+
 .ds-playground__contrast-row {
   display: flex;
   align-items: center;

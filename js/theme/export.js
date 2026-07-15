@@ -10,6 +10,7 @@
 import { normalizeConfig } from './config-schema.js';
 import { mapThemeToVars } from './semantic-mapper.js';
 import { generateBrandScale, STEPS } from './palette.js';
+import { generateTonedOverlays } from './overlay.js';
 
 /**
  * Snippet CSS com as vars sob um seletor data-theme. Separa as props
@@ -50,17 +51,68 @@ export function toJsonConfig(config) {
 }
 
 /**
- * Patch DTCG para foundation.color.brand.* (write-back futuro ao repo).
- * Não escreve nada — apenas devolve o objeto.
+ * Patch DTCG para foundation.color.brand.* (retrocompatível).
+ * Preferir toDtcgThemePatch() para write-back completo.
  */
 export function toDtcgBrandPatch(config) {
+  const patch = toDtcgThemePatch(config);
+  return { foundation: { color: { brand: patch.foundation.color.brand } } };
+}
+
+/**
+ * Patch DTCG completo: foundation brand + overlays toned + alias semantic.content.brand.
+ * Não escreve arquivos — devolve objeto para revisão/write-back manual.
+ */
+export function toDtcgThemePatch(config) {
   const cfg = normalizeConfig(config);
   const scale = generateBrandScale(cfg.brand.seed, {
     chromaBoost: cfg.brand.chromaBoost ?? 1,
   });
+  const lightOverlays = generateTonedOverlays(scale[600], 'light');
+  const darkOverlays = generateTonedOverlays(scale[400], 'dark');
+
   const brand = {};
   for (const step of STEPS) {
     brand[step] = { $type: 'color', $value: scale[step] };
   }
-  return { foundation: { color: { brand } } };
+
+  return {
+    foundation: {
+      color: {
+        brand,
+        overlay: {
+          'brand-600': {
+            12: { $type: 'color', $value: lightOverlays.default },
+            20: { $type: 'color', $value: lightOverlays.hover },
+            28: { $type: 'color', $value: lightOverlays.active },
+          },
+          'brand-400': {
+            15: { $type: 'color', $value: darkOverlays.default },
+            25: { $type: 'color', $value: darkOverlays.hover },
+            32: { $type: 'color', $value: darkOverlays.active },
+          },
+        },
+      },
+    },
+    semantic: {
+      light: {
+        content: {
+          brand: {
+            $type: 'color',
+            $value: '{foundation.color.brand.700}',
+            $description: 'Conteúdo brand sobre superfície neutra (light).',
+          },
+        },
+      },
+      dark: {
+        content: {
+          brand: {
+            $type: 'color',
+            $value: '{foundation.color.brand.400}',
+            $description: 'Conteúdo brand sobre superfície neutra (dark).',
+          },
+        },
+      },
+    },
+  };
 }

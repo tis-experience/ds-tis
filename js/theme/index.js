@@ -18,3 +18,4 @@ export * from './semantic-mapper.js';
 export * from './apply.js';
 export * from './export.js';
 export * from './url-state.js';
+export * from './brand-contrast-audit.js';

@@ -9,7 +9,9 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
-- **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch `foundation.color.brand` via `toDtcgBrandPatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
+- **Theme engine — auditoria WCAG brand (`auditBrandTheme`).** Novo módulo `js/theme/brand-contrast-audit.js` valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.
+- **Theme engine — `toDtcgThemePatch()`.** Export DTCG expandido inclui `foundation.color.overlay.brand-*` e alias `semantic.content.brand` (light→700, dark→400), além da escala brand.
+- **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch completo via `toDtcgThemePatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
 - **Theme Playground — resiliência de input.** `applyCurrent()` ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.
 - **`docs/combobox.html` — comboboxes interativos.** Exemplos live carregam `js/combobox.js` e chamam `initComboboxes`.
 - **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
@@ -21,6 +23,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.
+- **Theme Playground — dark mode sem side effects em localStorage.** `localStorage['ds-mode']` só é gravado no toggle de modo; cor/radius/fonte não persistem modo. Header e painel sincronizam via evento `ds:mode-change` emitido por `main.js`.
 - **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.
 - **Detector de Foundation leak reconhece `--ds-dimension-*`.** `tokens-verify` passa a flaggar consumo direto de dimension Foundation após ADR-015; Combobox listbox e base CSS migraram para tokens Semantic (`--ds-size-5xl`, `--ds-space-*`, `--ds-size-xs`).
 - **Sidebar da documentação não corta itens ao expandir seções.** Containers de navegação e subnavegação expandidos deixam de usar `max-height` fixo e passam a abraçar o conteúdo real, evitando que opções desapareçam quando `Form` ou outras seções estiverem abertas.

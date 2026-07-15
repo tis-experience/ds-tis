@@ -6,15 +6,13 @@ import {
   applyTheme,
   resetTheme,
   generateBrandScale,
-  mapThemeToVars,
   toCssSnippet,
   toJsonConfig,
-  toDtcgBrandPatch,
+  toDtcgThemePatch,
   encodeConfig,
   decodeConfig,
-  contrastRatio,
-  WCAG_AA_UI,
-  WCAG_AA_TEXT,
+  auditBrandTheme,
+  CONTRAST_LABELS,
   STEPS,
 } from '../js/theme/index.js';
 import { initComboboxes, syncComboboxState } from '../js/combobox.js';
@@ -35,6 +33,7 @@ const els = {
   copyDtcg: $('#copy-dtcg'),
   copyUrl: $('#copy-url'),
   contrastList: $('#contrast-list'),
+  contrastBanner: $('#contrast-banner'),
   swatches: $('#palette-swatches'),
 };
 
@@ -67,7 +66,7 @@ function syncFormFromConfig(cfg) {
   els.radius.value = String(cfg.radius);
   els.fontSans.value = cfg.typography.sans;
   els.fontMono.value = cfg.typography.mono;
-  els.modeToggle.setAttribute('aria-pressed', String(cfg.mode === 'dark'));
+  syncModeToggleUI(cfg.mode);
   document.querySelectorAll('.ds-combobox-anchor').forEach((anchor) => {
     const input = anchor.querySelector('.ds-combobox__input');
     if (!input) return;
@@ -77,13 +76,16 @@ function syncFormFromConfig(cfg) {
   });
 }
 
-/** Mantém toggles do playground/header e localStorage alinhados ao mode aplicado. */
-function syncModeUI(mode) {
+/** Sincroniza toggles do painel e header — sem gravar localStorage. */
+function syncModeToggleUI(mode) {
   const isDark = mode === 'dark';
   els.modeToggle.setAttribute('aria-pressed', String(isDark));
   const headerMode = document.getElementById('mode-toggle');
   if (headerMode) headerMode.setAttribute('aria-pressed', String(isDark));
-  if (isDark) localStorage.setItem('ds-mode', 'dark');
+}
+
+function persistModePreference(mode) {
+  if (mode === 'dark') localStorage.setItem('ds-mode', 'dark');
   else localStorage.removeItem('ds-mode');
 }
 
@@ -102,47 +104,59 @@ function loadGoogleFont(family) {
 
 function renderSwatches(scale) {
   els.swatches.innerHTML = '';
+  els.swatches.removeAttribute('aria-hidden');
+  els.swatches.setAttribute('role', 'list');
+  els.swatches.setAttribute('aria-label', 'Brand palette swatches');
   for (const step of STEPS) {
     const sw = document.createElement('div');
     sw.className = 'ds-playground__swatch';
     sw.style.backgroundColor = scale[step];
+    sw.setAttribute('role', 'listitem');
+    sw.setAttribute('aria-label', `brand ${step} ${scale[step]}`);
     sw.title = `brand.${step} — ${scale[step]}`;
     els.swatches.appendChild(sw);
   }
 }
 
-function renderContrast(cfg) {
-  const mode = cfg.mode;
-  const { vars, contrast } = mapThemeToVars(cfg, mode);
-  const scale = generateBrandScale(cfg.brand.seed);
-  const tonedBg = mode === 'dark'
-    ? vars['--ds-overlay-brand-400-15']
-    : vars['--ds-overlay-brand-600-12'];
-  const tonedFg = mode === 'dark' ? scale[400] : scale[700];
-  const linkFg = mode === 'dark' ? scale[400] : scale[700];
-  const surface = mode === 'dark' ? '#0F172A' : '#FFFFFF';
+function contrastLabel(key, mode) {
+  const labels = CONTRAST_LABELS[key];
+  const lang = document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pt';
+  const modeLabel = mode === 'dark'
+    ? (lang === 'en' ? 'Dark' : 'Dark')
+    : (lang === 'en' ? 'Light' : 'Light');
+  return `${modeLabel} · ${labels[lang]}`;
+}
 
-  const pairs = [
-    { name: 'Brand fill / foreground', fg: contrast.foreground, bg: contrast.brandFill, threshold: WCAG_AA_UI },
-    { name: 'Toned fill / content', fg: tonedFg, bg: tonedBg, under: surface, threshold: WCAG_AA_UI },
-    { name: 'Link / surface', fg: linkFg, bg: surface, threshold: WCAG_AA_TEXT },
-  ];
+function renderContrast(cfg) {
+  const { rows, allPass, failCount } = auditBrandTheme(cfg);
+
+  if (els.contrastBanner) {
+    els.contrastBanner.hidden = allPass;
+    els.contrastBanner.classList.toggle('ds-playground__contrast-banner--fail', !allPass);
+    const pt = els.contrastBanner.querySelector('[data-lang="pt"]');
+    const en = els.contrastBanner.querySelector('[data-lang="en"]');
+    if (pt) pt.textContent = `${failCount} par(es) abaixo do mínimo WCAG AA. Revise a cor da marca antes de publicar.`;
+    if (en) en.textContent = `${failCount} pair(s) below WCAG AA minimum. Review brand color before shipping.`;
+  }
 
   els.contrastList.innerHTML = '';
-  for (const p of pairs) {
-    const ratio = contrastRatio(p.fg, p.bg, p.under ? { under: p.under } : undefined);
-    const passes = ratio >= p.threshold;
-    const row = document.createElement('div');
-    row.className = 'ds-playground__contrast-row';
-    row.innerHTML = `
-      <span>${p.name}</span>
+  for (const row of rows) {
+    const passes = row.passes;
+    const item = document.createElement('div');
+    item.className = 'ds-playground__contrast-row';
+    item.innerHTML = `
+      <span>${contrastLabel(row.key, row.mode)}</span>
       <span>
-        <code>${ratio.toFixed(2)}:1</code>
+        <code>${row.ratio.toFixed(2)}:1</code>
         <span class="ds-playground__badge ${passes ? 'ds-playground__badge--pass' : 'ds-playground__badge--fail'}">
           ${passes ? 'PASS' : 'FAIL'}
         </span>
       </span>`;
-    els.contrastList.appendChild(row);
+    els.contrastList.appendChild(item);
+  }
+
+  for (const btn of [els.copyCss, els.copyJson, els.copyDtcg]) {
+    if (btn) btn.disabled = !allPass;
   }
 }
 
@@ -155,7 +169,7 @@ function renderExports(cfg) {
 
   cssEl.value = toCssSnippet(cfg, 'custom');
   jsonEl.value = toJsonConfig(cfg);
-  if (dtcgEl) dtcgEl.value = JSON.stringify(toDtcgBrandPatch(cfg), null, 2);
+  if (dtcgEl) dtcgEl.value = JSON.stringify(toDtcgThemePatch(cfg), null, 2);
   const token = encodeConfig(cfg);
   urlEl.value = `${location.origin}${location.pathname}?c=${token}`;
 }
@@ -177,7 +191,7 @@ function applyCurrent({ syncUrl = true } = {}) {
   updateRadiusHint();
   loadGoogleFont(currentConfig.typography.sans);
   const { contrast } = applyTheme(currentConfig);
-  syncModeUI(currentConfig.mode);
+  syncModeToggleUI(currentConfig.mode);
   const scale = generateBrandScale(currentConfig.brand.seed);
   renderSwatches(scale);
   renderContrast(currentConfig);
@@ -195,13 +209,16 @@ function resetAll() {
   currentConfig = normalizeConfig({ ...DEFAULT_CONFIG });
   syncFormFromConfig(currentConfig);
   localStorage.removeItem('ds-mode');
+  document.documentElement.removeAttribute('data-mode');
   applyCurrent();
 }
 
 async function copyText(text, btn) {
+  if (btn?.disabled) return;
   await navigator.clipboard.writeText(text);
   const orig = btn.textContent;
-  btn.textContent = 'Copiado!';
+  const lang = document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'pt';
+  btn.textContent = lang === 'en' ? 'Copied!' : 'Copiado!';
   setTimeout(() => { btn.textContent = orig; }, 2000);
 }
 
@@ -254,20 +271,19 @@ function bindEvents() {
   els.radius.addEventListener('change', applyCurrent);
 
   els.modeToggle.addEventListener('click', function () {
-    const isDark = this.getAttribute('aria-pressed') === 'true';
-    this.setAttribute('aria-pressed', String(!isDark));
+    const nextDark = this.getAttribute('aria-pressed') !== 'true';
+    this.setAttribute('aria-pressed', String(nextDark));
+    currentConfig = { ...currentConfig, mode: nextDark ? 'dark' : 'light' };
+    persistModePreference(currentConfig.mode);
     applyCurrent();
   });
 
-  // main.js atualiza data-mode primeiro (registra listener antes deste init)
-  const headerMode = document.getElementById('mode-toggle');
-  if (headerMode) {
-    headerMode.addEventListener('click', () => {
-      const mode = document.documentElement.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
-      els.modeToggle.setAttribute('aria-pressed', String(mode === 'dark'));
-      applyCurrent();
-    });
-  }
+  document.addEventListener('ds:mode-change', (event) => {
+    const mode = event.detail?.mode === 'dark' ? 'dark' : 'light';
+    currentConfig = { ...currentConfig, mode };
+    syncModeToggleUI(mode);
+    applyCurrent();
+  });
 
   els.resetBtn.addEventListener('click', resetAll);
   els.copyCss.addEventListener('click', () => copyText(document.getElementById('export-css')?.value ?? '', els.copyCss));
