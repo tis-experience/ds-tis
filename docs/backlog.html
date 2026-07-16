@@ -118,7 +118,7 @@
 <h3>MCP próprio do design system</h3>
 <p>Expõe tokens, componentes e guidelines via MCP para agentes. <code>llms.txt</code> + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.</p>
 <h3>Publicação no npm</h3>
-<p>Pacote nunca foi publicado. Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes de publicar, validar que <code>files</code> no <code>package.json</code> cobre o que deve ser distribuído.</p>
+<p>Pacote nunca foi publicado no registry. Consumo oficial hoje: <code>npm install github:tis-experience/ds-tis</code> (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: <code>npm run pack:check</code>, validar <code>files</code>/<code>exports</code>, e reescrever docs de instalação para <code>npm install ds-tis</code>.</p>
 <h3>Revisão das páginas do Figma em estado de teste</h3>
 <p>Você mencionou que páginas vazias (Icons, Grids, Images, Templates) e resíduos nas páginas de componente (SECTION e <code>image 1</code> em Input Text, INSTANCE soltas em Button, <code>Frame 1</code> em Textarea) estão em uso para experimentos. Quando terminar os testes, decidir se preenche ou remove.</p>
 <h3>Resolução de conflitos inteligente no <code>sync-tokens-from-figma</code></h3>

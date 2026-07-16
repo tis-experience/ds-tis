@@ -6,13 +6,25 @@ Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (F
 
 ## Instalação
 
-Como dependência do projeto:
+O pacote **ainda não está no npm registry**. O caminho oficial de instalação em projetos consumidores é via GitHub:
 
 ```bash
-npm install ds-tis
+npm install github:tis-experience/ds-tis
 ```
 
-Import principal:
+Ou no `package.json`:
+
+```json
+{
+  "dependencies": {
+    "ds-tis": "github:tis-experience/ds-tis#main"
+  }
+}
+```
+
+Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.6`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
+
+Import principal (o nome do pacote continua `ds-tis`):
 
 ```js
 import 'ds-tis/css';
@@ -42,16 +54,16 @@ O pacote também exporta o theme engine e templates HTML:
 import { applyTheme, toCssSnippet } from 'ds-tis/theme';
 ```
 
-Uso local:
+Desenvolvimento local do próprio DS:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/tis-experience/ds-tis.git
 cd ds-tis
 npm install
 npm run build:all
 ```
 
-Depois sirva o diretório estático (`python3 -m http.server` ou equivalente).
+Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). Docs públicas: [GitHub Pages](https://tis-experience.github.io/ds-tis/).
 
 ## Documentação completa
 

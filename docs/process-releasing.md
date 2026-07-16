@@ -57,4 +57,10 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
 
 ## Publicação no npm
 
-Ainda não fazemos. Pacote está no backlog para ser publicado quando a decisão for tomada. Ver [backlog](./backlog.md).
+Ainda não fazemos. Consumidores instalam via GitHub (`npm install github:tis-experience/ds-tis`) — documentado no README e em `docs/agent-consumer-usage.md`. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver [backlog](./backlog.md).
+
+Antes do publish:
+
+1. Confirmar `npm run pack:check` e `npm run build:all` limpos.
+2. Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → `npm install ds-tis`.
+3. Atualizar este arquivo e o backlog removendo o “ainda não”.

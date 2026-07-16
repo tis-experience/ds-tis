@@ -157,6 +157,18 @@ function assertPackDryRun() {
 function assertReadmeConsumerGuidance() {
   const readme = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
   ok(!readme.includes("cdn.example.com"), "README must not document the placeholder CDN");
+  ok(
+    readme.includes("github:tis-experience/ds-tis"),
+    "README must document GitHub install while npm registry publish is pending",
+  );
+  ok(
+    /ainda não está no npm registry|não está no npm registry/i.test(readme),
+    "README must state that the package is not on the npm registry yet",
+  );
+  ok(
+    !/```(?:bash)?\s*\nnpm install ds-tis\s*\n```/.test(readme),
+    "README must not present bare `npm install ds-tis` as the current install path",
+  );
   ok(readme.includes("import 'ds-tis/css'"), "README must document CSS package import");
   ok(readme.includes("ds-tis/combobox"), "README must document Combobox package import");
   ok(readme.includes("ds-tis/theme"), "README must document theme package import");

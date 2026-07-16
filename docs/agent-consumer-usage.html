@@ -97,9 +97,10 @@
 </ul>
 <p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
 <h2>Imports oficiais</h2>
-<p>Instale o pacote no projeto consumidor:</p>
-<pre tabindex="0"><code class="language-bash">npm install ds-tis
+<p>Instale o pacote no projeto consumidor via GitHub (ainda <strong>não</strong> há publish no npm registry):</p>
+<pre tabindex="0"><code class="language-bash">npm install github:tis-experience/ds-tis
 </code></pre>
+<p>Alternativa no <code>package.json</code>: <code>&quot;ds-tis&quot;: &quot;github:tis-experience/ds-tis#main&quot;</code>. Prefira pin por tag/SHA em produção. Quando o registry existir, a instalação muda para <code>npm install ds-tis</code> — até lá, não assuma que o nome solo resolve no npm.</p>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
@@ -205,6 +206,7 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
+- Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
 - Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
