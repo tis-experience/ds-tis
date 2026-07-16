@@ -23,6 +23,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
 - **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.
 - **Theme Playground — dark mode sem side effects em localStorage.** `localStorage['ds-mode']` só é gravado no toggle de modo; cor/radius/fonte não persistem modo. Header e painel sincronizam via evento `ds:mode-change` emitido por `main.js`.
 - **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.

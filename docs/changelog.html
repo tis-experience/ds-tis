@@ -74,7 +74,9 @@
 <h2>[Não publicado]</h2>
 <h3>Adicionado</h3>
 <ul>
-<li><strong>Theme Playground — exportação DTCG e CSS semântico completo.</strong> Aba DTCG no playground exporta patch <code>foundation.color.brand</code> via <code>toDtcgBrandPatch()</code>. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em <code>docs/theming.html</code>.</li>
+<li><strong>Theme engine — auditoria WCAG brand (<code>auditBrandTheme</code>).</strong> Novo módulo <code>js/theme/brand-contrast-audit.js</code> valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.</li>
+<li><strong>Theme engine — <code>toDtcgThemePatch()</code>.</strong> Export DTCG expandido inclui <code>foundation.color.overlay.brand-*</code> e alias <code>semantic.content.brand</code> (light→700, dark→400), além da escala brand.</li>
+<li><strong>Theme Playground — exportação DTCG e CSS semântico completo.</strong> Aba DTCG no playground exporta patch completo via <code>toDtcgThemePatch()</code>. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em <code>docs/theming.html</code>.</li>
 <li><strong>Theme Playground — resiliência de input.</strong> <code>applyCurrent()</code> ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.</li>
 <li><strong><code>docs/combobox.html</code> — comboboxes interativos.</strong> Exemplos live carregam <code>js/combobox.js</code> e chamam <code>initComboboxes</code>.</li>
 <li><strong>Guia para agents consumidores.</strong> Nova página pública <code>docs/agent-consumer-usage.html</code> define como agents devem implementar telas em projetos consumidores usando <code>ds-tis/css</code>, <code>ds-tis/combobox</code>, <code>ds-tis/theme</code>, templates, anatomia pública, acessibilidade e checklist de evidência. <code>AGENTS.md</code> agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e <code>verify:agent-docs</code> protege a referência.</li>
@@ -87,6 +89,9 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Docs de instalação não prometem npm registry.</strong> README e guia de agents consumidores passam a documentar <code>npm install github:tis-experience/ds-tis</code> como caminho oficial; <code>npm install ds-tis</code> só após publish. <code>test:audit-scenarios</code> protege a regressão.</li>
+<li><strong>Theme engine — paridade com tokens canônicos.</strong> <code>semantic-mapper</code> passa a emitir <code>--ds-content-brand</code> e <code>--ds-border-brand</code>; testes validam vars canônicas e paridade com <code>tokens/semantic/*.json</code>.</li>
+<li><strong>Theme Playground — dark mode sem side effects em localStorage.</strong> <code>localStorage[&#39;ds-mode&#39;]</code> só é gravado no toggle de modo; cor/radius/fonte não persistem modo. Header e painel sincronizam via evento <code>ds:mode-change</code> emitido por <code>main.js</code>.</li>
 <li><strong>Combobox: focus ring com border-radius estável.</strong> <code>:focus-within</code> espelha Input/Select/Textarea (<code>background</code> + <code>border-radius: var(--ds-field-radius)</code>) para o outline não distorcer o shape do field.</li>
 <li><strong>Detector de Foundation leak reconhece <code>--ds-dimension-*</code>.</strong> <code>tokens-verify</code> passa a flaggar consumo direto de dimension Foundation após ADR-015; Combobox listbox e base CSS migraram para tokens Semantic (<code>--ds-size-5xl</code>, <code>--ds-space-*</code>, <code>--ds-size-xs</code>).</li>
 <li><strong>Sidebar da documentação não corta itens ao expandir seções.</strong> Containers de navegação e subnavegação expandidos deixam de usar <code>max-height</code> fixo e passam a abraçar o conteúdo real, evitando que opções desapareçam quando <code>Form</code> ou outras seções estiverem abertas.</li>

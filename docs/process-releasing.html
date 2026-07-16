@@ -124,7 +124,13 @@ git push origin v1.0.0-beta.N
 <li><strong>Precisar desfazer</strong>: tags só removem com <code>git push origin :refs/tags/vx.y.z</code>. Desfazer release é operação delicada; prefira publicar um <code>x.y.z+1</code> com correção.</li>
 </ul>
 <h2>Publicação no npm</h2>
-<p>Ainda não fazemos. Pacote está no backlog para ser publicado quando a decisão for tomada. Ver <a href="./backlog.md">backlog</a>.</p>
+<p>Ainda não fazemos. Consumidores instalam via GitHub (<code>npm install github:tis-experience/ds-tis</code>) — documentado no README e em <code>docs/agent-consumer-usage.md</code>. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver <a href="./backlog.md">backlog</a>.</p>
+<p>Antes do publish:</p>
+<ol>
+<li>Confirmar <code>npm run pack:check</code> e <code>npm run build:all</code> limpos.</li>
+<li>Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → <code>npm install ds-tis</code>.</li>
+<li>Atualizar este arquivo e o backlog removendo o “ainda não”.</li>
+</ol>
 
   </div>
 </main>

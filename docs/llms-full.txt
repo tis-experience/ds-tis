@@ -23,13 +23,25 @@ Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (F
 
 ## Instalação
 
-Como dependência do projeto:
+O pacote **ainda não está no npm registry**. O caminho oficial de instalação em projetos consumidores é via GitHub:
 
 ```bash
-npm install ds-tis
+npm install github:tis-experience/ds-tis
 ```
 
-Import principal:
+Ou no `package.json`:
+
+```json
+{
+  "dependencies": {
+    "ds-tis": "github:tis-experience/ds-tis#main"
+  }
+}
+```
+
+Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.6`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
+
+Import principal (o nome do pacote continua `ds-tis`):
 
 ```js
 import 'ds-tis/css';
@@ -41,12 +53,16 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar do comportamento de Combobox:
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar de comportamento opt-in:
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
+import { initModals } from 'ds-tis/modal';
+import { initActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
+initModals();
+initActionMenus();
 ```
 
 O pacote também exporta o theme engine e templates HTML:
@@ -55,16 +71,16 @@ O pacote também exporta o theme engine e templates HTML:
 import { applyTheme, toCssSnippet } from 'ds-tis/theme';
 ```
 
-Uso local:
+Desenvolvimento local do próprio DS:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/tis-experience/ds-tis.git
 cd ds-tis
 npm install
 npm run build:all
 ```
 
-Depois sirva o diretório estático (`python3 -m http.server` ou equivalente).
+Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). Docs públicas: [GitHub Pages](https://tis-experience.github.io/ds-tis/).
 
 ## Documentação completa
 
@@ -236,15 +252,37 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Theme engine — auditoria WCAG brand (`auditBrandTheme`).** Novo módulo `js/theme/brand-contrast-audit.js` valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.
+- **Theme engine — `toDtcgThemePatch()`.** Export DTCG expandido inclui `foundation.color.overlay.brand-*` e alias `semantic.content.brand` (light→700, dark→400), além da escala brand.
+- **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch completo via `toDtcgThemePatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
+- **Theme Playground — resiliência de input.** `applyCurrent()` ignora hex inválido sem quebrar a UI; atualização de URL do color picker com debounce de 200ms.
+- **`docs/combobox.html` — comboboxes interativos.** Exemplos live carregam `js/combobox.js` e chamam `initComboboxes`.
 - **Guia para agents consumidores.** Nova página pública `docs/agent-consumer-usage.html` define como agents devem implementar telas em projetos consumidores usando `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme`, templates, anatomia pública, acessibilidade e checklist de evidência. `AGENTS.md` agora aponta para esse guia quando o pedido for consumo do DS fora deste repo, e `verify:agent-docs` protege a referência.
+- **Módulos JS opt-in para Modal e Action Menu.** Novos exports `ds-tis/modal` (`initModals`, `openModal`, `closeModal`) e `ds-tis/menu` (`initActionMenus`, `openActionMenu`, `closeActionMenu`) implementam focus trap, Escape, retorno de foco e teclado básico sem quebrar a stack CSS-only do DS.
+- **Suporte a forced-colors.** Novo `css/base/forced-colors.css` preserva focus ring e estados checked/indeterminate/radio/toggle/modal em Windows High Contrast.
+- **Tokens Component para barra indeterminate do Checkbox.** Dimensões da barra indeterminate passam a derivar proporcionalmente de `--ds-checkbox-box-size-*` e `--ds-space-hairline`, eliminando px hardcoded sem criar drift Figma.
+- **Metadados de runtime em `docs/api/components.json`.** `build-api` publica `runtime` por componente (`required`/`optional`/`null`), `runtimeModules` agregado e `cssOnly` para Form Field. `test-api-runtime` valida alinhamento com exports npm.
+- **Publicação npm.** `prepublishOnly` roda `build:all`; `pack:check` combina `npm pack --dry-run` com audit de exports.
+- **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
+- **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.
+- **Theme Playground — dark mode sem side effects em localStorage.** `localStorage['ds-mode']` só é gravado no toggle de modo; cor/radius/fonte não persistem modo. Header e painel sincronizam via evento `ds:mode-change` emitido por `main.js`.
+- **Combobox: focus ring com border-radius estável.** `:focus-within` espelha Input/Select/Textarea (`background` + `border-radius: var(--ds-field-radius)`) para o outline não distorcer o shape do field.
+- **Detector de Foundation leak reconhece `--ds-dimension-*`.** `tokens-verify` passa a flaggar consumo direto de dimension Foundation após ADR-015; Combobox listbox e base CSS migraram para tokens Semantic (`--ds-size-5xl`, `--ds-space-*`, `--ds-size-xs`).
 - **Sidebar da documentação não corta itens ao expandir seções.** Containers de navegação e subnavegação expandidos deixam de usar `max-height` fixo e passam a abraçar o conteúdo real, evitando que opções desapareçam quando `Form` ou outras seções estiverem abertas.
 - **SVGs do header renderizam sem achatamento visual.** `logo-tis-mark.svg` passa a ser um vetor geométrico nativo com círculos perfeitos no slot 36×36 da topbar, e o toggle Light/Dark usa ícones Lucide stroke com anatomia `ds-button__icon` em vez de paths preenchidos inline.
 - **Logo da documentação carrega corretamente em todas as rotas.** Topbar passa a usar o símbolo TIS vetorial `docs/assets/logo-tis-mark.svg` no padrão `símbolo TIS | Design System`; paths de asset em páginas geradas, ADRs e templates foram corrigidos para resolver a imagem a partir do HTML real.
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
+- **CI bloqueia PR com erros de `verify:tokens`.** Workflow `verify-tokens.yml` deixa de engolir exit code 1.
+- **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.
+- **Tooltip deixa de forçar `nowrap`.** Conteúdo ganha `max-width` baseado em `--ds-size-layout-xs` e quebra de linha segura em viewports estreitas.
+- **Link permanece em Semantic por design.** Comentário em `link.css` documenta que `component.link.*` só deve nascer quando o Figma materializar contrato anatômico (hoje é Text Style + `link/content/*`).
+- **Documentação de sync Figma.** `docs/backlog.md` e `docs/process-figma-sync.md` registram que automação via REST API/CI está fora de escopo (plano Pro; Enterprise descartado); fluxo canônico permanece plugin + `figma:snapshot:refresh`.
+- **Empacotamento npm.** `sideEffects` para CSS, exports `./modal` e `./menu`, e teste `test-interactive` protegem o contrato público.
 - **Marca do header da documentação.** Topbar passa a renderizar `símbolo TIS + TIS | Design System`, com “TIS” em destaque e “Design System” em escala menor, mantendo o símbolo vetorial e o separador acessível.
 - **Visual regression com baseline por plataforma.** `test:visual` mantém a baseline canônica Linux/GitHub Actions em `tests/visual/baseline/`, passa a usar `tests/visual/baseline-darwin/` em macOS para evitar falso negativo local por rasterização/fonte, e `test:audit-scenarios` protege esse contrato.
 - **Cenarios de auditoria executaveis.** Novo `npm run test:audit-scenarios` valida consumo real do pacote (`exports`, `files`, self-imports e `npm pack --dry-run`), docs de instalacao sem CDN ficticio, contrato Button/Figma para Component tokens, run de agents verificavel e build de icones em caminho com espaco.
@@ -257,6 +295,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [1.0.0-beta.6] — 2026-07-06
 
 ### Adicionado
+
 - **`npm run figma:snapshot:refresh`.** Encadeia install do export `figma-snapshot.json` → `sync:tokens-from-figma` (dry-run) → `verify:tokens`. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em `AGENTS.md` §4.4). `agent:preflight` sinaliza export pendente na raiz.
 - **Accordion público no repo.** Adicionados `css/components/accordion.css`, `docs/accordion.html`, navegação, API e documentação do componente consumível com slots de conteúdo, ícones Lucide, estados open/closed/disabled, ARIA e consumo dos tokens `component.accordion.*`.
 - **Componente Accordion.** Adicionado o contrato anatômico do Accordion aprovado no Figma para `item`, `trigger`, `content`, `chevron`, `leading-icon` e `focus-ring`, com tokens `component.accordion.*`, CSS gerado, API, registry e documentação de tokens a partir da run `2026-06-29-accordion`. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e `Focus Ring` dedicado com radius `16`.
@@ -1108,7 +1147,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 19 decisões registradas.
@@ -1172,7 +1211,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, variantes e tokens consumidos;
+- `docs/api/components.json` para componentes, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -1181,11 +1220,13 @@ Não dependa de memória ou suposições sobre classes. Quando houver dúvida, l
 
 ## Imports oficiais
 
-Instale o pacote no projeto consumidor:
+Instale o pacote no projeto consumidor via GitHub (ainda **não** há publish no npm registry):
 
 ```bash
-npm install ds-tis
+npm install github:tis-experience/ds-tis
 ```
+
+Alternativa no `package.json`: `"ds-tis": "github:tis-experience/ds-tis#main"`. Prefira pin por tag/SHA em produção. Quando o registry existir, a instalação muda para `npm install ds-tis` — até lá, não assuma que o nome solo resolve no npm.
 
 Importe o CSS público uma vez no entrypoint global do app:
 
@@ -1193,12 +1234,16 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Combobox, inicialize o comportamento público quando o app renderizar ou hidratar os campos:
+Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes:
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
+import { initModals } from 'ds-tis/modal';
+import { initActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
+initModals();
+initActionMenus();
 ```
 
 Para customização de tema, use o theme engine público:
@@ -1214,6 +1259,20 @@ import loginTemplate from 'ds-tis/templates/login.html?raw';
 ```
 
 O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.
+
+## Runtime JS por componente
+
+Consulte `docs/api/components.json` antes de importar módulos JS. Cada componente expõe `runtime`:
+
+| Campo | Significado |
+|---|---|
+| `null` | CSS-only — sem módulo JS publicado. |
+| `runtime.level: "required"` | Comportamento essencial depende de init (ex.: Combobox). |
+| `runtime.level: "optional"` | Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu). |
+| `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
+| `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
+
+O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
 
 ## Regras de implementação
 
@@ -1235,7 +1294,7 @@ O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conte
 3. Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.
 4. Consulte a página HTML do componente e `docs/api/components.json` antes de escrever a anatomia.
 5. Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.
-6. Inicialize módulos JS públicos necessários, como `ds-tis/combobox`.
+6. Inicialize módulos JS quando `components.json` indicar `runtime` — `required` sempre; `optional` quando a tela precisar de teclado, overlay ou focus management completo.
 7. Aplique tema com `ds-tis/theme` somente quando a tela tiver requisito de brand/mode em runtime.
 8. Rode os testes e linters do projeto consumidor. Quando possível, valide acessibilidade com axe, Playwright, browser real ou ferramenta equivalente.
 9. Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.
@@ -1275,8 +1334,9 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
+- Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
-- Use ds-tis/combobox para comportamento de Combobox.
+- Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -1305,7 +1365,7 @@ Bloqueado antes de:
 Antes de concluir, o agent deve reportar:
 
 - componentes DS usados e componentes descartados;
-- imports adicionados: `ds-tis/css`, `ds-tis/combobox`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
+- imports adicionados: `ds-tis/css`, módulos JS com `runtime` em `components.json`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
 - classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
 - tokens CSS relevantes quando houver customização via `var(--ds-...)`;
 - evidência de acessibilidade: labels, landmarks, `aria-*`, teclado, focus ring e contraste quando aplicável;
@@ -1655,17 +1715,17 @@ Itens fora do escopo imediato mas que devem ser implementados. Organizados por p
 
 ### Automatizar o sync Figma → JSON em CI
 
-Em 0.5.10 implementamos a opção **(b) adaptar pra MCP** (ver `docs/process-figma-sync.md`): o agente Claude Code dumpa as Variables em `.figma-snapshot.json` via `use_figma` em chunks, e `scripts/sync-tokens-from-figma.mjs` compara/aplica divergências. Funciona, mas exige sessão interativa — não roda em GitHub Actions.
+**Status (2026-07-12):** automação via REST API (`GET /v1/files/:key/variables/local`) **fora de escopo** — exige plano Enterprise, que não será adotado. O fluxo canônico permanece **manual via plugin** + `npm run figma:snapshot:refresh` (ver `docs/process-figma-sync.md`).
 
-Pra automatizar de verdade (disparo por webhook ou agendamento), há alguns caminhos:
+Caminhos alternativos se o disparo manual virar gargalo:
 
-**(a) Plugin Figma custom** — rodaria dentro do Figma via Plugin API (que não é plano-gated). Botão "Publicar variables" que serializa em DTCG e faz POST/commit pra GitHub (usando GitHub App ou OAuth). Custo: 1–2 semanas de dev + manutenção própria.
+**(a) Plugin Figma custom** — botão "Publicar variables" que serializa DTCG e abre PR no GitHub (Plugin API não é plano-gated). Custo: 1–2 semanas + manutenção.
 
-**(b) Tokens Studio for Figma (plugin de terceiros)** — plugin com free tier, que faz Figma → JSON + push pra Git via OAuth. Migrar as Variables nativas atuais pra dentro do Tokens Studio exige reconfiguração. Ajusta `build-tokens.mjs` pro formato que ele exporta. Custo: 2–3 dias + designer precisa aprender o plugin.
+**(b) Tokens Studio for Figma** — export Figma → JSON + push Git via OAuth. Exige migrar Variables nativas. Custo: 2–3 dias + curva do plugin.
 
-**(c) Upgrade para plano Enterprise** — destrava a REST API direta (`GET /v1/files/:key/variables/local`), possibilitando o script original revertido em 0.5.9. Decisão de negócio (≈ US$ 75/editor/mês).
+**(c) ~~Upgrade Enterprise~~** — descartado por decisão de produto/custo.
 
-Enquanto o disparo manual não virar gargalo, fica como está. Revisitar quando frequência de sync aumentar ou quando o volume de divergências manuais crescer.
+Enquanto o volume de sync manual for baixo, manter plugin + refresh local. Revisitar **(a)** se divergências manuais crescerem.
 
 ### Preencher `docs/brand-principles.md`
 
@@ -1730,7 +1790,7 @@ Expõe tokens, componentes e guidelines via MCP para agentes. `llms.txt` + APIs 
 
 ### Publicação no npm
 
-Pacote nunca foi publicado. Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes de publicar, validar que `files` no `package.json` cobre o que deve ser distribuído.
+Pacote nunca foi publicado no registry. Consumo oficial hoje: `npm install github:tis-experience/ds-tis` (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: `npm run pack:check`, validar `files`/`exports`, e reescrever docs de instalação para `npm install ds-tis`.
 
 ### Revisão das páginas do Figma em estado de teste
 
@@ -1832,7 +1892,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
@@ -2601,7 +2661,7 @@ Como executar o sync das Figma Variables pros arquivos DTCG em `tokens/`. O cami
 
 A ADR-003 (revisada em 0.5.8) estabelece **Figma como autoridade canônica** dos valores de token. Os JSONs em `tokens/` são consolidação derivada. Idealmente existiria um sync automático via REST API, mas `GET /v1/files/:key/variables/local` exige **plano Enterprise** (nosso plano Pro não destrava). No plano atual, o fluxo usa snapshot local: o plugin Figma `figma-plugin/snapshot-exporter` serializa as Variables e a auditoria estrutural num JSON temporário, e os scripts Node leem esse snapshot para comparar com os JSONs e validar invariantes do Figma.
 
-**Disparo:** manual, dentro do Figma Desktop. Ver alternativas futuras em `docs/backlog.md` ("Automatizar o sync Figma → JSON em CI").
+**Disparo:** manual, dentro do Figma Desktop (plugin `figma-plugin/snapshot-exporter`). Automação via REST API ou GitHub Actions **não está no escopo** — plano Pro não expõe Variables API; upgrade Enterprise foi descartado. Ver `docs/backlog.md` para alternativas futuras (plugin com PR automático, Tokens Studio).
 
 ## Pré-requisitos
 
@@ -2858,7 +2918,13 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
 
 ## Publicação no npm
 
-Ainda não fazemos. Pacote está no backlog para ser publicado quando a decisão for tomada. Ver [backlog](./backlog.md).
+Ainda não fazemos. Consumidores instalam via GitHub (`npm install github:tis-experience/ds-tis`) — documentado no README e em `docs/agent-consumer-usage.md`. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver [backlog](./backlog.md).
+
+Antes do publish:
+
+1. Confirmar `npm run pack:check` e `npm run build:all` limpos.
+2. Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → `npm install ds-tis`.
+3. Atualizar este arquivo e o backlog removendo o “ainda não”.
 
 
 ═══════════════════════════════════════════════════════════
@@ -20829,7 +20895,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-09. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
