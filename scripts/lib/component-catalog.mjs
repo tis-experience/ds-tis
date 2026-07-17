@@ -127,9 +127,8 @@ export const COMPONENTS = [
     css: "combobox.css",
     html: "combobox.html",
     figmaPage: "Combobox",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar aria-activedescendant, Escape preservando foco, root init/hydration, cleanup e axe com listbox aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Checkbox",

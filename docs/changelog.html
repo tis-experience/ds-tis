@@ -97,6 +97,7 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Combobox conclui o gate App-ready.</strong> O runtime passa a aceitar document, container e o próprio root, mantém markup incompleto recuperável, sincroniza <code>aria-activedescendant</code> com a opção ativa sem mover o foco DOM, preserva foco no Escape e publica <code>detail</code> estável no evento. Lifecycle prova teclado, ARIA, idempotência e cleanup; o consumer smoke valida o tarball com axe nos estados fechado/aberto antes da promoção individual.</li>
 <li><strong>Accordion conclui o gate App-ready.</strong> <code>initAccordions</code> passa a aceitar o próprio component root e não envenena markup incompleto antes de hydration. Lifecycle prova root/container/component init, late hydration, idempotência, teclado, foco circular, ARIA, eventos e cleanup; o consumer smoke instala o tarball e valida interação, zero erros de browser e axe nos estados fechado/aberto antes da promoção individual.</li>
 <li><strong>Modal overlay respeita <code>hidden</code>.</strong> <code>.ds-modal-overlay { display: flex }</code> anulava o atributo HTML <code>hidden</code> no consumidor; regra explícita <code>[hidden] { display: none }</code> restaura o fechamento. Detectado pelo smoke test de consumidor.</li>
 <li><strong>Referências órfãs de ADR no Combobox.</strong> Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (<code>ds-field</code> CSS-only), liberando a numeração para a decisão registrada.</li>

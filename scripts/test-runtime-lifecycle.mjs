@@ -91,7 +91,11 @@ try {
   let markers = await page.evaluate(() => window.__dsLifecycle.markers());
   ok(markers.modalInit && markers.modalTrigger, 'initModals must mark overlay and trigger');
   ok(markers.menuInit, 'initActionMenus must mark action menu');
-  ok(markers.comboInit, 'initComboboxes must mark combobox anchor');
+  ok(
+    markers.comboInit,
+    'initComboboxes(document) must mark combobox anchor',
+    evidence('combobox', 'root-init', 'init-document'),
+  );
   ok(
     markers.accordionInit,
     'initAccordions(document) must mark accordion',
@@ -228,6 +232,286 @@ try {
       evidence(slug, 'events', 'public-event-count'),
     );
   }
+
+  // --- Combobox: root init, hydration e idempotência ---
+  const comboboxSetup = await page.evaluate(() => {
+    const { initComboboxes } = window.__dsLifecycle;
+    const markup = (prefix) => `
+      <div class="ds-combobox-anchor" id="${prefix}">
+        <div class="ds-combobox ds-combobox--md">
+          <input class="ds-combobox__input" id="${prefix}-input" type="text" role="combobox" aria-expanded="false" aria-controls="${prefix}-list" aria-autocomplete="list">
+        </div>
+        <ul class="ds-combobox__listbox" id="${prefix}-list" role="listbox" hidden>
+          <li class="ds-combobox__option" role="option">Alpha</li>
+          <li class="ds-combobox__option" role="option">Beta</li>
+        </ul>
+      </div>`;
+
+    const proofHost = document.createElement('section');
+    proofHost.id = 'combobox-proof-host';
+    document.body.append(proofHost);
+
+    const containerHost = document.createElement('div');
+    containerHost.id = 'combobox-container-host';
+    containerHost.innerHTML = markup('combobox-container-root');
+    proofHost.append(containerHost);
+    const containerCreated = initComboboxes(containerHost).length;
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = markup('combobox-component-root').trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    proofHost.append(componentRoot);
+    const componentCreated = initComboboxes(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-combobox-anchor';
+    incomplete.id = 'combobox-incomplete-root';
+    proofHost.append(incomplete);
+    const incompleteFirstCreated = initComboboxes(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsComboboxInit === 'true';
+    incomplete.innerHTML = markup('combobox-incomplete-inner')
+      .replace('<div class="ds-combobox-anchor" id="combobox-incomplete-inner">', '')
+      .replace(/<\/div>\s*$/, '');
+    const incompleteRecovered = initComboboxes(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    lateHost.id = 'combobox-late-host';
+    proofHost.append(lateHost);
+    const lateBefore = initComboboxes(lateHost).length;
+    lateHost.innerHTML = markup('combobox-late-root');
+    const lateAfter = initComboboxes(lateHost).length;
+
+    const secondInitCreated = initComboboxes(componentRoot).length;
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-combobox-change', () => { duplicateEventCount += 1; });
+    componentRoot.querySelector('.ds-combobox__input').focus();
+    componentRoot.querySelector('.ds-combobox__option').dispatchEvent(
+      new MouseEvent('mousedown', { bubbles: true, cancelable: true }),
+    );
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${markup('combobox-scope-a')}${markup('combobox-scope-b')}`;
+    proofHost.append(scopedHost);
+    const scopedCreated = initComboboxes(scopedHost).length;
+
+    return {
+      containerCreated,
+      containerMarked: containerHost.querySelector('.ds-combobox-anchor').dataset.dsComboboxInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsComboboxInit === 'true',
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsComboboxInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-combobox-anchor').dataset.dsComboboxInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    comboboxSetup.containerCreated === 1 && comboboxSetup.containerMarked,
+    'initComboboxes(container) must initialize a descendant Combobox exactly once',
+    evidence('combobox', 'root-init', 'init-container'),
+  );
+  ok(
+    comboboxSetup.componentCreated === 1 && comboboxSetup.componentMarked,
+    'initComboboxes(componentRoot) must initialize the root itself',
+    evidence('combobox', 'root-init', 'init-component-root'),
+  );
+  ok(
+    comboboxSetup.incompleteFirstCreated === 0
+      && !comboboxSetup.incompletePoisoned
+      && comboboxSetup.incompleteRecovered === 1
+      && comboboxSetup.incompleteMarked,
+    'incomplete Combobox markup must remain recoverable after its anatomy arrives',
+    evidence('combobox', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    comboboxSetup.lateBefore === 0 && comboboxSetup.lateAfter === 1 && comboboxSetup.lateMarked,
+    'a late Combobox subtree must initialize when its container is scanned again',
+    evidence('combobox', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    comboboxSetup.secondInitCreated === 0,
+    'double init must create zero additional Combobox instances',
+    evidence('combobox', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    comboboxSetup.duplicateEventCount === 1,
+    `double init must not duplicate Combobox events (got ${comboboxSetup.duplicateEventCount})`,
+    evidence('combobox', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(comboboxSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two Comboboxes');
+
+  // --- Combobox: teclado, foco, ARIA e evento público ---
+  await page.locator('#combo-input').fill('');
+  await page.locator('#combo-input').focus();
+  await page.keyboard.press('ArrowDown');
+  const firstActive = await page.evaluate(() => {
+    const input = document.getElementById('combo-input');
+    const activeId = input.getAttribute('aria-activedescendant');
+    const active = activeId ? document.getElementById(activeId) : null;
+    return {
+      activeId,
+      activeText: active?.textContent.trim(),
+      activeMarked: active?.dataset.active === 'true',
+      focusId: document.activeElement?.id,
+    };
+  });
+  await page.keyboard.press('ArrowDown');
+  const secondActiveText = await page.evaluate(() => {
+    const activeId = document.getElementById('combo-input').getAttribute('aria-activedescendant');
+    return activeId ? document.getElementById(activeId)?.textContent.trim() : null;
+  });
+  ok(
+    firstActive.activeText === 'Alpha' && firstActive.activeMarked && secondActiveText === 'Beta',
+    `Combobox arrows must move the active option (got ${JSON.stringify({ firstActive, secondActiveText })})`,
+    evidence('combobox', 'keyboard', 'arrows-active-option'),
+  );
+  ok(
+    Boolean(firstActive.activeId) && firstActive.activeText === 'Alpha',
+    'Combobox aria-activedescendant must reference the active option',
+    evidence('combobox', 'aria', 'active-descendant-valid'),
+  );
+  ok(
+    firstActive.focusId === 'combo-input',
+    `Combobox DOM focus must remain on the input (got ${firstActive.focusId})`,
+    evidence('combobox', 'focus', 'dom-focus-stays-on-input'),
+  );
+
+  await page.keyboard.press('Enter');
+  const enterSelection = await page.evaluate(() => {
+    const input = document.getElementById('combo-input');
+    const selected = document.querySelector('#combo-list [aria-selected="true"]');
+    return {
+      value: input.value,
+      expanded: input.getAttribute('aria-expanded'),
+      listHidden: document.getElementById('combo-list').hidden,
+      selectedText: selected?.textContent.trim(),
+      activeDescendant: input.getAttribute('aria-activedescendant'),
+    };
+  });
+  ok(
+    enterSelection.value === 'Beta',
+    `Enter must select the active Combobox option (got ${enterSelection.value})`,
+    evidence('combobox', 'keyboard', 'enter-selects'),
+  );
+  ok(
+    enterSelection.expanded === 'false'
+      && enterSelection.listHidden
+      && enterSelection.selectedText === 'Beta'
+      && enterSelection.activeDescendant === null,
+    `Combobox selection must synchronize expanded/selected state (${JSON.stringify(enterSelection)})`,
+    [
+      evidence('combobox', 'aria', 'expanded-selected-sync'),
+      evidence('combobox', 'open-close', 'selection-closes'),
+    ],
+  );
+
+  await page.locator('#combo-input').fill('');
+  await page.locator('#combo-input').focus();
+  await page.keyboard.press('Escape');
+  const escapeState = await page.evaluate(() => ({
+    focusId: document.activeElement?.id,
+    expanded: document.getElementById('combo-input').getAttribute('aria-expanded'),
+    listHidden: document.getElementById('combo-list').hidden,
+  }));
+  ok(
+    escapeState.focusId === 'combo-input'
+      && escapeState.expanded === 'false'
+      && escapeState.listHidden,
+    `Escape must close Combobox without moving input focus (${JSON.stringify(escapeState)})`,
+    evidence('combobox', 'keyboard', 'escape-keeps-input-focus'),
+  );
+
+  const comboboxEvent = await page.evaluate(() => new Promise((resolve) => {
+    const input = document.getElementById('combo-input');
+    input.value = '';
+    document.addEventListener('ds-combobox-change', (event) => {
+      resolve({
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        input: event.detail?.input?.id,
+        root: event.detail?.root?.id,
+        option: event.detail?.option?.textContent.trim(),
+        value: event.detail?.value,
+      });
+    }, { once: true });
+    input.focus();
+    document.querySelector('#combo-list .ds-combobox__option').dispatchEvent(
+      new MouseEvent('mousedown', { bubbles: true, cancelable: true }),
+    );
+  }));
+  ok(
+    comboboxEvent.bubbles
+      && comboboxEvent.target === 'combo-input'
+      && comboboxEvent.input === 'combo-input'
+      && comboboxEvent.root === 'life-combo'
+      && comboboxEvent.option === 'Alpha'
+      && comboboxEvent.value === 'Alpha',
+    `Combobox event must bubble from the input with stable detail (${JSON.stringify(comboboxEvent)})`,
+    evidence('combobox', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  // --- Combobox: destroy escopado/idempotente e re-init sem duplicação ---
+  const comboboxCleanup = await page.evaluate(() => {
+    const { initComboboxes, destroyComboboxes } = window.__dsLifecycle;
+    const scopeA = document.getElementById('combobox-scope-a');
+    const scopeB = document.getElementById('combobox-scope-b');
+    destroyComboboxes(scopeA);
+    destroyComboboxes(scopeA);
+    scopeA.querySelector('.ds-combobox__input').focus();
+    scopeB.querySelector('.ds-combobox__input').focus();
+    const scopeADead = scopeA.querySelector('.ds-combobox__listbox').hidden
+      && scopeA.dataset.dsComboboxInit !== 'true';
+    const scopeBAlive = !scopeB.querySelector('.ds-combobox__listbox').hidden
+      && scopeB.dataset.dsComboboxInit === 'true';
+
+    const reinitRoot = document.getElementById('combobox-component-root');
+    const reinitInput = reinitRoot.querySelector('.ds-combobox__input');
+    const reinitList = reinitRoot.querySelector('.ds-combobox__listbox');
+    destroyComboboxes(reinitRoot);
+    destroyComboboxes(reinitRoot);
+    reinitInput.value = '';
+    const reinitCreated = initComboboxes(reinitRoot).length;
+    let reinitEvents = 0;
+    reinitRoot.addEventListener('ds-combobox-change', () => { reinitEvents += 1; });
+    reinitInput.focus();
+    reinitList.querySelector('.ds-combobox__option').dispatchEvent(
+      new MouseEvent('mousedown', { bubbles: true, cancelable: true }),
+    );
+
+    return {
+      scopeADead,
+      scopeBAlive,
+      reinitCreated,
+      reinitValue: reinitInput.value,
+      reinitEvents,
+      reinitMarked: reinitRoot.dataset.dsComboboxInit === 'true',
+    };
+  });
+  ok(
+    comboboxCleanup.scopeADead && comboboxCleanup.scopeBAlive,
+    'destroyComboboxes(root) must destroy only the scoped Combobox',
+    evidence('combobox', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    comboboxCleanup.scopeADead,
+    'destroyComboboxes(root) must be safe when called twice',
+    evidence('combobox', 'destroy', 'double-destroy'),
+  );
+  ok(
+    comboboxCleanup.reinitCreated === 1
+      && comboboxCleanup.reinitValue === 'Alpha'
+      && comboboxCleanup.reinitMarked
+      && comboboxCleanup.reinitEvents === 1,
+    `Combobox re-init must restore one listener/event (${JSON.stringify(comboboxCleanup)})`,
+    evidence('combobox', 'reinit', 'reinit-single-event'),
+  );
 
   // --- Accordion: root init, hydration e idempotência ---
   const accordionSetup = await page.evaluate(() => {

@@ -664,8 +664,8 @@
       "cssClass": "ds-combobox",
       "cssFile": "css/components/combobox.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar aria-activedescendant, Escape preservando foco, root init/hydration, cleanup e axe com listbox aberto no tarball consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",
