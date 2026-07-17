@@ -19,6 +19,8 @@
     "./modal.js": "./js/modal.js",
     "./menu": "./js/menu.js",
     "./menu.js": "./js/menu.js",
+    "./tabs": "./js/tabs.js",
+    "./tabs.js": "./js/tabs.js",
     "./theme": "./js/theme/index.js",
     "./theme/*": "./js/theme/*.js",
     "./templates/*": "./docs/templates/*",
@@ -31,6 +33,7 @@
     "js/combobox.js",
     "js/menu.js",
     "js/modal.js",
+    "js/tabs.js",
     "js/package.json",
     "js/theme/"
   ],

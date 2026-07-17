@@ -18,6 +18,10 @@ import {
   openActionMenu,
   closeActionMenu,
 } from '../../js/menu.js';
+import {
+  initTabs,
+  destroyTabs,
+} from '../../js/tabs.js';
 
 const log = [];
 
@@ -34,6 +38,7 @@ track('ds-menu-close');
 track('ds-combobox-change');
 track('ds-accordion-open');
 track('ds-accordion-close');
+track('ds-tabs-change');
 
 window.__dsLifecycle = {
   init() {
@@ -42,6 +47,7 @@ window.__dsLifecycle = {
       menus: initActionMenus(),
       comboboxes: initComboboxes(),
       accordions: initAccordions(),
+      tabs: initTabs(),
     };
   },
   destroy() {
@@ -49,6 +55,7 @@ window.__dsLifecycle = {
     destroyActionMenus();
     destroyComboboxes();
     destroyAccordions();
+    destroyTabs();
   },
   openModal,
   closeModal,
@@ -67,6 +74,7 @@ window.__dsLifecycle = {
       menuInit: document.getElementById('life-menu')?.dataset.dsActionMenuInit === 'true',
       comboInit: document.getElementById('life-combo')?.dataset.dsComboboxInit === 'true',
       accordionInit: document.getElementById('life-accordion')?.dataset.dsAccordionInit === 'true',
+      tabsInit: document.getElementById('life-tabs')?.dataset.dsTabsInit === 'true',
     };
   },
 };

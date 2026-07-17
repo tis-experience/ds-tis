@@ -133,6 +133,7 @@ try {
     import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/combobox.js')).href),
     import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/modal.js')).href),
     import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/menu.js')).href),
+    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/tabs.js')).href),
     import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/theme/index.js')).href),
   ]);
   ok(typeof nodeImports[0].initAccordions === 'function', 'packaged accordion exports initAccordions');
@@ -143,7 +144,9 @@ try {
   ok(typeof nodeImports[2].destroyModals === 'function', 'packaged modal exports destroyModals');
   ok(typeof nodeImports[3].initActionMenus === 'function', 'packaged menu exports initActionMenus');
   ok(typeof nodeImports[3].destroyActionMenus === 'function', 'packaged menu exports destroyActionMenus');
-  ok(typeof nodeImports[4].applyTheme === 'function', 'packaged theme exports applyTheme');
+  ok(typeof nodeImports[4].initTabs === 'function', 'packaged tabs exports initTabs');
+  ok(typeof nodeImports[4].destroyTabs === 'function', 'packaged tabs exports destroyTabs');
+  ok(typeof nodeImports[5].applyTheme === 'function', 'packaged theme exports applyTheme');
 
   // Também valida o package export map via Node a partir do consumidor
   const exportProbe = run(

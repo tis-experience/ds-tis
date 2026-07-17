@@ -49,7 +49,7 @@ export const BEHAVIOR_MODELS = {
 /**
  * Responsabilidade publicada para um componente, considerando disponibilidade
  * real do runtime. Ownership (`ds-runtime`) não implica módulo já distribuído:
- * Accordion, Tooltip e Tabs pertencem ao DS, mas o runtime ainda não foi
+ * Accordion e Tooltip pertencem ao DS, mas o runtime de Tooltip ainda não foi
  * publicado — a API não pode instruir o consumidor a inicializar algo que
  * não existe.
  */
@@ -215,9 +215,9 @@ export const COMPONENTS = [
     slug: "tabs",
     css: "tabs.css",
     html: "tabs.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Falta runtime público para seleção, roving tabindex, teclado e sincronização dos painéis.",
+    readinessNotes: "Runtime público com init/destroy, evento ds-tabs-change, roving tabindex e testes DOM. Inicialize com initTabs após render.",
   }),
   defineComponent({
     name: "Breadcrumb",
@@ -319,5 +319,14 @@ export const RUNTIME_BY_SLUG = {
     exports: ["initActionMenus", "destroyActionMenus", "openActionMenu", "closeActionMenu"],
     events: ["ds-menu-open", "ds-menu-close"],
     notes: "Action Menu exige init para abertura, teclado e retorno de foco; chame destroy ao desmontar.",
+  },
+  tabs: {
+    level: "required",
+    module: "ds-tis/tabs",
+    init: "initTabs",
+    destroy: "destroyTabs",
+    exports: ["initTabs", "destroyTabs", "selectTab"],
+    events: ["ds-tabs-change"],
+    notes: "Seleção, roving tabindex e sync de painéis exigem init após render; chame destroy ao desmontar.",
   },
 };

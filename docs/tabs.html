@@ -124,6 +124,12 @@
         <div class="ds-tab-panel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" style="padding:var(--ds-dimension-16) 0;">
           <p style="margin:0;color:var(--ds-content-default);">This is the Overview panel content. It provides a summary of your account status and recent activity.</p>
         </div>
+        <div class="ds-tab-panel" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" hidden style="padding:var(--ds-dimension-16) 0;">
+          <p style="margin:0;color:var(--ds-content-default);">Settings panel for profile, notifications preferences, and account security options.</p>
+        </div>
+        <div class="ds-tab-panel" role="tabpanel" id="panel-activity" aria-labelledby="tab-activity" hidden style="padding:var(--ds-dimension-16) 0;">
+          <p style="margin:0;color:var(--ds-content-default);">Activity panel listing recent logins, changes, and audit events.</p>
+        </div>
       </div>
       <div class="ds-preview__code" style="display:none">
         <button class="ds-preview__copy">Copy</button>
@@ -142,7 +148,11 @@
 &lt;div class="ds-tab-panel" role="tabpanel"
      id="panel-overview" aria-labelledby="tab-overview"&gt;
   &lt;p&gt;Panel content here.&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+&lt;div class="ds-tab-panel" role="tabpanel"
+     id="panel-settings" aria-labelledby="tab-settings" hidden&gt;…&lt;/div&gt;
+&lt;div class="ds-tab-panel" role="tabpanel"
+     id="panel-activity" aria-labelledby="tab-activity" hidden&gt;…&lt;/div&gt;</code></pre>
       </div>
     </div>
   </div>
@@ -354,7 +364,30 @@
   </div>
 
   <!-- ============================================================
-       11. RELATED COMPONENTS
+       11. RUNTIME (obrigatório)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O CSS define anatomia e estados visuais, mas seleção, roving tabindex, setas e sync dos painéis dependem do módulo público <code>ds-tis/tabs</code> (<code>initTabs</code> / <code>destroyTabs</code>). Evento: <code>ds-tabs-change</code>. Chame <code>destroyTabs</code> ao desmontar.</span><span data-lang="en">CSS defines anatomy and visual states, but selection, roving tabindex, arrow keys, and panel sync depend on the public <code>ds-tis/tabs</code> module (<code>initTabs</code> / <code>destroyTabs</code>). Event: <code>ds-tabs-change</code>. Call <code>destroyTabs</code> on unmount.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;script type="module"&gt;
+  import { initTabs, destroyTabs } from 'ds-tis/tabs';
+  initTabs();
+  // destroyTabs() ao desmontar a view
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       12. RELATED COMPONENTS
        ============================================================ -->
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
@@ -368,5 +401,11 @@
 </main>
 
 <script src="../js/main.js"></script>
+<script type="module">
+  import { initTabs } from '../js/tabs.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    initTabs(document.querySelector('main'));
+  });
+</script>
 </body>
 </html>

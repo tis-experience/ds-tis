@@ -23,7 +23,7 @@
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -88,7 +88,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 ## Próximos milestones
 
-1. **Fechar runtimes experimentais restantes** — Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
+1. **Fechar runtime experimental restante** — Tooltip só sobe para App-ready após módulo público, ciclo de vida e teste em consumidor
 2. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
 4. **Componentes pendentes** — Table, Toast, Popover
