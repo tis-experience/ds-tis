@@ -3,7 +3,7 @@
  * test-runtime-lifecycle.mjs
  *
  * Gate ADR-020: init → interação → destroy → re-init sem listeners órfãos
- * para Modal, Menu, Combobox e Accordion.
+ * para Modal, Menu, Combobox, Accordion e Tabs.
  */
 
 import { spawn } from 'node:child_process';
@@ -79,6 +79,7 @@ try {
   ok(markers.menuInit, 'initActionMenus must mark action menu');
   ok(markers.comboInit, 'initComboboxes must mark combobox anchor');
   ok(markers.accordionInit, 'initAccordions must mark accordion');
+  ok(markers.tabsInit, 'initTabs must mark tablist');
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -134,6 +135,21 @@ try {
     'single mode must close panel A when B opens',
   );
 
+  // --- Tabs selection + change event ---
+  await page.locator('#life-tab-b').click();
+  ok(
+    await page.locator('#life-panel-b').evaluate((el) => !el.hidden),
+    'tabs must show panel B',
+  );
+  ok(
+    await page.locator('#life-panel-a').evaluate((el) => el.hidden),
+    'tabs must hide panel A',
+  );
+  ok(
+    await page.locator('#life-tab-b').evaluate((el) => el.getAttribute('aria-selected') === 'true'),
+    'tabs must mark selected tab',
+  );
+
   const eventsAfterUse = await page.evaluate(() => window.__dsLifecycle.events());
   ok(eventsAfterUse.includes('ds-modal-open'), 'must emit ds-modal-open');
   ok(eventsAfterUse.includes('ds-modal-close'), 'must emit ds-modal-close');
@@ -142,6 +158,7 @@ try {
   ok(eventsAfterUse.includes('ds-combobox-change'), 'must emit ds-combobox-change');
   ok(eventsAfterUse.includes('ds-accordion-open'), 'must emit ds-accordion-open');
   ok(eventsAfterUse.includes('ds-accordion-close'), 'must emit ds-accordion-close');
+  ok(eventsAfterUse.includes('ds-tabs-change'), 'must emit ds-tabs-change');
 
   // --- Destroy: markers gone, triggers dead ---
   await page.evaluate(() => {
@@ -153,6 +170,7 @@ try {
   ok(!markers.menuInit, 'destroyActionMenus must clear init markers');
   ok(!markers.comboInit, 'destroyComboboxes must clear init markers');
   ok(!markers.accordionInit, 'destroyAccordions must clear init markers');
+  ok(!markers.tabsInit, 'destroyTabs must clear init markers');
 
   await page.locator('#open-modal').click();
   ok(
@@ -177,6 +195,12 @@ try {
   ok(
     await page.locator('#acc-panel-a').evaluate((el) => el.hidden),
     'destroyed accordion trigger must not toggle panel',
+  );
+
+  await page.locator('#life-tab-a').click();
+  ok(
+    await page.locator('#life-panel-a').evaluate((el) => el.hidden),
+    'destroyed tabs must not switch panels',
   );
 
   const eventsAfterDestroy = await page.evaluate(() => window.__dsLifecycle.events());
@@ -213,6 +237,12 @@ try {
   ok(
     await page.locator('#acc-panel-a').evaluate((el) => !el.hidden),
     're-init must restore accordion toggle',
+  );
+
+  await page.locator('#life-tab-a').click();
+  ok(
+    await page.locator('#life-panel-a').evaluate((el) => !el.hidden),
+    're-init must restore tabs selection',
   );
 
   console.log(`Checks: ${checks}`);

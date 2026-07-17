@@ -258,6 +258,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis, evento `ds-tabs-change` e promoção a **App-ready** (ADR-020).
 - **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close`, modo `single` e promoção a **App-ready** (ADR-020).
 - **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init. Os três sobem para **App-ready** (ADR-020).
 - **Consumer smoke test.** `npm run test:consumer-smoke` empacota o tarball real, instala em um app temporário e valida CSS, exports Node (`ds-tis/modal`), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).
@@ -1272,24 +1273,27 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Accordion, Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
+Para Accordion, Combobox, Modal, Action Menu e Tabs, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
 
 ```js
 import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
 import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
 import { initModals, destroyModals } from 'ds-tis/modal';
 import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
+import { initTabs, destroyTabs } from 'ds-tis/tabs';
 
 initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initTabs();
 
 // ao sair da view / unmount:
 destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
+destroyTabs();
 ```
 
 Para customização de tema, use o theme engine público:
@@ -1313,11 +1317,11 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | Campo | Significado |
 |---|---|
 | `null` | CSS-only — sem módulo JS publicado. |
-| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Accordion, Combobox, Modal e Action Menu). |
+| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Accordion, Combobox, Modal, Action Menu e Tabs). |
 | `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
-| `runtime.module` | Export do pacote (`ds-tis/accordion`, `ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
-| `runtime.init` | Função a chamar após render/hydration (`initAccordions`, `initComboboxes`, `initModals`, `initActionMenus`). |
-| `runtime.destroy` | Função a chamar ao desmontar (`destroyAccordions`, `destroyComboboxes`, `destroyModals`, `destroyActionMenus`). |
+| `runtime.module` | Export do pacote (`ds-tis/accordion`, `ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`, `ds-tis/tabs`). |
+| `runtime.init` | Função a chamar após render/hydration (`initAccordions`, `initComboboxes`, `initModals`, `initActionMenus`, `initTabs`). |
+| `runtime.destroy` | Função a chamar ao desmontar (`destroyAccordions`, `destroyComboboxes`, `destroyModals`, `destroyActionMenus`, `destroyTabs`). |
 | `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
@@ -1965,7 +1969,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -2030,7 +2034,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 ## Próximos milestones
 
-1. **Fechar runtimes experimentais restantes** — Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
+1. **Fechar runtime experimental restante** — Tooltip só sobe para App-ready após módulo público, ciclo de vida e teste em consumidor
 2. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
 4. **Componentes pendentes** — Table, Toast, Popover
@@ -23663,11 +23667,11 @@ Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS,
 
 | Readiness | Componentes |
 |---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion |
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs |
 | Composição | Pagination, Form Field |
-| Experimental | Tooltip, Tabs |
+| Experimental | Tooltip |
 
-Promoção exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo. Tabs e Tooltip permanecem Experimentais até terem módulo público.
+Promoção exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo. Tooltip permanece Experimental até ter módulo público.
 
 ### 8. Sequência de implementação
 

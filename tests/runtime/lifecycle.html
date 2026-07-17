@@ -63,6 +63,17 @@
         </div>
       </div>
     </div>
+
+    <div class="ds-tabs" id="life-tabs" role="tablist" aria-label="Lifecycle tabs">
+      <button class="ds-tab ds-tab--active" role="tab" id="life-tab-a" aria-selected="true" aria-controls="life-panel-a">A</button>
+      <button class="ds-tab" role="tab" id="life-tab-b" aria-selected="false" aria-controls="life-panel-b" tabindex="-1">B</button>
+    </div>
+    <div class="ds-tab-panel" id="life-panel-a" role="tabpanel" aria-labelledby="life-tab-a">
+      <p style="margin:0">Painel tab A</p>
+    </div>
+    <div class="ds-tab-panel" id="life-panel-b" role="tabpanel" aria-labelledby="life-tab-b" hidden>
+      <p style="margin:0">Painel tab B</p>
+    </div>
   </main>
 
   <div class="ds-modal-overlay" id="life-modal" hidden>

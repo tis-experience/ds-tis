@@ -74,6 +74,7 @@
 <h2>[Não publicado]</h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Runtime público Tabs.</strong> Novo export <code>ds-tis/tabs</code> (<code>initTabs</code>, <code>destroyTabs</code>, <code>selectTab</code>) com roving tabindex, setas, sync de painéis, evento <code>ds-tabs-change</code> e promoção a <strong>App-ready</strong> (ADR-020).</li>
 <li><strong>Runtime público Accordion.</strong> Novo export <code>ds-tis/accordion</code> (<code>initAccordions</code>, <code>destroyAccordions</code>, <code>openAccordionItem</code>, <code>closeAccordionItem</code>) com eventos <code>ds-accordion-open</code>/<code>ds-accordion-close</code>, modo <code>single</code> e promoção a <strong>App-ready</strong> (ADR-020).</li>
 <li><strong>Ciclo de vida init/destroy nos runtimes.</strong> Combobox, Modal e Menu expõem <code>destroy*</code> + eventos públicos; teste DOM <code>test:runtime-lifecycle</code> valida init → uso → destroy → re-init. Os três sobem para <strong>App-ready</strong> (ADR-020).</li>
 <li><strong>Consumer smoke test.</strong> <code>npm run test:consumer-smoke</code> empacota o tarball real, instala em um app temporário e valida CSS, exports Node (<code>ds-tis/modal</code>), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).</li>

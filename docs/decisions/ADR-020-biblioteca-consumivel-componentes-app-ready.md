@@ -113,11 +113,11 @@ Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS,
 
 | Readiness | Componentes |
 |---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion |
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs |
 | Composição | Pagination, Form Field |
-| Experimental | Tooltip, Tabs |
+| Experimental | Tooltip |
 
-Promoção exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo. Tabs e Tooltip permanecem Experimentais até terem módulo público.
+Promoção exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo. Tooltip permanece Experimental até ter módulo público.
 
 ### 8. Sequência de implementação
 

@@ -103,6 +103,21 @@
         "ds-menu-close"
       ],
       "notes": "Action Menu exige init para abertura, teclado e retorno de foco; chame destroy ao desmontar."
+    },
+    {
+      "level": "required",
+      "module": "ds-tis/tabs",
+      "init": "initTabs",
+      "destroy": "destroyTabs",
+      "exports": [
+        "initTabs",
+        "destroyTabs",
+        "selectTab"
+      ],
+      "events": [
+        "ds-tabs-change"
+      ],
+      "notes": "Seleção, roving tabindex e sync de painéis exigem init após render; chame destroy ao desmontar."
     }
   ],
   "components": [
@@ -1471,15 +1486,29 @@
       "cssClass": "ds-tabs",
       "cssFile": "css/components/tabs.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Falta runtime público para seleção, roving tabindex, teclado e sincronização dos painéis.",
+      "readiness": "app-ready",
+      "readinessNotes": "Runtime público com init/destroy, evento ds-tabs-change, roving tabindex e testes DOM. Inicialize com initTabs após render.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",
-        "ds": "Deve manter o comportamento reutilizável de interação e acessibilidade; o módulo público ainda não foi distribuído.",
-        "consumer": "Não há módulo público para inicializar. Comportamento local é adaptação temporária do app e deve ser declarado como tal — ver readinessNotes."
+        "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
+        "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
-      "runtime": null,
+      "runtime": {
+        "level": "required",
+        "module": "ds-tis/tabs",
+        "init": "initTabs",
+        "destroy": "destroyTabs",
+        "exports": [
+          "initTabs",
+          "destroyTabs",
+          "selectTab"
+        ],
+        "events": [
+          "ds-tabs-change"
+        ],
+        "notes": "Seleção, roving tabindex e sync de painéis exigem init após render; chame destroy ao desmontar."
+      },
       "tokens": [
         "ds-focus-ring-color-default",
         "ds-focus-ring-width",
