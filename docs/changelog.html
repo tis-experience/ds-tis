@@ -74,6 +74,7 @@
 <h2>[Não publicado]</h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Consumer smoke test.</strong> <code>npm run test:consumer-smoke</code> empacota o tarball real, instala em um app temporário e valida CSS, exports Node (<code>ds-tis/modal</code>), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).</li>
 <li><strong>ADR-020 — biblioteca consumível e readiness.</strong> Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza <code>app-ready</code>, <code>composition</code> e <code>experimental</code>, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.</li>
 <li><strong>Catálogo machine-readable de componentes.</strong> <code>scripts/lib/component-catalog.mjs</code> passa a alimentar API e inventário com readiness, responsabilidade e limitações; <code>test-component-readiness</code> protege o contrato para devs e agents consumidores.</li>
 <li><strong>Theme engine — auditoria WCAG brand (<code>auditBrandTheme</code>).</strong> Novo módulo <code>js/theme/brand-contrast-audit.js</code> valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.</li>
@@ -91,6 +92,7 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Modal overlay respeita <code>hidden</code>.</strong> <code>.ds-modal-overlay { display: flex }</code> anulava o atributo HTML <code>hidden</code> no consumidor; regra explícita <code>[hidden] { display: none }</code> restaura o fechamento. Detectado pelo smoke test de consumidor.</li>
 <li><strong>Referências órfãs de ADR no Combobox.</strong> Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (<code>ds-field</code> CSS-only), liberando a numeração para a decisão registrada.</li>
 <li><strong>Docs de instalação não prometem npm registry.</strong> README e guia de agents consumidores passam a documentar <code>npm install github:tis-experience/ds-tis</code> como caminho oficial; <code>npm install ds-tis</code> só após publish. <code>test:audit-scenarios</code> protege a regressão.</li>
 <li><strong>Theme engine — paridade com tokens canônicos.</strong> <code>semantic-mapper</code> passa a emitir <code>--ds-content-brand</code> e <code>--ds-border-brand</code>; testes validam vars canônicas e paridade com <code>tokens/semantic/*.json</code>.</li>

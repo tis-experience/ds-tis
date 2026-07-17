@@ -8,6 +8,7 @@ on:
       - "docs/**"
       - "scripts/**"
       - "tests/visual/**"
+      - "tests/consumer/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -20,6 +21,7 @@ on:
       - "docs/**"
       - "scripts/**"
       - "tests/visual/**"
+      - "tests/consumer/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -80,6 +82,9 @@ jobs:
 
       - name: A11y (axe-core WCAG 2.2 AA contra .a11y-baseline.json)
         run: node scripts/test-a11y.mjs
+
+      - name: Consumer smoke (npm pack → install → Playwright + axe)
+        run: npm run test:consumer-smoke
 
       - name: Visual regression (Playwright + pixelmatch)
         run: node scripts/test-visual.mjs

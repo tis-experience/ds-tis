@@ -9,6 +9,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Consumer smoke test.** `npm run test:consumer-smoke` empacota o tarball real, instala em um app temporário e valida CSS, exports Node (`ds-tis/modal`), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).
 - **ADR-020 — biblioteca consumível e readiness.** Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza `app-ready`, `composition` e `experimental`, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.
 - **Catálogo machine-readable de componentes.** `scripts/lib/component-catalog.mjs` passa a alimentar API e inventário com readiness, responsabilidade e limitações; `test-component-readiness` protege o contrato para devs e agents consumidores.
 - **Theme engine — auditoria WCAG brand (`auditBrandTheme`).** Novo módulo `js/theme/brand-contrast-audit.js` valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.
@@ -25,6 +26,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Modal overlay respeita `hidden`.** `.ds-modal-overlay { display: flex }` anulava o atributo HTML `hidden` no consumidor; regra explícita `[hidden] { display: none }` restaura o fechamento. Detectado pelo smoke test de consumidor.
 - **Referências órfãs de ADR no Combobox.** Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (`ds-field` CSS-only), liberando a numeração para a decisão registrada.
 - **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
 - **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.

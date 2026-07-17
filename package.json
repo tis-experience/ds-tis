@@ -52,6 +52,7 @@
     "pack:check": "npm pack --dry-run && node scripts/test-audit-scenarios.mjs",
     "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-combobox-docs.mjs && node scripts/test-pagination-docs.mjs && node scripts/test-field-docs.mjs && node scripts/test-interactive.mjs && node scripts/test-api-runtime.mjs && node scripts/test-component-readiness.mjs && node scripts/test-theme-engine.mjs && node scripts/test-a11y.mjs",
     "test:audit-scenarios": "node scripts/test-audit-scenarios.mjs",
+    "test:consumer-smoke": "node scripts/test-consumer-smoke.mjs",
     "test:self": "node scripts/test-self.mjs",
     "test:readiness": "node scripts/test-component-readiness.mjs",
     "test:theme": "node scripts/test-theme-engine.mjs",
