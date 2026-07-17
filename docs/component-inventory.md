@@ -21,7 +21,7 @@
 | Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -88,8 +88,8 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 ## Próximos milestones
 
-1. **Fechar runtime experimental restante** — Tooltip só sobe para App-ready após módulo público, ciclo de vida e teste em consumidor
-2. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
-4. **Componentes pendentes** — Table, Toast, Popover
+1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
+2. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
+3. **Componentes pendentes** — Table, Toast, Popover
+4. **Storybook** — opcional, depois do contrato app-ready
 5. **Storybook** — opcional, depois do contrato app-ready

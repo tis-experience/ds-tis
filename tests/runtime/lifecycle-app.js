@@ -22,6 +22,10 @@ import {
   initTabs,
   destroyTabs,
 } from '../../js/tabs.js';
+import {
+  initTooltips,
+  destroyTooltips,
+} from '../../js/tooltip.js';
 
 const log = [];
 
@@ -39,6 +43,8 @@ track('ds-combobox-change');
 track('ds-accordion-open');
 track('ds-accordion-close');
 track('ds-tabs-change');
+track('ds-tooltip-show');
+track('ds-tooltip-hide');
 
 window.__dsLifecycle = {
   init() {
@@ -48,6 +54,7 @@ window.__dsLifecycle = {
       comboboxes: initComboboxes(),
       accordions: initAccordions(),
       tabs: initTabs(),
+      tooltips: initTooltips(),
     };
   },
   destroy() {
@@ -56,6 +63,7 @@ window.__dsLifecycle = {
     destroyComboboxes();
     destroyAccordions();
     destroyTabs();
+    destroyTooltips();
   },
   openModal,
   closeModal,
@@ -75,6 +83,7 @@ window.__dsLifecycle = {
       comboInit: document.getElementById('life-combo')?.dataset.dsComboboxInit === 'true',
       accordionInit: document.getElementById('life-accordion')?.dataset.dsAccordionInit === 'true',
       tabsInit: document.getElementById('life-tabs')?.dataset.dsTabsInit === 'true',
+      tooltipInit: document.getElementById('life-tooltip')?.dataset.dsTooltipInit === 'true',
     };
   },
 };

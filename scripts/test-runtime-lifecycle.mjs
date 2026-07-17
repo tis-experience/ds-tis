@@ -3,7 +3,7 @@
  * test-runtime-lifecycle.mjs
  *
  * Gate ADR-020: init → interação → destroy → re-init sem listeners órfãos
- * para Modal, Menu, Combobox, Accordion e Tabs.
+ * para Modal, Menu, Combobox, Accordion, Tabs e Tooltip.
  */
 
 import { spawn } from 'node:child_process';
@@ -80,6 +80,7 @@ try {
   ok(markers.comboInit, 'initComboboxes must mark combobox anchor');
   ok(markers.accordionInit, 'initAccordions must mark accordion');
   ok(markers.tabsInit, 'initTabs must mark tablist');
+  ok(markers.tooltipInit, 'initTooltips must mark tooltip');
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -150,6 +151,19 @@ try {
     'tabs must mark selected tab',
   );
 
+  // --- Tooltip show on hover + Escape hide ---
+  await page.locator('#tip-trigger').hover();
+  await page.waitForTimeout(150);
+  ok(
+    await page.locator('#life-tip').evaluate((el) => !el.hasAttribute('hidden')),
+    'tooltip must show on hover',
+  );
+  await page.keyboard.press('Escape');
+  ok(
+    await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden')),
+    'tooltip must hide on Escape',
+  );
+
   const eventsAfterUse = await page.evaluate(() => window.__dsLifecycle.events());
   ok(eventsAfterUse.includes('ds-modal-open'), 'must emit ds-modal-open');
   ok(eventsAfterUse.includes('ds-modal-close'), 'must emit ds-modal-close');
@@ -159,6 +173,8 @@ try {
   ok(eventsAfterUse.includes('ds-accordion-open'), 'must emit ds-accordion-open');
   ok(eventsAfterUse.includes('ds-accordion-close'), 'must emit ds-accordion-close');
   ok(eventsAfterUse.includes('ds-tabs-change'), 'must emit ds-tabs-change');
+  ok(eventsAfterUse.includes('ds-tooltip-show'), 'must emit ds-tooltip-show');
+  ok(eventsAfterUse.includes('ds-tooltip-hide'), 'must emit ds-tooltip-hide');
 
   // --- Destroy: markers gone, triggers dead ---
   await page.evaluate(() => {
@@ -171,6 +187,7 @@ try {
   ok(!markers.comboInit, 'destroyComboboxes must clear init markers');
   ok(!markers.accordionInit, 'destroyAccordions must clear init markers');
   ok(!markers.tabsInit, 'destroyTabs must clear init markers');
+  ok(!markers.tooltipInit, 'destroyTooltips must clear init markers');
 
   await page.locator('#open-modal').click();
   ok(
@@ -201,6 +218,13 @@ try {
   ok(
     await page.locator('#life-panel-a').evaluate((el) => el.hidden),
     'destroyed tabs must not switch panels',
+  );
+
+  await page.locator('#tip-trigger').hover();
+  await page.waitForTimeout(150);
+  ok(
+    await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden')),
+    'destroyed tooltip must not show on hover',
   );
 
   const eventsAfterDestroy = await page.evaluate(() => window.__dsLifecycle.events());
@@ -243,6 +267,13 @@ try {
   ok(
     await page.locator('#life-panel-a').evaluate((el) => !el.hidden),
     're-init must restore tabs selection',
+  );
+
+  await page.locator('#tip-trigger').hover();
+  await page.waitForTimeout(150);
+  ok(
+    await page.locator('#life-tip').evaluate((el) => !el.hasAttribute('hidden')),
+    're-init must restore tooltip hover',
   );
 
   console.log(`Checks: ${checks}`);

@@ -9,6 +9,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13), eventos `ds-tooltip-show`/`ds-tooltip-hide` e promoção a **App-ready** (ADR-020).
 - **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis, evento `ds-tabs-change` e promoção a **App-ready** (ADR-020).
 - **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close`, modo `single` e promoção a **App-ready** (ADR-020).
 - **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init. Os três sobem para **App-ready** (ADR-020).

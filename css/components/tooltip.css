@@ -26,7 +26,15 @@
   overflow-wrap: break-word;
   pointer-events: none;
   z-index: var(--ds-z-tooltip);
-  transition: opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-tooltip__content[hidden] {
+  display: none;
+}
+
+/* Aberto: hoverable (WCAG 1.4.13) — pointer-events no conteúdo */
+.ds-tooltip[data-open="true"] .ds-tooltip__content {
+  pointer-events: auto;
 }
 
 /* Arrow
