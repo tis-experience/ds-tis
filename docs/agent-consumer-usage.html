@@ -137,16 +137,19 @@ que <code>node_modules/ds-tis/docs/api/</code> existe.</p>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
-<p>Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
-<pre tabindex="0"><code class="language-js">import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
+<p>Para Accordion, Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
+<pre tabindex="0"><code class="language-js">import { initAccordions, destroyAccordions } from &#39;ds-tis/accordion&#39;;
+import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
 import { initModals, destroyModals } from &#39;ds-tis/modal&#39;;
 import { initActionMenus, destroyActionMenus } from &#39;ds-tis/menu&#39;;
 
+initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
 
 // ao sair da view / unmount:
+destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
@@ -173,7 +176,7 @@ destroyActionMenus();
 </tr>
 <tr>
 <td><code>runtime.level: &quot;required&quot;</code></td>
-<td>O contrato interativo e acessível depende de init (Combobox, Modal e Action Menu).</td>
+<td>O contrato interativo e acessível depende de init (Accordion, Combobox, Modal e Action Menu).</td>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;optional&quot;</code></td>
@@ -181,15 +184,15 @@ destroyActionMenus();
 </tr>
 <tr>
 <td><code>runtime.module</code></td>
-<td>Export do pacote (<code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>).</td>
+<td>Export do pacote (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.init</code></td>
-<td>Função a chamar após render/hydration (<code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>).</td>
+<td>Função a chamar após render/hydration (<code>initAccordions</code>, <code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.destroy</code></td>
-<td>Função a chamar ao desmontar (<code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>).</td>
+<td>Função a chamar ao desmontar (<code>destroyAccordions</code>, <code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.events</code></td>

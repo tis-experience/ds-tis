@@ -11,6 +11,8 @@
     ".": "./css/design-system.css",
     "./css": "./css/design-system.css",
     "./css/design-system.css": "./css/design-system.css",
+    "./accordion": "./js/accordion.js",
+    "./accordion.js": "./js/accordion.js",
     "./combobox": "./js/combobox.js",
     "./combobox.js": "./js/combobox.js",
     "./modal": "./js/modal.js",
@@ -25,6 +27,7 @@
   "files": [
     "css/",
     "docs/templates/",
+    "js/accordion.js",
     "js/combobox.js",
     "js/menu.js",
     "js/modal.js",

@@ -3,7 +3,7 @@
  * test-runtime-lifecycle.mjs
  *
  * Gate ADR-020: init → interação → destroy → re-init sem listeners órfãos
- * para Modal, Menu e Combobox.
+ * para Modal, Menu, Combobox e Accordion.
  */
 
 import { spawn } from 'node:child_process';
@@ -78,6 +78,7 @@ try {
   ok(markers.modalInit && markers.modalTrigger, 'initModals must mark overlay and trigger');
   ok(markers.menuInit, 'initActionMenus must mark action menu');
   ok(markers.comboInit, 'initComboboxes must mark combobox anchor');
+  ok(markers.accordionInit, 'initAccordions must mark accordion');
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -117,12 +118,30 @@ try {
     'combobox must update value on select',
   );
 
+  // --- Accordion toggle + single mode ---
+  await page.locator('#acc-trigger-a').click();
+  ok(
+    await page.locator('#acc-panel-a').evaluate((el) => !el.hidden),
+    'accordion must open panel A',
+  );
+  await page.locator('#acc-trigger-b').click();
+  ok(
+    await page.locator('#acc-panel-b').evaluate((el) => !el.hidden),
+    'accordion must open panel B',
+  );
+  ok(
+    await page.locator('#acc-panel-a').evaluate((el) => el.hidden),
+    'single mode must close panel A when B opens',
+  );
+
   const eventsAfterUse = await page.evaluate(() => window.__dsLifecycle.events());
   ok(eventsAfterUse.includes('ds-modal-open'), 'must emit ds-modal-open');
   ok(eventsAfterUse.includes('ds-modal-close'), 'must emit ds-modal-close');
   ok(eventsAfterUse.includes('ds-menu-open'), 'must emit ds-menu-open');
   ok(eventsAfterUse.includes('ds-menu-close'), 'must emit ds-menu-close');
   ok(eventsAfterUse.includes('ds-combobox-change'), 'must emit ds-combobox-change');
+  ok(eventsAfterUse.includes('ds-accordion-open'), 'must emit ds-accordion-open');
+  ok(eventsAfterUse.includes('ds-accordion-close'), 'must emit ds-accordion-close');
 
   // --- Destroy: markers gone, triggers dead ---
   await page.evaluate(() => {
@@ -133,6 +152,7 @@ try {
   ok(!markers.modalInit && !markers.modalTrigger, 'destroyModals must clear init markers');
   ok(!markers.menuInit, 'destroyActionMenus must clear init markers');
   ok(!markers.comboInit, 'destroyComboboxes must clear init markers');
+  ok(!markers.accordionInit, 'destroyAccordions must clear init markers');
 
   await page.locator('#open-modal').click();
   ok(
@@ -151,6 +171,12 @@ try {
   ok(
     await page.locator('#combo-list').evaluate((el) => el.hidden),
     'destroyed combobox must not open listbox',
+  );
+
+  await page.locator('#acc-trigger-a').click();
+  ok(
+    await page.locator('#acc-panel-a').evaluate((el) => el.hidden),
+    'destroyed accordion trigger must not toggle panel',
   );
 
   const eventsAfterDestroy = await page.evaluate(() => window.__dsLifecycle.events());
@@ -181,6 +207,12 @@ try {
   ok(
     (await page.locator('#combo-input').inputValue()) === 'Alpha',
     're-init must restore combobox selection',
+  );
+
+  await page.locator('#acc-trigger-a').click();
+  ok(
+    await page.locator('#acc-panel-a').evaluate((el) => !el.hidden),
+    're-init must restore accordion toggle',
   );
 
   console.log(`Checks: ${checks}`);

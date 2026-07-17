@@ -557,77 +557,6 @@
   }
 
   /* ---------------------------------------------------------
-     Accordion
-     --------------------------------------------------------- */
-  function initAccordions() {
-    document.querySelectorAll('.ds-accordion').forEach(function (accordion) {
-      var triggers = Array.from(accordion.querySelectorAll('.ds-accordion__trigger[aria-controls]')).filter(function (trigger) {
-        return trigger.closest('.ds-accordion') === accordion;
-      });
-
-      if (!triggers.length) return;
-
-      function setItemState(trigger, expanded) {
-        var panelId = trigger.getAttribute('aria-controls');
-        var panel = panelId ? document.getElementById(panelId) : null;
-        var item = trigger.closest('.ds-accordion__item');
-
-        trigger.setAttribute('aria-expanded', String(expanded));
-        if (panel) panel.hidden = !expanded;
-        if (item) item.setAttribute('data-state', expanded ? 'open' : 'closed');
-      }
-
-      function moveFocus(current, direction) {
-        var currentIndex = triggers.indexOf(current);
-        if (currentIndex === -1) return;
-
-        var nextIndex = direction === 'first'
-          ? 0
-          : direction === 'last'
-            ? triggers.length - 1
-            : (currentIndex + direction + triggers.length) % triggers.length;
-
-        triggers[nextIndex].focus();
-      }
-
-      triggers.forEach(function (trigger) {
-        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
-        var expanded = trigger.getAttribute('aria-expanded') === 'true' && !(panel && panel.hidden);
-        setItemState(trigger, expanded);
-
-        trigger.addEventListener('click', function () {
-          if (trigger.disabled || trigger.getAttribute('aria-disabled') === 'true') return;
-
-          var shouldOpen = trigger.getAttribute('aria-expanded') !== 'true';
-          if (shouldOpen && accordion.getAttribute('data-accordion-mode') === 'single') {
-            triggers.forEach(function (otherTrigger) {
-              if (otherTrigger !== trigger) setItemState(otherTrigger, false);
-            });
-          }
-
-          setItemState(trigger, shouldOpen);
-        });
-
-        trigger.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-            e.preventDefault();
-            moveFocus(trigger, 1);
-          } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-            e.preventDefault();
-            moveFocus(trigger, -1);
-          } else if (e.key === 'Home') {
-            e.preventDefault();
-            moveFocus(trigger, 'first');
-          } else if (e.key === 'End') {
-            e.preventDefault();
-            moveFocus(trigger, 'last');
-          }
-        });
-      });
-    });
-  }
-
-  /* ---------------------------------------------------------
      Lucide icons
      --------------------------------------------------------- */
   function getRootPrefix() {
@@ -701,7 +630,6 @@
     initMobileNav();
     initCopyButtons();
     initPreviewTabs();
-    initAccordions();
     initCharCounters();
     initFocusableCodeBlocks();
     initLucideIcons();

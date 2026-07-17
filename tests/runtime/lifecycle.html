@@ -44,6 +44,25 @@
         <li class="ds-combobox__option" role="option">Beta</li>
       </ul>
     </div>
+
+    <div class="ds-accordion" id="life-accordion" data-accordion-mode="single">
+      <div class="ds-accordion__item" data-state="closed">
+        <button class="ds-accordion__trigger" type="button" id="acc-trigger-a" aria-expanded="false" aria-controls="acc-panel-a">
+          <span class="ds-accordion__title">Seção A</span>
+        </button>
+        <div class="ds-accordion__panel" id="acc-panel-a" role="region" aria-labelledby="acc-trigger-a" hidden>
+          <p style="margin:0">Painel A</p>
+        </div>
+      </div>
+      <div class="ds-accordion__item" data-state="closed">
+        <button class="ds-accordion__trigger" type="button" id="acc-trigger-b" aria-expanded="false" aria-controls="acc-panel-b">
+          <span class="ds-accordion__title">Seção B</span>
+        </button>
+        <div class="ds-accordion__panel" id="acc-panel-b" role="region" aria-labelledby="acc-trigger-b" hidden>
+          <p style="margin:0">Painel B</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <div class="ds-modal-overlay" id="life-modal" hidden>

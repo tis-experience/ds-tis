@@ -89,9 +89,9 @@ export const COMPONENTS = [
     css: "accordion.css",
     html: "accordion.html",
     figmaPage: "Accordion",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "O comportamento existe apenas no site de docs; falta módulo público e teste em consumidor.",
+    readinessNotes: "Runtime público com init/destroy, eventos ds-accordion-open/close e testes DOM. Inicialize com initAccordions após render.",
   }),
   defineComponent({
     name: "Button",
@@ -284,6 +284,15 @@ export const COMPONENTS = [
 
 /** Comportamento JS público exigido quando o componente é usado interativamente. */
 export const RUNTIME_BY_SLUG = {
+  accordion: {
+    level: "required",
+    module: "ds-tis/accordion",
+    init: "initAccordions",
+    destroy: "destroyAccordions",
+    exports: ["initAccordions", "destroyAccordions", "openAccordionItem", "closeAccordionItem"],
+    events: ["ds-accordion-open", "ds-accordion-close"],
+    notes: "Expand/collapse, teclado e modo single exigem init após render; chame destroy ao desmontar.",
+  },
   combobox: {
     level: "required",
     module: "ds-tis/combobox",
