@@ -71,6 +71,8 @@ window.__dsLifecycle = {
   closeActionMenu,
   initAccordions,
   destroyAccordions,
+  initComboboxes,
+  destroyComboboxes,
   events() {
     return [...log];
   },

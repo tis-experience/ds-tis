@@ -103,10 +103,15 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion
-concluiu o gate executável da ADR-020. Combobox, Modal, Action Menu, Tabs e
+e Combobox concluíram o gate executável da ADR-020. Modal, Action Menu, Tabs e
 Tooltip permanecem Experimentais enquanto concluem seus blockers em
 `readinessNotes`; não os use em fluxo crítico sem aceitar e validar
 explicitamente essas limitações.
+
+No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
+`aria-activedescendant`; `Escape` fecha o listbox sem remover esse foco. O evento
+`ds-combobox-change` expõe `value`, `input`, `root` e a `option` selecionada em
+`detail`.
 
 Para customização de tema, use o theme engine público:
 

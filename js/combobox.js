@@ -19,6 +19,7 @@
    ============================================================ */
 
 const instances = new Set();
+let generatedId = 0;
 
 function closeAllExcept(current) {
   for (const inst of instances) {
@@ -28,6 +29,14 @@ function closeAllExcept(current) {
 
 function getOptions(listbox) {
   return Array.from(listbox.querySelectorAll('.ds-combobox__option'));
+}
+
+function ensureId(element, prefix) {
+  if (!element.id) {
+    generatedId += 1;
+    element.id = `${prefix}-${generatedId}`;
+  }
+  return element.id;
 }
 
 /**
@@ -54,6 +63,10 @@ function createInstance(root, { onChange } = {}) {
   const listbox = root.querySelector('.ds-combobox__listbox');
   if (!combobox || !input || !listbox) return null;
 
+  const listboxId = ensureId(listbox, 'ds-combobox-listbox');
+  input.setAttribute('aria-controls', listboxId);
+  for (const opt of getOptions(listbox)) ensureId(opt, `${listboxId}-option`);
+
   const cleanups = [];
   const on = (target, type, handler, options) => {
     target.addEventListener(type, handler, options);
@@ -65,6 +78,7 @@ function createInstance(root, { onChange } = {}) {
     close() {
       listbox.hidden = true;
       input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
       combobox.classList.remove('ds-combobox--open');
       for (const opt of getOptions(listbox)) opt.removeAttribute('data-active');
     },
@@ -91,16 +105,34 @@ function createInstance(root, { onChange } = {}) {
     }
   }
 
-  function emitChange() {
+  function setActiveOption(option) {
+    for (const opt of getOptions(listbox)) opt.removeAttribute('data-active');
+    if (!option) {
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
+    option.setAttribute('data-active', 'true');
+    input.setAttribute('aria-activedescendant', ensureId(option, `${listboxId}-option`));
+  }
+
+  function emitChange(option = null) {
     syncComboboxState(root);
     if (typeof onChange === 'function') onChange(input, root);
-    input.dispatchEvent(new CustomEvent('ds-combobox-change', { bubbles: true }));
+    input.dispatchEvent(new CustomEvent('ds-combobox-change', {
+      bubbles: true,
+      detail: {
+        input,
+        root,
+        option,
+        value: input.value,
+      },
+    }));
   }
 
   function selectOption(opt) {
     input.value = opt.textContent.trim();
     inst.close();
-    emitChange();
+    emitChange(opt);
   }
 
   function visibleOptions() {
@@ -124,35 +156,31 @@ function createInstance(root, { onChange } = {}) {
   });
 
   on(input, 'keydown', (e) => {
-    const visible = visibleOptions();
-    const activeIndex = visible.findIndex((opt) => opt.getAttribute('data-active') === 'true');
-
     if (e.key === 'Escape') {
+      e.preventDefault();
       inst.close();
-      input.blur();
       return;
     }
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       inst.open();
+      const visible = visibleOptions();
+      const activeIndex = visible.findIndex((opt) => opt.getAttribute('data-active') === 'true');
       const next = visible[activeIndex < visible.length - 1 ? activeIndex + 1 : 0];
-      if (next) {
-        visible.forEach((opt) => opt.removeAttribute('data-active'));
-        next.setAttribute('data-active', 'true');
-      }
+      setActiveOption(next);
       return;
     }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       inst.open();
+      const visible = visibleOptions();
+      const activeIndex = visible.findIndex((opt) => opt.getAttribute('data-active') === 'true');
       const prev = visible[activeIndex > 0 ? activeIndex - 1 : visible.length - 1];
-      if (prev) {
-        visible.forEach((opt) => opt.removeAttribute('data-active'));
-        prev.setAttribute('data-active', 'true');
-      }
+      setActiveOption(prev);
       return;
     }
     if (e.key === 'Enter') {
+      const visible = visibleOptions();
       const active = visible.find((opt) => opt.getAttribute('data-active') === 'true');
       if (active) {
         e.preventDefault();
@@ -164,12 +192,13 @@ function createInstance(root, { onChange } = {}) {
     }
   });
 
-  for (const opt of getOptions(listbox)) {
-    on(opt, 'mousedown', (e) => {
+  on(listbox, 'mousedown', (e) => {
+    const opt = e.target.closest('.ds-combobox__option');
+    if (opt && listbox.contains(opt)) {
       e.preventDefault();
       selectOption(opt);
-    });
-  }
+    }
+  });
 
   on(document, 'click', (e) => {
     if (!root.contains(e.target)) inst.close();
@@ -191,23 +220,31 @@ function isInside(root, node) {
 export function initComboboxes(root = document, opts = {}) {
   const created = [];
 
-  root.querySelectorAll('.ds-combobox-anchor').forEach((anchor) => {
+  const anchors = [
+    ...(root instanceof Element && root.matches('.ds-combobox-anchor') ? [root] : []),
+    ...root.querySelectorAll('.ds-combobox-anchor'),
+  ];
+  anchors.forEach((anchor) => {
     if (anchor.dataset.dsComboboxInit === 'true') return;
-    anchor.dataset.dsComboboxInit = 'true';
     const inst = createInstance(anchor, opts);
     if (inst) {
+      anchor.dataset.dsComboboxInit = 'true';
       instances.add(inst);
       created.push(inst);
     }
   });
 
-  root.querySelectorAll('.ds-field').forEach((field) => {
+  const fields = [
+    ...(root instanceof Element && root.matches('.ds-field') ? [root] : []),
+    ...root.querySelectorAll('.ds-field'),
+  ];
+  fields.forEach((field) => {
     if (field.querySelector('.ds-combobox-anchor')) return;
     if (field.dataset.dsComboboxInit === 'true') return;
     if (!field.querySelector(':scope > .ds-combobox__listbox')) return;
-    field.dataset.dsComboboxInit = 'true';
     const inst = createInstance(field, opts);
     if (inst) {
+      field.dataset.dsComboboxInit = 'true';
       instances.add(inst);
       created.push(inst);
     }

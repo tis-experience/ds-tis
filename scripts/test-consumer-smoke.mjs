@@ -296,6 +296,23 @@ try {
     ],
   );
 
+  // Axe com o listbox do Combobox aberto no tarball instalado.
+  await page.locator('#country').fill('');
+  await page.locator('#country').focus();
+  const axeComboboxOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingComboboxOpen = axeComboboxOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingComboboxOpen.length === 0,
+    `axe open Combobox found ${blockingComboboxOpen.length} critical/serious violation(s):\n${blockingComboboxOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'combobox', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.keyboard.press('Escape');
+
   // Axe com o painel do Accordion aberto.
   await page.locator('#consumer-accordion-trigger-b').click();
   const axeOpen = await new AxeBuilder({ page })
