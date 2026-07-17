@@ -479,11 +479,11 @@
   </div>
 
   <!-- ============================================================
-       8. RUNTIME (opt-in)
+       8. RUNTIME (obrigatório)
        ============================================================ -->
   <div class="ds-subsection">
-    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime opt-in</span><span data-lang="en">Opt-in runtime</span></h2>
-    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O CSS define anatomia e estados. Para focus trap, Escape, <code>inert</code> no backdrop e retorno de foco, use o módulo público <code>ds-tis/modal</code>.</span><span data-lang="en">CSS defines anatomy and visual states. For focus trap, Escape, backdrop <code>inert</code>, and focus return, use the public <code>ds-tis/modal</code> module.</span></p>
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O CSS define anatomia e estados visuais, mas o contrato acessível do Modal — focus trap, Escape, <code>inert</code> no backdrop e retorno de foco — depende do módulo público <code>ds-tis/modal</code> (<code>initModals</code>). Ao usar Modal interativamente, inicializar o runtime é parte da API.</span><span data-lang="en">CSS defines anatomy and visual states, but Modal's accessible contract — focus trap, Escape, backdrop <code>inert</code>, and focus return — depends on the public <code>ds-tis/modal</code> module (<code>initModals</code>). When Modal is used interactively, initializing the runtime is part of the API.</span></p>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>

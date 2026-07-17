@@ -16,6 +16,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  BEHAVIOR_MODELS,
+  COMPONENTS,
+  READINESS_LEVELS,
+  RUNTIME_BY_SLUG,
+  responsibilityFor,
+} from "./lib/component-catalog.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -42,60 +49,6 @@ const pkg = readJson(path.join(ROOT, "package.json"));
 // -----------------------------------------------------------------------------
 // components.json
 // -----------------------------------------------------------------------------
-
-// Component layer reintroduzida por ADR-019 como contrato anatômico.
-// Nem todos os componentes foram migrados ainda; consumers podem consultar
-// `tokens` extraidos do CSS e `componentTokenFile` quando existir.
-const COMPONENTS = [
-  { name: "Accordion", slug: "accordion", css: "accordion.css", html: "accordion.html", figmaPage: "Accordion" },
-  { name: "Button", slug: "button", css: "button.css", html: "button.html" },
-  { name: "Input Text", slug: "input", css: "input.css", html: "input.html" },
-  { name: "Textarea", slug: "textarea", css: "textarea.css", html: "textarea.html" },
-  { name: "Select", slug: "select", css: "select.css", html: "select.html" },
-  { name: "Combobox", slug: "combobox", css: "combobox.css", html: "combobox.html", figmaPage: "Combobox" },
-  { name: "Checkbox", slug: "checkbox", css: "checkbox.css", html: "checkbox.html" },
-  { name: "Radio", slug: "radio", css: "radio.css", html: "radio.html" },
-  { name: "Toggle", slug: "toggle", css: "toggle.css", html: "toggle.html" },
-  { name: "Badge", slug: "badge", css: "badge.css", html: "badge.html" },
-  { name: "Alert", slug: "alert", css: "alert.css", html: "alert.html" },
-  { name: "Card", slug: "card", css: "card.css", html: "card.html" },
-  { name: "Modal", slug: "modal", css: "modal.css", html: "modal.html" },
-  { name: "Tooltip", slug: "tooltip", css: "tooltip.css", html: "tooltip.html" },
-  { name: "Menu", slug: "menu", css: "menu.css", html: "menu.html" },
-  { name: "Tabs", slug: "tabs", css: "tabs.css", html: "tabs.html" },
-  { name: "Breadcrumb", slug: "breadcrumb", css: "breadcrumb.css", html: "breadcrumb.html" },
-  { name: "Pagination", slug: "pagination", css: "pagination.css", html: "pagination.html", figmaPage: "Pagination" },
-  { name: "Avatar", slug: "avatar", css: "avatar.css", html: "avatar.html" },
-  { name: "Divider", slug: "divider", css: "divider.css", html: "divider.html" },
-  { name: "Form Field", slug: "form-field", css: "form-field.css", html: "form-field.html", cssClass: "ds-field", cssOnly: true },
-  { name: "Spinner", slug: "spinner", css: "spinner.css", html: "spinner.html" },
-  { name: "Skeleton", slug: "skeleton", css: "skeleton.css", html: "skeleton.html" },
-];
-
-/** Comportamento JS opt-in publicado via package.json exports. */
-const RUNTIME_BY_SLUG = {
-  combobox: {
-    level: "required",
-    module: "ds-tis/combobox",
-    init: "initComboboxes",
-    exports: ["initComboboxes", "syncComboboxState"],
-    notes: "Listbox, filtro, seleção e teclado exigem init após render.",
-  },
-  modal: {
-    level: "optional",
-    module: "ds-tis/modal",
-    init: "initModals",
-    exports: ["initModals", "openModal", "closeModal"],
-    notes: "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa.",
-  },
-  menu: {
-    level: "optional",
-    module: "ds-tis/menu",
-    init: "initActionMenus",
-    exports: ["initActionMenus", "openActionMenu", "closeActionMenu"],
-    notes: "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init.",
-  },
-};
 
 function extractTokensFromCss(cssPath) {
   if (!fs.existsSync(cssPath)) return [];
@@ -127,6 +80,9 @@ const components = COMPONENTS.map((c) => {
     cssClass: c.cssClass || `ds-${c.slug === "input" ? "input" : c.slug}`,
     cssFile: `css/components/${c.css}`,
     cssOnly: Boolean(c.cssOnly),
+    readiness: c.readiness,
+    readinessNotes: c.readinessNotes,
+    responsibility: responsibilityFor(c, runtime),
     runtime,
     tokens: extractTokensFromCss(cssPath),
     variants: extractVariantsFromCss(cssPath),
@@ -142,6 +98,8 @@ const components = COMPONENTS.map((c) => {
 writeJson(path.join(API_DIR, "components.json"), {
   version: pkg.version,
   count: components.length,
+  readinessLevels: READINESS_LEVELS,
+  behaviorModels: BEHAVIOR_MODELS,
   runtimeModules: Object.values(RUNTIME_BY_SLUG),
   components,
 });

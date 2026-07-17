@@ -31,10 +31,12 @@ Arquivo completo para LLMs: docs/llms-full.txt
 
 ## Components
 
+- [Accordion](docs/accordion.html)
 - [Button](docs/button.html)
-- [Input](docs/input.html)
+- [Input Text](docs/input.html)
 - [Textarea](docs/textarea.html)
 - [Select](docs/select.html)
+- [Combobox](docs/combobox.html)
 - [Checkbox](docs/checkbox.html)
 - [Radio](docs/radio.html)
 - [Toggle](docs/toggle.html)
@@ -43,11 +45,13 @@ Arquivo completo para LLMs: docs/llms-full.txt
 - [Card](docs/card.html)
 - [Modal](docs/modal.html)
 - [Tooltip](docs/tooltip.html)
+- [Menu](docs/menu.html)
 - [Tabs](docs/tabs.html)
 - [Breadcrumb](docs/breadcrumb.html)
+- [Pagination](docs/pagination.html)
 - [Avatar](docs/avatar.html)
 - [Divider](docs/divider.html)
-- [Form-field](docs/form-field.html)
+- [Form Field](docs/form-field.html)
 - [Spinner](docs/spinner.html)
 - [Skeleton](docs/skeleton.html)
 
@@ -72,6 +76,7 @@ Arquivo completo para LLMs: docs/llms-full.txt
 - [ADR-017 — — Componentes CSS-only (sem equivalência no Figma)](docs/decisions/adr-017-componentes-css-only.html) — Aceito
 - [ADR-018 — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}`](docs/decisions/adr-018-content-naming-strong-default-subtle.html) — Aceito
 - [ADR-019 — — Reintrodução de Component tokens como contrato anatômico](docs/decisions/adr-019-component-tokens-contrato-anatomico.html) — Aceita
+- [ADR-020 — Biblioteca consumível e contrato de readiness dos componentes](docs/decisions/adr-020-biblioteca-consumivel-componentes-app-ready.html) — Aceita
 
 ## Processo
 

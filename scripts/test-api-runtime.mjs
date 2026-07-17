@@ -25,8 +25,8 @@ expect(api.runtimeModules.length === 3, 'runtimeModules must list combobox, moda
 const bySlug = new Map(api.components.map((c) => [c.slug, c]));
 
 expect(bySlug.get('combobox')?.runtime?.level === 'required', 'combobox runtime.level must be required.');
-expect(bySlug.get('modal')?.runtime?.level === 'optional', 'modal runtime.level must be optional.');
-expect(bySlug.get('menu')?.runtime?.level === 'optional', 'menu runtime.level must be optional.');
+expect(bySlug.get('modal')?.runtime?.level === 'required', 'modal runtime.level must be required.');
+expect(bySlug.get('menu')?.runtime?.level === 'required', 'menu runtime.level must be required.');
 
 for (const [slug, component] of bySlug) {
   if (['combobox', 'modal', 'menu'].includes(slug)) continue;

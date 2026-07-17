@@ -1,7 +1,7 @@
 /* ==========================================================================
    Combobox — .ds-combobox
    Form control editável com listbox popup. Sizes: sm=32px, md=40px, lg=48px
-   Field gap/text/icon: tokens Select (anatomia compartilhada, ADR-020).
+   Field gap/text/icon: tokens Select (anatomia compartilhada, ADR-019).
    ========================================================================== */
 
 .ds-combobox {

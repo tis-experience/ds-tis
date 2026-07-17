@@ -53,7 +53,7 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar de comportamento opt-in:
+Componentes interativos mantêm CSS puro para a anatomia visual. Para Combobox, Modal e Action Menu o runtime público é **obrigatório** quando usados interativamente (`runtime.level: "required"` em `docs/api/components.json`):
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
@@ -85,6 +85,12 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 ## Documentação completa
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.
+
+Antes de usar um componente em fluxo crítico, consulte seu `readiness` na
+[API pública de componentes](https://tis-experience.github.io/ds-tis/docs/api/components.json)
+ou no inventário: `app-ready` é recomendado para aplicações, `composition`
+mantém orquestração no app e `experimental` ainda possui gaps declarados em
+`readinessNotes`.
 
 Links rápidos:
 
@@ -252,6 +258,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **ADR-020 — biblioteca consumível e readiness.** Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza `app-ready`, `composition` e `experimental`, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.
+- **Catálogo machine-readable de componentes.** `scripts/lib/component-catalog.mjs` passa a alimentar API e inventário com readiness, responsabilidade e limitações; `test-component-readiness` protege o contrato para devs e agents consumidores.
 - **Theme engine — auditoria WCAG brand (`auditBrandTheme`).** Novo módulo `js/theme/brand-contrast-audit.js` valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.
 - **Theme engine — `toDtcgThemePatch()`.** Export DTCG expandido inclui `foundation.color.overlay.brand-*` e alias `semantic.content.brand` (light→700, dark→400), além da escala brand.
 - **Theme Playground — exportação DTCG e CSS semântico completo.** Aba DTCG no playground exporta patch completo via `toDtcgThemePatch()`. O export CSS agora inclui overrides semânticos light/dark (brand backgrounds, toned, links, focus ring) alinhados ao patch documentado em `docs/theming.html`.
@@ -266,6 +274,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Referências órfãs de ADR no Combobox.** Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (`ds-field` CSS-only), liberando a numeração para a decisão registrada.
 - **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
 - **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.
 - **Theme Playground — dark mode sem side effects em localStorage.** `localStorage['ds-mode']` só é gravado no toggle de modo; cor/radius/fonte não persistem modo. Header e painel sincronizam via evento `ds:mode-change` emitido por `main.js`.
@@ -277,6 +286,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
+- **Runtime acessível deixa de ser opcional.** Combobox, Modal e Action Menu passam a declarar `runtime.level: "required"`: quando usados interativamente, init é parte do contrato de teclado, foco e ARIA. README e docs de Modal/Menu/Combobox abandonam a terminologia "opt-in", e `test:readiness` bloqueia regressão. `llms.txt` passa a listar componentes a partir do catálogo canônico (Accordion, Combobox, Menu e Pagination estavam ausentes), e o CI valida que `docs/api/` commitado não drifta do gerado.
 - **CI bloqueia PR com erros de `verify:tokens`.** Workflow `verify-tokens.yml` deixa de engolir exit code 1.
 - **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.
 - **Tooltip deixa de forçar `nowrap`.** Conteúdo ganha `max-width` baseado em `--ds-size-layout-xs` e quebra de linha segura em viewports estreitas.
@@ -301,7 +311,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Componente Accordion.** Adicionado o contrato anatômico do Accordion aprovado no Figma para `item`, `trigger`, `content`, `chevron`, `leading-icon` e `focus-ring`, com tokens `component.accordion.*`, CSS gerado, API, registry e documentação de tokens a partir da run `2026-06-29-accordion`. O componente mantém hover por stroke de brand, slot de conteúdo, ícones Lucide tokenizados e `Focus Ring` dedicado com radius `16`.
 - **Aprendizado retroalimentado nos gates de agents.** Checklists de Figma Builder, Figma Auditor e Token Sync passam a exigir registro de falhas corrigidas como novos gates/testes/critérios de auditoria, incluindo bloqueio por snapshot antigo e separação explícita entre drift global e escopo do componente.
 - **Componente Pagination.** Figma aprovado (run `2026-06-25-pagination`): tokens `pagination/*` (29 paths), token semântico `background.transparent`, `css/components/pagination.css`, `docs/pagination.html`, prev/next via Button Ghost Icon Only, page items com `aria-current="page"`, sizes sm/md/lg, baselines visuais e run documentada em `docs/agents/runs/2026-06-25-pagination/`.
-- **Componente Combobox.** Sincroniza 16 tokens `component.combobox.*` do Figma, `css/components/combobox.css`, `docs/combobox.html`, listbox/option com tokens locais + geometria `menu/item/*`, field compartilhado (ADR-020), ARIA de combobox/listbox/option, baselines visuais e links em Select/Menu.
+- **Componente Combobox.** Sincroniza 16 tokens `component.combobox.*` do Figma, `css/components/combobox.css`, `docs/combobox.html`, listbox/option com tokens locais + geometria `menu/item/*`, field compartilhado (ADR-019), ARIA de combobox/listbox/option, baselines visuais e links em Select/Menu.
 - **Estado da run verificável por máquina + porteiro de gates.** Cada run agora tem `state.json` com status por gate, pré-requisitos, aprovações do owner e exit codes de validadores. `agents:next-step` passa a recusar avançar enquanto o gate anterior não estiver `approved`, e o novo `agents:gate` registra status, aprovações, snapshot Figma e checks. Transforma a orquestração de conselheira em porteiro, impedindo pular etapas.
 - **Matriz de contrato como artefato executável.** Novo `templates/figma-contract-matrix.md` + `agents:validate-matrix` computam `unmappedRows`, exigem `modelEvidence` por linha e sinalizam exceções sem aprovação (`--strict-exceptions`). O Figma Builder fica bloqueado enquanto a matriz não passar — atacando a causa raiz dos erros do Combobox (tokens inventados, anatomia copiada parcialmente, exceções sem owner).
 - **Espinha anti-alucinação (`docs/agents/grounding.md`).** Documento único referenciado por todas as roles consolidando: nunca afirmar fato Figma sem ler+persistir em `evidence/`, binding validado por propriedade (não por total agregado), inspeção de ícone no vetor interno, foco no Focus Ring (não na borda estrutural), documentação derivada da API real, protocolo de recuperação pós-rejeição e status tripartite (contrato/documentação/visual) computado, não declarado.
@@ -1147,10 +1157,10 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
-19 decisões registradas.
+20 decisões registradas.
 
 | ADR | Título | Status | Data |
 |-----|--------|--------|------|
@@ -1173,6 +1183,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 | [ADR-017](decisions/ADR-017-componentes-css-only.md) | — Componentes CSS-only (sem equivalência no Figma) | Aceito | 2026-04-30 |
 | [ADR-018](decisions/ADR-018-content-naming-strong-default-subtle.md) | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito | 2026-05-06 |
 | [ADR-019](decisions/ADR-019-component-tokens-contrato-anatomico.md) | — Reintrodução de Component tokens como contrato anatômico | Aceita | 2026-05-11 |
+| [ADR-020](decisions/ADR-020-biblioteca-consumivel-componentes-app-ready.md) | Biblioteca consumível e contrato de readiness dos componentes | Aceita | 2026-07-16 |
 
 
 ═══════════════════════════════════════════════════════════
@@ -1211,12 +1222,35 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
+- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
 
 Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.
+
+Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
+`https://tis-experience.github.io/ds-tis/docs/api/components.json`. Não assuma
+que `node_modules/ds-tis/docs/api/` existe.
+
+## Readiness e responsabilidade
+
+Antes de escolher um componente, leia `readiness` e `responsibility` em `docs/api/components.json`:
+
+| Readiness | Uso esperado |
+|---|---|
+| `app-ready` | Recomendado para aplicações dentro da API pública documentada. |
+| `composition` | Público e estável, mas a aplicação mantém orquestração, navegação ou estado entre as partes. |
+| `experimental` | Não usar em fluxo crítico sem aceitar explicitamente a limitação em `readinessNotes`. |
+
+`responsibility.model` informa quem mantém o comportamento:
+
+- `native`: use o elemento HTML adequado; o app controla dados e eventos de negócio;
+- `presentation`: não há runtime de componente; o app fornece conteúdo e contexto;
+- `consumer`: o DS entrega a composição visual, mas o app mantém a orquestração;
+- `ds-runtime`: o DS mantém a interação reutilizável; inicialize o módulo indicado em `runtime`.
+
+Não promova localmente um componente Experimental a App-ready. Se o projeto completar um gap com código próprio, declare que ele é uma adaptação local e registre a demanda no DS.
 
 ## Imports oficiais
 
@@ -1267,8 +1301,8 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | Campo | Significado |
 |---|---|
 | `null` | CSS-only — sem módulo JS publicado. |
-| `runtime.level: "required"` | Comportamento essencial depende de init (ex.: Combobox). |
-| `runtime.level: "optional"` | Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu). |
+| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Combobox, Modal e Action Menu). |
+| `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
 | `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
 | `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
 
@@ -1276,7 +1310,7 @@ O array `runtimeModules` no topo de `components.json` lista todos os módulos pu
 
 ## Regras de implementação
 
-1. Escolha componentes existentes antes de criar markup ad hoc. Consulte `docs/api/components.json` e a navegação de componentes.
+1. Escolha componentes existentes antes de criar markup ad hoc. Consulte `readiness`, `responsibility` e `runtime` em `docs/api/components.json`.
 2. Use a anatomia pública do componente conforme documentada. Não use classes internas isoladas como se fossem componentes autônomos.
 3. Formulários devem compor `ds-field` com o controle real: `ds-input`, `ds-select`, `ds-textarea`, `ds-combobox`, `ds-checkbox`, `ds-radio` ou `ds-toggle`. Para Input, o campo nativo continua dentro da anatomia pública com `ds-input__field`.
 4. Não hardcode `#hex`, `rgb()`, `px` ou `rem` quando existir token, classe, variante ou utilitário público do DS para o mesmo papel.
@@ -1291,7 +1325,7 @@ O array `runtimeModules` no topo de `components.json` lista todos os módulos pu
 
 1. Leia o pedido, identifique a stack e encontre o entrypoint global onde `ds-tis/css` deve ser importado.
 2. Faça inventário das partes da tela: navegação, formulário, feedback, cards, overlays, listas, loading, empty states e ações.
-3. Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.
+3. Mapeie cada parte para componentes DS existentes e confira readiness. Só use markup local quando o DS não tiver componente adequado.
 4. Consulte a página HTML do componente e `docs/api/components.json` antes de escrever a anatomia.
 5. Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.
 6. Inicialize módulos JS quando `components.json` indicar `runtime` — `required` sempre; `optional` quando a tela precisar de teclado, overlay ou focus management completo.
@@ -1328,7 +1362,7 @@ Fontes obrigatorias:
 - README.md
 - docs/llms.txt
 - docs/llms-full.txt
-- docs/api/components.json
+- docs/api/components.json (readiness, responsibility e runtime)
 - docs/api/tokens.json
 - docs/<component>.html dos componentes usados
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
@@ -1337,6 +1371,7 @@ Regras:
 - Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
 - Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
+- Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -1365,6 +1400,7 @@ Bloqueado antes de:
 Antes de concluir, o agent deve reportar:
 
 - componentes DS usados e componentes descartados;
+- readiness e responsabilidade dos componentes usados;
 - imports adicionados: `ds-tis/css`, módulos JS com `runtime` em `components.json`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
 - classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
 - tokens CSS relevantes quando houver customização via `var(--ds-...)`;
@@ -1892,39 +1928,49 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
 ## Status geral
 
-| Componente | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
-|------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Button | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Input Text | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Textarea | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Select | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Checkbox | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Radio | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toggle | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Badge | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Alert | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Card | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Breadcrumb | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Pagination | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Avatar | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Divider | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Form Field | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
-| Spinner | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Skeleton | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
+|------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
+| Accordion | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Combobox | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Modal | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Menu | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
+| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 
-**Legenda:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+**Legenda de artefatos:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+
+### Readiness de consumo
+
+| Nível | Significado |
+|-------|-------------|
+| 🟢 **App-ready** | API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados. |
+| 🔵 **Composição** | Padrão público e estável cuja orquestração, navegação ou estado de negócio permanece sob responsabilidade da aplicação. |
+| 🟡 **Experimental** | Contrato ainda não concluiu o gate de runtime e consumo; pode mudar e não deve sustentar fluxo crítico sem avaliação explícita. |
+
+Readiness não substitui responsabilidade. Um componente pode ser App-ready usando HTML nativo, enquanto uma Composição é pública e estável, mas mantém orquestração no app. Componentes Experimentais não devem sustentar fluxos críticos sem avaliação explícita.
 
 **Nota sobre binding:**
 - Button: tokens Component para background, content, border, height, padding, radius, gap, focus ring e ícones
@@ -1966,13 +2012,15 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | ADR-017 | — Componentes CSS-only (sem equivalência no Figma) | Aceito |
 | ADR-018 | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito |
 | ADR-019 | — Reintrodução de Component tokens como contrato anatômico | Aceita |
+| ADR-020 | Biblioteca consumível e contrato de readiness dos componentes | Aceita |
 
 ## Próximos milestones
 
-1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
-2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Table, Toast, Popover
-4. **Storybook** — opcional, não bloqueante para o beta atual
+1. **Fechar runtimes experimentais** — Accordion, Combobox, Modal, Tooltip, Menu e Tabs só sobem para App-ready após runtime público e teste em consumidor
+2. **Teste de projeto consumidor** — validar instalação, imports, teclado e axe fora do site de docs
+3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
+4. **Componentes pendentes** — Table, Toast, Popover
+5. **Storybook** — opcional, depois do contrato app-ready
 
 
 ═══════════════════════════════════════════════════════════
@@ -20895,7 +20943,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
@@ -21028,6 +21076,7 @@ Arquivos canônicos em `tokens/component/`:
 - **ADR-017** — — Componentes CSS-only (sem equivalência no Figma) (Aceito)
 - **ADR-018** — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` (Aceito)
 - **ADR-019** — — Reintrodução de Component tokens como contrato anatômico (Aceita)
+- **ADR-020** — Biblioteca consumível e contrato de readiness dos componentes (Aceita)
 
 
 ═══════════════════════════════════════════════════════════
@@ -23479,6 +23528,186 @@ Descartada como regra geral. `control` deve representar padroes reutilizaveis en
 - Material Web: system tokens e component tokens (`--md-sys-*`, `--md-switch-*`, `--md-checkbox-*`).
 - Carbon Design System: component tokens como propriedades associadas a componentes especificos.
 - Spectrum Design Data: eixos `component`, `anatomy`, `property`, `variant` e `state`.
+
+
+═══════════════════════════════════════════════════════════
+# ADR-020 — Biblioteca consumível e contrato de readiness dos componentes
+═══════════════════════════════════════════════════════════
+
+# ADR-020: Biblioteca consumível e contrato de readiness dos componentes
+
+- **Status:** Aceita
+- **Data:** 2026-07-16
+- **Relaciona:** ADR-002, ADR-004, ADR-017, ADR-019
+
+## Contexto
+
+O DS TIS consolidou Figma, tokens DTCG, CSS, documentação e 23 componentes. O pacote público já entrega CSS, theme engine, templates e módulos JavaScript para Combobox, Modal e Action Menu.
+
+Esse conjunto ainda não responde de forma objetiva à pergunta mais importante para um consumidor: "posso usar este componente em um fluxo real sem completar partes não declaradas por conta própria?".
+
+O inventário anterior media existência de CSS, Figma, bindings, stories e docs. Essas evidências são necessárias para manter o design system, mas não representam prontidão de consumo. Accordion, Tabs e Tooltip, por exemplo, têm superfície visual documentada, porém não entregam no pacote o comportamento acessível descrito. Combobox, Modal e Menu possuem runtime público, mas ainda precisam de ciclo de vida e teste em um projeto consumidor antes de serem promovidos como completos.
+
+Essa ambiguidade afeta dois públicos:
+
+- desenvolvedores podem interpretar "componente documentado" como "componente pronto para aplicação";
+- agents IA podem combinar classes, markup e comportamento de fontes diferentes e inventar uma API que o pacote não mantém.
+
+Antes de criar adaptadores React, Flutter, shadcn, MUI ou outros, o núcleo stack-agnóstico precisa ser um produto consumível, verificável e honesto sobre seus limites.
+
+## Decisão
+
+### 1. Consumo do núcleo precede adaptadores por tecnologia
+
+A prioridade arquitetural passa a ser:
+
+```txt
+núcleo consumível -> componentes app-ready -> adaptadores por demanda comprovada
+```
+
+Tokens multi-plataforma e wrappers de framework continuam possíveis conforme ADR-002, mas não são prioridade enquanto o pacote base não tiver um caminho de consumo completo e testado.
+
+### 2. Readiness é contrato público
+
+Todo componente do catálogo recebe exatamente um nível:
+
+#### App-ready
+
+API pública recomendada para aplicações. Anatomia, estados e responsabilidade de comportamento estão documentados. O componente usa semântica HTML nativa ou já concluiu o gate completo de runtime.
+
+#### Composição
+
+Padrão público e estável em que o DS entrega estrutura, visual e orientação de acessibilidade, enquanto a aplicação mantém orquestração, navegação, dados ou estado de negócio.
+
+Composição não significa incompleto. Significa que a fronteira de responsabilidade é intencional e documentada.
+
+#### Experimental
+
+Contrato que ainda não concluiu o gate de runtime e consumo. Pode mudar e não deve sustentar fluxo crítico sem avaliação explícita do produto consumidor.
+
+Readiness não substitui status de Figma, CSS, bindings ou docs. Esses eixos continuam existindo no inventário.
+
+### 3. Responsabilidade de comportamento é explícita
+
+Cada componente declara um modelo de comportamento:
+
+- `native`: o browser fornece a interação primária; o DS mantém anatomia, estados e orientação semântica;
+- `presentation`: não existe runtime reutilizável; o DS mantém visual e semântica aplicável;
+- `consumer`: a aplicação mantém a orquestração entre elementos;
+- `ds-runtime`: o DS mantém comportamento reutilizável de interação e acessibilidade em módulo público.
+
+A regra operacional é:
+
+> O DS mantém comportamento reutilizável e independente de negócio. A aplicação mantém dados, navegação, permissões e regras de produto.
+
+Exemplos:
+
+- Modal: o DS deve manter abertura, focus trap, Escape, inert e retorno de foco; a aplicação decide o que salvar ou excluir.
+- Combobox: o DS deve manter listbox, teclado e seleção; a aplicação fornece opções, busca remota e regra de validação.
+- Input: o DS mantém anatomia e estados de erro; a aplicação mantém valor e validação.
+- Pagination: o DS mantém itens e estado visual; a aplicação mantém URL, carregamento e página atual.
+
+### 4. Runtime necessário não é opcional
+
+Quando a acessibilidade e a interação declaradas dependem de um módulo do DS, `runtime.level` deve ser `required`.
+
+`optional` fica reservado para enhancement que não seja necessário para cumprir o contrato acessível. CSS isolado que apenas desenha um Modal ou Menu não é implementação funcional desses componentes.
+
+### 5. Catálogo canônico e saída machine-readable
+
+O catálogo interno compartilhado entre geradores é a única lista mantida manualmente para:
+
+- identidade e arquivos do componente;
+- readiness;
+- modelo de responsabilidade;
+- notas de limitação;
+- runtime público.
+
+`docs/api/components.json` e `docs/component-inventory.md` são derivados desse catálogo. Agents e ferramentas devem consultar os campos `readiness`, `readinessNotes`, `responsibility` e `runtime`, sem inferir prontidão pela existência de CSS ou página de docs.
+
+### 6. Gate para promoção a App-ready
+
+Um componente com HTML nativo ou apenas apresentação precisa:
+
+1. anatomia e variantes públicas documentadas;
+2. estados visuais e light/dark verificados;
+3. semântica, teclado nativo, focus e ARIA aplicável validados;
+4. contrato de import, empacotamento e uso público protegidos por testes;
+5. contrato protegido por testes e CHANGELOG.
+
+Um componente `ds-runtime` precisa adicionalmente:
+
+1. módulo público exportado pelo pacote;
+2. API de inicialização e destruição segura;
+3. suporte previsível a renderização dinâmica, mount/unmount e hydration;
+4. eventos públicos documentados;
+5. testes DOM de teclado, foco, fechamento, limpeza e axe em projeto consumidor.
+
+Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.
+
+### 7. Classificação inicial
+
+| Readiness | Componentes |
+|---|---|
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton |
+| Composição | Pagination, Form Field |
+| Experimental | Accordion, Combobox, Modal, Tooltip, Menu, Tabs |
+
+Essa classificação é conservadora e deve mudar apenas quando as evidências do gate forem adicionadas.
+
+### 8. Sequência de implementação
+
+1. Publicar readiness e responsabilidade na API e no inventário.
+2. Fazer o guia de consumo orientar devs e agents por readiness.
+3. Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.
+4. Criar projeto consumidor de smoke test com instalação do tarball real.
+5. Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.
+6. Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.
+7. Promover componentes individualmente quando todos os gates passarem.
+8. Só então decidir adaptador oficial por tecnologia com base em demanda real.
+
+## Consequências
+
+### Positivas
+
+- Desenvolvedores sabem o que o pacote mantém e o que pertence à aplicação.
+- Agents IA recebem limites machine-readable e deixam de inferir completude pela aparência das docs.
+- Componentes incompletos ficam visíveis sem desvalorizar composições intencionais.
+- Integrações futuras partem de um contrato estável, reduzindo drift entre tecnologias.
+- O roadmap passa a promover componentes por evidência, não por contagem de artefatos.
+
+### Negativas
+
+- Alguns componentes existentes passam a aparecer como Experimentais apesar de terem Figma, CSS e documentação.
+- A promoção exige novos testes de consumidor e trabalho de ciclo de vida em runtimes.
+- O catálogo adiciona metadados que precisam acompanhar mudanças na API pública.
+- A estratégia adia adaptadores React, Flutter e ecossistemas similares.
+
+## Alternativas consideradas
+
+### Considerar todo componente com CSS e docs como pronto
+
+Descartada. Essa classificação não captura comportamento, teclado, focus management, lifecycle nem consumo real do pacote.
+
+### Publicar React + Radix primeiro
+
+Descartada como prioridade. Radix pode acelerar comportamento React no futuro, mas criaria uma segunda superfície antes de o contrato stack-agnóstico estar completo.
+
+### Usar shadcn ou MUI como implementação canônica
+
+Descartada. Ambos introduzem APIs, anatomias e ciclos de atualização próprios. Podem receber integrações futuras, mas não resolvem a prontidão do núcleo atual.
+
+### Manter readiness apenas em documentação textual
+
+Descartada. Devs e agents precisam do mesmo contrato; a classificação deve ser derivada de uma fonte compartilhada e exposta em JSON.
+
+## Referências
+
+- ADR-002 — Stack agnóstica: HTML + CSS + vanilla JS como base.
+- ADR-004 — WCAG 2.2 AA como padrão de acessibilidade.
+- ADR-017 — Componentes CSS-only.
+- ADR-019 — Component tokens como contrato anatômico.
+- WAI-ARIA Authoring Practices Guide — padrões de Accordion, Combobox, Dialog, Menu, Tabs e Tooltip.
 
 
 ═══════════════════════════════════════════════════════════

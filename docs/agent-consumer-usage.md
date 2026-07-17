@@ -30,12 +30,35 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
+- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
 
 Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.
+
+Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
+`https://tis-experience.github.io/ds-tis/docs/api/components.json`. Não assuma
+que `node_modules/ds-tis/docs/api/` existe.
+
+## Readiness e responsabilidade
+
+Antes de escolher um componente, leia `readiness` e `responsibility` em `docs/api/components.json`:
+
+| Readiness | Uso esperado |
+|---|---|
+| `app-ready` | Recomendado para aplicações dentro da API pública documentada. |
+| `composition` | Público e estável, mas a aplicação mantém orquestração, navegação ou estado entre as partes. |
+| `experimental` | Não usar em fluxo crítico sem aceitar explicitamente a limitação em `readinessNotes`. |
+
+`responsibility.model` informa quem mantém o comportamento:
+
+- `native`: use o elemento HTML adequado; o app controla dados e eventos de negócio;
+- `presentation`: não há runtime de componente; o app fornece conteúdo e contexto;
+- `consumer`: o DS entrega a composição visual, mas o app mantém a orquestração;
+- `ds-runtime`: o DS mantém a interação reutilizável; inicialize o módulo indicado em `runtime`.
+
+Não promova localmente um componente Experimental a App-ready. Se o projeto completar um gap com código próprio, declare que ele é uma adaptação local e registre a demanda no DS.
 
 ## Imports oficiais
 
@@ -86,8 +109,8 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | Campo | Significado |
 |---|---|
 | `null` | CSS-only — sem módulo JS publicado. |
-| `runtime.level: "required"` | Comportamento essencial depende de init (ex.: Combobox). |
-| `runtime.level: "optional"` | Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu). |
+| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Combobox, Modal e Action Menu). |
+| `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
 | `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
 | `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
 
@@ -95,7 +118,7 @@ O array `runtimeModules` no topo de `components.json` lista todos os módulos pu
 
 ## Regras de implementação
 
-1. Escolha componentes existentes antes de criar markup ad hoc. Consulte `docs/api/components.json` e a navegação de componentes.
+1. Escolha componentes existentes antes de criar markup ad hoc. Consulte `readiness`, `responsibility` e `runtime` em `docs/api/components.json`.
 2. Use a anatomia pública do componente conforme documentada. Não use classes internas isoladas como se fossem componentes autônomos.
 3. Formulários devem compor `ds-field` com o controle real: `ds-input`, `ds-select`, `ds-textarea`, `ds-combobox`, `ds-checkbox`, `ds-radio` ou `ds-toggle`. Para Input, o campo nativo continua dentro da anatomia pública com `ds-input__field`.
 4. Não hardcode `#hex`, `rgb()`, `px` ou `rem` quando existir token, classe, variante ou utilitário público do DS para o mesmo papel.
@@ -110,7 +133,7 @@ O array `runtimeModules` no topo de `components.json` lista todos os módulos pu
 
 1. Leia o pedido, identifique a stack e encontre o entrypoint global onde `ds-tis/css` deve ser importado.
 2. Faça inventário das partes da tela: navegação, formulário, feedback, cards, overlays, listas, loading, empty states e ações.
-3. Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.
+3. Mapeie cada parte para componentes DS existentes e confira readiness. Só use markup local quando o DS não tiver componente adequado.
 4. Consulte a página HTML do componente e `docs/api/components.json` antes de escrever a anatomia.
 5. Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.
 6. Inicialize módulos JS quando `components.json` indicar `runtime` — `required` sempre; `optional` quando a tela precisar de teclado, overlay ou focus management completo.
@@ -147,7 +170,7 @@ Fontes obrigatorias:
 - README.md
 - docs/llms.txt
 - docs/llms-full.txt
-- docs/api/components.json
+- docs/api/components.json (readiness, responsibility e runtime)
 - docs/api/tokens.json
 - docs/<component>.html dos componentes usados
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
@@ -156,6 +179,7 @@ Regras:
 - Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
 - Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
+- Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -184,6 +208,7 @@ Bloqueado antes de:
 Antes de concluir, o agent deve reportar:
 
 - componentes DS usados e componentes descartados;
+- readiness e responsabilidade dos componentes usados;
 - imports adicionados: `ds-tis/css`, módulos JS com `runtime` em `components.json`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
 - classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
 - tokens CSS relevantes quando houver customização via `var(--ds-...)`;

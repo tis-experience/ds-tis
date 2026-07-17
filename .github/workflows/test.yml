@@ -42,6 +42,12 @@ jobs:
       - name: Build tokens (necessário pro test-css-references comparar)
         run: npm run build:tokens
 
+      - name: Gerar documentação e API pública
+        run: npm run sync:docs && npm run build:api
+
+      - name: API commitada sem drift (docs/api regenerado deve bater com o commit)
+        run: git diff --exit-code docs/api/components.json docs/api/adrs.json docs/api/foundations.json
+
       - name: Token integrity (aliases, descriptions, modes)
         run: node scripts/test-token-integrity.mjs
 
@@ -53,6 +59,9 @@ jobs:
 
       - name: Interactive modules (Modal, Menu, Combobox)
         run: node scripts/test-interactive.mjs
+
+      - name: Runtime e readiness dos componentes
+        run: node scripts/test-api-runtime.mjs && npm run test:readiness
 
       - name: Form Field anatomy in docs
         run: node scripts/test-field-docs.mjs

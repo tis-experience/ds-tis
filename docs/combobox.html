@@ -41,8 +41,8 @@
   <div class="ds-section">
     <h1 class="ds-section__title">Combobox</h1>
     <p class="ds-section__subtitle">
-      <span data-lang="pt">Combobox combina um campo de texto editável com um listbox popup para buscar, filtrar e escolher uma opção. Usa tokens compartilhados de <code>field/*</code> e <code>form-field/*</code> (ADR-020) e tokens locais <code>combobox/*</code> para listbox e option.</span>
-      <span data-lang="en">Combobox combines an editable text field with a listbox popup to search, filter, and choose one option. It uses shared <code>field/*</code> and <code>form-field/*</code> tokens (ADR-020) plus local <code>combobox/*</code> tokens for listbox and option anatomy.</span>
+      <span data-lang="pt">Combobox combina um campo de texto editável com um listbox popup para buscar, filtrar e escolher uma opção. Usa tokens compartilhados de <code>field/*</code> e <code>form-field/*</code> (ADR-019) e tokens locais <code>combobox/*</code> para listbox e option.</span>
+      <span data-lang="en">Combobox combines an editable text field with a listbox popup to search, filter, and choose one option. It uses shared <code>field/*</code> and <code>form-field/*</code> tokens (ADR-019) plus local <code>combobox/*</code> tokens for listbox and option anatomy.</span>
     </p>
   </div>
 
@@ -87,13 +87,13 @@
       <strong>3</strong> Ícone (<code>.ds-combobox__icon</code>) — opcional, decorativo.<br>
       <strong>4</strong> Listbox (<code>.ds-combobox__listbox</code>) — popup com opções filtráveis.<br>
       <strong>5</strong> Option (<code>.ds-combobox__option</code>) — item selecionável com <code>role="option"</code>.<br>
-      <strong>6</strong> Label e helper — externos via <code>ds-field</code> (ADR-020).</span>
+      <strong>6</strong> Label e helper — externos via <code>ds-field</code> (ADR-017).</span>
       <span data-lang="en"><strong>1</strong> Field (<code>.ds-combobox</code>) — wrapper with input, icon, clear, and chevron.<br>
       <strong>2</strong> Input (<code>.ds-combobox__input</code>) — editable text with <code>role="combobox"</code>.<br>
       <strong>3</strong> Icon (<code>.ds-combobox__icon</code>) — optional, decorative.<br>
       <strong>4</strong> Listbox (<code>.ds-combobox__listbox</code>) — popup with filterable options.<br>
       <strong>5</strong> Option (<code>.ds-combobox__option</code>) — selectable item with <code>role="option"</code>.<br>
-      <strong>6</strong> Label and helper — external via <code>ds-field</code> (ADR-020).</span>
+      <strong>6</strong> Label and helper — external via <code>ds-field</code> (ADR-017).</span>
     </div>
   </div>
 
@@ -150,8 +150,8 @@
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Listbox aberto</span><span data-lang="en">Open listbox</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
-      <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. Envolva <code>.ds-combobox</code> e <code>.ds-combobox__listbox</code> em <code>.ds-combobox-anchor</code> para posicionar o popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) ou JS equivalente para abertura, filtro e seleção.</span>
-      <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. Wrap <code>.ds-combobox</code> and <code>.ds-combobox__listbox</code> in <code>.ds-combobox-anchor</code> to position the popup. Use <code>js/combobox.js</code> (<code>initComboboxes</code>) or equivalent JS for open state, filtering, and selection.</span>
+      <span data-lang="pt">Componha com <code>ds-field</code> para label, helper e erro. Envolva <code>.ds-combobox</code> e <code>.ds-combobox__listbox</code> em <code>.ds-combobox-anchor</code> para posicionar o popup. O módulo público <code>ds-tis/combobox</code> (<code>initComboboxes</code>) é obrigatório para abertura, filtro, seleção e teclado.</span>
+      <span data-lang="en">Compose with <code>ds-field</code> for label, helper, and error. Wrap <code>.ds-combobox</code> and <code>.ds-combobox__listbox</code> in <code>.ds-combobox-anchor</code> to position the popup. The public <code>ds-tis/combobox</code> module (<code>initComboboxes</code>) is required for open state, filtering, selection, and keyboard.</span>
     </p>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
@@ -326,7 +326,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">API no Figma</span><span data-lang="en">Figma API</span></h2>
-    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O component set vivo compõe field compartilhado (ADR-020) com listbox local. <code>State</code> cobre Default, Hover, Focus e Disabled; <code>Filled</code>, <code>Error</code> e <code>Read-only</code> são propriedades separadas, como em Select.</span><span data-lang="en">The live component set composes the shared field (ADR-020) with a local listbox. <code>State</code> covers Default, Hover, Focus, and Disabled; <code>Filled</code>, <code>Error</code>, and <code>Read-only</code> are separate properties, like Select.</span></p>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O component set vivo compõe field compartilhado (ADR-019) com listbox local. <code>State</code> cobre Default, Hover, Focus e Disabled; <code>Filled</code>, <code>Error</code> e <code>Read-only</code> são propriedades separadas, como em Select.</span><span data-lang="en">The live component set composes the shared field (ADR-019) with a local listbox. <code>State</code> covers Default, Hover, Focus, and Disabled; <code>Filled</code>, <code>Error</code>, and <code>Read-only</code> are separate properties, like Select.</span></p>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th><span data-lang="pt">Tipo</span><span data-lang="en">Type</span></th><th><span data-lang="pt">Equivalente no repo</span><span data-lang="en">Repo equivalent</span></th></tr></thead>
       <tbody>

@@ -1,9 +1,9 @@
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
-19 decisões registradas.
+20 decisões registradas.
 
 | ADR | Título | Status | Data |
 |-----|--------|--------|------|
@@ -26,3 +26,4 @@
 | [ADR-017](decisions/ADR-017-componentes-css-only.md) | — Componentes CSS-only (sem equivalência no Figma) | Aceito | 2026-04-30 |
 | [ADR-018](decisions/ADR-018-content-naming-strong-default-subtle.md) | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito | 2026-05-06 |
 | [ADR-019](decisions/ADR-019-component-tokens-contrato-anatomico.md) | — Reintrodução de Component tokens como contrato anatômico | Aceita | 2026-05-11 |
+| [ADR-020](decisions/ADR-020-biblioteca-consumivel-componentes-app-ready.md) | Biblioteca consumível e contrato de readiness dos componentes | Aceita | 2026-07-16 |
