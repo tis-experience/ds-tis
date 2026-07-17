@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DS TIS — consumer smoke</title>
+  <!--
+    Caminho típico de consumidor sem bundler: CSS do pacote instalado.
+    O smoke test copia esta pasta para um projeto temporário com node_modules/ds-tis.
+  -->
+  <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--ds-background-subtle);
+      color: var(--ds-content-default);
+      font-family: var(--ds-body-font-family-sans);
+      padding: var(--ds-space-xl);
+    }
+    .smoke-shell {
+      max-width: 28rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-space-lg);
+    }
+    .smoke-card {
+      background: var(--ds-surface-default);
+      border: var(--ds-border-width-default, 1px) solid var(--ds-border-default);
+      border-radius: var(--ds-radius-lg);
+      padding: var(--ds-space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-space-md);
+    }
+  </style>
+</head>
+<body>
+  <main class="smoke-shell">
+    <h1 style="font-size:var(--ds-heading-font-size-md);margin:0">Consumer smoke</h1>
+
+    <section class="smoke-card" aria-labelledby="login-title">
+      <h2 id="login-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Login</h2>
+
+      <div class="ds-field">
+        <label class="ds-field__label" for="email">Email</label>
+        <div class="ds-input ds-input--md">
+          <input class="ds-input__field" id="email" type="email" autocomplete="username" placeholder="voce@empresa.com">
+        </div>
+      </div>
+
+      <div class="ds-field">
+        <label class="ds-field__label" for="country">País</label>
+        <div class="ds-combobox-anchor">
+          <div class="ds-combobox ds-combobox--md">
+            <input
+              class="ds-combobox__input"
+              id="country"
+              type="text"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="country-list"
+              aria-autocomplete="list"
+              placeholder="Digite para filtrar"
+            >
+            <span class="ds-combobox__chevron" aria-hidden="true">▾</span>
+          </div>
+          <ul class="ds-combobox__listbox" id="country-list" role="listbox" hidden>
+            <li class="ds-combobox__option" role="option">Argentina</li>
+            <li class="ds-combobox__option" role="option">Brazil</li>
+            <li class="ds-combobox__option" role="option">Chile</li>
+          </ul>
+        </div>
+        <p class="ds-field__helper">Combobox exige init do pacote.</p>
+      </div>
+
+      <button type="button" class="ds-button ds-button--brand ds-button--md" id="submit-login">
+        <span class="ds-button__label">Entrar</span>
+      </button>
+
+      <button type="button" class="ds-button ds-button--outline ds-button--md" data-ds-modal-open="confirm-modal" id="open-modal">
+        <span class="ds-button__label">Abrir confirmação</span>
+      </button>
+    </section>
+
+    <p id="status" role="status" style="margin:0;color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm)">
+      Aguardando runtime…
+    </p>
+  </main>
+
+  <div class="ds-modal-overlay" id="confirm-modal" hidden>
+    <div class="ds-modal ds-modal--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="ds-modal__header">
+        <div class="ds-modal__heading">
+          <h3 id="confirm-title" class="ds-modal__title">Confirmar ação</h3>
+        </div>
+        <button class="ds-modal__close" type="button" aria-label="Fechar modal">×</button>
+      </div>
+      <div class="ds-modal__body">
+        <p style="margin:0">Modal aberto via <code>ds-tis/modal</code>.</p>
+      </div>
+      <div class="ds-modal__footer">
+        <button type="button" class="ds-button ds-button--ghost ds-button--sm ds-modal__close">
+          <span class="ds-button__label">Cancelar</span>
+        </button>
+        <button type="button" class="ds-button ds-button--brand ds-button--sm" id="confirm-ok">
+          <span class="ds-button__label">Confirmar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
