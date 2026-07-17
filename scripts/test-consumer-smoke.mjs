@@ -13,18 +13,31 @@ import fs from 'node:fs';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import AxeBuilder from '@axe-core/playwright';
+
+import { RUNTIME_BY_SLUG } from './lib/component-catalog.mjs';
+import { createEvidenceRecorder, writeEvidenceReport } from './lib/readiness-evidence.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
+const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
+const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
+const exercisedRuntimeSlugs = ['modal', 'combobox'];
 let checks = 0;
 
-function ok(condition, message) {
+function ok(condition, message, evidenceItems = []) {
   checks += 1;
-  if (!condition) errors.push(message);
+  if (!condition) {
+    errors.push(message);
+    return;
+  }
+  const items = Array.isArray(evidenceItems) ? evidenceItems : [evidenceItems];
+  for (const item of items) {
+    if (item) evidenceRecorder.pass(item.slug, item.capability, item.caseId);
+  }
 }
 
 function run(label, command, args, options = {}) {
@@ -123,42 +136,43 @@ try {
   if (errors.length) throw new Error('install failed');
 
   const installedCss = path.join(consumerDir, 'node_modules', 'ds-tis', 'css', 'design-system.css');
-  const installedModal = path.join(consumerDir, 'node_modules', 'ds-tis', 'js', 'modal.js');
   ok(fs.existsSync(installedCss), 'consumer must receive ds-tis/css/design-system.css');
-  ok(fs.existsSync(installedModal), 'consumer must receive ds-tis/js/modal.js');
+  for (const [, runtime] of runtimeEntries) {
+    const slug = runtime.module.replace('ds-tis/', '');
+    const installedRuntime = path.join(consumerDir, 'node_modules', 'ds-tis', 'js', `${slug}.js`);
+    ok(fs.existsSync(installedRuntime), `consumer must receive ${runtime.module}`);
+  }
 
   // 3. Resolução Node dos exports públicos (como bundler/Node resolveria)
-  const nodeImports = await Promise.all([
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/accordion.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/combobox.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/modal.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/menu.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/tabs.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/tooltip.js')).href),
-    import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/theme/index.js')).href),
-  ]);
-  ok(typeof nodeImports[0].initAccordions === 'function', 'packaged accordion exports initAccordions');
-  ok(typeof nodeImports[0].destroyAccordions === 'function', 'packaged accordion exports destroyAccordions');
-  ok(typeof nodeImports[1].initComboboxes === 'function', 'packaged combobox exports initComboboxes');
-  ok(typeof nodeImports[1].destroyComboboxes === 'function', 'packaged combobox exports destroyComboboxes');
-  ok(typeof nodeImports[2].initModals === 'function', 'packaged modal exports initModals');
-  ok(typeof nodeImports[2].destroyModals === 'function', 'packaged modal exports destroyModals');
-  ok(typeof nodeImports[3].initActionMenus === 'function', 'packaged menu exports initActionMenus');
-  ok(typeof nodeImports[3].destroyActionMenus === 'function', 'packaged menu exports destroyActionMenus');
-  ok(typeof nodeImports[4].initTabs === 'function', 'packaged tabs exports initTabs');
-  ok(typeof nodeImports[4].destroyTabs === 'function', 'packaged tabs exports destroyTabs');
-  ok(typeof nodeImports[5].initTooltips === 'function', 'packaged tooltip exports initTooltips');
-  ok(typeof nodeImports[5].destroyTooltips === 'function', 'packaged tooltip exports destroyTooltips');
-  ok(typeof nodeImports[6].applyTheme === 'function', 'packaged theme exports applyTheme');
-
-  // Também valida o package export map via Node a partir do consumidor
+  const publicContracts = [
+    ...runtimeEntries.map(([slug, runtime]) => ({ slug, module: runtime.module, exports: runtime.exports })),
+    { slug: 'theme', module: 'ds-tis/theme', exports: ['applyTheme', 'toCssSnippet', 'generateBrandScale'] },
+  ];
+  const probeSource = `
+    const contracts = ${JSON.stringify(publicContracts)};
+    for (const contract of contracts) {
+      const publicModule = await import(contract.module);
+      for (const exportName of contract.exports) {
+        if (typeof publicModule[exportName] !== 'function') {
+          console.error(contract.module + ' missing ' + exportName);
+          process.exit(2);
+        }
+      }
+    }
+  `;
   const exportProbe = run(
-    'node resolve ds-tis/modal',
+    'node resolve canonical ds-tis runtime exports',
     'node',
-    ['--input-type=module', '-e', "import('ds-tis/modal').then((m) => { if (typeof m.initModals !== 'function') process.exit(2); })"],
+    ['--input-type=module', '-e', probeSource],
     { cwd: consumerDir },
   );
-  ok(exportProbe.status === 0, 'Node must resolve bare import ds-tis/modal from the consumer');
+  ok(exportProbe.status === 0, 'Node must resolve every canonical bare runtime import from the consumer');
+  if (exportProbe.status === 0) {
+    for (const [slug] of runtimeEntries) {
+      evidenceRecorder.pass(slug, 'package-export', 'bare-import');
+      evidenceRecorder.pass(slug, 'package-export', 'declared-exports');
+    }
+  }
 
   // 4. Browser: CSS + interação
   const port = await freePort();
@@ -172,6 +186,18 @@ try {
   browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await context.newPage();
+  const browserErrors = [];
+  let captureBrowserErrors = true;
+  page.on('pageerror', (error) => {
+    if (captureBrowserErrors) browserErrors.push(`pageerror: ${error.message}`);
+  });
+  page.on('console', (message) => {
+    if (captureBrowserErrors && message.type() === 'error') {
+      const location = message.location();
+      const source = location.url ? ` (${location.url})` : '';
+      browserErrors.push(`console.error: ${message.text()}${source}`);
+    }
+  });
   await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'networkidle' });
 
   await page.waitForFunction(() => document.documentElement.dataset.smokeReady === 'true', null, {
@@ -204,6 +230,11 @@ try {
   await page.keyboard.press('Escape');
   const modalClosed = await page.locator('#confirm-modal').evaluate((el) => el.hidden);
   ok(modalClosed, 'initModals must close modal on Escape');
+  ok(
+    modalVisible && modalClosed,
+    'packed Modal must complete an installed open/close interaction',
+    { slug: 'modal', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
 
   // Combobox open + select
   await page.locator('#country').click();
@@ -212,6 +243,26 @@ try {
   await page.locator('#country-list .ds-combobox__option', { hasText: 'Brazil' }).click();
   const countryValue = await page.locator('#country').inputValue();
   ok(countryValue === 'Brazil', `combobox selection must update input (got "${countryValue}")`);
+  ok(
+    listOpen && countryValue === 'Brazil',
+    'packed Combobox must complete an installed selection interaction',
+    { slug: 'combobox', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
+  // Exceções assíncronas e console.error invalidam o consumidor. A coleta
+  // termina antes do axe: a instrumentação do axe reinsere @imports no
+  // documento e o Chromium pode reportar 404s artificiais relativos à raiz.
+  await page.waitForTimeout(50);
+  ok(
+    browserErrors.length === 0,
+    `consumer emitted browser error(s):\n${browserErrors.map((error) => `  - ${error}`).join('\n')}`,
+    exercisedRuntimeSlugs.map((slug) => ({
+      slug,
+      capability: 'browser-errors',
+      caseId: 'no-page-or-console-errors',
+    })),
+  );
+  captureBrowserErrors = false;
 
   // Axe no consumidor
   const axe = await new AxeBuilder({ page })
@@ -223,6 +274,10 @@ try {
     `axe found ${blocking.length} critical/serious violation(s):\n${blocking
       .map((v) => `  - ${v.id}: ${v.help}`)
       .join('\n')}`,
+    [
+      { slug: 'modal', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'combobox', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+    ],
   );
 
   console.log(`Checks: ${checks}`);
@@ -237,6 +292,8 @@ try {
   }
   fs.rmSync(tmpRoot, { recursive: true, force: true });
 }
+
+writeEvidenceReport(evidenceRecorder, { passed: errors.length === 0 });
 
 if (errors.length === 0) {
   console.log(`✅ PASS — consumer smoke with packed ds-tis@${pkg.version}`);

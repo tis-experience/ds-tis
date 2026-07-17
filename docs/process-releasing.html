@@ -72,7 +72,7 @@
 <h2>Antes de começar</h2>
 <ul>
 <li><input disabled="" type="checkbox" aria-hidden="true"> Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.</li>
-<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code> e <code>npm run verify:tokens</code> rodam sem erro.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code> e <code>npm run test:app-ready</code> rodam sem erro.</li>
 <li><input disabled="" type="checkbox" aria-hidden="true"> <code>CHANGELOG.md</code> tem entradas em <code>[Não publicado]</code> cobrindo tudo que mudou desde a última versão.</li>
 </ul>
 <h2>Passo a passo</h2>
@@ -93,20 +93,24 @@
 git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
 </code></pre>
 </li>
-<li><p><strong>Tag</strong>:</p>
-<pre tabindex="0"><code class="language-bash">git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;
+<li><p><strong>Push do commit de release</strong>:</p>
+<pre tabindex="0"><code class="language-bash">git push origin main
 </code></pre>
 </li>
-<li><p><strong>Push</strong>:</p>
-<pre tabindex="0"><code class="language-bash">git push origin main
+<li><p><strong>Aguardar o CI da <code>main</code></strong>. Só criar a tag quando os workflows de teste e
+deploy do commit de release estiverem verdes. Se falhar, corrigir em novo
+commit, fazer novo push e repetir este gate.</p>
+</li>
+<li><p><strong>Criar e enviar a tag</strong> no commit já validado:</p>
+<pre tabindex="0"><code class="language-bash">git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;
 git push origin v1.0.0-beta.N
 </code></pre>
 </li>
-<li><p><strong>CI faz o resto</strong>:</p>
+<li><p><strong>CI valida e publica o site</strong>:</p>
 <ul>
 <li><code>.github/workflows/deploy.yml</code> roda <code>npm run build:all</code>.</li>
-<li>Regenera <code>css/tokens/generated/*.css</code>, <code>docs/adr-index.md</code>, <code>docs/token-schema.md</code>, <code>docs/component-inventory.md</code>, <code>docs/changelog.html</code>, APIs JSON, <code>llms.txt</code>.</li>
-<li>Auto-commita os derivados com <code>[skip ci]</code>.</li>
+<li>Valida que o CSS gerado commitado bate com <code>build:tokens</code>; o workflow é read-only e não corrige nem auto-commita arquivos.</li>
+<li>Todos os derivados de <code>css/tokens/generated/</code> e <code>docs/</code> devem ser regenerados, revisados e incluídos no commit de release antes da tag.</li>
 <li>Publica o site estático no ambiente definido pelo projeto.</li>
 </ul>
 </li>
@@ -120,8 +124,10 @@ git push origin v1.0.0-beta.N
 </ol>
 <h2>Se algo der errado</h2>
 <ul>
-<li><strong>CI falhar no build</strong>: conferir logs no GitHub Actions. Se for falha de token ou referência quebrada, corrigir na branch, novo commit, novo push — sem precisar mexer na tag.</li>
-<li><strong>Precisar desfazer</strong>: tags só removem com <code>git push origin :refs/tags/vx.y.z</code>. Desfazer release é operação delicada; prefira publicar um <code>x.y.z+1</code> com correção.</li>
+<li><strong>CI falhar antes da tag</strong>: conferir logs no GitHub Actions, corrigir na branch,
+criar novo commit e novo push. Não criar a tag enquanto o commit não estiver verde.</li>
+<li><strong>Falha descoberta depois da tag</strong>: não mover a tag silenciosamente. Desfazer
+release é operação delicada; preferir a próxima <code>1.0.0-beta.N</code> com a correção.</li>
 </ul>
 <h2>Publicação no npm</h2>
 <p>Ainda não fazemos. Consumidores instalam via GitHub (<code>npm install github:tis-experience/ds-tis</code>) — documentado no README e em <code>docs/agent-consumer-usage.md</code>. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver <a href="./backlog.md">backlog</a>.</p>

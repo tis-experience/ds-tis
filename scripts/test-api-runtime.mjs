@@ -7,6 +7,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { RUNTIME_BY_SLUG } from './lib/component-catalog.mjs';
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
 
@@ -20,10 +22,13 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'))
 const api = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs', 'api', 'components.json'), 'utf8'));
 
 expect(Array.isArray(api.runtimeModules), 'components.json must expose runtimeModules.');
-expect(api.runtimeModules.length === 6, 'runtimeModules must list accordion, combobox, modal, menu, tabs and tooltip.');
+expect(
+  api.runtimeModules.length === Object.keys(RUNTIME_BY_SLUG).length,
+  'runtimeModules must contain every runtime from the canonical catalog.',
+);
 
 const bySlug = new Map(api.components.map((c) => [c.slug, c]));
-const runtimeSlugs = ['accordion', 'combobox', 'modal', 'menu', 'tabs', 'tooltip'];
+const runtimeSlugs = Object.keys(RUNTIME_BY_SLUG);
 
 for (const slug of runtimeSlugs) {
   expect(bySlug.get(slug)?.runtime?.level === 'required', `${slug} runtime.level must be required.`);
@@ -43,6 +48,11 @@ for (const mod of api.runtimeModules) {
   expect(mod.exports.includes(mod.destroy), `${mod.module} exports must include ${mod.destroy}.`);
   expect(Array.isArray(mod.events) && mod.events.length > 0, `${mod.module} must declare public events.`);
 }
+
+expect(
+  JSON.stringify(api.runtimeModules) === JSON.stringify(Object.values(RUNTIME_BY_SLUG)),
+  'runtimeModules must preserve the canonical runtime contract without a parallel list.',
+);
 
 if (errors.length === 0) {
   console.log('✅ PASS — API runtime contract is aligned');

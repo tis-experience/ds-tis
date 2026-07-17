@@ -129,10 +129,15 @@ for (const file of pages) {
       const buf = await page.screenshot({ fullPage: true });
       writeFileSync(actualPath, buf);
 
-      if (updateBaseline || !existsSync(baselinePath)) {
+      if (updateBaseline) {
         writeFileSync(baselinePath, buf);
-        console.log(updateBaseline ? '🔄 baseline atualizado' : '✨ baseline criado');
+        console.log('🔄 baseline atualizado');
         results.baseline++;
+        continue;
+      }
+      if (!existsSync(baselinePath)) {
+        console.log('❌ FAIL — baseline ausente (use --update para criar)');
+        results.fail++;
         continue;
       }
 
@@ -182,9 +187,6 @@ if (results.fail > 0) {
 } else if (results.errored.length > 0) {
   console.error(`\n⚠️ ${results.errored.length} erro(s) durante captura — investigar`);
   process.exit(2);
-} else if (results.baseline > 0 && !updateBaseline) {
-  console.log(`\n✨ ${results.baseline} baseline(s) criado(s) — commit em tests/visual/baseline/`);
-  process.exit(0);
 } else {
   console.log(`\n✅ PASS — 0 regressões visuais`);
   process.exit(0);

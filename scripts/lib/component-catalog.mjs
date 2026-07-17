@@ -48,7 +48,6 @@ export const BEHAVIOR_MODELS = {
 
 /**
  * Responsabilidade publicada para um componente, considerando disponibilidade
- * real do runtime. Ownership (`ds-runtime`) não implica módulo já distribuído:
  * Ownership (`ds-runtime`) não implica módulo já distribuído.
  */
 export function responsibilityFor(component, runtime) {
@@ -87,9 +86,9 @@ export const COMPONENTS = [
     css: "accordion.css",
     html: "accordion.html",
     figmaPage: "Accordion",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, eventos ds-accordion-open/close e testes DOM. Inicialize com initAccordions após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até provar root init, late hydration, teclado/disabled completos, cleanup, tarball consumidor e axe nos estados fechado/aberto.",
   }),
   defineComponent({
     name: "Button",
@@ -129,9 +128,9 @@ export const COMPONENTS = [
     css: "combobox.css",
     html: "combobox.html",
     figmaPage: "Combobox",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, eventos e testes DOM/consumer. Inicialize com initComboboxes após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar aria-activedescendant, Escape preservando foco, root init/hydration, cleanup e axe com listbox aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Checkbox",
@@ -186,36 +185,36 @@ export const COMPONENTS = [
     slug: "modal",
     css: "modal.css",
     html: "modal.html",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, eventos ds-modal-open/close e testes DOM/consumer. Inicialize com initModals após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar inert sem atingir ancestrais do dialog, restauração do estado anterior, foco completo, root init/hydration e axe com Modal aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Tooltip",
     slug: "tooltip",
     css: "tooltip.css",
     html: "tooltip.html",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, hover/focus/Escape (WCAG 1.4.13) e eventos ds-tooltip-show/hide. Inicialize com initTooltips após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até garantir role/aria-describedby, root init/hydration, persistência hover/focus/Escape, cleanup de timers e axe com Tooltip aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Menu",
     slug: "menu",
     css: "menu.css",
     html: "menu.html",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, eventos ds-menu-open/close e testes DOM/consumer. Inicialize com initActionMenus após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até suportar/provar menuitemradio/menuitemcheckbox, aria-disabled sem ativação, root init/hydration, cleanup e axe com Menu aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Tabs",
     slug: "tabs",
     css: "tabs.css",
     html: "tabs.html",
-    readiness: "app-ready",
+    readiness: "experimental",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público com init/destroy, evento ds-tabs-change, roving tabindex e testes DOM. Inicialize com initTabs após render.",
+    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até impedir submit acidental, provar root init/late hydration, foco no tabpanel, disabled, cleanup e axe dos painéis no tarball consumidor.",
   }),
   defineComponent({
     name: "Breadcrumb",
