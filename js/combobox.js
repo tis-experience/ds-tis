@@ -1,5 +1,5 @@
 /* ============================================================
-   combobox.js — comportamento do Combobox (CSS-only no DS)
+   combobox.js — runtime público para Combobox (required)
 
    O componente em css/components/combobox.css define anatomia e
    estados visuais; este módulo implementa abertura/fechamento do
@@ -12,6 +12,10 @@
          <ul class="ds-combobox__listbox" hidden>…</ul>
        </div>
      </div>
+
+   Ciclo de vida:
+     const instances = initComboboxes(root);
+     destroyComboboxes(root); // ou instance.destroy()
    ============================================================ */
 
 const instances = new Set();
@@ -50,6 +54,12 @@ function createInstance(root, { onChange } = {}) {
   const listbox = root.querySelector('.ds-combobox__listbox');
   if (!combobox || !input || !listbox) return null;
 
+  const cleanups = [];
+  const on = (target, type, handler, options) => {
+    target.addEventListener(type, handler, options);
+    cleanups.push(() => target.removeEventListener(type, handler, options));
+  };
+
   const inst = {
     root,
     close() {
@@ -64,6 +74,12 @@ function createInstance(root, { onChange } = {}) {
       input.setAttribute('aria-expanded', 'true');
       combobox.classList.add('ds-combobox--open');
       filterOptions();
+    },
+    destroy() {
+      inst.close();
+      while (cleanups.length) cleanups.pop()();
+      delete root.dataset.dsComboboxInit;
+      instances.delete(inst);
     },
   };
 
@@ -91,22 +107,23 @@ function createInstance(root, { onChange } = {}) {
     return getOptions(listbox).filter((opt) => !opt.hidden);
   }
 
-  input.addEventListener('focus', () => inst.open());
+  on(input, 'focus', () => inst.open());
 
-  input.addEventListener('input', () => {
+  on(input, 'input', () => {
     inst.open();
     emitChange();
   });
 
-  input.addEventListener('change', () => emitChange());
+  on(input, 'change', () => emitChange());
 
-  input.addEventListener('blur', () => {
+  on(input, 'blur', () => {
     requestAnimationFrame(() => {
+      if (!instances.has(inst)) return;
       if (!root.contains(document.activeElement)) inst.close();
     });
   });
 
-  input.addEventListener('keydown', (e) => {
+  on(input, 'keydown', (e) => {
     const visible = visibleOptions();
     const activeIndex = visible.findIndex((opt) => opt.getAttribute('data-active') === 'true');
 
@@ -148,18 +165,22 @@ function createInstance(root, { onChange } = {}) {
   });
 
   for (const opt of getOptions(listbox)) {
-    opt.addEventListener('mousedown', (e) => {
+    on(opt, 'mousedown', (e) => {
       e.preventDefault();
       selectOption(opt);
     });
   }
 
-  document.addEventListener('click', (e) => {
+  on(document, 'click', (e) => {
     if (!root.contains(e.target)) inst.close();
   });
 
   syncComboboxState(root);
   return inst;
+}
+
+function isInside(root, node) {
+  return root === document || root === node || (typeof root.contains === 'function' && root.contains(node));
 }
 
 /**
@@ -193,4 +214,13 @@ export function initComboboxes(root = document, opts = {}) {
   });
 
   return created;
+}
+
+/**
+ * @param {ParentNode} [root]
+ */
+export function destroyComboboxes(root = document) {
+  for (const inst of [...instances]) {
+    if (isInside(root, inst.root)) inst.destroy();
+  }
 }

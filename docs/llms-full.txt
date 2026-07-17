@@ -258,6 +258,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init. Os três sobem para **App-ready** (ADR-020).
+- **Consumer smoke test.** `npm run test:consumer-smoke` empacota o tarball real, instala em um app temporário e valida CSS, exports Node (`ds-tis/modal`), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).
 - **ADR-020 — biblioteca consumível e readiness.** Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza `app-ready`, `composition` e `experimental`, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.
 - **Catálogo machine-readable de componentes.** `scripts/lib/component-catalog.mjs` passa a alimentar API e inventário com readiness, responsabilidade e limitações; `test-component-readiness` protege o contrato para devs e agents consumidores.
 - **Theme engine — auditoria WCAG brand (`auditBrandTheme`).** Novo módulo `js/theme/brand-contrast-audit.js` valida 6 pares por modo (fill, toned, content brand, link, focus) alinhados ao contrato semântico; integrado ao Theme Playground com banner de FAIL e bloqueio de export quando contraste falha.
@@ -274,6 +276,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Modal overlay respeita `hidden`.** `.ds-modal-overlay { display: flex }` anulava o atributo HTML `hidden` no consumidor; regra explícita `[hidden] { display: none }` restaura o fechamento. Detectado pelo smoke test de consumidor.
 - **Referências órfãs de ADR no Combobox.** Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (`ds-field` CSS-only), liberando a numeração para a decisão registrada.
 - **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
 - **Theme engine — paridade com tokens canônicos.** `semantic-mapper` passa a emitir `--ds-content-brand` e `--ds-border-brand`; testes validam vars canônicas e paridade com `tokens/semantic/*.json`.
@@ -1222,7 +1225,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
+- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -1268,16 +1271,21 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes:
+Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
 
 ```js
-import { initComboboxes } from 'ds-tis/combobox';
-import { initModals } from 'ds-tis/modal';
-import { initActionMenus } from 'ds-tis/menu';
+import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
+import { initModals, destroyModals } from 'ds-tis/modal';
+import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
 initModals();
 initActionMenus();
+
+// ao sair da view / unmount:
+destroyComboboxes();
+destroyModals();
+destroyActionMenus();
 ```
 
 Para customização de tema, use o theme engine público:
@@ -1305,6 +1313,8 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
 | `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
 | `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
+| `runtime.destroy` | Função a chamar ao desmontar (`destroyComboboxes`, `destroyModals`, `destroyActionMenus`). |
+| `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
 
@@ -1941,16 +1951,16 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -23645,15 +23655,15 @@ Um componente `ds-runtime` precisa adicionalmente:
 
 Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.
 
-### 7. Classificação inicial
+### 7. Classificação (atualizada com evidências do gate)
 
 | Readiness | Componentes |
 |---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton |
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu |
 | Composição | Pagination, Form Field |
-| Experimental | Accordion, Combobox, Modal, Tooltip, Menu, Tabs |
+| Experimental | Accordion, Tooltip, Tabs |
 
-Essa classificação é conservadora e deve mudar apenas quando as evidências do gate forem adicionadas.
+Promoção de Combobox, Modal e Menu exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo (smoke). Accordion, Tabs e Tooltip permanecem Experimentais até terem módulo público.
 
 ### 8. Sequência de implementação
 
@@ -23661,7 +23671,7 @@ Essa classificação é conservadora e deve mudar apenas quando as evidências d
 2. Fazer o guia de consumo orientar devs e agents por readiness.
 3. Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.
 4. Criar projeto consumidor de smoke test com instalação do tarball real.
-5. Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.
+5. ~~Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.~~
 6. Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.
 7. Promover componentes individualmente quando todos os gates passarem.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.

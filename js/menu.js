@@ -1,5 +1,5 @@
 /* ============================================================
-   menu.js — comportamento opt-in para Action Menu
+   menu.js — runtime público para Action Menu (required)
 
    Anatomia e estados visuais: css/components/menu.css
    Uso:
@@ -11,6 +11,10 @@
                aria-controls="menu-id">...</button>
        <div class="ds-menu ds-action-menu__content" id="menu-id" role="menu">...</div>
      </div>
+
+   Ciclo de vida:
+     const instances = initActionMenus(root);
+     destroyActionMenus(root); // ou instance.destroy()
    ============================================================ */
 
 const instances = new Set();
@@ -27,10 +31,20 @@ function focusItem(items, index) {
   item.focus();
 }
 
+function emit(root, name) {
+  root.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+}
+
 function createInstance(root) {
   const trigger = root.querySelector('.ds-action-menu__trigger');
   const menu = root.querySelector('.ds-action-menu__content[role="menu"], .ds-menu[role="menu"]');
   if (!trigger || !menu) return null;
+
+  const cleanups = [];
+  const on = (target, type, handler, options) => {
+    target.addEventListener(type, handler, options);
+    cleanups.push(() => target.removeEventListener(type, handler, options));
+  };
 
   const inst = {
     root,
@@ -41,32 +55,45 @@ function createInstance(root) {
       trigger.setAttribute('aria-expanded', 'true');
       const items = getMenuItems(menu);
       if (items.length > 0) focusItem(items, 0);
+      emit(root, 'ds-menu-open');
     },
     close() {
+      if (root.dataset.open !== 'true') return;
       delete root.dataset.open;
       trigger.setAttribute('aria-expanded', 'false');
       getMenuItems(menu).forEach((item) => item.removeAttribute('data-active'));
       trigger.focus();
+      emit(root, 'ds-menu-close');
     },
     toggle() {
       if (root.dataset.open === 'true') inst.close();
       else inst.open();
     },
+    destroy() {
+      if (root.dataset.open === 'true') {
+        delete root.dataset.open;
+        trigger.setAttribute('aria-expanded', 'false');
+        getMenuItems(menu).forEach((item) => item.removeAttribute('data-active'));
+      }
+      while (cleanups.length) cleanups.pop()();
+      delete root.dataset.dsActionMenuInit;
+      instances.delete(inst);
+    },
   };
 
-  trigger.addEventListener('click', (e) => {
+  on(trigger, 'click', (e) => {
     e.preventDefault();
     inst.toggle();
   });
 
-  trigger.addEventListener('keydown', (e) => {
+  on(trigger, 'keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       inst.open();
     }
   });
 
-  menu.addEventListener('keydown', (e) => {
+  on(menu, 'keydown', (e) => {
     const items = getMenuItems(menu);
     const activeIndex = items.findIndex((item) => item.getAttribute('data-active') === 'true');
 
@@ -111,11 +138,19 @@ function createInstance(root) {
   });
 
   for (const item of getMenuItems(menu)) {
-    item.addEventListener('click', () => inst.close());
+    on(item, 'click', () => inst.close());
   }
 
-  document.addEventListener('click', (e) => {
+  on(document, 'click', (e) => {
     if (!root.contains(e.target)) inst.close();
+  });
+
+  on(document, 'keydown', (e) => {
+    if (root.dataset.open !== 'true') return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      inst.close();
+    }
   });
 
   if (root.dataset.open !== 'true') {
@@ -123,6 +158,10 @@ function createInstance(root) {
   }
 
   return inst;
+}
+
+function isInside(root, node) {
+  return root === document || root === node || (typeof root.contains === 'function' && root.contains(node));
 }
 
 /**
@@ -142,6 +181,15 @@ export function initActionMenus(root = document) {
   });
 
   return created;
+}
+
+/**
+ * @param {ParentNode} [root]
+ */
+export function destroyActionMenus(root = document) {
+  for (const inst of [...instances]) {
+    if (isInside(root, inst.root)) inst.destroy();
+  }
 }
 
 /**

@@ -9,6 +9,8 @@ on:
       - "scripts/**"
       - "tests/visual/**"
       - "tests/consumer/**"
+      - "tests/runtime/**"
+      - "js/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -22,6 +24,8 @@ on:
       - "scripts/**"
       - "tests/visual/**"
       - "tests/consumer/**"
+      - "tests/runtime/**"
+      - "js/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -79,6 +83,9 @@ jobs:
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
+
+      - name: Runtime lifecycle (init/destroy/re-init)
+        run: npm run test:runtime-lifecycle
 
       - name: A11y (axe-core WCAG 2.2 AA contra .a11y-baseline.json)
         run: node scripts/test-a11y.mjs

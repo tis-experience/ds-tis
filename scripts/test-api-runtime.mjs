@@ -37,7 +37,10 @@ for (const mod of api.runtimeModules) {
   const exportKey = `./${mod.module.replace('ds-tis/', '')}`;
   expect(pkg.exports[exportKey], `package.json must export ${exportKey} for ${mod.module}.`);
   expect(typeof mod.init === 'string' && mod.init.length > 0, `${mod.module} must declare init function.`);
+  expect(typeof mod.destroy === 'string' && mod.destroy.length > 0, `${mod.module} must declare destroy function.`);
   expect(Array.isArray(mod.exports) && mod.exports.includes(mod.init), `${mod.module} exports must include ${mod.init}.`);
+  expect(mod.exports.includes(mod.destroy), `${mod.module} exports must include ${mod.destroy}.`);
+  expect(Array.isArray(mod.events) && mod.events.length > 0, `${mod.module} must declare public events.`);
 }
 
 if (errors.length === 0) {

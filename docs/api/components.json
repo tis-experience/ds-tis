@@ -34,7 +34,7 @@
     "ds-runtime": {
       "label": "Runtime do DS",
       "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
-      "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+      "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
     }
   },
   "runtimeModules": [
@@ -42,33 +42,50 @@
       "level": "required",
       "module": "ds-tis/combobox",
       "init": "initComboboxes",
+      "destroy": "destroyComboboxes",
       "exports": [
         "initComboboxes",
+        "destroyComboboxes",
         "syncComboboxState"
       ],
-      "notes": "Listbox, filtro, seleção e teclado exigem init após render."
+      "events": [
+        "ds-combobox-change"
+      ],
+      "notes": "Listbox, filtro, seleção e teclado exigem init após render; chame destroy ao desmontar."
     },
     {
       "level": "required",
       "module": "ds-tis/modal",
       "init": "initModals",
+      "destroy": "destroyModals",
       "exports": [
         "initModals",
+        "destroyModals",
         "openModal",
         "closeModal"
       ],
-      "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init."
+      "events": [
+        "ds-modal-open",
+        "ds-modal-close"
+      ],
+      "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init; chame destroy ao desmontar."
     },
     {
       "level": "required",
       "module": "ds-tis/menu",
       "init": "initActionMenus",
+      "destroy": "destroyActionMenus",
       "exports": [
         "initActionMenus",
+        "destroyActionMenus",
         "openActionMenu",
         "closeActionMenu"
       ],
-      "notes": "Action Menu exige init para abertura, teclado e retorno de foco."
+      "events": [
+        "ds-menu-open",
+        "ds-menu-close"
+      ],
+      "notes": "Action Menu exige init para abertura, teclado e retorno de foco; chame destroy ao desmontar."
     }
   ],
   "components": [
@@ -582,23 +599,28 @@
       "cssClass": "ds-combobox",
       "cssFile": "css/components/combobox.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "Runtime público com init/destroy, eventos e testes DOM/consumer. Inicialize com initComboboxes após render.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
-        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+        "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
       "runtime": {
         "level": "required",
         "module": "ds-tis/combobox",
         "init": "initComboboxes",
+        "destroy": "destroyComboboxes",
         "exports": [
           "initComboboxes",
+          "destroyComboboxes",
           "syncComboboxState"
         ],
-        "notes": "Listbox, filtro, seleção e teclado exigem init após render."
+        "events": [
+          "ds-combobox-change"
+        ],
+        "notes": "Listbox, filtro, seleção e teclado exigem init após render; chame destroy ao desmontar."
       },
       "tokens": [
         "ds-border-width-default",
@@ -1163,24 +1185,30 @@
       "cssClass": "ds-modal",
       "cssFile": "css/components/modal.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "Runtime público com init/destroy, eventos ds-modal-open/close e testes DOM/consumer. Inicialize com initModals após render.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
-        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+        "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
       "runtime": {
         "level": "required",
         "module": "ds-tis/modal",
         "init": "initModals",
+        "destroy": "destroyModals",
         "exports": [
           "initModals",
+          "destroyModals",
           "openModal",
           "closeModal"
         ],
-        "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init."
+        "events": [
+          "ds-modal-open",
+          "ds-modal-close"
+        ],
+        "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init; chame destroy ao desmontar."
       },
       "tokens": [
         "ds-body-font-size-2xl",
@@ -1303,24 +1331,30 @@
       "cssClass": "ds-menu",
       "cssFile": "css/components/menu.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "Runtime público com init/destroy, eventos ds-menu-open/close e testes DOM/consumer. Inicialize com initActionMenus após render.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
-        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+        "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
       "runtime": {
         "level": "required",
         "module": "ds-tis/menu",
         "init": "initActionMenus",
+        "destroy": "destroyActionMenus",
         "exports": [
           "initActionMenus",
+          "destroyActionMenus",
           "openActionMenu",
           "closeActionMenu"
         ],
-        "notes": "Action Menu exige init para abertura, teclado e retorno de foco."
+        "events": [
+          "ds-menu-open",
+          "ds-menu-close"
+        ],
+        "notes": "Action Menu exige init para abertura, teclado e retorno de foco; chame destroy ao desmontar."
       },
       "tokens": [
         "ds-action-menu-overlay-gap-default",

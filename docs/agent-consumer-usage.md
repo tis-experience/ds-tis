@@ -30,7 +30,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`);
+- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -76,16 +76,21 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes:
+Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
 
 ```js
-import { initComboboxes } from 'ds-tis/combobox';
-import { initModals } from 'ds-tis/modal';
-import { initActionMenus } from 'ds-tis/menu';
+import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
+import { initModals, destroyModals } from 'ds-tis/modal';
+import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
 
 initComboboxes();
 initModals();
 initActionMenus();
+
+// ao sair da view / unmount:
+destroyComboboxes();
+destroyModals();
+destroyActionMenus();
 ```
 
 Para customização de tema, use o theme engine público:
@@ -113,6 +118,8 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
 | `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
 | `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
+| `runtime.destroy` | Função a chamar ao desmontar (`destroyComboboxes`, `destroyModals`, `destroyActionMenus`). |
+| `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
 

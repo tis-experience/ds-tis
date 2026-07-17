@@ -74,6 +74,7 @@
 <h2>[Não publicado]</h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Ciclo de vida init/destroy nos runtimes.</strong> Combobox, Modal e Menu expõem <code>destroy*</code> + eventos públicos; teste DOM <code>test:runtime-lifecycle</code> valida init → uso → destroy → re-init. Os três sobem para <strong>App-ready</strong> (ADR-020).</li>
 <li><strong>Consumer smoke test.</strong> <code>npm run test:consumer-smoke</code> empacota o tarball real, instala em um app temporário e valida CSS, exports Node (<code>ds-tis/modal</code>), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).</li>
 <li><strong>ADR-020 — biblioteca consumível e readiness.</strong> Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza <code>app-ready</code>, <code>composition</code> e <code>experimental</code>, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.</li>
 <li><strong>Catálogo machine-readable de componentes.</strong> <code>scripts/lib/component-catalog.mjs</code> passa a alimentar API e inventário com readiness, responsabilidade e limitações; <code>test-component-readiness</code> protege o contrato para devs e agents consumidores.</li>

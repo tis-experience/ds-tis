@@ -135,8 +135,11 @@ try {
     import(pathToFileURL(path.join(consumerDir, 'node_modules/ds-tis/js/theme/index.js')).href),
   ]);
   ok(typeof nodeImports[0].initComboboxes === 'function', 'packaged combobox exports initComboboxes');
+  ok(typeof nodeImports[0].destroyComboboxes === 'function', 'packaged combobox exports destroyComboboxes');
   ok(typeof nodeImports[1].initModals === 'function', 'packaged modal exports initModals');
+  ok(typeof nodeImports[1].destroyModals === 'function', 'packaged modal exports destroyModals');
   ok(typeof nodeImports[2].initActionMenus === 'function', 'packaged menu exports initActionMenus');
+  ok(typeof nodeImports[2].destroyActionMenus === 'function', 'packaged menu exports destroyActionMenus');
   ok(typeof nodeImports[3].applyTheme === 'function', 'packaged theme exports applyTheme');
 
   // Também valida o package export map via Node a partir do consumidor
