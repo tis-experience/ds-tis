@@ -7,9 +7,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { initComboboxes } from '../js/combobox.js';
-import { initModals, openModal, closeModal } from '../js/modal.js';
-import { initActionMenus, openActionMenu, closeActionMenu } from '../js/menu.js';
+import { initComboboxes, destroyComboboxes } from '../js/combobox.js';
+import { initModals, destroyModals, openModal, closeModal } from '../js/modal.js';
+import { initActionMenus, destroyActionMenus, openActionMenu, closeActionMenu } from '../js/menu.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
@@ -22,10 +22,13 @@ function expect(condition, message) {
 console.log('\n═══ test-interactive ═══════════════════════');
 
 expect(typeof initComboboxes === 'function', 'initComboboxes must be exported.');
+expect(typeof destroyComboboxes === 'function', 'destroyComboboxes must be exported.');
 expect(typeof initModals === 'function', 'initModals must be exported.');
+expect(typeof destroyModals === 'function', 'destroyModals must be exported.');
 expect(typeof openModal === 'function', 'openModal must be exported.');
 expect(typeof closeModal === 'function', 'closeModal must be exported.');
 expect(typeof initActionMenus === 'function', 'initActionMenus must be exported.');
+expect(typeof destroyActionMenus === 'function', 'destroyActionMenus must be exported.');
 expect(typeof openActionMenu === 'function', 'openActionMenu must be exported.');
 expect(typeof closeActionMenu === 'function', 'closeActionMenu must be exported.');
 

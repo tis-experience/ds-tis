@@ -141,7 +141,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Action Menu</span><span data-lang="en">Action Menu</span></h2>
-    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Action Menu combina um Button trigger com um Menu posicionado. O módulo público <code>ds-tis/menu</code> (<code>initActionMenus</code>) é obrigatório para o contrato interativo: abertura, Escape, setas, typeahead e retorno de foco.</span><span data-lang="en">Action Menu combines a Button trigger with a positioned Menu. The public <code>ds-tis/menu</code> module (<code>initActionMenus</code>) is required for the interactive contract: open/close, Escape, arrow keys, typeahead, and focus return.</span></p>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Action Menu combina um Button trigger com um Menu posicionado. O módulo público <code>ds-tis/menu</code> (<code>initActionMenus</code> / <code>destroyActionMenus</code>) é obrigatório para o contrato interativo: abertura, Escape, setas, typeahead e retorno de foco. Eventos: <code>ds-menu-open</code>, <code>ds-menu-close</code>.</span><span data-lang="en">Action Menu combines a Button trigger with a positioned Menu. The public <code>ds-tis/menu</code> module (<code>initActionMenus</code> / <code>destroyActionMenus</code>) is required for the interactive contract: open/close, Escape, arrow keys, typeahead, and focus return. Events: <code>ds-menu-open</code>, <code>ds-menu-close</code>.</span></p>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
@@ -185,8 +185,9 @@
 &lt;/div&gt;
 
 &lt;script type="module"&gt;
-  import { initActionMenus } from 'ds-tis/menu';
+  import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
   initActionMenus();
+  // destroyActionMenus() ao desmontar a view
 &lt;/script&gt;</code></pre>
         </div>
       </div>

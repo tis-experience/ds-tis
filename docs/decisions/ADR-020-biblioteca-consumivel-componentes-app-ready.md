@@ -109,15 +109,15 @@ Um componente `ds-runtime` precisa adicionalmente:
 
 Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.
 
-### 7. Classificação inicial
+### 7. Classificação (atualizada com evidências do gate)
 
 | Readiness | Componentes |
 |---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton |
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu |
 | Composição | Pagination, Form Field |
-| Experimental | Accordion, Combobox, Modal, Tooltip, Menu, Tabs |
+| Experimental | Accordion, Tooltip, Tabs |
 
-Essa classificação é conservadora e deve mudar apenas quando as evidências do gate forem adicionadas.
+Promoção de Combobox, Modal e Menu exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo (smoke). Accordion, Tabs e Tooltip permanecem Experimentais até terem módulo público.
 
 ### 8. Sequência de implementação
 
@@ -125,7 +125,7 @@ Essa classificação é conservadora e deve mudar apenas quando as evidências d
 2. Fazer o guia de consumo orientar devs e agents por readiness.
 3. Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.
 4. Criar projeto consumidor de smoke test com instalação do tarball real.
-5. Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.
+5. ~~Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.~~
 6. Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.
 7. Promover componentes individualmente quando todos os gates passarem.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.

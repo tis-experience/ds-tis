@@ -149,7 +149,7 @@
 <li>testes DOM de teclado, foco, fechamento, limpeza e axe em projeto consumidor.</li>
 </ol>
 <p>Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.</p>
-<h3>7. Classificação inicial</h3>
+<h3>7. Classificação (atualizada com evidências do gate)</h3>
 <table>
 <thead>
 <tr>
@@ -159,7 +159,7 @@
 </thead>
 <tbody><tr>
 <td>App-ready</td>
-<td>Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton</td>
+<td>Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu</td>
 </tr>
 <tr>
 <td>Composição</td>
@@ -167,17 +167,17 @@
 </tr>
 <tr>
 <td>Experimental</td>
-<td>Accordion, Combobox, Modal, Tooltip, Menu, Tabs</td>
+<td>Accordion, Tooltip, Tabs</td>
 </tr>
 </tbody></table>
-<p>Essa classificação é conservadora e deve mudar apenas quando as evidências do gate forem adicionadas.</p>
+<p>Promoção de Combobox, Modal e Menu exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo (smoke). Accordion, Tabs e Tooltip permanecem Experimentais até terem módulo público.</p>
 <h3>8. Sequência de implementação</h3>
 <ol>
 <li>Publicar readiness e responsabilidade na API e no inventário.</li>
 <li>Fazer o guia de consumo orientar devs e agents por readiness.</li>
 <li>Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.</li>
 <li>Criar projeto consumidor de smoke test com instalação do tarball real.</li>
-<li>Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.</li>
+<li><del>Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.</del></li>
 <li>Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.</li>
 <li>Promover componentes individualmente quando todos os gates passarem.</li>
 <li>Só então decidir adaptador oficial por tecnologia com base em demanda real.</li>

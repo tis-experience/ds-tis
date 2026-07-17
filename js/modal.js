@@ -1,5 +1,5 @@
 /* ============================================================
-   modal.js — comportamento opt-in para Modal / Dialog
+   modal.js — runtime público para Modal / Dialog (required)
 
    Anatomia e estados visuais: css/components/modal.css
    Uso:
@@ -10,9 +10,14 @@
          <button class="ds-modal__close" type="button" aria-label="Close modal">...</button>
        </div>
      </div>
+
+   Ciclo de vida:
+     const instances = initModals(root);
+     destroyModals(root); // ou instance.destroy()
    ============================================================ */
 
 const instances = new Set();
+const triggerControllers = new Map();
 
 function getFocusable(container) {
   return [...container.querySelectorAll(
@@ -42,6 +47,10 @@ function trapFocus(overlay, dialog) {
   return () => overlay.removeEventListener('keydown', onKeyDown);
 }
 
+function emit(overlay, name) {
+  overlay.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+}
+
 function createInstance(overlay) {
   const dialog = overlay.querySelector('.ds-modal[role="dialog"], .ds-modal');
   if (!dialog) return null;
@@ -50,6 +59,12 @@ function createInstance(overlay) {
   let previousFocus = null;
   let releaseFocusTrap = null;
   let inertNodes = [];
+  const cleanups = [];
+
+  const on = (target, type, handler, options) => {
+    target.addEventListener(type, handler, options);
+    cleanups.push(() => target.removeEventListener(type, handler, options));
+  };
 
   const inst = {
     overlay,
@@ -67,6 +82,7 @@ function createInstance(overlay) {
       releaseFocusTrap = trapFocus(overlay, dialog);
       const focusable = getFocusable(dialog);
       (focusable[0] || dialog).focus();
+      emit(overlay, 'ds-modal-open');
     },
     close() {
       if (overlay.hidden) return;
@@ -81,14 +97,21 @@ function createInstance(overlay) {
       releaseFocusTrap = null;
       if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
       previousFocus = null;
+      emit(overlay, 'ds-modal-close');
+    },
+    destroy() {
+      inst.close();
+      while (cleanups.length) cleanups.pop()();
+      delete overlay.dataset.dsModalInit;
+      instances.delete(inst);
     },
   };
 
-  overlay.addEventListener('click', (e) => {
+  on(overlay, 'click', (e) => {
     if (e.target === overlay) inst.close();
   });
 
-  overlay.addEventListener('keydown', (e) => {
+  on(overlay, 'keydown', (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       inst.close();
@@ -96,10 +119,37 @@ function createInstance(overlay) {
   });
 
   for (const closeBtn of overlay.querySelectorAll('.ds-modal__close')) {
-    closeBtn.addEventListener('click', () => inst.close());
+    on(closeBtn, 'click', () => inst.close());
   }
 
   return inst;
+}
+
+function bindTrigger(trigger) {
+  if (triggerControllers.has(trigger)) return;
+  const controller = new AbortController();
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = trigger.getAttribute('data-ds-modal-open');
+    if (!targetId) return;
+    const overlay = document.getElementById(targetId.replace(/^#/, ''));
+    const inst = [...instances].find((item) => item.overlay === overlay);
+    inst?.open();
+  }, { signal: controller.signal });
+  trigger.dataset.dsModalTriggerInit = 'true';
+  triggerControllers.set(trigger, controller);
+}
+
+function unbindTrigger(trigger) {
+  const controller = triggerControllers.get(trigger);
+  if (!controller) return;
+  controller.abort();
+  triggerControllers.delete(trigger);
+  delete trigger.dataset.dsModalTriggerInit;
+}
+
+function isInside(root, node) {
+  return root === document || root === node || (typeof root.contains === 'function' && root.contains(node));
 }
 
 /**
@@ -118,20 +168,22 @@ export function initModals(root = document) {
     }
   });
 
-  root.querySelectorAll('[data-ds-modal-open]').forEach((trigger) => {
-    if (trigger.dataset.dsModalTriggerInit === 'true') return;
-    trigger.dataset.dsModalTriggerInit = 'true';
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = trigger.getAttribute('data-ds-modal-open');
-      if (!targetId) return;
-      const overlay = document.getElementById(targetId.replace(/^#/, ''));
-      const inst = [...instances].find((item) => item.overlay === overlay);
-      inst?.open();
-    });
-  });
+  root.querySelectorAll('[data-ds-modal-open]').forEach((trigger) => bindTrigger(trigger));
 
   return created;
+}
+
+/**
+ * Remove listeners e estado de init dentro de `root`.
+ * @param {ParentNode} [root]
+ */
+export function destroyModals(root = document) {
+  for (const inst of [...instances]) {
+    if (isInside(root, inst.overlay)) inst.destroy();
+  }
+  root.querySelectorAll('[data-ds-modal-open]').forEach((trigger) => {
+    if (isInside(root, trigger)) unbindTrigger(trigger);
+  });
 }
 
 /**
