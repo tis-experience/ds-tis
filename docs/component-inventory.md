@@ -1,38 +1,48 @@
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
 ## Status geral
 
-| Componente | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
-|------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Button | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Input Text | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Textarea | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Select | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Checkbox | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Radio | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toggle | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Badge | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Alert | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Card | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Breadcrumb | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Pagination | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Avatar | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Divider | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Form Field | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
-| Spinner | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Skeleton | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
+|------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
+| Accordion | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Combobox | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Modal | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Menu | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
+| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 
-**Legenda:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+**Legenda de artefatos:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+
+### Readiness de consumo
+
+| Nível | Significado |
+|-------|-------------|
+| 🟢 **App-ready** | API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados. |
+| 🔵 **Composição** | Padrão público e estável cuja orquestração, navegação ou estado de negócio permanece sob responsabilidade da aplicação. |
+| 🟡 **Experimental** | Contrato ainda não concluiu o gate de runtime e consumo; pode mudar e não deve sustentar fluxo crítico sem avaliação explícita. |
+
+Readiness não substitui responsabilidade. Um componente pode ser App-ready usando HTML nativo, enquanto uma Composição é pública e estável, mas mantém orquestração no app. Componentes Experimentais não devem sustentar fluxos críticos sem avaliação explícita.
 
 **Nota sobre binding:**
 - Button: tokens Component para background, content, border, height, padding, radius, gap, focus ring e ícones
@@ -74,10 +84,12 @@
 | ADR-017 | — Componentes CSS-only (sem equivalência no Figma) | Aceito |
 | ADR-018 | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito |
 | ADR-019 | — Reintrodução de Component tokens como contrato anatômico | Aceita |
+| ADR-020 | Biblioteca consumível e contrato de readiness dos componentes | Aceita |
 
 ## Próximos milestones
 
-1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
-2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Table, Toast, Popover
-4. **Storybook** — opcional, não bloqueante para o beta atual
+1. **Fechar runtimes experimentais** — Accordion, Combobox, Modal, Tooltip, Menu e Tabs só sobem para App-ready após runtime público e teste em consumidor
+2. **Teste de projeto consumidor** — validar instalação, imports, teclado e axe fora do site de docs
+3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
+4. **Componentes pendentes** — Table, Toast, Popover
+5. **Storybook** — opcional, depois do contrato app-ready

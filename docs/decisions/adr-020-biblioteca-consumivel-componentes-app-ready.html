@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-020 — Biblioteca consumível e contrato de readiness dos componentes — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
+    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-020 — Biblioteca consumível e contrato de readiness dos componentes</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-07-16</p>
+  </div>
+
+  <div class="ds-md-generated-banner">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceita</li>
+<li><strong>Data:</strong> 2026-07-16</li>
+<li><strong>Relaciona:</strong> ADR-002, ADR-004, ADR-017, ADR-019</li>
+</ul>
+<h2>Contexto</h2>
+<p>O DS TIS consolidou Figma, tokens DTCG, CSS, documentação e 23 componentes. O pacote público já entrega CSS, theme engine, templates e módulos JavaScript para Combobox, Modal e Action Menu.</p>
+<p>Esse conjunto ainda não responde de forma objetiva à pergunta mais importante para um consumidor: &quot;posso usar este componente em um fluxo real sem completar partes não declaradas por conta própria?&quot;.</p>
+<p>O inventário anterior media existência de CSS, Figma, bindings, stories e docs. Essas evidências são necessárias para manter o design system, mas não representam prontidão de consumo. Accordion, Tabs e Tooltip, por exemplo, têm superfície visual documentada, porém não entregam no pacote o comportamento acessível descrito. Combobox, Modal e Menu possuem runtime público, mas ainda precisam de ciclo de vida e teste em um projeto consumidor antes de serem promovidos como completos.</p>
+<p>Essa ambiguidade afeta dois públicos:</p>
+<ul>
+<li>desenvolvedores podem interpretar &quot;componente documentado&quot; como &quot;componente pronto para aplicação&quot;;</li>
+<li>agents IA podem combinar classes, markup e comportamento de fontes diferentes e inventar uma API que o pacote não mantém.</li>
+</ul>
+<p>Antes de criar adaptadores React, Flutter, shadcn, MUI ou outros, o núcleo stack-agnóstico precisa ser um produto consumível, verificável e honesto sobre seus limites.</p>
+<h2>Decisão</h2>
+<h3>1. Consumo do núcleo precede adaptadores por tecnologia</h3>
+<p>A prioridade arquitetural passa a ser:</p>
+<pre tabindex="0"><code class="language-txt">núcleo consumível -&gt; componentes app-ready -&gt; adaptadores por demanda comprovada
+</code></pre>
+<p>Tokens multi-plataforma e wrappers de framework continuam possíveis conforme ADR-002, mas não são prioridade enquanto o pacote base não tiver um caminho de consumo completo e testado.</p>
+<h3>2. Readiness é contrato público</h3>
+<p>Todo componente do catálogo recebe exatamente um nível:</p>
+<h4>App-ready</h4>
+<p>API pública recomendada para aplicações. Anatomia, estados e responsabilidade de comportamento estão documentados. O componente usa semântica HTML nativa ou já concluiu o gate completo de runtime.</p>
+<h4>Composição</h4>
+<p>Padrão público e estável em que o DS entrega estrutura, visual e orientação de acessibilidade, enquanto a aplicação mantém orquestração, navegação, dados ou estado de negócio.</p>
+<p>Composição não significa incompleto. Significa que a fronteira de responsabilidade é intencional e documentada.</p>
+<h4>Experimental</h4>
+<p>Contrato que ainda não concluiu o gate de runtime e consumo. Pode mudar e não deve sustentar fluxo crítico sem avaliação explícita do produto consumidor.</p>
+<p>Readiness não substitui status de Figma, CSS, bindings ou docs. Esses eixos continuam existindo no inventário.</p>
+<h3>3. Responsabilidade de comportamento é explícita</h3>
+<p>Cada componente declara um modelo de comportamento:</p>
+<ul>
+<li><code>native</code>: o browser fornece a interação primária; o DS mantém anatomia, estados e orientação semântica;</li>
+<li><code>presentation</code>: não existe runtime reutilizável; o DS mantém visual e semântica aplicável;</li>
+<li><code>consumer</code>: a aplicação mantém a orquestração entre elementos;</li>
+<li><code>ds-runtime</code>: o DS mantém comportamento reutilizável de interação e acessibilidade em módulo público.</li>
+</ul>
+<p>A regra operacional é:</p>
+<blockquote>
+<p>O DS mantém comportamento reutilizável e independente de negócio. A aplicação mantém dados, navegação, permissões e regras de produto.</p>
+</blockquote>
+<p>Exemplos:</p>
+<ul>
+<li>Modal: o DS deve manter abertura, focus trap, Escape, inert e retorno de foco; a aplicação decide o que salvar ou excluir.</li>
+<li>Combobox: o DS deve manter listbox, teclado e seleção; a aplicação fornece opções, busca remota e regra de validação.</li>
+<li>Input: o DS mantém anatomia e estados de erro; a aplicação mantém valor e validação.</li>
+<li>Pagination: o DS mantém itens e estado visual; a aplicação mantém URL, carregamento e página atual.</li>
+</ul>
+<h3>4. Runtime necessário não é opcional</h3>
+<p>Quando a acessibilidade e a interação declaradas dependem de um módulo do DS, <code>runtime.level</code> deve ser <code>required</code>.</p>
+<p><code>optional</code> fica reservado para enhancement que não seja necessário para cumprir o contrato acessível. CSS isolado que apenas desenha um Modal ou Menu não é implementação funcional desses componentes.</p>
+<h3>5. Catálogo canônico e saída machine-readable</h3>
+<p>O catálogo interno compartilhado entre geradores é a única lista mantida manualmente para:</p>
+<ul>
+<li>identidade e arquivos do componente;</li>
+<li>readiness;</li>
+<li>modelo de responsabilidade;</li>
+<li>notas de limitação;</li>
+<li>runtime público.</li>
+</ul>
+<p><code>docs/api/components.json</code> e <code>docs/component-inventory.md</code> são derivados desse catálogo. Agents e ferramentas devem consultar os campos <code>readiness</code>, <code>readinessNotes</code>, <code>responsibility</code> e <code>runtime</code>, sem inferir prontidão pela existência de CSS ou página de docs.</p>
+<h3>6. Gate para promoção a App-ready</h3>
+<p>Um componente com HTML nativo ou apenas apresentação precisa:</p>
+<ol>
+<li>anatomia e variantes públicas documentadas;</li>
+<li>estados visuais e light/dark verificados;</li>
+<li>semântica, teclado nativo, focus e ARIA aplicável validados;</li>
+<li>contrato de import, empacotamento e uso público protegidos por testes;</li>
+<li>contrato protegido por testes e CHANGELOG.</li>
+</ol>
+<p>Um componente <code>ds-runtime</code> precisa adicionalmente:</p>
+<ol>
+<li>módulo público exportado pelo pacote;</li>
+<li>API de inicialização e destruição segura;</li>
+<li>suporte previsível a renderização dinâmica, mount/unmount e hydration;</li>
+<li>eventos públicos documentados;</li>
+<li>testes DOM de teclado, foco, fechamento, limpeza e axe em projeto consumidor.</li>
+</ol>
+<p>Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.</p>
+<h3>7. Classificação inicial</h3>
+<table>
+<thead>
+<tr>
+<th>Readiness</th>
+<th>Componentes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>App-ready</td>
+<td>Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton</td>
+</tr>
+<tr>
+<td>Composição</td>
+<td>Pagination, Form Field</td>
+</tr>
+<tr>
+<td>Experimental</td>
+<td>Accordion, Combobox, Modal, Tooltip, Menu, Tabs</td>
+</tr>
+</tbody></table>
+<p>Essa classificação é conservadora e deve mudar apenas quando as evidências do gate forem adicionadas.</p>
+<h3>8. Sequência de implementação</h3>
+<ol>
+<li>Publicar readiness e responsabilidade na API e no inventário.</li>
+<li>Fazer o guia de consumo orientar devs e agents por readiness.</li>
+<li>Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.</li>
+<li>Criar projeto consumidor de smoke test com instalação do tarball real.</li>
+<li>Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.</li>
+<li>Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.</li>
+<li>Promover componentes individualmente quando todos os gates passarem.</li>
+<li>Só então decidir adaptador oficial por tecnologia com base em demanda real.</li>
+</ol>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li>Desenvolvedores sabem o que o pacote mantém e o que pertence à aplicação.</li>
+<li>Agents IA recebem limites machine-readable e deixam de inferir completude pela aparência das docs.</li>
+<li>Componentes incompletos ficam visíveis sem desvalorizar composições intencionais.</li>
+<li>Integrações futuras partem de um contrato estável, reduzindo drift entre tecnologias.</li>
+<li>O roadmap passa a promover componentes por evidência, não por contagem de artefatos.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li>Alguns componentes existentes passam a aparecer como Experimentais apesar de terem Figma, CSS e documentação.</li>
+<li>A promoção exige novos testes de consumidor e trabalho de ciclo de vida em runtimes.</li>
+<li>O catálogo adiciona metadados que precisam acompanhar mudanças na API pública.</li>
+<li>A estratégia adia adaptadores React, Flutter e ecossistemas similares.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>Considerar todo componente com CSS e docs como pronto</h3>
+<p>Descartada. Essa classificação não captura comportamento, teclado, focus management, lifecycle nem consumo real do pacote.</p>
+<h3>Publicar React + Radix primeiro</h3>
+<p>Descartada como prioridade. Radix pode acelerar comportamento React no futuro, mas criaria uma segunda superfície antes de o contrato stack-agnóstico estar completo.</p>
+<h3>Usar shadcn ou MUI como implementação canônica</h3>
+<p>Descartada. Ambos introduzem APIs, anatomias e ciclos de atualização próprios. Podem receber integrações futuras, mas não resolvem a prontidão do núcleo atual.</p>
+<h3>Manter readiness apenas em documentação textual</h3>
+<p>Descartada. Devs e agents precisam do mesmo contrato; a classificação deve ser derivada de uma fonte compartilhada e exposta em JSON.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-002 — Stack agnóstica: HTML + CSS + vanilla JS como base.</li>
+<li>ADR-004 — WCAG 2.2 AA como padrão de acessibilidade.</li>
+<li>ADR-017 — Componentes CSS-only.</li>
+<li>ADR-019 — Component tokens como contrato anatômico.</li>
+<li>WAI-ARIA Authoring Practices Guide — padrões de Accordion, Combobox, Dialog, Menu, Tabs e Tooltip.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

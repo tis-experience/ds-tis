@@ -90,12 +90,45 @@
 <li><code>README.md</code> para instalação e imports principais;</li>
 <li><code>docs/llms.txt</code> para o índice leve consumível por LLMs;</li>
 <li><code>docs/llms-full.txt</code> para contexto textual completo;</li>
-<li><code>docs/api/components.json</code> para componentes, variantes, tokens consumidos e metadados de runtime JS (<code>runtime.level</code>, <code>runtime.module</code>, <code>runtime.init</code>);</li>
+<li><code>docs/api/components.json</code> para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (<code>runtime.level</code>, <code>runtime.module</code>, <code>runtime.init</code>);</li>
 <li><code>docs/api/tokens.json</code> para camadas Foundation, Semantic e Component;</li>
 <li>páginas HTML dos componentes em <code>docs/&lt;component&gt;.html</code>;</li>
 <li>templates em <code>docs/templates/</code> e exports <code>ds-tis/templates/*</code>, quando o fluxo se aproxima de um padrão já publicado.</li>
 </ul>
 <p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
+<p>Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
+<code>https://tis-experience.github.io/ds-tis/docs/api/components.json</code>. Não assuma
+que <code>node_modules/ds-tis/docs/api/</code> existe.</p>
+<h2>Readiness e responsabilidade</h2>
+<p>Antes de escolher um componente, leia <code>readiness</code> e <code>responsibility</code> em <code>docs/api/components.json</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Readiness</th>
+<th>Uso esperado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>app-ready</code></td>
+<td>Recomendado para aplicações dentro da API pública documentada.</td>
+</tr>
+<tr>
+<td><code>composition</code></td>
+<td>Público e estável, mas a aplicação mantém orquestração, navegação ou estado entre as partes.</td>
+</tr>
+<tr>
+<td><code>experimental</code></td>
+<td>Não usar em fluxo crítico sem aceitar explicitamente a limitação em <code>readinessNotes</code>.</td>
+</tr>
+</tbody></table>
+<p><code>responsibility.model</code> informa quem mantém o comportamento:</p>
+<ul>
+<li><code>native</code>: use o elemento HTML adequado; o app controla dados e eventos de negócio;</li>
+<li><code>presentation</code>: não há runtime de componente; o app fornece conteúdo e contexto;</li>
+<li><code>consumer</code>: o DS entrega a composição visual, mas o app mantém a orquestração;</li>
+<li><code>ds-runtime</code>: o DS mantém a interação reutilizável; inicialize o módulo indicado em <code>runtime</code>.</li>
+</ul>
+<p>Não promova localmente um componente Experimental a App-ready. Se o projeto completar um gap com código próprio, declare que ele é uma adaptação local e registre a demanda no DS.</p>
 <h2>Imports oficiais</h2>
 <p>Instale o pacote no projeto consumidor via GitHub (ainda <strong>não</strong> há publish no npm registry):</p>
 <pre tabindex="0"><code class="language-bash">npm install github:tis-experience/ds-tis
@@ -135,11 +168,11 @@ initActionMenus();
 </tr>
 <tr>
 <td><code>runtime.level: &quot;required&quot;</code></td>
-<td>Comportamento essencial depende de init (ex.: Combobox).</td>
+<td>O contrato interativo e acessível depende de init (Combobox, Modal e Action Menu).</td>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;optional&quot;</code></td>
-<td>Anatomia funciona só com CSS; init habilita teclado, focus trap ou overlay (ex.: Modal, Action Menu).</td>
+<td>Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível.</td>
 </tr>
 <tr>
 <td><code>runtime.module</code></td>
@@ -153,7 +186,7 @@ initActionMenus();
 <p>O array <code>runtimeModules</code> no topo de <code>components.json</code> lista todos os módulos publicados. Não importe JS de componentes com <code>runtime: null</code>.</p>
 <h2>Regras de implementação</h2>
 <ol>
-<li>Escolha componentes existentes antes de criar markup ad hoc. Consulte <code>docs/api/components.json</code> e a navegação de componentes.</li>
+<li>Escolha componentes existentes antes de criar markup ad hoc. Consulte <code>readiness</code>, <code>responsibility</code> e <code>runtime</code> em <code>docs/api/components.json</code>.</li>
 <li>Use a anatomia pública do componente conforme documentada. Não use classes internas isoladas como se fossem componentes autônomos.</li>
 <li>Formulários devem compor <code>ds-field</code> com o controle real: <code>ds-input</code>, <code>ds-select</code>, <code>ds-textarea</code>, <code>ds-combobox</code>, <code>ds-checkbox</code>, <code>ds-radio</code> ou <code>ds-toggle</code>. Para Input, o campo nativo continua dentro da anatomia pública com <code>ds-input__field</code>.</li>
 <li>Não hardcode <code>#hex</code>, <code>rgb()</code>, <code>px</code> ou <code>rem</code> quando existir token, classe, variante ou utilitário público do DS para o mesmo papel.</li>
@@ -168,7 +201,7 @@ initActionMenus();
 <ol>
 <li>Leia o pedido, identifique a stack e encontre o entrypoint global onde <code>ds-tis/css</code> deve ser importado.</li>
 <li>Faça inventário das partes da tela: navegação, formulário, feedback, cards, overlays, listas, loading, empty states e ações.</li>
-<li>Mapeie cada parte para componentes DS existentes. Só use markup local quando o DS não tiver componente adequado.</li>
+<li>Mapeie cada parte para componentes DS existentes e confira readiness. Só use markup local quando o DS não tiver componente adequado.</li>
 <li>Consulte a página HTML do componente e <code>docs/api/components.json</code> antes de escrever a anatomia.</li>
 <li>Implemente com classes públicas do DS, sem copiar classes internas fora do contexto do componente.</li>
 <li>Inicialize módulos JS quando <code>components.json</code> indicar <code>runtime</code> — <code>required</code> sempre; <code>optional</code> quando a tela precisar de teclado, overlay ou focus management completo.</li>
@@ -200,7 +233,7 @@ Fontes obrigatorias:
 - README.md
 - docs/llms.txt
 - docs/llms-full.txt
-- docs/api/components.json
+- docs/api/components.json (readiness, responsibility e runtime)
 - docs/api/tokens.json
 - docs/&lt;component&gt;.html dos componentes usados
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
@@ -209,6 +242,7 @@ Regras:
 - Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
 - Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
+- Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
 - Use anatomia publica dos componentes; nao use classes internas isoladas.
@@ -235,6 +269,7 @@ Bloqueado antes de:
 <p>Antes de concluir, o agent deve reportar:</p>
 <ul>
 <li>componentes DS usados e componentes descartados;</li>
+<li>readiness e responsabilidade dos componentes usados;</li>
 <li>imports adicionados: <code>ds-tis/css</code>, módulos JS com <code>runtime</code> em <code>components.json</code>, <code>ds-tis/theme</code> e/ou <code>ds-tis/templates/*</code>;</li>
 <li>classes públicas principais usadas, como <code>ds-field</code>, <code>ds-input</code> e <code>ds-input__field</code>;</li>
 <li>tokens CSS relevantes quando houver customização via <code>var(--ds-...)</code>;</li>

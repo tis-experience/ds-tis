@@ -36,7 +36,7 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Quando precisar de comportamento opt-in:
+Componentes interativos mantêm CSS puro para a anatomia visual. Para Combobox, Modal e Action Menu o runtime público é **obrigatório** quando usados interativamente (`runtime.level: "required"` em `docs/api/components.json`):
 
 ```js
 import { initComboboxes } from 'ds-tis/combobox';
@@ -68,6 +68,12 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 ## Documentação completa
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.
+
+Antes de usar um componente em fluxo crítico, consulte seu `readiness` na
+[API pública de componentes](https://tis-experience.github.io/ds-tis/docs/api/components.json)
+ou no inventário: `app-ready` é recomendado para aplicações, `composition`
+mantém orquestração no app e `experimental` ainda possui gaps declarados em
+`readinessNotes`.
 
 Links rápidos:
 

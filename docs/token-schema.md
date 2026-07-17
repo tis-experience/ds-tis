@@ -1,6 +1,6 @@
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-16. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
@@ -133,3 +133,4 @@ Arquivos canônicos em `tokens/component/`:
 - **ADR-017** — — Componentes CSS-only (sem equivalência no Figma) (Aceito)
 - **ADR-018** — — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` (Aceito)
 - **ADR-019** — — Reintrodução de Component tokens como contrato anatômico (Aceita)
+- **ADR-020** — Biblioteca consumível e contrato de readiness dos componentes (Aceita)

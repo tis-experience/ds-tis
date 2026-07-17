@@ -14,6 +14,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { marked } from 'marked';
+import {
+  BEHAVIOR_MODELS,
+  COMPONENTS,
+  READINESS_LEVELS,
+} from './lib/component-catalog.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -191,41 +196,20 @@ console.log(`✅ token-schema.md (Foundation: ${foundationTotal}, Semantic: ${se
 
 // ─── component-inventory.md ───────────────────────────────────────────────────
 
-// `cssOnly: true` → componente é wrapper de markup HTML que não tem (e não
-// precisa ter) equivalente Figma porque os componentes Figma equivalentes já
-// carregam Label/Required/Helper/Error inline em cada variant. Ver ADR-017.
-const knownComponents = [
-  { name: 'Accordion',  css: 'accordion'  },
-  { name: 'Button',      css: 'button'     },
-  { name: 'Input Text',  css: 'input'      },
-  { name: 'Textarea',    css: 'textarea'   },
-  { name: 'Select',      css: 'select'     },
-  { name: 'Combobox',    css: 'combobox'   },
-  { name: 'Checkbox',    css: 'checkbox'   },
-  { name: 'Radio',       css: 'radio'      },
-  { name: 'Toggle',      css: 'toggle'     },
-  { name: 'Badge',       css: 'badge'      },
-  { name: 'Alert',       css: 'alert'      },
-  { name: 'Card',        css: 'card'       },
-  { name: 'Modal',       css: 'modal'      },
-  { name: 'Tooltip',     css: 'tooltip'    },
-  { name: 'Menu',        css: 'menu'       },
-  { name: 'Tabs',        css: 'tabs'       },
-  { name: 'Breadcrumb',  css: 'breadcrumb' },
-  { name: 'Pagination',  css: 'pagination' },
-  { name: 'Avatar',      css: 'avatar'     },
-  { name: 'Divider',     css: 'divider'    },
-  { name: 'Form Field',  css: 'form-field', cssOnly: true },
-  { name: 'Spinner',     css: 'spinner'    },
-  { name: 'Skeleton',    css: 'skeleton'   },
-];
+const readinessSymbols = {
+  'app-ready': '🟢',
+  composition: '🔵',
+  experimental: '🟡',
+};
 
-const rows = knownComponents.map(c => {
-  const hasCss = cssComponents.includes(c.css);
+const rows = COMPONENTS.map(c => {
+  const hasCss = cssComponents.includes(path.basename(c.css, '.css'));
+  const readiness = `${readinessSymbols[c.readiness]} ${READINESS_LEVELS[c.readiness].label}`;
+  const responsibility = BEHAVIOR_MODELS[c.behaviorModel].label;
   if (c.cssOnly) {
-    return `| ${c.name} | ${hasCss ? '🟢' : '⬜'} | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |`;
+    return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |`;
   }
-  return `| ${c.name} | ${hasCss ? '🟢' : '⬜'} | 🟢 | 🟢 | ⬜ | 🟢 |`;
+  return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | 🟢 | 🟢 | ⬜ | 🟢 |`;
 });
 
 const inventory = `# Inventário de componentes — Design System Core
@@ -236,11 +220,19 @@ const inventory = `# Inventário de componentes — Design System Core
 
 ## Status geral
 
-| Componente | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
-|------------|-----|-----------------|-----------------|---------|----------|
+| Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
+|------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
 ${rows.join('\n')}
 
-**Legenda:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+**Legenda de artefatos:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
+
+### Readiness de consumo
+
+| Nível | Significado |
+|-------|-------------|
+${Object.entries(READINESS_LEVELS).map(([key, value]) => `| ${readinessSymbols[key]} **${value.label}** | ${value.description} |`).join('\n')}
+
+Readiness não substitui responsabilidade. Um componente pode ser App-ready usando HTML nativo, enquanto uma Composição é pública e estável, mas mantém orquestração no app. Componentes Experimentais não devem sustentar fluxos críticos sem avaliação explícita.
 
 **Nota sobre binding:**
 - Button: tokens Component para background, content, border, height, padding, radius, gap, focus ring e ícones
@@ -267,14 +259,15 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
 ## Próximos milestones
 
-1. **Auditoria contínua Figma ↔ repo** — manter snapshot, tokens, CSS e docs alinhados antes de cada release beta
-2. **Documentação de ícones** — explicitar uso de Lucide, stroke, pesos e aplicação de tokens de cor/tamanho
-3. **Componentes pendentes** — Table, Toast, Popover
-4. **Storybook** — opcional, não bloqueante para o beta atual
+1. **Fechar runtimes experimentais** — Accordion, Combobox, Modal, Tooltip, Menu e Tabs só sobem para App-ready após runtime público e teste em consumidor
+2. **Teste de projeto consumidor** — validar instalação, imports, teclado e axe fora do site de docs
+3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
+4. **Componentes pendentes** — Table, Toast, Popover
+5. **Storybook** — opcional, depois do contrato app-ready
 `;
 
 fs.writeFileSync(path.join(OUTPUT_DIR, 'component-inventory.md'), inventory);
-console.log(`✅ component-inventory.md (${knownComponents.length} componentes)`);
+console.log(`✅ component-inventory.md (${COMPONENTS.length} componentes)`);
 
 // ─── adr-index.md ─────────────────────────────────────────────────────────────
 

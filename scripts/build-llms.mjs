@@ -26,6 +26,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { COMPONENTS as CATALOG_COMPONENTS } from "./lib/component-catalog.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -69,11 +70,8 @@ const adrs = adrFiles.map((f) => {
   };
 });
 
-const COMPONENTS = [
-  "button", "input", "textarea", "select", "checkbox", "radio", "toggle",
-  "badge", "alert", "card", "modal", "tooltip", "tabs", "breadcrumb",
-  "avatar", "divider", "form-field", "spinner", "skeleton",
-];
+// Catálogo canônico (ADR-020) — não manter lista paralela aqui.
+const COMPONENT_PAGES = CATALOG_COMPONENTS.map((c) => ({ name: c.name, html: c.html }));
 
 const FOUNDATIONS = [
   { slug: "colors", name: "Colors" },
@@ -112,7 +110,7 @@ ${FOUNDATIONS.map((f) => `- [${f.name}](${docUrl(`docs/foundations-${f.slug}.htm
 
 ## Components
 
-${COMPONENTS.map((c) => `- [${c.charAt(0).toUpperCase() + c.slice(1)}](${docUrl(`docs/${c}.html`)})`).join("\n")}
+${COMPONENT_PAGES.map((c) => `- [${c.name}](${docUrl(`docs/${c.html}`)})`).join("\n")}
 
 ## Decisões arquiteturais (ADRs)
 

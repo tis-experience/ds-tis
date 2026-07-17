@@ -1,6 +1,42 @@
 {
   "version": "1.0.0-beta.6",
   "count": 23,
+  "readinessLevels": {
+    "app-ready": {
+      "label": "App-ready",
+      "description": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados."
+    },
+    "composition": {
+      "label": "Composição",
+      "description": "Padrão público e estável cuja orquestração, navegação ou estado de negócio permanece sob responsabilidade da aplicação."
+    },
+    "experimental": {
+      "label": "Experimental",
+      "description": "Contrato ainda não concluiu o gate de runtime e consumo; pode mudar e não deve sustentar fluxo crítico sem avaliação explícita."
+    }
+  },
+  "behaviorModels": {
+    "native": {
+      "label": "HTML nativo",
+      "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+      "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+    },
+    "presentation": {
+      "label": "Apresentação",
+      "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+      "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+    },
+    "consumer": {
+      "label": "Aplicação",
+      "ds": "Entrega a composição, anatomia e estados visuais públicos.",
+      "consumer": "Mantém a orquestração entre elementos, dados, navegação e regras de negócio."
+    },
+    "ds-runtime": {
+      "label": "Runtime do DS",
+      "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
+      "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+    }
+  },
   "runtimeModules": [
     {
       "level": "required",
@@ -13,7 +49,7 @@
       "notes": "Listbox, filtro, seleção e teclado exigem init após render."
     },
     {
-      "level": "optional",
+      "level": "required",
       "module": "ds-tis/modal",
       "init": "initModals",
       "exports": [
@@ -21,10 +57,10 @@
         "openModal",
         "closeModal"
       ],
-      "notes": "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa."
+      "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init."
     },
     {
-      "level": "optional",
+      "level": "required",
       "module": "ds-tis/menu",
       "init": "initActionMenus",
       "exports": [
@@ -32,7 +68,7 @@
         "openActionMenu",
         "closeActionMenu"
       ],
-      "notes": "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init."
+      "notes": "Action Menu exige init para abertura, teclado e retorno de foco."
     }
   ],
   "components": [
@@ -43,6 +79,14 @@
       "cssClass": "ds-accordion",
       "cssFile": "css/components/accordion.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "O comportamento existe apenas no site de docs; falta módulo público e teste em consumidor.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Deve manter o comportamento reutilizável de interação e acessibilidade; o módulo público ainda não foi distribuído.",
+        "consumer": "Não há módulo público para inicializar. Comportamento local é adaptação temporária do app e deve ser declarado como tal — ver readinessNotes."
+      },
       "runtime": null,
       "tokens": [
         "ds-accordion-chevron-color-default",
@@ -99,6 +143,14 @@
       "cssClass": "ds-button",
       "cssFile": "css/components/button.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-button-bg-brand-default",
@@ -234,6 +286,14 @@
       "cssClass": "ds-input",
       "cssFile": "css/components/input.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -332,6 +392,14 @@
       "cssClass": "ds-textarea",
       "cssFile": "css/components/textarea.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -404,6 +472,14 @@
       "cssClass": "ds-select",
       "cssFile": "css/components/select.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -506,6 +582,14 @@
       "cssClass": "ds-combobox",
       "cssFile": "css/components/combobox.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
+        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/combobox",
@@ -629,6 +713,14 @@
       "cssClass": "ds-checkbox",
       "cssFile": "css/components/checkbox.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -703,6 +795,14 @@
       "cssClass": "ds-radio",
       "cssFile": "css/components/radio.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-md",
@@ -782,6 +882,14 @@
       "cssClass": "ds-toggle",
       "cssFile": "css/components/toggle.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -853,6 +961,14 @@
       "cssClass": "ds-badge",
       "cssFile": "css/components/badge.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-badge-bg-brand-solid",
@@ -910,6 +1026,14 @@
       "cssClass": "ds-alert",
       "cssFile": "css/components/alert.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-alert-bg-error-filled",
@@ -974,6 +1098,14 @@
       "cssClass": "ds-card",
       "cssFile": "css/components/card.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-card-bg-default",
@@ -1031,8 +1163,16 @@
       "cssClass": "ds-modal",
       "cssFile": "css/components/modal.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
+        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+      },
       "runtime": {
-        "level": "optional",
+        "level": "required",
         "module": "ds-tis/modal",
         "init": "initModals",
         "exports": [
@@ -1040,7 +1180,7 @@
           "openModal",
           "closeModal"
         ],
-        "notes": "CSS define anatomia; focus trap, Escape e inert exigem init para a11y completa."
+        "notes": "Abertura, focus trap, Escape, inert e retorno de foco exigem init."
       },
       "tokens": [
         "ds-body-font-size-2xl",
@@ -1118,6 +1258,14 @@
       "cssClass": "ds-tooltip",
       "cssFile": "css/components/tooltip.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "Falta runtime público para hover, focus, Escape e persistência exigidos pelo contrato acessível.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Deve manter o comportamento reutilizável de interação e acessibilidade; o módulo público ainda não foi distribuído.",
+        "consumer": "Não há módulo público para inicializar. Comportamento local é adaptação temporária do app e deve ser declarado como tal — ver readinessNotes."
+      },
       "runtime": null,
       "tokens": [
         "ds-motion-duration-fast",
@@ -1155,8 +1303,16 @@
       "cssClass": "ds-menu",
       "cssFile": "css/components/menu.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "Runtime público existente; falta ciclo de vida com destroy e teste de integração DOM em consumidor.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
+        "consumer": "Inicializa o módulo documentado e fornece dados, eventos e regras de negócio."
+      },
       "runtime": {
-        "level": "optional",
+        "level": "required",
         "module": "ds-tis/menu",
         "init": "initActionMenus",
         "exports": [
@@ -1164,7 +1320,7 @@
           "openActionMenu",
           "closeActionMenu"
         ],
-        "notes": "Action Menu (.ds-action-menu) — abertura, teclado e retorno de foco via init."
+        "notes": "Action Menu exige init para abertura, teclado e retorno de foco."
       },
       "tokens": [
         "ds-action-menu-overlay-gap-default",
@@ -1248,6 +1404,14 @@
       "cssClass": "ds-tabs",
       "cssFile": "css/components/tabs.css",
       "cssOnly": false,
+      "readiness": "experimental",
+      "readinessNotes": "Falta runtime público para seleção, roving tabindex, teclado e sincronização dos painéis.",
+      "responsibility": {
+        "model": "ds-runtime",
+        "label": "Runtime do DS",
+        "ds": "Deve manter o comportamento reutilizável de interação e acessibilidade; o módulo público ainda não foi distribuído.",
+        "consumer": "Não há módulo público para inicializar. Comportamento local é adaptação temporária do app e deve ser declarado como tal — ver readinessNotes."
+      },
       "runtime": null,
       "tokens": [
         "ds-focus-ring-color-default",
@@ -1287,6 +1451,14 @@
       "cssClass": "ds-breadcrumb",
       "cssFile": "css/components/breadcrumb.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "native",
+        "label": "HTML nativo",
+        "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
+        "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
       "runtime": null,
       "tokens": [
         "ds-breadcrumb-focus-ring-radius-default",
@@ -1321,6 +1493,14 @@
       "cssClass": "ds-pagination",
       "cssFile": "css/components/pagination.css",
       "cssOnly": false,
+      "readiness": "composition",
+      "readinessNotes": "O DS entrega itens e estados; a aplicação mantém URL, carregamento e página atual.",
+      "responsibility": {
+        "model": "consumer",
+        "label": "Aplicação",
+        "ds": "Entrega a composição, anatomia e estados visuais públicos.",
+        "consumer": "Mantém a orquestração entre elementos, dados, navegação e regras de negócio."
+      },
       "runtime": null,
       "tokens": [
         "ds-focus-ring-color-default",
@@ -1374,6 +1554,14 @@
       "cssClass": "ds-avatar",
       "cssFile": "css/components/avatar.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-avatar-bg-default",
@@ -1416,6 +1604,14 @@
       "cssClass": "ds-divider",
       "cssFile": "css/components/divider.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-divider-line-color-default",
@@ -1438,6 +1634,14 @@
       "cssClass": "ds-field",
       "cssFile": "css/components/form-field.css",
       "cssOnly": true,
+      "readiness": "composition",
+      "readinessNotes": "O DS entrega label, helper e erro; a aplicação mantém IDs, validação, valor e mensagens.",
+      "responsibility": {
+        "model": "consumer",
+        "label": "Aplicação",
+        "ds": "Entrega a composição, anatomia e estados visuais públicos.",
+        "consumer": "Mantém a orquestração entre elementos, dados, navegação e regras de negócio."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -1477,6 +1681,14 @@
       "cssClass": "ds-spinner",
       "cssFile": "css/components/spinner.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-motion-duration-slower",
@@ -1510,6 +1722,14 @@
       "cssClass": "ds-skeleton",
       "cssFile": "css/components/skeleton.css",
       "cssOnly": false,
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
+      "responsibility": {
+        "model": "presentation",
+        "label": "Apresentação",
+        "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
+        "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
       "runtime": null,
       "tokens": [
         "ds-skeleton-circle-fill-default",
