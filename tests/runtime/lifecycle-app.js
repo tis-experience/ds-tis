@@ -73,6 +73,8 @@ window.__dsLifecycle = {
   destroyAccordions,
   initComboboxes,
   destroyComboboxes,
+  initModals,
+  destroyModals,
   events() {
     return [...log];
   },

@@ -183,9 +183,8 @@ export const COMPONENTS = [
     slug: "modal",
     css: "modal.css",
     html: "modal.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar inert sem atingir ancestrais do dialog, restauração do estado anterior, foco completo, root init/hydration e axe com Modal aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Tooltip",

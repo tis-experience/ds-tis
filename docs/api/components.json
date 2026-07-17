@@ -1250,8 +1250,8 @@
       "cssClass": "ds-modal",
       "cssFile": "css/components/modal.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até corrigir e provar inert sem atingir ancestrais do dialog, restauração do estado anterior, foco completo, root init/hydration e axe com Modal aberto no tarball consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",

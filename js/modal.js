@@ -47,8 +47,27 @@ function trapFocus(overlay, dialog) {
   return () => overlay.removeEventListener('keydown', onKeyDown);
 }
 
-function emit(overlay, name) {
-  overlay.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+function emit(overlay, name, detail) {
+  overlay.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }));
+}
+
+function getBackgroundNodes(overlay) {
+  const nodes = [];
+  let current = overlay;
+  while (current && current !== document.body) {
+    const parent = current.parentElement;
+    if (!parent) break;
+    for (const sibling of parent.children) {
+      if (sibling !== current) nodes.push(sibling);
+    }
+    current = parent;
+  }
+  return [...new Set(nodes)];
+}
+
+function syncDocumentOpenClass() {
+  const hasOpenModal = [...instances].some((instance) => !instance.overlay.hidden);
+  document.documentElement.classList.toggle('ds-modal-open', hasOpenModal);
 }
 
 function createInstance(overlay) {
@@ -58,7 +77,7 @@ function createInstance(overlay) {
 
   let previousFocus = null;
   let releaseFocusTrap = null;
-  let inertNodes = [];
+  let inertStates = [];
   const cleanups = [];
 
   const on = (target, type, handler, options) => {
@@ -73,31 +92,45 @@ function createInstance(overlay) {
       if (!overlay.hidden) return;
       previousFocus = document.activeElement;
       overlay.hidden = false;
-      document.documentElement.classList.add('ds-modal-open');
-      inertNodes = [...document.body.children].filter((node) => node !== overlay && !overlay.contains(node));
-      for (const node of inertNodes) {
+      syncDocumentOpenClass();
+      inertStates = getBackgroundNodes(overlay).map((node) => ({
+        node,
+        inert: node.inert,
+        marker: node.getAttribute('data-ds-modal-inert'),
+      }));
+      for (const { node } of inertStates) {
         node.dataset.dsModalInert = 'true';
         node.inert = true;
       }
       releaseFocusTrap = trapFocus(overlay, dialog);
       const focusable = getFocusable(dialog);
       (focusable[0] || dialog).focus();
-      emit(overlay, 'ds-modal-open');
+      emit(overlay, 'ds-modal-open', {
+        overlay,
+        dialog,
+        trigger: previousFocus instanceof HTMLElement ? previousFocus : null,
+      });
     },
     close() {
       if (overlay.hidden) return;
+      const returnFocus = previousFocus;
       overlay.hidden = true;
-      document.documentElement.classList.remove('ds-modal-open');
-      for (const node of inertNodes) {
-        delete node.dataset.dsModalInert;
-        node.inert = false;
+      for (const { node, inert, marker } of inertStates) {
+        if (marker === null) delete node.dataset.dsModalInert;
+        else node.setAttribute('data-ds-modal-inert', marker);
+        node.inert = inert;
       }
-      inertNodes = [];
+      inertStates = [];
       if (typeof releaseFocusTrap === 'function') releaseFocusTrap();
       releaseFocusTrap = null;
-      if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+      if (returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
       previousFocus = null;
-      emit(overlay, 'ds-modal-close');
+      syncDocumentOpenClass();
+      emit(overlay, 'ds-modal-close', {
+        overlay,
+        dialog,
+        returnFocus: returnFocus instanceof HTMLElement ? returnFocus : null,
+      });
     },
     destroy() {
       inst.close();
@@ -158,17 +191,25 @@ function isInside(root, node) {
 export function initModals(root = document) {
   const created = [];
 
-  root.querySelectorAll('.ds-modal-overlay').forEach((overlay) => {
+  const overlays = [
+    ...(root instanceof Element && root.matches('.ds-modal-overlay') ? [root] : []),
+    ...root.querySelectorAll('.ds-modal-overlay'),
+  ];
+  overlays.forEach((overlay) => {
     if (overlay.dataset.dsModalInit === 'true') return;
-    overlay.dataset.dsModalInit = 'true';
     const inst = createInstance(overlay);
     if (inst) {
+      overlay.dataset.dsModalInit = 'true';
       instances.add(inst);
       created.push(inst);
     }
   });
 
-  root.querySelectorAll('[data-ds-modal-open]').forEach((trigger) => bindTrigger(trigger));
+  const triggers = [
+    ...(root instanceof Element && root.matches('[data-ds-modal-open]') ? [root] : []),
+    ...root.querySelectorAll('[data-ds-modal-open]'),
+  ];
+  triggers.forEach((trigger) => bindTrigger(trigger));
 
   return created;
 }
@@ -181,7 +222,11 @@ export function destroyModals(root = document) {
   for (const inst of [...instances]) {
     if (isInside(root, inst.overlay)) inst.destroy();
   }
-  root.querySelectorAll('[data-ds-modal-open]').forEach((trigger) => {
+  const triggers = [
+    ...(root instanceof Element && root.matches('[data-ds-modal-open]') ? [root] : []),
+    ...root.querySelectorAll('[data-ds-modal-open]'),
+  ];
+  triggers.forEach((trigger) => {
     if (isInside(root, trigger)) unbindTrigger(trigger);
   });
 }

@@ -296,6 +296,22 @@ try {
     ],
   );
 
+  // Axe com o Modal aberto no tarball instalado.
+  await page.locator('#open-modal').click();
+  const axeModalOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingModalOpen = axeModalOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingModalOpen.length === 0,
+    `axe open Modal found ${blockingModalOpen.length} critical/serious violation(s):\n${blockingModalOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'modal', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.keyboard.press('Escape');
+
   // Axe com o listbox do Combobox aberto no tarball instalado.
   await page.locator('#country').fill('');
   await page.locator('#country').focus();
