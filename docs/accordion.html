@@ -338,6 +338,26 @@
   </div>
 
   <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O CSS define anatomia e estados visuais, mas expand/collapse, teclado e modo <code>single</code> dependem do módulo público <code>ds-tis/accordion</code> (<code>initAccordions</code> / <code>destroyAccordions</code>). Eventos: <code>ds-accordion-open</code>, <code>ds-accordion-close</code>. Chame <code>destroyAccordions</code> ao desmontar.</span><span data-lang="en">CSS defines anatomy and visual states, but expand/collapse, keyboard, and <code>single</code> mode depend on the public <code>ds-tis/accordion</code> module (<code>initAccordions</code> / <code>destroyAccordions</code>). Events: <code>ds-accordion-open</code>, <code>ds-accordion-close</code>. Call <code>destroyAccordions</code> on unmount.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;script type="module"&gt;
+  import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
+  initAccordions();
+  // destroyAccordions() ao desmontar a view
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="tabs.html" class="ds-related__link">Tabs</a>
@@ -349,5 +369,11 @@
 </main>
 
 <script src="../js/main.js"></script>
+<script type="module">
+  import { initAccordions } from '../js/accordion.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    initAccordions(document.querySelector('main'));
+  });
+</script>
 </body>
 </html>

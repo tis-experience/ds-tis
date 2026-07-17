@@ -8,7 +8,7 @@
 
 | Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
 |------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -88,7 +88,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 ## Próximos milestones
 
-1. **Fechar runtimes experimentais restantes** — Accordion, Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
+1. **Fechar runtimes experimentais restantes** — Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
 2. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
 4. **Componentes pendentes** — Table, Toast, Popover

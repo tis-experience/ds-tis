@@ -1,4 +1,8 @@
 import {
+  initAccordions,
+  destroyAccordions,
+} from '../../js/accordion.js';
+import {
   initComboboxes,
   destroyComboboxes,
 } from '../../js/combobox.js';
@@ -28,6 +32,8 @@ track('ds-modal-close');
 track('ds-menu-open');
 track('ds-menu-close');
 track('ds-combobox-change');
+track('ds-accordion-open');
+track('ds-accordion-close');
 
 window.__dsLifecycle = {
   init() {
@@ -35,12 +41,14 @@ window.__dsLifecycle = {
       modals: initModals(),
       menus: initActionMenus(),
       comboboxes: initComboboxes(),
+      accordions: initAccordions(),
     };
   },
   destroy() {
     destroyModals();
     destroyActionMenus();
     destroyComboboxes();
+    destroyAccordions();
   },
   openModal,
   closeModal,
@@ -58,6 +66,7 @@ window.__dsLifecycle = {
       modalTrigger: document.getElementById('open-modal')?.dataset.dsModalTriggerInit === 'true',
       menuInit: document.getElementById('life-menu')?.dataset.dsActionMenuInit === 'true',
       comboInit: document.getElementById('life-combo')?.dataset.dsComboboxInit === 'true',
+      accordionInit: document.getElementById('life-accordion')?.dataset.dsAccordionInit === 'true',
     };
   },
 };

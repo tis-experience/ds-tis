@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { initAccordions, destroyAccordions } from '../js/accordion.js';
 import { initComboboxes, destroyComboboxes } from '../js/combobox.js';
 import { initModals, destroyModals, openModal, closeModal } from '../js/modal.js';
 import { initActionMenus, destroyActionMenus, openActionMenu, closeActionMenu } from '../js/menu.js';
@@ -21,6 +22,8 @@ function expect(condition, message) {
 
 console.log('\n═══ test-interactive ═══════════════════════');
 
+expect(typeof initAccordions === 'function', 'initAccordions must be exported.');
+expect(typeof destroyAccordions === 'function', 'destroyAccordions must be exported.');
 expect(typeof initComboboxes === 'function', 'initComboboxes must be exported.');
 expect(typeof destroyComboboxes === 'function', 'destroyComboboxes must be exported.');
 expect(typeof initModals === 'function', 'initModals must be exported.');
@@ -32,7 +35,7 @@ expect(typeof destroyActionMenus === 'function', 'destroyActionMenus must be exp
 expect(typeof openActionMenu === 'function', 'openActionMenu must be exported.');
 expect(typeof closeActionMenu === 'function', 'closeActionMenu must be exported.');
 
-for (const subpath of ['./modal', './menu', './combobox']) {
+for (const subpath of ['./accordion', './modal', './menu', './combobox']) {
   expect(pkg.exports[subpath], `package.json must export ${subpath}.`);
 }
 

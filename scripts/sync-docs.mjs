@@ -259,7 +259,7 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
 ## Próximos milestones
 
-1. **Fechar runtimes experimentais restantes** — Accordion, Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
+1. **Fechar runtimes experimentais restantes** — Tooltip e Tabs só sobem para App-ready após módulo público, ciclo de vida e teste em consumidor
 2. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 3. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
 4. **Componentes pendentes** — Table, Toast, Popover

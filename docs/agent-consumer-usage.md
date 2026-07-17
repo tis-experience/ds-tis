@@ -76,18 +76,21 @@ Importe o CSS público uma vez no entrypoint global do app:
 import 'ds-tis/css';
 ```
 
-Para Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
+Para Accordion, Combobox, Modal e Action Menu, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o `destroy` correspondente para limpar listeners:
 
 ```js
+import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
 import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
 import { initModals, destroyModals } from 'ds-tis/modal';
 import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
 
+initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
 
 // ao sair da view / unmount:
+destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
@@ -114,11 +117,11 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | Campo | Significado |
 |---|---|
 | `null` | CSS-only — sem módulo JS publicado. |
-| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Combobox, Modal e Action Menu). |
+| `runtime.level: "required"` | O contrato interativo e acessível depende de init (Accordion, Combobox, Modal e Action Menu). |
 | `runtime.level: "optional"` | Reservado para enhancement que não seja necessário ao contrato acessível; nenhum módulo atual usa este nível. |
-| `runtime.module` | Export do pacote (`ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
-| `runtime.init` | Função a chamar após render/hydration (`initComboboxes`, `initModals`, `initActionMenus`). |
-| `runtime.destroy` | Função a chamar ao desmontar (`destroyComboboxes`, `destroyModals`, `destroyActionMenus`). |
+| `runtime.module` | Export do pacote (`ds-tis/accordion`, `ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`). |
+| `runtime.init` | Função a chamar após render/hydration (`initAccordions`, `initComboboxes`, `initModals`, `initActionMenus`). |
+| `runtime.destroy` | Função a chamar ao desmontar (`destroyAccordions`, `destroyComboboxes`, `destroyModals`, `destroyActionMenus`). |
 | `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
