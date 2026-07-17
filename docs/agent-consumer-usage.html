@@ -137,18 +137,20 @@ que <code>node_modules/ds-tis/docs/api/</code> existe.</p>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
-<p>Para Accordion, Combobox, Modal, Action Menu e Tabs, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
+<p>Para Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
 <pre tabindex="0"><code class="language-js">import { initAccordions, destroyAccordions } from &#39;ds-tis/accordion&#39;;
 import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
 import { initModals, destroyModals } from &#39;ds-tis/modal&#39;;
 import { initActionMenus, destroyActionMenus } from &#39;ds-tis/menu&#39;;
 import { initTabs, destroyTabs } from &#39;ds-tis/tabs&#39;;
+import { initTooltips, destroyTooltips } from &#39;ds-tis/tooltip&#39;;
 
 initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
 initTabs();
+initTooltips();
 
 // ao sair da view / unmount:
 destroyAccordions();
@@ -156,6 +158,7 @@ destroyComboboxes();
 destroyModals();
 destroyActionMenus();
 destroyTabs();
+destroyTooltips();
 </code></pre>
 <p>Para customização de tema, use o theme engine público:</p>
 <pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
@@ -179,7 +182,7 @@ destroyTabs();
 </tr>
 <tr>
 <td><code>runtime.level: &quot;required&quot;</code></td>
-<td>O contrato interativo e acessível depende de init (Accordion, Combobox, Modal, Action Menu e Tabs).</td>
+<td>O contrato interativo e acessível depende de init (Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip).</td>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;optional&quot;</code></td>
@@ -187,15 +190,15 @@ destroyTabs();
 </tr>
 <tr>
 <td><code>runtime.module</code></td>
-<td>Export do pacote (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/tabs</code>).</td>
+<td>Export do pacote (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.init</code></td>
-<td>Função a chamar após render/hydration (<code>initAccordions</code>, <code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>, <code>initTabs</code>).</td>
+<td>Função a chamar após render/hydration (<code>initAccordions</code>, <code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>, <code>initTabs</code>, <code>initTooltips</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.destroy</code></td>
-<td>Função a chamar ao desmontar (<code>destroyAccordions</code>, <code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>, <code>destroyTabs</code>).</td>
+<td>Função a chamar ao desmontar (<code>destroyAccordions</code>, <code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>, <code>destroyTabs</code>, <code>destroyTooltips</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.events</code></td>

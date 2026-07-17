@@ -49,9 +49,7 @@ export const BEHAVIOR_MODELS = {
 /**
  * Responsabilidade publicada para um componente, considerando disponibilidade
  * real do runtime. Ownership (`ds-runtime`) não implica módulo já distribuído:
- * Accordion e Tooltip pertencem ao DS, mas o runtime de Tooltip ainda não foi
- * publicado — a API não pode instruir o consumidor a inicializar algo que
- * não existe.
+ * Ownership (`ds-runtime`) não implica módulo já distribuído.
  */
 export function responsibilityFor(component, runtime) {
   const base = BEHAVIOR_MODELS[component.behaviorModel];
@@ -197,9 +195,9 @@ export const COMPONENTS = [
     slug: "tooltip",
     css: "tooltip.css",
     html: "tooltip.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Falta runtime público para hover, focus, Escape e persistência exigidos pelo contrato acessível.",
+    readinessNotes: "Runtime público com init/destroy, hover/focus/Escape (WCAG 1.4.13) e eventos ds-tooltip-show/hide. Inicialize com initTooltips após render.",
   }),
   defineComponent({
     name: "Menu",
@@ -328,5 +326,14 @@ export const RUNTIME_BY_SLUG = {
     exports: ["initTabs", "destroyTabs", "selectTab"],
     events: ["ds-tabs-change"],
     notes: "Seleção, roving tabindex e sync de painéis exigem init após render; chame destroy ao desmontar.",
+  },
+  tooltip: {
+    level: "required",
+    module: "ds-tis/tooltip",
+    init: "initTooltips",
+    destroy: "destroyTooltips",
+    exports: ["initTooltips", "destroyTooltips", "showTooltip", "hideTooltip"],
+    events: ["ds-tooltip-show", "ds-tooltip-hide"],
+    notes: "Hover, focus, Escape e hoverable content (WCAG 1.4.13) exigem init após render; chame destroy ao desmontar.",
   },
 };

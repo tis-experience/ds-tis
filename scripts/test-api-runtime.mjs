@@ -20,10 +20,10 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'))
 const api = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs', 'api', 'components.json'), 'utf8'));
 
 expect(Array.isArray(api.runtimeModules), 'components.json must expose runtimeModules.');
-expect(api.runtimeModules.length === 5, 'runtimeModules must list accordion, combobox, modal, menu and tabs.');
+expect(api.runtimeModules.length === 6, 'runtimeModules must list accordion, combobox, modal, menu, tabs and tooltip.');
 
 const bySlug = new Map(api.components.map((c) => [c.slug, c]));
-const runtimeSlugs = ['accordion', 'combobox', 'modal', 'menu', 'tabs'];
+const runtimeSlugs = ['accordion', 'combobox', 'modal', 'menu', 'tabs', 'tooltip'];
 
 for (const slug of runtimeSlugs) {
   expect(bySlug.get(slug)?.runtime?.level === 'required', `${slug} runtime.level must be required.`);

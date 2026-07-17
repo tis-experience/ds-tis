@@ -68,7 +68,7 @@
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
 
     <div class="ds-anatomy" style="padding:64px;padding-top:120px;">
-      <div class="ds-tooltip ds-tooltip--top" inert>
+      <div class="ds-tooltip ds-tooltip--top" data-open="true" inert>
         <button class="ds-button ds-button--ghost ds-button--icon-only ds-button--sm" aria-label="Edit" style="position:relative;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           <!-- 1: Trigger — below center of button -->
@@ -243,7 +243,7 @@
     <div class="ds-dodont">
       <div class="ds-dodont__item">
         <div class="ds-dodont__preview" style="flex-direction:column;gap:var(--ds-space-sm);">
-          <div class="ds-tooltip ds-tooltip--top">
+          <div class="ds-tooltip ds-tooltip--top" data-open="true">
             <button class="ds-button ds-button--ghost ds-button--icon-only ds-button--sm" aria-label="Edit">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
@@ -360,7 +360,30 @@
   </div>
 
   <!-- ============================================================
-       11. RELATED COMPONENTS
+       11. RUNTIME (obrigatório)
+       ============================================================ -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O CSS define anatomia e posições, mas hover, focus, Escape e conteúdo hoverable (WCAG 1.4.13) dependem do módulo público <code>ds-tis/tooltip</code> (<code>initTooltips</code> / <code>destroyTooltips</code>). Eventos: <code>ds-tooltip-show</code>, <code>ds-tooltip-hide</code>. Chame <code>destroyTooltips</code> ao desmontar.</span><span data-lang="en">CSS defines anatomy and positions, but hover, focus, Escape, and hoverable content (WCAG 1.4.13) depend on the public <code>ds-tis/tooltip</code> module (<code>initTooltips</code> / <code>destroyTooltips</code>). Events: <code>ds-tooltip-show</code>, <code>ds-tooltip-hide</code>. Call <code>destroyTooltips</code> on unmount.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;script type="module"&gt;
+  import { initTooltips, destroyTooltips } from 'ds-tis/tooltip';
+  initTooltips();
+  // destroyTooltips() ao desmontar a view
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       12. RELATED COMPONENTS
        ============================================================ -->
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
@@ -373,5 +396,11 @@
 </main>
 
 <script src="../js/main.js"></script>
+<script type="module">
+  import { initTooltips } from '../js/tooltip.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    initTooltips(document.querySelector('main'));
+  });
+</script>
 </body>
 </html>

@@ -21,6 +21,8 @@
     "./menu.js": "./js/menu.js",
     "./tabs": "./js/tabs.js",
     "./tabs.js": "./js/tabs.js",
+    "./tooltip": "./js/tooltip.js",
+    "./tooltip.js": "./js/tooltip.js",
     "./theme": "./js/theme/index.js",
     "./theme/*": "./js/theme/*.js",
     "./templates/*": "./docs/templates/*",
@@ -34,6 +36,7 @@
     "js/menu.js",
     "js/modal.js",
     "js/tabs.js",
+    "js/tooltip.js",
     "js/package.json",
     "js/theme/"
   ],

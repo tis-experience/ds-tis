@@ -113,11 +113,11 @@ Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS,
 
 | Readiness | Componentes |
 |---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs |
+| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs, Tooltip |
 | Composição | Pagination, Form Field |
-| Experimental | Tooltip |
+| Experimental | — |
 
-Promoção exige módulo público com init/destroy, eventos, teste DOM de ciclo de vida e evidência de consumo. Tooltip permanece Experimental até ter módulo público.
+Todos os componentes `ds-runtime` do catálogo inicial concluíram o gate de módulo público, ciclo de vida e testes DOM.
 
 ### 8. Sequência de implementação
 
