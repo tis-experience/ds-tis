@@ -160,14 +160,18 @@ destroyActionMenus();
 destroyTabs();
 destroyTooltips();
 </code></pre>
-<p>Ter módulo <code>required</code> não significa automaticamente estar App-ready. Accordion
-e Combobox concluíram o gate executável da ADR-020. Modal, Action Menu, Tabs e
+<p>Ter módulo <code>required</code> não significa automaticamente estar App-ready. Accordion,
+Combobox e Modal concluíram o gate executável da ADR-020. Action Menu, Tabs e
 Tooltip permanecem Experimentais enquanto concluem seus blockers em
 <code>readinessNotes</code>; não os use em fluxo crítico sem aceitar e validar
 explicitamente essas limitações.</p>
 <p>No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
 <code>aria-activedescendant</code>; <code>Escape</code> fecha o listbox sem remover esse foco. O evento
 <code>ds-combobox-change</code> expõe <code>value</code>, <code>input</code>, <code>root</code> e a <code>option</code> selecionada em
+<code>detail</code>.</p>
+<p>No Modal App-ready, apenas os irmãos fora do caminho do diálogo recebem <code>inert</code>;
+o runtime preserva e restaura o estado anterior de cada nó. <code>ds-modal-open</code> e
+<code>ds-modal-close</code> expõem overlay, dialog e a referência de foco relevante em
 <code>detail</code>.</p>
 <p>Para customização de tema, use o theme engine público:</p>
 <pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;

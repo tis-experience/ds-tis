@@ -65,8 +65,8 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Accordion e Combobox concluíram o gate executável da ADR-020 e estão **App-ready**.
-Modal, Action Menu, Tabs e Tooltip permanecem **Experimentais** até concluírem
+Accordion, Combobox e Modal concluíram o gate executável da ADR-020 e estão
+**App-ready**. Action Menu, Tabs e Tooltip permanecem **Experimentais** até concluírem
 seus blockers individuais. O módulo continua obrigatório quando qualquer um
 desses componentes for usado; não sustente fluxo crítico com os Experimentais
 sem aceitar a limitação publicada em `readinessNotes`.

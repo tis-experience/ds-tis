@@ -89,7 +89,11 @@ try {
   // --- Init ---
   await page.evaluate(() => window.__dsLifecycle.init());
   let markers = await page.evaluate(() => window.__dsLifecycle.markers());
-  ok(markers.modalInit && markers.modalTrigger, 'initModals must mark overlay and trigger');
+  ok(
+    markers.modalInit && markers.modalTrigger,
+    'initModals(document) must mark overlay and trigger',
+    evidence('modal', 'root-init', 'init-document'),
+  );
   ok(markers.menuInit, 'initActionMenus must mark action menu');
   ok(
     markers.comboInit,
@@ -232,6 +236,346 @@ try {
       evidence(slug, 'events', 'public-event-count'),
     );
   }
+
+  // --- Modal: root init, hydration e idempotência ---
+  const modalSetup = await page.evaluate(() => {
+    const { initModals, openModal, closeModal } = window.__dsLifecycle;
+    const dialogMarkup = (prefix) => `
+      <div class="ds-modal ds-modal--sm" role="dialog" aria-modal="true" aria-labelledby="${prefix}-title">
+        <div class="ds-modal__header">
+          <h3 id="${prefix}-title" class="ds-modal__title">${prefix}</h3>
+          <button class="ds-modal__close" type="button" aria-label="Fechar">×</button>
+        </div>
+        <div class="ds-modal__body"><button type="button">Ação</button></div>
+      </div>`;
+    const overlayMarkup = (prefix) => `
+      <div class="ds-modal-overlay" id="${prefix}" hidden>${dialogMarkup(prefix)}</div>`;
+    const fixtureMarkup = (prefix) => `
+      <button type="button" id="${prefix}-trigger" data-ds-modal-open="${prefix}">Abrir</button>
+      ${overlayMarkup(prefix)}`;
+
+    const proofHost = document.createElement('section');
+    proofHost.id = 'modal-proof-host';
+    document.body.append(proofHost);
+
+    const containerHost = document.createElement('div');
+    containerHost.id = 'modal-container-host';
+    containerHost.innerHTML = fixtureMarkup('modal-container-root');
+    proofHost.append(containerHost);
+    const containerCreated = initModals(containerHost).length;
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = overlayMarkup('modal-component-root').trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    proofHost.append(componentRoot);
+    const componentCreated = initModals(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-modal-overlay';
+    incomplete.id = 'modal-incomplete-root';
+    incomplete.hidden = true;
+    proofHost.append(incomplete);
+    const incompleteFirstCreated = initModals(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsModalInit === 'true';
+    incomplete.innerHTML = dialogMarkup('modal-incomplete-root');
+    const incompleteRecovered = initModals(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    lateHost.id = 'modal-late-host';
+    proofHost.append(lateHost);
+    const lateBefore = initModals(lateHost).length;
+    lateHost.innerHTML = overlayMarkup('modal-late-root');
+    const lateAfter = initModals(lateHost).length;
+
+    const secondInitCreated = initModals(containerHost).length;
+    let duplicateEventCount = 0;
+    const containerOverlay = containerHost.querySelector('.ds-modal-overlay');
+    containerOverlay.addEventListener('ds-modal-open', () => { duplicateEventCount += 1; });
+    containerHost.querySelector('[data-ds-modal-open]').click();
+    closeModal(containerOverlay);
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${overlayMarkup('modal-scope-a')}${overlayMarkup('modal-scope-b')}`;
+    proofHost.append(scopedHost);
+    const scopedCreated = initModals(scopedHost).length;
+
+    openModal(componentRoot);
+    closeModal(componentRoot);
+
+    return {
+      containerCreated,
+      containerMarked: containerOverlay.dataset.dsModalInit === 'true',
+      containerTriggerMarked: containerHost.querySelector('[data-ds-modal-open]').dataset.dsModalTriggerInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsModalInit === 'true',
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsModalInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-modal-overlay').dataset.dsModalInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    modalSetup.containerCreated === 1
+      && modalSetup.containerMarked
+      && modalSetup.containerTriggerMarked,
+    'initModals(container) must initialize a descendant Modal and its trigger exactly once',
+    evidence('modal', 'root-init', 'init-container'),
+  );
+  ok(
+    modalSetup.componentCreated === 1 && modalSetup.componentMarked,
+    'initModals(componentRoot) must initialize the overlay root itself',
+    evidence('modal', 'root-init', 'init-component-root'),
+  );
+  ok(
+    modalSetup.incompleteFirstCreated === 0
+      && !modalSetup.incompletePoisoned
+      && modalSetup.incompleteRecovered === 1
+      && modalSetup.incompleteMarked,
+    'incomplete Modal markup must remain recoverable after its dialog arrives',
+    evidence('modal', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    modalSetup.lateBefore === 0 && modalSetup.lateAfter === 1 && modalSetup.lateMarked,
+    'a late Modal subtree must initialize when its container is scanned again',
+    evidence('modal', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    modalSetup.secondInitCreated === 0,
+    'double init must create zero additional Modal instances',
+    evidence('modal', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    modalSetup.duplicateEventCount === 1,
+    `double init must not duplicate Modal events (got ${modalSetup.duplicateEventCount})`,
+    evidence('modal', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(modalSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two Modals');
+
+  // --- Modal: foco, teclado, ARIA, inert e abertura/fechamento ---
+  await page.locator('#open-modal').focus();
+  await page.locator('#open-modal').click();
+  const modalInitial = await page.evaluate(() => {
+    const overlay = document.getElementById('life-modal');
+    const dialog = overlay.querySelector('.ds-modal');
+    const labelledBy = dialog.getAttribute('aria-labelledby');
+    return {
+      focusId: document.activeElement?.id,
+      role: dialog.getAttribute('role'),
+      ariaModal: dialog.getAttribute('aria-modal'),
+      labelledBy,
+      labelExists: Boolean(labelledBy && document.getElementById(labelledBy)),
+    };
+  });
+  ok(
+    modalInitial.focusId === 'modal-close',
+    `Modal must move initial focus inside the dialog (got ${modalInitial.focusId})`,
+    evidence('modal', 'focus', 'initial-focus'),
+  );
+  ok(
+    modalInitial.role === 'dialog'
+      && modalInitial.ariaModal === 'true'
+      && modalInitial.labelExists,
+    `Modal dialog must be modal and labelled (${JSON.stringify(modalInitial)})`,
+    evidence('modal', 'aria', 'dialog-modal-labelled'),
+  );
+
+  await page.locator('#modal-primary').focus();
+  await page.keyboard.press('Tab');
+  const modalWrappedForward = await page.evaluate(() => document.activeElement?.id);
+  await page.keyboard.press('Shift+Tab');
+  const modalWrappedBackward = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    modalWrappedForward === 'modal-close' && modalWrappedBackward === 'modal-primary',
+    `Modal Tab/Shift+Tab must wrap focus (${modalWrappedForward}, ${modalWrappedBackward})`,
+    [
+      evidence('modal', 'keyboard', 'tab-shift-tab-wrap'),
+      evidence('modal', 'focus', 'focus-trap'),
+    ],
+  );
+
+  await page.keyboard.press('Escape');
+  ok(
+    (await page.evaluate(() => document.activeElement?.id)) === 'open-modal',
+    'Modal must return focus to its trigger after Escape closes it',
+    evidence('modal', 'focus', 'focus-return'),
+  );
+
+  await page.locator('#open-modal').click();
+  await page.locator('#life-modal').evaluate((overlay) => {
+    overlay.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
+  ok(
+    await page.locator('#life-modal').evaluate((overlay) => overlay.hidden),
+    'clicking the Modal backdrop must close it',
+    evidence('modal', 'open-close', 'backdrop-closes'),
+  );
+
+  const inlineModal = await page.evaluate(() => {
+    const { initModals, openModal, closeModal } = window.__dsLifecycle;
+    const app = document.createElement('section');
+    app.id = 'modal-inline-app';
+    app.innerHTML = `
+      <button type="button" id="modal-inline-background">Conteúdo do app</button>
+      <div class="ds-modal-overlay" id="modal-inline-overlay" hidden>
+        <div class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="modal-inline-title">
+          <h3 id="modal-inline-title">Inline</h3>
+          <button class="ds-modal__close" type="button">Fechar</button>
+        </div>
+      </div>`;
+    document.body.append(app);
+    initModals(app);
+    const background = app.querySelector('#modal-inline-background');
+    const overlay = app.querySelector('#modal-inline-overlay');
+    background.focus();
+    openModal(overlay);
+    const opened = {
+      appInert: app.inert,
+      backgroundInert: background.inert,
+      overlayInert: overlay.inert,
+      focusInside: overlay.contains(document.activeElement),
+    };
+    closeModal(overlay);
+    return {
+      ...opened,
+      backgroundRestored: !background.inert,
+      focusReturned: document.activeElement === background,
+    };
+  });
+  ok(
+    !inlineModal.appInert
+      && inlineModal.backgroundInert
+      && !inlineModal.overlayInert
+      && inlineModal.focusInside
+      && inlineModal.backgroundRestored
+      && inlineModal.focusReturned,
+    `inline Modal must not inert its own app ancestor (${JSON.stringify(inlineModal)})`,
+    evidence('modal', 'open-close', 'inline-app-not-inert'),
+  );
+
+  const inertRestoration = await page.evaluate(() => {
+    const { openModal, closeModal } = window.__dsLifecycle;
+    const preserved = document.createElement('section');
+    preserved.id = 'modal-preexisting-inert';
+    preserved.inert = true;
+    preserved.dataset.dsModalInert = 'preserved';
+    document.body.append(preserved);
+    const overlay = document.getElementById('life-modal');
+    document.getElementById('open-modal').focus();
+    openModal(overlay);
+    const during = {
+      inert: preserved.inert,
+      marker: preserved.dataset.dsModalInert,
+    };
+    closeModal(overlay);
+    return {
+      during,
+      restoredInert: preserved.inert,
+      restoredMarker: preserved.dataset.dsModalInert,
+    };
+  });
+  ok(
+    inertRestoration.during.inert
+      && inertRestoration.during.marker === 'true'
+      && inertRestoration.restoredInert
+      && inertRestoration.restoredMarker === 'preserved',
+    `Modal must restore pre-existing inert state (${JSON.stringify(inertRestoration)})`,
+  );
+
+  const modalEvents = await page.evaluate(() => new Promise((resolve) => {
+    const result = {};
+    document.addEventListener('ds-modal-open', (event) => {
+      result.open = {
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        overlay: event.detail?.overlay?.id,
+        dialogContainsTarget: event.detail?.dialog?.contains(document.activeElement),
+        trigger: event.detail?.trigger?.id,
+      };
+      document.getElementById('modal-close').click();
+    }, { once: true });
+    document.addEventListener('ds-modal-close', (event) => {
+      result.close = {
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        overlay: event.detail?.overlay?.id,
+        returnFocus: event.detail?.returnFocus?.id,
+      };
+      resolve(result);
+    }, { once: true });
+    document.getElementById('open-modal').focus();
+    document.getElementById('open-modal').click();
+  }));
+  ok(
+    modalEvents.open?.bubbles
+      && modalEvents.open.target === 'life-modal'
+      && modalEvents.open.overlay === 'life-modal'
+      && modalEvents.open.dialogContainsTarget
+      && modalEvents.open.trigger === 'open-modal'
+      && modalEvents.close?.bubbles
+      && modalEvents.close.target === 'life-modal'
+      && modalEvents.close.overlay === 'life-modal'
+      && modalEvents.close.returnFocus === 'open-modal',
+    `Modal events must bubble from overlay with stable detail (${JSON.stringify(modalEvents)})`,
+    evidence('modal', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  // --- Modal: destroy escopado/idempotente e re-init sem duplicação ---
+  const modalCleanup = await page.evaluate(() => {
+    const { initModals, destroyModals, openModal, closeModal } = window.__dsLifecycle;
+    const scopeA = document.getElementById('modal-scope-a');
+    const scopeB = document.getElementById('modal-scope-b');
+    destroyModals(scopeA);
+    destroyModals(scopeA);
+    openModal(scopeA);
+    openModal(scopeB);
+    const scopeADead = scopeA.hidden && scopeA.dataset.dsModalInit !== 'true';
+    const scopeBAlive = !scopeB.hidden && scopeB.dataset.dsModalInit === 'true';
+    closeModal(scopeB);
+
+    const reinitRoot = document.getElementById('modal-component-root');
+    destroyModals(reinitRoot);
+    destroyModals(reinitRoot);
+    const reinitCreated = initModals(reinitRoot).length;
+    let reinitEvents = 0;
+    reinitRoot.addEventListener('ds-modal-open', () => { reinitEvents += 1; });
+    openModal(reinitRoot);
+    const reinitOpened = !reinitRoot.hidden;
+    closeModal(reinitRoot);
+
+    return {
+      scopeADead,
+      scopeBAlive,
+      reinitCreated,
+      reinitOpened,
+      reinitEvents,
+      reinitMarked: reinitRoot.dataset.dsModalInit === 'true',
+    };
+  });
+  ok(
+    modalCleanup.scopeADead && modalCleanup.scopeBAlive,
+    'destroyModals(root) must destroy only the scoped Modal',
+    evidence('modal', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    modalCleanup.scopeADead,
+    'destroyModals(root) must be safe when called twice',
+    evidence('modal', 'destroy', 'double-destroy'),
+  );
+  ok(
+    modalCleanup.reinitCreated === 1
+      && modalCleanup.reinitOpened
+      && modalCleanup.reinitEvents === 1
+      && modalCleanup.reinitMarked,
+    `Modal re-init must restore one listener/event (${JSON.stringify(modalCleanup)})`,
+    evidence('modal', 'reinit', 'reinit-single-event'),
+  );
 
   // --- Combobox: root init, hydration e idempotência ---
   const comboboxSetup = await page.evaluate(() => {
