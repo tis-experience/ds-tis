@@ -1410,8 +1410,8 @@
       "cssClass": "ds-menu",
       "cssFile": "css/components/menu.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até suportar/provar menuitemradio/menuitemcheckbox, aria-disabled sem ativação, root init/hydration, cleanup e axe com Menu aberto no tarball consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",

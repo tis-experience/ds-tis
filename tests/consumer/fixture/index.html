@@ -106,6 +106,26 @@
       </div>
     </section>
 
+    <section class="smoke-card" aria-labelledby="menu-title">
+      <h2 id="menu-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Ações</h2>
+      <div class="ds-action-menu" id="consumer-menu">
+        <button type="button" class="ds-button ds-button--outline ds-button--sm ds-action-menu__trigger" id="consumer-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="consumer-menu-list">
+          <span class="ds-button__label">Abrir ações</span>
+        </button>
+        <div class="ds-menu ds-action-menu__content" id="consumer-menu-list" role="menu" aria-labelledby="consumer-menu-trigger">
+          <button type="button" class="ds-menu__item" role="menuitem" id="consumer-menu-edit">
+            <span class="ds-menu__item-label">Editar</span>
+          </button>
+          <button type="button" class="ds-menu__item" role="menuitemcheckbox" aria-checked="false">
+            <span class="ds-menu__item-label">Fixar</span>
+          </button>
+          <button type="button" class="ds-menu__item" role="menuitem" aria-disabled="true">
+            <span class="ds-menu__item-label">Somente admin</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <p id="status" role="status" style="margin:0;color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm)">
       Aguardando runtime…
     </p>

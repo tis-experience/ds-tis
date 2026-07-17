@@ -94,7 +94,11 @@ try {
     'initModals(document) must mark overlay and trigger',
     evidence('modal', 'root-init', 'init-document'),
   );
-  ok(markers.menuInit, 'initActionMenus must mark action menu');
+  ok(
+    markers.menuInit,
+    'initActionMenus(document) must mark action menu',
+    evidence('menu', 'root-init', 'init-document'),
+  );
   ok(
     markers.comboInit,
     'initComboboxes(document) must mark combobox anchor',
@@ -575,6 +579,314 @@ try {
       && modalCleanup.reinitMarked,
     `Modal re-init must restore one listener/event (${JSON.stringify(modalCleanup)})`,
     evidence('modal', 'reinit', 'reinit-single-event'),
+  );
+
+  // --- Action Menu: root init, hydration e idempotência ---
+  const menuSetup = await page.evaluate(() => {
+    const { initActionMenus, closeActionMenu } = window.__dsLifecycle;
+    const markup = (prefix) => `
+      <div class="ds-action-menu" id="${prefix}">
+        <button type="button" class="ds-action-menu__trigger" id="${prefix}-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="${prefix}-list">Ações</button>
+        <div class="ds-menu ds-action-menu__content" id="${prefix}-list" role="menu">
+          <button type="button" class="ds-menu__item" role="menuitem">Editar</button>
+          <button type="button" class="ds-menu__item" role="menuitemradio" aria-checked="false">Confortável</button>
+          <button type="button" class="ds-menu__item" role="menuitemcheckbox" aria-checked="false">Fixar</button>
+          <button type="button" class="ds-menu__item" role="menuitem" aria-disabled="true">Admin</button>
+        </div>
+      </div>`;
+
+    const proofHost = document.createElement('section');
+    proofHost.id = 'menu-proof-host';
+    document.body.append(proofHost);
+
+    const containerHost = document.createElement('div');
+    containerHost.id = 'menu-container-host';
+    containerHost.innerHTML = markup('menu-container-root');
+    proofHost.append(containerHost);
+    const containerCreated = initActionMenus(containerHost).length;
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = markup('menu-component-root').trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    proofHost.append(componentRoot);
+    const componentCreated = initActionMenus(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-action-menu';
+    incomplete.id = 'menu-incomplete-root';
+    proofHost.append(incomplete);
+    const incompleteFirstCreated = initActionMenus(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsActionMenuInit === 'true';
+    incomplete.innerHTML = markup('menu-incomplete-inner')
+      .replace('<div class="ds-action-menu" id="menu-incomplete-inner">', '')
+      .replace(/<\/div>\s*$/, '');
+    const incompleteRecovered = initActionMenus(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    lateHost.id = 'menu-late-host';
+    proofHost.append(lateHost);
+    const lateBefore = initActionMenus(lateHost).length;
+    lateHost.innerHTML = markup('menu-late-root');
+    const lateAfter = initActionMenus(lateHost).length;
+
+    const secondInitCreated = initActionMenus(componentRoot).length;
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-menu-open', () => { duplicateEventCount += 1; });
+    componentRoot.querySelector('.ds-action-menu__trigger').click();
+    closeActionMenu(componentRoot);
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${markup('menu-scope-a')}${markup('menu-scope-b')}`;
+    proofHost.append(scopedHost);
+    const scopedCreated = initActionMenus(scopedHost).length;
+
+    return {
+      containerCreated,
+      containerMarked: containerHost.querySelector('.ds-action-menu').dataset.dsActionMenuInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsActionMenuInit === 'true',
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsActionMenuInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-action-menu').dataset.dsActionMenuInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    menuSetup.containerCreated === 1 && menuSetup.containerMarked,
+    'initActionMenus(container) must initialize a descendant Action Menu exactly once',
+    evidence('menu', 'root-init', 'init-container'),
+  );
+  ok(
+    menuSetup.componentCreated === 1 && menuSetup.componentMarked,
+    'initActionMenus(componentRoot) must initialize the root itself',
+    evidence('menu', 'root-init', 'init-component-root'),
+  );
+  ok(
+    menuSetup.incompleteFirstCreated === 0
+      && !menuSetup.incompletePoisoned
+      && menuSetup.incompleteRecovered === 1
+      && menuSetup.incompleteMarked,
+    'incomplete Action Menu markup must remain recoverable after its anatomy arrives',
+    evidence('menu', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    menuSetup.lateBefore === 0 && menuSetup.lateAfter === 1 && menuSetup.lateMarked,
+    'a late Action Menu subtree must initialize when its container is scanned again',
+    evidence('menu', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    menuSetup.secondInitCreated === 0,
+    'double init must create zero additional Action Menu instances',
+    evidence('menu', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    menuSetup.duplicateEventCount === 1,
+    `double init must not duplicate Action Menu events (got ${menuSetup.duplicateEventCount})`,
+    evidence('menu', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(menuSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two Action Menus');
+
+  // --- Action Menu: teclado, foco, roles, disabled e eventos ---
+  await page.evaluate(() => {
+    window.__dsLifecycle.closeActionMenu(document.getElementById('life-menu'));
+  });
+  await page.locator('#menu-trigger').click();
+  await page.waitForFunction(() => document.activeElement?.id === 'menu-item-edit');
+  const firstMenuState = await page.evaluate(() => ({
+    focusId: document.activeElement?.id,
+    open: document.getElementById('life-menu').dataset.open,
+    expanded: document.getElementById('menu-trigger').getAttribute('aria-expanded'),
+    activeId: document.querySelector('#life-menu-list [data-active="true"]')?.id,
+  }));
+  ok(
+    firstMenuState.focusId === 'menu-item-edit',
+    `Action Menu must focus its first item on open (${JSON.stringify(firstMenuState)})`,
+    evidence('menu', 'focus', 'first-item-focus'),
+  );
+
+  await page.keyboard.press('ArrowDown');
+  const menuArrowTarget = await page.evaluate(() => document.activeElement?.id);
+  await page.keyboard.press('End');
+  const menuEndTarget = await page.evaluate(() => document.activeElement?.id);
+  await page.keyboard.press('Home');
+  const menuHomeTarget = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    menuArrowTarget === 'menu-item-archive'
+      && menuEndTarget === 'menu-item-disabled'
+      && menuHomeTarget === 'menu-item-edit',
+    `Action Menu arrows/Home/End must move focus (${menuArrowTarget}, ${menuEndTarget}, ${menuHomeTarget})`,
+    evidence('menu', 'keyboard', 'arrows-home-end'),
+  );
+
+  await page.keyboard.press('f');
+  const menuTypeaheadTarget = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    menuTypeaheadTarget === 'menu-item-checkbox',
+    `Action Menu typeahead must focus the matching item (got ${menuTypeaheadTarget})`,
+    evidence('menu', 'keyboard', 'typeahead'),
+  );
+  await page.keyboard.press('Escape');
+  ok(
+    (await page.evaluate(() => document.activeElement?.id)) === 'menu-trigger',
+    'Escape must close Action Menu and return focus to the trigger',
+    evidence('menu', 'keyboard', 'escape-returns-focus'),
+  );
+
+  const menuRoles = await page.evaluate(() => ({
+    roles: [...document.querySelectorAll('#life-menu-list .ds-menu__item')]
+      .map((item) => item.getAttribute('role')),
+    disabled: document.getElementById('menu-item-disabled').getAttribute('aria-disabled'),
+  }));
+  ok(
+    menuRoles.roles.includes('menuitem')
+      && menuRoles.roles.includes('menuitemradio')
+      && menuRoles.roles.includes('menuitemcheckbox'),
+    `Action Menu must support command, radio and checkbox roles (${menuRoles.roles.join(', ')})`,
+    evidence('menu', 'aria', 'menuitem-roles-supported'),
+  );
+
+  await page.locator('#menu-trigger').click();
+  await page.waitForFunction(() => document.activeElement?.id === 'menu-item-edit');
+  await page.keyboard.press('End');
+  await page.keyboard.press('Enter');
+  const disabledMenuState = await page.evaluate(() => ({
+    open: document.getElementById('life-menu').dataset.open === 'true',
+    focusId: document.activeElement?.id,
+    disabled: document.getElementById('menu-item-disabled').getAttribute('aria-disabled'),
+  }));
+  ok(
+    disabledMenuState.open && disabledMenuState.focusId === 'menu-item-disabled',
+    `aria-disabled menu item must remain focusable but not activate (${JSON.stringify(disabledMenuState)})`,
+    [
+      evidence('menu', 'focus', 'disabled-focusable-not-activatable'),
+      evidence('menu', 'open-close', 'disabled-item-stays-open'),
+    ],
+  );
+  ok(
+    disabledMenuState.disabled === 'true',
+    'Action Menu runtime must preserve aria-disabled state',
+    evidence('menu', 'aria', 'disabled-state-preserved'),
+  );
+  await page.keyboard.press('Escape');
+
+  await page.locator('#menu-trigger').click();
+  await page.locator('#menu-item-radio').click();
+  const radioState = await page.locator('#menu-item-radio').getAttribute('aria-checked');
+  await page.locator('#menu-trigger').click();
+  await page.locator('#menu-item-checkbox').click();
+  const checkboxState = await page.locator('#menu-item-checkbox').getAttribute('aria-checked');
+  ok(
+    radioState === 'true' && checkboxState === 'true',
+    `radio/checkbox menu items must update aria-checked (${radioState}, ${checkboxState})`,
+  );
+
+  await page.locator('#menu-trigger').click();
+  await page.locator('#menu-item-archive').click();
+  ok(
+    await page.locator('#life-menu').evaluate((root) => root.dataset.open !== 'true'),
+    'enabled Action Menu item must close the menu',
+    evidence('menu', 'open-close', 'enabled-item-closes'),
+  );
+
+  const menuEvents = await page.evaluate(() => new Promise((resolve) => {
+    const result = {};
+    document.addEventListener('ds-menu-open', (event) => {
+      result.open = {
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        root: event.detail?.root?.id,
+        trigger: event.detail?.trigger?.id,
+        menu: event.detail?.menu?.id,
+        item: event.detail?.item?.id,
+      };
+      document.getElementById('menu-item-edit').click();
+    }, { once: true });
+    document.addEventListener('ds-menu-close', (event) => {
+      result.close = {
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        root: event.detail?.root?.id,
+        trigger: event.detail?.trigger?.id,
+        menu: event.detail?.menu?.id,
+      };
+      resolve(result);
+    }, { once: true });
+    document.getElementById('menu-trigger').click();
+  }));
+  ok(
+    menuEvents.open?.bubbles
+      && menuEvents.open.target === 'life-menu'
+      && menuEvents.open.root === 'life-menu'
+      && menuEvents.open.trigger === 'menu-trigger'
+      && menuEvents.open.menu === 'life-menu-list'
+      && menuEvents.open.item === 'menu-item-edit'
+      && menuEvents.close?.bubbles
+      && menuEvents.close.target === 'life-menu'
+      && menuEvents.close.root === 'life-menu'
+      && menuEvents.close.trigger === 'menu-trigger'
+      && menuEvents.close.menu === 'life-menu-list',
+    `Action Menu events must bubble from root with stable detail (${JSON.stringify(menuEvents)})`,
+    evidence('menu', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  // --- Action Menu: destroy escopado/idempotente e re-init sem duplicação ---
+  const menuCleanup = await page.evaluate(() => {
+    const { initActionMenus, destroyActionMenus, openActionMenu, closeActionMenu } = window.__dsLifecycle;
+    const scopeA = document.getElementById('menu-scope-a');
+    const scopeB = document.getElementById('menu-scope-b');
+    destroyActionMenus(scopeA);
+    destroyActionMenus(scopeA);
+    scopeA.querySelector('.ds-action-menu__trigger').click();
+    scopeB.querySelector('.ds-action-menu__trigger').click();
+    const scopeADead = scopeA.dataset.open !== 'true'
+      && scopeA.dataset.dsActionMenuInit !== 'true';
+    const scopeBAlive = scopeB.dataset.open === 'true'
+      && scopeB.dataset.dsActionMenuInit === 'true';
+    closeActionMenu(scopeB);
+
+    const reinitRoot = document.getElementById('menu-component-root');
+    destroyActionMenus(reinitRoot);
+    destroyActionMenus(reinitRoot);
+    const reinitCreated = initActionMenus(reinitRoot).length;
+    let reinitEvents = 0;
+    reinitRoot.addEventListener('ds-menu-open', () => { reinitEvents += 1; });
+    openActionMenu(reinitRoot);
+    const reinitOpened = reinitRoot.dataset.open === 'true';
+    closeActionMenu(reinitRoot);
+
+    return {
+      scopeADead,
+      scopeBAlive,
+      reinitCreated,
+      reinitOpened,
+      reinitEvents,
+      reinitMarked: reinitRoot.dataset.dsActionMenuInit === 'true',
+    };
+  });
+  ok(
+    menuCleanup.scopeADead && menuCleanup.scopeBAlive,
+    'destroyActionMenus(root) must destroy only the scoped Action Menu',
+    evidence('menu', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    menuCleanup.scopeADead,
+    'destroyActionMenus(root) must be safe when called twice',
+    evidence('menu', 'destroy', 'double-destroy'),
+  );
+  ok(
+    menuCleanup.reinitCreated === 1
+      && menuCleanup.reinitOpened
+      && menuCleanup.reinitEvents === 1
+      && menuCleanup.reinitMarked,
+    `Action Menu re-init must restore one listener/event (${JSON.stringify(menuCleanup)})`,
+    evidence('menu', 'reinit', 'reinit-single-event'),
   );
 
   // --- Combobox: root init, hydration e idempotência ---
