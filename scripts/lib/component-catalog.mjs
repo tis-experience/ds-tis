@@ -86,9 +86,8 @@ export const COMPONENTS = [
     css: "accordion.css",
     html: "accordion.html",
     figmaPage: "Accordion",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até provar root init, late hydration, teclado/disabled completos, cleanup, tarball consumidor e axe nos estados fechado/aberto.",
   }),
   defineComponent({
     name: "Button",

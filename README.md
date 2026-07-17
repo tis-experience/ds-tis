@@ -65,10 +65,11 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Os seis runtimes permanecem **Experimentais** enquanto concluem individualmente
-o gate executável da ADR-020. O módulo continua obrigatório quando o componente
-for avaliado e usado, mas não sustente fluxo crítico sem aceitar o blocker
-publicado em `readinessNotes`.
+Accordion concluiu o gate executável da ADR-020 e está **App-ready**. Combobox,
+Modal, Action Menu, Tabs e Tooltip permanecem **Experimentais** até concluírem
+seus blockers individuais. O módulo continua obrigatório quando qualquer um
+desses componentes for usado; não sustente fluxo crítico com os Experimentais
+sem aceitar a limitação publicada em `readinessNotes`.
 
 O pacote também exporta o theme engine e templates HTML:
 

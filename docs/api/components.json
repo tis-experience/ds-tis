@@ -145,8 +145,8 @@
       "cssClass": "ds-accordion",
       "cssFile": "css/components/accordion.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até provar root init, late hydration, teclado/disabled completos, cleanup, tarball consumidor e axe nos estados fechado/aberto.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",

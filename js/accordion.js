@@ -134,17 +134,26 @@ function isInside(root, node) {
   return root === document || root === node || (typeof root.contains === 'function' && root.contains(node));
 }
 
+function getAccordions(root) {
+  const accordions = [];
+  if (root?.matches?.('.ds-accordion')) accordions.push(root);
+  if (typeof root?.querySelectorAll === 'function') {
+    accordions.push(...root.querySelectorAll('.ds-accordion'));
+  }
+  return accordions;
+}
+
 /**
  * @param {ParentNode} [root]
  */
 export function initAccordions(root = document) {
   const created = [];
 
-  root.querySelectorAll('.ds-accordion').forEach((accordion) => {
+  getAccordions(root).forEach((accordion) => {
     if (accordion.dataset.dsAccordionInit === 'true') return;
-    accordion.dataset.dsAccordionInit = 'true';
     const inst = createInstance(accordion);
     if (inst) {
+      accordion.dataset.dsAccordionInit = 'true';
       instances.add(inst);
       created.push(inst);
     }

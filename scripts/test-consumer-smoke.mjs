@@ -25,7 +25,7 @@ const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
 const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
 const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
-const exercisedRuntimeSlugs = ['modal', 'combobox'];
+const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion'];
 let checks = 0;
 
 function ok(condition, message, evidenceItems = []) {
@@ -249,6 +249,20 @@ try {
     { slug: 'combobox', capability: 'consumer-tarball', caseId: 'installed-interaction' },
   );
 
+  // Accordion open + single mode
+  await page.locator('#consumer-accordion-trigger-a').click();
+  const accordionAOpen = await page.locator('#consumer-accordion-panel-a').evaluate((el) => !el.hidden);
+  await page.locator('#consumer-accordion-trigger-b').click();
+  const accordionBOpen = await page.locator('#consumer-accordion-panel-b').evaluate((el) => !el.hidden);
+  const accordionAClosed = await page.locator('#consumer-accordion-panel-a').evaluate((el) => el.hidden);
+  ok(accordionAOpen, 'packed Accordion must open the first item');
+  ok(accordionBOpen && accordionAClosed, 'packed Accordion single mode must close the previous item');
+  ok(
+    accordionAOpen && accordionBOpen && accordionAClosed,
+    'packed Accordion must complete an installed single-mode interaction',
+    { slug: 'accordion', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
   // Exceções assíncronas e console.error invalidam o consumidor. A coleta
   // termina antes do axe: a instrumentação do axe reinsere @imports no
   // documento e o Chromium pode reportar 404s artificiais relativos à raiz.
@@ -264,20 +278,36 @@ try {
   );
   captureBrowserErrors = false;
 
-  // Axe no consumidor
-  const axe = await new AxeBuilder({ page })
+  // Axe no consumidor com Accordion fechado.
+  await page.locator('#consumer-accordion-trigger-b').click();
+  const axeClosed = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze();
-  const blocking = axe.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  const blockingClosed = axeClosed.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious');
   ok(
-    blocking.length === 0,
-    `axe found ${blocking.length} critical/serious violation(s):\n${blocking
+    blockingClosed.length === 0,
+    `axe closed state found ${blockingClosed.length} critical/serious violation(s):\n${blockingClosed
       .map((v) => `  - ${v.id}: ${v.help}`)
       .join('\n')}`,
     [
       { slug: 'modal', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'combobox', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'accordion', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
     ],
+  );
+
+  // Axe com o painel do Accordion aberto.
+  await page.locator('#consumer-accordion-trigger-b').click();
+  const axeOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingOpen = axeOpen.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingOpen.length === 0,
+    `axe open Accordion found ${blockingOpen.length} critical/serious violation(s):\n${blockingOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'accordion', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
   );
 
   console.log(`Checks: ${checks}`);
