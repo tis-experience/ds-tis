@@ -10,15 +10,24 @@
  */
 
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 import { readState, validateState } from "./agents/lib/run-state.mjs";
+import { RUNTIME_BY_SLUG } from "./lib/component-catalog.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
 let checks = 0;
+const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
+const skipLocalFigma = process.argv.includes("--skip-local-figma");
+const npmCacheDir = path.join(os.tmpdir(), "npm-cache-ds-tis-scenarios");
+
+function runtimeFile(runtime) {
+  return `js/${runtime.module.replace("ds-tis/", "")}.js`;
+}
 
 function ok(condition, message) {
   checks += 1;
@@ -47,7 +56,7 @@ function listHtmlFiles(dir, files = []) {
 
 function runCommand(label, command, args) {
   const finalArgs = command === "npm"
-    ? ["--cache", "/private/tmp/npm-cache-ds-tis-scenarios", ...args]
+    ? ["--cache", npmCacheDir, ...args]
     : args;
   const result = spawnSync(command, finalArgs, {
     cwd: ROOT,
@@ -74,26 +83,22 @@ function assertPackageConsumerContract() {
   const expectedFiles = [
     "css/",
     "docs/templates/",
-    "js/combobox.js",
-    "js/menu.js",
-    "js/modal.js",
     "js/package.json",
     "js/theme/",
+    ...runtimeEntries.map(([, runtime]) => runtimeFile(runtime)),
   ];
   const expectedExports = [
     ".",
     "./css",
     "./css/design-system.css",
-    "./combobox",
-    "./combobox.js",
-    "./modal",
-    "./modal.js",
-    "./menu",
-    "./menu.js",
     "./theme",
     "./theme/*",
     "./templates/*",
     "./package.json",
+    ...runtimeEntries.flatMap(([, runtime]) => {
+      const slug = runtime.module.replace("ds-tis/", "");
+      return [`./${slug}`, `./${slug}.js`];
+    }),
   ];
 
   for (const entry of expectedFiles) {
@@ -102,6 +107,14 @@ function assertPackageConsumerContract() {
   for (const key of expectedExports) {
     ok(Object.hasOwn(pkg.exports, key), `package.json exports missing ${key}`);
   }
+  ok(
+    pkg.scripts?.prepublishOnly?.includes("test:app-ready -- --release"),
+    "prepublishOnly must run the executable App-ready gate in non-bypassable release mode",
+  );
+  ok(
+    !`${pkg.scripts?.prepack || ""} ${pkg.scripts?.prepare || ""}`.includes("test:app-ready"),
+    "test:app-ready must not run in prepack/prepare because consumer smoke invokes npm pack",
+  );
 
   for (const [key, target] of Object.entries(pkg.exports)) {
     if (typeof target !== "string") continue;
@@ -115,15 +128,17 @@ function assertPackageConsumerContract() {
 }
 
 async function assertPublicModuleImports() {
-  const combobox = await import("ds-tis/combobox");
-  const modal = await import("ds-tis/modal");
-  const menu = await import("ds-tis/menu");
+  for (const [slug, runtime] of runtimeEntries) {
+    const publicModule = await import(runtime.module);
+    for (const exportName of runtime.exports) {
+      ok(
+        typeof publicModule[exportName] === "function",
+        `${runtime.module} must export ${exportName}() for ${slug}`,
+      );
+    }
+  }
   const theme = await import("ds-tis/theme");
 
-  ok(typeof combobox.initComboboxes === "function", "ds-tis/combobox must export initComboboxes()");
-  ok(typeof combobox.syncComboboxState === "function", "ds-tis/combobox must export syncComboboxState()");
-  ok(typeof modal.initModals === "function", "ds-tis/modal must export initModals()");
-  ok(typeof menu.initActionMenus === "function", "ds-tis/menu must export initActionMenus()");
   ok(typeof theme.applyTheme === "function", "ds-tis/theme must export applyTheme()");
   ok(typeof theme.toCssSnippet === "function", "ds-tis/theme must export toCssSnippet()");
   ok(typeof theme.generateBrandScale === "function", "ds-tis/theme must export generateBrandScale()");
@@ -144,11 +159,11 @@ function assertPackDryRun() {
     "css/components/button.css",
     "docs/templates/index.html",
     "docs/templates/login.html",
-    "js/combobox.js",
     "js/package.json",
     "js/theme/index.js",
     "package.json",
     "README.md",
+    ...runtimeEntries.map(([, runtime]) => runtimeFile(runtime)),
   ]) {
     ok(files.has(rel), `npm package missing ${rel}`);
   }
@@ -170,7 +185,9 @@ function assertReadmeConsumerGuidance() {
     "README must not present bare `npm install ds-tis` as the current install path",
   );
   ok(readme.includes("import 'ds-tis/css'"), "README must document CSS package import");
-  ok(readme.includes("ds-tis/combobox"), "README must document Combobox package import");
+  for (const [, runtime] of runtimeEntries) {
+    ok(readme.includes(runtime.module), `README must document ${runtime.module} package import`);
+  }
   ok(readme.includes("ds-tis/theme"), "README must document theme package import");
 }
 
@@ -186,7 +203,6 @@ function assertAgentConsumerUsageGuide() {
 
   for (const required of [
     "ds-tis/css",
-    "ds-tis/combobox",
     "ds-tis/theme",
     "ds-tis/templates/*",
     "docs/api/components.json",
@@ -197,6 +213,7 @@ function assertAgentConsumerUsageGuide() {
     "aria-*",
     "focus ring",
     "nao invente wrappers oficiais",
+    ...runtimeEntries.map(([, runtime]) => runtime.module),
   ]) {
     ok(guideMd.includes(required), `agent consumer guide missing ${required}`);
   }
@@ -348,8 +365,12 @@ assertReadmeConsumerGuidance();
 assertAgentConsumerUsageGuide();
 assertDocumentationLogoContract();
 assertVisualBaselinePlatformContract();
-assertComponentTokenAuditContract();
-runCommand("npm run audit:component-tokens", "npm", ["run", "audit:component-tokens"]);
+if (skipLocalFigma) {
+  console.log("SKIP - checks Figma locais (.figma-snapshot.json não é versionado no CI)");
+} else {
+  assertComponentTokenAuditContract();
+  runCommand("npm run audit:component-tokens", "npm", ["run", "audit:component-tokens"]);
+}
 assertAgentRunContract();
 runCommand("npm run agents:validate-run", "npm", [
   "run",

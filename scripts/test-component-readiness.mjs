@@ -13,10 +13,23 @@ import {
   RUNTIME_BY_SLUG,
   responsibilityFor,
 } from './lib/component-catalog.mjs';
+import {
+  EVIDENCE_SUITES,
+  validateRequirementRegistry,
+} from './lib/app-ready-requirements.mjs';
+import {
+  readEvidenceReports,
+  validateAppReadyEvidence,
+} from './lib/readiness-evidence.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const API_PATH = path.join(ROOT, 'docs', 'api', 'components.json');
+const CHANGELOG_PATH = path.join(ROOT, 'CHANGELOG.md');
 const errors = [];
+const args = process.argv.slice(2);
+const requireEvidence = args.includes('--require-evidence');
+const evidenceDirIndex = args.indexOf('--evidence-dir');
+const evidenceDir = evidenceDirIndex >= 0 ? args[evidenceDirIndex + 1] : process.env.DS_READINESS_REPORT_DIR;
 
 function expect(condition, message) {
   if (!condition) errors.push(message);
@@ -29,6 +42,9 @@ function sameKeys(left, right) {
 console.log('\n═══ test-component-readiness ═══════════════');
 
 const api = JSON.parse(fs.readFileSync(API_PATH, 'utf8'));
+const changelogEntries = fs.readFileSync(CHANGELOG_PATH, 'utf8')
+  .split('\n')
+  .filter((line) => line.trimStart().startsWith('-'));
 const apiBySlug = new Map(api.components.map((component) => [component.slug, component]));
 const slugs = COMPONENTS.map((component) => component.slug);
 
@@ -36,6 +52,7 @@ expect(new Set(slugs).size === slugs.length, 'Catálogo não pode conter slugs d
 expect(api.components.length === COMPONENTS.length, 'API e catálogo devem ter a mesma quantidade de componentes.');
 expect(sameKeys(api.readinessLevels || {}, READINESS_LEVELS), 'API deve publicar todos os níveis de readiness.');
 expect(sameKeys(api.behaviorModels || {}, BEHAVIOR_MODELS), 'API deve publicar todos os modelos de responsabilidade.');
+for (const error of validateRequirementRegistry(RUNTIME_BY_SLUG)) expect(false, error);
 
 for (const component of COMPONENTS) {
   const published = apiBySlug.get(component.slug);
@@ -84,6 +101,19 @@ for (const component of COMPONENTS) {
       published.runtime.level === 'required',
       `${component.slug}: runtime necessário ao contrato acessível deve ser required.`,
     );
+
+    const doc = fs.readFileSync(path.join(ROOT, 'docs', component.html), 'utf8');
+    for (const publicTerm of [
+      expectedRuntime.module,
+      expectedRuntime.init,
+      expectedRuntime.destroy,
+      ...expectedRuntime.events,
+    ]) {
+      expect(
+        doc.includes(publicTerm),
+        `${component.slug}: docs/${component.html} não documenta o contrato público ${publicTerm}.`,
+      );
+    }
   }
 
   if (published.responsibility.model === 'ds-runtime' && !published.runtime) {
@@ -97,6 +127,14 @@ for (const component of COMPONENTS) {
     expect(
       published.runtime?.level === 'required',
       `${component.slug}: App-ready com comportamento do DS exige runtime público required.`,
+    );
+    const hasPromotionEntry = changelogEntries.some((line) => (
+      line.toLowerCase().includes(component.name.toLowerCase())
+      && line.toLowerCase().includes('app-ready')
+    ));
+    expect(
+      hasPromotionEntry,
+      `${component.slug}: promoção App-ready precisa de entrada explícita por componente no CHANGELOG.`,
     );
   }
 
@@ -112,6 +150,26 @@ for (const component of COMPONENTS) {
       published.readiness === 'composition',
       `${component.slug}: componente CSS-only deve explicitar readiness de Composição.`,
     );
+  }
+}
+
+let evidenceReportCount = 0;
+if (requireEvidence) {
+  const evidenceResult = readEvidenceReports(evidenceDir);
+  evidenceReportCount = evidenceResult.reports.length;
+  for (const error of evidenceResult.errors) expect(false, error);
+
+  const suites = new Set(evidenceResult.reports.map((report) => report.suite));
+  for (const suite of Object.values(EVIDENCE_SUITES)) {
+    expect(suites.has(suite), `Relatório executado ausente para a suite ${suite}.`);
+  }
+
+  for (const error of validateAppReadyEvidence({
+    components: COMPONENTS,
+    runtimeBySlug: RUNTIME_BY_SLUG,
+    reports: evidenceResult.reports,
+  })) {
+    expect(false, error);
   }
 }
 
@@ -140,7 +198,10 @@ if (errors.length === 0) {
   console.log(
     `✅ PASS — ${api.components.length} componentes: ` +
     `${counts['app-ready'] || 0} App-ready, ${counts.composition || 0} Composição, ` +
-    `${counts.experimental || 0} Experimentais`,
+    `${counts.experimental || 0} Experimentais` +
+    (requireEvidence
+      ? `; ${evidenceReportCount} relatório(s) de evidência executada`
+      : '; contrato estrutural (use test:app-ready para evidência executada)'),
   );
   process.exit(0);
 }

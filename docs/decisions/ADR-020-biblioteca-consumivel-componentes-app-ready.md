@@ -6,11 +6,19 @@
 
 ## Contexto
 
-O DS TIS consolidou Figma, tokens DTCG, CSS, documentação e 23 componentes. O pacote público já entrega CSS, theme engine, templates e módulos JavaScript para Combobox, Modal e Action Menu.
+Na data desta decisão, o DS TIS havia consolidado Figma, tokens DTCG, CSS,
+documentação e 23 componentes. O pacote público entregava CSS, theme engine,
+templates e módulos JavaScript para Combobox, Modal e Action Menu. A lista de
+runtimes evolui no catálogo canônico e não deve ser inferida deste contexto histórico.
 
 Esse conjunto ainda não responde de forma objetiva à pergunta mais importante para um consumidor: "posso usar este componente em um fluxo real sem completar partes não declaradas por conta própria?".
 
-O inventário anterior media existência de CSS, Figma, bindings, stories e docs. Essas evidências são necessárias para manter o design system, mas não representam prontidão de consumo. Accordion, Tabs e Tooltip, por exemplo, têm superfície visual documentada, porém não entregam no pacote o comportamento acessível descrito. Combobox, Modal e Menu possuem runtime público, mas ainda precisam de ciclo de vida e teste em um projeto consumidor antes de serem promovidos como completos.
+O inventário anterior media existência de CSS, Figma, bindings, stories e docs.
+Essas evidências são necessárias para manter o design system, mas não representam
+prontidão de consumo. Naquele momento, Accordion, Tabs e Tooltip tinham superfície
+visual documentada sem entregar no pacote o comportamento acessível descrito;
+Combobox, Modal e Menu possuíam runtime público, mas ainda precisavam de ciclo de
+vida e teste em um projeto consumidor antes de qualquer promoção.
 
 Essa ambiguidade afeta dois públicos:
 
@@ -109,25 +117,32 @@ Um componente `ds-runtime` precisa adicionalmente:
 
 Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.
 
-### 7. Classificação (atualizada com evidências do gate)
+### 7. Estado atual é derivado, não duplicado nesta ADR
 
-| Readiness | Componentes |
-|---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs, Tooltip |
-| Composição | Pagination, Form Field |
-| Experimental | — |
+A classificação vigente vive em `scripts/lib/component-catalog.mjs` e é publicada
+em `docs/api/components.json` e `docs/component-inventory.md`. Esta ADR define o
+critério; não mantém uma tabela manual de componentes que possa divergir do catálogo.
 
-Todos os componentes `ds-runtime` do catálogo inicial concluíram o gate de módulo público, ciclo de vida e testes DOM.
+Na introdução do gate executável, Accordion, Combobox, Modal, Menu, Tabs e Tooltip
+possuem módulos públicos, mas permanecem Experimentais. Os testes anteriores
+provavam apenas partes do contrato e não sustentavam mount/hydration, teclado,
+foco, ARIA, cleanup e axe em estados reais por componente.
+
+O gate App-ready deve cruzar cada `ds-runtime` com relatórios efêmeros produzidos
+por suites executadas. Flags persistidas no catálogo, contagem de testes ou
+consistência entre duas saídas derivadas da mesma fonte não são evidência de
+comportamento.
 
 ### 8. Sequência de implementação
 
-1. Publicar readiness e responsabilidade na API e no inventário.
-2. Fazer o guia de consumo orientar devs e agents por readiness.
-3. Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.
-4. Criar projeto consumidor de smoke test com instalação do tarball real.
-5. ~~Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.~~
-6. Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.
-7. Promover componentes individualmente quando todos os gates passarem.
+1. Publicar readiness e responsabilidade na API e no inventário — concluído.
+2. Fazer o guia de consumo orientar devs e agents por readiness — concluído.
+3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — pendente.
+4. Manter smoke test com instalação do tarball real e cobertura por componente —
+   infraestrutura criada; cenários completos entram com cada promoção.
+5. Publicar módulos runtime sem confundir existência do export com prontidão — concluído.
+6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa.
+7. Promover um componente por vez somente quando todos os cases obrigatórios passarem.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.
 
 ## Consequências

@@ -102,6 +102,10 @@ destroyTabs();
 destroyTooltips();
 ```
 
+Ter módulo `required` não significa estar App-ready. Os seis runtimes acima
+permanecem Experimentais enquanto concluem seus blockers em `readinessNotes`;
+não os use em fluxo crítico sem aceitar e validar explicitamente essas limitações.
+
 Para customização de tema, use o theme engine público:
 
 ```js
@@ -194,7 +198,7 @@ Fontes obrigatorias:
 Regras:
 - Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
-- Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
+- Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.

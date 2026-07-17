@@ -9,10 +9,11 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
-- **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13), eventos `ds-tooltip-show`/`ds-tooltip-hide` e promoção a **App-ready** (ADR-020).
-- **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis, evento `ds-tabs-change` e promoção a **App-ready** (ADR-020).
-- **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close`, modo `single` e promoção a **App-ready** (ADR-020).
-- **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init. Os três sobem para **App-ready** (ADR-020).
+- **Gate App-ready por evidência executada.** Novo `test:app-ready` cria um ledger efêmero, executa lifecycle e consumidor instalado, cruza cases por slug/capability com os requisitos da ADR-020 e mantém um teste negativo que prova que promoção sem cobertura falha. CI também passa a executar `test:audit-scenarios`, e testes de API/pacote derivam os runtimes do catálogo canônico.
+- **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13) e eventos `ds-tooltip-show`/`ds-tooltip-hide`.
+- **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis e evento `ds-tabs-change`.
+- **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close` e modo `single`.
+- **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init.
 - **Consumer smoke test.** `npm run test:consumer-smoke` empacota o tarball real, instala em um app temporário e valida CSS, exports Node (`ds-tis/modal`), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).
 - **ADR-020 — biblioteca consumível e readiness.** Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza `app-ready`, `composition` e `experimental`, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.
 - **Catálogo machine-readable de componentes.** `scripts/lib/component-catalog.mjs` passa a alimentar API e inventário com readiness, responsabilidade e limitações; `test-component-readiness` protege o contrato para devs e agents consumidores.
@@ -26,7 +27,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Suporte a forced-colors.** Novo `css/base/forced-colors.css` preserva focus ring e estados checked/indeterminate/radio/toggle/modal em Windows High Contrast.
 - **Tokens Component para barra indeterminate do Checkbox.** Dimensões da barra indeterminate passam a derivar proporcionalmente de `--ds-checkbox-box-size-*` e `--ds-space-hairline`, eliminando px hardcoded sem criar drift Figma.
 - **Metadados de runtime em `docs/api/components.json`.** `build-api` publica `runtime` por componente (`required`/`optional`/`null`), `runtimeModules` agregado e `cssOnly` para Form Field. `test-api-runtime` valida alinhamento com exports npm.
-- **Publicação npm.** `prepublishOnly` roda `build:all`; `pack:check` combina `npm pack --dry-run` com audit de exports.
+- **Publicação npm.** `prepublishOnly` roda `build:all` + `test:app-ready -- --release`; `pack:check` combina `npm pack --dry-run`, auditoria de exports e o mesmo gate App-ready estrito.
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
@@ -43,6 +44,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
+- **Readiness dos runtimes volta ao estado verificável.** Accordion, Combobox, Modal, Menu, Tabs e Tooltip ficam temporariamente **Experimentais**: os módulos públicos continuam `required` quando usados, mas cada slug só recupera App-ready após provar root init, hydration, teclado, foco, ARIA, eventos, cleanup, tarball consumidor e axe fechado/aberto. ADR-020 deixa de duplicar uma tabela manual de classificação.
 - **Runtime acessível deixa de ser opcional.** Combobox, Modal e Action Menu passam a declarar `runtime.level: "required"`: quando usados interativamente, init é parte do contrato de teclado, foco e ARIA. README e docs de Modal/Menu/Combobox abandonam a terminologia "opt-in", e `test:readiness` bloqueia regressão. `llms.txt` passa a listar componentes a partir do catálogo canônico (Accordion, Combobox, Menu e Pagination estavam ausentes), e o CI valida que `docs/api/` commitado não drifta do gerado.
 - **CI bloqueia PR com erros de `verify:tokens`.** Workflow `verify-tokens.yml` deixa de engolir exit code 1.
 - **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.

@@ -36,17 +36,39 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Para Combobox, Modal e Action Menu o runtime público é **obrigatório** quando usados interativamente (`runtime.level: "required"` em `docs/api/components.json`):
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando
+`runtime.level` é `required` em `docs/api/components.json`, o módulo público é
+**obrigatório** para cumprir o contrato interativo e acessível. Os runtimes atuais
+são Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip:
 
 ```js
-import { initComboboxes } from 'ds-tis/combobox';
-import { initModals } from 'ds-tis/modal';
-import { initActionMenus } from 'ds-tis/menu';
+import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
+import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
+import { initModals, destroyModals } from 'ds-tis/modal';
+import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
+import { initTabs, destroyTabs } from 'ds-tis/tabs';
+import { initTooltips, destroyTooltips } from 'ds-tis/tooltip';
 
+initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initTabs();
+initTooltips();
+
+// ao desmontar a view/subtree:
+destroyAccordions();
+destroyComboboxes();
+destroyModals();
+destroyActionMenus();
+destroyTabs();
+destroyTooltips();
 ```
+
+Os seis runtimes permanecem **Experimentais** enquanto concluem individualmente
+o gate executável da ADR-020. O módulo continua obrigatório quando o componente
+for avaliado e usado, mas não sustente fluxo crítico sem aceitar o blocker
+publicado em `readinessNotes`.
 
 O pacote também exporta o theme engine e templates HTML:
 

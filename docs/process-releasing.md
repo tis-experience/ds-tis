@@ -5,7 +5,7 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
 ## Antes de começar
 
 - [ ] Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.
-- [ ] `npm run build:tokens`, `npm run sync:docs` e `npm run verify:tokens` rodam sem erro.
+- [ ] `npm run build:tokens`, `npm run sync:docs`, `npm run verify:tokens` e `npm run test:app-ready` rodam sem erro.
 - [ ] `CHANGELOG.md` tem entradas em `[Não publicado]` cobrindo tudo que mudou desde a última versão.
 
 ## Passo a passo
@@ -26,34 +26,40 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
    git commit -m "chore(release): 1.0.0-beta.N"
    ```
 
-5. **Tag**:
-
-   ```bash
-   git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
-   ```
-
-6. **Push**:
+5. **Push do commit de release**:
 
    ```bash
    git push origin main
+   ```
+
+6. **Aguardar o CI da `main`**. Só criar a tag quando os workflows de teste e
+   deploy do commit de release estiverem verdes. Se falhar, corrigir em novo
+   commit, fazer novo push e repetir este gate.
+
+7. **Criar e enviar a tag** no commit já validado:
+
+   ```bash
+   git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
    git push origin v1.0.0-beta.N
    ```
 
-7. **CI faz o resto**:
+8. **CI valida e publica o site**:
    - `.github/workflows/deploy.yml` roda `npm run build:all`.
-   - Regenera `css/tokens/generated/*.css`, `docs/adr-index.md`, `docs/token-schema.md`, `docs/component-inventory.md`, `docs/changelog.html`, APIs JSON, `llms.txt`.
-   - Auto-commita os derivados com `[skip ci]`.
+   - Valida que o CSS gerado commitado bate com `build:tokens`; o workflow é read-only e não corrige nem auto-commita arquivos.
+   - Todos os derivados de `css/tokens/generated/` e `docs/` devem ser regenerados, revisados e incluídos no commit de release antes da tag.
    - Publica o site estático no ambiente definido pelo projeto.
 
-8. **Verificar**:
+9. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
 
 ## Se algo der errado
 
-- **CI falhar no build**: conferir logs no GitHub Actions. Se for falha de token ou referência quebrada, corrigir na branch, novo commit, novo push — sem precisar mexer na tag.
-- **Precisar desfazer**: tags só removem com `git push origin :refs/tags/vx.y.z`. Desfazer release é operação delicada; prefira publicar um `x.y.z+1` com correção.
+- **CI falhar antes da tag**: conferir logs no GitHub Actions, corrigir na branch,
+  criar novo commit e novo push. Não criar a tag enquanto o commit não estiver verde.
+- **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
+  release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
 
 ## Publicação no npm
 

@@ -53,17 +53,39 @@ HTML estático ou protótipo sem bundler:
 <link rel="stylesheet" href="./node_modules/ds-tis/css/design-system.css">
 ```
 
-Componentes interativos mantêm CSS puro para a anatomia visual. Para Combobox, Modal e Action Menu o runtime público é **obrigatório** quando usados interativamente (`runtime.level: "required"` em `docs/api/components.json`):
+Componentes interativos mantêm CSS puro para a anatomia visual. Quando
+`runtime.level` é `required` em `docs/api/components.json`, o módulo público é
+**obrigatório** para cumprir o contrato interativo e acessível. Os runtimes atuais
+são Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip:
 
 ```js
-import { initComboboxes } from 'ds-tis/combobox';
-import { initModals } from 'ds-tis/modal';
-import { initActionMenus } from 'ds-tis/menu';
+import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
+import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
+import { initModals, destroyModals } from 'ds-tis/modal';
+import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
+import { initTabs, destroyTabs } from 'ds-tis/tabs';
+import { initTooltips, destroyTooltips } from 'ds-tis/tooltip';
 
+initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initTabs();
+initTooltips();
+
+// ao desmontar a view/subtree:
+destroyAccordions();
+destroyComboboxes();
+destroyModals();
+destroyActionMenus();
+destroyTabs();
+destroyTooltips();
 ```
+
+Os seis runtimes permanecem **Experimentais** enquanto concluem individualmente
+o gate executável da ADR-020. O módulo continua obrigatório quando o componente
+for avaliado e usado, mas não sustente fluxo crítico sem aceitar o blocker
+publicado em `readinessNotes`.
 
 O pacote também exporta o theme engine e templates HTML:
 
@@ -258,10 +280,11 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
-- **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13), eventos `ds-tooltip-show`/`ds-tooltip-hide` e promoção a **App-ready** (ADR-020).
-- **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis, evento `ds-tabs-change` e promoção a **App-ready** (ADR-020).
-- **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close`, modo `single` e promoção a **App-ready** (ADR-020).
-- **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init. Os três sobem para **App-ready** (ADR-020).
+- **Gate App-ready por evidência executada.** Novo `test:app-ready` cria um ledger efêmero, executa lifecycle e consumidor instalado, cruza cases por slug/capability com os requisitos da ADR-020 e mantém um teste negativo que prova que promoção sem cobertura falha. CI também passa a executar `test:audit-scenarios`, e testes de API/pacote derivam os runtimes do catálogo canônico.
+- **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13) e eventos `ds-tooltip-show`/`ds-tooltip-hide`.
+- **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis e evento `ds-tabs-change`.
+- **Runtime público Accordion.** Novo export `ds-tis/accordion` (`initAccordions`, `destroyAccordions`, `openAccordionItem`, `closeAccordionItem`) com eventos `ds-accordion-open`/`ds-accordion-close` e modo `single`.
+- **Ciclo de vida init/destroy nos runtimes.** Combobox, Modal e Menu expõem `destroy*` + eventos públicos; teste DOM `test:runtime-lifecycle` valida init → uso → destroy → re-init.
 - **Consumer smoke test.** `npm run test:consumer-smoke` empacota o tarball real, instala em um app temporário e valida CSS, exports Node (`ds-tis/modal`), abertura/fechamento de Modal, seleção de Combobox e axe critical/serious fora do site de docs (ADR-020).
 - **ADR-020 — biblioteca consumível e readiness.** Define que a confiabilidade do núcleo precede adaptadores por framework, formaliza `app-ready`, `composition` e `experimental`, separa responsabilidade do DS e da aplicação e estabelece o gate para componentes com runtime.
 - **Catálogo machine-readable de componentes.** `scripts/lib/component-catalog.mjs` passa a alimentar API e inventário com readiness, responsabilidade e limitações; `test-component-readiness` protege o contrato para devs e agents consumidores.
@@ -275,7 +298,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Suporte a forced-colors.** Novo `css/base/forced-colors.css` preserva focus ring e estados checked/indeterminate/radio/toggle/modal em Windows High Contrast.
 - **Tokens Component para barra indeterminate do Checkbox.** Dimensões da barra indeterminate passam a derivar proporcionalmente de `--ds-checkbox-box-size-*` e `--ds-space-hairline`, eliminando px hardcoded sem criar drift Figma.
 - **Metadados de runtime em `docs/api/components.json`.** `build-api` publica `runtime` por componente (`required`/`optional`/`null`), `runtimeModules` agregado e `cssOnly` para Form Field. `test-api-runtime` valida alinhamento com exports npm.
-- **Publicação npm.** `prepublishOnly` roda `build:all`; `pack:check` combina `npm pack --dry-run` com audit de exports.
+- **Publicação npm.** `prepublishOnly` roda `build:all` + `test:app-ready -- --release`; `pack:check` combina `npm pack --dry-run`, auditoria de exports e o mesmo gate App-ready estrito.
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
@@ -292,6 +315,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Code blocks em páginas Markdown geradas ficam acessíveis ao teclado.** `sync:docs` adiciona `tabindex="0"` em `<pre>` gerado por Markdown, evitando violações `scrollable-region-focusable` quando blocos de código ficam roláveis no CI/Linux.
 
 ### Alterado
+- **Readiness dos runtimes volta ao estado verificável.** Accordion, Combobox, Modal, Menu, Tabs e Tooltip ficam temporariamente **Experimentais**: os módulos públicos continuam `required` quando usados, mas cada slug só recupera App-ready após provar root init, hydration, teclado, foco, ARIA, eventos, cleanup, tarball consumidor e axe fechado/aberto. ADR-020 deixa de duplicar uma tabela manual de classificação.
 - **Runtime acessível deixa de ser opcional.** Combobox, Modal e Action Menu passam a declarar `runtime.level: "required"`: quando usados interativamente, init é parte do contrato de teclado, foco e ARIA. README e docs de Modal/Menu/Combobox abandonam a terminologia "opt-in", e `test:readiness` bloqueia regressão. `llms.txt` passa a listar componentes a partir do catálogo canônico (Accordion, Combobox, Menu e Pagination estavam ausentes), e o CI valida que `docs/api/` commitado não drifta do gerado.
 - **CI bloqueia PR com erros de `verify:tokens`.** Workflow `verify-tokens.yml` deixa de engolir exit code 1.
 - **Leak Foundation em `css/base` agora é erro.** Após migração de reset/icons para Semantic, o detector deixa de tratar base como warning.
@@ -1300,6 +1324,10 @@ destroyTabs();
 destroyTooltips();
 ```
 
+Ter módulo `required` não significa estar App-ready. Os seis runtimes acima
+permanecem Experimentais enquanto concluem seus blockers em `readinessNotes`;
+não os use em fluxo crítico sem aceitar e validar explicitamente essas limitações.
+
 Para customização de tema, use o theme engine público:
 
 ```js
@@ -1392,7 +1420,7 @@ Fontes obrigatorias:
 Regras:
 - Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
 - Importe ds-tis/css uma vez no entrypoint global.
-- Use ds-tis/combobox, ds-tis/modal e ds-tis/menu conforme runtime em docs/api/components.json (init após render).
+- Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
 - Escolha componentes existentes antes de criar markup ad hoc.
@@ -1958,22 +1986,22 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 | Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
 |------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Accordion | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Combobox | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Modal | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Menu | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -2936,7 +2964,7 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
 ## Antes de começar
 
 - [ ] Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.
-- [ ] `npm run build:tokens`, `npm run sync:docs` e `npm run verify:tokens` rodam sem erro.
+- [ ] `npm run build:tokens`, `npm run sync:docs`, `npm run verify:tokens` e `npm run test:app-ready` rodam sem erro.
 - [ ] `CHANGELOG.md` tem entradas em `[Não publicado]` cobrindo tudo que mudou desde a última versão.
 
 ## Passo a passo
@@ -2957,34 +2985,40 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
    git commit -m "chore(release): 1.0.0-beta.N"
    ```
 
-5. **Tag**:
-
-   ```bash
-   git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
-   ```
-
-6. **Push**:
+5. **Push do commit de release**:
 
    ```bash
    git push origin main
+   ```
+
+6. **Aguardar o CI da `main`**. Só criar a tag quando os workflows de teste e
+   deploy do commit de release estiverem verdes. Se falhar, corrigir em novo
+   commit, fazer novo push e repetir este gate.
+
+7. **Criar e enviar a tag** no commit já validado:
+
+   ```bash
+   git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
    git push origin v1.0.0-beta.N
    ```
 
-7. **CI faz o resto**:
+8. **CI valida e publica o site**:
    - `.github/workflows/deploy.yml` roda `npm run build:all`.
-   - Regenera `css/tokens/generated/*.css`, `docs/adr-index.md`, `docs/token-schema.md`, `docs/component-inventory.md`, `docs/changelog.html`, APIs JSON, `llms.txt`.
-   - Auto-commita os derivados com `[skip ci]`.
+   - Valida que o CSS gerado commitado bate com `build:tokens`; o workflow é read-only e não corrige nem auto-commita arquivos.
+   - Todos os derivados de `css/tokens/generated/` e `docs/` devem ser regenerados, revisados e incluídos no commit de release antes da tag.
    - Publica o site estático no ambiente definido pelo projeto.
 
-8. **Verificar**:
+9. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
 
 ## Se algo der errado
 
-- **CI falhar no build**: conferir logs no GitHub Actions. Se for falha de token ou referência quebrada, corrigir na branch, novo commit, novo push — sem precisar mexer na tag.
-- **Precisar desfazer**: tags só removem com `git push origin :refs/tags/vx.y.z`. Desfazer release é operação delicada; prefira publicar um `x.y.z+1` com correção.
+- **CI falhar antes da tag**: conferir logs no GitHub Actions, corrigir na branch,
+  criar novo commit e novo push. Não criar a tag enquanto o commit não estiver verde.
+- **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
+  release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
 
 ## Publicação no npm
 
@@ -23564,11 +23598,19 @@ Descartada como regra geral. `control` deve representar padroes reutilizaveis en
 
 ## Contexto
 
-O DS TIS consolidou Figma, tokens DTCG, CSS, documentação e 23 componentes. O pacote público já entrega CSS, theme engine, templates e módulos JavaScript para Combobox, Modal e Action Menu.
+Na data desta decisão, o DS TIS havia consolidado Figma, tokens DTCG, CSS,
+documentação e 23 componentes. O pacote público entregava CSS, theme engine,
+templates e módulos JavaScript para Combobox, Modal e Action Menu. A lista de
+runtimes evolui no catálogo canônico e não deve ser inferida deste contexto histórico.
 
 Esse conjunto ainda não responde de forma objetiva à pergunta mais importante para um consumidor: "posso usar este componente em um fluxo real sem completar partes não declaradas por conta própria?".
 
-O inventário anterior media existência de CSS, Figma, bindings, stories e docs. Essas evidências são necessárias para manter o design system, mas não representam prontidão de consumo. Accordion, Tabs e Tooltip, por exemplo, têm superfície visual documentada, porém não entregam no pacote o comportamento acessível descrito. Combobox, Modal e Menu possuem runtime público, mas ainda precisam de ciclo de vida e teste em um projeto consumidor antes de serem promovidos como completos.
+O inventário anterior media existência de CSS, Figma, bindings, stories e docs.
+Essas evidências são necessárias para manter o design system, mas não representam
+prontidão de consumo. Naquele momento, Accordion, Tabs e Tooltip tinham superfície
+visual documentada sem entregar no pacote o comportamento acessível descrito;
+Combobox, Modal e Menu possuíam runtime público, mas ainda precisavam de ciclo de
+vida e teste em um projeto consumidor antes de qualquer promoção.
 
 Essa ambiguidade afeta dois públicos:
 
@@ -23667,25 +23709,32 @@ Um componente `ds-runtime` precisa adicionalmente:
 
 Até cumprir esse gate, o componente permanece Experimental mesmo que tenha CSS, Figma e runtime parcial.
 
-### 7. Classificação (atualizada com evidências do gate)
+### 7. Estado atual é derivado, não duplicado nesta ADR
 
-| Readiness | Componentes |
-|---|---|
-| App-ready | Button, Input Text, Textarea, Select, Checkbox, Radio, Toggle, Badge, Alert, Card, Breadcrumb, Avatar, Divider, Spinner, Skeleton, Combobox, Modal, Menu, Accordion, Tabs, Tooltip |
-| Composição | Pagination, Form Field |
-| Experimental | — |
+A classificação vigente vive em `scripts/lib/component-catalog.mjs` e é publicada
+em `docs/api/components.json` e `docs/component-inventory.md`. Esta ADR define o
+critério; não mantém uma tabela manual de componentes que possa divergir do catálogo.
 
-Todos os componentes `ds-runtime` do catálogo inicial concluíram o gate de módulo público, ciclo de vida e testes DOM.
+Na introdução do gate executável, Accordion, Combobox, Modal, Menu, Tabs e Tooltip
+possuem módulos públicos, mas permanecem Experimentais. Os testes anteriores
+provavam apenas partes do contrato e não sustentavam mount/hydration, teclado,
+foco, ARIA, cleanup e axe em estados reais por componente.
+
+O gate App-ready deve cruzar cada `ds-runtime` com relatórios efêmeros produzidos
+por suites executadas. Flags persistidas no catálogo, contagem de testes ou
+consistência entre duas saídas derivadas da mesma fonte não são evidência de
+comportamento.
 
 ### 8. Sequência de implementação
 
-1. Publicar readiness e responsabilidade na API e no inventário.
-2. Fazer o guia de consumo orientar devs e agents por readiness.
-3. Distribuir o catálogo machine-readable e o contexto mínimo para agents junto ao pacote.
-4. Criar projeto consumidor de smoke test com instalação do tarball real.
-5. ~~Endurecer Combobox, Modal e Menu com ciclo de vida e testes DOM.~~
-6. Publicar runtimes de Accordion, Tabs e Tooltip ou reduzir formalmente seus contratos.
-7. Promover componentes individualmente quando todos os gates passarem.
+1. Publicar readiness e responsabilidade na API e no inventário — concluído.
+2. Fazer o guia de consumo orientar devs e agents por readiness — concluído.
+3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — pendente.
+4. Manter smoke test com instalação do tarball real e cobertura por componente —
+   infraestrutura criada; cenários completos entram com cada promoção.
+5. Publicar módulos runtime sem confundir existência do export com prontidão — concluído.
+6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa.
+7. Promover um componente por vez somente quando todos os cases obrigatórios passarem.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.
 
 ## Consequências

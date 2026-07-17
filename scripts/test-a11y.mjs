@@ -15,6 +15,9 @@
  *   node scripts/test-a11y.mjs --mode light        # só light mode (default ambos)
  *   node scripts/test-a11y.mjs --json out.json     # dump JSON pra CI artifact
  *   node scripts/test-a11y.mjs --port 9999         # porta alternativa do server
+ *   node scripts/test-a11y.mjs --strict-load --server # falha em qualquer erro de página/carga
+ *   node scripts/test-a11y.mjs --readiness-pages       # limita às páginas dos 23 componentes
+ *   node scripts/test-a11y.mjs --zero-blocking         # não aceita critical/serious da baseline
  */
 
 import { chromium } from 'playwright';
@@ -23,6 +26,8 @@ import { spawn } from 'node:child_process';
 import { readdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
+
+import { COMPONENTS } from './lib/component-catalog.mjs';
 
 const args = process.argv.slice(2);
 const arg = (name) => {
@@ -35,6 +40,18 @@ const jsonOut = arg('--json');
 const port = parseInt(arg('--port') || '8765', 10);
 const updateBaseline = args.includes('--update-baseline');
 const useServer = args.includes('--server'); // default: file:// (mais robusto em CI Linux)
+const strictLoad = args.includes('--strict-load');
+const readinessPages = args.includes('--readiness-pages');
+const zeroBlocking = args.includes('--zero-blocking');
+
+if (strictLoad && !useServer) {
+  console.error('O modo --strict-load exige --server para evitar erros CORS artificiais do axe em file://.');
+  process.exit(2);
+}
+if (zeroBlocking && updateBaseline) {
+  console.error('--zero-blocking e --update-baseline são modos incompatíveis.');
+  process.exit(2);
+}
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const BASELINE_PATH = path.join(ROOT, '.a11y-baseline.json');
@@ -95,7 +112,11 @@ try {
     .filter(f => f.endsWith('.html'))
     .map(f => `docs/${f}`)];
 
-  const pages = filter ? allPages.filter(p => p.includes(filter)) : allPages;
+  const readinessPageSet = new Set(COMPONENTS.map((component) => `docs/${component.html}`));
+  const scopedPages = readinessPages
+    ? allPages.filter((pagePath) => readinessPageSet.has(pagePath))
+    : allPages;
+  const pages = filter ? scopedPages.filter(p => p.includes(filter)) : scopedPages;
 
   if (pages.length === 0) {
     console.error(`Nenhuma página casou com --filter "${filter}"`);
@@ -109,9 +130,16 @@ try {
   const ctx = await browser.newContext();
   const page = await ctx.newPage();
 
-  // Silencia console errors da página (não relevantes pra a11y)
-  page.on('pageerror', () => {});
-  page.on('console', () => {});
+  let activeBrowserErrors = [];
+  let captureBrowserErrors = false;
+  page.on('pageerror', (error) => {
+    if (strictLoad && captureBrowserErrors) activeBrowserErrors.push(`pageerror: ${error.message}`);
+  });
+  page.on('console', (message) => {
+    if (strictLoad && captureBrowserErrors && message.type() === 'error') {
+      activeBrowserErrors.push(`console.error: ${message.text()}`);
+    }
+  });
 
   const results = [];
   let runIdx = 0;
@@ -129,6 +157,8 @@ try {
       let success = false;
       for (let attempt = 0; attempt <= NAV_RETRIES && !success; attempt++) {
         try {
+          activeBrowserErrors = [];
+          captureBrowserErrors = true;
           await page.goto(buildUrl(file), { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
           await page.evaluate((m) => document.documentElement.dataset.mode = m, mode);
           // Aguarda fontes carregarem (axe color-contrast é sensível a timing)
@@ -136,12 +166,20 @@ try {
           // intermitentes durante o swap font-display.
           await page.evaluate(() => document.fonts && document.fonts.ready);
           await page.waitForTimeout(200);
+          if (activeBrowserErrors.length > 0) {
+            throw new Error(activeBrowserErrors.join(' | '));
+          }
+          // Axe consulta e reinsere @imports. Chromium pode emitir 404/CORS
+          // artificiais nessa instrumentação; erros reais já foram coletados
+          // durante o carregamento e a inicialização da página.
+          captureBrowserErrors = false;
           const r = await new AxeBuilder({ page })
             .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
             .analyze();
           results.push({ file, mode, violations: r.violations });
           success = true;
         } catch (e) {
+          captureBrowserErrors = false;
           lastErr = e;
           if (attempt < NAV_RETRIES) await page.waitForTimeout(500); // pequena pausa antes do retry
         }
@@ -254,15 +292,19 @@ try {
   const fixedViolations = [...acceptedFingerprints].filter(fp => !currentFingerprints.has(fp));
 
   // Se >50% das pages errarem, scan é inválido — não pode reportar PASS
-  if (errored.length > totalRuns / 2) {
+  if ((strictLoad && errored.length > 0) || errored.length > totalRuns / 2) {
     console.error(`\n❌ FAIL — ${errored.length}/${totalRuns} runs com erro de carregamento. Servidor pode ter caído.`);
     process.exit(2);
   }
 
   console.log(`\nBaseline: ${acceptedFingerprints.size} aceitas  ·  Atual: ${currentFingerprints.size}  ·  Novas: ${newViolations.length}  ·  Resolvidas: ${fixedViolations.length}`);
 
-  // Exit code: bloqueia em violações NOVAS (não na baseline)
-  if (newViolations.length > 0) {
+  // Promoção App-ready exige zero critical/serious, inclusive fingerprints
+  // previamente aceitas na baseline global.
+  if (zeroBlocking && currentFingerprints.size > 0) {
+    console.error(`\n❌ FAIL — ${currentFingerprints.size} ocorrência(s) critical/serious; --zero-blocking não aceita baseline.`);
+    exitCode = 1;
+  } else if (newViolations.length > 0) {
     console.error(`\n❌ FAIL — ${newViolations.length} violação(ões) NOVA(s) critical/serious (não na baseline)`);
     console.error(`Listadas acima. Pra fixá-las, edite o arquivo. Pra aceitar (não recomendado), rode \`npm run test:a11y -- --update-baseline\`.`);
     exitCode = 1;

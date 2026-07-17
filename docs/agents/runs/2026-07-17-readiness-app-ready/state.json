@@ -1,0 +1,182 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-17-readiness-app-ready",
+  "title": "Gate de readiness App-ready",
+  "createdAt": "2026-07-17",
+  "updatedAt": "2026-07-17",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-17T14:15:51.368Z",
+        "note": "Owner: Pode executar, em resposta ao plano limitado ao PR 1 de readiness."
+      },
+      "updatedAt": "2026-07-17T14:15:51.368Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-17T14:15:51.595Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-17T14:15:51.758Z",
+        "note": "N/A repo-only; o plano aprovado exclui qualquer escrita ou auditoria Figma."
+      },
+      "updatedAt": "2026-07-17T14:15:51.758Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-17T14:15:51.945Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-17T15:05:34.564Z",
+        "note": "Owner autorizou a aprovação em 2026-07-17: Pode aprovar, não tenho condições de avaliar. Aprovação baseada nas validações e revisões independentes registradas."
+      },
+      "updatedAt": "2026-07-17T15:05:34.564Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "in_progress",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-17T15:26:52.729Z"
+    }
+  ],
+  "checks": {
+    "build:all": {
+      "exit": 0,
+      "passed": true,
+      "note": "Build, geração, verify:tokens e npm test passaram.",
+      "recordedAt": "2026-07-17T15:04:14.888Z"
+    },
+    "verify:tokens": {
+      "exit": 0,
+      "passed": true,
+      "note": "0 erros e 0 avisos; snapshot local 6h.",
+      "recordedAt": "2026-07-17T15:04:15.065Z"
+    },
+    "verify:registry": {
+      "exit": 0,
+      "passed": true,
+      "note": "1227 entries completas.",
+      "recordedAt": "2026-07-17T15:04:15.222Z"
+    },
+    "test:readiness:evidence": {
+      "exit": 0,
+      "passed": true,
+      "note": "7 checks negativos passaram.",
+      "recordedAt": "2026-07-17T15:04:15.405Z"
+    },
+    "test:app-ready:local": {
+      "exit": 0,
+      "passed": true,
+      "note": "Gate passou omitindo somente visual Darwin conhecido.",
+      "recordedAt": "2026-07-17T15:04:15.632Z"
+    },
+    "test:app-ready:darwin": {
+      "exit": 1,
+      "passed": false,
+      "note": "18 de 78 screenshots falham por baselines Darwin preexistentes; nenhum update.",
+      "recordedAt": "2026-07-17T15:04:15.791Z"
+    },
+    "test:audit-scenarios": {
+      "exit": 0,
+      "passed": true,
+      "note": "1548 checks locais passaram.",
+      "recordedAt": "2026-07-17T15:04:15.972Z"
+    },
+    "test:audit-scenarios:ci": {
+      "exit": 0,
+      "passed": true,
+      "note": "1541 checks reproduzíveis sem snapshot passaram.",
+      "recordedAt": "2026-07-17T15:04:16.194Z"
+    },
+    "verify:agent-docs": {
+      "exit": 0,
+      "passed": true,
+      "note": "Documentação canônica dos agentes válida.",
+      "recordedAt": "2026-07-17T15:04:16.439Z"
+    },
+    "agents:validate-run": {
+      "exit": 0,
+      "passed": true,
+      "note": "Schema da run válido antes do fechamento.",
+      "recordedAt": "2026-07-17T15:04:16.648Z"
+    },
+    "git:diff-check": {
+      "exit": 0,
+      "passed": true,
+      "note": "Diff sem whitespace errors.",
+      "recordedAt": "2026-07-17T15:04:16.837Z"
+    },
+    "independent-review": {
+      "exit": 0,
+      "passed": true,
+      "note": "Duas revisões finais read-only: nenhum P0/P1 remanescente.",
+      "recordedAt": "2026-07-17T15:10:19.956Z"
+    }
+  }
+}

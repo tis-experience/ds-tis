@@ -49,10 +49,14 @@ jobs:
         run: npm run build:tokens
 
       - name: Gerar documentação e API pública
-        run: npm run sync:docs && npm run build:api
+        run: npm run sync:docs && npm run build:api && npm run build:llms
 
-      - name: API commitada sem drift (docs/api regenerado deve bater com o commit)
-        run: git diff --exit-code docs/api/components.json docs/api/adrs.json docs/api/foundations.json
+      - name: Contrato público commitado sem drift
+        run: >-
+          git diff --exit-code --
+          docs/api/components.json docs/api/tokens.json docs/api/adrs.json docs/api/foundations.json
+          docs/component-inventory.md docs/adr-index.md docs/changelog.html
+          docs/agent-consumer-usage.html docs/decisions/ docs/llms.txt docs/llms-full.txt
 
       - name: Token integrity (aliases, descriptions, modes)
         run: node scripts/test-token-integrity.mjs
@@ -75,6 +79,9 @@ jobs:
       - name: Self-test (provoca regressões e valida que detectores pegam)
         run: node scripts/test-self.mjs
 
+      - name: Cenários de auditoria (pacote, agents e contratos globais)
+        run: npm run test:audit-scenarios:ci
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
@@ -84,17 +91,8 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Runtime lifecycle (init/destroy/re-init)
-        run: npm run test:runtime-lifecycle
-
-      - name: A11y (axe-core WCAG 2.2 AA contra .a11y-baseline.json)
-        run: node scripts/test-a11y.mjs
-
-      - name: Consumer smoke (npm pack → install → Playwright + axe)
-        run: npm run test:consumer-smoke
-
-      - name: Visual regression (Playwright + pixelmatch)
-        run: node scripts/test-visual.mjs
+      - name: Gate App-ready (evidência executada, tarball, axe e visual)
+        run: npm run test:app-ready
 
       - name: Upload visual regression artifacts
         if: failure()
