@@ -93,7 +93,9 @@ let server = null;
 if (useServer) {
   server = spawn('python3', ['-m', 'http.server', String(port)], {
     cwd: ROOT,
-    stdio: ['ignore', 'ignore', 'pipe']
+    // http.server registra cada request em stderr. Manter esse stream em pipe
+    // sem consumidor enche o buffer após várias páginas e bloqueia o servidor.
+    stdio: ['ignore', 'ignore', 'ignore']
   });
   server.on('error', (e) => { console.error('server failed:', e.message); process.exit(2); });
 
