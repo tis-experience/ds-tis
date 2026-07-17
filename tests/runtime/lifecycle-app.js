@@ -69,6 +69,8 @@ window.__dsLifecycle = {
   closeModal,
   openActionMenu,
   closeActionMenu,
+  initAccordions,
+  destroyAccordions,
   events() {
     return [...log];
   },

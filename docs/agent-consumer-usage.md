@@ -102,9 +102,11 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Ter módulo `required` não significa estar App-ready. Os seis runtimes acima
-permanecem Experimentais enquanto concluem seus blockers em `readinessNotes`;
-não os use em fluxo crítico sem aceitar e validar explicitamente essas limitações.
+Ter módulo `required` não significa automaticamente estar App-ready. Accordion
+concluiu o gate executável da ADR-020. Combobox, Modal, Action Menu, Tabs e
+Tooltip permanecem Experimentais enquanto concluem seus blockers em
+`readinessNotes`; não os use em fluxo crítico sem aceitar e validar
+explicitamente essas limitações.
 
 Para customização de tema, use o theme engine público:
 

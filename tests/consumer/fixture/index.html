@@ -84,6 +84,28 @@
       </button>
     </section>
 
+    <section class="smoke-card" aria-labelledby="accordion-title">
+      <h2 id="accordion-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Ajuda</h2>
+      <div class="ds-accordion" id="consumer-accordion" data-accordion-mode="single">
+        <div class="ds-accordion__item" data-state="closed">
+          <button class="ds-accordion__trigger" type="button" id="consumer-accordion-trigger-a" aria-expanded="false" aria-controls="consumer-accordion-panel-a">
+            <span class="ds-accordion__title">Como acessar?</span>
+          </button>
+          <div class="ds-accordion__panel" id="consumer-accordion-panel-a" role="region" aria-labelledby="consumer-accordion-trigger-a" hidden>
+            <p style="margin:0">Use suas credenciais corporativas.</p>
+          </div>
+        </div>
+        <div class="ds-accordion__item" data-state="closed">
+          <button class="ds-accordion__trigger" type="button" id="consumer-accordion-trigger-b" aria-expanded="false" aria-controls="consumer-accordion-panel-b">
+            <span class="ds-accordion__title">Precisa de suporte?</span>
+          </button>
+          <div class="ds-accordion__panel" id="consumer-accordion-panel-b" role="region" aria-labelledby="consumer-accordion-trigger-b" hidden>
+            <p style="margin:0">Procure o service desk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <p id="status" role="status" style="margin:0;color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm)">
       Aguardando runtime…
     </p>

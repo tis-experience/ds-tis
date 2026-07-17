@@ -82,10 +82,11 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Os seis runtimes permanecem **Experimentais** enquanto concluem individualmente
-o gate executável da ADR-020. O módulo continua obrigatório quando o componente
-for avaliado e usado, mas não sustente fluxo crítico sem aceitar o blocker
-publicado em `readinessNotes`.
+Accordion concluiu o gate executável da ADR-020 e está **App-ready**. Combobox,
+Modal, Action Menu, Tabs e Tooltip permanecem **Experimentais** até concluírem
+seus blockers individuais. O módulo continua obrigatório quando qualquer um
+desses componentes for usado; não sustente fluxo crítico com os Experimentais
+sem aceitar a limitação publicada em `readinessNotes`.
 
 O pacote também exporta o theme engine e templates HTML:
 
@@ -302,6 +303,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Accordion conclui o gate App-ready.** `initAccordions` passa a aceitar o próprio component root e não envenena markup incompleto antes de hydration. Lifecycle prova root/container/component init, late hydration, idempotência, teclado, foco circular, ARIA, eventos e cleanup; o consumer smoke instala o tarball e valida interação, zero erros de browser e axe nos estados fechado/aberto antes da promoção individual.
 - **Modal overlay respeita `hidden`.** `.ds-modal-overlay { display: flex }` anulava o atributo HTML `hidden` no consumidor; regra explícita `[hidden] { display: none }` restaura o fechamento. Detectado pelo smoke test de consumidor.
 - **Referências órfãs de ADR no Combobox.** Menções anteriores a uma ADR-020 inexistente passam a apontar para ADR-019 (tokens/anatomia Component) e ADR-017 (`ds-field` CSS-only), liberando a numeração para a decisão registrada.
 - **Docs de instalação não prometem npm registry.** README e guia de agents consumidores passam a documentar `npm install github:tis-experience/ds-tis` como caminho oficial; `npm install ds-tis` só após publish. `test:audit-scenarios` protege a regressão.
@@ -1324,9 +1326,11 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Ter módulo `required` não significa estar App-ready. Os seis runtimes acima
-permanecem Experimentais enquanto concluem seus blockers em `readinessNotes`;
-não os use em fluxo crítico sem aceitar e validar explicitamente essas limitações.
+Ter módulo `required` não significa automaticamente estar App-ready. Accordion
+concluiu o gate executável da ADR-020. Combobox, Modal, Action Menu, Tabs e
+Tooltip permanecem Experimentais enquanto concluem seus blockers em
+`readinessNotes`; não os use em fluxo crítico sem aceitar e validar
+explicitamente essas limitações.
 
 Para customização de tema, use o theme engine público:
 
@@ -1986,7 +1990,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 | Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
 |------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
