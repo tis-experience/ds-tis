@@ -10,7 +10,7 @@
     "generatedAt": null,
     "path": null
   },
-  "currentGate": "release",
+  "currentGate": null,
   "gates": [
     {
       "id": "brief",
@@ -100,9 +100,12 @@
         "repo"
       ],
       "needsOwnerApproval": true,
-      "status": "in_progress",
-      "ownerApproval": null,
-      "updatedAt": "2026-07-17T15:26:52.729Z"
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-17T15:55:45.572Z",
+        "note": "Owner autorizou commit, push, PR e merge. PR #22 com verify/test verdes no commit a841a0e; sem publicação de versão."
+      },
+      "updatedAt": "2026-07-17T15:55:45.572Z"
     }
   ],
   "checks": {
@@ -177,6 +180,24 @@
       "passed": true,
       "note": "Duas revisões finais read-only: nenhum P0/P1 remanescente.",
       "recordedAt": "2026-07-17T15:10:19.956Z"
+    },
+    "ci:verify:a841a0e": {
+      "exit": 0,
+      "passed": true,
+      "note": "GitHub Actions Verify tokens PASS em 16s no PR #22.",
+      "recordedAt": "2026-07-17T15:55:45.041Z"
+    },
+    "ci:test:a841a0e": {
+      "exit": 0,
+      "passed": true,
+      "note": "GitHub Actions Test PASS em 3m03s no PR #22, incluindo gate App-ready Linux completo.",
+      "recordedAt": "2026-07-17T15:55:45.212Z"
+    },
+    "test:a11y:server-buffer": {
+      "exit": 0,
+      "passed": true,
+      "note": "46/46 runs concluídos localmente em cerca de 30s; zero violações após impedir bloqueio do stderr.",
+      "recordedAt": "2026-07-17T15:55:45.391Z"
     }
   }
 }

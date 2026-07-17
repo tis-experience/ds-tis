@@ -3,7 +3,7 @@
 - Run ID: 2026-07-17-readiness-app-ready
 - Title: Gate de readiness App-ready
 - Created at: 2026-07-17
-- Status: Release in progress
+- Status: Release approved — ready to merge
 - Current gate: Release
 - Active role: Release Agent
 - Repo: /Users/marcelldasilva/Projectos TIS/ds-tis
@@ -24,10 +24,11 @@ Tornar a classificação App-ready verificável por cenários executados, corrig
 - 2026-07-17: Owner respondeu "Pode executar" ao plano que limitava a execução ao PR 1 de readiness.
 - 2026-07-17: Figma e token sync classificados como N/A por escopo repo-only.
 - 2026-07-17: Owner autorizou aprovar o gate Repo com base nas validações e revisões independentes registradas.
+- 2026-07-17: Owner autorizou commit, push, abertura do PR e merge; PR #22 criado e checks `verify`/`test` aprovados no commit `a841a0e`.
 
 ## Out of scope
 
-- Commit, push, PR and production release until explicitly authorized.
+- Publicação de versão, tag e pacote sem autorização específica de release.
 - Correções funcionais nos seis runtimes.
 - Qualquer escrita no Figma, tokens, CSS ou baselines visuais.
 
@@ -51,13 +52,13 @@ Tornar a classificação App-ready verificável por cenários executados, corrig
 | 04 | `04-figma-audit-report.md` | Figma Auditor | N/A repo-only |
 | 05 | `05-repo-sync-plan.md` | Token Sync Agent | Approved repo-only |
 | 06 | `06-repo-implementation-report.md` | Repo Component Agent | Approved by owner |
-| 07 | `07-release-report.md` | Release Agent | Pending |
+| 07 | `07-release-report.md` | Release Agent | Approved by owner |
 
 ## Next handoff
 
 ```txt
-O gate Repo foi aprovado. Para iniciar Release Agent, o owner ainda precisa
-autorizar explicitamente o próximo passo desejado (commit, push e/ou PR).
-Atualização de baseline, correção de runtime e release de versão permanecem
-fora do escopo e bloqueadas.
+O gate Release foi aprovado com checks verdes no PR #22. O próximo passo é
+integrar o PR após o CI do registro final permanecer verde. Atualização de
+baseline, correção dos seis runtimes e release de versão permanecem fora do
+escopo e bloqueadas.
 ```
