@@ -11,36 +11,8 @@
       display: grid;
       grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(140px, auto));
       gap: var(--ds-dimension-12);
-      align-items: end;
+      align-items: start;
       margin-bottom: var(--ds-dimension-20);
-    }
-
-    .ds-icon-control {
-      display: flex;
-      flex-direction: column;
-      gap: var(--ds-dimension-6);
-    }
-
-    .ds-icon-control label {
-      color: var(--ds-content-default);
-      font-size: var(--ds-body-font-size-sm);
-      font-weight: var(--ds-body-font-weight-semibold);
-    }
-
-    .ds-icon-control input,
-    .ds-icon-control select {
-      height: var(--ds-size-lg);
-      border: var(--ds-border-width-default) solid var(--ds-border-default);
-      border-radius: var(--ds-radius-md);
-      background: var(--ds-surface-default);
-      color: var(--ds-content-default);
-      padding-inline: var(--ds-dimension-12);
-    }
-
-    .ds-icon-control input:focus-visible,
-    .ds-icon-control select:focus-visible {
-      outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
-      outline-offset: var(--ds-border-width-focus);
     }
 
     .ds-icon-meta {
@@ -190,36 +162,47 @@
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Biblioteca</span><span data-lang="en">Library</span></h2>
     <div class="ds-icon-toolbar">
-      <div class="ds-icon-control">
-        <label for="icon-search"><span data-lang="pt">Buscar</span><span data-lang="en">Search</span></label>
-        <input id="icon-search" type="search" placeholder="search, circle-check, alert..." autocomplete="off">
+      <div class="ds-field">
+        <label class="ds-field__label" for="icon-search"><span data-lang="pt">Buscar</span><span data-lang="en">Search</span></label>
+        <div class="ds-input">
+          <input class="ds-input__field" id="icon-search" type="search" placeholder="search, circle-check, alert..." autocomplete="off">
+        </div>
       </div>
-      <div class="ds-icon-control">
-        <label for="icon-size">Size</label>
-        <select id="icon-size">
-          <option value="16">16px</option>
-          <option value="20" selected>20px</option>
-          <option value="24">24px</option>
-          <option value="32">32px</option>
-        </select>
+      <div class="ds-field">
+        <label class="ds-field__label" for="icon-size">Size</label>
+        <div class="ds-select">
+          <select class="ds-select__field" id="icon-size">
+            <option value="16">16px</option>
+            <option value="20" selected>20px</option>
+            <option value="24">24px</option>
+            <option value="32">32px</option>
+          </select>
+          <span class="ds-select__arrow" aria-hidden="true"></span>
+        </div>
       </div>
-      <div class="ds-icon-control">
-        <label for="icon-weight">Weight</label>
-        <select id="icon-weight">
-          <option value="regular" selected>Regular</option>
-          <option value="strong">Strong</option>
-        </select>
+      <div class="ds-field">
+        <label class="ds-field__label" for="icon-weight">Weight</label>
+        <div class="ds-select">
+          <select class="ds-select__field" id="icon-weight">
+            <option value="regular" selected>Regular</option>
+            <option value="strong">Strong</option>
+          </select>
+          <span class="ds-select__arrow" aria-hidden="true"></span>
+        </div>
       </div>
-      <div class="ds-icon-control">
-        <label for="icon-color">Color</label>
-        <select id="icon-color">
-          <option value="default" selected>Default</option>
-          <option value="subtle">Subtle</option>
-          <option value="success">Success</option>
-          <option value="warning">Warning</option>
-          <option value="error">Error</option>
-          <option value="disabled">Disabled</option>
-        </select>
+      <div class="ds-field">
+        <label class="ds-field__label" for="icon-color">Color</label>
+        <div class="ds-select">
+          <select class="ds-select__field" id="icon-color">
+            <option value="default" selected>Default</option>
+            <option value="subtle">Subtle</option>
+            <option value="success">Success</option>
+            <option value="warning">Warning</option>
+            <option value="error">Error</option>
+            <option value="disabled">Disabled</option>
+          </select>
+          <span class="ds-select__arrow" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
     <p class="ds-icon-meta" id="icon-meta">Carregando biblioteca...</p>
