@@ -79,6 +79,8 @@ window.__dsLifecycle = {
   destroyActionMenus,
   initTabs,
   destroyTabs,
+  initTooltips,
+  destroyTooltips,
   events() {
     return [...log];
   },

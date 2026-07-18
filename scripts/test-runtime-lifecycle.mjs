@@ -114,7 +114,11 @@ try {
     'initTabs(document) must mark tablist',
     evidence('tabs', 'root-init', 'init-document'),
   );
-  ok(markers.tooltipInit, 'initTooltips must mark tooltip');
+  ok(
+    markers.tooltipInit,
+    'initTooltips(document) must mark tooltip',
+    evidence('tooltip', 'root-init', 'init-document'),
+  );
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -1765,6 +1769,279 @@ try {
     root.focus?.();
     window.__dsLifecycle.clearEvents();
   });
+
+  // --- Tooltip: root init, hydration e idempotência ---
+  const tooltipSetup = await page.evaluate(() => {
+    const { initTooltips } = window.__dsLifecycle;
+    const markup = (prefix, withIds = true) => `
+      <div class="ds-tooltip ds-tooltip--top" id="${prefix}">
+        <button type="button" id="${prefix}-trigger"${withIds ? ` aria-describedby="${prefix}-content"` : ''}>Ajuda</button>
+        <span class="ds-tooltip__content"${withIds ? ` id="${prefix}-content" role="tooltip"` : ''}>${prefix}</span>
+      </div>`;
+
+    const proofHost = document.createElement('section');
+    proofHost.id = 'tooltip-proof-host';
+    document.body.append(proofHost);
+
+    const containerHost = document.createElement('div');
+    containerHost.innerHTML = markup('tooltip-container-root');
+    proofHost.append(containerHost);
+    const containerCreated = initTooltips(containerHost).length;
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = markup('tooltip-component-root', false).trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    proofHost.append(componentRoot);
+    const componentCreated = initTooltips(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-tooltip';
+    incomplete.id = 'tooltip-incomplete-root';
+    incomplete.innerHTML = '<span class="ds-tooltip__content">Conteúdo tardio</span>';
+    proofHost.append(incomplete);
+    const incompleteFirstCreated = initTooltips(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsTooltipInit === 'true';
+    incomplete.insertAdjacentHTML('afterbegin', '<button type="button" id="tooltip-incomplete-trigger">Ajuda</button>');
+    const incompleteRecovered = initTooltips(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    proofHost.append(lateHost);
+    const lateBefore = initTooltips(lateHost).length;
+    lateHost.innerHTML = markup('tooltip-late-root');
+    const lateAfter = initTooltips(lateHost).length;
+
+    const secondInitCreated = initTooltips(componentRoot).length;
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-tooltip-show', () => { duplicateEventCount += 1; });
+    componentRoot.querySelector('button').focus();
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${markup('tooltip-scope-a')}${markup('tooltip-scope-b')}`;
+    proofHost.append(scopedHost);
+    const scopedCreated = initTooltips(scopedHost).length;
+
+    const generatedContent = componentRoot.querySelector('.ds-tooltip__content');
+    const generatedTrigger = componentRoot.querySelector('button');
+    return {
+      containerCreated,
+      containerMarked: containerHost.querySelector('.ds-tooltip').dataset.dsTooltipInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsTooltipInit === 'true',
+      generatedId: generatedContent.id,
+      generatedRole: generatedContent.getAttribute('role'),
+      generatedDescribedBy: generatedTrigger.getAttribute('aria-describedby'),
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsTooltipInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-tooltip').dataset.dsTooltipInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    tooltipSetup.containerCreated === 1 && tooltipSetup.containerMarked,
+    'initTooltips(container) must initialize a descendant Tooltip exactly once',
+    evidence('tooltip', 'root-init', 'init-container'),
+  );
+  ok(
+    tooltipSetup.componentCreated === 1 && tooltipSetup.componentMarked,
+    'initTooltips(componentRoot) must initialize the Tooltip root itself',
+    evidence('tooltip', 'root-init', 'init-component-root'),
+  );
+  ok(
+    tooltipSetup.incompleteFirstCreated === 0
+      && !tooltipSetup.incompletePoisoned
+      && tooltipSetup.incompleteRecovered === 1
+      && tooltipSetup.incompleteMarked,
+    'incomplete Tooltip markup must remain recoverable after its trigger arrives',
+    evidence('tooltip', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    tooltipSetup.lateBefore === 0 && tooltipSetup.lateAfter === 1 && tooltipSetup.lateMarked,
+    'a late Tooltip subtree must initialize when its container is scanned again',
+    evidence('tooltip', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    tooltipSetup.secondInitCreated === 0,
+    'double init must create zero additional Tooltip instances',
+    evidence('tooltip', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    tooltipSetup.duplicateEventCount === 1,
+    `double init must not duplicate Tooltip events (got ${tooltipSetup.duplicateEventCount})`,
+    evidence('tooltip', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(
+    Boolean(tooltipSetup.generatedId)
+      && tooltipSetup.generatedRole === 'tooltip'
+      && tooltipSetup.generatedDescribedBy?.split(/\s+/).includes(tooltipSetup.generatedId),
+    `Tooltip must generate a valid role/id/aria-describedby relation (${JSON.stringify(tooltipSetup)})`,
+  );
+  ok(tooltipSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two Tooltips');
+
+  // --- Tooltip: foco, Escape, hover persistente, ARIA e eventos ---
+  await page.mouse.move(0, 0);
+  await page.locator('#tip-trigger').focus();
+  const tooltipFocusState = await page.evaluate(() => ({
+    active: document.activeElement?.id,
+    open: document.getElementById('life-tooltip').dataset.open,
+    hidden: document.getElementById('life-tip').hasAttribute('hidden'),
+  }));
+  ok(
+    tooltipFocusState.active === 'tip-trigger'
+      && tooltipFocusState.open === 'true'
+      && !tooltipFocusState.hidden,
+    `Tooltip focus must open without moving DOM focus (${JSON.stringify(tooltipFocusState)})`,
+    evidence('tooltip', 'focus', 'focus-opens-without-moving-focus'),
+  );
+
+  await page.locator('#life-tab-a').focus();
+  await page.waitForFunction(() => document.getElementById('life-tip').hasAttribute('hidden'));
+  ok(
+    await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden')),
+    'Tooltip must close after its trigger loses focus',
+    evidence('tooltip', 'focus', 'blur-closes'),
+  );
+
+  const tooltipAria = await page.evaluate(() => {
+    const trigger = document.getElementById('tip-trigger');
+    const content = document.getElementById('life-tip');
+    return {
+      role: content.getAttribute('role'),
+      describedBy: trigger.getAttribute('aria-describedby'),
+      resolves: trigger.getAttribute('aria-describedby')?.split(/\s+/)
+        .some((id) => document.getElementById(id) === content),
+    };
+  });
+  ok(
+    tooltipAria.role === 'tooltip' && tooltipAria.resolves,
+    `Tooltip role and aria-describedby must resolve to its content (${JSON.stringify(tooltipAria)})`,
+    evidence('tooltip', 'aria', 'role-and-describedby-valid'),
+  );
+
+  await page.mouse.move(0, 0);
+  await page.locator('#life-tooltip').hover();
+  await page.locator('#life-tip').waitFor({ state: 'visible', timeout: 1500 });
+  await page.locator('#tip-trigger').focus();
+  await page.keyboard.press('Escape');
+  const tooltipAfterEscape = await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden'));
+  await page.waitForTimeout(160);
+  const tooltipSuppressed = await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden'));
+  await page.locator('#life-tab-a').focus();
+  await page.mouse.move(0, 0);
+  await page.locator('#life-tooltip').hover();
+  await page.locator('#life-tip').waitFor({ state: 'visible', timeout: 1500 });
+  ok(
+    tooltipAfterEscape && tooltipSuppressed,
+    'Escape must dismiss Tooltip and suppress re-open until pointer/focus exits',
+    evidence('tooltip', 'keyboard', 'escape-dismisses-until-exit'),
+  );
+
+  await page.locator('#life-tip').hover();
+  await page.waitForTimeout(160);
+  const tooltipPersistsOnContent = await page.locator('#life-tip').evaluate((el) => !el.hasAttribute('hidden'));
+  ok(
+    tooltipPersistsOnContent,
+    'Tooltip must remain open while pointer moves from trigger to hoverable content',
+    evidence('tooltip', 'open-close', 'trigger-to-content-persists'),
+  );
+  await page.mouse.move(0, 0);
+  await page.waitForFunction(() => document.getElementById('life-tip').hasAttribute('hidden'));
+  ok(
+    await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden')),
+    'Tooltip must close after pointer and focus both leave',
+    evidence('tooltip', 'open-close', 'leave-both-closes'),
+  );
+
+  const tooltipEvent = await page.evaluate(() => new Promise((resolve) => {
+    const root = document.getElementById('life-tooltip');
+    root.addEventListener('ds-tooltip-show', (event) => {
+      resolve({
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        root: event.detail?.root?.id,
+        trigger: event.detail?.trigger?.id,
+        content: event.detail?.content?.id,
+      });
+    }, { once: true });
+    document.getElementById('tip-trigger').focus();
+  }));
+  ok(
+    tooltipEvent.bubbles
+      && tooltipEvent.target === 'life-tooltip'
+      && tooltipEvent.root === 'life-tooltip'
+      && tooltipEvent.trigger === 'tip-trigger'
+      && tooltipEvent.content === 'life-tip',
+    `Tooltip event must bubble from its root with stable detail (${JSON.stringify(tooltipEvent)})`,
+    evidence('tooltip', 'events', 'public-event-bubbling-target-detail'),
+  );
+  await page.keyboard.press('Escape');
+  await page.locator('#life-tab-a').focus();
+  await page.mouse.move(0, 0);
+
+  // --- Tooltip: destroy escopado, timers e re-init sem duplicação ---
+  const tooltipCleanup = await page.evaluate(async () => {
+    const { initTooltips, destroyTooltips } = window.__dsLifecycle;
+    const scopeA = document.getElementById('tooltip-scope-a');
+    const scopeB = document.getElementById('tooltip-scope-b');
+    let scopeAEvents = 0;
+    scopeA.addEventListener('ds-tooltip-show', () => { scopeAEvents += 1; });
+    scopeA.dispatchEvent(new PointerEvent('pointerenter'));
+    destroyTooltips(scopeA);
+    destroyTooltips(scopeA);
+    await new Promise((resolve) => setTimeout(resolve, 180));
+    scopeB.querySelector('button').focus();
+
+    const reinitRoot = document.getElementById('tooltip-component-root');
+    const reinitTrigger = reinitRoot.querySelector('button');
+    destroyTooltips(reinitRoot);
+    destroyTooltips(reinitRoot);
+    const reinitCreated = initTooltips(reinitRoot).length;
+    let reinitEvents = 0;
+    reinitRoot.addEventListener('ds-tooltip-show', () => { reinitEvents += 1; });
+    reinitTrigger.focus();
+
+    return {
+      scopeADead: scopeA.querySelector('.ds-tooltip__content').hasAttribute('hidden')
+        && scopeA.dataset.dsTooltipInit !== 'true'
+        && scopeAEvents === 0,
+      scopeBAlive: !scopeB.querySelector('.ds-tooltip__content').hasAttribute('hidden')
+        && scopeB.dataset.dsTooltipInit === 'true',
+      reinitCreated,
+      reinitOpened: !reinitRoot.querySelector('.ds-tooltip__content').hasAttribute('hidden'),
+      reinitEvents,
+      reinitMarked: reinitRoot.dataset.dsTooltipInit === 'true',
+    };
+  });
+  ok(
+    tooltipCleanup.scopeADead && tooltipCleanup.scopeBAlive,
+    'destroyTooltips(root) must cancel pending timers and destroy only the scoped Tooltip',
+    evidence('tooltip', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    tooltipCleanup.scopeADead,
+    'destroyTooltips(root) must be safe when called twice',
+    evidence('tooltip', 'destroy', 'double-destroy'),
+  );
+  ok(
+    tooltipCleanup.reinitCreated === 1
+      && tooltipCleanup.reinitOpened
+      && tooltipCleanup.reinitMarked
+      && tooltipCleanup.reinitEvents === 1,
+    `Tooltip re-init must restore one listener/event (got ${JSON.stringify(tooltipCleanup)})`,
+    evidence('tooltip', 'reinit', 'reinit-single-event'),
+  );
+
+  await page.evaluate(() => {
+    document.getElementById('life-tab-a').focus();
+    window.__dsLifecycle.clearEvents();
+  });
+  await page.mouse.move(0, 0);
 
   // --- Destroy: markers gone, triggers dead ---
   await page.evaluate(() => {

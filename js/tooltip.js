@@ -19,9 +19,10 @@
 const instances = new Set();
 const SHOW_DELAY_MS = 100;
 const HIDE_DELAY_MS = 100;
+let generatedId = 0;
 
-function emit(root, name) {
-  root.dispatchEvent(new CustomEvent(name, { bubbles: true }));
+function emit(root, name, detail) {
+  root.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }));
 }
 
 function getTrigger(root, content) {
@@ -36,8 +37,16 @@ function createInstance(root) {
   const trigger = getTrigger(root, content);
   if (!trigger) return null;
 
-  if (!trigger.hasAttribute('aria-describedby') && content.id) {
-    trigger.setAttribute('aria-describedby', content.id);
+  if (!content.id) {
+    do {
+      generatedId += 1;
+      content.id = `ds-tooltip-${generatedId}`;
+    } while (content.ownerDocument.getElementById(content.id) !== content);
+  }
+
+  const describedBy = (trigger.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+  if (!describedBy.includes(content.id)) {
+    trigger.setAttribute('aria-describedby', [...describedBy, content.id].join(' '));
   }
 
   const cleanups = [];
@@ -48,8 +57,10 @@ function createInstance(root) {
 
   let showTimer = null;
   let hideTimer = null;
+  let focusFrame = null;
   let open = root.dataset.open === 'true';
   let suppressUntilLeave = false;
+  const view = root.ownerDocument.defaultView;
 
   const clearTimers = () => {
     if (showTimer) {
@@ -59,6 +70,10 @@ function createInstance(root) {
     if (hideTimer) {
       clearTimeout(hideTimer);
       hideTimer = null;
+    }
+    if (focusFrame) {
+      view.cancelAnimationFrame(focusFrame);
+      focusFrame = null;
     }
   };
 
@@ -70,7 +85,7 @@ function createInstance(root) {
       open = true;
       root.dataset.open = 'true';
       content.removeAttribute('hidden');
-      emit(root, 'ds-tooltip-show');
+      emit(root, 'ds-tooltip-show', { root, trigger, content });
     },
     hide() {
       clearTimers();
@@ -78,7 +93,7 @@ function createInstance(root) {
       open = false;
       delete root.dataset.open;
       content.setAttribute('hidden', '');
-      emit(root, 'ds-tooltip-hide');
+      emit(root, 'ds-tooltip-hide', { root, trigger, content });
     },
     scheduleShow() {
       clearTimers();
@@ -93,7 +108,7 @@ function createInstance(root) {
       if (!open) return;
       hideTimer = setTimeout(() => {
         hideTimer = null;
-        if (root.contains(document.activeElement)) return;
+        if (root.contains(root.ownerDocument.activeElement)) return;
         inst.hide();
       }, HIDE_DELAY_MS);
     },
@@ -132,15 +147,17 @@ function createInstance(root) {
     if (!suppressUntilLeave) inst.show();
   });
   on(trigger, 'focusout', () => {
-    requestAnimationFrame(() => {
+    if (focusFrame) view.cancelAnimationFrame(focusFrame);
+    focusFrame = view.requestAnimationFrame(() => {
+      focusFrame = null;
       if (!instances.has(inst)) return;
-      if (root.contains(document.activeElement)) return;
+      if (root.contains(root.ownerDocument.activeElement)) return;
       suppressUntilLeave = false;
       inst.scheduleHide();
     });
   });
 
-  on(document, 'keydown', (e) => {
+  on(root.ownerDocument, 'keydown', (e) => {
     if (!open) return;
     if (e.key === 'Escape') {
       e.preventDefault();
@@ -161,13 +178,19 @@ function isInside(root, node) {
  */
 export function initTooltips(root = document) {
   const created = [];
+  const tooltips = [];
 
-  root.querySelectorAll('.ds-tooltip').forEach((tooltip) => {
+  if (root instanceof Element && root.matches('.ds-tooltip')) tooltips.push(root);
+  if (typeof root.querySelectorAll === 'function') {
+    tooltips.push(...root.querySelectorAll('.ds-tooltip'));
+  }
+
+  tooltips.forEach((tooltip) => {
     if (tooltip.dataset.dsTooltipInit === 'true') return;
     if (tooltip.closest('[inert]')) return;
-    tooltip.dataset.dsTooltipInit = 'true';
     const inst = createInstance(tooltip);
     if (inst) {
+      tooltip.dataset.dsTooltipInit = 'true';
       instances.add(inst);
       created.push(inst);
     }

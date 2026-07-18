@@ -25,7 +25,7 @@ const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
 const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
 const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
-const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu', 'tabs'];
+const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu', 'tabs', 'tooltip'];
 let checks = 0;
 
 function ok(condition, message, evidenceItems = []) {
@@ -294,6 +294,35 @@ try {
   );
   await page.locator('#consumer-tab-a').click();
 
+  // Tooltip focus + ARIA + Escape.
+  await page.locator('#consumer-tooltip-trigger').focus();
+  await page.locator('#consumer-tooltip .ds-tooltip__content').waitFor({ state: 'visible', timeout: 1500 });
+  const tooltipInstalled = await page.evaluate(() => {
+    const root = document.getElementById('consumer-tooltip');
+    const trigger = document.getElementById('consumer-tooltip-trigger');
+    const content = root.querySelector('.ds-tooltip__content');
+    return {
+      active: document.activeElement?.id,
+      open: root.dataset.open,
+      role: content.getAttribute('role'),
+      contentId: content.id,
+      describedBy: trigger.getAttribute('aria-describedby'),
+    };
+  });
+  await page.keyboard.press('Escape');
+  const tooltipClosed = await page.locator('#consumer-tooltip .ds-tooltip__content')
+    .evaluate((el) => el.hasAttribute('hidden'));
+  ok(
+    tooltipInstalled.active === 'consumer-tooltip-trigger'
+      && tooltipInstalled.open === 'true'
+      && tooltipInstalled.role === 'tooltip'
+      && Boolean(tooltipInstalled.contentId)
+      && tooltipInstalled.describedBy?.split(/\s+/).includes(tooltipInstalled.contentId)
+      && tooltipClosed,
+    `packed Tooltip must focus/open, expose valid ARIA and close on Escape (${JSON.stringify(tooltipInstalled)})`,
+    { slug: 'tooltip', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
   // Exceções assíncronas e console.error invalidam o consumidor. A coleta
   // termina antes do axe: a instrumentação do axe reinsere @imports no
   // documento e o Chromium pode reportar 404s artificiais relativos à raiz.
@@ -326,6 +355,7 @@ try {
       { slug: 'accordion', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'menu', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'tabs', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'tooltip', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
     ],
   );
 
@@ -402,6 +432,23 @@ try {
       .join('\n')}`,
     { slug: 'tabs', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
   );
+
+  // Axe com Tooltip aberto por foco no tarball instalado.
+  await page.locator('#consumer-tooltip-trigger').focus();
+  await page.locator('#consumer-tooltip .ds-tooltip__content').waitFor({ state: 'visible', timeout: 1500 });
+  const axeTooltipOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingTooltipOpen = axeTooltipOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingTooltipOpen.length === 0,
+    `axe open Tooltip found ${blockingTooltipOpen.length} critical/serious violation(s):\n${blockingTooltipOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'tooltip', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.keyboard.press('Escape');
 
   // Axe com o painel do Accordion aberto.
   await page.locator('#consumer-accordion-trigger-b').click();
