@@ -40,6 +40,7 @@ const els = {
 let currentConfig = { ...DEFAULT_CONFIG };
 let fontLinkEl = null;
 let urlSyncTimer = null;
+let modeObserver = null;
 
 function debouncedSyncUrl(cfg) {
   clearTimeout(urlSyncTimer);
@@ -294,6 +295,29 @@ function bindEvents() {
   els.copyUrl.addEventListener('click', () => copyText(document.getElementById('export-url')?.value ?? '', els.copyUrl));
 }
 
+/**
+ * Mantém os overrides inline do theme engine alinhados ao contrato global
+ * `data-mode`, inclusive quando outro runtime ou teste altera o atributo sem
+ * emitir `ds:mode-change`.
+ */
+function observeGlobalMode() {
+  if (typeof MutationObserver === 'undefined') return;
+
+  modeObserver?.disconnect();
+  modeObserver = new MutationObserver(() => {
+    const mode = document.documentElement.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
+    if (currentConfig.mode === mode) return;
+
+    currentConfig = { ...currentConfig, mode };
+    syncModeToggleUI(mode);
+    applyCurrent();
+  });
+  modeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-mode'],
+  });
+}
+
 function initPlayground() {
   initFromUrl();
 
@@ -306,6 +330,7 @@ function initPlayground() {
   syncFormFromConfig(currentConfig);
   initExportTabs();
   bindEvents();
+  observeGlobalMode();
   initComboboxes(document.querySelector('.ds-playground__panel'), { onChange: () => applyCurrent() });
   applyCurrent();
 }
