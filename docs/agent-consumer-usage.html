@@ -137,10 +137,10 @@ podem ler o arquivo diretamente pelo package resolver ou filesystem.</p>
 </ul>
 <p>Não promova localmente um componente Experimental a App-ready. Se o projeto completar um gap com código próprio, declare que ele é uma adaptação local e registre a demanda no DS.</p>
 <h2>Imports oficiais</h2>
-<p>Instale a beta corrente pelo npm registry:</p>
-<pre tabindex="0"><code class="language-bash">npm install ds-tis@beta
+<p>Instale a versão corrente pelo npm registry:</p>
+<pre tabindex="0"><code class="language-bash">npm install ds-tis
 </code></pre>
-<p>Em produção, prefira <code>&quot;ds-tis&quot;: &quot;1.0.0-beta.8&quot;</code> no <code>package.json</code>. Enquanto não houver versão estável na tag npm <code>latest</code>, não use o nome sem <code>@beta</code> ou versão explícita. Fallback por release GitHub: <code>npm install github:tis-experience/ds-tis#v1.0.0-beta.8</code>.</p>
+<p>Durante a fase beta, as dist-tags npm <code>latest</code> e <code>beta</code> apontam para a mesma pré-release; <code>npm install ds-tis@beta</code> explicita o canal. Em produção, prefira <code>&quot;ds-tis&quot;: &quot;1.0.0-beta.9&quot;</code> no <code>package.json</code>. Fallback por release GitHub: <code>npm install github:tis-experience/ds-tis#v1.0.0-beta.9</code>.</p>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
@@ -311,7 +311,7 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
-- Instale a beta via `npm install ds-tis@beta`; em produção, fixe a versão exata.
+- Instale via `npm install ds-tis`; durante a beta, fixe a versão exata em produção.
 - Importe ds-tis/css uma vez no entrypoint global.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
@@ -434,13 +434,13 @@ may also read the file through the package resolver or filesystem.</p>
 fills a gap with custom code, identify it as a local adaptation and record the
 demand for the DS.</p>
 <h2>Official imports</h2>
-<p>Install the current beta from the npm registry:</p>
-<pre tabindex="0"><code class="language-bash">npm install ds-tis@beta
+<p>Install the current version from the npm registry:</p>
+<pre tabindex="0"><code class="language-bash">npm install ds-tis
 </code></pre>
-<p>In production, prefer <code>&quot;ds-tis&quot;: &quot;1.0.0-beta.8&quot;</code> in <code>package.json</code>. Until a
-stable release is available under the npm <code>latest</code> tag, do not use the bare
-package name without <code>@beta</code> or an explicit version. GitHub release fallback:
-<code>npm install github:tis-experience/ds-tis#v1.0.0-beta.8</code>.</p>
+<p>During the beta phase, the npm <code>latest</code> and <code>beta</code> dist-tags point to the same
+prerelease; <code>npm install ds-tis@beta</code> makes the channel explicit. In production,
+prefer <code>&quot;ds-tis&quot;: &quot;1.0.0-beta.9&quot;</code> in <code>package.json</code>. GitHub release fallback:
+<code>npm install github:tis-experience/ds-tis#v1.0.0-beta.9</code>.</p>
 <p>Import the public CSS once in the application&#39;s global entrypoint:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
@@ -621,7 +621,7 @@ Required sources:
 - docs/templates/ or ds-tis/templates/* when a relevant template exists
 
 Rules:
-- Install the beta with `npm install ds-tis@beta`; pin the exact version in production.
+- Install with `npm install ds-tis`; pin the exact version in production during beta.
 - Import ds-tis/css once in the global entrypoint.
 - For each component, derive the module from runtime.module in docs/api/components.json; when runtime.level is required, call init after render/hydration and destroy before unmount.
 - Prefer App-ready components; treat Composition as an explicit app boundary and do not use Experimental in critical flows without recording the limitation.

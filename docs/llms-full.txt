@@ -1,6 +1,6 @@
 # Design System Core — conteúdo consolidado
 
-> Versão 1.0.0-beta.8. Arquivo destinado a consumo por LLMs que precisem
+> Versão 1.0.0-beta.9. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
 > CLAUDE.md, CHANGELOG, documentos canônicos atuais em docs/, todos os ADRs e
 > um resumo dos tokens. Traduções e auditorias históricas ficam fora para
@@ -19,29 +19,32 @@ Para APIs JSON, ver docs/api/
 
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.8-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.9-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
-O pacote beta é distribuído pelo npm registry. Instale a beta corrente com:
+O pacote beta é distribuído pelo npm registry. Instale a versão corrente com:
 
 ```bash
-npm install ds-tis@beta
+npm install ds-tis
 ```
+
+Durante a fase beta, as dist-tags npm `latest` e `beta` apontam para a mesma
+pré-release. Use `npm install ds-tis@beta` quando quiser explicitar o canal.
 
 Em produção, prefira o pin exato:
 
 ```json
 {
   "dependencies": {
-    "ds-tis": "1.0.0-beta.8"
+    "ds-tis": "1.0.0-beta.9"
   }
 }
 ```
 
-Enquanto não houver uma versão estável sob a tag npm `latest`, não use `npm install ds-tis` sem `@beta` ou versão explícita. Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
+Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.9`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 
@@ -287,6 +290,11 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incrementam `1.0.0-beta.N` até decisão do owner pra dropping do tag → `1.0.0` oficial. Tags 0.x permanecem como histórico pré-beta. Regras em `docs/process-versioning.html`.
 
 ## [Não publicado]
+
+## [1.0.0-beta.9] — 2026-07-18
+
+### Corrigido
+- **Dist-tags npm refletem o comportamento real do primeiro pacote.** `latest` e `beta` passam a apontar para a beta corrente, tornando `npm install ds-tis` o caminho canônico sem perder o canal explícito `@beta`; produção continua com pin exato e fallback pela tag GitHub.
 
 ## [1.0.0-beta.8] — 2026-07-18
 
@@ -1217,7 +1225,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...HEAD
+[1.0.0-beta.9]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6
@@ -1334,13 +1343,13 @@ Não promova localmente um componente Experimental a App-ready. Se o projeto com
 
 ## Imports oficiais
 
-Instale a beta corrente pelo npm registry:
+Instale a versão corrente pelo npm registry:
 
 ```bash
-npm install ds-tis@beta
+npm install ds-tis
 ```
 
-Em produção, prefira `"ds-tis": "1.0.0-beta.8"` no `package.json`. Enquanto não houver versão estável na tag npm `latest`, não use o nome sem `@beta` ou versão explícita. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
+Durante a fase beta, as dist-tags npm `latest` e `beta` apontam para a mesma pré-release; `npm install ds-tis@beta` explicita o canal. Em produção, prefira `"ds-tis": "1.0.0-beta.9"` no `package.json`. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.9`.
 
 Importe o CSS público uma vez no entrypoint global do app:
 
@@ -1515,7 +1524,7 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
-- Instale a beta via `npm install ds-tis@beta`; em produção, fixe a versão exata.
+- Instale via `npm install ds-tis`; durante a beta, fixe a versão exata em produção.
 - Importe ds-tis/css uma vez no entrypoint global.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
@@ -1840,7 +1849,7 @@ apresentadas como comportamento aprovado do sistema.
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.8**
+> Versão atual: **1.0.0-beta.9**
 
 ## Status geral
 
@@ -2877,14 +2886,15 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
 
    ```bash
    npm publish --access public --tag beta
+   npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
    ```
 
 10. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
-   - `npm view ds-tis@beta version` retorna `1.0.0-beta.N`.
-   - Uma instalação limpa com `npm install ds-tis@beta` passa no consumer smoke.
+   - `npm view ds-tis@beta version` e `npm view ds-tis@latest version` retornam `1.0.0-beta.N`.
+   - Uma instalação limpa com `npm install ds-tis` passa no consumer smoke.
 
 ## Se algo der errado
 
@@ -2898,10 +2908,11 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
 
 ## Publicação no npm
 
-Betas são publicadas com `npm publish --access public --tag beta`. A instalação
-canônica durante a fase beta é `npm install ds-tis@beta`; consumidores de produção
-devem fixar a versão exata. O nome sem tag (`npm install ds-tis`) só vira a
-orientação padrão quando uma versão estável for promovida para `latest`.
+Betas são publicadas com `npm publish --access public --tag beta` e a mesma versão
+é promovida para a dist-tag `latest`. Assim, `npm install ds-tis` e
+`npm install ds-tis@beta` resolvem a beta corrente; consumidores de produção
+devem fixar a versão exata. Quando houver versão estável, `latest` passa a apontar
+para ela e `beta` continua sendo o canal de pré-release.
 
 
 ═══════════════════════════════════════════════════════════
@@ -20874,13 +20885,13 @@ Seção expandida com contexto, decisão e locais de uso.
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.8**
+> Versão atual: **1.0.0-beta.9**
 
 ## Estado atual
 
 | Aspecto | Valor |
 |---------|-------|
-| Versão | 1.0.0-beta.8 |
+| Versão | 1.0.0-beta.9 |
 | Formato canônico | JSON (DTCG) em `tokens/` |
 | CSS gerado | Style Dictionary → `css/tokens/generated/` |
 | Pipeline | ✅ index.css importa apenas generated/ |
@@ -23674,5 +23685,5 @@ Verificação automática de coerência Figma ↔ JSON ↔ CSS: `scripts/tokens-
 ═══════════════════════════════════════════════════════════
 
 Gerado por scripts/build-llms.mjs.
-Versão: 1.0.0-beta.8
+Versão: 1.0.0-beta.9
 Site: documentação local

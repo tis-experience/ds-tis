@@ -8,6 +8,11 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.9] — 2026-07-18
+
+### Corrigido
+- **Dist-tags npm refletem o comportamento real do primeiro pacote.** `latest` e `beta` passam a apontar para a beta corrente, tornando `npm install ds-tis` o caminho canônico sem perder o canal explícito `@beta`; produção continua com pin exato e fallback pela tag GitHub.
+
 ## [1.0.0-beta.8] — 2026-07-18
 
 ### Adicionado
@@ -937,7 +942,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...HEAD
+[1.0.0-beta.9]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6
