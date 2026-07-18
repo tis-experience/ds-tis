@@ -71,7 +71,8 @@
 <p>Todas as mudanças notáveis deste design system são registradas aqui.</p>
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
-<h2>[Não publicado]</h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD">Não publicado</a></h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7">1.0.0-beta.7</a> — 2026-07-18</h2>
 <h3>Adicionado</h3>
 <ul>
 <li><strong>Metadados instaláveis para devs e agents IA.</strong> O tarball passa a distribuir e exportar <code>consumer-context.json</code>, APIs de componentes/tokens/foundations/ADRs, guia de agent e <code>llms.txt</code>/<code>llms-full.txt</code>. O contexto publica entrypoints oficiais e um contrato responsivo <code>intrinsic-first</code> por componente, sem inventar breakpoints automáticos; o consumer smoke prova a fixture instalada em 320×568, 568×320 e desktop.</li>
@@ -136,7 +137,7 @@
 <li><strong>Branding da documentação.</strong> Topbar passa a exibir a marca TIS no lugar do ícone &quot;DS&quot; em todas as páginas HTML; home atualizada com o mesmo nome.</li>
 <li><strong>Capa Figma corrigida.</strong> A página estava com modo Semantic <strong>Dark</strong>, fazendo <code>content/inverse</code> e <code>brand/content/default</code> renderizarem texto escuro sobre fundo brand — contraste quebrado no título, badge de versão e stats. Cover e página passam a <strong>Semantic Light</strong>; labels dos stats rebindados para <code>brand/content/default</code>. Versão atualizada para <code>v1.0.0-beta.6</code>; contagem de componentes <code>19</code>.</li>
 </ul>
-<h2>[1.0.0-beta.6] — 2026-07-06</h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6">1.0.0-beta.6</a> — 2026-07-06</h2>
 <h3>Adicionado</h3>
 <ul>
 <li><strong><code>npm run figma:snapshot:refresh</code>.</strong> Encadeia install do export <code>figma-snapshot.json</code> → <code>sync:tokens-from-figma</code> (dry-run) → <code>verify:tokens</code>. Quando o owner atualiza o snapshot do plugin, o agente deve rodar este comando imediatamente (regra em <code>AGENTS.md</code> §4.4). <code>agent:preflight</code> sinaliza export pendente na raiz.</li>
