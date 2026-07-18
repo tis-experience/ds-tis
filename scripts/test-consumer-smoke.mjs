@@ -25,7 +25,7 @@ const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
 const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
 const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
-const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu'];
+const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu', 'tabs'];
 let checks = 0;
 
 function ok(condition, message, evidenceItems = []) {
@@ -276,6 +276,24 @@ try {
     { slug: 'menu', capability: 'consumer-tarball', caseId: 'installed-interaction' },
   );
 
+  // Tabs select a panel without submitting the enclosing form.
+  await page.locator('#consumer-tab-b').click();
+  const tabsInstalled = await page.evaluate(() => ({
+    selected: document.getElementById('consumer-tab-b').getAttribute('aria-selected'),
+    panelVisible: !document.getElementById('consumer-panel-b').hidden,
+    submitCount: document.getElementById('consumer-tabs-form').dataset.submitCount,
+    normalizedType: document.getElementById('consumer-tab-b').type,
+  }));
+  ok(
+    tabsInstalled.selected === 'true'
+      && tabsInstalled.panelVisible
+      && tabsInstalled.submitCount === '0'
+      && tabsInstalled.normalizedType === 'button',
+    `packed Tabs must select a panel without submitting its form (${JSON.stringify(tabsInstalled)})`,
+    { slug: 'tabs', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+  await page.locator('#consumer-tab-a').click();
+
   // Exceções assíncronas e console.error invalidam o consumidor. A coleta
   // termina antes do axe: a instrumentação do axe reinsere @imports no
   // documento e o Chromium pode reportar 404s artificiais relativos à raiz.
@@ -307,6 +325,7 @@ try {
       { slug: 'combobox', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'accordion', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'menu', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'tabs', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
     ],
   );
 
@@ -368,6 +387,21 @@ try {
   await page.waitForFunction(() => (
     getComputedStyle(document.getElementById('consumer-menu-list')).visibility === 'hidden'
   ));
+
+  // Axe com o segundo tabpanel selecionado no tarball instalado.
+  await page.locator('#consumer-tab-b').click();
+  const axeTabsOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingTabsOpen = axeTabsOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingTabsOpen.length === 0,
+    `axe selected Tabs panel found ${blockingTabsOpen.length} critical/serious violation(s):\n${blockingTabsOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'tabs', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
 
   // Axe com o painel do Accordion aberto.
   await page.locator('#consumer-accordion-trigger-b').click();

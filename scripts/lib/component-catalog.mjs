@@ -208,9 +208,8 @@ export const COMPONENTS = [
     slug: "tabs",
     css: "tabs.css",
     html: "tabs.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até impedir submit acidental, provar root init/late hydration, foco no tabpanel, disabled, cleanup e axe dos painéis no tarball consumidor.",
   }),
   defineComponent({
     name: "Breadcrumb",

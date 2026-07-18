@@ -12,6 +12,12 @@ import { initTabs } from './node_modules/ds-tis/js/tabs.js';
 import { initTooltips } from './node_modules/ds-tis/js/tooltip.js';
 
 const status = document.getElementById('status');
+const tabsForm = document.getElementById('consumer-tabs-form');
+
+tabsForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  tabsForm.dataset.submitCount = String(Number(tabsForm.dataset.submitCount || 0) + 1);
+});
 
 try {
   initAccordions();

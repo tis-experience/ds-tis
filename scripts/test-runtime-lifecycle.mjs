@@ -109,7 +109,11 @@ try {
     'initAccordions(document) must mark accordion',
     evidence('accordion', 'root-init', 'init-document'),
   );
-  ok(markers.tabsInit, 'initTabs must mark tablist');
+  ok(
+    markers.tabsInit,
+    'initTabs(document) must mark tablist',
+    evidence('tabs', 'root-init', 'init-document'),
+  );
   ok(markers.tooltipInit, 'initTooltips must mark tooltip');
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
@@ -1446,6 +1450,319 @@ try {
       if (panel) panel.hidden = true;
       trigger.closest('.ds-accordion__item')?.setAttribute('data-state', 'closed');
     }
+    window.__dsLifecycle.clearEvents();
+  });
+
+  // --- Tabs: root init, hydration e idempotência ---
+  const tabsSetup = await page.evaluate(() => {
+    const { initTabs } = window.__dsLifecycle;
+    const markup = (prefix) => `
+      <div class="ds-tabs" id="${prefix}" role="tablist" aria-label="${prefix}">
+        <button class="ds-tab ds-tab--active" role="tab" id="${prefix}-tab-a" aria-selected="true" aria-controls="${prefix}-panel-a">A</button>
+        <button class="ds-tab" role="tab" id="${prefix}-tab-b" aria-selected="false" aria-controls="${prefix}-panel-b">B</button>
+      </div>
+      <div class="ds-tab-panel" id="${prefix}-panel-a" role="tabpanel" aria-labelledby="${prefix}-tab-a">A</div>
+      <div class="ds-tab-panel" id="${prefix}-panel-b" role="tabpanel" aria-labelledby="${prefix}-tab-b" hidden>B</div>`;
+
+    const proofHost = document.createElement('section');
+    proofHost.id = 'tabs-proof-host';
+    document.body.append(proofHost);
+
+    const containerHost = document.createElement('div');
+    containerHost.innerHTML = markup('tabs-container-root');
+    proofHost.append(containerHost);
+    const containerCreated = initTabs(containerHost).length;
+
+    const componentHost = document.createElement('div');
+    componentHost.innerHTML = markup('tabs-component-root');
+    proofHost.append(componentHost);
+    const componentRoot = componentHost.querySelector('.ds-tabs');
+    const componentCreated = initTabs(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-tabs';
+    incomplete.id = 'tabs-incomplete-root';
+    incomplete.setAttribute('role', 'tablist');
+    proofHost.append(incomplete);
+    const incompleteFirstCreated = initTabs(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsTabsInit === 'true';
+    const incompletePanel = document.createElement('div');
+    incompletePanel.id = 'tabs-incomplete-panel';
+    incompletePanel.setAttribute('role', 'tabpanel');
+    incompletePanel.setAttribute('aria-labelledby', 'tabs-incomplete-tab');
+    incompletePanel.textContent = 'Conteúdo';
+    incomplete.insertAdjacentHTML('beforeend', '<button class="ds-tab" role="tab" id="tabs-incomplete-tab" aria-controls="tabs-incomplete-panel">Tab</button>');
+    incomplete.after(incompletePanel);
+    const incompleteRecovered = initTabs(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    proofHost.append(lateHost);
+    const lateBefore = initTabs(lateHost).length;
+    lateHost.innerHTML = markup('tabs-late-root');
+    const lateAfter = initTabs(lateHost).length;
+
+    const secondInitCreated = initTabs(componentRoot).length;
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-tabs-change', () => { duplicateEventCount += 1; });
+    componentRoot.querySelector('#tabs-component-root-tab-b').click();
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${markup('tabs-scope-a')}${markup('tabs-scope-b')}`;
+    proofHost.append(scopedHost);
+    const scopedCreated = initTabs(scopedHost).length;
+
+    return {
+      containerCreated,
+      containerMarked: containerHost.querySelector('.ds-tabs').dataset.dsTabsInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsTabsInit === 'true',
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsTabsInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-tabs').dataset.dsTabsInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    tabsSetup.containerCreated === 1 && tabsSetup.containerMarked,
+    'initTabs(container) must initialize a descendant tablist exactly once',
+    evidence('tabs', 'root-init', 'init-container'),
+  );
+  ok(
+    tabsSetup.componentCreated === 1 && tabsSetup.componentMarked,
+    'initTabs(componentRoot) must initialize the tablist root itself',
+    evidence('tabs', 'root-init', 'init-component-root'),
+  );
+  ok(
+    tabsSetup.incompleteFirstCreated === 0
+      && !tabsSetup.incompletePoisoned
+      && tabsSetup.incompleteRecovered === 1
+      && tabsSetup.incompleteMarked,
+    'incomplete Tabs markup must remain recoverable after its anatomy arrives',
+    evidence('tabs', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    tabsSetup.lateBefore === 0 && tabsSetup.lateAfter === 1 && tabsSetup.lateMarked,
+    'a late Tabs subtree must initialize when its container is scanned again',
+    evidence('tabs', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    tabsSetup.secondInitCreated === 0,
+    'double init must create zero additional Tabs instances',
+    evidence('tabs', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    tabsSetup.duplicateEventCount === 1,
+    `double init must not duplicate Tabs events (got ${tabsSetup.duplicateEventCount})`,
+    evidence('tabs', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(tabsSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two tablists');
+
+  // --- Tabs: teclado, foco, ARIA, formulário e evento público ---
+  await page.locator('#life-tab-a').focus();
+  await page.keyboard.press('ArrowRight');
+  const tabsArrowTarget = await page.evaluate(() => document.activeElement?.id);
+  await page.keyboard.press('Home');
+  const tabsHomeTarget = await page.evaluate(() => document.activeElement?.id);
+  await page.keyboard.press('End');
+  const tabsEndTarget = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    tabsArrowTarget === 'life-tab-b'
+      && tabsHomeTarget === 'life-tab-a'
+      && tabsEndTarget === 'life-tab-b',
+    `Tabs arrows/Home/End must select and focus enabled tabs (got ${tabsArrowTarget}, ${tabsHomeTarget}, ${tabsEndTarget})`,
+    evidence('tabs', 'keyboard', 'arrows-home-end'),
+  );
+
+  await page.keyboard.press('ArrowRight');
+  const tabsSkippedDisabled = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    tabsSkippedDisabled === 'life-tab-a'
+      && await page.locator('#life-tab-disabled').evaluate((el) => el.getAttribute('aria-selected') === 'false'),
+    `Tabs keyboard navigation must skip disabled tabs (focused ${tabsSkippedDisabled})`,
+    evidence('tabs', 'keyboard', 'disabled-skipped'),
+  );
+
+  const rovingState = await page.evaluate(() => [...document.querySelectorAll('#life-tabs .ds-tab')]
+    .map((tab) => ({ id: tab.id, tabIndex: tab.tabIndex, selected: tab.getAttribute('aria-selected') })));
+  ok(
+    rovingState.filter((tab) => tab.tabIndex === 0).length === 1
+      && rovingState.find((tab) => tab.id === 'life-tab-a')?.tabIndex === 0,
+    `Tabs must keep exactly one tab in the page tab order (${JSON.stringify(rovingState)})`,
+    evidence('tabs', 'focus', 'roving-tabindex'),
+  );
+
+  await page.keyboard.press('Tab');
+  const tabPanelFocusTarget = await page.evaluate(() => document.activeElement?.id);
+  ok(
+    tabPanelFocusTarget === 'life-panel-a',
+    `Tab from the selected tab must enter its tabpanel (focused ${tabPanelFocusTarget})`,
+    evidence('tabs', 'focus', 'tabpanel-focus-entry'),
+  );
+
+  await page.locator('#life-tab-b').click();
+  const tabsAria = await page.evaluate(() => {
+    const a = document.getElementById('life-tab-a');
+    const b = document.getElementById('life-tab-b');
+    const panelA = document.getElementById(a.getAttribute('aria-controls'));
+    const panelB = document.getElementById(b.getAttribute('aria-controls'));
+    return {
+      aSelected: a.getAttribute('aria-selected'),
+      bSelected: b.getAttribute('aria-selected'),
+      aHidden: panelA.hidden,
+      bHidden: panelB.hidden,
+      aLabelledBy: panelA.getAttribute('aria-labelledby'),
+      bLabelledBy: panelB.getAttribute('aria-labelledby'),
+    };
+  });
+  ok(
+    tabsAria.aSelected === 'false'
+      && tabsAria.bSelected === 'true'
+      && tabsAria.aHidden
+      && !tabsAria.bHidden
+      && tabsAria.aLabelledBy === 'life-tab-a'
+      && tabsAria.bLabelledBy === 'life-tab-b',
+    `Tabs must synchronize selected tabs and controlled panels (${JSON.stringify(tabsAria)})`,
+    evidence('tabs', 'aria', 'selected-controls-hidden-sync'),
+  );
+
+  const formProof = await page.evaluate(() => {
+    const { initTabs } = window.__dsLifecycle;
+    const form = document.createElement('form');
+    form.id = 'tabs-form-proof';
+    form.innerHTML = `
+      <div class="ds-tabs" id="tabs-form-root" role="tablist" aria-label="Form tabs">
+        <button class="ds-tab ds-tab--active" role="tab" id="tabs-form-tab-a" aria-selected="true" aria-controls="tabs-form-panel-a">A</button>
+        <button class="ds-tab" role="tab" id="tabs-form-tab-b" aria-selected="false" aria-controls="tabs-form-panel-b">B</button>
+      </div>
+      <div id="tabs-form-panel-a" role="tabpanel" aria-labelledby="tabs-form-tab-a">A</div>
+      <div id="tabs-form-panel-b" role="tabpanel" aria-labelledby="tabs-form-tab-b" hidden>B</div>`;
+    document.body.append(form);
+    let submits = 0;
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      submits += 1;
+    });
+    initTabs(form);
+    const button = form.querySelector('#tabs-form-tab-b');
+    button.click();
+    return {
+      submits,
+      normalizedType: button.type,
+      selected: button.getAttribute('aria-selected'),
+      panelVisible: !form.querySelector('#tabs-form-panel-b').hidden,
+    };
+  });
+  ok(
+    formProof.submits === 0
+      && formProof.normalizedType === 'button'
+      && formProof.selected === 'true'
+      && formProof.panelVisible,
+    `Tabs selection must never submit an enclosing form (${JSON.stringify(formProof)})`,
+    evidence('tabs', 'open-close', 'selection-does-not-submit-form'),
+  );
+
+  const tabsEvent = await page.evaluate(() => new Promise((resolve) => {
+    const root = document.getElementById('life-tabs');
+    root.addEventListener('ds-tabs-change', (event) => {
+      resolve({
+        bubbles: event.bubbles,
+        target: event.target?.id,
+        root: event.detail?.root?.id,
+        tab: event.detail?.tab?.id,
+        panel: event.detail?.panel?.id,
+        previousTab: event.detail?.previousTab?.id,
+      });
+    }, { once: true });
+    document.getElementById('life-tab-a').click();
+  }));
+  ok(
+    tabsEvent.bubbles
+      && tabsEvent.target === 'life-tabs'
+      && tabsEvent.root === 'life-tabs'
+      && tabsEvent.tab === 'life-tab-a'
+      && tabsEvent.panel === 'life-panel-a'
+      && tabsEvent.previousTab === 'life-tab-b',
+    `Tabs event must bubble from its root with stable detail (${JSON.stringify(tabsEvent)})`,
+    evidence('tabs', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  // --- Tabs: destroy escopado/idempotente e re-init sem duplicação ---
+  const tabsCleanup = await page.evaluate(() => {
+    const { initTabs, destroyTabs } = window.__dsLifecycle;
+    const scopeA = document.getElementById('tabs-scope-a');
+    const scopeB = document.getElementById('tabs-scope-b');
+    destroyTabs(scopeA);
+    destroyTabs(scopeA);
+    scopeA.querySelector('#tabs-scope-a-tab-b').click();
+    scopeB.querySelector('#tabs-scope-b-tab-b').click();
+
+    const reinitRoot = document.getElementById('tabs-component-root');
+    const reinitA = reinitRoot.querySelector('#tabs-component-root-tab-a');
+    const reinitB = reinitRoot.querySelector('#tabs-component-root-tab-b');
+    destroyTabs(reinitRoot);
+    destroyTabs(reinitRoot);
+    reinitA.setAttribute('aria-selected', 'true');
+    reinitA.classList.add('ds-tab--active');
+    reinitB.setAttribute('aria-selected', 'false');
+    reinitB.classList.remove('ds-tab--active');
+    document.getElementById('tabs-component-root-panel-a').hidden = false;
+    document.getElementById('tabs-component-root-panel-b').hidden = true;
+    const reinitCreated = initTabs(reinitRoot).length;
+    let reinitEvents = 0;
+    reinitRoot.addEventListener('ds-tabs-change', () => { reinitEvents += 1; });
+    reinitB.click();
+
+    return {
+      scopeADead: document.getElementById('tabs-scope-a-panel-b').hidden
+        && scopeA.dataset.dsTabsInit !== 'true',
+      scopeBAlive: !document.getElementById('tabs-scope-b-panel-b').hidden
+        && scopeB.dataset.dsTabsInit === 'true',
+      reinitCreated,
+      reinitSelected: reinitB.getAttribute('aria-selected') === 'true'
+        && !document.getElementById('tabs-component-root-panel-b').hidden,
+      reinitEvents,
+      reinitMarked: reinitRoot.dataset.dsTabsInit === 'true',
+    };
+  });
+  ok(
+    tabsCleanup.scopeADead && tabsCleanup.scopeBAlive,
+    'destroyTabs(root) must destroy only the scoped tablist',
+    evidence('tabs', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    tabsCleanup.scopeADead,
+    'destroyTabs(root) must be safe when called twice',
+    evidence('tabs', 'destroy', 'double-destroy'),
+  );
+  ok(
+    tabsCleanup.reinitCreated === 1
+      && tabsCleanup.reinitSelected
+      && tabsCleanup.reinitMarked
+      && tabsCleanup.reinitEvents === 1,
+    `Tabs re-init must restore one listener/event (got ${JSON.stringify(tabsCleanup)})`,
+    evidence('tabs', 'reinit', 'reinit-single-event'),
+  );
+
+  await page.evaluate(() => {
+    const root = document.getElementById('life-tabs');
+    const tabA = document.getElementById('life-tab-a');
+    const tabB = document.getElementById('life-tab-b');
+    tabA.setAttribute('aria-selected', 'false');
+    tabA.classList.remove('ds-tab--active');
+    tabA.tabIndex = -1;
+    tabB.setAttribute('aria-selected', 'true');
+    tabB.classList.add('ds-tab--active');
+    tabB.tabIndex = 0;
+    document.getElementById('life-panel-a').hidden = true;
+    document.getElementById('life-panel-b').hidden = false;
+    root.focus?.();
     window.__dsLifecycle.clearEvents();
   });
 

@@ -103,10 +103,10 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion,
-Combobox, Modal e Action Menu concluíram o gate executável da ADR-020. Tabs e
-Tooltip permanecem Experimentais enquanto concluem seus blockers em
-`readinessNotes`; não os use em fluxo crítico sem aceitar e validar
-explicitamente essas limitações.
+Combobox, Modal, Action Menu e Tabs concluíram o gate executável da ADR-020.
+Tooltip permanece Experimental enquanto conclui seus blockers em
+`readinessNotes`; não o use em fluxo crítico sem aceitar e validar explicitamente
+essa limitação.
 
 No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
 `aria-activedescendant`; `Escape` fecha o listbox sem remover esse foco. O evento
@@ -122,6 +122,13 @@ No Action Menu App-ready, `menuitem`, `menuitemradio` e `menuitemcheckbox` fazem
 parte do contrato. Itens `aria-disabled` permanecem alcançáveis pelo foco, mas
 não ativam nem fecham o menu; typeahead, setas, Home/End e Escape são mantidos
 pelo runtime.
+
+No Tabs App-ready, o runtime mantém exatamente um tab no fluxo de foco, ignora
+tabs disabled nas setas/Home/End, sincroniza `aria-selected` com `hidden` nos
+painéis e garante entrada de foco no tabpanel selecionado. Botões de tab sem
+`type` explícito são normalizados para `type="button"`, evitando submit acidental
+quando o componente está dentro de um formulário. `ds-tabs-change` expõe root,
+tab, panel e tab anterior em `detail`.
 
 Para customização de tema, use o theme engine público:
 

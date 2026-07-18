@@ -1517,8 +1517,8 @@
       "cssClass": "ds-tabs",
       "cssFile": "css/components/tabs.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até impedir submit acidental, provar root init/late hydration, foco no tabpanel, disabled, cleanup e axe dos painéis no tarball consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",

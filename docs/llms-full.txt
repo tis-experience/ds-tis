@@ -82,11 +82,11 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Accordion, Combobox, Modal e Action Menu concluíram o gate executável da ADR-020
-e estão **App-ready**. Tabs e Tooltip permanecem **Experimentais** até concluírem
-seus blockers individuais. O módulo continua obrigatório quando qualquer um
-desses componentes for usado; não sustente fluxo crítico com os Experimentais
-sem aceitar a limitação publicada em `readinessNotes`.
+Accordion, Combobox, Modal, Action Menu e Tabs concluíram o gate executável da
+ADR-020 e estão **App-ready**. Tooltip permanece **Experimental** até concluir
+seus blockers individuais. O módulo continua obrigatório quando o componente
+for usado; não sustente fluxo crítico com Tooltip sem aceitar a limitação
+publicada em `readinessNotes`.
 
 O pacote também exporta o theme engine e templates HTML:
 
@@ -303,6 +303,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Tabs conclui o gate App-ready.** O runtime passa a aceitar o próprio tablist root sem envenenar markup incompleto, normaliza tabs em formulários para `type="button"`, assegura entrada de foco no tabpanel e publica `detail` estável. Lifecycle prova root/hydration, teclado, disabled, ARIA, eventos, destroy e re-init; o consumer smoke valida seleção sem submit e axe dos painéis no tarball antes da promoção individual.
 - **Action Menu conclui o gate App-ready.** O runtime passa a suportar `menuitemradio` e `menuitemcheckbox`, impedir ativação de itens `aria-disabled`, manter typeahead com cleanup e aguardar a visibilidade real do popup antes de mover foco. Lifecycle prova root/hydration, teclado, roles, eventos e destroy; o consumer smoke valida interação e axe aberto no tarball antes da promoção individual.
 - **Modal conclui o gate App-ready.** O runtime passa a aceitar o próprio overlay root sem envenenar markup incompleto, inertiza somente os irmãos fora do caminho do diálogo e restaura estados `inert` preexistentes. Lifecycle prova focus trap, retorno de foco, ARIA, backdrop, eventos, idempotência e cleanup; o consumer smoke valida o tarball com axe no Modal aberto antes da promoção individual.
 - **Combobox conclui o gate App-ready.** O runtime passa a aceitar document, container e o próprio root, mantém markup incompleto recuperável, sincroniza `aria-activedescendant` com a opção ativa sem mover o foco DOM, preserva foco no Escape e publica `detail` estável no evento. Lifecycle prova teclado, ARIA, idempotência e cleanup; o consumer smoke valida o tarball com axe nos estados fechado/aberto antes da promoção individual.
@@ -1330,10 +1331,10 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion,
-Combobox, Modal e Action Menu concluíram o gate executável da ADR-020. Tabs e
-Tooltip permanecem Experimentais enquanto concluem seus blockers em
-`readinessNotes`; não os use em fluxo crítico sem aceitar e validar
-explicitamente essas limitações.
+Combobox, Modal, Action Menu e Tabs concluíram o gate executável da ADR-020.
+Tooltip permanece Experimental enquanto conclui seus blockers em
+`readinessNotes`; não o use em fluxo crítico sem aceitar e validar explicitamente
+essa limitação.
 
 No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
 `aria-activedescendant`; `Escape` fecha o listbox sem remover esse foco. O evento
@@ -1349,6 +1350,13 @@ No Action Menu App-ready, `menuitem`, `menuitemradio` e `menuitemcheckbox` fazem
 parte do contrato. Itens `aria-disabled` permanecem alcançáveis pelo foco, mas
 não ativam nem fecham o menu; typeahead, setas, Home/End e Escape são mantidos
 pelo runtime.
+
+No Tabs App-ready, o runtime mantém exatamente um tab no fluxo de foco, ignora
+tabs disabled nas setas/Home/End, sincroniza `aria-selected` com `hidden` nos
+painéis e garante entrada de foco no tabpanel selecionado. Botões de tab sem
+`type` explícito são normalizados para `type="button"`, evitando submit acidental
+quando o componente está dentro de um formulário. `ds-tabs-change` expõe root,
+tab, panel e tab anterior em `detail`.
 
 Para customização de tema, use o theme engine público:
 
@@ -2023,7 +2031,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
