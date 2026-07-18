@@ -8,7 +8,10 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.8] — 2026-07-18
+
 ### Adicionado
+- **Primeira distribuição pública no npm registry.** A beta passa a ser instalada por `npm install ds-tis@beta`, com pin exato recomendado para produção e fallback pela tag GitHub; o processo de release protege o canal `beta` sem antecipar a futura tag estável `latest`.
 - **Documentação pública bilíngue gerada de fontes pareadas.** Brand Principles, Documentation Guidelines, Agent Consumer Usage, Contributing, Versioning e Releasing passam a ter fontes PT-BR + EN completas; `sync:docs` publica ambos os idiomas na mesma URL e `test:docs-consumption` protege cobertura, links e corpus.
 - **Brand Principles operacionais.** O template público foi substituído por missão do Design System TIS, princípios acionáveis, voz, paleta canônica, tipografia, regras do logo e compromisso WCAG 2.2 AA.
 - **Guia de agent em inglês no pacote.** Novo export `ds-tis/agent-guide/en` acompanha o guia PT-BR, aparece em `consumer-context.json` e é validado como parte do tarball.
@@ -934,6 +937,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD
+[1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6

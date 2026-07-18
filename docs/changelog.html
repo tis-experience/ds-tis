@@ -67,9 +67,11 @@
 <p>Todas as mudanças notáveis deste design system são registradas aqui.</p>
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
-<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD">Não publicado</a></h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD">Não publicado</a></h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8">1.0.0-beta.8</a> — 2026-07-18</h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Primeira distribuição pública no npm registry.</strong> A beta passa a ser instalada por <code>npm install ds-tis@beta</code>, com pin exato recomendado para produção e fallback pela tag GitHub; o processo de release protege o canal <code>beta</code> sem antecipar a futura tag estável <code>latest</code>.</li>
 <li><strong>Documentação pública bilíngue gerada de fontes pareadas.</strong> Brand Principles, Documentation Guidelines, Agent Consumer Usage, Contributing, Versioning e Releasing passam a ter fontes PT-BR + EN completas; <code>sync:docs</code> publica ambos os idiomas na mesma URL e <code>test:docs-consumption</code> protege cobertura, links e corpus.</li>
 <li><strong>Brand Principles operacionais.</strong> O template público foi substituído por missão do Design System TIS, princípios acionáveis, voz, paleta canônica, tipografia, regras do logo e compromisso WCAG 2.2 AA.</li>
 <li><strong>Guia de agent em inglês no pacote.</strong> Novo export <code>ds-tis/agent-guide/en</code> acompanha o guia PT-BR, aparece em <code>consumer-context.json</code> e é validado como parte do tarball.</li>

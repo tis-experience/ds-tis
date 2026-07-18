@@ -70,13 +70,13 @@ Não promova localmente um componente Experimental a App-ready. Se o projeto com
 
 ## Imports oficiais
 
-Instale o pacote no projeto consumidor via GitHub (ainda **não** há publish no npm registry):
+Instale a beta corrente pelo npm registry:
 
 ```bash
-npm install github:tis-experience/ds-tis
+npm install ds-tis@beta
 ```
 
-Alternativa no `package.json`: `"ds-tis": "github:tis-experience/ds-tis#main"`. Prefira pin por tag/SHA em produção. Quando o registry existir, a instalação muda para `npm install ds-tis` — até lá, não assuma que o nome solo resolve no npm.
+Em produção, prefira `"ds-tis": "1.0.0-beta.8"` no `package.json`. Enquanto não houver versão estável na tag npm `latest`, não use o nome sem `@beta` ou versão explícita. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
 
 Importe o CSS público uma vez no entrypoint global do app:
 
@@ -251,7 +251,7 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
-- Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
+- Instale a beta via `npm install ds-tis@beta`; em produção, fixe a versão exata.
 - Importe ds-tis/css uma vez no entrypoint global.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.

@@ -116,29 +116,35 @@ git push origin v1.0.0-beta.N
 <li>Publica o site estático no ambiente definido pelo projeto.</li>
 </ul>
 </li>
+<li><p><strong>Publicar a beta no npm</strong> depois que o commit de <code>main</code> estiver verde:</p>
+<pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
+</code></pre>
+</li>
 <li><p><strong>Verificar</strong>:</p>
+</li>
+</ol>
 <ul>
 <li>A página inicial mostra a badge <code>1.0.0-beta.N</code>.</li>
 <li><code>docs/changelog.html</code> lista <code>1.0.0-beta.N</code> como versão mais recente.</li>
 <li><code>docs/api/tokens-sync.json</code> tem timestamp recente e zero erros.</li>
+<li><code>npm view ds-tis@beta version</code> retorna <code>1.0.0-beta.N</code>.</li>
+<li>Uma instalação limpa com <code>npm install ds-tis@beta</code> passa no consumer smoke.</li>
 </ul>
-</li>
-</ol>
 <h2>Se algo der errado</h2>
 <ul>
 <li><strong>CI falhar antes da tag</strong>: conferir logs no GitHub Actions, corrigir na branch,
 criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.</li>
 <li><strong>Falha descoberta depois da tag</strong>: não mover a tag silenciosamente. Desfazer
 release é operação delicada; preferir a próxima <code>1.0.0-beta.N</code> com a correção.</li>
+<li><strong>Publicação no registry falhar</strong>: não mover a tag. Corrigir a causa; se o
+pacote continuar indisponível, restaurar temporariamente a instalação via GitHub
+na documentação pública em um PR de hotfix.</li>
 </ul>
 <h2>Publicação no npm</h2>
-<p>Ainda não fazemos. Consumidores instalam via GitHub (<code>npm install github:tis-experience/ds-tis</code>) — documentado no README e em <code>docs/agent-consumer-usage.md</code>. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver <a href="backlog.html">backlog</a>.</p>
-<p>Antes do publish:</p>
-<ol>
-<li>Confirmar <code>npm run pack:check</code> e <code>npm run build:all</code> limpos.</li>
-<li>Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → <code>npm install ds-tis</code>.</li>
-<li>Atualizar este arquivo e o backlog removendo o “ainda não”.</li>
-</ol>
+<p>Betas são publicadas com <code>npm publish --access public --tag beta</code>. A instalação
+canônica durante a fase beta é <code>npm install ds-tis@beta</code>; consumidores de produção
+devem fixar a versão exata. O nome sem tag (<code>npm install ds-tis</code>) só vira a
+orientação padrão quando uma versão estável for promovida para <code>latest</code>.</p>
 </div>
 <div data-lang="en"><p>Step-by-step release process for the design system. Start from a reviewed
 release branch with all intended work complete.</p>
@@ -177,16 +183,21 @@ git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
 git push origin v1.0.0-beta.N
 </code></pre>
 </li>
+<li><p><strong>Publish the beta to npm</strong> after the merged <code>main</code> commit is green:</p>
+<pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
+</code></pre>
+</li>
 <li><p><strong>Verify the publication:</strong></p>
+</li>
+</ol>
 <ul>
 <li>the home page shows <code>1.0.0-beta.N</code>;</li>
 <li><code>docs/changelog.html</code> lists it as the latest release;</li>
 <li><code>docs/api/tokens-sync.json</code> is current and has zero errors;</li>
-<li>package installation from the documented source succeeds;</li>
+<li><code>npm view ds-tis@beta version</code> returns <code>1.0.0-beta.N</code>;</li>
+<li>a clean <code>npm install ds-tis@beta</code> succeeds;</li>
 <li>the installed tarball passes the consumer smoke test.</li>
 </ul>
-</li>
-</ol>
 <h2>If something goes wrong</h2>
 <ul>
 <li><strong>CI fails before the tag:</strong> fix it in a new branch commit and repeat the pull request gate. Do not tag a failing commit.</li>
@@ -194,15 +205,11 @@ git push origin v1.0.0-beta.N
 <li><strong>Registry publication fails:</strong> keep GitHub installation documented until the registry package is confirmed; never publish documentation that claims an unavailable source.</li>
 </ul>
 <h2>npm publication</h2>
-<p>The first npm publication requires:</p>
-<ol>
-<li>an available package name and authenticated npm account;</li>
-<li>clean <code>npm run build:all</code> and <code>npm run pack:check</code> results;</li>
-<li>public package metadata, repository and license reviewed;</li>
-<li><code>npm publish --access public --tag beta</code> for beta versions;</li>
-<li>a live <code>npm view ds-tis@1.0.0-beta.N</code> verification;</li>
-<li>installation guidance updated from GitHub to <code>npm install ds-tis</code>, while keeping a tag/SHA GitHub fallback.</li>
-</ol>
+<p>Betas are published with <code>npm publish --access public --tag beta</code>. During the
+beta phase, the canonical install command is <code>npm install ds-tis@beta</code>, and
+production consumers should pin the exact prerelease. The bare package name
+(<code>npm install ds-tis</code>) becomes canonical only after a stable version is promoted
+to the npm <code>latest</code> tag.</p>
 </div>
   </div>
 </main>
