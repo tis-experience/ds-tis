@@ -8,6 +8,11 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.10] — 2026-07-18
+
+### Alterado
+- **Runtime Node suportado passa de 20 para 22+.** O pacote declara `engines.node >=22`, a documentação de contribuição acompanha o novo mínimo e a CI prova os gates completos em Node 22 e 24.
+
 ### Corrigido
 - **Toolbar da página Icons usa Form Field + Input/Select do DS.** Busca e filtros Size/Weight/Color deixam de reinventar controles com CSS ad hoc e passam a compor `ds-field`, `ds-input` e `ds-select`.
 - **Docs consomem Badge e Button do DS sem overrides mortos.** A badge de versão na home usa `ds-badge--brand ds-badge--subtle`; botões “Abrir em nova aba” e CTAs dos templates usam `ds-button--ghost`; callouts locais duplicados e banners gerados passam pelo padrão `ds-callout` do layout das docs.
@@ -946,7 +951,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.10...HEAD
+[1.0.0-beta.10]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...v1.0.0-beta.10
 [1.0.0-beta.9]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7

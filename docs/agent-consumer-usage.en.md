@@ -92,8 +92,8 @@ npm install ds-tis
 
 During the beta phase, the npm `latest` and `beta` dist-tags point to the same
 prerelease; `npm install ds-tis@beta` makes the channel explicit. In production,
-prefer `"ds-tis": "1.0.0-beta.9"` in `package.json`. GitHub release fallback:
-`npm install github:tis-experience/ds-tis#v1.0.0-beta.9`.
+prefer `"ds-tis": "1.0.0-beta.10"` in `package.json`. GitHub release fallback:
+`npm install github:tis-experience/ds-tis#v1.0.0-beta.10`.
 
 Import the public CSS once in the application's global entrypoint:
 

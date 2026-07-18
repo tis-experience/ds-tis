@@ -6,7 +6,7 @@ the canonical source.
 
 ## Local setup
 
-Requirements: Node.js 20+, git and GitHub SSH access.
+Requirements: Node.js 22+, git and GitHub SSH access.
 
 ```bash
 git clone <repo-url>
