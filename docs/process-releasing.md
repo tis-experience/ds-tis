@@ -1,6 +1,7 @@
 # Releases
 
-Passo a passo de uma release do design system. Pressupõe que você está na branch `main` com o trabalho da release concluído e revisado.
+Passo a passo de uma release do design system. Pressupõe uma branch de release
+com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
 
 ## Antes de começar
 
@@ -26,15 +27,16 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
    git commit -m "chore(release): 1.0.0-beta.N"
    ```
 
-5. **Push do commit de release**:
+5. **Push da branch e abertura do pull request**:
 
    ```bash
-   git push origin main
+   git push -u origin <branch-de-release>
+   gh pr create --base main
    ```
 
-6. **Aguardar o CI da `main`**. Só criar a tag quando os workflows de teste e
-   deploy do commit de release estiverem verdes. Se falhar, corrigir em novo
-   commit, fazer novo push e repetir este gate.
+6. **Aguardar o CI do pull request e fazer merge** somente com os checks verdes.
+   Depois, aguardar também Test, Verify tokens, Build and Deploy e Pages no
+   commit resultante em `main`. Só criar a tag quando todos estiverem verdes.
 
 7. **Criar e enviar a tag** no commit já validado:
 
@@ -57,7 +59,7 @@ Passo a passo de uma release do design system. Pressupõe que você está na bra
 ## Se algo der errado
 
 - **CI falhar antes da tag**: conferir logs no GitHub Actions, corrigir na branch,
-  criar novo commit e novo push. Não criar a tag enquanto o commit não estiver verde.
+  criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.
 - **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
   release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
 

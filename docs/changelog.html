@@ -47,10 +47,6 @@
     </a>
   </div>
   <div class="ds-site-header__actions">
-    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
-      <option value="pt">PT</option>
-      <option value="en">EN</option>
-    </select>
     <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
@@ -72,6 +68,24 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD">Não publicado</a></h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Documentação pública bilíngue gerada de fontes pareadas.</strong> Brand Principles, Documentation Guidelines, Agent Consumer Usage, Contributing, Versioning e Releasing passam a ter fontes PT-BR + EN completas; <code>sync:docs</code> publica ambos os idiomas na mesma URL e <code>test:docs-consumption</code> protege cobertura, links e corpus.</li>
+<li><strong>Brand Principles operacionais.</strong> O template público foi substituído por missão do Design System TIS, princípios acionáveis, voz, paleta canônica, tipografia, regras do logo e compromisso WCAG 2.2 AA.</li>
+<li><strong>Guia de agent em inglês no pacote.</strong> Novo export <code>ds-tis/agent-guide/en</code> acompanha o guia PT-BR, aparece em <code>consumer-context.json</code> e é validado como parte do tarball.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Corpus para IA não ressuscita findings históricos.</strong> <code>llms-full.txt</code> exclui traduções duplicadas e a auditoria Figma de 25/04/2026, agora marcada explicitamente como histórica/superseded; documentos canônicos atuais continuam completos.</li>
+<li><strong>Princípios de tokens refletem a fonte de verdade atual.</strong> A documentação deixa de orientar mudança de radius Figma-canônico direto no JSON e explica o fluxo Figma → JSON → CSS, com exceções CSS-only da ADR-016.</li>
+<li><strong>Links de Markdown viram rotas HTML no site.</strong> O gerador resolve fontes publicadas, ADRs, README e CONTRIBUTING para seus HTMLs, evitando navegação para Markdown bruto.</li>
+</ul>
+<h3>Alterado</h3>
+<ul>
+<li><strong>Páginas exclusivamente PT-BR não exibem seletor sem efeito.</strong> ADRs, Changelog e Backlog permanecem em português conforme a governança editorial e deixam de prometer uma tradução inexistente.</li>
+<li><strong>Processo de release respeita <code>main</code> protegida.</strong> A documentação passa a exigir branch, pull request, CI verde no PR e nova validação do commit resultante em <code>main</code> antes da tag.</li>
+<li><strong>Figma concentra a documentação canônica no site.</strong> Introdução, Theming, Accessibility e Changelog passam a manter somente título e referência clicável para a documentação pública; Grids e Images vazias foram removidas, enquanto Icons, Templates e Component Status com conteúdo real foram preservadas.</li>
+</ul>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7">1.0.0-beta.7</a> — 2026-07-18</h2>
 <h3>Adicionado</h3>
 <ul>

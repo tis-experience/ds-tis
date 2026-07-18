@@ -47,10 +47,6 @@
     </a>
   </div>
   <div class="ds-site-header__actions">
-    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
-      <option value="pt">PT</option>
-      <option value="en">EN</option>
-    </select>
     <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
@@ -77,16 +73,6 @@
 <p><strong>(b) Tokens Studio for Figma</strong> — export Figma → JSON + push Git via OAuth. Exige migrar Variables nativas. Custo: 2–3 dias + curva do plugin.</p>
 <p><strong>(c) <del>Upgrade Enterprise</del></strong> — descartado por decisão de produto/custo.</p>
 <p>Enquanto o volume de sync manual for baixo, manter plugin + refresh local. Revisitar <strong>(a)</strong> se divergências manuais crescerem.</p>
-<h3>Preencher <code>docs/brand-principles.md</code></h3>
-<p>Template existe, conteúdo real ainda não foi definido. Passa por: missão, 3 princípios de design, tom de voz, identidade visual, logo.</p>
-<h3>Reduzir documentação textual do Figma</h3>
-<p>Decisão tomada em 21/04/2026 junto com a revisão da ADR-003: reduzir as páginas textuais do Figma (Introdução, Theming, Accessibility, Changelog) e concentrar a documentação de desenvolvimento no GitHub. Tarefa manual, Figma:</p>
-<ul>
-<li>Esvaziar conteúdo narrativo das páginas textuais mencionadas.</li>
-<li>Manter uma referência curta em cada (&quot;Ver documentação completa: docs/...&quot;).</li>
-<li>Eventualmente consolidar tudo na Capa.</li>
-<li>Component Status pode ficar como está (é informação visual útil no contexto Figma).</li>
-</ul>
 <h2>Média prioridade</h2>
 <h3>Comparação avançada Figma ↔ JSON no <code>scripts/tokens-verify.mjs</code></h3>
 <p>A partir de 0.5.8, o script classifica divergências em <code>NEEDS_SYNC</code>, <code>DRIFT_FROM_SOURCE</code> e <code>VALUE_DRIFT</code>. Próxima iteração: resolução completa de aliases Figma e normalização de formato (hex vs rgba). Depois do FIGMA_PAT ficar configurado como secret do CI.</p>
@@ -106,8 +92,6 @@
 <li>Ou agendamento diário (cron) pra detectar mudanças e abrir PR.</li>
 </ul>
 <p>Só se o disparo manual virar gargalo.</p>
-<h3>Sincronização de textos Figma ↔ site</h3>
-<p>A Fase 7 original previa. Substituída pela decisão de reduzir doc textual do Figma (item acima). Se no futuro houver demanda real de ter textos idênticos em ambos os lados, reavaliar.</p>
 <h2>Baixa prioridade</h2>
 <h3>Form Field como Component dedicado no Figma</h3>
 <p>Hoje (Pattern A): cada controle Figma — Input Text, Select, Textarea, Checkbox, Radio — encapsula label/helper/error/required internamente. Form Field existe no CSS (<code>.ds-field*</code>) e na doc (<code>docs/form-field.html</code>) como wrapper standalone, mas não há Component Figma dedicado — criar um seria duplicar o que cada controle já tem.</p>
@@ -119,8 +103,6 @@
 <p>Expõe tokens, componentes e guidelines via MCP para agentes. <code>llms.txt</code> + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.</p>
 <h3>Publicação no npm</h3>
 <p>Pacote nunca foi publicado no registry. Consumo oficial hoje: <code>npm install github:tis-experience/ds-tis</code> (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: <code>npm run pack:check</code>, validar <code>files</code>/<code>exports</code>, e reescrever docs de instalação para <code>npm install ds-tis</code>.</p>
-<h3>Revisão das páginas do Figma em estado de teste</h3>
-<p>Você mencionou que páginas vazias (Icons, Grids, Images, Templates) e resíduos nas páginas de componente (SECTION e <code>image 1</code> em Input Text, INSTANCE soltas em Button, <code>Frame 1</code> em Textarea) estão em uso para experimentos. Quando terminar os testes, decidir se preenche ou remove.</p>
 <h3>Resolução de conflitos inteligente no <code>sync-tokens-from-figma</code></h3>
 <p>Hoje o script loga e pede intervenção quando encontra ambiguidade (ex: variável renomeada no Figma vs variável nova; alias quebrado). Evoluir pra sugerir ação com heurística (ex: &quot;detectei que <code>color/primary/toned</code> pode ter virado <code>brand/toned/default</code> com base em similaridade de valor; aplicar?&quot;).</p>
 

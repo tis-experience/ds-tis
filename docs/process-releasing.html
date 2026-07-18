@@ -59,16 +59,17 @@
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">Releases</h1>
-    <p class="ds-section__subtitle">Passo a passo de uma release.</p>
+    <h1 class="ds-section__title"><span data-lang="pt">Releases</span><span data-lang="en">Releases</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Passo a passo de uma release.</span><span data-lang="en">Step-by-step release process.</span></p>
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.</span><span data-lang="en">This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.</span>
   </div>
 
   <div class="ds-md-content">
-<p>Passo a passo de uma release do design system. Pressupõe que você está na branch <code>main</code> com o trabalho da release concluído e revisado.</p>
+<div data-lang="pt"><p>Passo a passo de uma release do design system. Pressupõe uma branch de release
+com o trabalho concluído e revisado; <code>main</code> recebe a mudança por pull request.</p>
 <h2>Antes de começar</h2>
 <ul>
 <li><input disabled="" type="checkbox" aria-hidden="true"> Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.</li>
@@ -77,7 +78,7 @@
 </ul>
 <h2>Passo a passo</h2>
 <ol>
-<li><p><strong>Definir a versão nova</strong>. Consultar <a href="./process-versioning.md">regras de versionamento</a>. Durante beta, usar sempre o próximo <code>1.0.0-beta.N</code>; não criar minor/patch separado.</p>
+<li><p><strong>Definir a versão nova</strong>. Consultar <a href="process-versioning.html">regras de versionamento</a>. Durante beta, usar sempre o próximo <code>1.0.0-beta.N</code>; não criar minor/patch separado.</p>
 </li>
 <li><p><strong>Atualizar <code>CHANGELOG.md</code></strong>:</p>
 <ul>
@@ -93,13 +94,14 @@
 git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
 </code></pre>
 </li>
-<li><p><strong>Push do commit de release</strong>:</p>
-<pre tabindex="0"><code class="language-bash">git push origin main
+<li><p><strong>Push da branch e abertura do pull request</strong>:</p>
+<pre tabindex="0"><code class="language-bash">git push -u origin &lt;branch-de-release&gt;
+gh pr create --base main
 </code></pre>
 </li>
-<li><p><strong>Aguardar o CI da <code>main</code></strong>. Só criar a tag quando os workflows de teste e
-deploy do commit de release estiverem verdes. Se falhar, corrigir em novo
-commit, fazer novo push e repetir este gate.</p>
+<li><p><strong>Aguardar o CI do pull request e fazer merge</strong> somente com os checks verdes.
+Depois, aguardar também Test, Verify tokens, Build and Deploy e Pages no
+commit resultante em <code>main</code>. Só criar a tag quando todos estiverem verdes.</p>
 </li>
 <li><p><strong>Criar e enviar a tag</strong> no commit já validado:</p>
 <pre tabindex="0"><code class="language-bash">git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;
@@ -125,19 +127,83 @@ git push origin v1.0.0-beta.N
 <h2>Se algo der errado</h2>
 <ul>
 <li><strong>CI falhar antes da tag</strong>: conferir logs no GitHub Actions, corrigir na branch,
-criar novo commit e novo push. Não criar a tag enquanto o commit não estiver verde.</li>
+criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.</li>
 <li><strong>Falha descoberta depois da tag</strong>: não mover a tag silenciosamente. Desfazer
 release é operação delicada; preferir a próxima <code>1.0.0-beta.N</code> com a correção.</li>
 </ul>
 <h2>Publicação no npm</h2>
-<p>Ainda não fazemos. Consumidores instalam via GitHub (<code>npm install github:tis-experience/ds-tis</code>) — documentado no README e em <code>docs/agent-consumer-usage.md</code>. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver <a href="./backlog.md">backlog</a>.</p>
+<p>Ainda não fazemos. Consumidores instalam via GitHub (<code>npm install github:tis-experience/ds-tis</code>) — documentado no README e em <code>docs/agent-consumer-usage.md</code>. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver <a href="backlog.html">backlog</a>.</p>
 <p>Antes do publish:</p>
 <ol>
 <li>Confirmar <code>npm run pack:check</code> e <code>npm run build:all</code> limpos.</li>
 <li>Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → <code>npm install ds-tis</code>.</li>
 <li>Atualizar este arquivo e o backlog removendo o “ainda não”.</li>
 </ol>
-
+</div>
+<div data-lang="en"><p>Step-by-step release process for the design system. Start from a reviewed
+release branch with all intended work complete.</p>
+<h2>Before starting</h2>
+<ul>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Release changes are in small, readable commits with Portuguese messages.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code> and <code>npm run test:app-ready</code> pass.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>[Não publicado]</code> in <code>CHANGELOG.md</code> covers every change since the previous version.</li>
+</ul>
+<h2>Step-by-step</h2>
+<ol>
+<li><p><strong>Choose the version.</strong> Read the <a href="process-versioning.html">versioning rules</a>. During beta, always use the next <code>1.0.0-beta.N</code>.</p>
+</li>
+<li><p><strong>Update <code>CHANGELOG.md</code>:</strong></p>
+<ul>
+<li>rename <code>[Não publicado]</code> to <code>[1.0.0-beta.N] — YYYY-MM-DD</code>;</li>
+<li>add a new empty <code>[Não publicado]</code> section;</li>
+<li>update comparison links at the bottom.</li>
+</ul>
+</li>
+<li><p><strong>Update package metadata:</strong> change <code>package.json</code> and <code>package-lock.json</code> to <code>1.0.0-beta.N</code>.</p>
+</li>
+<li><p><strong>Create the release commit:</strong></p>
+<pre tabindex="0"><code class="language-bash">git add CHANGELOG.md package.json package-lock.json docs/
+git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
+</code></pre>
+</li>
+<li><p><strong>Push the release branch and open a pull request.</strong> Do not bypass protected <code>main</code>.</p>
+</li>
+<li><p><strong>Wait for pull request CI</strong> and merge only when required checks are green.</p>
+</li>
+<li><p><strong>Validate <code>main</code>.</strong> Test and deployment workflows must pass on the merged release commit.</p>
+</li>
+<li><p><strong>Create and push the annotated tag:</strong></p>
+<pre tabindex="0"><code class="language-bash">git tag -a v1.0.0-beta.N -m &quot;Release 1.0.0-beta.N&quot;
+git push origin v1.0.0-beta.N
+</code></pre>
+</li>
+<li><p><strong>Verify the publication:</strong></p>
+<ul>
+<li>the home page shows <code>1.0.0-beta.N</code>;</li>
+<li><code>docs/changelog.html</code> lists it as the latest release;</li>
+<li><code>docs/api/tokens-sync.json</code> is current and has zero errors;</li>
+<li>package installation from the documented source succeeds;</li>
+<li>the installed tarball passes the consumer smoke test.</li>
+</ul>
+</li>
+</ol>
+<h2>If something goes wrong</h2>
+<ul>
+<li><strong>CI fails before the tag:</strong> fix it in a new branch commit and repeat the pull request gate. Do not tag a failing commit.</li>
+<li><strong>A problem appears after the tag:</strong> do not move the tag silently. Prefer the next <code>1.0.0-beta.N</code> containing the fix.</li>
+<li><strong>Registry publication fails:</strong> keep GitHub installation documented until the registry package is confirmed; never publish documentation that claims an unavailable source.</li>
+</ul>
+<h2>npm publication</h2>
+<p>The first npm publication requires:</p>
+<ol>
+<li>an available package name and authenticated npm account;</li>
+<li>clean <code>npm run build:all</code> and <code>npm run pack:check</code> results;</li>
+<li>public package metadata, repository and license reviewed;</li>
+<li><code>npm publish --access public --tag beta</code> for beta versions;</li>
+<li>a live <code>npm view ds-tis@1.0.0-beta.N</code> verification;</li>
+<li>installation guidance updated from GitHub to <code>npm install ds-tis</code>, while keeping a tag/SHA GitHub fallback.</li>
+</ol>
+</div>
   </div>
 </main>
 

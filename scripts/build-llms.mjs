@@ -13,7 +13,8 @@
  * Conteúdo agregado no llms-full.txt:
  *   - README.md, CONTRIBUTING.md, CLAUDE.md na raiz
  *   - CHANGELOG.md na raiz
- *   - docs/*.md (princípios, schemas, inventários, brand, backlog, process-*)
+ *   - docs/*.md canônicos (princípios, schemas, inventários, brand,
+ *     backlog, process-*); traduções e auditorias históricas ficam fora
  *   - docs/decisions/ADR-*.md (todos os ADRs)
  *   - tokens/*.json resumidos (contagens e referência, não valores completos —
  *     a API JSON cobre isso)
@@ -33,6 +34,9 @@ const ROOT = path.resolve(__dirname, "..");
 const DOCS_DIR = path.join(ROOT, "docs");
 
 const DOCS_BASE_URL = (process.env.DS_DOCS_BASE_URL || "").replace(/\/$/, "");
+const LLMS_FULL_EXCLUDED_DOCS = new Set([
+  "audit-figma-2026-04-25.md",
+]);
 
 function docUrl(pathname) {
   const normalized = pathname.replace(/^\/+/, "");
@@ -64,7 +68,9 @@ const adrs = adrFiles.map((f) => {
   return {
     num: numMatch ? numMatch[1] : "?",
     title: titleMatch ? titleMatch[1].trim() : f,
-    status: statusMatch ? statusMatch[1].trim() : "",
+    status: statusMatch
+      ? statusMatch[1].trim().replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      : "",
     slug: f.replace(/\.md$/, "").toLowerCase(),
     file: f,
   };
@@ -93,7 +99,7 @@ const llmsTxt = `# Design System Core
 Repositório: definir no ambiente de destino.
 Site: ${DOCS_BASE_URL || "documentação local"}
 Arquivo completo para LLMs: ${docUrl("docs/llms-full.txt")}
-No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-tis/metadata/tokens\`, \`ds-tis/agent-guide\`, \`ds-tis/llms\` e \`ds-tis/llms-full\`.
+No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-tis/metadata/tokens\`, \`ds-tis/agent-guide\`, \`ds-tis/agent-guide/en\`, \`ds-tis/llms\` e \`ds-tis/llms-full\`.
 
 ## Visão geral
 
@@ -166,8 +172,14 @@ addSection("README.md (raiz)", readMd(path.join(ROOT, "README.md")));
 addSection("CONTRIBUTING.md (raiz)", readMd(path.join(ROOT, "CONTRIBUTING.md")));
 addSection("CHANGELOG.md (raiz)", readMd(path.join(ROOT, "CHANGELOG.md")));
 
-// docs/*.md (exceto decisions e subpastas)
-const docsMds = fs.readdirSync(DOCS_DIR).filter((f) => f.endsWith(".md")).sort();
+// docs/*.md canônicos (exceto decisions, traduções e relatórios históricos).
+// Relatórios datados continuam versionados para rastreabilidade, mas não devem
+// reintroduzir findings resolvidos no contexto padrão entregue a agents.
+const docsMds = fs.readdirSync(DOCS_DIR)
+  .filter((f) => f.endsWith(".md"))
+  .filter((f) => !f.endsWith(".en.md"))
+  .filter((f) => !LLMS_FULL_EXCLUDED_DOCS.has(f))
+  .sort();
 for (const f of docsMds) {
   addSection(`docs/${f}`, readMd(path.join(DOCS_DIR, f)));
 }
@@ -202,8 +214,10 @@ const llmsFull = `# Design System Core — conteúdo consolidado
 
 > Versão ${pkg.version}. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
-> CLAUDE.md, CHANGELOG, todos os MDs em docs/, todos os ADRs e um resumo
-> dos tokens. Páginas HTML-only (componentes, foundations) estão referenciadas
+> CLAUDE.md, CHANGELOG, documentos canônicos atuais em docs/, todos os ADRs e
+> um resumo dos tokens. Traduções e auditorias históricas ficam fora para
+> evitar duplicação e findings obsoletos. Páginas HTML-only (componentes,
+> foundations) estão referenciadas
 > por URL no cabeçalho e no llms.txt — o conteúdo visual delas não é
 > transcrito aqui, pois a fonte canônica textual são os arquivos markdown.
 

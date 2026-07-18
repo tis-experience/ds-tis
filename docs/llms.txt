@@ -5,7 +5,7 @@
 Repositório: definir no ambiente de destino.
 Site: documentação local
 Arquivo completo para LLMs: docs/llms-full.txt
-No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e `ds-tis/llms-full`.
+No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/agent-guide/en`, `ds-tis/llms` e `ds-tis/llms-full`.
 
 ## Visão geral
 
@@ -58,11 +58,11 @@ No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/me
 
 ## Decisões arquiteturais (ADRs)
 
-- [ADR-001 — Migração da arquitetura de tokens para Foundation→Semantic→Component com DTCG + Style Dictionary](docs/decisions/adr-001-migracao-tokens.html) — Aceita — superseded em parte por [ADR-014](ADR-014-action-tokens-role-style.md) (themes Default/Ocean/Forest removidos em 0.8.0; Brand virou paleta única customizável)
+- [ADR-001 — Migração da arquitetura de tokens para Foundation→Semantic→Component com DTCG + Style Dictionary](docs/decisions/adr-001-migracao-tokens.html) — Aceita — superseded em parte por ADR-014 (themes Default/Ocean/Forest removidos em 0.8.0; Brand virou paleta única customizável)
 - [ADR-002 — Stack agnóstica — HTML + CSS + vanilla JS como base](docs/decisions/adr-002-stack-agnostica.html) — Aceita
 - [ADR-003 — Figma como origem canônica de tokens, Git como consolidação](docs/decisions/adr-003-fontes-verdade.html) — Aceita — Revisada em 0.5.8
 - [ADR-004 — WCAG 2.2 AA como padrão de acessibilidade](docs/decisions/adr-004-wcag.html) — Aceita — Implementada em 0.5.0
-- [ADR-005 — Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica](docs/decisions/adr-005-brand-foundation-e-estados-explicitos.html) — Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por [ADR-014](ADR-014-action-tokens-role-style.md): collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.
+- [ADR-005 — Brand como camada foundation, estados explícitos no semantic, e limpeza tipográfica](docs/decisions/adr-005-brand-foundation-e-estados-explicitos.html) — Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.2). Superseded por ADR-014: collection Brand (modes Default/Ocean/Forest) deletada em 0.8.0, Brand virou paleta única customizável dentro da Foundation.
 - [ADR-006 — Tokens semânticos de controle para dimensões e tipografia compartilhadas entre controles interativos](docs/decisions/adr-006-semantic-control-tokens.html) — Parcialmente substituída — `size.control.*` e `space.control.padding-{x,y}.*` substituídos por escala `size.{xs..5xl}` + `space.{xs..2xl}` + `space.control.padding.10` em **ADR-015** (2026-04-26). O contrato público de anatomia dos componentes foi movido para tokens Component em **ADR-019** (2026-05-10). `typography.control.*` permanece vigente.
 - [ADR-007 — Estabelecer sistema de cores toned com overlays coloridos e tokens semânticos toned](docs/decisions/adr-007-toned-color-system.html) — Aceita — Implementada em 0.5.0 (fechamento formal em 0.5.4, sincronização Figma completa em 0.5.6)
 - [ADR-008 — Recalibração das paletas foundation `green` e `amber`](docs/decisions/adr-008-recalibracao-paletas-feedback.html) — Aceita — Implementada em 0.5.0

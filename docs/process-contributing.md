@@ -68,7 +68,10 @@ Template em `docs/decisions/` (ver ADRs existentes como referência).
 
 ## Pipeline de tokens
 
-`tokens/**/*.json` (fonte) → `build-tokens.mjs` → `css/tokens/generated/*.css` (derivado) → `css/components/*.css` (consumo).
+Para categorias nativas do Figma, a decisão nasce em Figma Variables e é
+sincronizada para `tokens/**/*.json`. Categorias CSS-only definidas na ADR-016
+nascem no JSON. Os dois caminhos convergem em `build-tokens.mjs` →
+`css/tokens/generated/*.css` → `css/components/*.css`.
 
 Não edite os arquivos em `css/tokens/generated/` à mão. O CI regenera em cada push pra `main`.
 

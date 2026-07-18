@@ -8,6 +8,21 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+### Adicionado
+- **Documentação pública bilíngue gerada de fontes pareadas.** Brand Principles, Documentation Guidelines, Agent Consumer Usage, Contributing, Versioning e Releasing passam a ter fontes PT-BR + EN completas; `sync:docs` publica ambos os idiomas na mesma URL e `test:docs-consumption` protege cobertura, links e corpus.
+- **Brand Principles operacionais.** O template público foi substituído por missão do Design System TIS, princípios acionáveis, voz, paleta canônica, tipografia, regras do logo e compromisso WCAG 2.2 AA.
+- **Guia de agent em inglês no pacote.** Novo export `ds-tis/agent-guide/en` acompanha o guia PT-BR, aparece em `consumer-context.json` e é validado como parte do tarball.
+
+### Corrigido
+- **Corpus para IA não ressuscita findings históricos.** `llms-full.txt` exclui traduções duplicadas e a auditoria Figma de 25/04/2026, agora marcada explicitamente como histórica/superseded; documentos canônicos atuais continuam completos.
+- **Princípios de tokens refletem a fonte de verdade atual.** A documentação deixa de orientar mudança de radius Figma-canônico direto no JSON e explica o fluxo Figma → JSON → CSS, com exceções CSS-only da ADR-016.
+- **Links de Markdown viram rotas HTML no site.** O gerador resolve fontes publicadas, ADRs, README e CONTRIBUTING para seus HTMLs, evitando navegação para Markdown bruto.
+
+### Alterado
+- **Páginas exclusivamente PT-BR não exibem seletor sem efeito.** ADRs, Changelog e Backlog permanecem em português conforme a governança editorial e deixam de prometer uma tradução inexistente.
+- **Processo de release respeita `main` protegida.** A documentação passa a exigir branch, pull request, CI verde no PR e nova validação do commit resultante em `main` antes da tag.
+- **Figma concentra a documentação canônica no site.** Introdução, Theming, Accessibility e Changelog passam a manter somente título e referência clicável para a documentação pública; Grids e Images vazias foram removidas, enquanto Icons, Templates e Component Status com conteúdo real foram preservadas.
+
 ## [1.0.0-beta.7] — 2026-07-18
 
 ### Adicionado

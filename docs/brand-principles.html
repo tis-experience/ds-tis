@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Princípios da marca — Design System</title>
+  <title>Princípios da marca / Brand principles — Design System</title>
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="layout.css">
   <style>
@@ -59,46 +59,56 @@
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">Princípios da marca</h1>
-    <p class="ds-section__subtitle">Missão, princípios, tom de voz e identidade visual.</p>
+    <h1 class="ds-section__title"><span data-lang="pt">Princípios da marca</span><span data-lang="en">Brand principles</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Missão, princípios, tom de voz e identidade visual.</span><span data-lang="en">Mission, principles, voice and visual identity.</span></p>
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.</span><span data-lang="en">This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.</span>
   </div>
 
   <div class="ds-md-content">
-<blockquote>
-<p>Template para ser preenchido com os princípios da marca.
-Este documento alimenta tanto o Claude Project quanto o doc site.</p>
+<div data-lang="pt"><blockquote>
+<p>Este documento define a expressão de marca do <strong>Design System TIS</strong>. Ele não
+substitui diretrizes institucionais corporativas; traduz a identidade disponível
+no repositório em regras operacionais para produto, documentação e componentes.</p>
 </blockquote>
 <h2>Missão</h2>
-<p>[Uma frase. O que a marca existe para fazer.]</p>
+<p>Dar a designers, developers e agents IA uma base visual e comportamental
+confiável para construir produtos TIS consistentes, acessíveis e sustentáveis,
+sem acoplar a experiência a um framework específico.</p>
 <h2>Princípios de design</h2>
-<blockquote>
-<p>Estes princípios orientam toda decisão de design — de tokens a componentes a patterns.
-Cada princípio deve ser acionável: alguém deve conseguir olhar para um componente e dizer
-&quot;isso está alinhado com o princípio X&quot; ou &quot;isso viola o princípio Y&quot;.</p>
-</blockquote>
-<h3>1. [Princípio]</h3>
-<p>[Descrição de 2-3 frases. O que isso significa na prática.]
-<strong>Exemplo concreto:</strong> [como isso se manifesta num componente ou decisão]
-<strong>Anti-padrão:</strong> [o que violaria esse princípio]</p>
-<h3>2. [Princípio]</h3>
-<p>[Descrição]
-<strong>Exemplo concreto:</strong> [...]
-<strong>Anti-padrão:</strong> [...]</p>
-<h3>3. [Princípio]</h3>
-<p>[Descrição]
-<strong>Exemplo concreto:</strong> [...]
-<strong>Anti-padrão:</strong> [...]</p>
-<hr>
+<h3>1. Clareza antes de ornamentação</h3>
+<p>Cada decisão visual deve tornar hierarquia, estado ou próxima ação mais fácil
+de entender. Cor, espaçamento e motion têm função; decoração sem informação
+não deve competir com o conteúdo.</p>
+<p><strong>Exemplo concreto:</strong> um Button destructive combina label explícita, cor de
+feedback e focus ring visível; a cor não é o único sinal.</p>
+<p><strong>Anti-padrão:</strong> criar superfícies, sombras ou badges apenas para preencher
+espaço ou simular hierarquia que o conteúdo não sustenta.</p>
+<h3>2. Acessibilidade é parte da identidade</h3>
+<p>WCAG 2.2 AA é o piso do sistema. Contraste, semântica, teclado, foco, target e
+motion reduzida fazem parte do componente desde o primeiro estado; não são uma
+camada adicionada depois.</p>
+<p><strong>Exemplo concreto:</strong> componentes interativos preservam foco perceptível nos
+modos light, dark e forced colors, com comportamento de teclado documentado.</p>
+<p><strong>Anti-padrão:</strong> remover outline, depender apenas de hover ou usar texto brand
+sem validar o fundo real em que ele aparece.</p>
+<h3>3. Contratos explícitos, composição flexível</h3>
+<p>Tokens, anatomia pública, readiness e responsabilidade de runtime devem ser
+legíveis por pessoas e máquinas. O núcleo permanece stack-agnostic e
+intrinsic-first; cada produto pode compor layouts e wrappers locais sem
+inventar APIs oficiais do DS.</p>
+<p><strong>Exemplo concreto:</strong> um agent consulta <code>ds-tis/metadata/components</code>, monta a
+anatomia documentada e inicializa o runtime público quando ele é obrigatório.</p>
+<p><strong>Anti-padrão:</strong> copiar uma aparência com classes internas, omitir estados ou
+apresentar um wrapper de framework local como componente oficial.</p>
 <h2>Tom de voz</h2>
 <h3>Atributos</h3>
 <ul>
-<li>[Adjetivo 1]: [o que isso significa na comunicação]</li>
-<li></li>
-<li></li>
+<li><strong>Claro:</strong> usa termos específicos e explica a próxima ação.</li>
+<li><strong>Direto:</strong> evita introduções longas, jargão desnecessário e promessas vagas.</li>
+<li><strong>Responsável:</strong> descreve limites, estados e riscos sem culpar a pessoa usuária.</li>
 </ul>
 <h3>Isso, não aquilo</h3>
 <table>
@@ -110,94 +120,287 @@ Cada princípio deve ser acionável: alguém deve conseguir olhar para um compon
 </tr>
 </thead>
 <tbody><tr>
-<td>[exemplo]</td>
-<td>[exemplo]</td>
-<td>[razão]</td>
+<td>&quot;Digite um e-mail no formato <a href="mailto:nome@empresa.com">nome@empresa.com</a>.&quot;</td>
+<td>&quot;Entrada inválida.&quot;</td>
+<td>Explica como corrigir.</td>
 </tr>
 <tr>
-<td>[exemplo]</td>
-<td>[exemplo]</td>
-<td>[razão]</td>
+<td>&quot;Salve as alterações.&quot;</td>
+<td>&quot;OK&quot;</td>
+<td>A ação fica previsível.</td>
+</tr>
+<tr>
+<td>&quot;Este componente exige <code>ds-tis/modal</code>.&quot;</td>
+<td>&quot;O comportamento é automático.&quot;</td>
+<td>Explicita a responsabilidade do runtime.</td>
+</tr>
+<tr>
+<td>&quot;Ainda não há publicação nesta versão.&quot;</td>
+<td>&quot;Em breve.&quot;</td>
+<td>Registra o limite verificável.</td>
 </tr>
 </tbody></table>
-<hr>
 <h2>Identidade visual</h2>
-<h3>Cores da marca</h3>
+<h3>Cor</h3>
+<p>A paleta brand padrão é azul e pode ser substituída pelo contrato white-label.
+Componentes não consomem Foundation diretamente: usam tokens Semantic ou
+Component conforme a anatomia.</p>
 <table>
 <thead>
 <tr>
 <th>Role</th>
-<th>Token</th>
-<th>Valor</th>
+<th>Token canônico</th>
+<th>Valor atual</th>
 <th>Uso</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Primary</td>
-<td><code>foundation.brand.primary</code></td>
-<td>[hex]</td>
-<td>CTA, links, foco</td>
+<td>Brand fill</td>
+<td><code>foundation.color.brand.600</code></td>
+<td><code>#0065ED</code></td>
+<td>CTA e superfícies brand com foreground de contraste.</td>
 </tr>
 <tr>
-<td>Secondary</td>
-<td><code>foundation.brand.secondary</code></td>
-<td>[hex]</td>
-<td>Complementar, destaques</td>
+<td>Brand content</td>
+<td><code>foundation.color.brand.700</code></td>
+<td><code>#0050DA</code></td>
+<td>Texto e links sobre fundos claros, via Semantic.</td>
 </tr>
 <tr>
-<td><del>Accent</del></td>
-<td><em>(não definido — foundation só tem <code>primary</code>/<code>secondary</code>. Se precisar de 3ª cor, criar em ADR)</em></td>
-<td>—</td>
-<td>—</td>
+<td>Brand dark</td>
+<td><code>foundation.color.brand.400</code></td>
+<td><code>#56A7FA</code></td>
+<td>Conteúdo brand em superfícies dark, via Semantic.</td>
+</tr>
+<tr>
+<td>Neutral canvas</td>
+<td><code>foundation.color.neutral.50</code></td>
+<td><code>#F8FAFC</code></td>
+<td>Base clara; consumidores usam o Semantic correspondente.</td>
 </tr>
 </tbody></table>
+<p>O seed do Theme Playground é <code>#0056E0</code>; o engine gera a escala completa e
+audita os pares de contraste antes da exportação.</p>
 <h3>Tipografia</h3>
 <table>
 <thead>
 <tr>
 <th>Role</th>
-<th>Font</th>
+<th>Família</th>
 <th>Fallback</th>
 <th>Uso</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Headings</td>
-<td>[font]</td>
-<td>[fallback]</td>
-<td>Títulos, destaque</td>
+<td>Display e headings</td>
+<td>Inter</td>
+<td>system-ui, Segoe UI, Roboto, sans-serif</td>
+<td>Títulos e hierarquia editorial.</td>
 </tr>
 <tr>
-<td>Body</td>
-<td>[font]</td>
-<td>[fallback]</td>
-<td>Texto corrido</td>
+<td>Body e controls</td>
+<td>Inter</td>
+<td>system-ui, Segoe UI, Roboto, sans-serif</td>
+<td>Texto corrido, labels e controles.</td>
 </tr>
 <tr>
 <td>Code</td>
-<td>[font]</td>
-<td>[fallback]</td>
-<td>Code snippets, dados</td>
+<td>DM Mono</td>
+<td>JetBrains Mono, Fira Code, Cascadia Code, Consolas, monospace</td>
+<td>Snippets, tokens e dados técnicos.</td>
 </tr>
 </tbody></table>
+<p>Use apenas os tokens de tipografia publicados. Não simule bold ou italic e
+não comprima a fonte para acomodar labels.</p>
 <h3>Logo</h3>
 <ul>
-<li>Versão principal: [descrição/localização]</li>
-<li>Versão reduzida: [descrição/localização]</li>
-<li>Área de segurança: [regras]</li>
-<li>Uso indevido: [o que não fazer]</li>
+<li><strong>Versão principal:</strong> <code>docs/assets/logo-tis.svg</code>, para contextos com espaço horizontal.</li>
+<li><strong>Versão reduzida:</strong> <code>docs/assets/logo-tis-mark.svg</code>, para topbar, avatar de produto e favicon.</li>
+<li><strong>Cor:</strong> o mark reduzido é branco e deve ficar sobre uma superfície que garanta contraste; não recolorir pontos individualmente.</li>
+<li><strong>Área de segurança:</strong> preservar ao redor do mark no mínimo o diâmetro de um ponto do símbolo (<code>1x</code>).</li>
+<li><strong>Tamanho digital mínimo:</strong> <code>24px</code> para o mark; a topbar da documentação usa <code>36px</code>.</li>
+<li><strong>Uso indevido:</strong> não distorcer, girar, alterar proporção, remontar os pontos ou aplicar efeitos que reduzam legibilidade.</li>
 </ul>
-<hr>
 <h2>Acessibilidade como princípio</h2>
-<p>A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:</p>
+<p>A marca do Design System TIS se compromete com WCAG 2.2 AA como mínimo:</p>
 <ul>
-<li>Contrastes validados em todas as combinações de cor do DS</li>
-<li>Navegação por teclado funcional em todos os componentes</li>
-<li>Screen reader support testado com VoiceOver (macOS/iOS)</li>
-<li>Motion reduzida respeitada via <code>prefers-reduced-motion</code></li>
-<li>Focus visible nunca removido ou escondido</li>
+<li>contrastes validados nos modos light e dark;</li>
+<li>navegação por teclado funcional em todos os componentes interativos;</li>
+<li>semântica e estados anunciáveis por screen readers;</li>
+<li>motion reduzida respeitada via <code>prefers-reduced-motion</code>;</li>
+<li>focus visible nunca removido ou escondido;</li>
+<li>forced colors preservado para controles e estados essenciais.</li>
 </ul>
-
+<p>Exceções precisam estar registradas, ter impacto conhecido e não podem ser
+apresentadas como comportamento aprovado do sistema.</p>
+</div>
+<div data-lang="en"><blockquote>
+<p>This document defines the brand expression of the <strong>TIS Design System</strong>. It
+does not replace corporate brand guidelines; it turns the identity available
+in this repository into operational rules for products, documentation and
+components.</p>
+</blockquote>
+<h2>Mission</h2>
+<p>Give designers, developers and AI agents a dependable visual and behavioral
+foundation for building consistent, accessible and sustainable TIS products
+without coupling the experience to a specific framework.</p>
+<h2>Design principles</h2>
+<h3>1. Clarity before ornament</h3>
+<p>Every visual decision must make hierarchy, state or the next action easier to
+understand. Color, spacing and motion have a purpose; decoration without
+information must not compete with content.</p>
+<p><strong>Concrete example:</strong> a destructive Button combines an explicit label,
+feedback color and a visible focus ring; color is not the only signal.</p>
+<p><strong>Anti-pattern:</strong> adding surfaces, shadows or badges only to fill space or
+simulate hierarchy unsupported by the content.</p>
+<h3>2. Accessibility is part of the identity</h3>
+<p>WCAG 2.2 AA is the system baseline. Contrast, semantics, keyboard support,
+focus, targets and reduced motion belong to the component from its first state;
+they are not a layer added later.</p>
+<p><strong>Concrete example:</strong> interactive components preserve perceptible focus in
+light, dark and forced-colors modes, with documented keyboard behavior.</p>
+<p><strong>Anti-pattern:</strong> removing outlines, relying only on hover or using brand text
+without validating its actual background.</p>
+<h3>3. Explicit contracts, flexible composition</h3>
+<p>Tokens, public anatomy, readiness and runtime responsibility must be readable
+by people and machines. The core remains stack-agnostic and intrinsic-first;
+each product may create local layouts and wrappers without inventing official
+DS APIs.</p>
+<p><strong>Concrete example:</strong> an agent reads <code>ds-tis/metadata/components</code>, builds the
+documented anatomy and initializes the public runtime when required.</p>
+<p><strong>Anti-pattern:</strong> copying an appearance with internal classes, omitting states
+or presenting a local framework wrapper as an official component.</p>
+<h2>Voice and tone</h2>
+<h3>Attributes</h3>
+<ul>
+<li><strong>Clear:</strong> uses specific terms and explains the next action.</li>
+<li><strong>Direct:</strong> avoids long introductions, unnecessary jargon and vague promises.</li>
+<li><strong>Responsible:</strong> describes limits, states and risks without blaming the user.</li>
+</ul>
+<h3>This, not that</h3>
+<table>
+<thead>
+<tr>
+<th>This ✓</th>
+<th>Not this ✗</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Enter an email in the <a href="mailto:name@company.com">name@company.com</a> format.&quot;</td>
+<td>&quot;Invalid input.&quot;</td>
+<td>Explains how to fix the issue.</td>
+</tr>
+<tr>
+<td>&quot;Save changes.&quot;</td>
+<td>&quot;OK&quot;</td>
+<td>Makes the action predictable.</td>
+</tr>
+<tr>
+<td>&quot;This component requires <code>ds-tis/modal</code>.&quot;</td>
+<td>&quot;Behavior is automatic.&quot;</td>
+<td>Makes runtime responsibility explicit.</td>
+</tr>
+<tr>
+<td>&quot;This version is not published yet.&quot;</td>
+<td>&quot;Coming soon.&quot;</td>
+<td>Records a verifiable limit.</td>
+</tr>
+</tbody></table>
+<h2>Visual identity</h2>
+<h3>Color</h3>
+<p>The default brand palette is blue and can be replaced through the white-label
+contract. Components do not consume Foundation directly: they use Semantic or
+Component tokens according to their anatomy.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Canonical token</th>
+<th>Current value</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Brand fill</td>
+<td><code>foundation.color.brand.600</code></td>
+<td><code>#0065ED</code></td>
+<td>CTA and brand surfaces with contrast foreground.</td>
+</tr>
+<tr>
+<td>Brand content</td>
+<td><code>foundation.color.brand.700</code></td>
+<td><code>#0050DA</code></td>
+<td>Text and links on light backgrounds, through Semantic.</td>
+</tr>
+<tr>
+<td>Brand dark</td>
+<td><code>foundation.color.brand.400</code></td>
+<td><code>#56A7FA</code></td>
+<td>Brand content on dark surfaces, through Semantic.</td>
+</tr>
+<tr>
+<td>Neutral canvas</td>
+<td><code>foundation.color.neutral.50</code></td>
+<td><code>#F8FAFC</code></td>
+<td>Light base; consumers use its Semantic counterpart.</td>
+</tr>
+</tbody></table>
+<p>The Theme Playground seed is <code>#0056E0</code>; the engine generates the full scale and
+audits contrast pairs before export.</p>
+<h3>Typography</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Family</th>
+<th>Fallback</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Display and headings</td>
+<td>Inter</td>
+<td>system-ui, Segoe UI, Roboto, sans-serif</td>
+<td>Titles and editorial hierarchy.</td>
+</tr>
+<tr>
+<td>Body and controls</td>
+<td>Inter</td>
+<td>system-ui, Segoe UI, Roboto, sans-serif</td>
+<td>Body text, labels and controls.</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>DM Mono</td>
+<td>JetBrains Mono, Fira Code, Cascadia Code, Consolas, monospace</td>
+<td>Snippets, tokens and technical data.</td>
+</tr>
+</tbody></table>
+<p>Use only published typography tokens. Do not simulate bold or italic and do not
+compress type to fit labels.</p>
+<h3>Logo</h3>
+<ul>
+<li><strong>Primary version:</strong> <code>docs/assets/logo-tis.svg</code>, for contexts with horizontal space.</li>
+<li><strong>Reduced version:</strong> <code>docs/assets/logo-tis-mark.svg</code>, for the top bar, product avatars and favicons.</li>
+<li><strong>Color:</strong> the reduced mark is white and must sit on a surface with sufficient contrast; do not recolor individual dots.</li>
+<li><strong>Clear space:</strong> keep at least one symbol dot diameter (<code>1x</code>) around the mark.</li>
+<li><strong>Minimum digital size:</strong> <code>24px</code> for the mark; the documentation top bar uses <code>36px</code>.</li>
+<li><strong>Misuse:</strong> do not distort, rotate, change proportions, rearrange dots or apply effects that reduce legibility.</li>
+</ul>
+<h2>Accessibility as a principle</h2>
+<p>The TIS Design System brand commits to WCAG 2.2 AA as a minimum:</p>
+<ul>
+<li>validated contrast in light and dark modes;</li>
+<li>functional keyboard navigation for every interactive component;</li>
+<li>semantics and states that screen readers can announce;</li>
+<li>reduced motion honored through <code>prefers-reduced-motion</code>;</li>
+<li>visible focus never removed or hidden;</li>
+<li>forced colors preserved for essential controls and states.</li>
+</ul>
+<p>Exceptions must be recorded, have a known impact and must not be presented as
+approved system behavior.</p>
+</div>
   </div>
 </main>
 

@@ -8,7 +8,7 @@ Este guia define o contrato editorial das páginas do Design System Core. Use-o 
 2. **Estrutura varia por finalidade.** Foundation, Component, Process e System pages não precisam ter o mesmo template.
 3. **Exceções devem ser explícitas.** Se uma página omite uma seção comum, explique o motivo na própria página ou neste guia.
 4. **Nomes oficiais não são inventados na documentação.** Use o nome do Figma, JSON ou CSS. Descrições de uso ficam em colunas de papel/uso.
-5. **Design System Core é o nome do projeto.** Enquanto não houver nome de produto final, não usar outro nome para o DS.
+5. **Design System TIS é o nome público do produto.** Use-o de forma consistente na documentação e nas instruções de consumo.
 
 ## Tipos de página
 
@@ -111,6 +111,7 @@ Use estes labels em português:
 |---|---|---|
 | `docs/*.html` manuais | Authored | Editar o HTML direto |
 | `docs/*.md` publicados por `sync:docs` | Authored source | Editar o MD e rodar `npm run sync:docs` |
+| `docs/*.en.md` pareado com página pública | Authored source EN | Editar o MD em inglês e rodar `npm run sync:docs` |
 | `docs/decisions/ADR-*.md` | Authored source | Editar o MD e rodar `npm run sync:docs` |
 | `docs/decisions/adr-*.html` | Generated | Não editar à mão |
 | `docs/changelog.html` | Generated | Editar `CHANGELOG.md` |
@@ -125,3 +126,4 @@ Use estes labels em português:
 - Labels de tabela usam a nomenclatura oficial deste guia.
 - Mudança observável está registrada no `CHANGELOG.md`.
 - Arquivos gerados foram atualizados pelo comando correto.
+- Páginas públicas bilíngues têm fontes PT-BR e EN completas.

@@ -18,19 +18,6 @@ Caminhos alternativos se o disparo manual virar gargalo:
 
 Enquanto o volume de sync manual for baixo, manter plugin + refresh local. Revisitar **(a)** se divergências manuais crescerem.
 
-### Preencher `docs/brand-principles.md`
-
-Template existe, conteúdo real ainda não foi definido. Passa por: missão, 3 princípios de design, tom de voz, identidade visual, logo.
-
-### Reduzir documentação textual do Figma
-
-Decisão tomada em 21/04/2026 junto com a revisão da ADR-003: reduzir as páginas textuais do Figma (Introdução, Theming, Accessibility, Changelog) e concentrar a documentação de desenvolvimento no GitHub. Tarefa manual, Figma:
-
-- Esvaziar conteúdo narrativo das páginas textuais mencionadas.
-- Manter uma referência curta em cada ("Ver documentação completa: docs/...").
-- Eventualmente consolidar tudo na Capa.
-- Component Status pode ficar como está (é informação visual útil no contexto Figma).
-
 ## Média prioridade
 
 ### Comparação avançada Figma ↔ JSON no `scripts/tokens-verify.mjs`
@@ -57,10 +44,6 @@ A Fase 7 implementou sync manual via `workflow_dispatch`. Evoluir pra:
 
 Só se o disparo manual virar gargalo.
 
-### Sincronização de textos Figma ↔ site
-
-A Fase 7 original previa. Substituída pela decisão de reduzir doc textual do Figma (item acima). Se no futuro houver demanda real de ter textos idênticos em ambos os lados, reavaliar.
-
 ## Baixa prioridade
 
 ### Form Field como Component dedicado no Figma
@@ -82,10 +65,6 @@ Expõe tokens, componentes e guidelines via MCP para agentes. `llms.txt` + APIs 
 ### Publicação no npm
 
 Pacote nunca foi publicado no registry. Consumo oficial hoje: `npm install github:tis-experience/ds-tis` (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: `npm run pack:check`, validar `files`/`exports`, e reescrever docs de instalação para `npm install ds-tis`.
-
-### Revisão das páginas do Figma em estado de teste
-
-Você mencionou que páginas vazias (Icons, Grids, Images, Templates) e resíduos nas páginas de componente (SECTION e `image 1` em Input Text, INSTANCE soltas em Button, `Frame 1` em Textarea) estão em uso para experimentos. Quando terminar os testes, decidir se preenche ou remove.
 
 ### Resolução de conflitos inteligente no `sync-tokens-from-figma`
 

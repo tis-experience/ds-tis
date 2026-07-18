@@ -14,6 +14,7 @@ const requiredFiles = [
   "CLAUDE.md",
   "GEMINI.md",
   "docs/agent-consumer-usage.md",
+  "docs/agent-consumer-usage.en.md",
   "docs/agent-integrations.md",
   "docs/agents/README.md",
   "docs/agents/product-designer-workflow.md",
@@ -48,6 +49,10 @@ const sharedInstructionRequirements = [
   {
     file: "docs/agent-consumer-usage.md",
     includes: ["docs/api/components.json", "docs/api/tokens.json", "docs/llms-full.txt", "Prompt curto para agent consumidor"],
+  },
+  {
+    file: "docs/agent-consumer-usage.en.md",
+    includes: ["docs/api/components.json", "docs/api/tokens.json", "docs/llms-full.txt", "Short prompt for a consumer agent"],
   },
 ];
 

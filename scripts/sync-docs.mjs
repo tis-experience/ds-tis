@@ -286,12 +286,50 @@ console.log(`✅ adr-index.md (${adrs.length} ADRs)`);
 
 // ─── Geração de HTML a partir de MDs ─────────────────────────────────────────
 
+const mdPages = [
+  { src: 'CHANGELOG.md', out: 'docs/changelog.html', title: 'Changelog', subtitle: 'Histórico de versões do design system.', languageSwitcher: false },
+  { src: 'docs/brand-principles.md', enSrc: 'docs/brand-principles.en.md', out: 'docs/brand-principles.html', title: 'Princípios da marca', titleEn: 'Brand principles', subtitle: 'Missão, princípios, tom de voz e identidade visual.', subtitleEn: 'Mission, principles, voice and visual identity.' },
+  { src: 'docs/backlog.md', out: 'docs/backlog.html', title: 'Backlog', subtitle: 'Itens fora do escopo imediato mas que devem ser implementados.', languageSwitcher: false },
+  { src: 'docs/documentation-guidelines.md', enSrc: 'docs/documentation-guidelines.en.md', out: 'docs/documentation-guidelines.html', title: 'Diretrizes de documentação', titleEn: 'Documentation guidelines', subtitle: 'Templates editoriais para páginas de Foundation, Component, Process e System.', subtitleEn: 'Editorial templates for Foundation, Component, Process and System pages.' },
+  { src: 'docs/agent-consumer-usage.md', enSrc: 'docs/agent-consumer-usage.en.md', out: 'docs/agent-consumer-usage.html', title: 'Uso por agents consumidores', titleEn: 'Usage by consumer agents', subtitle: 'Como agents devem implementar telas em projetos consumidores usando o DS TIS.', subtitleEn: 'How agents should build screens in consumer projects with DS TIS.' },
+  { src: 'docs/process-contributing.md', enSrc: 'docs/process-contributing.en.md', out: 'docs/process-contributing.html', title: 'Como contribuir', titleEn: 'Contributing', subtitle: 'Setup local, fluxo de PR e convenções de commit.', subtitleEn: 'Local setup, pull request workflow and commit conventions.' },
+  { src: 'docs/process-versioning.md', enSrc: 'docs/process-versioning.en.md', out: 'docs/process-versioning.html', title: 'Versionamento', titleEn: 'Versioning', subtitle: 'Regras de bump de versão no design system.', subtitleEn: 'Version bump rules for the design system.' },
+  { src: 'docs/process-releasing.md', enSrc: 'docs/process-releasing.en.md', out: 'docs/process-releasing.html', title: 'Releases', titleEn: 'Releases', subtitle: 'Passo a passo de uma release.', subtitleEn: 'Step-by-step release process.' },
+];
+
+const markdownHtmlTargets = new Map([
+  [path.join(ROOT, 'README.md'), path.join(ROOT, 'index.html')],
+  [path.join(ROOT, 'CONTRIBUTING.md'), path.join(ROOT, 'docs', 'process-contributing.html')],
+  ...mdPages.map((page) => [path.join(ROOT, page.src), path.join(ROOT, page.out)]),
+  ...adrs.map((adr) => [
+    path.join(decisionsDir, adr.file),
+    path.join(decisionsDir, `${adr.file.replace(/\.md$/, '').toLowerCase()}.html`),
+  ]),
+]);
+
 function slugFromAdrFilename(filename) {
   // ADR-004-wcag.md → adr-004-wcag
   return filename.replace(/\.md$/, '').toLowerCase();
 }
 
-function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, assetBase }) {
+function localizedText(pt, en) {
+  if (!en) return pt;
+  return `<span data-lang="pt">${pt}</span><span data-lang="en">${en}</span>`;
+}
+
+function wrapPage({
+  title,
+  titleEn,
+  subtitle,
+  subtitleEn,
+  content,
+  base,
+  skipSubtitle,
+  layoutHref,
+  assetBase,
+  languageSwitcher = true,
+  bilingualSource = false,
+}) {
   const basePath = base || '../';
   const assetPath = assetBase || 'assets/';
   // layoutHref é relativo ao arquivo gerado, não ao ROOT. Padrão: layout.css
@@ -300,13 +338,26 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, as
   const layoutCss = layoutHref || 'layout.css';
   const subtitleHtml = skipSubtitle
     ? ''
-    : `<p class="ds-section__subtitle">${subtitle}</p>`;
+    : `<p class="ds-section__subtitle">${localizedText(subtitle, subtitleEn)}</p>`;
+  const languageSwitcherHtml = languageSwitcher
+    ? `    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+`
+    : '';
+  const generatedBanner = bilingualSource
+    ? localizedText(
+      'Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.',
+      'This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.',
+    )
+    : 'Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.';
   return `<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — Design System</title>
+  <title>${title}${titleEn && titleEn !== title ? ` / ${titleEn}` : ''} — Design System</title>
   <link rel="stylesheet" href="${basePath}css/design-system.css">
   <link rel="stylesheet" href="${layoutCss}">
   <style>
@@ -350,11 +401,7 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, as
     </a>
   </div>
   <div class="ds-site-header__actions">
-    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
-      <option value="pt">PT</option>
-      <option value="en">EN</option>
-    </select>
-    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+${languageSwitcherHtml}    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
   </div>
 </header>
 <div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
@@ -362,12 +409,12 @@ function wrapPage({ title, subtitle, content, base, skipSubtitle, layoutHref, as
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">${title}</h1>
+    <h1 class="ds-section__title">${localizedText(title, titleEn)}</h1>
     ${subtitleHtml}
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    ${generatedBanner}
   </div>
 
   <div class="ds-md-content">
@@ -381,11 +428,9 @@ ${content}
 `;
 }
 
-function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref, assetBase }) {
-  if (!fs.existsSync(mdPath)) return false;
-  const md = fs.readFileSync(mdPath, 'utf8');
-  // Se o MD começa com `# Título`, removemos pra não duplicar com o título do layout
-  const withoutH1 = md.replace(/^#\s+.+\n+/, '');
+function renderMarkdown(markdown) {
+  // Se o MD começa com `# Título`, removemos pra não duplicar com o título do layout.
+  const withoutH1 = markdown.replace(/^#\s+.+\n+/, '');
   let content = marked.parse(withoutH1);
   // a11y: blocos `<pre>` podem virar regiões roláveis horizontalmente em
   // Linux/CI; se forem roláveis, precisam receber foco por teclado.
@@ -397,7 +442,54 @@ function renderMarkdownFile({ mdPath, outPath, title, subtitle, base, layoutHref
     if (/aria-hidden=/.test(m)) return m;
     return `<input${pre}type="checkbox"${post} aria-hidden="true">`;
   });
-  const html = wrapPage({ title, subtitle, content, base, layoutHref, assetBase });
+  return content;
+}
+
+function rewriteGeneratedMarkdownLinks(content, mdPath, outPath) {
+  return content.replace(/href="([^"#?]+\.md)(#[^"]*)?"/gi, (full, href, fragment = '') => {
+    if (/^[a-z][a-z0-9+.-]*:/i.test(href)) return full;
+    const markdownTarget = path.resolve(path.dirname(mdPath), href);
+    const htmlTarget = markdownHtmlTargets.get(markdownTarget);
+    if (!htmlTarget) return full;
+    const relativeTarget = path.relative(path.dirname(outPath), htmlTarget).split(path.sep).join('/');
+    return `href="${relativeTarget}${fragment}"`;
+  });
+}
+
+function renderMarkdownFile({
+  mdPath,
+  mdEnPath,
+  outPath,
+  title,
+  titleEn,
+  subtitle,
+  subtitleEn,
+  base,
+  layoutHref,
+  assetBase,
+  languageSwitcher,
+}) {
+  if (!fs.existsSync(mdPath)) return false;
+  const md = fs.readFileSync(mdPath, 'utf8');
+  let content = rewriteGeneratedMarkdownLinks(renderMarkdown(md), mdPath, outPath);
+  const hasEnglishSource = Boolean(mdEnPath && fs.existsSync(mdEnPath));
+  if (hasEnglishSource) {
+    const mdEn = fs.readFileSync(mdEnPath, 'utf8');
+    const contentEn = rewriteGeneratedMarkdownLinks(renderMarkdown(mdEn), mdEnPath, outPath);
+    content = `<div data-lang="pt">${content}</div>\n<div data-lang="en">${contentEn}</div>`;
+  }
+  const html = wrapPage({
+    title,
+    titleEn,
+    subtitle,
+    subtitleEn,
+    content,
+    base,
+    layoutHref,
+    assetBase,
+    languageSwitcher: languageSwitcher ?? hasEnglishSource,
+    bilingualSource: hasEnglishSource,
+  });
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html);
   return true;
@@ -417,6 +509,7 @@ for (const adr of adrs) {
     base: '../../',
     layoutHref: '../layout.css',
     assetBase: '../assets/',
+    languageSwitcher: false,
   });
   if (ok) adrHtmlCount++;
 }
@@ -437,26 +530,28 @@ ${adrs.map(a => {
 `;
 fs.writeFileSync(
   path.join(decisionsDir, 'index.html'),
-  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css', assetBase: '../assets/' })
+  wrapPage({ title: 'Decisões arquiteturais', subtitle: 'ADRs (Architecture Decision Records) do design system.', content: adrIndexContent, base: '../../', layoutHref: '../layout.css', assetBase: '../assets/', languageSwitcher: false })
 );
 console.log(`✅ docs/decisions/index.html`);
 
 // 3. Páginas derivadas de MDs em docs/
-const mdPages = [
-  { src: 'CHANGELOG.md', out: 'docs/changelog.html', title: 'Changelog', subtitle: 'Histórico de versões do design system.' },
-  { src: 'docs/brand-principles.md', out: 'docs/brand-principles.html', title: 'Princípios da marca', subtitle: 'Missão, princípios, tom de voz e identidade visual.' },
-  { src: 'docs/backlog.md', out: 'docs/backlog.html', title: 'Backlog', subtitle: 'Itens fora do escopo imediato mas que devem ser implementados.' },
-  { src: 'docs/documentation-guidelines.md', out: 'docs/documentation-guidelines.html', title: 'Documentation guidelines', subtitle: 'Templates editoriais para páginas de Foundation, Component, Process e System.' },
-  { src: 'docs/agent-consumer-usage.md', out: 'docs/agent-consumer-usage.html', title: 'Uso por agents consumidores', subtitle: 'Como agents devem implementar telas em projetos consumidores usando o DS TIS.' },
-  { src: 'docs/process-contributing.md', out: 'docs/process-contributing.html', title: 'Como contribuir', subtitle: 'Setup local, fluxo de PR, convenções de commit.' },
-  { src: 'docs/process-versioning.md', out: 'docs/process-versioning.html', title: 'Versionamento', subtitle: 'Regras de bump de versão no design system.' },
-  { src: 'docs/process-releasing.md', out: 'docs/process-releasing.html', title: 'Releases', subtitle: 'Passo a passo de uma release.' },
-];
 let mdPageCount = 0;
 for (const p of mdPages) {
   const mdPath = path.join(ROOT, p.src);
+  const mdEnPath = p.enSrc ? path.join(ROOT, p.enSrc) : undefined;
   const outPath = path.join(ROOT, p.out);
-  const ok = renderMarkdownFile({ mdPath, outPath, title: p.title, subtitle: p.subtitle, base: '../', layoutHref: 'layout.css' });
+  const ok = renderMarkdownFile({
+    mdPath,
+    mdEnPath,
+    outPath,
+    title: p.title,
+    titleEn: p.titleEn,
+    subtitle: p.subtitle,
+    subtitleEn: p.subtitleEn,
+    languageSwitcher: p.languageSwitcher,
+    base: '../',
+    layoutHref: 'layout.css',
+  });
   if (ok) mdPageCount++;
 }
 console.log(`✅ ${mdPageCount} páginas MD → HTML em docs/`);
