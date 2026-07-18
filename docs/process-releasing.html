@@ -118,6 +118,7 @@ git push origin v1.0.0-beta.N
 </li>
 <li><p><strong>Publicar a beta no npm</strong> depois que o commit de <code>main</code> estiver verde:</p>
 <pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
+npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
 </code></pre>
 </li>
 <li><p><strong>Verificar</strong>:</p>
@@ -127,8 +128,8 @@ git push origin v1.0.0-beta.N
 <li>A página inicial mostra a badge <code>1.0.0-beta.N</code>.</li>
 <li><code>docs/changelog.html</code> lista <code>1.0.0-beta.N</code> como versão mais recente.</li>
 <li><code>docs/api/tokens-sync.json</code> tem timestamp recente e zero erros.</li>
-<li><code>npm view ds-tis@beta version</code> retorna <code>1.0.0-beta.N</code>.</li>
-<li>Uma instalação limpa com <code>npm install ds-tis@beta</code> passa no consumer smoke.</li>
+<li><code>npm view ds-tis@beta version</code> e <code>npm view ds-tis@latest version</code> retornam <code>1.0.0-beta.N</code>.</li>
+<li>Uma instalação limpa com <code>npm install ds-tis</code> passa no consumer smoke.</li>
 </ul>
 <h2>Se algo der errado</h2>
 <ul>
@@ -141,10 +142,11 @@ pacote continuar indisponível, restaurar temporariamente a instalação via Git
 na documentação pública em um PR de hotfix.</li>
 </ul>
 <h2>Publicação no npm</h2>
-<p>Betas são publicadas com <code>npm publish --access public --tag beta</code>. A instalação
-canônica durante a fase beta é <code>npm install ds-tis@beta</code>; consumidores de produção
-devem fixar a versão exata. O nome sem tag (<code>npm install ds-tis</code>) só vira a
-orientação padrão quando uma versão estável for promovida para <code>latest</code>.</p>
+<p>Betas são publicadas com <code>npm publish --access public --tag beta</code> e a mesma versão
+é promovida para a dist-tag <code>latest</code>. Assim, <code>npm install ds-tis</code> e
+<code>npm install ds-tis@beta</code> resolvem a beta corrente; consumidores de produção
+devem fixar a versão exata. Quando houver versão estável, <code>latest</code> passa a apontar
+para ela e <code>beta</code> continua sendo o canal de pré-release.</p>
 </div>
 <div data-lang="en"><p>Step-by-step release process for the design system. Start from a reviewed
 release branch with all intended work complete.</p>
@@ -185,6 +187,7 @@ git push origin v1.0.0-beta.N
 </li>
 <li><p><strong>Publish the beta to npm</strong> after the merged <code>main</code> commit is green:</p>
 <pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
+npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
 </code></pre>
 </li>
 <li><p><strong>Verify the publication:</strong></p>
@@ -194,8 +197,8 @@ git push origin v1.0.0-beta.N
 <li>the home page shows <code>1.0.0-beta.N</code>;</li>
 <li><code>docs/changelog.html</code> lists it as the latest release;</li>
 <li><code>docs/api/tokens-sync.json</code> is current and has zero errors;</li>
-<li><code>npm view ds-tis@beta version</code> returns <code>1.0.0-beta.N</code>;</li>
-<li>a clean <code>npm install ds-tis@beta</code> succeeds;</li>
+<li><code>npm view ds-tis@beta version</code> and <code>npm view ds-tis@latest version</code> return <code>1.0.0-beta.N</code>;</li>
+<li>a clean <code>npm install ds-tis</code> succeeds;</li>
 <li>the installed tarball passes the consumer smoke test.</li>
 </ul>
 <h2>If something goes wrong</h2>
@@ -205,11 +208,11 @@ git push origin v1.0.0-beta.N
 <li><strong>Registry publication fails:</strong> keep GitHub installation documented until the registry package is confirmed; never publish documentation that claims an unavailable source.</li>
 </ul>
 <h2>npm publication</h2>
-<p>Betas are published with <code>npm publish --access public --tag beta</code>. During the
-beta phase, the canonical install command is <code>npm install ds-tis@beta</code>, and
-production consumers should pin the exact prerelease. The bare package name
-(<code>npm install ds-tis</code>) becomes canonical only after a stable version is promoted
-to the npm <code>latest</code> tag.</p>
+<p>Betas are published with <code>npm publish --access public --tag beta</code>, then the same
+version is promoted to the <code>latest</code> dist-tag. Therefore <code>npm install ds-tis</code> and
+<code>npm install ds-tis@beta</code> resolve the current beta; production consumers should
+pin the exact prerelease. Once a stable release exists, <code>latest</code> points to stable
+and <code>beta</code> remains the prerelease channel.</p>
 </div>
   </div>
 </main>

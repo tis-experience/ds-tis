@@ -198,16 +198,13 @@ function assertReadmeConsumerGuidance() {
   const pkg = readJson("package.json");
   ok(!readme.includes("cdn.example.com"), "README must not document the placeholder CDN");
   ok(
-    /```(?:bash)?\s*\nnpm install ds-tis@beta\s*\n```/.test(readme),
-    "README must document the npm beta install command",
+    /```(?:bash)?\s*\nnpm install ds-tis\s*\n```/.test(readme),
+    "README must document the default npm install command",
   );
+  ok(readme.includes("npm install ds-tis@beta"), "README must document the explicit beta channel");
   ok(
     readme.includes(`github:tis-experience/ds-tis#v${pkg.version}`),
     "README must keep an exact GitHub release fallback",
-  );
-  ok(
-    !/```(?:bash)?\s*\nnpm install ds-tis\s*\n```/.test(readme),
-    "README must not present bare `npm install ds-tis` before a stable latest release",
   );
   ok(readme.includes("import 'ds-tis/css'"), "README must document CSS package import");
   for (const [, runtime] of runtimeEntries) {

@@ -67,7 +67,12 @@
 <p>Todas as mudanças notáveis deste design system são registradas aqui.</p>
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
-<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD">Não publicado</a></h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...HEAD">Não publicado</a></h2>
+<h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9">1.0.0-beta.9</a> — 2026-07-18</h2>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Dist-tags npm refletem o comportamento real do primeiro pacote.</strong> <code>latest</code> e <code>beta</code> passam a apontar para a beta corrente, tornando <code>npm install ds-tis</code> o caminho canônico sem perder o canal explícito <code>@beta</code>; produção continua com pin exato e fallback pela tag GitHub.</li>
+</ul>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8">1.0.0-beta.8</a> — 2026-07-18</h2>
 <h3>Adicionado</h3>
 <ul>

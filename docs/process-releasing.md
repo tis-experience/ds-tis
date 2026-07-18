@@ -55,14 +55,15 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
 
    ```bash
    npm publish --access public --tag beta
+   npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
    ```
 
 10. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
-   - `npm view ds-tis@beta version` retorna `1.0.0-beta.N`.
-   - Uma instalação limpa com `npm install ds-tis@beta` passa no consumer smoke.
+   - `npm view ds-tis@beta version` e `npm view ds-tis@latest version` retornam `1.0.0-beta.N`.
+   - Uma instalação limpa com `npm install ds-tis` passa no consumer smoke.
 
 ## Se algo der errado
 
@@ -76,7 +77,8 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
 
 ## Publicação no npm
 
-Betas são publicadas com `npm publish --access public --tag beta`. A instalação
-canônica durante a fase beta é `npm install ds-tis@beta`; consumidores de produção
-devem fixar a versão exata. O nome sem tag (`npm install ds-tis`) só vira a
-orientação padrão quando uma versão estável for promovida para `latest`.
+Betas são publicadas com `npm publish --access public --tag beta` e a mesma versão
+é promovida para a dist-tag `latest`. Assim, `npm install ds-tis` e
+`npm install ds-tis@beta` resolvem a beta corrente; consumidores de produção
+devem fixar a versão exata. Quando houver versão estável, `latest` passa a apontar
+para ela e `beta` continua sendo o canal de pré-release.

@@ -44,14 +44,15 @@ release branch with all intended work complete.
 
    ```bash
    npm publish --access public --tag beta
+   npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
    ```
 
 10. **Verify the publication:**
    - the home page shows `1.0.0-beta.N`;
    - `docs/changelog.html` lists it as the latest release;
    - `docs/api/tokens-sync.json` is current and has zero errors;
-   - `npm view ds-tis@beta version` returns `1.0.0-beta.N`;
-   - a clean `npm install ds-tis@beta` succeeds;
+   - `npm view ds-tis@beta version` and `npm view ds-tis@latest version` return `1.0.0-beta.N`;
+   - a clean `npm install ds-tis` succeeds;
    - the installed tarball passes the consumer smoke test.
 
 ## If something goes wrong
@@ -62,8 +63,8 @@ release branch with all intended work complete.
 
 ## npm publication
 
-Betas are published with `npm publish --access public --tag beta`. During the
-beta phase, the canonical install command is `npm install ds-tis@beta`, and
-production consumers should pin the exact prerelease. The bare package name
-(`npm install ds-tis`) becomes canonical only after a stable version is promoted
-to the npm `latest` tag.
+Betas are published with `npm publish --access public --tag beta`, then the same
+version is promoted to the `latest` dist-tag. Therefore `npm install ds-tis` and
+`npm install ds-tis@beta` resolve the current beta; production consumers should
+pin the exact prerelease. Once a stable release exists, `latest` points to stable
+and `beta` remains the prerelease channel.

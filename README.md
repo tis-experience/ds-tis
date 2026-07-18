@@ -1,28 +1,31 @@
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.8-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.9-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
-O pacote beta é distribuído pelo npm registry. Instale a beta corrente com:
+O pacote beta é distribuído pelo npm registry. Instale a versão corrente com:
 
 ```bash
-npm install ds-tis@beta
+npm install ds-tis
 ```
+
+Durante a fase beta, as dist-tags npm `latest` e `beta` apontam para a mesma
+pré-release. Use `npm install ds-tis@beta` quando quiser explicitar o canal.
 
 Em produção, prefira o pin exato:
 
 ```json
 {
   "dependencies": {
-    "ds-tis": "1.0.0-beta.8"
+    "ds-tis": "1.0.0-beta.9"
   }
 }
 ```
 
-Enquanto não houver uma versão estável sob a tag npm `latest`, não use `npm install ds-tis` sem `@beta` ou versão explícita. Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
+Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.9`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 
