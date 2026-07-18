@@ -18,9 +18,6 @@
   .ds-sync-table th, .ds-sync-table td { text-align:left; padding: var(--ds-dimension-12); border-bottom: 1px solid var(--ds-border-default); color: var(--ds-content-default); }
   .ds-sync-table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
   .ds-sync-table code { background: var(--ds-surface-raised); color: var(--ds-content-default); border: var(--ds-border-width-default) solid var(--ds-border-subtle); padding: var(--ds-dimension-2) var(--ds-dimension-6); border-radius: var(--ds-radius-sm); }
-  /* Banner info — usa subtle bg pra <code> ter contraste */
-  .ds-sync-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-16) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
-  .ds-sync-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: var(--ds-dimension-2) var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-body-font-family-sans); font-size: 0.9em; border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
 </style>
 <script>
   (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
@@ -57,7 +54,7 @@
     <p class="ds-section__subtitle"><span data-lang="pt">Coerência entre JSONs canônicos, CSS gerado e Figma Variables.</span><span data-lang="en">Coherence between canonical JSON, generated CSS, and Figma Variables.</span></p>
   </div>
 
-  <div class="ds-sync-banner">
+  <div class="ds-callout ds-callout--info">
     <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/tokens-verify.mjs</code>. Não editar manualmente.</span>
     <span data-lang="en">This page is generated automatically by <code>scripts/tokens-verify.mjs</code>. Do not edit by hand.</span>
   </div>

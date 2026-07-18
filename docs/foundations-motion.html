@@ -23,8 +23,6 @@
     .ds-motion-demo--ease-in .ds-motion-demo__runner { transition: left var(--ds-duration-moderate) var(--ds-ease-in); }
     .ds-motion-demo--ease-out .ds-motion-demo__runner { transition: left var(--ds-duration-moderate) var(--ds-ease-out); }
     .ds-motion-demo--ease-in-out .ds-motion-demo__runner { transition: left var(--ds-duration-moderate) var(--ds-ease-in-out); }
-    .ds-callout { padding: var(--ds-dimension-16) var(--ds-dimension-20); border-radius: var(--ds-radius-12); background-color: var(--ds-feedback-info-background-subtle); border: var(--ds-border-width-1) solid var(--ds-feedback-info-border-default); margin-bottom: var(--ds-dimension-32); font-size: var(--ds-font-size-14); line-height: var(--ds-line-height-relaxed); color: var(--ds-content-strong); }
-    .ds-callout__title { font-weight: var(--ds-font-weight-semibold); margin-bottom: var(--ds-dimension-4); }
   </style>
   <script>
     (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
@@ -146,7 +144,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Reduced Motion</span><span data-lang="en">Reduced motion</span></h2>
-    <div class="ds-callout">
+    <div class="ds-callout ds-callout--info">
       <div class="ds-callout__title">prefers-reduced-motion</div>
       <span data-lang="pt">Usuários que habilitam movimento reduzido nas configuracoes do SO terao todas as transições e animações reduzidas a quase zero. Isto e aplicado globalmente no reset base -- componentes individuais não precisam tratar isso.</span><span data-lang="en">Users who enable reduced motion in their OS settings will have all transitions and animations shortened to near-zero. This is enforced globally in the base reset -- individual components do not need to handle it.</span>
     </div>
