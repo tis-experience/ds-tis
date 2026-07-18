@@ -4,7 +4,7 @@ Este é um extrato bilíngue-amigável do [CONTRIBUTING.md](../CONTRIBUTING.md) 
 
 ## Setup local
 
-Requisitos: Node.js 20+, git, SSH configurado com o GitHub.
+Requisitos: Node.js 22+, git, SSH configurado com o GitHub.
 
 ```bash
 git clone <repo-url>

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "totals": {
     "jsonTokens": 1464,
     "sharedTokens": 990,
@@ -16,7 +16,7 @@
     "docTokenDrift": [],
     "jsonVsFigma": {
       "skipped": false,
-      "snapshotAge": "4h",
+      "snapshotAge": "8h",
       "snapshotFreshness": "fresh",
       "snapshotMaxAgeHours": 24,
       "summary": {

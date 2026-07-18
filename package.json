@@ -1,6 +1,6 @@
 {
   "name": "ds-tis",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "description": "White-label CSS design system with DTCG tokens, component contracts, and light/dark mode",
   "homepage": "https://tis-experience.github.io/ds-tis/",
   "repository": {
@@ -76,7 +76,7 @@
   "author": "TIS Experience Engineering",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public",
