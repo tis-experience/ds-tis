@@ -191,9 +191,8 @@ export const COMPONENTS = [
     slug: "tooltip",
     css: "tooltip.css",
     html: "tooltip.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até garantir role/aria-describedby, root init/hydration, persistência hover/focus/Escape, cleanup de timers e axe com Tooltip aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Menu",

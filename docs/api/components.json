@@ -1351,8 +1351,8 @@
       "cssClass": "ds-tooltip",
       "cssFile": "css/components/tooltip.css",
       "cssOnly": false,
-      "readiness": "experimental",
-      "readinessNotes": "Runtime público disponível, mas App-ready está bloqueado até garantir role/aria-describedby, root init/hydration, persistência hover/focus/Escape, cleanup de timers e axe com Tooltip aberto no tarball consumidor.",
+      "readiness": "app-ready",
+      "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
         "model": "ds-runtime",
         "label": "Runtime do DS",

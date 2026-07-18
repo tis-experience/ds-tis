@@ -161,10 +161,9 @@ destroyTabs();
 destroyTooltips();
 </code></pre>
 <p>Ter módulo <code>required</code> não significa automaticamente estar App-ready. Accordion,
-Combobox, Modal, Action Menu e Tabs concluíram o gate executável da ADR-020.
-Tooltip permanece Experimental enquanto conclui seus blockers em
-<code>readinessNotes</code>; não o use em fluxo crítico sem aceitar e validar explicitamente
-essa limitação.</p>
+Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate executável da
+ADR-020. Seus módulos continuam obrigatórios quando os componentes forem usados,
+pois mantêm o contrato interativo e acessível publicado.</p>
 <p>No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
 <code>aria-activedescendant</code>; <code>Escape</code> fecha o listbox sem remover esse foco. O evento
 <code>ds-combobox-change</code> expõe <code>value</code>, <code>input</code>, <code>root</code> e a <code>option</code> selecionada em
@@ -183,6 +182,12 @@ painéis e garante entrada de foco no tabpanel selecionado. Botões de tab sem
 <code>type</code> explícito são normalizados para <code>type=&quot;button&quot;</code>, evitando submit acidental
 quando o componente está dentro de um formulário. <code>ds-tabs-change</code> expõe root,
 tab, panel e tab anterior em <code>detail</code>.</p>
+<p>No Tooltip App-ready, o runtime assegura <code>role=&quot;tooltip&quot;</code>, ID e
+<code>aria-describedby</code> válidos mesmo quando o markup omite esses atributos. Foco e
+hover abrem sem mover o foco DOM; blur e saída conjunta fecham; Escape mantém o
+conteúdo dispensado até pointer/foco saírem. A área de conteúdo permanece
+hoverable conforme WCAG 1.4.13. <code>ds-tooltip-show</code> e <code>ds-tooltip-hide</code> expõem root,
+trigger e content em <code>detail</code>.</p>
 <p>Para customização de tema, use o theme engine público:</p>
 <pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
 </code></pre>

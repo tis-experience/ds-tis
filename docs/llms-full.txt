@@ -82,11 +82,10 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Accordion, Combobox, Modal, Action Menu e Tabs concluíram o gate executável da
-ADR-020 e estão **App-ready**. Tooltip permanece **Experimental** até concluir
-seus blockers individuais. O módulo continua obrigatório quando o componente
-for usado; não sustente fluxo crítico com Tooltip sem aceitar a limitação
-publicada em `readinessNotes`.
+Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate
+executável da ADR-020 e estão **App-ready**. Seus módulos continuam obrigatórios
+quando os componentes forem usados, pois mantêm o contrato interativo e
+acessível publicado.
 
 O pacote também exporta o theme engine e templates HTML:
 
@@ -303,6 +302,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Tooltip conclui o gate App-ready.** O runtime passa a aceitar o próprio component root sem envenenar markup incompleto, gerar role/ID/`aria-describedby` válidos, cancelar timers e callback de foco no destroy e publicar eventos com `detail` estável. Lifecycle prova foco, blur, Escape, conteúdo hoverable, hydration e re-init; o consumer smoke valida interação e axe aberto no tarball antes da promoção individual.
 - **Tabs conclui o gate App-ready.** O runtime passa a aceitar o próprio tablist root sem envenenar markup incompleto, normaliza tabs em formulários para `type="button"`, assegura entrada de foco no tabpanel e publica `detail` estável. Lifecycle prova root/hydration, teclado, disabled, ARIA, eventos, destroy e re-init; o consumer smoke valida seleção sem submit e axe dos painéis no tarball antes da promoção individual.
 - **Action Menu conclui o gate App-ready.** O runtime passa a suportar `menuitemradio` e `menuitemcheckbox`, impedir ativação de itens `aria-disabled`, manter typeahead com cleanup e aguardar a visibilidade real do popup antes de mover foco. Lifecycle prova root/hydration, teclado, roles, eventos e destroy; o consumer smoke valida interação e axe aberto no tarball antes da promoção individual.
 - **Modal conclui o gate App-ready.** O runtime passa a aceitar o próprio overlay root sem envenenar markup incompleto, inertiza somente os irmãos fora do caminho do diálogo e restaura estados `inert` preexistentes. Lifecycle prova focus trap, retorno de foco, ARIA, backdrop, eventos, idempotência e cleanup; o consumer smoke valida o tarball com axe no Modal aberto antes da promoção individual.
@@ -1331,10 +1331,9 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion,
-Combobox, Modal, Action Menu e Tabs concluíram o gate executável da ADR-020.
-Tooltip permanece Experimental enquanto conclui seus blockers em
-`readinessNotes`; não o use em fluxo crítico sem aceitar e validar explicitamente
-essa limitação.
+Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate executável da
+ADR-020. Seus módulos continuam obrigatórios quando os componentes forem usados,
+pois mantêm o contrato interativo e acessível publicado.
 
 No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
 `aria-activedescendant`; `Escape` fecha o listbox sem remover esse foco. O evento
@@ -1357,6 +1356,13 @@ painéis e garante entrada de foco no tabpanel selecionado. Botões de tab sem
 `type` explícito são normalizados para `type="button"`, evitando submit acidental
 quando o componente está dentro de um formulário. `ds-tabs-change` expõe root,
 tab, panel e tab anterior em `detail`.
+
+No Tooltip App-ready, o runtime assegura `role="tooltip"`, ID e
+`aria-describedby` válidos mesmo quando o markup omite esses atributos. Foco e
+hover abrem sem mover o foco DOM; blur e saída conjunta fecham; Escape mantém o
+conteúdo dispensado até pointer/foco saírem. A área de conteúdo permanece
+hoverable conforme WCAG 1.4.13. `ds-tooltip-show` e `ds-tooltip-hide` expõem root,
+trigger e content em `detail`.
 
 Para customização de tema, use o theme engine público:
 
@@ -2029,7 +2035,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |

@@ -65,11 +65,10 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Accordion, Combobox, Modal, Action Menu e Tabs concluíram o gate executável da
-ADR-020 e estão **App-ready**. Tooltip permanece **Experimental** até concluir
-seus blockers individuais. O módulo continua obrigatório quando o componente
-for usado; não sustente fluxo crítico com Tooltip sem aceitar a limitação
-publicada em `readinessNotes`.
+Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate
+executável da ADR-020 e estão **App-ready**. Seus módulos continuam obrigatórios
+quando os componentes forem usados, pois mantêm o contrato interativo e
+acessível publicado.
 
 O pacote também exporta o theme engine e templates HTML:
 
