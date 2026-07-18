@@ -82,8 +82,8 @@ destroyTabs();
 destroyTooltips();
 ```
 
-Accordion, Combobox e Modal concluíram o gate executável da ADR-020 e estão
-**App-ready**. Action Menu, Tabs e Tooltip permanecem **Experimentais** até concluírem
+Accordion, Combobox, Modal e Action Menu concluíram o gate executável da ADR-020
+e estão **App-ready**. Tabs e Tooltip permanecem **Experimentais** até concluírem
 seus blockers individuais. O módulo continua obrigatório quando qualquer um
 desses componentes for usado; não sustente fluxo crítico com os Experimentais
 sem aceitar a limitação publicada em `readinessNotes`.
@@ -303,6 +303,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 - **Teste de anatomia Form Field nas docs.** `test-field-docs` exige que a seção Padrão de Input, Select, Textarea e Combobox use `ds-field` + label (AGENTS.md §4.2.1).
 
 ### Corrigido
+- **Action Menu conclui o gate App-ready.** O runtime passa a suportar `menuitemradio` e `menuitemcheckbox`, impedir ativação de itens `aria-disabled`, manter typeahead com cleanup e aguardar a visibilidade real do popup antes de mover foco. Lifecycle prova root/hydration, teclado, roles, eventos e destroy; o consumer smoke valida interação e axe aberto no tarball antes da promoção individual.
 - **Modal conclui o gate App-ready.** O runtime passa a aceitar o próprio overlay root sem envenenar markup incompleto, inertiza somente os irmãos fora do caminho do diálogo e restaura estados `inert` preexistentes. Lifecycle prova focus trap, retorno de foco, ARIA, backdrop, eventos, idempotência e cleanup; o consumer smoke valida o tarball com axe no Modal aberto antes da promoção individual.
 - **Combobox conclui o gate App-ready.** O runtime passa a aceitar document, container e o próprio root, mantém markup incompleto recuperável, sincroniza `aria-activedescendant` com a opção ativa sem mover o foco DOM, preserva foco no Escape e publica `detail` estável no evento. Lifecycle prova teclado, ARIA, idempotência e cleanup; o consumer smoke valida o tarball com axe nos estados fechado/aberto antes da promoção individual.
 - **Accordion conclui o gate App-ready.** `initAccordions` passa a aceitar o próprio component root e não envenena markup incompleto antes de hydration. Lifecycle prova root/container/component init, late hydration, idempotência, teclado, foco circular, ARIA, eventos e cleanup; o consumer smoke instala o tarball e valida interação, zero erros de browser e axe nos estados fechado/aberto antes da promoção individual.
@@ -1191,7 +1192,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 20 decisões registradas.
@@ -1329,7 +1330,7 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion,
-Combobox e Modal concluíram o gate executável da ADR-020. Action Menu, Tabs e
+Combobox, Modal e Action Menu concluíram o gate executável da ADR-020. Tabs e
 Tooltip permanecem Experimentais enquanto concluem seus blockers em
 `readinessNotes`; não os use em fluxo crítico sem aceitar e validar
 explicitamente essas limitações.
@@ -1343,6 +1344,11 @@ No Modal App-ready, apenas os irmãos fora do caminho do diálogo recebem `inert
 o runtime preserva e restaura o estado anterior de cada nó. `ds-modal-open` e
 `ds-modal-close` expõem overlay, dialog e a referência de foco relevante em
 `detail`.
+
+No Action Menu App-ready, `menuitem`, `menuitemradio` e `menuitemcheckbox` fazem
+parte do contrato. Itens `aria-disabled` permanecem alcançáveis pelo foco, mas
+não ativam nem fecham o menu; typeahead, setas, Home/End e Escape são mantidos
+pelo runtime.
 
 Para customização de tema, use o theme engine público:
 
@@ -1994,7 +2000,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 
@@ -2016,7 +2022,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
@@ -21015,7 +21021,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-17. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0-beta.6**
 

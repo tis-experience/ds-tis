@@ -200,9 +200,8 @@ export const COMPONENTS = [
     slug: "menu",
     css: "menu.css",
     html: "menu.html",
-    readiness: "experimental",
+    readiness: "app-ready",
     behaviorModel: "ds-runtime",
-    readinessNotes: "Runtime público disponível, mas App-ready está bloqueado até suportar/provar menuitemradio/menuitemcheckbox, aria-disabled sem ativação, root init/hydration, cleanup e axe com Menu aberto no tarball consumidor.",
   }),
   defineComponent({
     name: "Tabs",

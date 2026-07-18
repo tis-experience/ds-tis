@@ -75,6 +75,8 @@ window.__dsLifecycle = {
   destroyComboboxes,
   initModals,
   destroyModals,
+  initActionMenus,
+  destroyActionMenus,
   events() {
     return [...log];
   },

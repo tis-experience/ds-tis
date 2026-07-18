@@ -103,7 +103,7 @@ destroyTooltips();
 ```
 
 Ter módulo `required` não significa automaticamente estar App-ready. Accordion,
-Combobox e Modal concluíram o gate executável da ADR-020. Action Menu, Tabs e
+Combobox, Modal e Action Menu concluíram o gate executável da ADR-020. Tabs e
 Tooltip permanecem Experimentais enquanto concluem seus blockers em
 `readinessNotes`; não os use em fluxo crítico sem aceitar e validar
 explicitamente essas limitações.
@@ -117,6 +117,11 @@ No Modal App-ready, apenas os irmãos fora do caminho do diálogo recebem `inert
 o runtime preserva e restaura o estado anterior de cada nó. `ds-modal-open` e
 `ds-modal-close` expõem overlay, dialog e a referência de foco relevante em
 `detail`.
+
+No Action Menu App-ready, `menuitem`, `menuitemradio` e `menuitemcheckbox` fazem
+parte do contrato. Itens `aria-disabled` permanecem alcançáveis pelo foco, mas
+não ativam nem fecham o menu; typeahead, setas, Home/End e Escape são mantidos
+pelo runtime.
 
 Para customização de tema, use o theme engine público:
 

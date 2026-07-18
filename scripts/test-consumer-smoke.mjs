@@ -25,7 +25,7 @@ const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
 const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
 const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
-const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion'];
+const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu'];
 let checks = 0;
 
 function ok(condition, message, evidenceItems = []) {
@@ -263,6 +263,19 @@ try {
     { slug: 'accordion', capability: 'consumer-tarball', caseId: 'installed-interaction' },
   );
 
+  // Action Menu open + enabled item closes.
+  await page.locator('#consumer-menu-trigger').click();
+  const menuOpen = await page.locator('#consumer-menu').evaluate((el) => el.dataset.open === 'true');
+  await page.locator('#consumer-menu-edit').click();
+  const menuClosed = await page.locator('#consumer-menu').evaluate((el) => el.dataset.open !== 'true');
+  ok(menuOpen, 'packed Action Menu must open from its trigger');
+  ok(menuClosed, 'packed Action Menu must close after an enabled item activates');
+  ok(
+    menuOpen && menuClosed,
+    'packed Action Menu must complete an installed open/select interaction',
+    { slug: 'menu', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
   // Exceções assíncronas e console.error invalidam o consumidor. A coleta
   // termina antes do axe: a instrumentação do axe reinsere @imports no
   // documento e o Chromium pode reportar 404s artificiais relativos à raiz.
@@ -293,6 +306,7 @@ try {
       { slug: 'modal', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'combobox', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'accordion', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'menu', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
     ],
   );
 
@@ -328,6 +342,32 @@ try {
     { slug: 'combobox', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
   );
   await page.keyboard.press('Escape');
+
+  // Axe com o Action Menu aberto no tarball instalado.
+  await page.locator('#consumer-menu-trigger').click();
+  await page.waitForFunction(() => {
+    const menu = document.getElementById('consumer-menu-list');
+    return getComputedStyle(menu).visibility === 'visible'
+      && getComputedStyle(menu).opacity === '1';
+  });
+  const axeMenuOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingMenuOpen = axeMenuOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingMenuOpen.length === 0,
+    `axe open Action Menu found ${blockingMenuOpen.length} critical/serious violation(s):\n${blockingMenuOpen
+      .map((v) => `  - ${v.id}: ${v.help}\n${v.nodes
+        .map((node) => `      ${node.html}\n      ${node.failureSummary}`)
+        .join('\n')}`)
+      .join('\n')}`,
+    { slug: 'menu', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => (
+    getComputedStyle(document.getElementById('consumer-menu-list')).visibility === 'hidden'
+  ));
 
   // Axe com o painel do Accordion aberto.
   await page.locator('#consumer-accordion-trigger-b').click();
