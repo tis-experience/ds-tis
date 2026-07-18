@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Como contribuir — Design System</title>
+  <title>Como contribuir / Contributing — Design System</title>
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="layout.css">
   <style>
@@ -59,16 +59,16 @@
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">Como contribuir</h1>
-    <p class="ds-section__subtitle">Setup local, fluxo de PR, convenções de commit.</p>
+    <h1 class="ds-section__title"><span data-lang="pt">Como contribuir</span><span data-lang="en">Contributing</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Setup local, fluxo de PR e convenções de commit.</span><span data-lang="en">Local setup, pull request workflow and commit conventions.</span></p>
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.</span><span data-lang="en">This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.</span>
   </div>
 
   <div class="ds-md-content">
-<p>Este é um extrato bilíngue-amigável do <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a> na raiz do repo, formatado para leitura no site de documentação. Quando divergirem, a fonte é o CONTRIBUTING.md.</p>
+<div data-lang="pt"><p>Este é um extrato bilíngue-amigável do <a href="process-contributing.html">CONTRIBUTING.md</a> na raiz do repo, formatado para leitura no site de documentação. Quando divergirem, a fonte é o CONTRIBUTING.md.</p>
 <h2>Setup local</h2>
 <p>Requisitos: Node.js 20+, git, SSH configurado com o GitHub.</p>
 <pre tabindex="0"><code class="language-bash">git clone &lt;repo-url&gt;
@@ -118,10 +118,75 @@ Co-Authored-By: ...
 <p>Para correções pontuais de componente ou ajustes visuais, não precisa de ADR.</p>
 <p>Template em <code>docs/decisions/</code> (ver ADRs existentes como referência).</p>
 <h2>Pipeline de tokens</h2>
-<p><code>tokens/**/*.json</code> (fonte) → <code>build-tokens.mjs</code> → <code>css/tokens/generated/*.css</code> (derivado) → <code>css/components/*.css</code> (consumo).</p>
+<p>Para categorias nativas do Figma, a decisão nasce em Figma Variables e é
+sincronizada para <code>tokens/**/*.json</code>. Categorias CSS-only definidas na ADR-016
+nascem no JSON. Os dois caminhos convergem em <code>build-tokens.mjs</code> →
+<code>css/tokens/generated/*.css</code> → <code>css/components/*.css</code>.</p>
 <p>Não edite os arquivos em <code>css/tokens/generated/</code> à mão. O CI regenera em cada push pra <code>main</code>.</p>
-<p>Detalhe completo: <a href="./token-architecture.html">token-architecture.html</a> e <a href="./decisions/ADR-001-migracao-tokens.md">ADR-001</a>.</p>
+<p>Detalhe completo: <a href="./token-architecture.html">token-architecture.html</a> e <a href="decisions/adr-001-migracao-tokens.html">ADR-001</a>.</p>
+</div>
+<div data-lang="en"><p>This is a site-friendly companion to the repository root
+<a href="process-contributing.html">CONTRIBUTING.md</a>. When they differ, <code>CONTRIBUTING.md</code> is
+the canonical source.</p>
+<h2>Local setup</h2>
+<p>Requirements: Node.js 20+, git and GitHub SSH access.</p>
+<pre tabindex="0"><code class="language-bash">git clone &lt;repo-url&gt;
+cd ds-tis
+npm install
+npm run build:tokens
+</code></pre>
+<p>To serve the site locally:</p>
+<pre tabindex="0"><code class="language-bash">python3 -m http.server 8000
+</code></pre>
+<p>Open <code>http://localhost:8000/</code>.</p>
+<h2>Change workflow</h2>
+<ol>
+<li>Open an issue explaining what should change and why.</li>
+<li>Create a branch: <code>git checkout -b feat/short-name</code>.</li>
+<li>Make the change.</li>
+<li>Complete the <a href="#pre-commit-checklist">pre-commit checklist</a>.</li>
+<li>Open a pull request against <code>main</code>.</li>
+</ol>
+<h2>Commit conventions</h2>
+<p>Use Conventional Commits with Portuguese commit messages. Supported prefixes:
+<code>feat</code>, <code>fix</code>, <code>chore</code>, <code>docs</code>, <code>refactor</code>, <code>style</code>, <code>test</code> and <code>ci</code>.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>fix(input): corrigir alinhamento do ícone trailing em sm
 
+- Ajusta margem direita para usar space/control/padding-x
+- Valida em docs/input.html
+
+Co-Authored-By: ...
+</code></pre>
+<h2>Pre-commit checklist</h2>
+<ul>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code> completes without errors.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run sync:docs</code> regenerates the documented outputs.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run verify:tokens</code> reports no new drift.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Observable consumer changes are recorded under <code>[Não publicado]</code> in <code>CHANGELOG.md</code>.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> A new or updated ADR exists when the change affects architecture.</li>
+</ul>
+<h2>When to open an ADR</h2>
+<p>Open an ADR when a change:</p>
+<ul>
+<li>changes token architecture;</li>
+<li>introduces or removes a naming convention;</li>
+<li>changes the relationship between Figma, JSON and CSS;</li>
+<li>affects accessibility systemically;</li>
+<li>adds a dependency.</li>
+</ul>
+<p>A targeted component fix or visual alignment does not require an ADR.</p>
+<p>Use existing files under <code>docs/decisions/</code> as the template.</p>
+<h2>Token pipeline</h2>
+<p>For Figma-native categories, decisions start in Figma Variables and are synced
+to <code>tokens/**/*.json</code>. CSS-only categories defined by ADR-016 start in JSON.
+Both paths converge on <code>build-tokens.mjs</code> → <code>css/tokens/generated/*.css</code> →
+<code>css/components/*.css</code>.</p>
+<p>Never edit files under <code>css/tokens/generated/</code> manually. CI verifies generated
+outputs on every push to <code>main</code>.</p>
+<p>See <a href="./token-architecture.html">Token Architecture</a> and
+<a href="decisions/adr-001-migracao-tokens.html">ADR-001</a> for details.</p>
+</div>
   </div>
 </main>
 

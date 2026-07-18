@@ -132,6 +132,7 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
     },
     agents: {
       guide: "ds-tis/agent-guide",
+      guideEn: "ds-tis/agent-guide/en",
       index: "ds-tis/llms",
       full: "ds-tis/llms-full",
     },
@@ -140,6 +141,7 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
     components: "docs/api/components.json",
     tokens: "docs/api/tokens.json",
     agentGuide: "docs/agent-consumer-usage.md",
+    agentGuideEn: "docs/agent-consumer-usage.en.md",
   },
   responsive: RESPONSIVE_CONTRACT,
 });

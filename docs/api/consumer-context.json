@@ -24,6 +24,7 @@
     },
     "agents": {
       "guide": "ds-tis/agent-guide",
+      "guideEn": "ds-tis/agent-guide/en",
       "index": "ds-tis/llms",
       "full": "ds-tis/llms-full"
     }
@@ -31,7 +32,8 @@
   "sourceOfTruth": {
     "components": "docs/api/components.json",
     "tokens": "docs/api/tokens.json",
-    "agentGuide": "docs/agent-consumer-usage.md"
+    "agentGuide": "docs/agent-consumer-usage.md",
+    "agentGuideEn": "docs/agent-consumer-usage.en.md"
   },
   "responsive": {
     "version": 1,

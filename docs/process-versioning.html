@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Versionamento — Design System</title>
+  <title>Versionamento / Versioning — Design System</title>
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="layout.css">
   <style>
@@ -59,16 +59,16 @@
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">Versionamento</h1>
-    <p class="ds-section__subtitle">Regras de bump de versão no design system.</p>
+    <h1 class="ds-section__title"><span data-lang="pt">Versionamento</span><span data-lang="en">Versioning</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Regras de bump de versão no design system.</span><span data-lang="en">Version bump rules for the design system.</span></p>
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.</span><span data-lang="en">This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.</span>
   </div>
 
   <div class="ds-md-content">
-<p>O design system usa <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>. Atualmente está em <strong>fase beta de 1.0</strong> — todas as releases são <code>1.0.0-beta.N</code> até o lançamento oficial decidido pelo design owner.</p>
+<div data-lang="pt"><p>O design system usa <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>. Atualmente está em <strong>fase beta de 1.0</strong> — todas as releases são <code>1.0.0-beta.N</code> até o lançamento oficial decidido pelo design owner.</p>
 <h2>Política de versionamento — fase beta (atual)</h2>
 <p>Cada release <strong>incrementa N</strong> em <code>1.0.0-beta.N</code>. Não há &quot;minor&quot; ou &quot;patch&quot; durante o beta — todo release é igualmente um snapshot do estado do sistema:</p>
 <pre tabindex="0"><code>v0.8.0  ←  último release pré-beta (histórico)
@@ -145,12 +145,12 @@ v1.0.0        ←  oficial (decisão do owner)
 <h3>Pendente pra futuras betas</h3>
 <ul>
 <li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Form Field</strong> definido — CSS-only por ADR-017, fora de escopo como componente Figma dedicado até surgir demanda real de composição.</li>
-<li><input disabled="" type="checkbox" aria-hidden="true"> <strong><code>docs/brand-principles.md</code></strong> preenchido com conteúdo real</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong><code>docs/brand-principles.md</code></strong> preenchido com conteúdo real e fonte EN pareada</li>
 <li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Snapshot exporter + gates locais Figma↔JSON/Figma structure</strong> — <code>verify:tokens</code>, <code>verify:figma-structure</code> e <code>audit:component-tokens</code> rodam contra snapshot do plugin.</li>
 <li><input disabled="" type="checkbox" aria-hidden="true"> <strong>ADRs históricos</strong> atualizados com notas de evolução — <em>parcial em beta.1: 006/013/014 atualizados</em></li>
 <li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong><code>docs/process-figma-sync.md</code></strong> atualizado pra naming atual e fluxo do snapshot exporter.</li>
 <li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong><code>tokens/registry.json</code></strong> sem warnings (entries com metadados completos).</li>
-<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Visual regression tests</strong> (Playwright + screenshot diff) — disponível localmente; CI depende de estabilizar fontes/capturas.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>Visual regression tests</strong> (Playwright + screenshot diff) — CI Linux e baseline local Darwin separados e estáveis.</li>
 <li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <strong>A11y tests</strong> (axe-core) — rodam em <code>npm test</code> contra docs em light/dark com baseline incremental.</li>
 <li><input disabled="" type="checkbox" aria-hidden="true"> <strong>Sync Figma→JSON automatizado</strong> em CI — <em>depende de Enterprise/plugin</em></li>
 </ul>
@@ -200,7 +200,140 @@ v1.0.0        ←  oficial (decisão do owner)
 <h2>Histórico — versionamento pré-beta (0.x)</h2>
 <p>Antes da fase beta, o sistema usava 0.x.y com bumps minor/patch. Tags <code>v0.5.0..v0.8.0</code> permanecem válidas. CHANGELOG preserva todas as entradas históricas. A partir de <code>v1.0.0-beta.1</code>, o esquema beta substitui o 0.x.</p>
 <p>A transição não envolve rewrite de história — o 0.8.0 simplesmente foi o último 0.x antes de entrar em beta.</p>
-
+</div>
+<div data-lang="en"><p>The design system follows <a href="https://semver.org/">Semantic Versioning</a>. It is
+currently in the <strong>1.0 beta phase</strong>: releases remain <code>1.0.0-beta.N</code> until the
+design owner approves the official release.</p>
+<h2>Current beta policy</h2>
+<p>Every release increments <code>N</code> in <code>1.0.0-beta.N</code>. There are no separate minor or
+patch releases during beta; each release is a coherent system snapshot:</p>
+<pre tabindex="0"><code>v0.8.0           ← last pre-beta release
+v1.0.0-beta.1    ← first beta release
+v1.0.0-beta.2
+v1.0.0-beta.3
+...
+v1.0.0-rc.1      ← release candidate, owner decision
+v1.0.0           ← official release, owner decision
+</code></pre>
+<h3>When to bump</h3>
+<p>Use a coherent package plus a time fallback.</p>
+<h4>1. Significant change</h4>
+<p>Bump when at least one of these happens since the previous beta:</p>
+<ul>
+<li>an accepted ADR changes architecture or a public contract;</li>
+<li>a public namespace or token is renamed;</li>
+<li>a new component ships outside draft status;</li>
+<li>a token layer is removed or consolidated;</li>
+<li>a source-of-truth rule changes;</li>
+<li>a relevant structural migration closes across Figma and the repository.</li>
+</ul>
+<h4>2. Complete feature</h4>
+<p>Bump when a set of changes closes a feature, not for each partial commit. A
+theming feature, for example, ships with Foundation, Semantic, adapted
+components and documentation together.</p>
+<h4>3. Time fallback</h4>
+<p>When patches accumulate without an architectural or feature trigger, publish a
+weekly beta. This prevents <code>[Não publicado]</code> from becoming an unbounded dump.</p>
+<h3>When not to bump</h3>
+<ul>
+<li>unshipped work in progress;</li>
+<li>partial cleanup;</li>
+<li>every isolated session commit;</li>
+<li>internal documentation or scripts with no consumer impact;</li>
+<li>automatic regeneration by CI;</li>
+<li>refactors without observable impact.</li>
+</ul>
+<h2>Post-1.0 policy</h2>
+<p>After the owner approves <code>1.0.0</code>, use standard semver:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Patch</td>
+<td>1.0.1</td>
+<td>Targeted compatible fix.</td>
+</tr>
+<tr>
+<td>Minor</td>
+<td>1.1.0</td>
+<td>Compatible addition such as a component, foundation or token.</td>
+</tr>
+<tr>
+<td>Major</td>
+<td>2.0.0</td>
+<td>Breaking removal or rename of a public token, class or API.</td>
+</tr>
+</tbody></table>
+<h2>Maturity criteria for leaving beta</h2>
+<p>The official 1.0 release is an owner decision, not an automatic technical gate.
+This checklist records maturity.</p>
+<h3>Architecture</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Zero errors in <code>verify:tokens</code>.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Zero Foundation leaks in component and base CSS.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Components audited between Figma and CSS.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Complete Text Style coverage for non-Material component text in Figma.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Designer-focused descriptions on Figma component sets.</li>
+</ul>
+<h3>Current maturity</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <code>Form Field</code> defined as CSS-only by ADR-017.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <code>docs/brand-principles.md</code> contains real operational content.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Snapshot exporter and local Figma↔JSON/structure gates available.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Historical ADRs reviewed with evolution notes where needed.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <code>docs/process-figma-sync.md</code> reflects current naming and exporter flow.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> <code>tokens/registry.json</code> has complete metadata.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> Visual regression runs in CI and platform-specific local baselines.</li>
+<li><input checked="" disabled="" type="checkbox" aria-hidden="true"> axe-core accessibility tests run in light and dark modes.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Automated Figma→JSON CI sync; conditional on a plugin because the REST API requires Enterprise.</li>
+</ul>
+<h2>Single version chain</h2>
+<p>Four places display the version and must agree:</p>
+<ul>
+<li><code>package.json</code>;</li>
+<li>the latest released section in <code>CHANGELOG.md</code>;</li>
+<li>the badge in <code>index.html</code>;</li>
+<li>the annotated git tag <code>v1.0.0-beta.N</code>.</li>
+</ul>
+<p>When all four match, published documentation is current.</p>
+<h2>One CHANGELOG entry per release</h2>
+<p><code>[Não publicado]</code> is staging. At release time, the entire section becomes
+<code>[1.0.0-beta.N] — YYYY-MM-DD</code> and a new empty <code>[Não publicado]</code> section is added.</p>
+<p>Avoid:</p>
+<ul>
+<li>fragmented subsections for every daily adjustment;</li>
+<li>a version bump for every commit;</li>
+<li>many dates under unreleased changes.</li>
+</ul>
+<p>Prefer one release entry grouped by Added, Changed, Fixed and Removed, with each
+item explaining why in one or two lines.</p>
+<h2>Bump workflow</h2>
+<ol>
+<li>Confirm that <code>[Não publicado]</code> is consolidated.</li>
+<li>Rename it to <code>[1.0.0-beta.N] — YYYY-MM-DD</code>.</li>
+<li>Add a new empty <code>[Não publicado]</code> section.</li>
+<li>Update <code>package.json</code> and <code>package-lock.json</code>.</li>
+<li>Update the <code>index.html</code> version badge.</li>
+<li>Run <code>npm run build:all</code>.</li>
+<li>Commit with <code>chore(release): 1.0.0-beta.N</code>.</li>
+<li>Open and merge the release pull request.</li>
+<li>Wait for green CI on <code>main</code>.</li>
+<li>Create and push the annotated tag.</li>
+</ol>
+<h2>Non-versioned changes</h2>
+<p>Internal agent notes, archived scripts, CI workflows with no deployment impact
+and local configuration may ship in <code>docs:</code>, <code>chore:</code> or <code>ci:</code> commits without
+a release bump.</p>
+<h2>Pre-beta history</h2>
+<p>Before beta, the system used 0.x.y minor and patch releases. Tags from
+<code>v0.5.0</code> through <code>v0.8.0</code> remain valid and the CHANGELOG preserves that
+history. No history rewrite is required.</p>
+</div>
   </div>
 </main>
 

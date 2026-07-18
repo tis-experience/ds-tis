@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uso por agents consumidores — Design System</title>
+  <title>Uso por agents consumidores / Usage by consumer agents — Design System</title>
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="layout.css">
   <style>
@@ -59,16 +59,16 @@
 
 <main class="ds-main">
   <div class="ds-section">
-    <h1 class="ds-section__title">Uso por agents consumidores</h1>
-    <p class="ds-section__subtitle">Como agents devem implementar telas em projetos consumidores usando o DS TIS.</p>
+    <h1 class="ds-section__title"><span data-lang="pt">Uso por agents consumidores</span><span data-lang="en">Usage by consumer agents</span></h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Como agents devem implementar telas em projetos consumidores usando o DS TIS.</span><span data-lang="en">How agents should build screens in consumer projects with DS TIS.</span></p>
   </div>
 
   <div class="ds-md-generated-banner">
-    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+    <span data-lang="pt">Esta página é gerada automaticamente por <code>scripts/sync-docs.mjs</code>. Edite as fontes Markdown, não este HTML.</span><span data-lang="en">This page is generated automatically by <code>scripts/sync-docs.mjs</code>. Edit the Markdown sources, not this HTML.</span>
   </div>
 
   <div class="ds-md-content">
-<p>Este guia é a instrução oficial para agents IA que precisam implementar telas em aplicações consumidoras usando o DS TIS. Ele não substitui <code>AGENTS.md</code>, que é voltado para manutenção deste repositório. Aqui o foco é consumo: montar telas reais com a API pública do pacote, sem inventar uma camada oficial que não existe.</p>
+<div data-lang="pt"><p>Este guia é a instrução oficial para agents IA que precisam implementar telas em aplicações consumidoras usando o DS TIS. Ele não substitui <code>AGENTS.md</code>, que é voltado para manutenção deste repositório. Aqui o foco é consumo: montar telas reais com a API pública do pacote, sem inventar uma camada oficial que não existe.</p>
 <p>Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consumidor.</p>
 <h2>Escopo</h2>
 <p>O DS TIS é stack-agnóstico. A base pública é HTML, CSS e JavaScript distribuídos pelo pacote <code>ds-tis</code>. React, Vue, Angular, Svelte ou outro framework podem encapsular essa base dentro do app consumidor, mas esse encapsulamento é responsabilidade do projeto consumidor.</p>
@@ -98,7 +98,7 @@
 <p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
 <p>O tarball inclui o contexto machine-readable. Depois da instalação, leia pelos
 exports <code>ds-tis/metadata</code>, <code>ds-tis/metadata/components</code>,
-<code>ds-tis/metadata/tokens</code>, <code>ds-tis/agent-guide</code>, <code>ds-tis/llms</code> e
+<code>ds-tis/metadata/tokens</code>, <code>ds-tis/agent-guide</code>, <code>ds-tis/agent-guide/en</code>, <code>ds-tis/llms</code> e
 <code>ds-tis/llms-full</code>, ou diretamente em <code>node_modules/ds-tis/docs/</code>. Sem o pacote
 instalado, use o fallback público
 <code>https://tis-experience.github.io/ds-tis/docs/api/components.json</code>.</p>
@@ -350,7 +350,317 @@ Bloqueado antes de:
 <li>limitações assumidas e gaps que precisam ser tratados no DS ou no produto.</li>
 </ul>
 <p>Se um item não se aplica, declare o motivo. Não deixe ausência de estado ou acessibilidade implícita.</p>
+</div>
+<div data-lang="en"><p>This guide is the official instruction for AI agents implementing screens in
+consumer applications with DS TIS. It does not replace <code>AGENTS.md</code>, which is
+for maintaining this repository. The focus here is consumption: building real
+screens with the package&#39;s public API without inventing an official layer that
+does not exist.</p>
+<p>Use this guide before generating, reviewing or refactoring any screen in a
+consumer application.</p>
+<h2>Scope</h2>
+<p>DS TIS is stack-agnostic. Its public foundation is HTML, CSS and JavaScript
+distributed by the <code>ds-tis</code> package. React, Vue, Angular, Svelte or another
+framework may wrap this foundation inside the consumer application, but that
+wrapper belongs to the consumer project.</p>
+<p>Do not present React, Vue or Angular wrappers as official DS TIS APIs unless
+they exist in this repository.</p>
+<h2>Expected inputs</h2>
+<p>Before implementing, the agent must gather:</p>
+<ul>
+<li>the goal of the screen or flow;</li>
+<li>the consumer project&#39;s stack and conventions;</li>
+<li>the installed <code>ds-tis</code> version, when available;</li>
+<li>existing routes, layouts, providers and local patterns;</li>
+<li>expected states: loading, empty, error, disabled, success, read-only, destructive and responsive;</li>
+<li>accessibility, language, data and permission constraints.</li>
+</ul>
+<p>If these inputs are unclear, inspect the project first. Ask the owner only when
+the decision changes product behavior, real data, permissions or local architecture.</p>
+<h2>Required sources</h2>
+<p>Before writing new markup, consult the public DS sources:</p>
+<ul>
+<li><code>README.md</code> for installation and primary imports;</li>
+<li><code>docs/llms.txt</code> for the lightweight LLM index;</li>
+<li><code>docs/llms-full.txt</code> for complete canonical context;</li>
+<li><code>docs/api/components.json</code> for components, readiness, responsibility, variants, consumed tokens and JS runtime metadata (<code>runtime.level</code>, <code>runtime.module</code>, <code>runtime.init</code>, <code>runtime.destroy</code>, <code>runtime.events</code>);</li>
+<li><code>docs/api/tokens.json</code> for Foundation, Semantic and Component layers;</li>
+<li>component pages at <code>docs/&lt;component&gt;.html</code>;</li>
+<li>templates under <code>docs/templates/</code> and exports under <code>ds-tis/templates/*</code> when the flow matches a published pattern.</li>
+</ul>
+<p>Do not depend on memory or assumptions about classes. When in doubt, read the
+component page and the JSON API.</p>
+<p>The tarball includes machine-readable context. After installation, read it
+through <code>ds-tis/metadata</code>, <code>ds-tis/metadata/components</code>,
+<code>ds-tis/metadata/tokens</code>, <code>ds-tis/agent-guide</code>, <code>ds-tis/agent-guide/en</code>, <code>ds-tis/llms</code> and
+<code>ds-tis/llms-full</code>, or directly from <code>node_modules/ds-tis/docs/</code>. Without the
+package, use the public fallback
+<code>https://tis-experience.github.io/ds-tis/docs/api/components.json</code>.</p>
+<p><code>ds-tis/metadata</code> points to <code>consumer-context.json</code>, a compact manifest with
+official entrypoints, version, sources of truth and the responsive contract.
+JSON modules may require an import attribute in some stacks; agents and scripts
+may also read the file through the package resolver or filesystem.</p>
+<h2>Readiness and responsibility</h2>
+<p>Before selecting a component, read <code>readiness</code> and <code>responsibility</code> in
+<code>docs/api/components.json</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Readiness</th>
+<th>Expected use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>app-ready</code></td>
+<td>Recommended for applications within the documented public API.</td>
+</tr>
+<tr>
+<td><code>composition</code></td>
+<td>Public and stable, but the application owns orchestration, navigation or shared state.</td>
+</tr>
+<tr>
+<td><code>experimental</code></td>
+<td>Do not use in a critical flow without explicitly accepting the limitation in <code>readinessNotes</code>.</td>
+</tr>
+</tbody></table>
+<p><code>responsibility.model</code> identifies who owns behavior:</p>
+<ul>
+<li><code>native</code>: use the appropriate HTML element; the app owns data and business events;</li>
+<li><code>presentation</code>: there is no component runtime; the app supplies content and context;</li>
+<li><code>consumer</code>: the DS provides visual composition, while the app owns orchestration;</li>
+<li><code>ds-runtime</code>: the DS owns reusable interaction; initialize the module declared in <code>runtime</code>.</li>
+</ul>
+<p>Do not promote an Experimental component to App-ready locally. If the project
+fills a gap with custom code, identify it as a local adaptation and record the
+demand for the DS.</p>
+<h2>Official imports</h2>
+<p>Install the package from GitHub (it is not yet published to the npm registry):</p>
+<pre tabindex="0"><code class="language-bash">npm install github:tis-experience/ds-tis
+</code></pre>
+<p>Alternative in <code>package.json</code>: <code>&quot;ds-tis&quot;: &quot;github:tis-experience/ds-tis#main&quot;</code>.
+Pin a tag or SHA in production. Once the registry package exists, installation
+changes to <code>npm install ds-tis</code>; until then, do not assume the bare name resolves.</p>
+<p>Import the public CSS once in the application&#39;s global entrypoint:</p>
+<pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
+</code></pre>
+<p>For Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip, initialize the
+public behavior after render or hydration. On teardown (SPA route, view or
+portal), call the corresponding <code>destroy</code> function to remove listeners:</p>
+<pre tabindex="0"><code class="language-js">import { initAccordions, destroyAccordions } from &#39;ds-tis/accordion&#39;;
+import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
+import { initModals, destroyModals } from &#39;ds-tis/modal&#39;;
+import { initActionMenus, destroyActionMenus } from &#39;ds-tis/menu&#39;;
+import { initTabs, destroyTabs } from &#39;ds-tis/tabs&#39;;
+import { initTooltips, destroyTooltips } from &#39;ds-tis/tooltip&#39;;
 
+initAccordions();
+initComboboxes();
+initModals();
+initActionMenus();
+initTabs();
+initTooltips();
+
+// when leaving the view / unmounting:
+destroyAccordions();
+destroyComboboxes();
+destroyModals();
+destroyActionMenus();
+destroyTabs();
+destroyTooltips();
+</code></pre>
+<p>A <code>required</code> module does not automatically make a component App-ready.
+Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip have completed the
+executable ADR-020 gate. Their modules remain required whenever those
+components are used because they preserve the published interactive and
+accessible contract.</p>
+<p>In the App-ready Combobox, DOM focus stays on the input while arrow keys update
+<code>aria-activedescendant</code>; <code>Escape</code> closes the listbox without moving focus. The
+<code>ds-combobox-change</code> event exposes <code>value</code>, <code>input</code>, <code>root</code> and the selected
+<code>option</code> in <code>detail</code>.</p>
+<p>In the App-ready Modal, only siblings outside the dialog path receive <code>inert</code>;
+the runtime preserves and restores each node&#39;s previous state. <code>ds-modal-open</code>
+and <code>ds-modal-close</code> expose the overlay, dialog and relevant focus reference in
+<code>detail</code>.</p>
+<p>In the App-ready Action Menu, <code>menuitem</code>, <code>menuitemradio</code> and
+<code>menuitemcheckbox</code> are part of the contract. <code>aria-disabled</code> items remain
+focusable but do not activate or close the menu; typeahead, arrows, Home/End and
+Escape are maintained by the runtime.</p>
+<p>In the App-ready Tabs, the runtime keeps exactly one tab in the focus order,
+skips disabled tabs with arrows and Home/End, synchronizes <code>aria-selected</code> with
+<code>hidden</code> on panels and ensures focus entry on the selected tabpanel. Tab buttons
+without an explicit <code>type</code> are normalized to <code>type=&quot;button&quot;</code>, preventing
+accidental form submission. <code>ds-tabs-change</code> exposes the root, tab, panel and
+previous tab in <code>detail</code>.</p>
+<p>In the App-ready Tooltip, the runtime ensures valid <code>role=&quot;tooltip&quot;</code>, ID and
+<code>aria-describedby</code> even when the markup omits them. Focus and hover open it
+without moving DOM focus; blur and leaving both trigger and content close it;
+Escape keeps it dismissed until pointer and focus leave. Content stays
+hoverable under WCAG 1.4.13. <code>ds-tooltip-show</code> and <code>ds-tooltip-hide</code> expose the
+root, trigger and content in <code>detail</code>.</p>
+<p>For theme customization, use the public theme engine:</p>
+<pre tabindex="0"><code class="language-js">import { applyTheme, toCssSnippet } from &#39;ds-tis/theme&#39;;
+</code></pre>
+<p>When a published template is a useful starting point, use its export:</p>
+<pre tabindex="0"><code class="language-js">import loginTemplate from &#39;ds-tis/templates/login.html?raw&#39;;
+</code></pre>
+<p><code>ds-tis/templates/*</code> points to public HTML templates. Adapt content, routes and
+data to the consumer application; do not copy fictional text into production.</p>
+<h2>JavaScript runtime by component</h2>
+<p>Read <code>docs/api/components.json</code> before importing JS modules. Each component
+exposes <code>runtime</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>null</code></td>
+<td>CSS-only; no published JS module.</td>
+</tr>
+<tr>
+<td><code>runtime.level: &quot;required&quot;</code></td>
+<td>The interactive and accessible contract depends on initialization (Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip).</td>
+</tr>
+<tr>
+<td><code>runtime.level: &quot;optional&quot;</code></td>
+<td>Reserved for enhancements unnecessary to the accessible contract; no current module uses this level.</td>
+</tr>
+<tr>
+<td><code>runtime.module</code></td>
+<td>Package export (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
+</tr>
+<tr>
+<td><code>runtime.init</code></td>
+<td>Function called after render or hydration.</td>
+</tr>
+<tr>
+<td><code>runtime.destroy</code></td>
+<td>Function called during teardown.</td>
+</tr>
+<tr>
+<td><code>runtime.events</code></td>
+<td>Public events emitted by the module.</td>
+</tr>
+</tbody></table>
+<p>The top-level <code>runtimeModules</code> array in <code>components.json</code> lists every published
+module. Do not import JS for components with <code>runtime: null</code>.</p>
+<h2>Responsive contract</h2>
+<p>The DS uses an <code>intrinsic-first</code> strategy and publishes no automatic
+breakpoints. <code>publicBreakpoints</code> is intentionally empty: <code>sm</code>, <code>md</code>, <code>lg</code> and
+<code>full</code> variants are explicit product choices, not viewport-triggered rules.
+Read <code>responsiveContract</code>, <code>responsiveProfiles</code> and each component&#39;s
+<code>responsive</code> field in <code>ds-tis/metadata/components</code>.</p>
+<ul>
+<li><code>container</code>: the component preserves its anatomy in the supplied width; the app owns grid and reflow;</li>
+<li><code>viewport-constrained</code>: Modal and Tooltip apply intrinsic viewport limits;</li>
+<li><code>consumer-managed-horizontal</code>: Tabs, Breadcrumb and Pagination do not remove or summarize items; the app decides overflow, reduction or an alternative composition;</li>
+<li><code>consumer-selectable-width</code>: Button provides explicit width choices; the app decides when to apply them.</li>
+</ul>
+<p>The tarball is exercised at 320×568, 568×320 and 1280×800. This proves the
+reference fixture and overlay limits; it does not replace tests with the
+consumer product&#39;s content, zoom, language, orientation and layout.</p>
+<h2>Implementation rules</h2>
+<ol>
+<li>Choose existing components before creating ad hoc markup. Read <code>readiness</code>, <code>responsibility</code> and <code>runtime</code> in <code>docs/api/components.json</code>.</li>
+<li>Use the documented public anatomy. Do not use isolated internal classes as autonomous components.</li>
+<li>Forms must combine <code>ds-field</code> with the actual control: <code>ds-input</code>, <code>ds-select</code>, <code>ds-textarea</code>, <code>ds-combobox</code>, <code>ds-checkbox</code>, <code>ds-radio</code> or <code>ds-toggle</code>. For Input, the native field remains inside the public anatomy with <code>ds-input__field</code>.</li>
+<li>Do not hardcode <code>#hex</code>, <code>rgb()</code>, <code>px</code> or <code>rem</code> when a public token, class, variant or utility exists for the same role.</li>
+<li>Preserve the DS visual chain. Public tokens appear as <code>var(--ds-...)</code>; do not invent local values for color, spacing, radius, border, typography or focus ring without justification.</li>
+<li>Preserve accessibility: semantic landmarks, heading order, labels, <code>aria-*</code>, <code>aria-describedby</code>, <code>aria-expanded</code>, <code>aria-current</code>, keyboard support, disabled/error/read-only states and a visible focus ring.</li>
+<li>States are not decoration. Implement loading, empty, error, disabled, hover, focus and responsive states when they belong to the expected flow.</li>
+<li>Icons should follow the consumer project&#39;s library when one exists; when reproducing DS examples, prefer the documented visual vocabulary.</li>
+<li>Do not invent official wrappers. In React, Vue or Angular, create local app components only as adaptations of public anatomy and state that boundary.</li>
+<li>Do not change DS tokens, generated CSS or documentation from the consumer project. Record real gaps and open a demand for the DS.</li>
+</ol>
+<h2>Recommended workflow</h2>
+<ol>
+<li>Read the request, identify the stack and find the global entrypoint for <code>ds-tis/css</code>.</li>
+<li>Inventory the screen: navigation, forms, feedback, cards, overlays, lists, loading, empty states and actions.</li>
+<li>Map each part to an existing DS component and check readiness. Use local markup only when no suitable DS component exists.</li>
+<li>Read the component HTML page and <code>docs/api/components.json</code> before writing anatomy.</li>
+<li>Implement with public DS classes without copying internal classes outside their component context.</li>
+<li>Initialize JS modules when <code>components.json</code> declares a runtime: always for <code>required</code>, and for <code>optional</code> when the screen needs the enhancement.</li>
+<li>Apply <code>ds-tis/theme</code> only for an actual runtime brand or mode requirement.</li>
+<li>Run the consumer project&#39;s tests and linters. When possible, validate accessibility with axe, Playwright, a real browser or an equivalent tool.</li>
+<li>Deliver evidence: components, imports, relevant tokens/classes, accessibility validation and assumed limits.</li>
+</ol>
+<h2>Framework adaptation</h2>
+<p>React, Vue and Angular may render public DS anatomy through local components.
+The adaptation must:</p>
+<ul>
+<li>preserve public DS class names;</li>
+<li>preserve labels, IDs, <code>aria-*</code> and <code>for</code>/<code>id</code> relationships;</li>
+<li>expose local product-aligned props without promising an official DS API;</li>
+<li>initialize JS modules after render or hydration when required;</li>
+<li>avoid recreating complex behavior when the DS already exports a public helper such as <code>ds-tis/combobox</code>.</li>
+</ul>
+<p>Correct boundary example: &quot;I created <code>AppTextField</code> in the consumer application
+using <code>ds-field</code> + <code>ds-input</code>; this is a local app wrapper, not an official
+component exported by <code>ds-tis</code>.&quot;</p>
+<h2>Short prompt for a consumer agent</h2>
+<p>Copy this block to start an agent that will implement a screen with DS TIS in a
+consumer project:</p>
+<pre tabindex="0"><code class="language-text">Role: DS TIS consumer agent.
+
+Input artifact:
+- Screen or flow request.
+- Consumer project stack.
+- Current app files defining layout, global styles, routes and local components.
+- Installed ds-tis version, if any.
+
+Required sources:
+- README.md
+- docs/llms.txt
+- docs/llms-full.txt
+- docs/api/components.json (readiness, responsibility and runtime)
+- docs/api/tokens.json
+- docs/&lt;component&gt;.html for every component used
+- docs/templates/ or ds-tis/templates/* when a relevant template exists
+
+Rules:
+- Install from github:tis-experience/ds-tis (the package is not yet on npm).
+- Import ds-tis/css once in the global entrypoint.
+- For each component, derive the module from runtime.module in docs/api/components.json; when runtime.level is required, call init after render/hydration and destroy before unmount.
+- Prefer App-ready components; treat Composition as an explicit app boundary and do not use Experimental in critical flows without recording the limitation.
+- Use ds-tis/theme only for an actual runtime theme or brand requirement.
+- Choose existing components before creating ad hoc markup.
+- Use public component anatomy; do not use isolated internal classes.
+- Form controls must combine ds-field with the actual control, such as ds-input + ds-input__field.
+- Do not hardcode hex/rgb/px/rem when a public token, class or variant exists.
+- Preserve landmarks, labels, aria-*, keyboard behavior, focus ring and disabled/error/read-only states.
+- In React/Vue/Angular, adapt public anatomy into local app wrappers; do not invent official DS TIS wrappers.
+
+Expected output:
+- Changed files.
+- DS components used and why.
+- Added DS imports.
+- Relevant public tokens and classes.
+- Accessibility and keyboard evidence.
+- Assumed limits or DS gaps that require a demand.
+
+Blocked before:
+- Creating an official DS API that does not exist.
+- Changing ds-tis package tokens or CSS inside the consumer application.
+- Replacing an existing DS component with ad hoc markup without justification.
+- Removing labels, aria-* or focus ring.
+</code></pre>
+<h2>Delivery checklist</h2>
+<p>Before finishing, the agent must report:</p>
+<ul>
+<li>DS components used and alternatives rejected;</li>
+<li>readiness and responsibility for each component used;</li>
+<li>imports added: <code>ds-tis/css</code>, JS modules declared in <code>components.json</code>, <code>ds-tis/theme</code> and/or <code>ds-tis/templates/*</code>;</li>
+<li>main public classes such as <code>ds-field</code>, <code>ds-input</code> and <code>ds-input__field</code>;</li>
+<li>relevant CSS tokens when customization uses <code>var(--ds-...)</code>;</li>
+<li>accessibility evidence: labels, landmarks, <code>aria-*</code>, keyboard, focus ring and contrast when applicable;</li>
+<li>implemented states: default, hover, focus, disabled, error, loading, empty and responsive as required by the flow;</li>
+<li>assumed limitations and gaps that belong in the DS or product backlog.</li>
+</ul>
+<p>If an item does not apply, state why. Never leave missing states or
+accessibility implicit.</p>
+</div>
   </div>
 </main>
 

@@ -70,6 +70,7 @@ const exportTargets = {
   './metadata/foundations': './docs/api/foundations.json',
   './metadata/adrs': './docs/api/adrs.json',
   './agent-guide': './docs/agent-consumer-usage.md',
+  './agent-guide/en': './docs/agent-consumer-usage.en.md',
   './llms': './docs/llms.txt',
   './llms-full': './docs/llms-full.txt',
 };
@@ -79,6 +80,9 @@ for (const [key, target] of Object.entries(exportTargets)) {
   expect(fs.existsSync(path.join(ROOT, target)), `package export ${key} target is missing (${target}).`);
   expect(pkg.files?.includes(target.replace(/^\.\//, '')), `package files must include ${target}.`);
 }
+
+expect(context.entrypoints.agents?.guideEn === 'ds-tis/agent-guide/en', 'consumer context must expose the English agent guide.');
+expect(context.sourceOfTruth?.agentGuideEn === 'docs/agent-consumer-usage.en.md', 'consumer context must expose the English guide source.');
 
 if (errors.length === 0) {
   console.log(`✅ PASS — metadata instalada + ${COMPONENTS.length} perfis responsivos alinhados`);

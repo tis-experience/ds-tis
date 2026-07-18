@@ -1,6 +1,12 @@
 # Audit Figma vs JSON/CSS — 2026-04-25
 
-> **Status:** READ-ONLY. Nenhuma mudança aplicada. Documento serve de base pra plano de remediação.
+> **Status:** HISTÓRICO / SUPERSEDED. Este retrato foi produzido em 25/04/2026
+> contra o commit `359826f`; os findings não representam o estado atual e não
+> devem ser tratados como backlog. Consulte `docs/backlog.md`, as APIs em
+> `docs/api/` e os validadores atuais para o estado vigente.
+>
+> O arquivo permanece versionado apenas para rastreabilidade e é excluído de
+> `docs/llms-full.txt` para não reintroduzir pendências resolvidas em agents.
 > **Fonte de verdade:** Figma file `IE68amP9Hya5ieFw1rX8S8`, inspecionado via MCP `use_figma`.
 > **Comparado contra:** `tokens/semantic/{light,dark}.json`, `css/components/*.css`, `css/base/*.css` (commit `359826f`).
 

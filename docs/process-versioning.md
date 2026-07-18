@@ -70,12 +70,12 @@ Quando o owner decidir que está pronto, drop do beta tag → `1.0.0` oficial. A
 
 ### Pendente pra futuras betas
 - [x] **Form Field** definido — CSS-only por ADR-017, fora de escopo como componente Figma dedicado até surgir demanda real de composição.
-- [ ] **`docs/brand-principles.md`** preenchido com conteúdo real
+- [x] **`docs/brand-principles.md`** preenchido com conteúdo real e fonte EN pareada
 - [x] **Snapshot exporter + gates locais Figma↔JSON/Figma structure** — `verify:tokens`, `verify:figma-structure` e `audit:component-tokens` rodam contra snapshot do plugin.
 - [ ] **ADRs históricos** atualizados com notas de evolução — _parcial em beta.1: 006/013/014 atualizados_
 - [x] **`docs/process-figma-sync.md`** atualizado pra naming atual e fluxo do snapshot exporter.
 - [x] **`tokens/registry.json`** sem warnings (entries com metadados completos).
-- [x] **Visual regression tests** (Playwright + screenshot diff) — disponível localmente; CI depende de estabilizar fontes/capturas.
+- [x] **Visual regression tests** (Playwright + screenshot diff) — CI Linux e baseline local Darwin separados e estáveis.
 - [x] **A11y tests** (axe-core) — rodam em `npm test` contra docs em light/dark com baseline incremental.
 - [ ] **Sync Figma→JSON automatizado** em CI — _depende de Enterprise/plugin_
 

@@ -39,7 +39,7 @@ Não dependa de memória ou suposições sobre classes. Quando houver dúvida, l
 
 O tarball inclui o contexto machine-readable. Depois da instalação, leia pelos
 exports `ds-tis/metadata`, `ds-tis/metadata/components`,
-`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
+`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/agent-guide/en`, `ds-tis/llms` e
 `ds-tis/llms-full`, ou diretamente em `node_modules/ds-tis/docs/`. Sem o pacote
 instalado, use o fallback público
 `https://tis-experience.github.io/ds-tis/docs/api/components.json`.

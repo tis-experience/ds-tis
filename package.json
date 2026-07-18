@@ -2,6 +2,14 @@
   "name": "ds-tis",
   "version": "1.0.0-beta.7",
   "description": "White-label CSS design system with DTCG tokens, component contracts, and light/dark mode",
+  "homepage": "https://tis-experience.github.io/ds-tis/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tis-experience/ds-tis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tis-experience/ds-tis/issues"
+  },
   "main": "css/design-system.css",
   "style": "css/design-system.css",
   "sideEffects": [
@@ -31,6 +39,7 @@
     "./metadata/foundations": "./docs/api/foundations.json",
     "./metadata/adrs": "./docs/api/adrs.json",
     "./agent-guide": "./docs/agent-consumer-usage.md",
+    "./agent-guide/en": "./docs/agent-consumer-usage.en.md",
     "./llms": "./docs/llms.txt",
     "./llms-full": "./docs/llms-full.txt",
     "./templates/*": "./docs/templates/*",
@@ -39,6 +48,7 @@
   "files": [
     "css/",
     "docs/agent-consumer-usage.md",
+    "docs/agent-consumer-usage.en.md",
     "docs/api/adrs.json",
     "docs/api/components.json",
     "docs/api/consumer-context.json",
@@ -63,8 +73,15 @@
     "white-label",
     "dark-mode"
   ],
-  "author": "",
+  "author": "TIS Experience Engineering",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
   "scripts": {
     "build:tokens": "node build-tokens.mjs",
     "sync:docs": "node scripts/sync-docs.mjs",
@@ -75,11 +92,12 @@
     "build:all": "npm run build:tokens && npm run build:icons && npm run sync:docs && npm run build:api && npm run build:llms && npm run verify:tokens && npm test",
     "prepublishOnly": "npm run build:all && npm run test:app-ready -- --release",
     "pack:check": "npm pack --dry-run && npm run test:audit-scenarios && npm run test:app-ready",
-    "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-combobox-docs.mjs && node scripts/test-pagination-docs.mjs && node scripts/test-field-docs.mjs && node scripts/test-interactive.mjs && node scripts/test-api-runtime.mjs && node scripts/test-consumer-context.mjs && node scripts/test-readiness-evidence.mjs && node scripts/test-component-readiness.mjs && node scripts/test-runtime-lifecycle.mjs && node scripts/test-theme-engine.mjs && node scripts/test-a11y.mjs && npm run test:a11y:theme-playground",
+    "test": "node scripts/test-token-integrity.mjs && node scripts/test-css-references.mjs && node scripts/test-generators.mjs && node scripts/test-docs-consumption.mjs && node scripts/test-accordion-docs.mjs && node scripts/test-combobox-docs.mjs && node scripts/test-pagination-docs.mjs && node scripts/test-field-docs.mjs && node scripts/test-interactive.mjs && node scripts/test-api-runtime.mjs && node scripts/test-consumer-context.mjs && node scripts/test-readiness-evidence.mjs && node scripts/test-component-readiness.mjs && node scripts/test-runtime-lifecycle.mjs && node scripts/test-theme-engine.mjs && node scripts/test-a11y.mjs && npm run test:a11y:theme-playground",
     "test:app-ready": "node scripts/test-app-ready.mjs",
     "test:audit-scenarios": "node scripts/test-audit-scenarios.mjs",
     "test:audit-scenarios:ci": "node scripts/test-audit-scenarios.mjs --skip-local-figma",
     "test:consumer-smoke": "node scripts/test-consumer-smoke.mjs",
+    "test:docs-consumption": "node scripts/test-docs-consumption.mjs",
     "test:runtime-lifecycle": "node scripts/test-runtime-lifecycle.mjs",
     "test:self": "node scripts/test-self.mjs",
     "test:readiness": "node scripts/test-component-readiness.mjs",
