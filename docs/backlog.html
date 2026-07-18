@@ -101,8 +101,6 @@
 <p>Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine interativa. Só implementar se houver demanda explícita de time Dev consumidor. Integração com os tokens DTCG já gerados (formato padrão de import), sem reinventar.</p>
 <h3>MCP próprio do design system</h3>
 <p>Expõe tokens, componentes e guidelines via MCP para agentes. <code>llms.txt</code> + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.</p>
-<h3>Publicação no npm</h3>
-<p>Pacote nunca foi publicado no registry. Consumo oficial hoje: <code>npm install github:tis-experience/ds-tis</code> (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: <code>npm run pack:check</code>, validar <code>files</code>/<code>exports</code>, e reescrever docs de instalação para <code>npm install ds-tis</code>.</p>
 <h3>Resolução de conflitos inteligente no <code>sync-tokens-from-figma</code></h3>
 <p>Hoje o script loga e pede intervenção quando encontra ambiguidade (ex: variável renomeada no Figma vs variável nova; alias quebrado). Evoluir pra sugerir ação com heurística (ex: &quot;detectei que <code>color/primary/toned</code> pode ter virado <code>brand/toned/default</code> com base em similaridade de valor; aplicar?&quot;).</p>
 

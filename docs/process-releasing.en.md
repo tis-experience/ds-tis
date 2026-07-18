@@ -40,11 +40,18 @@ release branch with all intended work complete.
    git push origin v1.0.0-beta.N
    ```
 
-9. **Verify the publication:**
+9. **Publish the beta to npm** after the merged `main` commit is green:
+
+   ```bash
+   npm publish --access public --tag beta
+   ```
+
+10. **Verify the publication:**
    - the home page shows `1.0.0-beta.N`;
    - `docs/changelog.html` lists it as the latest release;
    - `docs/api/tokens-sync.json` is current and has zero errors;
-   - package installation from the documented source succeeds;
+   - `npm view ds-tis@beta version` returns `1.0.0-beta.N`;
+   - a clean `npm install ds-tis@beta` succeeds;
    - the installed tarball passes the consumer smoke test.
 
 ## If something goes wrong
@@ -55,11 +62,8 @@ release branch with all intended work complete.
 
 ## npm publication
 
-The first npm publication requires:
-
-1. an available package name and authenticated npm account;
-2. clean `npm run build:all` and `npm run pack:check` results;
-3. public package metadata, repository and license reviewed;
-4. `npm publish --access public --tag beta` for beta versions;
-5. a live `npm view ds-tis@1.0.0-beta.N` verification;
-6. installation guidance updated from GitHub to `npm install ds-tis`, while keeping a tag/SHA GitHub fallback.
+Betas are published with `npm publish --access public --tag beta`. During the
+beta phase, the canonical install command is `npm install ds-tis@beta`, and
+production consumers should pin the exact prerelease. The bare package name
+(`npm install ds-tis`) becomes canonical only after a stable version is promoted
+to the npm `latest` tag.

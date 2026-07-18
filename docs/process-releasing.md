@@ -51,10 +51,18 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
    - Todos os derivados de `css/tokens/generated/` e `docs/` devem ser regenerados, revisados e incluídos no commit de release antes da tag.
    - Publica o site estático no ambiente definido pelo projeto.
 
-9. **Verificar**:
+9. **Publicar a beta no npm** depois que o commit de `main` estiver verde:
+
+   ```bash
+   npm publish --access public --tag beta
+   ```
+
+10. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
+   - `npm view ds-tis@beta version` retorna `1.0.0-beta.N`.
+   - Uma instalação limpa com `npm install ds-tis@beta` passa no consumer smoke.
 
 ## Se algo der errado
 
@@ -62,13 +70,13 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
   criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.
 - **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
   release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
+- **Publicação no registry falhar**: não mover a tag. Corrigir a causa; se o
+  pacote continuar indisponível, restaurar temporariamente a instalação via GitHub
+  na documentação pública em um PR de hotfix.
 
 ## Publicação no npm
 
-Ainda não fazemos. Consumidores instalam via GitHub (`npm install github:tis-experience/ds-tis`) — documentado no README e em `docs/agent-consumer-usage.md`. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver [backlog](./backlog.md).
-
-Antes do publish:
-
-1. Confirmar `npm run pack:check` e `npm run build:all` limpos.
-2. Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → `npm install ds-tis`.
-3. Atualizar este arquivo e o backlog removendo o “ainda não”.
+Betas são publicadas com `npm publish --access public --tag beta`. A instalação
+canônica durante a fase beta é `npm install ds-tis@beta`; consumidores de produção
+devem fixar a versão exata. O nome sem tag (`npm install ds-tis`) só vira a
+orientação padrão quando uma versão estável for promovida para `latest`.

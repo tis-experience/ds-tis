@@ -62,10 +62,6 @@ Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine 
 
 Expõe tokens, componentes e guidelines via MCP para agentes. `llms.txt` + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.
 
-### Publicação no npm
-
-Pacote nunca foi publicado no registry. Consumo oficial hoje: `npm install github:tis-experience/ds-tis` (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: `npm run pack:check`, validar `files`/`exports`, e reescrever docs de instalação para `npm install ds-tis`.
-
 ### Resolução de conflitos inteligente no `sync-tokens-from-figma`
 
 Hoje o script loga e pede intervenção quando encontra ambiguidade (ex: variável renomeada no Figma vs variável nova; alias quebrado). Evoluir pra sugerir ação com heurística (ex: "detectei que `color/primary/toned` pode ter virado `brand/toned/default` com base em similaridade de valor; aplicar?").

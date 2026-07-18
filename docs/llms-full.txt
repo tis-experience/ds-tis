@@ -1,6 +1,6 @@
 # Design System Core — conteúdo consolidado
 
-> Versão 1.0.0-beta.7. Arquivo destinado a consumo por LLMs que precisem
+> Versão 1.0.0-beta.8. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
 > CLAUDE.md, CHANGELOG, documentos canônicos atuais em docs/, todos os ADRs e
 > um resumo dos tokens. Traduções e auditorias históricas ficam fora para
@@ -19,29 +19,29 @@ Para APIs JSON, ver docs/api/
 
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.7-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.8-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
-O pacote **ainda não está no npm registry**. O caminho oficial de instalação em projetos consumidores é via GitHub:
+O pacote beta é distribuído pelo npm registry. Instale a beta corrente com:
 
 ```bash
-npm install github:tis-experience/ds-tis
+npm install ds-tis@beta
 ```
 
-Ou no `package.json`:
+Em produção, prefira o pin exato:
 
 ```json
 {
   "dependencies": {
-    "ds-tis": "github:tis-experience/ds-tis#main"
+    "ds-tis": "1.0.0-beta.8"
   }
 }
 ```
 
-Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.7`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
+Enquanto não houver uma versão estável sob a tag npm `latest`, não use `npm install ds-tis` sem `@beta` ou versão explícita. Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 
@@ -288,7 +288,10 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.8] — 2026-07-18
+
 ### Adicionado
+- **Primeira distribuição pública no npm registry.** A beta passa a ser instalada por `npm install ds-tis@beta`, com pin exato recomendado para produção e fallback pela tag GitHub; o processo de release protege o canal `beta` sem antecipar a futura tag estável `latest`.
 - **Documentação pública bilíngue gerada de fontes pareadas.** Brand Principles, Documentation Guidelines, Agent Consumer Usage, Contributing, Versioning e Releasing passam a ter fontes PT-BR + EN completas; `sync:docs` publica ambos os idiomas na mesma URL e `test:docs-consumption` protege cobertura, links e corpus.
 - **Brand Principles operacionais.** O template público foi substituído por missão do Design System TIS, princípios acionáveis, voz, paleta canônica, tipografia, regras do logo e compromisso WCAG 2.2 AA.
 - **Guia de agent em inglês no pacote.** Novo export `ds-tis/agent-guide/en` acompanha o guia PT-BR, aparece em `consumer-context.json` e é validado como parte do tarball.
@@ -1214,7 +1217,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...HEAD
+[1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6
 
@@ -1330,13 +1334,13 @@ Não promova localmente um componente Experimental a App-ready. Se o projeto com
 
 ## Imports oficiais
 
-Instale o pacote no projeto consumidor via GitHub (ainda **não** há publish no npm registry):
+Instale a beta corrente pelo npm registry:
 
 ```bash
-npm install github:tis-experience/ds-tis
+npm install ds-tis@beta
 ```
 
-Alternativa no `package.json`: `"ds-tis": "github:tis-experience/ds-tis#main"`. Prefira pin por tag/SHA em produção. Quando o registry existir, a instalação muda para `npm install ds-tis` — até lá, não assuma que o nome solo resolve no npm.
+Em produção, prefira `"ds-tis": "1.0.0-beta.8"` no `package.json`. Enquanto não houver versão estável na tag npm `latest`, não use o nome sem `@beta` ou versão explícita. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
 
 Importe o CSS público uma vez no entrypoint global do app:
 
@@ -1511,7 +1515,7 @@ Fontes obrigatorias:
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
 
 Regras:
-- Instale via github:tis-experience/ds-tis (pacote ainda nao esta no npm registry).
+- Instale a beta via `npm install ds-tis@beta`; em produção, fixe a versão exata.
 - Importe ds-tis/css uma vez no entrypoint global.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
@@ -1698,10 +1702,6 @@ Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine 
 
 Expõe tokens, componentes e guidelines via MCP para agentes. `llms.txt` + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.
 
-### Publicação no npm
-
-Pacote nunca foi publicado no registry. Consumo oficial hoje: `npm install github:tis-experience/ds-tis` (README + guia de agents consumidores alinhados). Decidir quando (e com qual nome de escopo) fazer o primeiro publish. Antes: `npm run pack:check`, validar `files`/`exports`, e reescrever docs de instalação para `npm install ds-tis`.
-
 ### Resolução de conflitos inteligente no `sync-tokens-from-figma`
 
 Hoje o script loga e pede intervenção quando encontra ambiguidade (ex: variável renomeada no Figma vs variável nova; alias quebrado). Evoluir pra sugerir ação com heurística (ex: "detectei que `color/primary/toned` pode ter virado `brand/toned/default` com base em similaridade de valor; aplicar?").
@@ -1840,7 +1840,7 @@ apresentadas como comportamento aprovado do sistema.
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.7**
+> Versão atual: **1.0.0-beta.8**
 
 ## Status geral
 
@@ -2873,10 +2873,18 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
    - Todos os derivados de `css/tokens/generated/` e `docs/` devem ser regenerados, revisados e incluídos no commit de release antes da tag.
    - Publica o site estático no ambiente definido pelo projeto.
 
-9. **Verificar**:
+9. **Publicar a beta no npm** depois que o commit de `main` estiver verde:
+
+   ```bash
+   npm publish --access public --tag beta
+   ```
+
+10. **Verificar**:
    - A página inicial mostra a badge `1.0.0-beta.N`.
    - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
    - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
+   - `npm view ds-tis@beta version` retorna `1.0.0-beta.N`.
+   - Uma instalação limpa com `npm install ds-tis@beta` passa no consumer smoke.
 
 ## Se algo der errado
 
@@ -2884,16 +2892,16 @@ com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
   criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.
 - **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
   release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
+- **Publicação no registry falhar**: não mover a tag. Corrigir a causa; se o
+  pacote continuar indisponível, restaurar temporariamente a instalação via GitHub
+  na documentação pública em um PR de hotfix.
 
 ## Publicação no npm
 
-Ainda não fazemos. Consumidores instalam via GitHub (`npm install github:tis-experience/ds-tis`) — documentado no README e em `docs/agent-consumer-usage.md`. O pacote entra no backlog para o primeiro publish no registry quando a decisão for tomada. Ver [backlog](./backlog.md).
-
-Antes do publish:
-
-1. Confirmar `npm run pack:check` e `npm run build:all` limpos.
-2. Trocar a instalação documentada (README, agent-consumer-usage, llms) de GitHub → `npm install ds-tis`.
-3. Atualizar este arquivo e o backlog removendo o “ainda não”.
+Betas são publicadas com `npm publish --access public --tag beta`. A instalação
+canônica durante a fase beta é `npm install ds-tis@beta`; consumidores de produção
+devem fixar a versão exata. O nome sem tag (`npm install ds-tis`) só vira a
+orientação padrão quando uma versão estável for promovida para `latest`.
 
 
 ═══════════════════════════════════════════════════════════
@@ -20866,13 +20874,13 @@ Seção expandida com contexto, decisão e locais de uso.
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.7**
+> Versão atual: **1.0.0-beta.8**
 
 ## Estado atual
 
 | Aspecto | Valor |
 |---------|-------|
-| Versão | 1.0.0-beta.7 |
+| Versão | 1.0.0-beta.8 |
 | Formato canônico | JSON (DTCG) em `tokens/` |
 | CSS gerado | Style Dictionary → `css/tokens/generated/` |
 | Pipeline | ✅ index.css importa apenas generated/ |
@@ -23666,5 +23674,5 @@ Verificação automática de coerência Figma ↔ JSON ↔ CSS: `scripts/tokens-
 ═══════════════════════════════════════════════════════════
 
 Gerado por scripts/build-llms.mjs.
-Versão: 1.0.0-beta.7
+Versão: 1.0.0-beta.8
 Site: documentação local

@@ -84,15 +84,16 @@ demand for the DS.
 
 ## Official imports
 
-Install the package from GitHub (it is not yet published to the npm registry):
+Install the current beta from the npm registry:
 
 ```bash
-npm install github:tis-experience/ds-tis
+npm install ds-tis@beta
 ```
 
-Alternative in `package.json`: `"ds-tis": "github:tis-experience/ds-tis#main"`.
-Pin a tag or SHA in production. Once the registry package exists, installation
-changes to `npm install ds-tis`; until then, do not assume the bare name resolves.
+In production, prefer `"ds-tis": "1.0.0-beta.8"` in `package.json`. Until a
+stable release is available under the npm `latest` tag, do not use the bare
+package name without `@beta` or an explicit version. GitHub release fallback:
+`npm install github:tis-experience/ds-tis#v1.0.0-beta.8`.
 
 Import the public CSS once in the application's global entrypoint:
 
@@ -277,7 +278,7 @@ Required sources:
 - docs/templates/ or ds-tis/templates/* when a relevant template exists
 
 Rules:
-- Install from github:tis-experience/ds-tis (the package is not yet on npm).
+- Install the beta with `npm install ds-tis@beta`; pin the exact version in production.
 - Import ds-tis/css once in the global entrypoint.
 - For each component, derive the module from runtime.module in docs/api/components.json; when runtime.level is required, call init after render/hydration and destroy before unmount.
 - Prefer App-ready components; treat Composition as an explicit app boundary and do not use Experimental in critical flows without recording the limitation.
