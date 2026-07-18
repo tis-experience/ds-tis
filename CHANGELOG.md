@@ -8,6 +8,9 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+### Corrigido
+- **Docs consomem Badge e Button do DS sem overrides mortos.** A badge de versão na home usa `ds-badge--brand ds-badge--subtle`; botões “Abrir em nova aba” e CTAs dos templates usam `ds-button--ghost`; callouts locais duplicados e banners gerados passam pelo padrão `ds-callout` do layout das docs.
+
 ## [1.0.0-beta.9] — 2026-07-18
 
 ### Corrigido

@@ -356,6 +356,12 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
   letter-spacing: var(--ds-letter-spacing-tight);
 }
 
+/* Badge de versão (e similares) ao lado do título — layout only, sem override do Badge */
+.ds-section__title .ds-badge {
+  vertical-align: middle;
+  margin-inline-start: var(--ds-space-sm);
+}
+
 .ds-section__subtitle {
   font-size: var(--ds-font-size-18);
   color: var(--ds-content-default);
@@ -442,8 +448,14 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 /* Preview tabs (Preview / Code) */
 .ds-preview__tabs {
   display: flex;
+  align-items: center;
   border-bottom: var(--ds-border-width-1) solid var(--ds-border-default);
   background-color: var(--ds-background-subtle);
+}
+
+.ds-preview__tabs .ds-preview__action {
+  margin-inline-start: auto;
+  margin-inline-end: var(--ds-space-sm);
 }
 
 .ds-preview__tab {
@@ -470,13 +482,6 @@ html[lang="en"] body [data-lang="pt"] { display: none; }
 .ds-preview__tab:focus-visible {
   outline: var(--ds-border-width-focus) solid var(--ds-border-focus);
   outline-offset: var(--ds-border-width-focus);
-}
-
-/* Markdown-generated pages define this banner inline; keep text contrast
-   accessible from the shared docs stylesheet. */
-body .ds-md-generated-banner,
-body .ds-md-generated-banner code {
-  color: var(--ds-content-strong);
 }
 
 .ds-preview__panel {
@@ -877,6 +882,16 @@ main.ds-main a:not([class]):hover {
 
 .ds-callout a:hover {
   color: var(--ds-content-strong) !important;
+}
+
+.ds-callout code {
+  font-family: var(--ds-font-family-mono);
+  font-size: 0.9em;
+  background: var(--ds-surface-default);
+  color: var(--ds-content-strong);
+  padding: 1px var(--ds-dimension-6);
+  border-radius: var(--ds-radius-sm);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
 }
 
 /* ---------------------------------------------------------

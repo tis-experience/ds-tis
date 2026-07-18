@@ -19,8 +19,6 @@
     .ds-zindex-layer--30 { right: 48px; top: 40px; width: 200px; height: 120px; background-color: var(--ds-surface-elevated); border-color: var(--ds-border-default); color: var(--ds-content-strong); z-index: 30; box-shadow: var(--ds-shadow-lg); }
     .ds-zindex-layer--40 { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 260px; height: 100px; background-color: var(--ds-surface-default); border-color: var(--ds-brand-background-default); color: var(--ds-content-strong); z-index: 40; box-shadow: var(--ds-shadow-xl); }
     .ds-zindex-layer--50 { right: 16px; bottom: 16px; width: 160px; height: 48px; display: flex; align-items: center; justify-content: center; background-color: var(--ds-brand-background-default); border-color: var(--ds-brand-background-default); color: var(--ds-brand-content-default); z-index: 50; box-shadow: var(--ds-shadow-lg); }
-    .ds-callout { padding: var(--ds-dimension-16) var(--ds-dimension-20); border-radius: var(--ds-radius-12); background-color: var(--ds-feedback-warning-background-subtle); border: var(--ds-border-width-1) solid var(--ds-feedback-warning-border-default); margin-bottom: var(--ds-dimension-32); font-size: var(--ds-font-size-14); line-height: var(--ds-line-height-relaxed); color: var(--ds-content-strong); }
-    .ds-callout__title { font-weight: var(--ds-font-weight-semibold); margin-bottom: var(--ds-dimension-4); }
   </style>
   <script>
     (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
@@ -104,7 +102,7 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Regras</span><span data-lang="en">Rules</span></h2>
-    <div class="ds-callout">
+    <div class="ds-callout ds-callout--warning">
       <div class="ds-callout__title"><span data-lang="pt">Sempre use tokens, nunca numeros magicos</span><span data-lang="en">Always use tokens, never magic numbers</span></div>
       <span data-lang="pt">Valores de z-index hardcoded (<code>z-index: 9999</code>) quebram o contrato de empilhamento e causam bugs difíceis de rastrear. Se um componente precisa ficar acima de outro, deve usar o proximo token na escala. Se a escala existente não cobre um caso, isso e um sinal para avaliar se um novo token é necessario (o que requer uma ADR).</span><span data-lang="en">Hardcoded z-index values (<code>z-index: 9999</code>) break the stacking contract and cause bugs that are hard to trace. If a component needs to stack above another, it should use the next token in the scale. If the existing scale doesn't cover a case, that's a signal to evaluate whether a new token is needed (which requires an ADR).</span>
     </div>

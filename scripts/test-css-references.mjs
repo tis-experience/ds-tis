@@ -96,7 +96,7 @@ const docFiles = execSync(
   { cwd: ROOT }
 ).toString().trim().split('\n').filter(Boolean);
 docFiles.push('docs/layout.css');
-// Root index.html — landing page com style inline (badge de versão).
+// Root index.html — landing page (badge de versão via ds-badge).
 // Foi pulado anteriormente; agora incluído pra pegar refs órfãos lá também.
 docFiles.push('index.html');
 

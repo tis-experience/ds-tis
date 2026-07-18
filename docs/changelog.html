@@ -25,8 +25,6 @@
     .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
     .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
     .ds-md-content strong { color: var(--ds-content-default); }
-    .ds-md-generated-banner { background: var(--ds-feedback-info-background-subtle); color: var(--ds-feedback-info-content-default); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); padding: var(--ds-dimension-12) var(--ds-dimension-20); border-radius: var(--ds-radius-md); margin-bottom: var(--ds-dimension-24); font-size: var(--ds-body-font-size-sm); }
-    .ds-md-generated-banner code { background: var(--ds-surface-default); color: var(--ds-feedback-info-content-default); padding: 1px var(--ds-dimension-6); border-radius: var(--ds-radius-sm); font-family: var(--ds-font-family-mono); border: var(--ds-border-width-default) solid var(--ds-feedback-info-border-default); }
   </style>
   <script>
     (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
@@ -59,7 +57,7 @@
     <p class="ds-section__subtitle">Histórico de versões do design system.</p>
   </div>
 
-  <div class="ds-md-generated-banner">
+  <div class="ds-callout ds-callout--info">
     Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
   </div>
 
@@ -68,6 +66,10 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>A partir de <code>1.0.0-beta.1</code>, o sistema entrou em <strong>fase beta</strong> — releases incrementam <code>1.0.0-beta.N</code> até decisão do owner pra dropping do tag → <code>1.0.0</code> oficial. Tags 0.x permanecem como histórico pré-beta. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...HEAD">Não publicado</a></h2>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Docs consomem Badge e Button do DS sem overrides mortos.</strong> A badge de versão na home usa <code>ds-badge--brand ds-badge--subtle</code>; botões “Abrir em nova aba” e CTAs dos templates usam <code>ds-button--ghost</code>; callouts locais duplicados e banners gerados passam pelo padrão <code>ds-callout</code> do layout das docs.</li>
+</ul>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9">1.0.0-beta.9</a> — 2026-07-18</h2>
 <h3>Corrigido</h3>
 <ul>
