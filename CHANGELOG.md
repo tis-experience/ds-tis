@@ -8,6 +8,8 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+## [1.0.0-beta.7] — 2026-07-18
+
 ### Adicionado
 - **Metadados instaláveis para devs e agents IA.** O tarball passa a distribuir e exportar `consumer-context.json`, APIs de componentes/tokens/foundations/ADRs, guia de agent e `llms.txt`/`llms-full.txt`. O contexto publica entrypoints oficiais e um contrato responsivo `intrinsic-first` por componente, sem inventar breakpoints automáticos; o consumer smoke prova a fixture instalada em 320×568, 568×320 e desktop.
 - **Gate App-ready por evidência executada.** Novo `test:app-ready` cria um ledger efêmero, executa lifecycle e consumidor instalado, cruza cases por slug/capability com os requisitos da ADR-020 e mantém um teste negativo que prova que promoção sem cobertura falha. CI também passa a executar `test:audit-scenarios`, e testes de API/pacote derivam os runtimes do catálogo canônico.
@@ -916,3 +918,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - CSS custom properties (`--ds-*`) para todos os tokens foundation.
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
+
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD
+[1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
+[1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6

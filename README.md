@@ -1,6 +1,6 @@
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.6-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.7-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
@@ -22,7 +22,7 @@ Ou no `package.json`:
 }
 ```
 
-Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.6`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
+Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.7`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 

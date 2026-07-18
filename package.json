@@ -1,6 +1,6 @@
 {
   "name": "ds-tis",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "White-label CSS design system with DTCG tokens, component contracts, and light/dark mode",
   "main": "css/design-system.css",
   "style": "css/design-system.css",

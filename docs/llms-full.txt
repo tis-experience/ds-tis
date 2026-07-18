@@ -1,6 +1,6 @@
 # Design System Core — conteúdo consolidado
 
-> Versão 1.0.0-beta.6. Arquivo destinado a consumo por LLMs que precisem
+> Versão 1.0.0-beta.7. Arquivo destinado a consumo por LLMs que precisem
 > do design system inteiro em uma requisição. Inclui README, CONTRIBUTING,
 > CLAUDE.md, CHANGELOG, todos os MDs em docs/, todos os ADRs e um resumo
 > dos tokens. Páginas HTML-only (componentes, foundations) estão referenciadas
@@ -17,7 +17,7 @@ Para APIs JSON, ver docs/api/
 
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.6-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.7-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
@@ -39,7 +39,7 @@ Ou no `package.json`:
 }
 ```
 
-Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.6`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
+Pin por tag ou commit SHA quando precisar de versão estável (`#v1.0.0-beta.7`, `#41abe83`, etc.). Publicação no registry (`npm install ds-tis`) fica para quando o owner decidir — ver `docs/backlog.md` e `docs/process-releasing.md`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 
@@ -285,6 +285,8 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incrementam `1.0.0-beta.N` até decisão do owner pra dropping do tag → `1.0.0` oficial. Tags 0.x permanecem como histórico pré-beta. Regras em `docs/process-versioning.html`.
 
 ## [Não publicado]
+
+## [1.0.0-beta.7] — 2026-07-18
 
 ### Adicionado
 - **Metadados instaláveis para devs e agents IA.** O tarball passa a distribuir e exportar `consumer-context.json`, APIs de componentes/tokens/foundations/ADRs, guia de agent e `llms.txt`/`llms-full.txt`. O contexto publica entrypoints oficiais e um contrato responsivo `intrinsic-first` por componente, sem inventar breakpoints automáticos; o consumer smoke prova a fixture instalada em 320×568, 568×320 e desktop.
@@ -1195,6 +1197,10 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...HEAD
+[1.0.0-beta.7]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.6...v1.0.0-beta.7
+[1.0.0-beta.6]: https://github.com/tis-experience/ds-tis/releases/tag/v1.0.0-beta.6
+
 
 ═══════════════════════════════════════════════════════════
 # docs/adr-index.md
@@ -2050,7 +2056,7 @@ A marca se compromete com WCAG 2.2 AA como mínimo. Isso implica:
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.6**
+> Versão atual: **1.0.0-beta.7**
 
 ## Status geral
 
@@ -21069,13 +21075,13 @@ Seção expandida com contexto, decisão e locais de uso.
 
 > Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-18. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
-> Versão atual: **1.0.0-beta.6**
+> Versão atual: **1.0.0-beta.7**
 
 ## Estado atual
 
 | Aspecto | Valor |
 |---------|-------|
-| Versão | 1.0.0-beta.6 |
+| Versão | 1.0.0-beta.7 |
 | Formato canônico | JSON (DTCG) em `tokens/` |
 | CSS gerado | Style Dictionary → `css/tokens/generated/` |
 | Pipeline | ✅ index.css importa apenas generated/ |
@@ -23869,5 +23875,5 @@ Verificação automática de coerência Figma ↔ JSON ↔ CSS: `scripts/tokens-
 ═══════════════════════════════════════════════════════════
 
 Gerado por scripts/build-llms.mjs.
-Versão: 1.0.0-beta.6
+Versão: 1.0.0-beta.7
 Site: documentação local
