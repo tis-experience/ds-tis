@@ -96,9 +96,16 @@
 <li>templates em <code>docs/templates/</code> e exports <code>ds-tis/templates/*</code>, quando o fluxo se aproxima de um padrão já publicado.</li>
 </ul>
 <p>Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.</p>
-<p>Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
-<code>https://tis-experience.github.io/ds-tis/docs/api/components.json</code>. Não assuma
-que <code>node_modules/ds-tis/docs/api/</code> existe.</p>
+<p>O tarball inclui o contexto machine-readable. Depois da instalação, leia pelos
+exports <code>ds-tis/metadata</code>, <code>ds-tis/metadata/components</code>,
+<code>ds-tis/metadata/tokens</code>, <code>ds-tis/agent-guide</code>, <code>ds-tis/llms</code> e
+<code>ds-tis/llms-full</code>, ou diretamente em <code>node_modules/ds-tis/docs/</code>. Sem o pacote
+instalado, use o fallback público
+<code>https://tis-experience.github.io/ds-tis/docs/api/components.json</code>.</p>
+<p><code>ds-tis/metadata</code> aponta para <code>consumer-context.json</code>: um manifesto pequeno com
+entrypoints oficiais, versão, fontes de verdade e contrato responsivo. JSON
+modules podem exigir import attribute na stack usada; agents e scripts também
+podem ler o arquivo diretamente pelo package resolver ou filesystem.</p>
 <h2>Readiness e responsabilidade</h2>
 <p>Antes de escolher um componente, leia <code>readiness</code> e <code>responsibility</code> em <code>docs/api/components.json</code>:</p>
 <table>
@@ -234,6 +241,21 @@ trigger e content em <code>detail</code>.</p>
 </tr>
 </tbody></table>
 <p>O array <code>runtimeModules</code> no topo de <code>components.json</code> lista todos os módulos publicados. Não importe JS de componentes com <code>runtime: null</code>.</p>
+<h2>Contrato responsivo</h2>
+<p>O DS usa estratégia <code>intrinsic-first</code> e não publica breakpoints automáticos.
+<code>publicBreakpoints</code> é uma lista vazia por design: variantes <code>sm</code>, <code>md</code>, <code>lg</code> ou
+<code>full</code> são escolhas explícitas do produto, não regras ativadas pela viewport.
+Consulte <code>responsiveContract</code>, <code>responsiveProfiles</code> e o campo <code>responsive</code> de
+cada componente em <code>ds-tis/metadata/components</code>.</p>
+<ul>
+<li><code>container</code>: o componente preserva sua anatomia na largura oferecida; o app mantém grid e reflow;</li>
+<li><code>viewport-constrained</code>: Modal e Tooltip aplicam limites intrínsecos contra a viewport;</li>
+<li><code>consumer-managed-horizontal</code>: Tabs, Breadcrumb e Pagination não removem nem resumem itens; o app decide overflow, redução ou composição alternativa;</li>
+<li><code>consumer-selectable-width</code>: Button oferece escolhas explícitas de largura; o app decide quando usá-las.</li>
+</ul>
+<p>O tarball é exercitado em 320×568, 568×320 e 1280×800. Isso prova a fixture de
+referência e os limites de overlays; não substitui teste do conteúdo, zoom,
+idioma, orientação e layout reais do produto consumidor.</p>
 <h2>Regras de implementação</h2>
 <ol>
 <li>Escolha componentes existentes antes de criar markup ad hoc. Consulte <code>readiness</code>, <code>responsibility</code> e <code>runtime</code> em <code>docs/api/components.json</code>.</li>

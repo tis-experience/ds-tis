@@ -74,6 +74,7 @@
 <h2>[Não publicado]</h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Metadados instaláveis para devs e agents IA.</strong> O tarball passa a distribuir e exportar <code>consumer-context.json</code>, APIs de componentes/tokens/foundations/ADRs, guia de agent e <code>llms.txt</code>/<code>llms-full.txt</code>. O contexto publica entrypoints oficiais e um contrato responsivo <code>intrinsic-first</code> por componente, sem inventar breakpoints automáticos; o consumer smoke prova a fixture instalada em 320×568, 568×320 e desktop.</li>
 <li><strong>Gate App-ready por evidência executada.</strong> Novo <code>test:app-ready</code> cria um ledger efêmero, executa lifecycle e consumidor instalado, cruza cases por slug/capability com os requisitos da ADR-020 e mantém um teste negativo que prova que promoção sem cobertura falha. CI também passa a executar <code>test:audit-scenarios</code>, e testes de API/pacote derivam os runtimes do catálogo canônico.</li>
 <li><strong>Runtime público Tooltip.</strong> Novo export <code>ds-tis/tooltip</code> (<code>initTooltips</code>, <code>destroyTooltips</code>, <code>showTooltip</code>, <code>hideTooltip</code>) com hover/focus/Escape (WCAG 1.4.13) e eventos <code>ds-tooltip-show</code>/<code>ds-tooltip-hide</code>.</li>
 <li><strong>Runtime público Tabs.</strong> Novo export <code>ds-tis/tabs</code> (<code>initTabs</code>, <code>destroyTabs</code>, <code>selectTab</code>) com roving tabindex, setas, sync de painéis e evento <code>ds-tabs-change</code>.</li>

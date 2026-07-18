@@ -108,6 +108,13 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.
 
+O pacote também distribui contexto machine-readable para ferramentas e agents:
+`ds-tis/metadata` (manifesto de consumo), `ds-tis/metadata/components`,
+`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
+`ds-tis/llms-full`. O manifesto declara a estratégia responsiva
+`intrinsic-first`: não há breakpoints públicos automáticos; layout, densidade e
+troca de composição pertencem ao app consumidor.
+
 Antes de usar um componente em fluxo crítico, consulte seu `readiness` na
 [API pública de componentes](https://tis-experience.github.io/ds-tis/docs/api/components.json)
 ou no inventário: `app-ready` é recomendado para aplicações, `composition`
@@ -280,6 +287,7 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 ## [Não publicado]
 
 ### Adicionado
+- **Metadados instaláveis para devs e agents IA.** O tarball passa a distribuir e exportar `consumer-context.json`, APIs de componentes/tokens/foundations/ADRs, guia de agent e `llms.txt`/`llms-full.txt`. O contexto publica entrypoints oficiais e um contrato responsivo `intrinsic-first` por componente, sem inventar breakpoints automáticos; o consumer smoke prova a fixture instalada em 320×568, 568×320 e desktop.
 - **Gate App-ready por evidência executada.** Novo `test:app-ready` cria um ledger efêmero, executa lifecycle e consumidor instalado, cruza cases por slug/capability com os requisitos da ADR-020 e mantém um teste negativo que prova que promoção sem cobertura falha. CI também passa a executar `test:audit-scenarios`, e testes de API/pacote derivam os runtimes do catálogo canônico.
 - **Runtime público Tooltip.** Novo export `ds-tis/tooltip` (`initTooltips`, `destroyTooltips`, `showTooltip`, `hideTooltip`) com hover/focus/Escape (WCAG 1.4.13) e eventos `ds-tooltip-show`/`ds-tooltip-hide`.
 - **Runtime público Tabs.** Novo export `ds-tis/tabs` (`initTabs`, `destroyTabs`, `selectTab`) com roving tabindex, setas, sync de painéis e evento `ds-tabs-change`.
@@ -1265,9 +1273,17 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 
 Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.
 
-Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
-`https://tis-experience.github.io/ds-tis/docs/api/components.json`. Não assuma
-que `node_modules/ds-tis/docs/api/` existe.
+O tarball inclui o contexto machine-readable. Depois da instalação, leia pelos
+exports `ds-tis/metadata`, `ds-tis/metadata/components`,
+`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
+`ds-tis/llms-full`, ou diretamente em `node_modules/ds-tis/docs/`. Sem o pacote
+instalado, use o fallback público
+`https://tis-experience.github.io/ds-tis/docs/api/components.json`.
+
+`ds-tis/metadata` aponta para `consumer-context.json`: um manifesto pequeno com
+entrypoints oficiais, versão, fontes de verdade e contrato responsivo. JSON
+modules podem exigir import attribute na stack usada; agents e scripts também
+podem ler o arquivo diretamente pelo package resolver ou filesystem.
 
 ## Readiness e responsabilidade
 
@@ -1393,6 +1409,23 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
+
+## Contrato responsivo
+
+O DS usa estratégia `intrinsic-first` e não publica breakpoints automáticos.
+`publicBreakpoints` é uma lista vazia por design: variantes `sm`, `md`, `lg` ou
+`full` são escolhas explícitas do produto, não regras ativadas pela viewport.
+Consulte `responsiveContract`, `responsiveProfiles` e o campo `responsive` de
+cada componente em `ds-tis/metadata/components`.
+
+- `container`: o componente preserva sua anatomia na largura oferecida; o app mantém grid e reflow;
+- `viewport-constrained`: Modal e Tooltip aplicam limites intrínsecos contra a viewport;
+- `consumer-managed-horizontal`: Tabs, Breadcrumb e Pagination não removem nem resumem itens; o app decide overflow, redução ou composição alternativa;
+- `consumer-selectable-width`: Button oferece escolhas explícitas de largura; o app decide quando usá-las.
+
+O tarball é exercitado em 320×568, 568×320 e 1280×800. Isso prova a fixture de
+referência e os limites de overlays; não substitui teste do conteúdo, zoom,
+idioma, orientação e layout reais do produto consumidor.
 
 ## Regras de implementação
 
@@ -2103,10 +2136,8 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 ## Próximos milestones
 
 1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-2. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
-3. **Componentes pendentes** — Table, Toast, Popover
-4. **Storybook** — opcional, depois do contrato app-ready
-5. **Storybook** — opcional, depois do contrato app-ready
+2. **Componentes pendentes** — Table, Toast, Popover
+3. **Storybook** — opcional, depois do contrato app-ready
 
 
 ═══════════════════════════════════════════════════════════
@@ -23765,12 +23796,11 @@ comportamento.
 
 1. Publicar readiness e responsabilidade na API e no inventário — concluído.
 2. Fazer o guia de consumo orientar devs e agents por readiness — concluído.
-3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — pendente.
-4. Manter smoke test com instalação do tarball real e cobertura por componente —
-   infraestrutura criada; cenários completos entram com cada promoção.
+3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — concluído com exports `ds-tis/metadata*`, `agent-guide` e `llms*`.
+4. Manter smoke test com instalação do tarball real e cobertura por componente — concluído para os seis runtimes, incluindo viewport portrait/landscape estreita.
 5. Publicar módulos runtime sem confundir existência do export com prontidão — concluído.
-6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa.
-7. Promover um componente por vez somente quando todos os cases obrigatórios passarem.
+6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa — concluído.
+7. Promover um componente por vez somente quando todos os cases obrigatórios passarem — concluído nos PRs individuais.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.
 
 ## Consequências

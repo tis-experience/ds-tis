@@ -5,6 +5,7 @@
 Repositório: definir no ambiente de destino.
 Site: documentação local
 Arquivo completo para LLMs: docs/llms-full.txt
+No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e `ds-tis/llms-full`.
 
 ## Visão geral
 
@@ -92,7 +93,8 @@ Arquivo completo para LLMs: docs/llms-full.txt
 
 ## APIs JSON (consumo programático)
 
-- [components.json](docs/api/components.json): catálogo de componentes com variantes e tokens consumidos.
+- [consumer-context.json](docs/api/consumer-context.json): manifesto pequeno com entrypoints, fontes e contrato responsivo intrinsic-first.
+- [components.json](docs/api/components.json): catálogo de componentes com variantes, tokens, readiness, runtime e perfil responsivo.
 - [tokens.json](docs/api/tokens.json): camadas Foundation, Semantic (light/dark) e Component.
 - [adrs.json](docs/api/adrs.json): índice estruturado das decisões.
 - [foundations.json](docs/api/foundations.json): catálogo das foundations.

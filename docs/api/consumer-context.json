@@ -1,0 +1,64 @@
+{
+  "schema": "ds-tis/consumer-context",
+  "schemaVersion": 1,
+  "version": "1.0.0-beta.6",
+  "package": "ds-tis",
+  "entrypoints": {
+    "css": "ds-tis/css",
+    "runtimes": {
+      "accordion": "ds-tis/accordion",
+      "combobox": "ds-tis/combobox",
+      "modal": "ds-tis/modal",
+      "menu": "ds-tis/menu",
+      "tabs": "ds-tis/tabs",
+      "tooltip": "ds-tis/tooltip"
+    },
+    "theme": "ds-tis/theme",
+    "templates": "ds-tis/templates/*",
+    "metadata": {
+      "context": "ds-tis/metadata",
+      "components": "ds-tis/metadata/components",
+      "tokens": "ds-tis/metadata/tokens",
+      "foundations": "ds-tis/metadata/foundations",
+      "adrs": "ds-tis/metadata/adrs"
+    },
+    "agents": {
+      "guide": "ds-tis/agent-guide",
+      "index": "ds-tis/llms",
+      "full": "ds-tis/llms-full"
+    }
+  },
+  "sourceOfTruth": {
+    "components": "docs/api/components.json",
+    "tokens": "docs/api/tokens.json",
+    "agentGuide": "docs/agent-consumer-usage.md"
+  },
+  "responsive": {
+    "version": 1,
+    "model": "intrinsic-first",
+    "publicBreakpoints": [],
+    "testedViewports": [
+      {
+        "inlineSize": 320,
+        "blockSize": 568,
+        "context": "phone-portrait"
+      },
+      {
+        "inlineSize": 568,
+        "blockSize": 320,
+        "context": "phone-landscape"
+      },
+      {
+        "inlineSize": 1280,
+        "blockSize": 800,
+        "context": "desktop"
+      }
+    ],
+    "rules": [
+      "Variants de size são escolhas explícitas de produto; não representam breakpoints automáticos.",
+      "O pacote não publica modificadores de breakpoint nem tokens de viewport.",
+      "O app consumidor mantém o layout da página, a densidade de conteúdo e qualquer troca de composição.",
+      "O smoke do tarball valida ausência de overflow horizontal do documento e limites de overlays na fixture de referência."
+    ]
+  }
+}

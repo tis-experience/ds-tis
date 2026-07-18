@@ -142,6 +142,28 @@ try {
     const installedRuntime = path.join(consumerDir, 'node_modules', 'ds-tis', 'js', `${slug}.js`);
     ok(fs.existsSync(installedRuntime), `consumer must receive ${runtime.module}`);
   }
+  for (const installedMetadata of [
+    'docs/agent-consumer-usage.md',
+    'docs/api/adrs.json',
+    'docs/api/components.json',
+    'docs/api/consumer-context.json',
+    'docs/api/foundations.json',
+    'docs/api/tokens.json',
+    'docs/llms.txt',
+    'docs/llms-full.txt',
+  ]) {
+    ok(
+      fs.existsSync(path.join(consumerDir, 'node_modules', 'ds-tis', installedMetadata)),
+      `consumer must receive ${installedMetadata}`,
+    );
+  }
+  const installedContext = JSON.parse(fs.readFileSync(
+    path.join(consumerDir, 'node_modules', 'ds-tis', 'docs', 'api', 'consumer-context.json'),
+    'utf8',
+  ));
+  ok(installedContext.schema === 'ds-tis/consumer-context', 'installed consumer context schema must resolve');
+  ok(installedContext.responsive?.model === 'intrinsic-first', 'installed responsive contract must be intrinsic-first');
+  ok(installedContext.responsive?.publicBreakpoints?.length === 0, 'installed contract must not invent breakpoints');
 
   // 3. Resolução Node dos exports públicos (como bundler/Node resolveria)
   const publicContracts = [
@@ -322,6 +344,69 @@ try {
     `packed Tooltip must focus/open, expose valid ARIA and close on Escape (${JSON.stringify(tooltipInstalled)})`,
     { slug: 'tooltip', capability: 'consumer-tarball', caseId: 'installed-interaction' },
   );
+
+  // Contrato responsivo no tarball: portrait e landscape estreitos. O DS não
+  // troca variants por breakpoint; deve preservar o documento e overlays na
+  // viewport enquanto o app controla o layout da página.
+  for (const viewport of [
+    { width: 320, height: 568, context: 'phone-portrait' },
+    { width: 568, height: 320, context: 'phone-landscape' },
+  ]) {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'networkidle' });
+    await page.waitForFunction(() => document.documentElement.dataset.smokeReady === 'true');
+
+    const closedLayout = await page.evaluate(() => ({
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    ok(
+      closedLayout.scrollWidth <= closedLayout.clientWidth,
+      `${viewport.context} must not create document horizontal overflow (${JSON.stringify(closedLayout)})`,
+    );
+
+    await page.locator('#consumer-menu-trigger').click();
+    await page.waitForFunction(() => getComputedStyle(document.getElementById('consumer-menu-list')).visibility === 'visible');
+    const menuRect = await page.locator('#consumer-menu-list').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right };
+    });
+    ok(
+      menuRect.left >= 0 && menuRect.right <= viewport.width,
+      `${viewport.context} Action Menu must stay inside the viewport (${JSON.stringify(menuRect)})`,
+    );
+    await page.keyboard.press('Escape');
+
+    await page.locator('#consumer-tooltip-trigger').focus();
+    await page.locator('#consumer-tooltip .ds-tooltip__content').waitFor({ state: 'visible', timeout: 1500 });
+    const tooltipRect = await page.locator('#consumer-tooltip .ds-tooltip__content').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right };
+    });
+    ok(
+      tooltipRect.left >= 0 && tooltipRect.right <= viewport.width,
+      `${viewport.context} Tooltip must stay inside the viewport (${JSON.stringify(tooltipRect)})`,
+    );
+    await page.keyboard.press('Escape');
+
+    await page.locator('#open-modal').click();
+    const modalRect = await page.locator('#confirm-modal .ds-modal').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { top: rect.top, right: rect.right, bottom: rect.bottom, left: rect.left };
+    });
+    ok(
+      modalRect.left >= 0
+        && modalRect.right <= viewport.width
+        && modalRect.top >= 0
+        && modalRect.bottom <= viewport.height,
+      `${viewport.context} Modal must stay inside the viewport (${JSON.stringify(modalRect)})`,
+    );
+    await page.keyboard.press('Escape');
+  }
+
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => document.documentElement.dataset.smokeReady === 'true');
 
   // Exceções assíncronas e console.error invalidam o consumidor. A coleta
   // termina antes do axe: a instrumentação do axe reinsere @imports no
