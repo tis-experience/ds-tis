@@ -91,6 +91,13 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.
 
+O pacote também distribui contexto machine-readable para ferramentas e agents:
+`ds-tis/metadata` (manifesto de consumo), `ds-tis/metadata/components`,
+`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
+`ds-tis/llms-full`. O manifesto declara a estratégia responsiva
+`intrinsic-first`: não há breakpoints públicos automáticos; layout, densidade e
+troca de composição pertencem ao app consumidor.
+
 Antes de usar um componente em fluxo crítico, consulte seu `readiness` na
 [API pública de componentes](https://tis-experience.github.io/ds-tis/docs/api/components.json)
 ou no inventário: `app-ready` é recomendado para aplicações, `composition`

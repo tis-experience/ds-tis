@@ -260,10 +260,8 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 ## Próximos milestones
 
 1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-2. **Distribuição da API para agents** — incluir ou exportar o catálogo machine-readable no pacote
-3. **Componentes pendentes** — Table, Toast, Popover
-4. **Storybook** — opcional, depois do contrato app-ready
-5. **Storybook** — opcional, depois do contrato app-ready
+2. **Componentes pendentes** — Table, Toast, Popover
+3. **Storybook** — opcional, depois do contrato app-ready
 `;
 
 fs.writeFileSync(path.join(OUTPUT_DIR, 'component-inventory.md'), inventory);

@@ -37,9 +37,17 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 
 Não dependa de memória ou suposições sobre classes. Quando houver dúvida, leia a página do componente e a API JSON.
 
-Enquanto o catálogo ainda não fizer parte do tarball npm, consulte a API em
-`https://tis-experience.github.io/ds-tis/docs/api/components.json`. Não assuma
-que `node_modules/ds-tis/docs/api/` existe.
+O tarball inclui o contexto machine-readable. Depois da instalação, leia pelos
+exports `ds-tis/metadata`, `ds-tis/metadata/components`,
+`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
+`ds-tis/llms-full`, ou diretamente em `node_modules/ds-tis/docs/`. Sem o pacote
+instalado, use o fallback público
+`https://tis-experience.github.io/ds-tis/docs/api/components.json`.
+
+`ds-tis/metadata` aponta para `consumer-context.json`: um manifesto pequeno com
+entrypoints oficiais, versão, fontes de verdade e contrato responsivo. JSON
+modules podem exigir import attribute na stack usada; agents e scripts também
+podem ler o arquivo diretamente pelo package resolver ou filesystem.
 
 ## Readiness e responsabilidade
 
@@ -165,6 +173,23 @@ Consulte `docs/api/components.json` antes de importar módulos JS. Cada componen
 | `runtime.events` | Eventos públicos emitidos pelo módulo (`ds-modal-open`, `ds-combobox-change`, etc.). |
 
 O array `runtimeModules` no topo de `components.json` lista todos os módulos publicados. Não importe JS de componentes com `runtime: null`.
+
+## Contrato responsivo
+
+O DS usa estratégia `intrinsic-first` e não publica breakpoints automáticos.
+`publicBreakpoints` é uma lista vazia por design: variantes `sm`, `md`, `lg` ou
+`full` são escolhas explícitas do produto, não regras ativadas pela viewport.
+Consulte `responsiveContract`, `responsiveProfiles` e o campo `responsive` de
+cada componente em `ds-tis/metadata/components`.
+
+- `container`: o componente preserva sua anatomia na largura oferecida; o app mantém grid e reflow;
+- `viewport-constrained`: Modal e Tooltip aplicam limites intrínsecos contra a viewport;
+- `consumer-managed-horizontal`: Tabs, Breadcrumb e Pagination não removem nem resumem itens; o app decide overflow, redução ou composição alternativa;
+- `consumer-selectable-width`: Button oferece escolhas explícitas de largura; o app decide quando usá-las.
+
+O tarball é exercitado em 320×568, 568×320 e 1280×800. Isso prova a fixture de
+referência e os limites de overlays; não substitui teste do conteúdo, zoom,
+idioma, orientação e layout reais do produto consumidor.
 
 ## Regras de implementação
 

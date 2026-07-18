@@ -20,7 +20,10 @@ import {
   BEHAVIOR_MODELS,
   COMPONENTS,
   READINESS_LEVELS,
+  RESPONSIVE_CONTRACT,
+  RESPONSIVE_PROFILES,
   RUNTIME_BY_SLUG,
+  responsiveFor,
   responsibilityFor,
 } from "./lib/component-catalog.mjs";
 
@@ -83,6 +86,7 @@ const components = COMPONENTS.map((c) => {
     readiness: c.readiness,
     readinessNotes: c.readinessNotes,
     responsibility: responsibilityFor(c, runtime),
+    responsive: responsiveFor(c),
     runtime,
     tokens: extractTokensFromCss(cssPath),
     variants: extractVariantsFromCss(cssPath),
@@ -100,10 +104,46 @@ writeJson(path.join(API_DIR, "components.json"), {
   count: components.length,
   readinessLevels: READINESS_LEVELS,
   behaviorModels: BEHAVIOR_MODELS,
+  responsiveProfiles: RESPONSIVE_PROFILES,
+  responsiveContract: RESPONSIVE_CONTRACT,
   runtimeModules: Object.values(RUNTIME_BY_SLUG),
   components,
 });
 console.log(`✅ docs/api/components.json (${components.length} componentes)`);
+
+writeJson(path.join(API_DIR, "consumer-context.json"), {
+  schema: "ds-tis/consumer-context",
+  schemaVersion: 1,
+  version: pkg.version,
+  package: pkg.name,
+  entrypoints: {
+    css: "ds-tis/css",
+    runtimes: Object.fromEntries(
+      Object.entries(RUNTIME_BY_SLUG).map(([slug, runtime]) => [slug, runtime.module]),
+    ),
+    theme: "ds-tis/theme",
+    templates: "ds-tis/templates/*",
+    metadata: {
+      context: "ds-tis/metadata",
+      components: "ds-tis/metadata/components",
+      tokens: "ds-tis/metadata/tokens",
+      foundations: "ds-tis/metadata/foundations",
+      adrs: "ds-tis/metadata/adrs",
+    },
+    agents: {
+      guide: "ds-tis/agent-guide",
+      index: "ds-tis/llms",
+      full: "ds-tis/llms-full",
+    },
+  },
+  sourceOfTruth: {
+    components: "docs/api/components.json",
+    tokens: "docs/api/tokens.json",
+    agentGuide: "docs/agent-consumer-usage.md",
+  },
+  responsive: RESPONSIVE_CONTRACT,
+});
+console.log("✅ docs/api/consumer-context.json");
 
 // -----------------------------------------------------------------------------
 // tokens.json

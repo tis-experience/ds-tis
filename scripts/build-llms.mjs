@@ -93,6 +93,7 @@ const llmsTxt = `# Design System Core
 Repositório: definir no ambiente de destino.
 Site: ${DOCS_BASE_URL || "documentação local"}
 Arquivo completo para LLMs: ${docUrl("docs/llms-full.txt")}
+No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-tis/metadata/tokens\`, \`ds-tis/agent-guide\`, \`ds-tis/llms\` e \`ds-tis/llms-full\`.
 
 ## Visão geral
 
@@ -130,7 +131,8 @@ ${adrs.map((a) => `- [ADR-${a.num} — ${a.title}](${docUrl(`docs/decisions/${a.
 
 ## APIs JSON (consumo programático)
 
-- [components.json](${docUrl("docs/api/components.json")}): catálogo de componentes com variantes e tokens consumidos.
+- [consumer-context.json](${docUrl("docs/api/consumer-context.json")}): manifesto pequeno com entrypoints, fontes e contrato responsivo intrinsic-first.
+- [components.json](${docUrl("docs/api/components.json")}): catálogo de componentes com variantes, tokens, readiness, runtime e perfil responsivo.
 - [tokens.json](${docUrl("docs/api/tokens.json")}): camadas Foundation, Semantic (light/dark) e Component.
 - [adrs.json](${docUrl("docs/api/adrs.json")}): índice estruturado das decisões.
 - [foundations.json](${docUrl("docs/api/foundations.json")}): catálogo das foundations.

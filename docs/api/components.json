@@ -37,6 +37,56 @@
       "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
     }
   },
+  "responsiveProfiles": {
+    "container": {
+      "label": "Container do consumidor",
+      "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+      "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+    },
+    "viewport-constrained": {
+      "label": "Limitado pela viewport",
+      "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
+      "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
+    },
+    "consumer-managed-horizontal": {
+      "label": "Coleção horizontal gerida pelo consumidor",
+      "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
+      "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
+    },
+    "consumer-selectable-width": {
+      "label": "Largura selecionável pelo consumidor",
+      "ds": "Entrega variantes explícitas de largura quando documentadas; não as ativa automaticamente por viewport.",
+      "consumer": "Escolhe a variante ou largura no breakpoint do layout da aplicação."
+    }
+  },
+  "responsiveContract": {
+    "version": 1,
+    "model": "intrinsic-first",
+    "publicBreakpoints": [],
+    "testedViewports": [
+      {
+        "inlineSize": 320,
+        "blockSize": 568,
+        "context": "phone-portrait"
+      },
+      {
+        "inlineSize": 568,
+        "blockSize": 320,
+        "context": "phone-landscape"
+      },
+      {
+        "inlineSize": 1280,
+        "blockSize": 800,
+        "context": "desktop"
+      }
+    ],
+    "rules": [
+      "Variants de size são escolhas explícitas de produto; não representam breakpoints automáticos.",
+      "O pacote não publica modificadores de breakpoint nem tokens de viewport.",
+      "O app consumidor mantém o layout da página, a densidade de conteúdo e qualquer troca de composição.",
+      "O smoke do tarball valida ausência de overflow horizontal do documento e limites de overlays na fixture de referência."
+    ]
+  },
   "runtimeModules": [
     {
       "level": "required",
@@ -153,6 +203,12 @@
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/accordion",
@@ -232,6 +288,12 @@
         "label": "HTML nativo",
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
+      "responsive": {
+        "profile": "consumer-selectable-width",
+        "label": "Largura selecionável pelo consumidor",
+        "ds": "Entrega variantes explícitas de largura quando documentadas; não as ativa automaticamente por viewport.",
+        "consumer": "Escolhe a variante ou largura no breakpoint do layout da aplicação."
       },
       "runtime": null,
       "tokens": [
@@ -376,6 +438,12 @@
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -482,6 +550,12 @@
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -561,6 +635,12 @@
         "label": "HTML nativo",
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": null,
       "tokens": [
@@ -671,6 +751,12 @@
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": {
         "level": "required",
@@ -808,6 +894,12 @@
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -889,6 +981,12 @@
         "label": "HTML nativo",
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": null,
       "tokens": [
@@ -977,6 +1075,12 @@
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -1056,6 +1160,12 @@
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-badge-bg-brand-solid",
@@ -1120,6 +1230,12 @@
         "label": "Apresentação",
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": null,
       "tokens": [
@@ -1193,6 +1309,12 @@
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-card-bg-default",
@@ -1257,6 +1379,12 @@
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
+      },
+      "responsive": {
+        "profile": "viewport-constrained",
+        "label": "Limitado pela viewport",
+        "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
+        "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
       },
       "runtime": {
         "level": "required",
@@ -1359,6 +1487,12 @@
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
+      "responsive": {
+        "profile": "viewport-constrained",
+        "label": "Limitado pela viewport",
+        "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
+        "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/tooltip",
@@ -1417,6 +1551,12 @@
         "label": "Runtime do DS",
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": {
         "level": "required",
@@ -1525,6 +1665,12 @@
         "ds": "Mantém o comportamento reutilizável de interação e acessibilidade por módulo público.",
         "consumer": "Chama init após render, destroy ao desmontar, e fornece dados, eventos e regras de negócio."
       },
+      "responsive": {
+        "profile": "consumer-managed-horizontal",
+        "label": "Coleção horizontal gerida pelo consumidor",
+        "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
+        "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/tabs",
@@ -1586,6 +1732,12 @@
         "ds": "Entrega anatomia, visual, estados e orientação de semântica nativa.",
         "consumer": "Controla dados, eventos e regras de negócio usando o elemento HTML adequado."
       },
+      "responsive": {
+        "profile": "consumer-managed-horizontal",
+        "label": "Coleção horizontal gerida pelo consumidor",
+        "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
+        "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
+      },
       "runtime": null,
       "tokens": [
         "ds-breadcrumb-focus-ring-radius-default",
@@ -1627,6 +1779,12 @@
         "label": "Aplicação",
         "ds": "Entrega a composição, anatomia e estados visuais públicos.",
         "consumer": "Mantém a orquestração entre elementos, dados, navegação e regras de negócio."
+      },
+      "responsive": {
+        "profile": "consumer-managed-horizontal",
+        "label": "Coleção horizontal gerida pelo consumidor",
+        "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
+        "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
       },
       "runtime": null,
       "tokens": [
@@ -1689,6 +1847,12 @@
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-avatar-bg-default",
@@ -1739,6 +1903,12 @@
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-divider-line-color-default",
@@ -1768,6 +1938,12 @@
         "label": "Aplicação",
         "ds": "Entrega a composição, anatomia e estados visuais públicos.",
         "consumer": "Mantém a orquestração entre elementos, dados, navegação e regras de negócio."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": null,
       "tokens": [
@@ -1816,6 +1992,12 @@
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
       },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
       "runtime": null,
       "tokens": [
         "ds-motion-duration-slower",
@@ -1856,6 +2038,12 @@
         "label": "Apresentação",
         "ds": "Entrega anatomia visual, tokens e orientação semântica sem runtime de componente.",
         "consumer": "Fornece conteúdo, contexto e qualquer ação de produto associada."
+      },
+      "responsive": {
+        "profile": "container",
+        "label": "Container do consumidor",
+        "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+        "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
       "runtime": null,
       "tokens": [

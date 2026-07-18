@@ -46,6 +46,60 @@ export const BEHAVIOR_MODELS = {
   },
 };
 
+export const RESPONSIVE_PROFILES = {
+  container: {
+    label: "Container do consumidor",
+    ds: "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
+    consumer: "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente.",
+  },
+  "viewport-constrained": {
+    label: "Limitado pela viewport",
+    ds: "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
+    consumer: "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação.",
+  },
+  "consumer-managed-horizontal": {
+    label: "Coleção horizontal gerida pelo consumidor",
+    ds: "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
+    consumer: "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto.",
+  },
+  "consumer-selectable-width": {
+    label: "Largura selecionável pelo consumidor",
+    ds: "Entrega variantes explícitas de largura quando documentadas; não as ativa automaticamente por viewport.",
+    consumer: "Escolhe a variante ou largura no breakpoint do layout da aplicação.",
+  },
+};
+
+export const RESPONSIVE_CONTRACT = {
+  version: 1,
+  model: "intrinsic-first",
+  publicBreakpoints: [],
+  testedViewports: [
+    { inlineSize: 320, blockSize: 568, context: "phone-portrait" },
+    { inlineSize: 568, blockSize: 320, context: "phone-landscape" },
+    { inlineSize: 1280, blockSize: 800, context: "desktop" },
+  ],
+  rules: [
+    "Variants de size são escolhas explícitas de produto; não representam breakpoints automáticos.",
+    "O pacote não publica modificadores de breakpoint nem tokens de viewport.",
+    "O app consumidor mantém o layout da página, a densidade de conteúdo e qualquer troca de composição.",
+    "O smoke do tarball valida ausência de overflow horizontal do documento e limites de overlays na fixture de referência.",
+  ],
+};
+
+const RESPONSIVE_PROFILE_BY_SLUG = {
+  button: "consumer-selectable-width",
+  modal: "viewport-constrained",
+  tooltip: "viewport-constrained",
+  tabs: "consumer-managed-horizontal",
+  breadcrumb: "consumer-managed-horizontal",
+  pagination: "consumer-managed-horizontal",
+};
+
+export function responsiveFor(component) {
+  const profile = RESPONSIVE_PROFILE_BY_SLUG[component.slug] || "container";
+  return { profile, ...RESPONSIVE_PROFILES[profile] };
+}
+
 /**
  * Responsabilidade publicada para um componente, considerando disponibilidade
  * Ownership (`ds-runtime`) não implica módulo já distribuído.

@@ -137,12 +137,11 @@ comportamento.
 
 1. Publicar readiness e responsabilidade na API e no inventário — concluído.
 2. Fazer o guia de consumo orientar devs e agents por readiness — concluído.
-3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — pendente.
-4. Manter smoke test com instalação do tarball real e cobertura por componente —
-   infraestrutura criada; cenários completos entram com cada promoção.
+3. Distribuir o catálogo machine-readable e o contexto mínimo junto ao pacote — concluído com exports `ds-tis/metadata*`, `agent-guide` e `llms*`.
+4. Manter smoke test com instalação do tarball real e cobertura por componente — concluído para os seis runtimes, incluindo viewport portrait/landscape estreita.
 5. Publicar módulos runtime sem confundir existência do export com prontidão — concluído.
-6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa.
-7. Promover um componente por vez somente quando todos os cases obrigatórios passarem.
+6. Endurecer cada runtime contra seus blockers objetivos e produzir a matriz completa — concluído.
+7. Promover um componente por vez somente quando todos os cases obrigatórios passarem — concluído nos PRs individuais.
 8. Só então decidir adaptador oficial por tecnologia com base em demanda real.
 
 ## Consequências
