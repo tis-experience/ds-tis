@@ -126,6 +126,22 @@
       </div>
     </section>
 
+    <section class="smoke-card" aria-labelledby="tabs-title">
+      <h2 id="tabs-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Conteúdo</h2>
+      <form id="consumer-tabs-form" data-submit-count="0">
+        <div class="ds-tabs" id="consumer-tabs" role="tablist" aria-label="Conteúdo do consumidor">
+          <button class="ds-tab ds-tab--active" role="tab" id="consumer-tab-a" aria-selected="true" aria-controls="consumer-panel-a">Resumo</button>
+          <button class="ds-tab" role="tab" id="consumer-tab-b" aria-selected="false" aria-controls="consumer-panel-b">Detalhes</button>
+        </div>
+        <div class="ds-tab-panel" id="consumer-panel-a" role="tabpanel" aria-labelledby="consumer-tab-a">
+          <p style="margin:0">Resumo instalado pelo tarball.</p>
+        </div>
+        <div class="ds-tab-panel" id="consumer-panel-b" role="tabpanel" aria-labelledby="consumer-tab-b" hidden>
+          <p style="margin:0">Detalhes instalados pelo tarball.</p>
+        </div>
+      </form>
+    </section>
+
     <p id="status" role="status" style="margin:0;color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm)">
       Aguardando runtime…
     </p>

@@ -82,14 +82,18 @@
     </div>
 
     <div class="ds-tabs" id="life-tabs" role="tablist" aria-label="Lifecycle tabs">
-      <button class="ds-tab ds-tab--active" role="tab" id="life-tab-a" aria-selected="true" aria-controls="life-panel-a">A</button>
-      <button class="ds-tab" role="tab" id="life-tab-b" aria-selected="false" aria-controls="life-panel-b" tabindex="-1">B</button>
+      <button class="ds-tab ds-tab--active" type="button" role="tab" id="life-tab-a" aria-selected="true" aria-controls="life-panel-a">A</button>
+      <button class="ds-tab" type="button" role="tab" id="life-tab-b" aria-selected="false" aria-controls="life-panel-b" tabindex="-1">B</button>
+      <button class="ds-tab" type="button" role="tab" id="life-tab-disabled" aria-selected="false" aria-controls="life-panel-disabled" aria-disabled="true" tabindex="-1">Indisponível</button>
     </div>
     <div class="ds-tab-panel" id="life-panel-a" role="tabpanel" aria-labelledby="life-tab-a">
       <p style="margin:0">Painel tab A</p>
     </div>
     <div class="ds-tab-panel" id="life-panel-b" role="tabpanel" aria-labelledby="life-tab-b" hidden>
       <p style="margin:0">Painel tab B</p>
+    </div>
+    <div class="ds-tab-panel" id="life-panel-disabled" role="tabpanel" aria-labelledby="life-tab-disabled" hidden>
+      <p style="margin:0">Painel indisponível</p>
     </div>
 
     <div class="ds-tooltip ds-tooltip--top" id="life-tooltip">

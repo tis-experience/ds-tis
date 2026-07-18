@@ -37,7 +37,7 @@ function getEnabledTabs(tabs) {
 
 function getPanel(tab) {
   const id = tab.getAttribute('aria-controls');
-  return id ? document.getElementById(id) : null;
+  return id ? tab.ownerDocument.getElementById(id) : null;
 }
 
 function emit(tablist, name, detail) {
@@ -75,6 +75,7 @@ function createInstance(tablist) {
 
       if (focus) tab.focus();
       emit(tablist, 'ds-tabs-change', {
+        root: tablist,
         tab,
         panel: getPanel(tab),
         previousTab: previous,
@@ -108,16 +109,23 @@ function createInstance(tablist) {
     || null;
 
   for (const tab of tabs) {
+    if (tab instanceof HTMLButtonElement && !tab.hasAttribute('type')) {
+      tab.type = 'button';
+    }
     const selected = tab === initial;
     tab.setAttribute('aria-selected', String(selected));
     tab.classList.toggle('ds-tab--active', selected);
     tab.tabIndex = selected ? 0 : -1;
     const panel = getPanel(tab);
-    if (panel) panel.hidden = !selected;
+    if (panel) {
+      panel.hidden = !selected;
+      if (!panel.hasAttribute('tabindex')) panel.tabIndex = 0;
+    }
   }
 
   for (const tab of tabs) {
-    on(tab, 'click', () => {
+    on(tab, 'click', (event) => {
+      event.preventDefault();
       if (isDisabled(tab)) return;
       inst.select(tab, { focus: true });
     });
@@ -151,14 +159,19 @@ function isInside(root, node) {
  */
 export function initTabs(root = document) {
   const created = [];
+  const tablists = [];
 
-  root.querySelectorAll('.ds-tabs[role="tablist"], .ds-tabs').forEach((tablist) => {
-    if (!tablist.matches('.ds-tabs')) return;
+  if (root instanceof Element && root.matches('.ds-tabs')) tablists.push(root);
+  if (typeof root.querySelectorAll === 'function') {
+    tablists.push(...root.querySelectorAll('.ds-tabs'));
+  }
+
+  tablists.forEach((tablist) => {
     if (!tablist.hasAttribute('role')) tablist.setAttribute('role', 'tablist');
     if (tablist.dataset.dsTabsInit === 'true') return;
-    tablist.dataset.dsTabsInit = 'true';
     const inst = createInstance(tablist);
     if (inst) {
+      tablist.dataset.dsTabsInit = 'true';
       instances.add(inst);
       created.push(inst);
     }

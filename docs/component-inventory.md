@@ -23,7 +23,7 @@
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
