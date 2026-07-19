@@ -71,7 +71,8 @@ com o trabalho concluído e revisado; <code>main</code> recebe a mudança por pu
 <h2>Antes de começar</h2>
 <ul>
 <li><input disabled="" type="checkbox" aria-hidden="true"> Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.</li>
-<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code> e <code>npm run test:app-ready</code> rodam sem erro.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> Um snapshot Figma com menos de 24 horas foi validado por <code>npm run release:figma-evidence</code> e a atestação gerada está no diff.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code>, <code>npm run verify:release-evidence</code> e <code>npm run test:app-ready</code> rodam sem erro.</li>
 <li><input disabled="" type="checkbox" aria-hidden="true"> <code>CHANGELOG.md</code> tem entradas em <code>[Não publicado]</code> cobrindo tudo que mudou desde a última versão.</li>
 </ul>
 <h2>Passo a passo</h2>
@@ -86,6 +87,15 @@ com o trabalho concluído e revisado; <code>main</code> recebe a mudança por pu
 </ul>
 </li>
 <li><p><strong>Atualizar <code>package.json</code></strong>: alterar o campo <code>version</code> para <code>1.0.0-beta.N</code> durante beta.</p>
+</li>
+<li><p><strong>Gerar a evidência Figma da versão</strong> depois de instalar um snapshot vivo:</p>
+<pre tabindex="0"><code class="language-bash">npm run release:figma-evidence
+npm run verify:release-evidence
+</code></pre>
+<p>O snapshot continua gitignored. O arquivo commitado
+<code>docs/api/release-figma-evidence.json</code> registra somente metadados seguros,
+resultados dos gates e SHA-256 do snapshot e dos tokens. Se a versão ou
+qualquer JSON de token mudar depois da validação, o CI falha.</p>
 </li>
 <li><p><strong>Commit de release</strong>:</p>
 <pre tabindex="0"><code class="language-bash">git add CHANGELOG.md package.json package-lock.json docs/
@@ -110,22 +120,26 @@ git push origin v1.0.0-beta.N
 <ul>
 <li><code>.github/workflows/deploy.yml</code> roda <code>npm run build:all</code>.</li>
 <li>Valida que o CSS gerado commitado bate com <code>build:tokens</code>; o workflow é read-only e não corrige nem auto-commita arquivos.</li>
+<li>Constrói <code>_site/</code> somente com <code>index.html</code>, <code>css/</code>, <code>docs/</code> e <code>js/</code>, audita links locais e ausência de arquivos privados.</li>
+<li>Publica o artefato com <code>configure-pages</code>, <code>upload-pages-artifact</code> e <code>deploy-pages</code>; o Pages não usa mais o builder legado.</li>
 <li>Todos os derivados de <code>css/tokens/generated/</code> e <code>docs/</code> devem ser regenerados, revisados e incluídos no commit de release antes da tag.</li>
 <li>Publica o site estático no ambiente definido pelo projeto.</li>
 </ul>
 </li>
-<li><p><strong>Publicar a beta no npm</strong> depois que o commit de <code>main</code> estiver verde:</p>
+<li><p><strong>Publicar no npm</strong> depois que o commit de <code>main</code> estiver verde:</p>
+</li>
+</ol>
 <pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
 npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
 </code></pre>
-</li>
-<li><p><strong>Verificar</strong>:</p>
-</li>
+<ol start="11">
+<li><strong>Verificar</strong>:</li>
 </ol>
 <ul>
 <li>A página inicial mostra a badge <code>1.0.0-beta.N</code>.</li>
 <li><code>docs/changelog.html</code> lista <code>1.0.0-beta.N</code> como versão mais recente.</li>
 <li><code>docs/api/tokens-sync.json</code> tem timestamp recente e zero erros.</li>
+<li><code>docs/api/release-figma-evidence.json</code> corresponde à versão e ao digest atual dos tokens.</li>
 <li><code>npm view ds-tis@beta version</code> e <code>npm view ds-tis@latest version</code> retornam <code>1.0.0-beta.N</code>.</li>
 <li>Uma instalação limpa com <code>npm install ds-tis</code> passa no consumer smoke.</li>
 </ul>
@@ -151,7 +165,8 @@ release branch with all intended work complete.</p>
 <h2>Before starting</h2>
 <ul>
 <li><input disabled="" type="checkbox" aria-hidden="true"> Release changes are in small, readable commits with Portuguese messages.</li>
-<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code> and <code>npm run test:app-ready</code> pass.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> A Figma snapshot newer than 24 hours was validated with <code>npm run release:figma-evidence</code>, and the generated attestation is part of the diff.</li>
+<li><input disabled="" type="checkbox" aria-hidden="true"> <code>npm run build:tokens</code>, <code>npm run sync:docs</code>, <code>npm run verify:tokens</code>, <code>npm run verify:release-evidence</code> and <code>npm run test:app-ready</code> pass.</li>
 <li><input disabled="" type="checkbox" aria-hidden="true"> <code>[Não publicado]</code> in <code>CHANGELOG.md</code> covers every change since the previous version.</li>
 </ul>
 <h2>Step-by-step</h2>
@@ -166,6 +181,15 @@ release branch with all intended work complete.</p>
 </ul>
 </li>
 <li><p><strong>Update package metadata:</strong> change <code>package.json</code> and <code>package-lock.json</code> to <code>1.0.0-beta.N</code>.</p>
+</li>
+<li><p><strong>Generate the Figma evidence for this version</strong> after installing a live snapshot:</p>
+<pre tabindex="0"><code class="language-bash">npm run release:figma-evidence
+npm run verify:release-evidence
+</code></pre>
+<p>The snapshot remains gitignored. The committed
+<code>docs/api/release-figma-evidence.json</code> stores safe metadata, gate results and
+SHA-256 digests for the snapshot and tokens. CI fails if the version or any
+token JSON changes after validation.</p>
 </li>
 <li><p><strong>Create the release commit:</strong></p>
 <pre tabindex="0"><code class="language-bash">git add CHANGELOG.md package.json package-lock.json docs/
@@ -183,18 +207,21 @@ git commit -m &quot;chore(release): 1.0.0-beta.N&quot;
 git push origin v1.0.0-beta.N
 </code></pre>
 </li>
-<li><p><strong>Publish the beta to npm</strong> after the merged <code>main</code> commit is green:</p>
+<li><p><strong>Publish to npm</strong> after the merged <code>main</code> commit is green:</p>
+</li>
+</ol>
 <pre tabindex="0"><code class="language-bash">npm publish --access public --tag beta
 npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
 </code></pre>
-</li>
-<li><p><strong>Verify the publication:</strong></p>
-</li>
+<ol start="11">
+<li><strong>Verify the publication:</strong></li>
 </ol>
 <ul>
 <li>the home page shows <code>1.0.0-beta.N</code>;</li>
 <li><code>docs/changelog.html</code> lists it as the latest release;</li>
 <li><code>docs/api/tokens-sync.json</code> is current and has zero errors;</li>
+<li><code>docs/api/release-figma-evidence.json</code> matches the version and current token digest;</li>
+<li>GitHub Pages was deployed from the audited <code>_site/</code> artifact by the custom Actions workflow;</li>
 <li><code>npm view ds-tis@beta version</code> and <code>npm view ds-tis@latest version</code> return <code>1.0.0-beta.N</code>;</li>
 <li>a clean <code>npm install ds-tis</code> succeeds;</li>
 <li>the installed tarball passes the consumer smoke test.</li>

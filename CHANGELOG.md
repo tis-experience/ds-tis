@@ -8,6 +8,12 @@ A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incre
 
 ## [Não publicado]
 
+### Adicionado
+- **Atestação Figma auditável por release.** `release:figma-evidence` exige snapshot vivo, executa os gates de tokens/estrutura/uso e publica somente metadados e SHA-256 seguros; o CI recalcula o digest dos tokens e bloqueia releases cuja versão ou conteúdo não correspondam ao que foi validado contra o Figma.
+
+### Alterado
+- **GitHub Pages migra do builder legado para Actions Node 24.** PRs passam a construir e auditar o mesmo artefato público mínimo usado em produção, enquanto `configure-pages@v6`, `upload-pages-artifact@v5` e `deploy-pages@v5` eliminam a dependência interna de Actions Node 20.
+
 ## [1.0.0-beta.10] — 2026-07-18
 
 ### Alterado

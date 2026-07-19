@@ -15,10 +15,12 @@ Use somente com autorizacao explicita para commit, PR, push ou publicacao.
 - [ ] `npm run verify:tokens`.
 - [ ] `npm run verify:registry` quando aplicavel.
 - [ ] `npm run verify:figma-structure` quando Figma/snapshot estiver no escopo.
+- [ ] `npm run release:figma-evidence` com snapshot vivo e `npm run verify:release-evidence` antes de qualquer bump/publicação.
 - [ ] `npm test` ou testes relevantes.
 - [ ] `npm run test:app-ready` para qualquer release; não usar `--skip-visual` em CI/release.
 - [ ] `npm run pack:check` antes de publicar o pacote no registry.
 - [ ] CI verificado quando houver PR/push.
+- [ ] GitHub Pages usa `build_type=workflow`, deploy verde e artefato público validado por `npm run build:pages`.
 
 ## Git/GitHub
 
