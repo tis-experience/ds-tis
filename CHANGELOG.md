@@ -4,14 +4,17 @@ Todas as mudanças notáveis deste design system são registradas aqui.
 
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-A partir de `1.0.0-beta.1`, o sistema entrou em **fase beta** — releases incrementam `1.0.0-beta.N` até decisão do owner pra dropping do tag → `1.0.0` oficial. Tags 0.x permanecem como histórico pré-beta. Regras em `docs/process-versioning.html`.
+O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável; as tags `1.0.0-beta.N` e 0.x permanecem como histórico. Regras em `docs/process-versioning.html`.
 
 ## [Não publicado]
+
+## [1.0.0] — 2026-07-19
 
 ### Adicionado
 - **Atestação Figma auditável por release.** `release:figma-evidence` exige snapshot vivo, executa os gates de tokens/estrutura/uso e publica somente metadados e SHA-256 seguros; o CI recalcula o digest dos tokens e bloqueia releases cuja versão ou conteúdo não correspondam ao que foi validado contra o Figma.
 
 ### Alterado
+- **Primeiro contrato estável do Design System TIS.** A versão `1.0.0` promove 21 componentes App-ready e 2 composições, runtimes com lifecycle público, tokens DTCG em três camadas, metadados para agents IA, templates, theming e documentação bilíngue sob Semantic Versioning.
 - **GitHub Pages migra do builder legado para Actions Node 24.** PRs passam a construir e auditar o mesmo artefato público mínimo usado em produção, enquanto `configure-pages@v6`, `upload-pages-artifact@v5` e `deploy-pages@v5` eliminam a dependência interna de Actions Node 20.
 
 ## [1.0.0-beta.10] — 2026-07-18
@@ -957,7 +960,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 - Reset base com carregamento de Inter + DM Mono.
 - Estrutura do repositório: `css/`, `docs/`, `js/`.
 
-[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.10...HEAD
+[Não publicado]: https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.10...v1.0.0
 [1.0.0-beta.10]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.9...v1.0.0-beta.10
 [1.0.0-beta.9]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [1.0.0-beta.8]: https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.7...v1.0.0-beta.8

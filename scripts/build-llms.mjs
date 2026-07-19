@@ -126,7 +126,7 @@ ${adrs.map((a) => `- [ADR-${a.num} — ${a.title}](${docUrl(`docs/decisions/${a.
 ## Processo
 
 - [Contributing](${docUrl("docs/process-contributing.html")}): setup, fluxo de PR, convenções.
-- [Versionamento](${docUrl("docs/process-versioning.html")}): releases 1.0.0-beta.N com cadência semanal durante beta.
+- [Versionamento](${docUrl("docs/process-versioning.html")}): Semantic Versioning estável a partir de 1.0.0.
 - [Releases](${docUrl("docs/process-releasing.html")}): passo a passo.
 - [Changelog](${docUrl("docs/changelog.html")}): histórico de versões.
 - [Backlog](${docUrl("docs/backlog.html")}): itens fora do escopo imediato.
@@ -143,6 +143,7 @@ ${adrs.map((a) => `- [ADR-${a.num} — ${a.title}](${docUrl(`docs/decisions/${a.
 - [adrs.json](${docUrl("docs/api/adrs.json")}): índice estruturado das decisões.
 - [foundations.json](${docUrl("docs/api/foundations.json")}): catálogo das foundations.
 - [tokens-sync.json](${docUrl("docs/api/tokens-sync.json")}): estado de coerência Figma ↔ JSON ↔ CSS.
+- [release-figma-evidence.json](${docUrl("docs/api/release-figma-evidence.json")}): atestação da versão contra snapshot Figma vivo e digest dos tokens.
 
 ## Figma
 

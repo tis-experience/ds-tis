@@ -1,140 +1,103 @@
 # Versioning
 
-The design system follows [Semantic Versioning](https://semver.org/). It is
-currently in the **1.0 beta phase**: releases remain `1.0.0-beta.N` until the
-design owner approves the official release.
+The TIS Design System follows [Semantic Versioning](https://semver.org/) and is
+stable from `1.0.0` onward.
 
-## Current beta policy
-
-Every release increments `N` in `1.0.0-beta.N`. There are no separate minor or
-patch releases during beta; each release is a coherent system snapshot:
-
-```
-v0.8.0           ← last pre-beta release
-v1.0.0-beta.1    ← first beta release
-v1.0.0-beta.2
-v1.0.0-beta.3
-...
-v1.0.0-rc.1      ← release candidate, owner decision
-v1.0.0           ← official release, owner decision
-```
-
-### When to bump
-
-Use a coherent package plus a time fallback.
-
-#### 1. Significant change
-
-Bump when at least one of these happens since the previous beta:
-
-- an accepted ADR changes architecture or a public contract;
-- a public namespace or token is renamed;
-- a new component ships outside draft status;
-- a token layer is removed or consolidated;
-- a source-of-truth rule changes;
-- a relevant structural migration closes across Figma and the repository.
-
-#### 2. Complete feature
-
-Bump when a set of changes closes a feature, not for each partial commit. A
-theming feature, for example, ships with Foundation, Semantic, adapted
-components and documentation together.
-
-#### 3. Time fallback
-
-When patches accumulate without an architectural or feature trigger, publish a
-weekly beta. This prevents `[Não publicado]` from becoming an unbounded dump.
-
-### When not to bump
-
-- unshipped work in progress;
-- partial cleanup;
-- every isolated session commit;
-- internal documentation or scripts with no consumer impact;
-- automatic regeneration by CI;
-- refactors without observable impact.
-
-## Post-1.0 policy
-
-After the owner approves `1.0.0`, use standard semver:
+## Current policy
 
 | Type | Example | When |
 |---|---|---|
-| Patch | 1.0.1 | Targeted compatible fix. |
-| Minor | 1.1.0 | Compatible addition such as a component, foundation or token. |
-| Major | 2.0.0 | Breaking removal or rename of a public token, class or API. |
+| **Patch** | `1.0.1` | Compatible fix, hardening, documentation or internal adjustment with no public contract break. |
+| **Minor** | `1.1.0` | Compatible addition such as a component, token, foundation, template or API. |
+| **Major** | `2.0.0` | Breaking removal or incompatible rename of a token, class, markup contract, export or public behavior. |
 
-## Maturity criteria for leaving beta
+Classification is based on impact for designers, developers and AI agents, not
+diff size. A small change may require a major release if it breaks a public
+contract; a large additive implementation may remain minor.
 
-The official 1.0 release is an owner decision, not an automatic technical gate.
-This checklist records maturity.
+## Prereleases
 
-### Architecture
+Future prereleases use `X.Y.Z-beta.N` and are published only to the npm `beta`
+dist-tag:
 
-- [x] Zero errors in `verify:tokens`.
-- [x] Zero Foundation leaks in component and base CSS.
-- [x] Components audited between Figma and CSS.
-- [x] Complete Text Style coverage for non-Material component text in Figma.
-- [x] Designer-focused descriptions on Figma component sets.
+```text
+1.1.0-beta.1  → npm install ds-tis@beta
+1.1.0         → npm install ds-tis
+```
 
-### Current maturity
+`latest` always points to the newest stable release. A beta never replaces
+`latest` while a stable release exists.
 
-- [x] `Form Field` defined as CSS-only by ADR-017.
-- [x] `docs/brand-principles.md` contains real operational content.
-- [x] Snapshot exporter and local Figma↔JSON/structure gates available.
-- [ ] Historical ADRs reviewed with evolution notes where needed.
-- [x] `docs/process-figma-sync.md` reflects current naming and exporter flow.
-- [x] `tokens/registry.json` has complete metadata.
-- [x] Visual regression runs in CI and platform-specific local baselines.
-- [x] axe-core accessibility tests run in light and dark modes.
-- [ ] Automated Figma→JSON CI sync; conditional on a plugin because the REST API requires Enterprise.
+## When to version
+
+Create a release when a coherent package of observable changes is complete,
+documented and approved. Typical triggers include:
+
+- a production-ready compatible or accessibility fix;
+- a complete component or runtime;
+- a public token or contract change;
+- infrastructure that changes publication or consumption;
+- documentation or machine-readable API changes that affect handoff.
+
+Do not version work in progress, regeneration with no observable change,
+internal notes or refactors that do not affect the contract.
+
+## 1.0 maturity closure
+
+The owner approved the stable promotion after this evidence was complete.
+
+### Architecture and consumption
+
+- [x] `verify:tokens` reports zero errors and zero warnings.
+- [x] No Foundation leaks remain in component or base CSS.
+- [x] Components are audited across Figma, tokens, CSS and documentation.
+- [x] All 23 components are classified: 21 App-ready and 2 compositions, with no experimental components.
+- [x] Six public runtimes prove init, destroy, hydration, keyboard, ARIA and consumer smoke behavior.
+- [x] The npm package exposes explicit entrypoints, templates, theme engine and AI-agent metadata.
+
+### Quality and governance
+
+- [x] Automated WCAG 2.2 AA checks pass in light and dark with no accepted violations.
+- [x] Linux and Darwin visual regression baselines are separate and stable.
+- [x] The DTCG registry is complete and the Foundation → Semantic → Component chain is enforced.
+- [x] Historical ADRs were reviewed; superseded and partially superseded decisions link to their current evolution in the canonical index.
+- [x] Every release carries live-Figma evidence: export remains manual on the Pro plan, while CI enforces the version, results and token SHA-256 produced from a snapshot newer than 24 hours.
+- [x] GitHub Pages deploys through an auditable Actions workflow with no legacy builder.
 
 ## Single version chain
 
-Four places display the version and must agree:
+These artifacts must agree:
 
-- `package.json`;
+- `package.json` and `package-lock.json`;
 - the latest released section in `CHANGELOG.md`;
-- the badge in `index.html`;
-- the annotated git tag `v1.0.0-beta.N`.
+- the `VERSION` badge in `index.html`;
+- `docs/api/release-figma-evidence.json`;
+- the annotated git tag.
 
-When all four match, published documentation is current.
+Generators propagate the version to inventories, JSON APIs, HTML documentation
+and the LLM corpus. Any mismatch blocks the release.
 
-## One CHANGELOG entry per release
+## CHANGELOG
 
-`[Não publicado]` is staging. At release time, the entire section becomes
-`[1.0.0-beta.N] — YYYY-MM-DD` and a new empty `[Não publicado]` section is added.
-
-Avoid:
-
-- fragmented subsections for every daily adjustment;
-- a version bump for every commit;
-- many dates under unreleased changes.
-
-Prefer one release entry grouped by Added, Changed, Fixed and Removed, with each
-item explaining why in one or two lines.
+`[Não publicado]` contains only changes that have not shipped. At release time,
+the whole section becomes one `[X.Y.Z] — YYYY-MM-DD` entry grouped under Added,
+Changed, Fixed and Removed, and a new empty section is created at the top.
 
 ## Bump workflow
 
-1. Confirm that `[Não publicado]` is consolidated.
-2. Rename it to `[1.0.0-beta.N] — YYYY-MM-DD`.
-3. Add a new empty `[Não publicado]` section.
-4. Update `package.json` and `package-lock.json`.
-5. Update the `index.html` version badge.
-6. Run `npm run build:all`.
-7. Commit with `chore(release): 1.0.0-beta.N`.
-8. Open and merge the release pull request.
-9. Wait for green CI on `main`.
-10. Create and push the annotated tag.
+1. Confirm the SemVer classification and owner approval.
+2. Consolidate `[Não publicado]` and update comparison links.
+3. Update `package.json`, `package-lock.json` and the `index.html` badge.
+4. With a live Figma snapshot, run `npm run release:figma-evidence`.
+5. Run `npm run build:all`, `npm run test:app-ready -- --release`,
+   `npm run pack:check` and `npm run security:check`.
+6. Open a pull request and merge only when every check is green.
+7. Confirm CI and deployment for the resulting `main` commit.
+8. Create and push the annotated `vX.Y.Z` tag.
+9. Publish to npm and validate clean installation, GitHub Release, Pages and Figma.
 
-## Non-versioned changes
+## History
 
-Internal agent notes, archived scripts, CI workflows with no deployment impact
-and local configuration may ship in `docs:`, `chore:` or `ci:` commits without
-a release bump.
-
-## Pre-beta history
-
-Before beta, the system used 0.x.y minor and patch releases. Tags from
-`v0.5.0` through `v0.8.0` remain valid and the CHANGELOG preserves that
-history. No history rewrite is required.
+The 0.x tags record the initial phase. `1.0.0-beta.1` through
+`1.0.0-beta.10` record pre-1.0 stabilization. Published history is immutable;
+no released tag is moved or rewritten.

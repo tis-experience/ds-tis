@@ -1,100 +1,104 @@
 # Releases
 
-Passo a passo de uma release do design system. Pressupõe uma branch de release
-com o trabalho concluído e revisado; `main` recebe a mudança por pull request.
+Processo canônico para publicar uma versão do Design System TIS. Toda release
+parte de branch própria, entra em `main` por pull request e só recebe tag depois
+que o commit mesclado estiver verde.
 
 ## Antes de começar
 
-- [ ] Todas as mudanças da release estão em commits pequenos, legíveis, com mensagens em português.
-- [ ] Um snapshot Figma com menos de 24 horas foi validado por `npm run release:figma-evidence` e a atestação gerada está no diff.
-- [ ] `npm run build:tokens`, `npm run sync:docs`, `npm run verify:tokens`, `npm run verify:release-evidence` e `npm run test:app-ready` rodam sem erro.
-- [ ] `CHANGELOG.md` tem entradas em `[Não publicado]` cobrindo tudo que mudou desde a última versão.
+- [ ] Classificação SemVer e publicação aprovadas pelo owner.
+- [ ] `[Não publicado]` cobre todas as mudanças desde a versão anterior.
+- [ ] Snapshot Figma com menos de 24 horas disponível.
+- [ ] Working tree limpo e branch criada a partir de `main` atualizada.
 
 ## Passo a passo
 
-1. **Definir a versão nova**. Consultar [regras de versionamento](./process-versioning.md). Durante beta, usar sempre o próximo `1.0.0-beta.N`; não criar minor/patch separado.
+1. **Atualizar a cadeia de versão**:
+   - transformar `[Não publicado]` em `[X.Y.Z] — AAAA-MM-DD` e criar nova seção vazia;
+   - atualizar os links de comparação do CHANGELOG;
+   - atualizar `package.json`, `package-lock.json` e a badge `VERSION` de `index.html`.
 
-2. **Atualizar `CHANGELOG.md`**:
-   - Renomear `[Não publicado]` para `[1.0.0-beta.N] — AAAA-MM-DD` durante beta.
-   - Adicionar nova seção `[Não publicado]` vazia no topo.
-   - Atualizar links de comparação no rodapé do arquivo.
-
-3. **Atualizar `package.json`**: alterar o campo `version` para `1.0.0-beta.N` durante beta.
-
-4. **Gerar a evidência Figma da versão** depois de instalar um snapshot vivo:
+2. **Gerar a evidência Figma da versão**:
 
    ```bash
    npm run release:figma-evidence
    npm run verify:release-evidence
    ```
 
-   O snapshot continua gitignored. O arquivo commitado
-   `docs/api/release-figma-evidence.json` registra somente metadados seguros,
-   resultados dos gates e SHA-256 do snapshot e dos tokens. Se a versão ou
-   qualquer JSON de token mudar depois da validação, o CI falha.
+   `.figma-snapshot.json` continua gitignored. O commit recebe apenas
+   `docs/api/release-figma-evidence.json`, com metadados seguros, resultados dos
+   gates e SHA-256 do snapshot e dos tokens. O CI falha se versão ou tokens
+   mudarem depois da atestação.
 
-5. **Commit de release**:
-
-   ```bash
-   git add CHANGELOG.md package.json package-lock.json docs/
-   git commit -m "chore(release): 1.0.0-beta.N"
-   ```
-
-6. **Push da branch e abertura do pull request**:
+3. **Regenerar e validar tudo**:
 
    ```bash
-   git push -u origin <branch-de-release>
-   gh pr create --base main
+   npm run build:all
+   npm run test:app-ready -- --release
+   npm run pack:check
+   npm run security:check
    ```
 
-7. **Aguardar o CI do pull request e fazer merge** somente com os checks verdes.
-   Depois, aguardar também Test, Verify tokens, Build and Deploy e Pages no
-   commit resultante em `main`. Só criar a tag quando todos estiverem verdes.
+4. **Revisar o diff**, criar `chore(release): X.Y.Z`, enviar a branch e abrir um
+   pull request pronto para merge.
 
-8. **Criar e enviar a tag** no commit já validado:
+5. **Mesclar somente com CI verde.** Aguardar no PR: Verify tokens, Test Node
+   22/24 e Build and Deploy. Depois do merge, aguardar os mesmos checks e o
+   deploy Pages no SHA resultante de `main`.
+
+6. **Criar e enviar a tag anotada** no commit validado:
 
    ```bash
-   git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
-   git push origin v1.0.0-beta.N
+   git tag -a vX.Y.Z -m "Release X.Y.Z"
+   git push origin vX.Y.Z
    ```
 
-9. **CI valida e publica o site**:
-   - `.github/workflows/deploy.yml` roda `npm run build:all`.
-   - Valida que o CSS gerado commitado bate com `build:tokens`; o workflow é read-only e não corrige nem auto-commita arquivos.
-   - Constrói `_site/` somente com `index.html`, `css/`, `docs/` e `js/`, audita links locais e ausência de arquivos privados.
-   - Publica o artefato com `configure-pages`, `upload-pages-artifact` e `deploy-pages`; o Pages não usa mais o builder legado.
-   - Todos os derivados de `css/tokens/generated/` e `docs/` devem ser regenerados, revisados e incluídos no commit de release antes da tag.
-   - Publica o site estático no ambiente definido pelo projeto.
+7. **Publicar no npm**:
 
-10. **Publicar no npm** depois que o commit de `main` estiver verde:
+   Versão estável:
 
    ```bash
-   npm publish --access public --tag beta
-   npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
+   npm publish --access public --tag latest --auth-type=web
    ```
 
-11. **Verificar**:
-   - A página inicial mostra a badge `1.0.0-beta.N`.
-   - `docs/changelog.html` lista `1.0.0-beta.N` como versão mais recente.
-   - `docs/api/tokens-sync.json` tem timestamp recente e zero erros.
-   - `docs/api/release-figma-evidence.json` corresponde à versão e ao digest atual dos tokens.
-   - `npm view ds-tis@beta version` e `npm view ds-tis@latest version` retornam `1.0.0-beta.N`.
-   - Uma instalação limpa com `npm install ds-tis` passa no consumer smoke.
+   Pré-release:
+
+   ```bash
+   npm publish --access public --tag beta --auth-type=web
+   ```
+
+   Nunca apontar `latest` para uma pré-release enquanto houver versão estável.
+
+8. **Criar o GitHub Release** a partir da tag, com notas derivadas do CHANGELOG.
+   Marcar como prerelease somente versões com sufixo (`-beta.N`, `-rc.N`).
+
+9. **Sincronizar a capa do Figma** com `vX.Y.Z` e validar visualmente o frame da
+   capa. Mudança somente de texto da versão não exige novo snapshot de tokens.
+
+10. **Verificar produção**:
+    - `npm view ds-tis@latest version` retorna a versão estável publicada;
+    - `npm install ds-tis` funciona em projeto limpo;
+    - o tarball expõe CSS, runtimes, theme, templates e metadados;
+    - GitHub Release e tag apontam para o mesmo SHA;
+    - Pages mostra a versão correta e responde sem arquivos privados;
+    - `docs/api/release-figma-evidence.json` corresponde ao pacote;
+    - Figma mostra a mesma versão na capa;
+    - não há PR, issue, check ou anotação bloqueante pendente.
 
 ## Se algo der errado
 
-- **CI falhar antes da tag**: conferir logs no GitHub Actions, corrigir na branch,
-  criar novo commit e novo push. Não fazer merge/tag enquanto o commit não estiver verde.
-- **Falha descoberta depois da tag**: não mover a tag silenciosamente. Desfazer
-  release é operação delicada; preferir a próxima `1.0.0-beta.N` com a correção.
-- **Publicação no registry falhar**: não mover a tag. Corrigir a causa; se o
-  pacote continuar indisponível, restaurar temporariamente a instalação via GitHub
-  na documentação pública em um PR de hotfix.
+- **Antes da tag:** corrigir na branch, repetir todos os gates e esperar novo CI.
+- **Depois da tag, antes do npm:** não mover a tag silenciosamente; se o SHA
+  estiver incorreto, publicar uma nova versão.
+- **Depois do npm:** versões do registry são imutáveis. Corrigir por patch ou
+  nova pré-release; deprecar uma versão problemática somente com justificativa.
+- **Pages falhar:** o último deploy válido permanece no ar. Corrigir em PR e não
+  declarar a release concluída até o workflow verde.
 
-## Publicação no npm
+## Dist-tags npm
 
-Betas são publicadas com `npm publish --access public --tag beta` e a mesma versão
-é promovida para a dist-tag `latest`. Assim, `npm install ds-tis` e
-`npm install ds-tis@beta` resolvem a beta corrente; consumidores de produção
-devem fixar a versão exata. Quando houver versão estável, `latest` passa a apontar
-para ela e `beta` continua sendo o canal de pré-release.
+- `latest`: versão estável recomendada para consumidores.
+- `beta`: pré-release opt-in; pode permanecer na última beta publicada até haver
+  nova pré-release.
+- produção deve usar `latest` ou pin exato; `beta` nunca é promovida
+  automaticamente.
