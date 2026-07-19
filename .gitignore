@@ -1,4 +1,5 @@
 node_modules/
+_site/
 
 # Variáveis de ambiente locais (nunca commitar)
 .env

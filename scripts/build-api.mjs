@@ -129,6 +129,7 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
       tokens: "ds-tis/metadata/tokens",
       foundations: "ds-tis/metadata/foundations",
       adrs: "ds-tis/metadata/adrs",
+      releaseEvidence: "ds-tis/metadata/release-evidence",
     },
     agents: {
       guide: "ds-tis/agent-guide",
@@ -140,6 +141,7 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
   sourceOfTruth: {
     components: "docs/api/components.json",
     tokens: "docs/api/tokens.json",
+    releaseEvidence: "docs/api/release-figma-evidence.json",
     agentGuide: "docs/agent-consumer-usage.md",
     agentGuideEn: "docs/agent-consumer-usage.en.md",
   },

@@ -70,6 +70,13 @@ O plugin:
 
 O arquivo `.figma-snapshot.json` está em `.gitignore` e não deve ser commitado — é regenerado a cada sync.
 
+Para releases, o CI não precisa receber o snapshot completo. Depois de validar
+um export vivo, rode `npm run release:figma-evidence`. O comando exige snapshot
+com menos de 24 horas, executa `verify:tokens`, `verify:figma-structure` e
+`audit:component-tokens`, e grava `docs/api/release-figma-evidence.json` com os
+resultados e os SHA-256 do snapshot e dos tokens. O CI recalcula o digest dos
+tokens e bloqueia versão ou conteúdo que não correspondam à atestação.
+
 Depois de gerar um snapshot pelo plugin atualizado, rode:
 
 ```bash
@@ -194,7 +201,7 @@ Não commitar `.figma-snapshot.json` (está ignorado).
 
 ## Limitações
 
-- **Manual.** Não roda em CI sem Enterprise ou plugin custom. Ver `docs/backlog.md` pras alternativas.
+- **Export manual; prova automatizada.** O plano Pro não permite regenerar o snapshot no CI, mas `verify:release-evidence` valida no runner a atestação e o digest produzidos a partir do export vivo.
 - **Não gera commits automáticos.** O usuário decide o que entra em `--write` e quando.
 - **Não cria nem deleta tokens** em JSON. NEW_IN_FIGMA e MISSING_IN_FIGMA exigem edição explícita pra evitar divergências acidentais.
 - **Sem resolução inteligente de rename.** Se um token for renomeado no Figma, aparece como MISSING + NEW — o operador precisa identificar e tratar manualmente.

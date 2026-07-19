@@ -1,15 +1,23 @@
 name: Build and Deploy
 
 on:
+  pull_request:
+    paths:
+      - ".github/workflows/deploy.yml"
+      - ".gitignore"
+      - "index.html"
+      - "css/**"
+      - "docs/**"
+      - "js/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
   push:
     branches: [main]
+  workflow_dispatch:
 
-# Único job de validação. Não escreve no repo.
-# Pages é deployado pelo workflow nativo `pages-build-deployment`
-# que dispara automaticamente em push para main.
-#
-# Se este job falhar, o site continua servindo o último deploy bem-sucedido
-# (Pages é independente). O dev é notificado para corrigir.
+# PRs constroem e auditam exatamente o artefato público. Pushes em main
+# repetem o build e publicam o mesmo artefato pelo deployment oficial do Pages.
 #
 # Política: artefatos derivados são commitados pelo dev localmente após
 # `npm run build:all`. CI valida apenas o que é determinístico:
@@ -17,6 +25,10 @@ on:
 # Outros derivados em `docs/` (api/, llms*, tokens-sync*) podem regenerar
 # diferente no CI por dependerem de `.figma-snapshot.json` local ou de
 # ordens não-determinísticas — drift cosmético lá é aceitável.
+concurrency:
+  group: "pages-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -63,3 +75,30 @@ jobs:
             exit 1
           fi
           echo "✅ CSS gerado de tokens bate com o output de build:tokens."
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Build and audit the public Pages artifact
+        run: npm run build:pages
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

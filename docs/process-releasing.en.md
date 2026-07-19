@@ -6,7 +6,8 @@ release branch with all intended work complete.
 ## Before starting
 
 - [ ] Release changes are in small, readable commits with Portuguese messages.
-- [ ] `npm run build:tokens`, `npm run sync:docs`, `npm run verify:tokens` and `npm run test:app-ready` pass.
+- [ ] A Figma snapshot newer than 24 hours was validated with `npm run release:figma-evidence`, and the generated attestation is part of the diff.
+- [ ] `npm run build:tokens`, `npm run sync:docs`, `npm run verify:tokens`, `npm run verify:release-evidence` and `npm run test:app-ready` pass.
 - [ ] `[Não publicado]` in `CHANGELOG.md` covers every change since the previous version.
 
 ## Step-by-step
@@ -20,37 +21,51 @@ release branch with all intended work complete.
 
 3. **Update package metadata:** change `package.json` and `package-lock.json` to `1.0.0-beta.N`.
 
-4. **Create the release commit:**
+4. **Generate the Figma evidence for this version** after installing a live snapshot:
+
+   ```bash
+   npm run release:figma-evidence
+   npm run verify:release-evidence
+   ```
+
+   The snapshot remains gitignored. The committed
+   `docs/api/release-figma-evidence.json` stores safe metadata, gate results and
+   SHA-256 digests for the snapshot and tokens. CI fails if the version or any
+   token JSON changes after validation.
+
+5. **Create the release commit:**
 
    ```bash
    git add CHANGELOG.md package.json package-lock.json docs/
    git commit -m "chore(release): 1.0.0-beta.N"
    ```
 
-5. **Push the release branch and open a pull request.** Do not bypass protected `main`.
+6. **Push the release branch and open a pull request.** Do not bypass protected `main`.
 
-6. **Wait for pull request CI** and merge only when required checks are green.
+7. **Wait for pull request CI** and merge only when required checks are green.
 
-7. **Validate `main`.** Test and deployment workflows must pass on the merged release commit.
+8. **Validate `main`.** Test and deployment workflows must pass on the merged release commit.
 
-8. **Create and push the annotated tag:**
+9. **Create and push the annotated tag:**
 
    ```bash
    git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"
    git push origin v1.0.0-beta.N
    ```
 
-9. **Publish the beta to npm** after the merged `main` commit is green:
+10. **Publish to npm** after the merged `main` commit is green:
 
    ```bash
    npm publish --access public --tag beta
    npm dist-tag add ds-tis@1.0.0-beta.N latest --auth-type=web
    ```
 
-10. **Verify the publication:**
+11. **Verify the publication:**
    - the home page shows `1.0.0-beta.N`;
    - `docs/changelog.html` lists it as the latest release;
    - `docs/api/tokens-sync.json` is current and has zero errors;
+   - `docs/api/release-figma-evidence.json` matches the version and current token digest;
+   - GitHub Pages was deployed from the audited `_site/` artifact by the custom Actions workflow;
    - `npm view ds-tis@beta version` and `npm view ds-tis@latest version` return `1.0.0-beta.N`;
    - a clean `npm install ds-tis` succeeds;
    - the installed tarball passes the consumer smoke test.

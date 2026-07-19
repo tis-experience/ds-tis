@@ -69,6 +69,7 @@ const exportTargets = {
   './metadata/tokens': './docs/api/tokens.json',
   './metadata/foundations': './docs/api/foundations.json',
   './metadata/adrs': './docs/api/adrs.json',
+  './metadata/release-evidence': './docs/api/release-figma-evidence.json',
   './agent-guide': './docs/agent-consumer-usage.md',
   './agent-guide/en': './docs/agent-consumer-usage.en.md',
   './llms': './docs/llms.txt',
@@ -83,6 +84,14 @@ for (const [key, target] of Object.entries(exportTargets)) {
 
 expect(context.entrypoints.agents?.guideEn === 'ds-tis/agent-guide/en', 'consumer context must expose the English agent guide.');
 expect(context.sourceOfTruth?.agentGuideEn === 'docs/agent-consumer-usage.en.md', 'consumer context must expose the English guide source.');
+expect(
+  context.entrypoints.metadata?.releaseEvidence === 'ds-tis/metadata/release-evidence',
+  'consumer context must expose the release evidence package entrypoint.',
+);
+expect(
+  context.sourceOfTruth?.releaseEvidence === 'docs/api/release-figma-evidence.json',
+  'consumer context must expose the release evidence source.',
+);
 
 if (errors.length === 0) {
   console.log(`✅ PASS — metadata instalada + ${COMPONENTS.length} perfis responsivos alinhados`);

@@ -1,0 +1,55 @@
+{
+  "schema": "ds-tis/figma-release-evidence@1",
+  "packageVersion": "1.0.0-beta.10",
+  "verifiedAt": "2026-07-19T19:02:08.736Z",
+  "policy": {
+    "snapshotMaxAgeHours": 24,
+    "snapshotIsCommitted": false,
+    "verificationModel": "fresh-local-snapshot-with-committed-digests"
+  },
+  "source": {
+    "fileKey": "IE68amP9Hya5ieFw1rX8S8",
+    "expectedFileKey": "IE68amP9Hya5ieFw1rX8S8",
+    "fileName": "Document",
+    "snapshotGeneratedAt": "2026-07-19T18:47:14.039Z",
+    "snapshotAgeHoursAtVerification": 0.249,
+    "snapshotSha256": "2aeb47c836427ea2bc18b1371751a2d2979daceea5209e98dcb2322213b74439",
+    "exporter": {
+      "name": "Design System Snapshot Exporter",
+      "version": "0.2.0",
+      "source": "figma-plugin/snapshot-exporter"
+    },
+    "variableCount": 1173,
+    "collectionCount": 3
+  },
+  "repository": {
+    "tokenSha256": "28a155d50fc88db9c6fe85b4a395f5c506f2ebd1f3c1c415c1516d3afce2b7b0",
+    "tokenFileCount": 39
+  },
+  "checks": {
+    "verifyTokens": {
+      "errors": 0,
+      "warnings": 0,
+      "jsonTokenCount": 1464
+    },
+    "jsonVsFigma": {
+      "skipped": false,
+      "snapshotFreshness": "fresh",
+      "valueDrift": 0,
+      "needsSync": 0,
+      "driftFromSource": 0,
+      "aliasBroken": 0,
+      "cssOnly": 7,
+      "byDesign": 127
+    },
+    "figmaStructure": {
+      "issueCount": 0,
+      "componentPageCount": 22,
+      "componentVariableCount": 709,
+      "usedComponentVariableCount": 703,
+      "unusedComponentVariableCount": 6,
+      "allowedCssOnlyUnusedCount": 6,
+      "actionableUnusedCount": 0
+    }
+  }
+}

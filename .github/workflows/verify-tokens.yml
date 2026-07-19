@@ -51,8 +51,5 @@ jobs:
               body,
             });
 
-      - name: Note — snapshot Figma ausente
-        run: |
-          if [ ! -f .figma-snapshot.json ]; then
-            echo "::notice::Snapshot Figma não encontrado. Verificação JSON ↔ Figma pulada. Gerar via Claude Code (ver docs/process-figma-sync.md)."
-          fi
+      - name: Verify committed Figma release evidence
+        run: npm run verify:release-evidence

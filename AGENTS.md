@@ -285,6 +285,7 @@ CSS_ONLY e BY_DESIGN são informativos (não drift). VALUE_DRIFT/NEW_IN_FIGMA/MI
 | `npm run verify:tokens` | Valida JSON integrity, JSON↔CSS, CSS leak (ADR-013), Registry completeness, JSON↔Figma drift | **Sim se erro** |
 | `npm run verify:figma-structure` | Valida snapshot Figma contra invariantes estruturais: bindings de ícone, glyph/Icon Placeholder, scopes, WEB syntax, aliases Component→Semantic e focus rings | Sim quando o snapshot foi regenerado para mudanças Figma |
 | `npm run audit:component-tokens` | Falha para Component variables sem uso real nos variants finais, usando `structureAudit.variableUsage` | Sim durante limpeza/criação de tokens Component |
+| `npm run verify:release-evidence` | Confirma que versão e digest dos tokens correspondem à última validação Figma fresca atestada | **Sim para qualquer release/bump** |
 | `git diff` review | Confirmar que diff bate com a intenção da mudança | Manual |
 
 Atalho: `npm run build:all` roda `build:tokens → sync:docs → build:api → build:llms → verify:tokens` em sequência.
@@ -344,6 +345,7 @@ Mudança arquitetural exige ADR anexada ou criada no mesmo PR.
 - Versão atual em `package.json` e `README.md` (badge). Manter em sincronia.
 - Pré-1.0.0: faixa `1.0.0-beta.N` enquanto ainda em fase beta. Tags 0.x são histórico pré-beta.
 - Durante beta, releases incrementam apenas `N` e devem seguir pacote coerente ou cadência semanal, sem minor/patch separados.
+- Qualquer bump ou publicação exige snapshot Figma com menos de 24h e `npm run release:figma-evidence`; o snapshot permanece gitignored e somente `docs/api/release-figma-evidence.json` entra no commit.
 - CHANGELOG segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Seção `[Não publicado]` acumula entradas até o owner decidir tagear nova versão.
 - **Cada mudança significativa entra em `[Não publicado]`** antes do commit. Significativo = observável pelo consumidor (designer ou dev), ou que muda processo/arquitetura. Refactor interno sem efeito externo não exige entrada.
 - Bump de versão (`package.json` + tag git) é decisão do owner. Agente não bumpa sem pedido explícito.
@@ -379,7 +381,7 @@ Figma Variables  ──[sync manual]──►  tokens/**/*.json  ──[build-to
                                                                                   (preview e doc)
 ```
 
-CI (`.github/workflows/deploy.yml`) roda `build:tokens` em cada push pra main e auto-commita o CSS gerado. Não duplicar esse trabalho em commit local — mas rodar local pra evitar surprise diff.
+CI (`.github/workflows/deploy.yml`) constrói e audita `_site/` em pull requests e pushes para `main`. O workflow é read-only no repositório: falha se CSS/derivados commitados estiverem inconsistentes e, em `main`, publica o artefato mínimo pelo GitHub Pages Actions. Não há auto-commit.
 
 ---
 
