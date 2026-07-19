@@ -1,31 +1,32 @@
 # Design System Core
 
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0--beta.10-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0-blue)](./CHANGELOG.md) [![Licença](https://img.shields.io/badge/licen%C3%A7a-Propriet%C3%A1ria-red)](./LICENSE)
 
 Design system white-label em CSS puro, com tokens DTCG em arquitetura 3-layer (Foundation/Core → Semantic/System → Component), componentes documentados, modos light/dark e paleta brand única customizável.
 
 ## Instalação
 
-O pacote beta é distribuído pelo npm registry. Instale a versão corrente com:
+O pacote estável é distribuído pelo npm registry. Instale a versão corrente com:
 
 ```bash
 npm install ds-tis
 ```
 
-Durante a fase beta, as dist-tags npm `latest` e `beta` apontam para a mesma
-pré-release. Use `npm install ds-tis@beta` quando quiser explicitar o canal.
+`npm install ds-tis` resolve a dist-tag estável `latest`. O comando
+`npm install ds-tis@beta` fica reservado para testar futuras pré-releases e não
+deve substituir a versão estável em produção.
 
 Em produção, prefira o pin exato:
 
 ```json
 {
   "dependencies": {
-    "ds-tis": "1.0.0-beta.10"
+    "ds-tis": "1.0.0"
   }
 }
 ```
 
-Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.10`.
+Como fallback, o mesmo release pode ser instalado pela tag GitHub: `npm install github:tis-experience/ds-tis#v1.0.0`.
 
 Import principal (o nome do pacote continua `ds-tis`):
 
@@ -96,8 +97,8 @@ Toda a documentação vive em `docs/` e pode ser servida como site estático. L�
 
 O pacote também distribui contexto machine-readable para ferramentas e agents:
 `ds-tis/metadata` (manifesto de consumo), `ds-tis/metadata/components`,
-`ds-tis/metadata/tokens`, `ds-tis/agent-guide`, `ds-tis/llms` e
-`ds-tis/llms-full`. O manifesto declara a estratégia responsiva
+`ds-tis/metadata/tokens`, `ds-tis/metadata/release-evidence`,
+`ds-tis/agent-guide`, `ds-tis/llms` e `ds-tis/llms-full`. O manifesto declara a estratégia responsiva
 `intrinsic-first`: não há breakpoints públicos automáticos; layout, densidade e
 troca de composição pertencem ao app consumidor.
 

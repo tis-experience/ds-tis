@@ -76,7 +76,7 @@ Instale a versão corrente pelo npm registry:
 npm install ds-tis
 ```
 
-Durante a fase beta, as dist-tags npm `latest` e `beta` apontam para a mesma pré-release; `npm install ds-tis@beta` explicita o canal. Em produção, prefira `"ds-tis": "1.0.0-beta.10"` no `package.json`. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0-beta.10`.
+A versão estável é instalada por `npm install ds-tis`. Em produção, prefira `"ds-tis": "1.0.0"` no `package.json`; `npm install ds-tis@beta` fica reservado a futuras pré-releases. Fallback por release GitHub: `npm install github:tis-experience/ds-tis#v1.0.0`.
 
 Importe o CSS público uma vez no entrypoint global do app:
 

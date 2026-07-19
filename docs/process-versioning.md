@@ -1,132 +1,103 @@
 # Versionamento
 
-O design system usa [Semantic Versioning](https://semver.org/lang/pt-BR/). Atualmente está em **fase beta de 1.0** — todas as releases são `1.0.0-beta.N` até o lançamento oficial decidido pelo design owner.
+O Design System TIS usa [Semantic Versioning](https://semver.org/lang/pt-BR/) e
+está em fase estável desde `1.0.0`.
 
-## Política de versionamento — fase beta (atual)
-
-Cada release **incrementa N** em `1.0.0-beta.N`. Não há "minor" ou "patch" durante o beta — todo release é igualmente um snapshot do estado do sistema:
-
-```
-v0.8.0  ←  último release pré-beta (histórico)
-v1.0.0-beta.1  ←  primeiro release beta (consolida pós-0.8.0)
-v1.0.0-beta.2
-v1.0.0-beta.3
-...
-v1.0.0-rc.1   ←  release candidate (decisão do owner)
-v1.0.0        ←  oficial (decisão do owner)
-```
-
-**Não existe release minor/patch separado** durante a fase beta. Cada release incrementa apenas `N`, o CHANGELOG agrupa o trabalho do incremento e a tag git marca o ponto.
-
-### Quando bumpar (trigger)
-
-Bump pra próximo `beta.N` é por **pacote coerente** + fallback de tempo:
-
-#### 1. Mudança considerável (preferencial)
-Bumpa quando ocorre **uma das seguintes** desde o último beta, ainda que isolada:
-- Novo ADR aceito que muda arquitetura ou contrato
-- Renomeação de namespace/token público (breaking)
-- Novo componente shipado (não em rascunho)
-- Eliminação ou consolidação de camada de tokens
-- Mudança de fonte de verdade
-- Migração estrutural relevante (ex: alinhamento Figma de N componentes)
-
-#### 2. Feature completa
-Bumpa quando um conjunto de mudanças **fecha** uma feature — não em pedaços. Exemplo: adicionar Theming requer foundation + semantic + componentes adaptados + docs.
-
-#### 3. Cadência temporal (fallback)
-Se há acúmulo de patches sem trigger arquitetural ou feature, faça um bump **semanal** consolidando o que houve. Evita `[Não publicado]` virar dump infinito e mantém o beta versionado em ciclos previsíveis.
-
-### Quando NÃO bumpar
-
-- Trabalho em andamento (não shipado).
-- Cleanup parcial, ajustes de WIP.
-- Cada commit isolado de uma sessão.
-- Documentação interna (CLAUDE.md, scripts internos).
-- Regeneração automática por CI.
-- Refactor de scripts sem impacto observável.
-
-## Política pós-1.0 (futuro)
-
-Quando o owner decidir que está pronto, drop do beta tag → `1.0.0` oficial. A partir daí, **semver normal**:
+## Política atual
 
 | Tipo | Exemplo | Quando |
 |---|---|---|
-| **Patch** | 1.0.1 | Correção pontual, ajuste interno sem impacto visível. |
-| **Minor** | 1.1.0 | Adição compatível (novo componente, nova foundation, novo token). |
-| **Major** | 2.0.0 | Breaking change (renomeação ou remoção de token/classe/API). |
+| **Patch** | `1.0.1` | Correção compatível, hardening, documentação ou ajuste interno sem quebra do contrato público. |
+| **Minor** | `1.1.0` | Adição compatível, como novo componente, token, foundation, template ou API. |
+| **Major** | `2.0.0` | Breaking change: remoção ou rename incompatível de token, classe, markup, export ou comportamento público. |
 
-## Critérios de maturidade pra dropping do beta (guia, não gate)
+A classificação considera o impacto para designers, desenvolvedores e agents IA,
+não o tamanho do diff. Uma mudança pequena pode exigir major se quebrar um
+contrato público; uma implementação grande pode ser minor se for aditiva.
 
-1.0 oficial é **decisão do design owner**, não gate técnico. Esta lista funciona como guia de maturidade — não bloqueia release, mas marca prontidão técnica:
+## Pré-releases
 
-### Arquitetura ✅ satisfeitos em 1.0.0-beta.1
-- [x] 0 erros em `verify:tokens`
-- [x] 0 leaks Foundation em `css/components/*.css`
-- [x] 0 leaks Foundation em `css/base/*.css`
-- [x] Componentes auditados Figma vs CSS (alinhamento 1:1)
-- [x] 100% Text Style coverage em textos non-Material de components Figma
-- [x] Descriptions designer-focused nos component sets Figma
+Pré-releases futuras usam `X.Y.Z-beta.N` e são publicadas exclusivamente na
+dist-tag npm `beta`:
 
-### Pendente pra futuras betas
-- [x] **Form Field** definido — CSS-only por ADR-017, fora de escopo como componente Figma dedicado até surgir demanda real de composição.
-- [x] **`docs/brand-principles.md`** preenchido com conteúdo real e fonte EN pareada
-- [x] **Snapshot exporter + gates locais Figma↔JSON/Figma structure** — `verify:tokens`, `verify:figma-structure` e `audit:component-tokens` rodam contra snapshot do plugin.
-- [ ] **ADRs históricos** atualizados com notas de evolução — _parcial em beta.1: 006/013/014 atualizados_
-- [x] **`docs/process-figma-sync.md`** atualizado pra naming atual e fluxo do snapshot exporter.
-- [x] **`tokens/registry.json`** sem warnings (entries com metadados completos).
-- [x] **Visual regression tests** (Playwright + screenshot diff) — CI Linux e baseline local Darwin separados e estáveis.
-- [x] **A11y tests** (axe-core) — rodam em `npm test` contra docs em light/dark com baseline incremental.
-- [ ] **Sync Figma→JSON automatizado** em CI — _depende de Enterprise/plugin_
+```text
+1.1.0-beta.1  → npm install ds-tis@beta
+1.1.0         → npm install ds-tis
+```
+
+`latest` sempre aponta para a versão estável mais recente. Uma versão `beta`
+jamais substitui `latest` enquanto existir uma versão estável.
+
+## Quando versionar
+
+Crie uma release quando um pacote coerente de mudanças observáveis estiver
+concluído, documentado e aprovado. Exemplos:
+
+- correção consumível ou de acessibilidade pronta para produção;
+- novo componente ou runtime completo;
+- mudança de token ou contrato público;
+- melhoria de infraestrutura que altera publicação ou consumo;
+- conjunto de documentação/API machine-readable que muda o handoff.
+
+Não versionar trabalho em andamento, regeneração sem alteração observável,
+notas internas ou refactor sem impacto no contrato.
+
+## Fechamento da maturidade 1.0
+
+O owner aprovou a promoção estável depois destas evidências:
+
+### Arquitetura e consumo
+
+- [x] `verify:tokens` com zero erros e zero warnings.
+- [x] Zero leaks Foundation em CSS de componentes e base.
+- [x] Componentes auditados entre Figma, tokens, CSS e documentação.
+- [x] 23 componentes classificados: 21 App-ready e 2 composições, sem experimentais.
+- [x] Seis runtimes públicos com init, destroy, hydration, teclado, ARIA e consumer smoke.
+- [x] Pacote npm com exports explícitos, templates, theme engine e metadados para agents IA.
+
+### Qualidade e governança
+
+- [x] WCAG 2.2 AA automatizada em light/dark sem violações aceitas.
+- [x] Regressão visual Linux e Darwin separada e estável.
+- [x] Registry DTCG completo e cadeia Foundation → Semantic → Component validada.
+- [x] ADRs históricos revisados: decisões substituídas ou parcialmente substituídas apontam para a evolução vigente no índice canônico.
+- [x] Figma vivo atestado por release: o export permanece manual no plano Pro, mas o CI exige versão, resultados e SHA-256 dos tokens produzidos por snapshot com menos de 24 horas.
+- [x] GitHub Pages publicado por workflow Actions auditável, sem builder legado.
 
 ## Cadeia única de versão
 
-Quatro lugares exibem a versão e **precisam bater**:
+Estes artefatos precisam concordar:
 
-- `package.json` (campo `version`).
-- `CHANGELOG.md` (última entrada não rotulada como `[Não publicado]`).
-- Badge no topo de `index.html` (injetada pelo build).
-- Tag git (`git tag -a v1.0.0-beta.N`).
+- `package.json` e `package-lock.json`;
+- última seção publicada de `CHANGELOG.md`;
+- badge `VERSION` em `index.html`;
+- `docs/api/release-figma-evidence.json`;
+- tag git anotada.
 
-Se os quatro baterem, a documentação está em dia. Se divergirem, algo no pipeline está quebrado.
+Os geradores propagam a versão para inventários, APIs JSON, documentação HTML e
+corpus LLM. Divergência em qualquer ponto bloqueia a release.
 
-## CHANGELOG — uma entrada por release
+## CHANGELOG
 
-`[Não publicado]` é staging. Todas as mudanças desde a última release vão pra lá, **agrupadas por tema** (Adicionado / Mudado / Corrigido / Removido). Quando bumpa, a seção inteira vira `[1.0.0-beta.N] — AAAA-MM-DD` e nasce um novo `[Não publicado]` vazio.
-
-Más práticas a evitar:
-- ❌ Subseções fragmentadas pra cada ajuste do dia.
-- ❌ Bump de versão pra cada commit.
-- ❌ "Mudanças não publicadas" tendo 10 datas diferentes — sinal de que faltou release.
-
-Boa prática:
-- ✅ Uma entrada por release, agrupada em **Adicionado / Mudado / Corrigido / Removido**.
-- ✅ Cada item tem 1-2 linhas explicando **por quê**.
+`[Não publicado]` acumula apenas mudanças ainda não entregues. Na release, todo
+o conteúdo vira uma única seção `[X.Y.Z] — AAAA-MM-DD`, agrupada por Adicionado,
+Alterado, Corrigido e Removido, e uma nova seção vazia é criada no topo.
 
 ## Fluxo de bump
 
-1. Confirmar que `CHANGELOG.md` tem `[Não publicado]` consolidada (não fragmentada).
-2. Renomear `[Não publicado]` para `[1.0.0-beta.N] — AAAA-MM-DD`.
-3. Adicionar nova seção vazia `[Não publicado]` no topo.
-4. Ajustar `package.json` com a versão nova.
-5. Atualizar badge em `index.html` (`<!-- VERSION:1.0.0-beta.N -->`).
-6. Rodar `npm run build:all` — regenerar artefatos derivados.
-7. Commit: `chore(release): 1.0.0-beta.N`.
-8. Criar tag: `git tag -a v1.0.0-beta.N -m "Release 1.0.0-beta.N"`.
-9. Push com tag: `git push origin main v1.0.0-beta.N`.
-10. CI regenera CSS/changelog HTML/APIs/llms.txt e publica no GitHub Pages.
+1. Confirmar a classificação SemVer e a aprovação do owner.
+2. Consolidar `[Não publicado]` e atualizar links de comparação.
+3. Atualizar `package.json`, `package-lock.json` e a badge em `index.html`.
+4. Com snapshot Figma vivo, rodar `npm run release:figma-evidence`.
+5. Rodar `npm run build:all`, `npm run test:app-ready -- --release`,
+   `npm run pack:check` e `npm run security:check`.
+6. Abrir PR e mesclar somente com todos os checks verdes.
+7. Confirmar CI e deploy do commit resultante em `main`.
+8. Criar e enviar a tag anotada `vX.Y.Z`.
+9. Publicar no npm e validar instalação limpa, GitHub Release, Pages e Figma.
 
-## O que não conta como versionável
+## Histórico
 
-- Mudanças em `CLAUDE.md` (documentação interna para agentes).
-- Mudanças em `scripts/archive/`.
-- Workflows CI sem impacto no deploy.
-- Atualizações de `.gitignore`, configs locais.
-
-Esses podem ir em commits `docs:`, `chore:`, `ci:` sem bump.
-
-## Histórico — versionamento pré-beta (0.x)
-
-Antes da fase beta, o sistema usava 0.x.y com bumps minor/patch. Tags `v0.5.0..v0.8.0` permanecem válidas. CHANGELOG preserva todas as entradas históricas. A partir de `v1.0.0-beta.1`, o esquema beta substitui o 0.x.
-
-A transição não envolve rewrite de história — o 0.8.0 simplesmente foi o último 0.x antes de entrar em beta.
+As tags 0.x registram a fase inicial. `1.0.0-beta.1` até
+`1.0.0-beta.10` registram a estabilização pré-1.0. O histórico permanece
+imutável; nenhuma tag publicada é movida ou reescrita.

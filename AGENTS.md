@@ -343,8 +343,8 @@ Mudança arquitetural exige ADR anexada ou criada no mesmo PR.
 ## 7. Versionamento e CHANGELOG
 
 - Versão atual em `package.json` e `README.md` (badge). Manter em sincronia.
-- Pré-1.0.0: faixa `1.0.0-beta.N` enquanto ainda em fase beta. Tags 0.x são histórico pré-beta.
-- Durante beta, releases incrementam apenas `N` e devem seguir pacote coerente ou cadência semanal, sem minor/patch separados.
+- A partir de `1.0.0`, aplicar Semantic Versioning normal: patch para correção compatível, minor para adição compatível e major para breaking change.
+- Pré-releases futuras usam o sufixo `-beta.N` e a dist-tag npm `beta`; nunca promover uma pré-release para `latest` enquanto houver versão estável.
 - Qualquer bump ou publicação exige snapshot Figma com menos de 24h e `npm run release:figma-evidence`; o snapshot permanece gitignored e somente `docs/api/release-figma-evidence.json` entra no commit.
 - CHANGELOG segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Seção `[Não publicado]` acumula entradas até o owner decidir tagear nova versão.
 - **Cada mudança significativa entra em `[Não publicado]`** antes do commit. Significativo = observável pelo consumidor (designer ou dev), ou que muda processo/arquitetura. Refactor interno sem efeito externo não exige entrada.

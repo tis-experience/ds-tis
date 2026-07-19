@@ -1,7 +1,7 @@
 {
   "schema": "ds-tis/figma-release-evidence@1",
-  "packageVersion": "1.0.0-beta.10",
-  "verifiedAt": "2026-07-19T19:02:08.736Z",
+  "packageVersion": "1.0.0",
+  "verifiedAt": "2026-07-19T19:20:58.710Z",
   "policy": {
     "snapshotMaxAgeHours": 24,
     "snapshotIsCommitted": false,
@@ -12,7 +12,7 @@
     "expectedFileKey": "IE68amP9Hya5ieFw1rX8S8",
     "fileName": "Document",
     "snapshotGeneratedAt": "2026-07-19T18:47:14.039Z",
-    "snapshotAgeHoursAtVerification": 0.249,
+    "snapshotAgeHoursAtVerification": 0.562,
     "snapshotSha256": "2aeb47c836427ea2bc18b1371751a2d2979daceea5209e98dcb2322213b74439",
     "exporter": {
       "name": "Design System Snapshot Exporter",
