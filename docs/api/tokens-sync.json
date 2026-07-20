@@ -16,7 +16,7 @@
     "docTokenDrift": [],
     "jsonVsFigma": {
       "skipped": false,
-      "snapshotAge": "0h",
+      "snapshotAge": "20h",
       "snapshotFreshness": "fresh",
       "snapshotMaxAgeHours": 24,
       "summary": {

@@ -922,6 +922,10 @@ main.ds-main a:not([class]):hover {
   justify-content: center;
 }
 
+.ds-dodont__preview--tooltip-top {
+  padding-top: var(--ds-dimension-64);
+}
+
 .ds-dodont__label {
   padding: var(--ds-dimension-8) var(--ds-dimension-16) var(--ds-dimension-4);
   font-size: var(--ds-body-font-size-sm);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pagination docs contract — token paths item.* e API Figma.
+ * Pagination docs contract — anatomia visual, token paths item.* e API Figma.
  */
 
 import fs from 'node:fs';
@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const docs = fs.readFileSync(path.join(ROOT, 'docs', 'pagination.html'), 'utf-8');
 const errors = [];
+const anatomyMarkerCount = (docs.match(/class="ds-anatomy__marker"/g) || []).length;
 
 function expect(condition, message) {
   if (!condition) errors.push(message);
@@ -18,6 +19,7 @@ function expect(condition, message) {
 console.log('\n═══ test-pagination-docs ════════════════════');
 
 expect(docs.includes('API no Figma'), 'Pagination docs must include Figma API section.');
+expect(anatomyMarkerCount === 6, `Pagination anatomy must include 6 visual markers; found ${anatomyMarkerCount}.`);
 expect(docs.includes('<code>Page Number</code>'), 'Pagination Figma API must document Page Number.');
 expect(docs.includes('component.pagination.item.height'), 'Pagination docs must use component.pagination.item.height.*');
 expect(docs.includes('--ds-pagination-item-height-'), 'Pagination docs must reference --ds-pagination-item-height-* CSS vars.');

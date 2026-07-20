@@ -70,29 +70,29 @@
     <div class="ds-anatomy" style="padding:64px;">
       <div style="display:inline-flex;flex-direction:column;" inert>
         <fieldset class="ds-radio-group" style="position:relative;">
-          <!-- 4: Grupo — connector top-left (acima do fieldset) -->
-          <span style="position:absolute;top:-28px;left:8px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
-          <span class="ds-anatomy__marker" style="top:-48px;left:-1px;">4</span>
+          <!-- 4: Grupo — connector left, alinhado à segunda opção -->
+          <span style="position:absolute;bottom:20px;left:-28px;height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="bottom:10px;left:-48px;">4</span>
           <legend class="ds-radio-group__legend" style="position:relative;">Select a plan
             <!-- 5: Legend — connector right -->
             <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
             <span class="ds-anatomy__marker" style="top:50%;right:-48px;transform:translateY(-50%);">5</span>
           </legend>
           <label class="ds-radio-label" style="position:relative;">
-            <!-- 1: Label — connector left -->
+            <!-- 1: Label — connector right -->
+            <span style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="top:50%;right:-48px;transform:translateY(-50%);">1</span>
+            <input type="radio" class="ds-radio" name="anatomy-radio">
+            <!-- 2: Input (radio) — connector left -->
             <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
-            <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">1</span>
-            <input type="radio" class="ds-radio" name="anatomy-radio" checked>
-            <!-- 2: Input (radio) — connector top, acima do círculo -->
-            <span style="position:absolute;top:-28px;left:9px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
-            <span class="ds-anatomy__marker" style="top:-48px;left:0;">2</span>
-            <!-- 3: Dot (pseudo-elemento) — connector bottom, abaixo do círculo -->
-            <span style="position:absolute;bottom:-28px;left:9px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
-            <span class="ds-anatomy__marker" style="bottom:-48px;left:0;">3</span>
+            <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">2</span>
             Free plan
           </label>
-          <label class="ds-radio-label">
-            <input type="radio" class="ds-radio" name="anatomy-radio">
+          <label class="ds-radio-label" style="position:relative;">
+            <input type="radio" class="ds-radio" name="anatomy-radio" checked>
+            <!-- 3: Dot (pseudo-elemento) — connector bottom, abaixo do círculo selecionado -->
+            <span style="position:absolute;bottom:-28px;left:9px;width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
+            <span class="ds-anatomy__marker" style="bottom:-48px;left:0;">3</span>
             Pro plan
           </label>
         </fieldset>

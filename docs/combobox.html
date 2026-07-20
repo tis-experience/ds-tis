@@ -62,23 +62,41 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
-    <div class="ds-anatomy" style="padding:64px;">
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl);">
       <div class="ds-field" style="max-width:360px;position:relative;" inert>
-        <label class="ds-field__label">Country<span class="ds-field__required" aria-hidden="true">*</span></label>
-        <div class="ds-combobox ds-combobox--md ds-combobox--filled" style="position:relative;">
-          <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
-          <input class="ds-combobox__input" type="text" value="Brazil" readonly tabindex="-1" aria-hidden="true">
-          <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
-          <span style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:1px;height:28px;background:var(--ds-brand-background-default);"></span>
-          <span class="ds-anatomy__marker" style="top:-48px;left:50%;transform:translateX(-50%);">1</span>
+        <div class="ds-field__label-row" style="position:relative;">
+          <label class="ds-field__label" for="combobox-anatomy">Country</label>
+          <span class="ds-field__required" aria-hidden="true">*</span>
+          <!-- 6: Label e helper — connector lateral esquerdo -->
+          <span aria-hidden="true" style="position:absolute;inset-inline-start:calc(-1 * var(--ds-space-2xl));inset-block-start:50%;inline-size:var(--ds-space-2xl);block-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-block-start:50%;transform:translateY(-50%);">6</span>
         </div>
-        <ul class="ds-combobox__listbox" role="presentation" style="position:relative;margin-top:var(--ds-space-xs);">
-          <li class="ds-combobox__option" style="position:relative;">Brazil
-            <span style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);height:1px;width:28px;background:var(--ds-brand-background-default);"></span>
-            <span class="ds-anatomy__marker" style="top:50%;left:-48px;transform:translateY(-50%);">5</span>
-          </li>
-        </ul>
-        <p class="ds-field__helper">Type to filter countries.</p>
+        <div class="ds-combobox-anchor">
+          <div class="ds-combobox ds-combobox--md ds-combobox--filled" style="position:relative;">
+            <i data-lucide="globe" class="ds-combobox__icon ds-icon" aria-hidden="true"></i>
+            <input class="ds-combobox__input" id="combobox-anatomy" type="text" role="combobox" value="Brazil" aria-expanded="true" aria-controls="combobox-anatomy-list" aria-autocomplete="list" aria-describedby="combobox-anatomy-helper" readonly tabindex="-1">
+            <i data-lucide="chevron-down" class="ds-combobox__chevron ds-icon" aria-hidden="true"></i>
+            <!-- 1: Field — connector superior central -->
+            <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:45%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+            <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:45%;transform:translateX(-50%);">1</span>
+            <!-- 2: Input — connector superior -->
+            <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:68%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+            <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:68%;transform:translateX(-50%);">2</span>
+            <!-- 3: Ícone — connector lateral esquerdo -->
+            <span aria-hidden="true" style="position:absolute;inset-inline-start:calc(-1 * var(--ds-space-2xl));inset-block-start:50%;inline-size:var(--ds-space-2xl);block-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+            <span aria-hidden="true" class="ds-anatomy__marker" style="inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-block-start:50%;transform:translateY(-50%);">3</span>
+          </div>
+          <ul class="ds-combobox__listbox" id="combobox-anatomy-list" role="listbox" aria-label="Countries" style="position:relative;inset:auto;margin:var(--ds-space-xs) 0 0;">
+            <li class="ds-combobox__option" role="option" aria-selected="true">Brazil</li>
+          </ul>
+          <!-- 4: Listbox — connector lateral direito -->
+          <span aria-hidden="true" style="position:absolute;inset-inline-end:calc(-1 * var(--ds-space-2xl));inset-block-end:calc(var(--ds-combobox-listbox-container-padding-default) + (var(--ds-menu-item-height-md) / 2));inline-size:var(--ds-space-2xl);block-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-inline-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-block-end:calc(var(--ds-combobox-listbox-container-padding-default) + ((var(--ds-menu-item-height-md) - var(--ds-size-sm)) / 2));">4</span>
+          <!-- 5: Option — connector lateral esquerdo -->
+          <span aria-hidden="true" style="position:absolute;inset-inline-start:calc(-1 * var(--ds-space-2xl));inset-block-end:calc(var(--ds-combobox-listbox-container-padding-default) + (var(--ds-menu-item-height-md) / 2));inline-size:var(--ds-space-2xl);block-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-block-end:calc(var(--ds-combobox-listbox-container-padding-default) + ((var(--ds-menu-item-height-md) - var(--ds-size-sm)) / 2));">5</span>
+        </div>
+        <p class="ds-field__helper" id="combobox-anatomy-helper">Type to filter countries.</p>
       </div>
     </div>
     <div class="ds-anatomy-legend">

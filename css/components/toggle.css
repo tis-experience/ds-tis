@@ -53,14 +53,14 @@
 .ds-toggle::after {
   content: '';
   position: absolute;
-  top: calc(var(--thumb-gap) - var(--track-border-width));
-  left: calc(var(--thumb-gap) - var(--track-border-width));
+  inset-block-start: calc(var(--thumb-gap) - var(--track-border-width));
+  inset-inline-start: calc(var(--thumb-gap) - var(--track-border-width));
   width: var(--toggle-thumb-size);
   height: var(--toggle-thumb-size);
   border-radius: var(--ds-toggle-thumb-radius-default);
   background-color: var(--ds-toggle-thumb-fill-off-default);
   box-shadow: var(--ds-shadow-card);
-  transition: transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
+  transition: inset-inline-start var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
               background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
 }
 
@@ -73,7 +73,7 @@
 
 .ds-toggle:checked::after {
   background-color: var(--ds-toggle-thumb-fill-on-default);
-  transform: translateX(calc(var(--toggle-width) - var(--toggle-thumb-size) - (var(--thumb-gap) * 2)));
+  inset-inline-start: calc(var(--toggle-width) - var(--toggle-thumb-size) - var(--thumb-gap));
 }
 
 /* Hover State */

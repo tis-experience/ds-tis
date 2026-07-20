@@ -57,21 +57,47 @@
 
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
-    <div class="ds-anatomy" style="padding:64px;">
-      <nav class="ds-pagination" aria-label="Pagination" inert>
-        <ul class="ds-pagination__list">
-          <li class="ds-pagination__item">
-            <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page" disabled tabindex="-1"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
-          </li>
-          <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 1" tabindex="-1">1</a></li>
-          <li class="ds-pagination__item"><span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span></li>
-          <li class="ds-pagination__item"><span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span></li>
-          <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10" tabindex="-1">10</a></li>
-          <li class="ds-pagination__item">
-            <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page" tabindex="-1"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
-          </li>
-        </ul>
-      </nav>
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl);">
+      <div style="position:relative;display:inline-flex;" inert>
+        <nav class="ds-pagination" aria-label="Pagination">
+          <ul class="ds-pagination__list">
+            <li class="ds-pagination__item" style="position:relative;">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Previous page" disabled tabindex="-1"><i data-lucide="chevron-left" class="ds-icon" aria-hidden="true"></i></button>
+              <!-- 3: Prev/Next — connector lateral esquerdo -->
+              <span aria-hidden="true" style="position:absolute;inset-block-start:50%;inset-inline-start:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc((100% - var(--ds-size-sm)) / 2);inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));">3</span>
+            </li>
+            <li class="ds-pagination__item" style="position:relative;">
+              <a href="#" class="ds-pagination__page" aria-label="Page 1" tabindex="-1">1</a>
+              <!-- 4: Página numerada — connector inferior -->
+              <span aria-hidden="true" style="position:absolute;inset-block-end:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">4</span>
+            </li>
+            <li class="ds-pagination__item" style="position:relative;">
+              <span class="ds-pagination__ellipsis" aria-hidden="true"><i data-lucide="more-horizontal" class="ds-icon"></i></span>
+              <!-- 6: Ellipsis — connector superior -->
+              <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">6</span>
+            </li>
+            <li class="ds-pagination__item" style="position:relative;">
+              <span class="ds-pagination__page ds-pagination__page--current" aria-current="page" aria-label="Page 5">5</span>
+              <!-- 5: Página atual — connector superior -->
+              <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">5</span>
+            </li>
+            <li class="ds-pagination__item"><a href="#" class="ds-pagination__page" aria-label="Page 10" tabindex="-1">10</a></li>
+            <li class="ds-pagination__item">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon-only" aria-label="Next page" tabindex="-1"><i data-lucide="chevron-right" class="ds-icon" aria-hidden="true"></i></button>
+            </li>
+          </ul>
+        </nav>
+        <!-- 1: Nav landmark — connector superior direito -->
+        <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-end:var(--ds-space-2xl);block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-end:calc(var(--ds-space-2xl) - (var(--ds-size-sm) / 2));">1</span>
+        <!-- 2: Lista de controles — connector inferior central -->
+        <span aria-hidden="true" style="position:absolute;inset-block-end:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">2</span>
+      </div>
     </div>
     <div class="ds-anatomy-legend">
       <strong>1</strong> <span data-lang="pt"><code>&lt;nav aria-label="Pagination"&gt;</code> — landmark de navegação.</span><span data-lang="en"><code>&lt;nav aria-label="Pagination"&gt;</code> — navigation landmark.</span><br>

@@ -84,14 +84,14 @@
 .ds-radio::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
+  margin: auto;
   width: var(--ds-radio-dot-size-md);
   height: var(--ds-radio-dot-size-md);
   border-radius: var(--ds-radio-dot-radius-default);
   background-color: var(--ds-radio-dot-fill-selected-default);
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+  opacity: 0;
+  transition: opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
 }
 
 /* Checked */
@@ -102,7 +102,7 @@
 }
 
 .ds-radio:checked::after {
-  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
 /* Hover */

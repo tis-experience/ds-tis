@@ -8,6 +8,19 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Alterado
+- **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
+
+### Corrigido
+- **Anatomia do Pagination na documentação.** O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.
+- **Exemplos de boas práticas do Tooltip.** Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.
+- **Anatomia do Accordion na documentação.** O preview volta a exibir os seis marcadores e conectores que relacionam o componente às partes descritas na legenda.
+- **Anatomia do Combobox na documentação.** O preview passa a exibir os seis marcadores sem recorte e alinha input, listbox e option aos papéis ARIA descritos na legenda.
+- **Anatomia do Modal na documentação.** O marcador de título passa a apontar para o texto correto e o marcador do body deixa de ser recortado pelo overflow do componente.
+- **Anatomia do Radio na documentação.** Os cinco marcadores passam a apontar separadamente para grupo, legend, label, input e dot, sem sobreposição entre os callouts.
+- **Anatomia do Menu na documentação.** Os quatro marcadores passam a apontar separadamente para item, ícone, shortcut e separator, alinhados à legenda numerada.
+- **Indicadores de Radio e Toggle permanecem circulares sob zoom.** O dot do Radio passa a animar somente a opacidade e usa centralização por layout; o thumb do Toggle anima sua posição lógica. Ambos deixam de depender de transforms sujeitos a rasterização fracionária.
+
 ## [1.0.0] — 2026-07-19
 
 ### Adicionado

@@ -58,7 +58,7 @@
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
     <div class="ds-anatomy" style="padding:var(--ds-space-5xl);">
-      <div class="ds-accordion" inert>
+      <div class="ds-accordion" style="position:relative;" inert>
         <div class="ds-accordion__item" data-state="open">
           <button class="ds-accordion__trigger" type="button" aria-expanded="true" aria-controls="accordion-anatomy-panel" id="accordion-anatomy-trigger">
             <i data-lucide="settings" class="ds-accordion__leading-icon ds-icon" aria-hidden="true"></i>
@@ -69,6 +69,24 @@
             <p>Conteúdo expandido do painel.</p>
           </div>
         </div>
+        <!-- 1: Accordion — connector superior central -->
+        <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">1</span>
+        <!-- 2: Item — connector lateral esquerdo -->
+        <span aria-hidden="true" style="position:absolute;inset-block-end:var(--ds-space-lg);inset-inline-start:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-end:calc(var(--ds-space-lg) - (var(--ds-size-sm) / 2));inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));">2</span>
+        <!-- 3: Trigger — connector lateral direito -->
+        <span aria-hidden="true" style="position:absolute;inset-block-start:calc(var(--ds-accordion-trigger-height-md) / 2);inset-inline-end:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc((var(--ds-accordion-trigger-height-md) - var(--ds-size-sm)) / 2);inset-inline-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));">3</span>
+        <!-- 4: Leading icon — connector superior -->
+        <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:calc(var(--ds-accordion-trigger-padding-x-md) + (var(--ds-accordion-leading-icon-size-md) / 2));block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:calc(var(--ds-accordion-trigger-padding-x-md) + ((var(--ds-accordion-leading-icon-size-md) - var(--ds-size-sm)) / 2));">4</span>
+        <!-- 5: Chevron — connector superior -->
+        <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-end:calc(var(--ds-accordion-trigger-padding-x-md) + (var(--ds-accordion-chevron-size-md) / 2));block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-end:calc(var(--ds-accordion-trigger-padding-x-md) + ((var(--ds-accordion-chevron-size-md) - var(--ds-size-sm)) / 2));">5</span>
+        <!-- 6: Panel — connector inferior central -->
+        <span aria-hidden="true" style="position:absolute;inset-block-end:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:50%;transform:translateX(-50%);">6</span>
       </div>
     </div>
     <div class="ds-anatomy-legend">

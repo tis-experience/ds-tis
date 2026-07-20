@@ -21,6 +21,7 @@
   font-size: var(--ds-tooltip-label-font-size-default);
   font-weight: var(--ds-tooltip-label-font-weight-default);
   line-height: var(--ds-tooltip-label-line-height-default);
+  width: max-content;
   max-width: min(var(--ds-size-layout-xs), calc(100vw - var(--ds-space-3xl)));
   text-wrap: balance;
   overflow-wrap: break-word;
