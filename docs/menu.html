@@ -63,15 +63,26 @@
           <i data-lucide="pencil" class="ds-menu__icon ds-icon"></i>
           <span class="ds-menu__item-label">Rename</span>
           <span class="ds-menu__shortcut">R</span>
-          <span style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-5xl));inset-inline-start:50%;block-size:var(--ds-space-5xl);inline-size:var(--ds-menu-surface-border-width-default);background:var(--ds-brand-background-default);"></span>
-          <span class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-5xl) + var(--ds-space-lg)));inset-inline-start:50%;transform:translateX(-50%);">1</span>
+          <!-- 2: Icon — connector superior -->
+          <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:calc(var(--ds-menu-item-padding-x-md) + (var(--ds-menu-item-icon-size-md) / 2));block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-start:calc(var(--ds-menu-item-padding-x-md) + ((var(--ds-menu-item-icon-size-md) - var(--ds-size-sm)) / 2));">2</span>
+          <!-- 3: Shortcut — connector superior -->
+          <span aria-hidden="true" style="position:absolute;inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-end:calc(var(--ds-menu-item-padding-x-md) + var(--ds-space-2xs));block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));inset-inline-end:calc(var(--ds-menu-item-padding-x-md) + var(--ds-space-2xs) - (var(--ds-size-sm) / 2));">3</span>
         </button>
-        <button class="ds-menu__item" role="menuitem" type="button">
+        <button class="ds-menu__item" role="menuitem" type="button" style="position:relative;">
           <i data-lucide="copy" class="ds-menu__icon ds-icon"></i>
           <span class="ds-menu__item-label">Duplicate</span>
           <span class="ds-menu__shortcut">D</span>
+          <!-- 1: Item — connector lateral esquerdo -->
+          <span aria-hidden="true" style="position:absolute;inset-block-start:50%;inset-inline-start:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(50% - (var(--ds-size-sm) / 2));inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));">1</span>
         </button>
-        <div class="ds-menu__separator" role="separator"></div>
+        <div class="ds-menu__separator" role="separator" style="position:relative;">
+          <!-- 4: Separator — connector lateral direito -->
+          <span aria-hidden="true" style="position:absolute;inset-block-start:50%;inset-inline-end:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+          <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(50% - (var(--ds-size-sm) / 2));inset-inline-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-sm)));">4</span>
+        </div>
         <button class="ds-menu__item ds-menu__item--destructive" role="menuitem" type="button">
           <i data-lucide="trash-2" class="ds-menu__icon ds-icon"></i>
           <span class="ds-menu__item-label">Delete</span>
@@ -79,14 +90,14 @@
       </div>
     </div>
     <div class="ds-anatomy-legend">
-      <span data-lang="pt"><strong>Item</strong> (<code>.ds-menu__item</code>) — comando acionável com label obrigatório.<br>
-      <strong>Ícone</strong> (<code>.ds-menu__icon</code>) — opcional, decorativo quando o texto já nomeia a ação.<br>
-      <strong>Shortcut</strong> (<code>.ds-menu__shortcut</code>) — opcional, apenas informativo.<br>
-      <strong>Separator</strong> (<code>.ds-menu__separator</code>) — separa grupos de ações relacionadas.</span>
-      <span data-lang="en"><strong>Item</strong> (<code>.ds-menu__item</code>) — actionable command with a required label.<br>
-      <strong>Icon</strong> (<code>.ds-menu__icon</code>) — optional and decorative when text already names the action.<br>
-      <strong>Shortcut</strong> (<code>.ds-menu__shortcut</code>) — optional and informational only.<br>
-      <strong>Separator</strong> (<code>.ds-menu__separator</code>) — separates related action groups.</span>
+      <span data-lang="pt"><strong>1</strong> Item (<code>.ds-menu__item</code>) — comando acionável com label obrigatório.<br>
+      <strong>2</strong> Ícone (<code>.ds-menu__icon</code>) — opcional, decorativo quando o texto já nomeia a ação.<br>
+      <strong>3</strong> Shortcut (<code>.ds-menu__shortcut</code>) — opcional, apenas informativo.<br>
+      <strong>4</strong> Separator (<code>.ds-menu__separator</code>) — separa grupos de ações relacionadas.</span>
+      <span data-lang="en"><strong>1</strong> Item (<code>.ds-menu__item</code>) — actionable command with a required label.<br>
+      <strong>2</strong> Icon (<code>.ds-menu__icon</code>) — optional and decorative when text already names the action.<br>
+      <strong>3</strong> Shortcut (<code>.ds-menu__shortcut</code>) — optional and informational only.<br>
+      <strong>4</strong> Separator (<code>.ds-menu__separator</code>) — separates related action groups.</span>
     </div>
   </div>
 

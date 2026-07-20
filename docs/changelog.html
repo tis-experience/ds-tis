@@ -66,6 +66,21 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>O sistema segue Semantic Versioning. <code>1.0.0</code> marca o primeiro contrato estável; as tags <code>1.0.0-beta.N</code> e 0.x permanecem como histórico. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
+<h3>Alterado</h3>
+<ul>
+<li><strong>Tooltip preserva a largura natural de textos curtos.</strong> O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.</li>
+</ul>
+<h3>Corrigido</h3>
+<ul>
+<li><strong>Anatomia do Pagination na documentação.</strong> O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.</li>
+<li><strong>Exemplos de boas práticas do Tooltip.</strong> Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.</li>
+<li><strong>Anatomia do Accordion na documentação.</strong> O preview volta a exibir os seis marcadores e conectores que relacionam o componente às partes descritas na legenda.</li>
+<li><strong>Anatomia do Combobox na documentação.</strong> O preview passa a exibir os seis marcadores sem recorte e alinha input, listbox e option aos papéis ARIA descritos na legenda.</li>
+<li><strong>Anatomia do Modal na documentação.</strong> O marcador de título passa a apontar para o texto correto e o marcador do body deixa de ser recortado pelo overflow do componente.</li>
+<li><strong>Anatomia do Radio na documentação.</strong> Os cinco marcadores passam a apontar separadamente para grupo, legend, label, input e dot, sem sobreposição entre os callouts.</li>
+<li><strong>Anatomia do Menu na documentação.</strong> Os quatro marcadores passam a apontar separadamente para item, ícone, shortcut e separator, alinhados à legenda numerada.</li>
+<li><strong>Indicadores de Radio e Toggle permanecem circulares sob zoom.</strong> O dot do Radio passa a animar somente a opacidade e usa centralização por layout; o thumb do Toggle anima sua posição lógica. Ambos deixam de depender de transforms sujeitos a rasterização fracionária.</li>
+</ul>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0-beta.10...v1.0.0">1.0.0</a> — 2026-07-19</h2>
 <h3>Adicionado</h3>
 <ul>
