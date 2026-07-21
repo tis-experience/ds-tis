@@ -57,7 +57,11 @@
     </div>
     <div class="ds-callout ds-callout--warning">
       <div class="ds-callout__title"><span data-lang="pt">Não use alerts quando</span><span data-lang="en">Don't use alerts when</span></div>
-      <span data-lang="pt">O feedback e transitorio (use Toast — futuro), se refere a um erro de campo único (use Form Field), ou fornece feedback inline (use texto auxiliar).</span><span data-lang="en">The feedback is transient (use Toast — future), relates to a single field error (use Form Field), or provides inline feedback (use helper text).</span>
+      <span data-lang="pt">O feedback e transitorio (use <a href="toast.html">Toast</a>), se refere a um erro de campo único (use Form Field), ou fornece feedback inline (use texto auxiliar).</span><span data-lang="en">The feedback is transient (use <a href="toast.html">Toast</a>), relates to a single field error (use Form Field), or provides inline feedback (use helper text).</span>
+    </div>
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title"><span data-lang="pt">Skin compartilhado com Toast</span><span data-lang="en">Shared skin with Toast</span></div>
+      <span data-lang="pt">O estilo <strong>Subtle</strong> e o <strong>Solid</strong> do Alert são o mesmo skin do Toast: tipos, ícones Lucide fixos por Type, anatomia (ícone + título + descrição + até 2 actions + close) e aliases Semânticos equivalentes. Alert fica no fluxo da página (sem elevação); Toast é overlay transitório com <code>elevation/2</code> e runtime.</span><span data-lang="en">Alert <strong>Subtle</strong> and <strong>Solid</strong> are the same skin as Toast: types, fixed Lucide icons per Type, anatomy (icon + title + description + up to 2 actions + close), and equivalent Semantic aliases. Alert stays in page flow (no elevation); Toast is a transient overlay with <code>elevation/2</code> and runtime.</span>
     </div>
 
     <table class="ds-token-table">
@@ -79,7 +83,7 @@
 
     <div class="ds-anatomy" style="padding:64px;">
       <div style="position:relative;min-width:320px;" inert>
-        <div class="ds-alert ds-alert--success ds-alert--filled" role="alert">
+        <div class="ds-alert ds-alert--success ds-alert--solid" role="alert">
           <span class="ds-alert__icon"><i data-lucide="circle-check" class="ds-icon"></i></span>
           <div class="ds-alert__content">
             <p class="ds-alert__title">Success</p>
@@ -111,15 +115,15 @@
     <div class="ds-anatomy-legend">
       <span data-lang="pt"><strong>1</strong> Container (<code>.ds-alert</code>) — background, border-radius, padding.<br>
       <strong>2</strong> Ícone (<code>.ds-alert__icon</code>) — Lucide icon específico do tipo, reforça o significado além da cor.<br>
-      <strong>3</strong> Conteúdo (<code>.ds-alert__content</code>) — wrapper para título e descricao.<br>
+      <strong>3</strong> Conteúdo (<code>.ds-alert__content</code>) — wrapper para título, descrição e actions.<br>
       <strong>4</strong> Título (<code>.ds-alert__title</code>) — negrito, 1-3 palavras.<br>
       <strong>5</strong> Descrição (<code>.ds-alert__description</code>) — o que aconteceu + o que fazer.<br>
-      <strong>6</strong> Fechar (<code>.ds-alert__close</code>) — button de dispensar com <code>aria-label="Dismiss alert"</code>.</span><span data-lang="en"><strong>1</strong> Container (<code>.ds-alert</code>) — background, border-radius, padding.<br>
+      <strong>6</strong> Fechar (<code>.ds-alert__close</code>) — button de dispensar com <code>aria-label="Dismiss alert"</code>. Actions opcionais (<code>.ds-alert__actions</code>, até 2) ficam abaixo da descrição.</span><span data-lang="en"><strong>1</strong> Container (<code>.ds-alert</code>) — background, border-radius, padding.<br>
       <strong>2</strong> Icon (<code>.ds-alert__icon</code>) — type-specific Lucide icon, reinforces meaning beyond color.<br>
-      <strong>3</strong> Content (<code>.ds-alert__content</code>) — wrapper for title and description.<br>
+      <strong>3</strong> Content (<code>.ds-alert__content</code>) — wrapper for title, description, and actions.<br>
       <strong>4</strong> Title (<code>.ds-alert__title</code>) — bold, 1-3 words.<br>
       <strong>5</strong> Description (<code>.ds-alert__description</code>) — what happened + what to do.<br>
-      <strong>6</strong> Close (<code>.ds-alert__close</code>) — dismiss button with <code>aria-label="Dismiss alert"</code>.</span>
+      <strong>6</strong> Close (<code>.ds-alert__close</code>) — dismiss button with <code>aria-label="Dismiss alert"</code>. Optional actions (<code>.ds-alert__actions</code>, up to 2) sit below the description.</span>
     </div>
   </div>
 
@@ -127,9 +131,9 @@
        4. VARIANTS (live previews)
        ============================================================ -->
 
-  <!-- Filled Variants -->
+  <!-- Solid Variants -->
   <div class="ds-subsection">
-    <h2 class="ds-subsection__title"><span data-lang="pt">Variantes Filled</span><span data-lang="en">Filled Variants</span></h2>
+    <h2 class="ds-subsection__title"><span data-lang="pt">Variantes Solid</span><span data-lang="en">Solid Variants</span></h2>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
         <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
@@ -137,7 +141,7 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="width:100%">
-          <div class="ds-alert ds-alert--success ds-alert--filled" role="alert">
+          <div class="ds-alert ds-alert--success ds-alert--solid" role="alert">
             <span class="ds-alert__icon"><i data-lucide="circle-check" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Success</p>
@@ -145,7 +149,7 @@
             </div>
           </div>
 
-          <div class="ds-alert ds-alert--warning ds-alert--filled" role="alert">
+          <div class="ds-alert ds-alert--warning ds-alert--solid" role="alert">
             <span class="ds-alert__icon"><i data-lucide="triangle-alert" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Warning</p>
@@ -153,7 +157,7 @@
             </div>
           </div>
 
-          <div class="ds-alert ds-alert--error ds-alert--filled" role="alert">
+          <div class="ds-alert ds-alert--error ds-alert--solid" role="alert">
             <span class="ds-alert__icon"><i data-lucide="circle-alert" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Error</p>
@@ -161,7 +165,7 @@
             </div>
           </div>
 
-          <div class="ds-alert ds-alert--info ds-alert--filled" role="alert">
+          <div class="ds-alert ds-alert--info ds-alert--solid" role="alert">
             <span class="ds-alert__icon"><i data-lucide="info" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Information</p>
@@ -173,7 +177,7 @@
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-alert ds-alert--success ds-alert--filled" role="alert"&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-alert ds-alert--success ds-alert--solid" role="alert"&gt;
   &lt;span class="ds-alert__icon"&gt;
     &lt;i data-lucide="circle-check" class="ds-icon"&gt;&lt;/i&gt;
   &lt;/span&gt;
@@ -183,7 +187,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div class="ds-alert ds-alert--warning ds-alert--filled" role="alert"&gt;
+&lt;div class="ds-alert ds-alert--warning ds-alert--solid" role="alert"&gt;
   &lt;span class="ds-alert__icon"&gt;
     &lt;i data-lucide="triangle-alert" class="ds-icon"&gt;&lt;/i&gt;
   &lt;/span&gt;
@@ -193,7 +197,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div class="ds-alert ds-alert--error ds-alert--filled" role="alert"&gt;
+&lt;div class="ds-alert ds-alert--error ds-alert--solid" role="alert"&gt;
   &lt;span class="ds-alert__icon"&gt;
     &lt;i data-lucide="circle-alert" class="ds-icon"&gt;&lt;/i&gt;
   &lt;/span&gt;
@@ -203,7 +207,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div class="ds-alert ds-alert--info ds-alert--filled" role="alert"&gt;
+&lt;div class="ds-alert ds-alert--info ds-alert--solid" role="alert"&gt;
   &lt;span class="ds-alert__icon"&gt;
     &lt;i data-lucide="info" class="ds-icon"&gt;&lt;/i&gt;
   &lt;/span&gt;
@@ -288,6 +292,57 @@
     </div>
   </div>
 
+  <!-- With Actions -->
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Com actions</span><span data-lang="en">With actions</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Até 2 actions como botões (anatomia ghost/sm). No Figma: <code>Show Action 1/2</code>; Label via nested Button exposto. Fileira com <code>padding-top</code> tokenizado (<code>--ds-alert-actions-padding-top-default</code>). Sem Action 1, a fileira não ocupa espaço. Cores via <code>action.color</code>: Subtle = título; Solid = content-contrast do tipo.</span><span data-lang="en">Up to 2 actions as buttons (ghost/sm anatomy). In Figma: <code>Show Action 1/2</code>; Label via exposed nested Button. Row uses tokenized <code>padding-top</code> (<code>--ds-alert-actions-padding-top-default</code>). Without Action 1, the row takes no space. Colors via <code>action.color</code>: Subtle = title; Solid = type content-contrast.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--column" style="width:100%">
+          <div class="ds-alert ds-alert--warning ds-alert--subtle" role="status">
+            <span class="ds-alert__icon"><i data-lucide="triangle-alert" class="ds-icon"></i></span>
+            <div class="ds-alert__content">
+              <p class="ds-alert__title">Sessão expirando</p>
+              <p class="ds-alert__description">Sua sessão termina em 5 minutos. Salve o trabalho ou renove a sessão.</p>
+              <div class="ds-alert__actions">
+                <button type="button" class="ds-button ds-button--ghost ds-button--sm"><span class="ds-button__label">Renovar</span></button>
+                <button type="button" class="ds-button ds-button--ghost ds-button--sm"><span class="ds-button__label">Sair</span></button>
+              </div>
+            </div>
+            <button class="ds-alert__close" aria-label="Dismiss alert"><i data-lucide="x" class="ds-icon"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-alert ds-alert--warning ds-alert--subtle" role="status"&gt;
+  &lt;span class="ds-alert__icon"&gt;&lt;i data-lucide="triangle-alert" class="ds-icon"&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;div class="ds-alert__content"&gt;
+    &lt;p class="ds-alert__title"&gt;Sessão expirando&lt;/p&gt;
+    &lt;p class="ds-alert__description"&gt;Sua sessão termina em 5 minutos.&lt;/p&gt;
+    &lt;div class="ds-alert__actions"&gt;
+      &lt;button type="button" class="ds-button ds-button--ghost ds-button--sm"&gt;
+        &lt;span class="ds-button__label"&gt;Renovar&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type="button" class="ds-button ds-button--ghost ds-button--sm"&gt;
+        &lt;span class="ds-button__label"&gt;Sair&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="ds-alert__close" aria-label="Dismiss alert"&gt;
+    &lt;i data-lucide="x" class="ds-icon"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- With Close Button -->
   <div class="ds-subsection">
     <h2 class="ds-subsection__title"><span data-lang="pt">Com button de fechar</span><span data-lang="en">With Close Button</span></h2>
@@ -298,7 +353,7 @@
       </div>
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
         <div class="ds-preview__canvas ds-preview__canvas--column" style="width:100%">
-          <div class="ds-alert ds-alert--info ds-alert--filled" role="alert">
+          <div class="ds-alert ds-alert--info ds-alert--solid" role="alert">
             <span class="ds-alert__icon"><i data-lucide="info" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Tip</p>
@@ -324,7 +379,7 @@
       <div class="ds-preview__panel" data-panel="code">
         <div class="ds-preview__code">
           <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
-          <pre tabindex="0"><code>&lt;div class="ds-alert ds-alert--info ds-alert--filled" role="alert"&gt;
+          <pre tabindex="0"><code>&lt;div class="ds-alert ds-alert--info ds-alert--solid" role="alert"&gt;
   &lt;span class="ds-alert__icon"&gt;
     &lt;i data-lucide="info" class="ds-icon"&gt;&lt;/i&gt;
   &lt;/span&gt;
@@ -350,7 +405,7 @@
     <div class="ds-dodont">
       <div class="ds-dodont__item">
         <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;">
-          <div class="ds-alert ds-alert--success ds-alert--filled" role="alert" style="width:100%">
+          <div class="ds-alert ds-alert--success ds-alert--solid" role="alert" style="width:100%">
             <span class="ds-alert__icon"><i data-lucide="circle-check" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Saved</p>
@@ -376,7 +431,7 @@
     <div class="ds-dodont">
       <div class="ds-dodont__item">
         <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;gap:var(--ds-dimension-12);">
-          <div class="ds-alert ds-alert--error ds-alert--filled" role="alert" style="width:100%">
+          <div class="ds-alert ds-alert--error ds-alert--solid" role="alert" style="width:100%">
             <span class="ds-alert__icon"><i data-lucide="circle-alert" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Error</p>
@@ -392,25 +447,25 @@
           </div>
         </div>
         <div class="ds-dodont__label ds-dodont__label--do">Faça</div>
-        <div class="ds-dodont__desc"><span data-lang="pt">Use filled para mensagens de alta prioridade, subtle para informativas.</span><span data-lang="en">Use filled for high-priority messages, subtle for informational ones.</span></div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Use solid para mensagens de alta prioridade, subtle para informativas.</span><span data-lang="en">Use solid for high-priority messages, subtle for informational ones.</span></div>
       </div>
       <div class="ds-dodont__item">
         <div class="ds-dodont__preview" style="flex-direction:column;align-items:stretch;gap:var(--ds-dimension-12);">
-          <div class="ds-alert ds-alert--error ds-alert--filled" role="alert" style="width:100%">
+          <div class="ds-alert ds-alert--error ds-alert--solid" role="alert" style="width:100%">
             <span class="ds-alert__icon"><i data-lucide="circle-alert" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Error</p>
               <p class="ds-alert__description">Payment failed.</p>
             </div>
           </div>
-          <div class="ds-alert ds-alert--warning ds-alert--filled" role="alert" style="width:100%">
+          <div class="ds-alert ds-alert--warning ds-alert--solid" role="alert" style="width:100%">
             <span class="ds-alert__icon"><i data-lucide="triangle-alert" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Warning</p>
               <p class="ds-alert__description">Card expiring soon.</p>
             </div>
           </div>
-          <div class="ds-alert ds-alert--info ds-alert--filled" role="alert" style="width:100%">
+          <div class="ds-alert ds-alert--info ds-alert--solid" role="alert" style="width:100%">
             <span class="ds-alert__icon"><i data-lucide="info" class="ds-icon"></i></span>
             <div class="ds-alert__content">
               <p class="ds-alert__title">Note</p>
@@ -419,7 +474,7 @@
           </div>
         </div>
         <div class="ds-dodont__label ds-dodont__label--dont">Não faça</div>
-        <div class="ds-dodont__desc"><span data-lang="pt">Múltiplos alerts filled diluem a urgencia e sobrecarregam o usuário.</span><span data-lang="en">Multiple filled alerts dilute urgency and overwhelm the user.</span></div>
+        <div class="ds-dodont__desc"><span data-lang="pt">Múltiplos alerts solid diluem a urgencia e sobrecarregam o usuário.</span><span data-lang="en">Multiple solid alerts dilute urgency and overwhelm the user.</span></div>
       </div>
     </div>
   </div>
@@ -450,10 +505,10 @@
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
       <tbody>
-        <tr><td>bg (success filled)</td><td><code>semantic.feedback.success.background.default</code></td><td><code>--ds-feedback-success-background-default</code></td></tr>
+        <tr><td>bg (success solid)</td><td><code>semantic.feedback.success.background.default</code></td><td><code>--ds-feedback-success-background-default</code></td></tr>
         <tr><td>bg (success subtle)</td><td><code>semantic.feedback.success.background.subtle</code></td><td><code>--ds-feedback-success-background-subtle</code></td></tr>
         <tr><td>border (success subtle)</td><td><code>semantic.feedback.success.border.default</code></td><td><code>--ds-feedback-success-border-default</code></td></tr>
-        <tr><td>text (success filled)</td><td><code>semantic.feedback.success.content.contrast</code></td><td><code>--ds-feedback-success-content-contrast</code></td></tr>
+        <tr><td>text (success solid)</td><td><code>semantic.feedback.success.content.contrast</code></td><td><code>--ds-feedback-success-content-contrast</code></td></tr>
         <tr><td>text title (subtle)</td><td><code>semantic.content.strong</code></td><td><code>--ds-content-strong</code></td></tr>
         <tr><td>text description (subtle)</td><td><code>semantic.content.default</code></td><td><code>--ds-content-default</code></td></tr>
         <tr><td>root padding</td><td><code>component.alert.padding.default</code></td><td><code>--ds-alert-padding-default</code></td></tr>
@@ -480,17 +535,18 @@
       <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
       <tbody>
         <tr><td><code>ds-alert</code></td><td><span data-lang="pt">Container base do alert</span><span data-lang="en">Base alert container</span></td></tr>
-        <tr><td><code>ds-alert--filled</code></td><td><span data-lang="pt">Estilo com fundo preenchido (solid)</span><span data-lang="en">Filled/solid background style</span></td></tr>
+        <tr><td><code>ds-alert--solid</code></td><td><span data-lang="pt">Estilo Solid (ênfase forte; alias depreciado: <code>ds-alert--filled</code>)</span><span data-lang="en">Solid style (strong emphasis; deprecated alias: <code>ds-alert--filled</code>)</span></td></tr>
         <tr><td><code>ds-alert--subtle</code></td><td><span data-lang="pt">Estilo sutil com fundo claro e borda ao redor (1px)</span><span data-lang="en">Subtle style with light background and full border (1px)</span></td></tr>
         <tr><td><code>ds-alert--success</code></td><td><span data-lang="pt">Variante success (verde)</span><span data-lang="en">Success variant (green)</span></td></tr>
         <tr><td><code>ds-alert--warning</code></td><td><span data-lang="pt">Variante warning (amarelo)</span><span data-lang="en">Warning variant (yellow)</span></td></tr>
         <tr><td><code>ds-alert--error</code></td><td><span data-lang="pt">Variante error (vermelho)</span><span data-lang="en">Error variant (red)</span></td></tr>
         <tr><td><code>ds-alert--info</code></td><td><span data-lang="pt">Variante info (azul)</span><span data-lang="en">Info variant (blue)</span></td></tr>
-        <tr><td><code>ds-alert__icon</code></td><td><span data-lang="pt">Container do ícone</span><span data-lang="en">Icon container</span></td></tr>
-        <tr><td><code>ds-alert__content</code></td><td><span data-lang="pt">Wrapper de conteúdo para título e descricao</span><span data-lang="en">Content wrapper for title and description</span></td></tr>
+        <tr><td><code>ds-alert__icon</code></td><td><span data-lang="pt">Container do ícone (fixo por Type)</span><span data-lang="en">Icon container (fixed per Type)</span></td></tr>
+        <tr><td><code>ds-alert__content</code></td><td><span data-lang="pt">Wrapper de título, descrição e actions</span><span data-lang="en">Wrapper for title, description, and actions</span></td></tr>
         <tr><td><code>ds-alert__title</code></td><td><span data-lang="pt">Título do alert (negrito)</span><span data-lang="en">Alert title (bold)</span></td></tr>
-        <tr><td><code>ds-alert__description</code></td><td><span data-lang="pt">Texto de descricao do alert</span><span data-lang="en">Alert description text</span></td></tr>
-        <tr><td><code>ds-alert__close</code></td><td><span data-lang="pt">Button de dispensar/fechar</span><span data-lang="en">Dismiss/close button</span></td></tr>
+        <tr><td><code>ds-alert__description</code></td><td><span data-lang="pt">Texto de descrição do alert</span><span data-lang="en">Alert description text</span></td></tr>
+        <tr><td><code>ds-alert__actions</code></td><td><span data-lang="pt">Container de até 2 actions (Button ghost/sm)</span><span data-lang="en">Container for up to 2 actions (Button ghost/sm)</span></td></tr>
+        <tr><td><code>ds-alert__close</code></td><td><span data-lang="pt">Button de dispensar/fechar (ícone fixo)</span><span data-lang="en">Dismiss/close button (fixed icon)</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -542,6 +598,7 @@
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="badge.html" class="ds-related__link">Badge</a>
+      <a href="toast.html" class="ds-related__link">Toast</a>
       <a href="modal.html" class="ds-related__link">Modal</a>
       <a href="tooltip.html" class="ds-related__link">Tooltip</a>
     </div>

@@ -11,7 +11,8 @@
       "modal": "ds-tis/modal",
       "menu": "ds-tis/menu",
       "tabs": "ds-tis/tabs",
-      "tooltip": "ds-tis/tooltip"
+      "tooltip": "ds-tis/tooltip",
+      "toast": "ds-tis/toast"
     },
     "theme": "ds-tis/theme",
     "templates": "ds-tis/templates/*",

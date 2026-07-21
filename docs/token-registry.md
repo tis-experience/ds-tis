@@ -1,12 +1,12 @@
 # Token Registry
 
-> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-08. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
+> Gerado automaticamente por `scripts/build-token-registry.mjs` em 2026-07-21. Não editar à mão — edite `tokens/registry.json` e rode `npm run build:registry`.
 
 Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra arquitetural de camadas.
 
 ## Status
 
-- Metadados obrigatórios preenchidos.
+- Há entradas com `TODO` em campos obrigatórios; rode `npm run verify:registry` para ver a lista exata.
 
 ## Foundation
 
@@ -180,20 +180,20 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.dimension.10` | dimension | — | Dimensão fixa de 10px (0.625rem). | 6 |
 | `foundation.dimension.102` | dimension | — | Dimensao fixa de 102px (6.375rem). | 4 |
 | `foundation.dimension.1024` | dimension | — | Dimensão fixa de 1024px (64rem). | 4 |
-| `foundation.dimension.12` | dimension | — | Dimensão fixa de 12px (0.75rem). | 9 |
+| `foundation.dimension.12` | dimension | — | Dimensão fixa de 12px (0.75rem). | 8 |
 | `foundation.dimension.120` | dimension | — | Dimensão fixa de 120px (7.5rem). | 8 |
-| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 5 |
+| `foundation.dimension.128` | dimension | — | Dimensão fixa de 128px (8rem). | 4 |
 | `foundation.dimension.1280` | dimension | — | Dimensão fixa de 1280px (80rem). | 4 |
 | `foundation.dimension.14` | dimension | — | Dimensão fixa de 14px (0.875rem). | 0 |
-| `foundation.dimension.16` | dimension | — | Dimensão fixa de 16px (1rem). | 10 |
-| `foundation.dimension.2` | dimension | — | Dimensão fixa de 2px (0.125rem). | 7 |
+| `foundation.dimension.16` | dimension | — | Dimensão fixa de 16px (1rem). | 8 |
+| `foundation.dimension.2` | dimension | — | Dimensão fixa de 2px (0.125rem). | 6 |
 | `foundation.dimension.20` | dimension | — | Dimensão fixa de 20px (1.25rem). | 8 |
 | `foundation.dimension.24` | dimension | — | Dimensão fixa de 24px (1.5rem). | 8 |
 | `foundation.dimension.28` | dimension | — | Dimensão fixa de 28px (1.75rem). | 6 |
 | `foundation.dimension.32` | dimension | — | Dimensão fixa de 32px (2rem). | 8 |
 | `foundation.dimension.320` | dimension | — | Dimensão fixa de 320px (20rem). | 4 |
 | `foundation.dimension.36` | dimension | — | Dimensão fixa de 36px (2.25rem). | 0 |
-| `foundation.dimension.4` | dimension | — | Dimensão fixa de 4px (0.25rem). | 5 |
+| `foundation.dimension.4` | dimension | — | Dimensão fixa de 4px (0.25rem). | 4 |
 | `foundation.dimension.40` | dimension | — | Dimensão fixa de 40px (2.5rem). | 6 |
 | `foundation.dimension.44` | dimension | — | Dimensão fixa de 44px (2.75rem). | 4 |
 | `foundation.dimension.48` | dimension | — | Dimensão fixa de 48px (3rem). | 8 |
@@ -339,7 +339,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `foundation.z.20` | number | — | Z-index camada 20 (sticky header/overlay). | 0 |
 | `foundation.z.30` | number | — | Z-index camada 30 (drawer). | 0 |
 | `foundation.z.40` | number | — | Z-index camada 40 (modal). | 6 |
-| `foundation.z.50` | number | — | Z-index camada 50 (toast/snackbar). | 0 |
+| `foundation.z.50` | number | — | Z-index camada 50 (toast/snackbar). | 4 |
 
 ## Semantic
 
@@ -372,7 +372,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.border.overlay.medium` | color | → `semantic.overlay.medium` | Token semantic para border / overlay / medium. | 2 |
 | `semantic.border.strong` | color | → `foundation.color.neutral.600` | Borda neutra forte — emphasis em separadores. | 3 |
 | `semantic.border.subtle` | color | → `foundation.color.neutral.200` | Borda neutra sutil — chips, code blocks. | 4 |
-| `semantic.border.width.default` | dimension | → `foundation.border.width.1` | Border-width default. | 16 |
+| `semantic.border.width.default` | dimension | → `foundation.border.width.1` | Border-width default. | 17 |
 | `semantic.border.width.focus` | dimension | → `foundation.border.width.2` | Border-width focus. | 2 |
 | `semantic.border.width.strong` | dimension | → `foundation.border.width.2` | Border-width strong. | 5 |
 
@@ -400,7 +400,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.content.disabled` | color | → `foundation.color.neutral.400` | Texto disabled — controles e items inativos. | 15 |
 | `semantic.content.hover` | color | → `foundation.color.neutral.700` | Conteúdo neutro em hover. | 6 |
 | `semantic.content.inverse` | color | → `foundation.color.neutral.50` | Texto invertido — sobre background.inverse (tooltips, badges escuros em light). | 5 |
-| `semantic.content.strong` | color | → `foundation.color.neutral.900` | Texto primário — body, headings, labels principais. | 20 |
+| `semantic.content.strong` | color | → `foundation.color.neutral.900` | Texto primário — body, headings, labels principais. | 24 |
 | `semantic.content.subtle` | color | → `foundation.color.neutral.600` | Texto terciário — caption, footnote, timestamps. | 9 |
 
 ### semantic.content-placeholder
@@ -439,36 +439,36 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.feedback.error.background.active` | color | → `foundation.color.red.900` | Fill de feedback erro (vermelho) em estado active. | 2 |
-| `semantic.feedback.error.background.default` | color | → `foundation.color.red.600` | Fill de feedback erro (vermelho) em estado default. | 5 |
+| `semantic.feedback.error.background.default` | color | → `foundation.color.red.600` | Fill de feedback erro (vermelho) em estado default. | 6 |
 | `semantic.feedback.error.background.disabled` | color | → `foundation.color.disabled.error.light` | Fill de feedback erro (vermelho) em estado disabled. | 2 |
 | `semantic.feedback.error.background.hover` | color | → `foundation.color.red.800` | Fill de feedback erro (vermelho) em estado hover. | 2 |
-| `semantic.feedback.error.background.subtle` | color | → `foundation.color.red.100` | Fill de feedback erro (vermelho) em estado subtle. | 4 |
-| `semantic.feedback.error.border-default` | color | → `foundation.color.red.500` | Borda de feedback erro (vermelho) em estado default. | 2 |
+| `semantic.feedback.error.background.subtle` | color | → `foundation.color.red.100` | Fill de feedback erro (vermelho) em estado subtle. | 5 |
+| `semantic.feedback.error.border-default` | color | → `foundation.color.red.500` | Borda de feedback erro (vermelho) em estado default. | 3 |
 | `semantic.feedback.error.border.hover` | color | → `foundation.color.red.800` | Borda de feedback erro em estado hover. | 4 |
-| `semantic.feedback.error.content-contrast` | color | → `foundation.color.neutral.50` | Cor de feedback erro (vermelho) em estado contrast. | 12 |
+| `semantic.feedback.error.content-contrast` | color | → `foundation.color.neutral.50` | Cor de feedback erro (vermelho) em estado contrast. | 16 |
 | `semantic.feedback.error.content-default` | color | → `foundation.color.red.700` | Cor de feedback erro (vermelho) em estado default. | 9 |
 | `semantic.feedback.error.content-disabled` | color | → `foundation.color.overlay.white.80` | Cor de feedback erro (vermelho) em estado disabled. | 2 |
 | `semantic.feedback.error.content.strong` | color | → `foundation.color.red.700` | Cor de conteúdo de erro com ênfase forte. | 7 |
-| `semantic.feedback.info.background.default` | color | → `foundation.color.blue.400` | Fill de feedback informação (azul) em estado default. | 3 |
+| `semantic.feedback.info.background.default` | color | → `foundation.color.blue.400` | Fill de feedback informação (azul) em estado default. | 4 |
 | `semantic.feedback.info.background.hover` | color | → `foundation.color.blue.600` | Fill de feedback informação (azul) em estado hover. | 0 |
-| `semantic.feedback.info.background.subtle` | color | → `foundation.color.blue.100` | Fill de feedback informação (azul) em estado subtle. | 3 |
-| `semantic.feedback.info.border-default` | color | → `foundation.color.blue.500` | Borda de feedback informação (azul) em estado default. | 2 |
-| `semantic.feedback.info.content-contrast` | color | → `foundation.color.brand.950` | Cor de feedback informação (azul) em estado contrast. | 8 |
+| `semantic.feedback.info.background.subtle` | color | → `foundation.color.blue.100` | Fill de feedback informação (azul) em estado subtle. | 4 |
+| `semantic.feedback.info.border-default` | color | → `foundation.color.blue.500` | Borda de feedback informação (azul) em estado default. | 3 |
+| `semantic.feedback.info.content-contrast` | color | → `foundation.color.brand.950` | Cor de feedback informação (azul) em estado contrast. | 12 |
 | `semantic.feedback.info.content-default` | color | → `foundation.color.blue.700` | Cor de feedback informação (azul) em estado default. | 2 |
 | `semantic.feedback.success.background.active` | color | → `foundation.color.green.900` | Fill de feedback sucesso (verde) em estado active. | 2 |
-| `semantic.feedback.success.background.default` | color | → `foundation.color.green.600` | Fill de feedback sucesso (verde) em estado default. | 5 |
+| `semantic.feedback.success.background.default` | color | → `foundation.color.green.600` | Fill de feedback sucesso (verde) em estado default. | 6 |
 | `semantic.feedback.success.background.disabled` | color | → `foundation.color.disabled.success.light` | Fill de feedback sucesso (verde) em estado disabled. | 2 |
 | `semantic.feedback.success.background.hover` | color | → `foundation.color.green.800` | Fill de feedback sucesso (verde) em estado hover. | 2 |
-| `semantic.feedback.success.background.subtle` | color | → `foundation.color.green.100` | Fill de feedback sucesso (verde) em estado subtle. | 3 |
-| `semantic.feedback.success.border-default` | color | → `foundation.color.green.500` | Borda de feedback sucesso (verde) em estado default. | 3 |
-| `semantic.feedback.success.content-contrast` | color | → `foundation.color.neutral.50` | Cor de feedback sucesso (verde) em estado contrast. | 12 |
+| `semantic.feedback.success.background.subtle` | color | → `foundation.color.green.100` | Fill de feedback sucesso (verde) em estado subtle. | 4 |
+| `semantic.feedback.success.border-default` | color | → `foundation.color.green.500` | Borda de feedback sucesso (verde) em estado default. | 4 |
+| `semantic.feedback.success.content-contrast` | color | → `foundation.color.neutral.50` | Cor de feedback sucesso (verde) em estado contrast. | 16 |
 | `semantic.feedback.success.content-default` | color | → `foundation.color.green.700` | Cor de feedback sucesso (verde) em estado default. | 6 |
 | `semantic.feedback.success.content-disabled` | color | → `foundation.color.overlay.white.80` | Cor de feedback sucesso (verde) em estado disabled. | 2 |
-| `semantic.feedback.warning.background.default` | color | → `foundation.color.amber.300` | Fill de feedback aviso (âmbar) em estado default. | 3 |
+| `semantic.feedback.warning.background.default` | color | → `foundation.color.amber.300` | Fill de feedback aviso (âmbar) em estado default. | 4 |
 | `semantic.feedback.warning.background.hover` | color | → `foundation.color.amber.600` | Fill de feedback aviso (âmbar) em estado hover. | 0 |
-| `semantic.feedback.warning.background.subtle` | color | → `foundation.color.amber.100` | Fill de feedback aviso (âmbar) em estado subtle. | 3 |
-| `semantic.feedback.warning.border-default` | color | → `foundation.color.amber.500` | Borda de feedback aviso (âmbar) em estado default. | 2 |
-| `semantic.feedback.warning.content-contrast` | color | → `foundation.color.amber.950` | Cor de feedback aviso (âmbar) em estado contrast. | 8 |
+| `semantic.feedback.warning.background.subtle` | color | → `foundation.color.amber.100` | Fill de feedback aviso (âmbar) em estado subtle. | 4 |
+| `semantic.feedback.warning.border-default` | color | → `foundation.color.amber.500` | Borda de feedback aviso (âmbar) em estado default. | 3 |
+| `semantic.feedback.warning.content-contrast` | color | → `foundation.color.amber.950` | Cor de feedback aviso (âmbar) em estado contrast. | 12 |
 | `semantic.feedback.warning.content-default` | color | → `foundation.color.amber.700` | Cor de feedback aviso (âmbar) em estado default. | 6 |
 
 ### semantic.ghost
@@ -485,21 +485,21 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.icon.color.active` | color | → `semantic.content.strong` | Cor semantica de icone active. | 0 |
-| `semantic.icon.color.default` | color | → `semantic.content.default` | Cor semantica de icone default. | 13 |
+| `semantic.icon.color.default` | color | → `semantic.content.default` | Cor semantica de icone default. | 15 |
 | `semantic.icon.color.disabled` | color | → `semantic.content.disabled` | Cor semantica de icone disabled. | 9 |
-| `semantic.icon.color.error` | color | → `semantic.feedback.error.content-default` | Cor semantica de icone error. | 4 |
-| `semantic.icon.color.error-contrast` | color | → `semantic.feedback.error.content-contrast` | Cor semantica de icone error-contrast. | 3 |
+| `semantic.icon.color.error` | color | → `semantic.feedback.error.content-default` | Cor semantica de icone error. | 5 |
+| `semantic.icon.color.error-contrast` | color | → `semantic.feedback.error.content-contrast` | Cor semantica de icone error-contrast. | 5 |
 | `semantic.icon.color.error-strong` | color | → `semantic.feedback.error.content.strong` | Cor de ícone de erro com ênfase forte. | 2 |
 | `semantic.icon.color.hover` | color | → `semantic.content.hover` | Cor semantica de icone hover. | 0 |
-| `semantic.icon.color.info-contrast` | color | → `semantic.feedback.info.content-contrast` | Cor semantica de icone info-contrast. | 3 |
+| `semantic.icon.color.info-contrast` | color | → `semantic.feedback.info.content-contrast` | Cor semantica de icone info-contrast. | 5 |
 | `semantic.icon.color.inverse` | color | → `semantic.content.inverse` | Cor semantica de icone inverse. | 1 |
 | `semantic.icon.color.subtle` | color | → `semantic.content.subtle` | Cor semantica de icone subtle. | 1 |
-| `semantic.icon.color.success` | color | → `semantic.feedback.success.content-default` | Cor semantica de icone success. | 3 |
-| `semantic.icon.color.success-contrast` | color | → `semantic.feedback.success.content-contrast` | Cor semantica de icone success-contrast. | 3 |
-| `semantic.icon.color.warning` | color | → `semantic.feedback.warning.content-default` | Cor semantica de icone warning. | 3 |
-| `semantic.icon.color.warning-contrast` | color | → `semantic.feedback.warning.content-contrast` | Cor semantica de icone warning-contrast. | 3 |
+| `semantic.icon.color.success` | color | → `semantic.feedback.success.content-default` | Cor semantica de icone success. | 4 |
+| `semantic.icon.color.success-contrast` | color | → `semantic.feedback.success.content-contrast` | Cor semantica de icone success-contrast. | 5 |
+| `semantic.icon.color.warning` | color | → `semantic.feedback.warning.content-default` | Cor semantica de icone warning. | 4 |
+| `semantic.icon.color.warning-contrast` | color | → `semantic.feedback.warning.content-contrast` | Cor semantica de icone warning-contrast. | 5 |
 | `semantic.icon.stroke-width.regular.16` | dimension | → `foundation.stroke.width.1_5` | Stroke width semantico de icone regular 16px. | 9 |
-| `semantic.icon.stroke-width.regular.20` | dimension | → `foundation.stroke.width.1_75` | Stroke width semantico de icone regular 20px. | 13 |
+| `semantic.icon.stroke-width.regular.20` | dimension | → `foundation.stroke.width.1_75` | Stroke width semantico de icone regular 20px. | 15 |
 | `semantic.icon.stroke-width.regular.24` | dimension | → `foundation.stroke.width.2` | Stroke width semantico de icone regular 24px. | 10 |
 | `semantic.icon.stroke-width.regular.32` | dimension | → `foundation.stroke.width.2_5` | Stroke width semantico de icone regular 32px. | 3 |
 | `semantic.icon.stroke-width.strong.16` | dimension | → `foundation.stroke.width.1_75` | Stroke width semantico de icone strong 16px. | 3 |
@@ -552,7 +552,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `semantic.overlay.default` | color | → `foundation.color.overlay.black.10` | Overlay default — translúcido sobre conteúdo. | 5 |
+| `semantic.overlay.default` | color | → `foundation.color.overlay.black.10` | Overlay default — translúcido sobre conteúdo. | 7 |
 | `semantic.overlay.medium` | color | → `foundation.color.overlay.black.20` | Overlay medium — translúcido sobre conteúdo. | 4 |
 | `semantic.overlay.strong` | color | → `foundation.color.overlay.black.40` | Overlay strong — translúcido sobre conteúdo. | 0 |
 | `semantic.overlay.subtle` | color | → `foundation.color.overlay.black.5` | Overlay subtle — translúcido sobre conteúdo. | 0 |
@@ -562,9 +562,9 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.radius.full` | dimension | → `foundation.radius.999` | Radius semantic full. | 11 |
-| `semantic.radius.lg` | dimension | → `foundation.radius.12` | Radius semantic lg. | 13 |
+| `semantic.radius.lg` | dimension | → `foundation.radius.12` | Radius semantic lg. | 14 |
 | `semantic.radius.md` | dimension | → `foundation.radius.8` | Radius semantic md. | 12 |
-| `semantic.radius.sm` | dimension | → `foundation.radius.4` | Radius semantic sm. | 10 |
+| `semantic.radius.sm` | dimension | → `foundation.radius.4` | Radius semantic sm. | 11 |
 | `semantic.radius.xl` | dimension | → `foundation.radius.16` | Radius semantic xl. | 3 |
 
 ### semantic.shadow
@@ -573,7 +573,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 |---|---|---|---|---|
 | `semantic.shadow.card` | shadow | → `foundation.shadow.sm` | Sombra semantic card. | 2 |
 | `semantic.shadow.modal` | shadow | → `foundation.shadow.xl` | Sombra semantic modal. | 2 |
-| `semantic.shadow.overlay` | shadow | → `foundation.shadow.md` | Shadow semântico para overlays contextuais. | 3 |
+| `semantic.shadow.overlay` | shadow | → `foundation.shadow.md` | Shadow semântico para overlays contextuais. | 4 |
 
 ### semantic.size
 
@@ -582,43 +582,43 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.size.2xl` | dimension | → `foundation.dimension.48` | Size token 2xl. | 14 |
 | `semantic.size.3xl` | dimension | → `foundation.dimension.64` | Size token 3xl. | 2 |
 | `semantic.size.4xl` | dimension | → `foundation.dimension.96` | Size token 4xl. | 0 |
-| `semantic.size.5xl` | dimension | → `foundation.dimension.128` | Size token 5xl. | 1 |
+| `semantic.size.5xl` | dimension | → `foundation.dimension.128` | Size token 5xl. | 2 |
 | `semantic.size.layout.2xl` | dimension | → `foundation.dimension.1280` | Size token layout.2xl. | 0 |
 | `semantic.size.layout.lg` | dimension | → `foundation.dimension.800` | Size token layout.lg. | 2 |
 | `semantic.size.layout.md` | dimension | → `foundation.dimension.640` | Size token layout.md. | 2 |
-| `semantic.size.layout.sm` | dimension | → `foundation.dimension.480` | Size token layout.sm. | 2 |
+| `semantic.size.layout.sm` | dimension | → `foundation.dimension.480` | Size token layout.sm. | 3 |
 | `semantic.size.layout.xl` | dimension | → `foundation.dimension.1024` | Size token layout.xl. | 0 |
-| `semantic.size.layout.xs` | dimension | → `foundation.dimension.320` | Size token layout.xs. | 2 |
+| `semantic.size.layout.xs` | dimension | → `foundation.dimension.320` | Size token layout.xs. | 3 |
 | `semantic.size.lg` | dimension | → `foundation.dimension.32` | Size token lg. | 17 |
 | `semantic.size.md` | dimension | → `foundation.dimension.24` | Size token md. | 14 |
-| `semantic.size.sm` | dimension | → `foundation.dimension.20` | Size token sm. | 17 |
+| `semantic.size.sm` | dimension | → `foundation.dimension.20` | Size token sm. | 19 |
 | `semantic.size.xl` | dimension | → `foundation.dimension.40` | Size token xl. | 15 |
-| `semantic.size.xs` | dimension | → `foundation.dimension.16` | Size token xs. | 13 |
+| `semantic.size.xs` | dimension | → `foundation.dimension.16` | Size token xs. | 14 |
 
 ### semantic.space
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.space.2xl` | dimension | → `foundation.dimension.24` | Spacing token 2xl. | 2 |
-| `semantic.space.2xs` | dimension | → `foundation.dimension.2` | Spacing token 2xs. | 23 |
-| `semantic.space.3xl` | dimension | → `foundation.dimension.32` | Espaçamento amplo da escala semântica genérica para composição interna de componentes e blocos densos. | 0 |
+| `semantic.space.2xs` | dimension | → `foundation.dimension.2` | Spacing token 2xs. | 24 |
+| `semantic.space.3xl` | dimension | → `foundation.dimension.32` | Espaçamento amplo da escala semântica genérica para composição interna de componentes e blocos densos. | 1 |
 | `semantic.space.4xl` | dimension | → `foundation.dimension.40` | Espaçamento amplo intermediário da escala semântica genérica. | 0 |
 | `semantic.space.5xl` | dimension | → `foundation.dimension.48` | Espaçamento alto da escala semântica genérica para composição interna robusta. | 0 |
 | `semantic.space.6xl` | dimension | → `foundation.dimension.64` | Maior espaçamento da escala semântica genérica. | 0 |
 | `semantic.space.control.padding.10` | dimension | → `foundation.dimension.10` | Spacing token control.padding.10. | 3 |
 | `semantic.space.control.padding.6` | dimension | → `foundation.dimension.6` | Padding simétrico de Icon Only sm Button. | 3 |
-| `semantic.space.hairline` | dimension | → `foundation.dimension.1` | Espaço semântico hairline. | 2 |
-| `semantic.space.lg` | dimension | → `foundation.dimension.16` | Spacing token lg. | 12 |
-| `semantic.space.md` | dimension | → `foundation.dimension.12` | Spacing token md. | 27 |
+| `semantic.space.hairline` | dimension | → `foundation.dimension.1` | Espaço semântico hairline. | 3 |
+| `semantic.space.lg` | dimension | → `foundation.dimension.16` | Spacing token lg. | 14 |
+| `semantic.space.md` | dimension | → `foundation.dimension.12` | Spacing token md. | 29 |
 | `semantic.space.none` | dimension | → `foundation.dimension.0` | Espaço semântico zero. | 0 |
 | `semantic.space.section.2xl` | dimension | → `foundation.dimension.120` | Maior espaçamento semântico de section para separação macro entre áreas. | 0 |
 | `semantic.space.section.lg` | dimension | → `foundation.dimension.80` | Spacing token section.lg. | 0 |
 | `semantic.space.section.md` | dimension | → `foundation.dimension.64` | Spacing token section.md. | 0 |
 | `semantic.space.section.sm` | dimension | → `foundation.dimension.48` | Spacing token section.sm. | 1 |
 | `semantic.space.section.xl` | dimension | → `foundation.dimension.96` | Spacing token section.xl. | 0 |
-| `semantic.space.sm` | dimension | → `foundation.dimension.8` | Spacing token sm. | 42 |
+| `semantic.space.sm` | dimension | → `foundation.dimension.8` | Spacing token sm. | 46 |
 | `semantic.space.xl` | dimension | → `foundation.dimension.20` | Spacing token xl. | 9 |
-| `semantic.space.xs` | dimension | → `foundation.dimension.4` | Spacing token xs. | 34 |
+| `semantic.space.xs` | dimension | → `foundation.dimension.4` | Spacing token xs. | 36 |
 
 ### semantic.surface
 
@@ -658,12 +658,12 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.typography.body.font-size.9xl` | dimension | → `foundation.typography.font.size.72` | font-size 9xl pra texto UI geral. | 0 |
 | `semantic.typography.body.font-size.lg` | dimension | → `foundation.typography.font.size.18` | font-size lg pra texto UI geral. | 1 |
 | `semantic.typography.body.font-size.md` | dimension | → `foundation.typography.font.size.16` | font-size md pra texto UI geral. | 5 |
-| `semantic.typography.body.font-size.sm` | dimension | → `foundation.typography.font.size.14` | font-size sm pra texto UI geral. | 17 |
+| `semantic.typography.body.font-size.sm` | dimension | → `foundation.typography.font.size.14` | font-size sm pra texto UI geral. | 19 |
 | `semantic.typography.body.font-size.xl` | dimension | → `foundation.typography.font.size.20` | font-size xl pra texto UI geral. | 3 |
 | `semantic.typography.body.font-size.xs` | dimension | → `foundation.typography.font.size.12` | font-size xs pra texto UI geral. | 6 |
-| `semantic.typography.body.font-weight.bold` | number | → `foundation.typography.font.weight.bold` | font-weight bold pra texto UI geral. | 10 |
+| `semantic.typography.body.font-weight.bold` | number | → `foundation.typography.font.weight.bold` | font-weight bold pra texto UI geral. | 11 |
 | `semantic.typography.body.font-weight.medium` | number | → `foundation.typography.font.weight.medium` | font-weight medium pra texto UI geral. | 0 |
-| `semantic.typography.body.font-weight.regular` | number | → `foundation.typography.font.weight.regular` | font-weight regular pra texto UI geral. | 8 |
+| `semantic.typography.body.font-weight.regular` | number | → `foundation.typography.font.weight.regular` | font-weight regular pra texto UI geral. | 9 |
 | `semantic.typography.body.font-weight.semibold` | number | → `foundation.typography.font.weight.semibold` | font-weight semibold pra texto UI geral. | 2 |
 | `semantic.typography.body.letter-spacing.normal` | dimension | → `foundation.typography.letter.spacing.normal` | letter-spacing normal pra texto UI geral. | 7 |
 | `semantic.typography.body.letter-spacing.tight` | dimension | → `foundation.typography.letter.spacing.tight` | letter-spacing tight pra texto UI geral. | 0 |
@@ -679,7 +679,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.typography.body.line-height.9xl` | dimension | → `foundation.typography.line.height.90` | line-height 9xl pra texto UI geral. | 0 |
 | `semantic.typography.body.line-height.lg` | dimension | → `foundation.typography.line.height.28` | line-height lg pra texto UI geral. | 0 |
 | `semantic.typography.body.line-height.md` | dimension | → `foundation.typography.line.height.24` | line-height md pra texto UI geral. | 5 |
-| `semantic.typography.body.line-height.sm` | dimension | → `foundation.typography.line.height.20` | line-height sm pra texto UI geral. | 16 |
+| `semantic.typography.body.line-height.sm` | dimension | → `foundation.typography.line.height.20` | line-height sm pra texto UI geral. | 18 |
 | `semantic.typography.body.line-height.xl` | dimension | → `foundation.typography.line.height.32` | line-height xl pra texto UI geral. | 3 |
 | `semantic.typography.body.line-height.xs` | dimension | → `foundation.typography.line.height.18` | line-height xs pra texto UI geral. | 3 |
 
@@ -688,6 +688,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.z.modal` | number | → `foundation.z.40` | Stack layer para modais e overlays bloqueantes. | 2 |
+| `semantic.z.toast` | number | → `foundation.z.50` | ⚠️ TODO | 1 |
 | `semantic.z.tooltip` | number | → `foundation.z.40` | Stack layer para tooltips e floating labels não modais. | 3 |
 
 ## Component
@@ -735,13 +736,23 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
+| `component.alert.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.action.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
+| `component.alert.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.actions.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
 | `component.alert.bg.error.filled` | color | → `semantic.feedback.error.background.default` | Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.bg.error.solid` | color | → `semantic.feedback.error.background.default` | ⚠️ TODO | 1 |
 | `component.alert.bg.error.subtle` | color | → `semantic.feedback.error.background.subtle` | Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.bg.info.filled` | color | → `semantic.feedback.info.background.default` | Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.bg.info.solid` | color | → `semantic.feedback.info.background.default` | ⚠️ TODO | 1 |
 | `component.alert.bg.info.subtle` | color | → `semantic.feedback.info.background.subtle` | Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.bg.success.filled` | color | → `semantic.feedback.success.background.default` | Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.bg.success.solid` | color | → `semantic.feedback.success.background.default` | ⚠️ TODO | 1 |
 | `component.alert.bg.success.subtle` | color | → `semantic.feedback.success.background.subtle` | Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.bg.warning.filled` | color | → `semantic.feedback.warning.background.default` | Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | ⚠️ TODO | 1 |
 | `component.alert.bg.warning.subtle` | color | → `semantic.feedback.warning.background.subtle` | Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.border-color.error.subtle` | color | → `semantic.feedback.error.border-default` | Contrato border-color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.border-color.info.subtle` | color | → `semantic.feedback.info.border-default` | Contrato border-color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
@@ -750,38 +761,54 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `component.alert.border-width.default` | dimension | → `semantic.border.width.default` | Border width do Alert quando stroke esta ativo. | 1 |
 | `component.alert.close.icon-size.default` | dimension | → `semantic.size.sm` | Tamanho do ícone Close Alert. | 1 |
 | `component.alert.close.icon.color.error.filled` | color | → `semantic.icon.color.error-contrast` | Contrato close.icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
 | `component.alert.close.icon.color.info.filled` | color | → `semantic.icon.color.info-contrast` | Contrato close.icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.close.icon.color.subtle` | color | → `semantic.icon.color.default` | Contrato close.icon.color de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
+| `component.alert.close.icon.color.subtle` | color | → `semantic.icon.color.default` | Contrato close.icon.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.close.icon.color.success.filled` | color | → `semantic.icon.color.success-contrast` | Contrato close.icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
 | `component.alert.close.icon.color.warning.filled` | color | → `semantic.icon.color.warning-contrast` | Contrato close.icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
 | `component.alert.close.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Contrato close.icon.stroke-width de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.content.gap.default` | dimension | → `semantic.space.xs` | Gap vertical do content Alert. | 1 |
 | `component.alert.description.color.error.filled` | color | → `semantic.feedback.error.content-contrast` | Contrato description.color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.description.color.info.filled` | color | → `semantic.feedback.info.content-contrast` | Contrato description.color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.description.color.subtle` | color | → `semantic.content.strong` | Contrato description.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.description.color.success.filled` | color | → `semantic.feedback.success.content-contrast` | Contrato description.color.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.description.color.warning.filled` | color | → `semantic.feedback.warning.content-contrast` | Contrato description.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
+| `component.alert.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.description.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Font-size da description Alert. | 1 |
 | `component.alert.description.font-weight.default` | number | → `semantic.typography.body.font-weight.regular` | Font-weight da description Alert. | 1 |
 | `component.alert.description.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Line-height da description Alert. | 1 |
 | `component.alert.gap.default` | dimension | → `semantic.space.sm` | Gap horizontal do Alert. | 1 |
 | `component.alert.icon.color.error.filled` | color | → `semantic.icon.color.error-contrast` | Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
 | `component.alert.icon.color.error.subtle` | color | → `semantic.icon.color.error` | Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.icon.color.info.filled` | color | → `semantic.icon.color.info-contrast` | Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
 | `component.alert.icon.color.info.subtle` | color | → `semantic.icon.color.default` | Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.icon.color.success.filled` | color | → `semantic.icon.color.success-contrast` | Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
 | `component.alert.icon.color.success.subtle` | color | → `semantic.icon.color.success` | Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.icon.color.warning.filled` | color | → `semantic.icon.color.warning-contrast` | Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
 | `component.alert.icon.color.warning.subtle` | color | → `semantic.icon.color.warning` | Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.icon.size.default` | dimension | → `semantic.size.sm` | Tamanho do container Icon Alert. | 1 |
 | `component.alert.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Contrato icon.stroke-width de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.padding.default` | dimension | → `semantic.space.md` | Padding do Alert. | 1 |
 | `component.alert.radius.default` | dimension | → `semantic.radius.lg` | Radius do Alert. | 1 |
 | `component.alert.title.color.error.filled` | color | → `semantic.feedback.error.content-contrast` | Contrato title.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.title.color.info.filled` | color | → `semantic.feedback.info.content-contrast` | Contrato title.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.title.color.subtle` | color | → `semantic.content.strong` | Contrato title.color de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.title.color.subtle` | color | → `semantic.content.strong` | Contrato title.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.title.color.success.filled` | color | → `semantic.feedback.success.content-contrast` | Contrato title.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.title.color.warning.filled` | color | → `semantic.feedback.warning.content-contrast` | Contrato title.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
+| `component.alert.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
 | `component.alert.title.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Font-size do title Alert. | 1 |
 | `component.alert.title.font-weight.default` | number | → `semantic.typography.body.font-weight.bold` | Font-weight do title Alert. | 1 |
 | `component.alert.title.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Line-height do title Alert. | 1 |
@@ -1132,11 +1159,11 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.focus-ring.color.default` | color | → `semantic.border.focus` | Token component para focus ring / color / default. | 17 |
+| `component.focus-ring.color.default` | color | → `semantic.border.focus` | Token component para focus ring / color / default. | 18 |
 | `component.focus-ring.color.error` | color | → `semantic.border.focus-error` | Token component para focus ring / color / error. | 6 |
 | `component.focus-ring.color.readonly` | color | → `semantic.border.control-default` | Token component para focus ring / color / readonly. | 4 |
 | `component.focus-ring.color.success` | color | → `semantic.feedback.success.border-default` | Token component para focus ring / color / success. | 1 |
-| `component.focus-ring.width` | dimension | → `semantic.border.width.focus` | Token component para focus ring / width. | 17 |
+| `component.focus-ring.width` | dimension | → `semantic.border.width.focus` | Token component para focus ring / width. | 18 |
 
 ### component.form-field
 
@@ -1480,6 +1507,69 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `component.textarea.text.line-height.lg` | dimension | → `semantic.typography.body.line-height.md` | Line-height do texto Textarea lg. | 1 |
 | `component.textarea.text.line-height.md` | dimension | → `semantic.typography.body.line-height.sm` | Line-height do texto Textarea md. | 1 |
 | `component.textarea.text.line-height.sm` | dimension | → `semantic.typography.body.line-height.2xs` | Line-height do texto Textarea sm. | 1 |
+
+### component.toast
+
+| Token | Tipo | Alias | Sentido | Usos |
+|---|---|---|---|---|
+| `component.toast.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.action.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
+| `component.toast.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.actions.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
+| `component.toast.bg.error.solid` | color | → `semantic.feedback.error.background.default` | ⚠️ TODO | 1 |
+| `component.toast.bg.error.subtle` | color | → `semantic.feedback.error.background.subtle` | ⚠️ TODO | 1 |
+| `component.toast.bg.info.solid` | color | → `semantic.feedback.info.background.default` | ⚠️ TODO | 1 |
+| `component.toast.bg.info.subtle` | color | → `semantic.feedback.info.background.subtle` | ⚠️ TODO | 1 |
+| `component.toast.bg.success.solid` | color | → `semantic.feedback.success.background.default` | ⚠️ TODO | 1 |
+| `component.toast.bg.success.subtle` | color | → `semantic.feedback.success.background.subtle` | ⚠️ TODO | 1 |
+| `component.toast.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | ⚠️ TODO | 1 |
+| `component.toast.bg.warning.subtle` | color | → `semantic.feedback.warning.background.subtle` | ⚠️ TODO | 1 |
+| `component.toast.border-color.error.subtle` | color | → `semantic.feedback.error.border-default` | ⚠️ TODO | 1 |
+| `component.toast.border-color.info.subtle` | color | → `semantic.feedback.info.border-default` | ⚠️ TODO | 1 |
+| `component.toast.border-color.success.subtle` | color | → `semantic.feedback.success.border-default` | ⚠️ TODO | 1 |
+| `component.toast.border-color.warning.subtle` | color | → `semantic.feedback.warning.border-default` | ⚠️ TODO | 1 |
+| `component.toast.border-width.default` | dimension | → `semantic.border.width.default` | ⚠️ TODO | 1 |
+| `component.toast.close.icon-size.default` | dimension | → `semantic.size.sm` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.color.subtle` | color | → `semantic.icon.color.default` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
+| `component.toast.close.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | ⚠️ TODO | 1 |
+| `component.toast.content.gap.default` | dimension | → `semantic.space.xs` | ⚠️ TODO | 1 |
+| `component.toast.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.description.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
+| `component.toast.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.description.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | ⚠️ TODO | 1 |
+| `component.toast.description.font-weight.default` | number | → `semantic.typography.body.font-weight.regular` | ⚠️ TODO | 1 |
+| `component.toast.description.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | ⚠️ TODO | 1 |
+| `component.toast.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.error.subtle` | color | → `semantic.icon.color.error` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.info.subtle` | color | → `semantic.icon.color.default` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.success.subtle` | color | → `semantic.icon.color.success` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
+| `component.toast.icon.color.warning.subtle` | color | → `semantic.icon.color.warning` | ⚠️ TODO | 1 |
+| `component.toast.icon.size.default` | dimension | → `semantic.size.sm` | ⚠️ TODO | 1 |
+| `component.toast.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | ⚠️ TODO | 1 |
+| `component.toast.padding.default` | dimension | → `semantic.space.md` | ⚠️ TODO | 1 |
+| `component.toast.radius.default` | dimension | → `semantic.radius.lg` | ⚠️ TODO | 1 |
+| `component.toast.shadow.default` | shadow | → `semantic.shadow.overlay` | ⚠️ TODO | 1 |
+| `component.toast.stack.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
+| `component.toast.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.title.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
+| `component.toast.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.toast.title.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | ⚠️ TODO | 1 |
+| `component.toast.title.font-weight.default` | number | → `semantic.typography.body.font-weight.bold` | ⚠️ TODO | 1 |
+| `component.toast.title.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | ⚠️ TODO | 1 |
 
 ### component.toggle
 
@@ -3431,7 +3521,6 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
-    - `css/base/reset.css` (1×)
     - `css/tokens/generated/theme-dark.css` (3×)
     - `css/tokens/generated/theme-light.css` (3×)
   - Tokens que referenciam: `semantic.content-placeholder.text.height.default`, `semantic.control.toggle.thumb.size.sm`, `semantic.space.md`, `semantic.content-placeholder.text.height.default`, `semantic.control.toggle.thumb.size.sm`, `semantic.space.md`
@@ -3460,7 +3549,6 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
-    - `css/components/combobox.css` (1×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
   - Tokens que referenciam: `semantic.size.5xl`, `semantic.size.5xl`
@@ -3500,8 +3588,6 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
-    - `css/base/icons.css` (2×)
-    - `css/base/reset.css` (3×)
     - `css/tokens/generated/theme-dark.css` (3×)
     - `css/tokens/generated/theme-light.css` (3×)
   - Tokens que referenciam: `semantic.control.toggle.height.sm`, `semantic.space.lg`, `semantic.size.xs`, `semantic.control.toggle.height.sm`, `semantic.space.lg`, `semantic.size.xs`
@@ -3516,7 +3602,6 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
-    - `css/base/reset.css` (1×)
     - `css/tokens/generated/theme-dark.css` (2×)
     - `css/tokens/generated/theme-light.css` (2×)
   - Tokens que referenciam: `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`, `semantic.control.toggle.thumb.gap`, `semantic.space.2xs`
@@ -3612,7 +3697,6 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.
 - **Usos**:
   - CSS:
-    - `css/base/reset.css` (1×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
   - Tokens que referenciam: `semantic.space.xs`, `semantic.space.xs`
@@ -4900,7 +4984,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Use via Semantic `z.{base|dropdown|...}`. Componentes top-level (modal, toast, drawer) consomem direto.
 - **Decisão**: Escala 0–50 em steps de 10 reserva slots intermediários (5, 15) pra ajustes finos sem refator. Topbar do site usa calc(var(--ds-z-50) + 10) = 60.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/tokens/generated/theme-dark.css` (1×)
+    - `css/tokens/generated/theme-light.css` (1×)
+  - Tokens que referenciam: `semantic.z.toast`, `semantic.z.toast`
 
 ### `semantic.background.default`
 
@@ -5197,8 +5284,8 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/base/reset.css` (1×)
     - `css/components/combobox.css` (1×)
-    - `css/tokens/generated/component.css` (13×)
-  - Tokens que referenciam: `component.accordion.item.border-width.default`, `component.alert.border-width.default`, `component.badge.border-width.default`, `component.button.border-width.default`, `component.card-interactive.border-width.default`, `component.card.border-width.default`, `component.checkbox.box.border-width.default`, `component.divider.line.thickness.default`, `component.field.border-width`, `component.menu.surface.border-width.default`, `component.radio.control.border-width.unselected.default`, `component.tabs.list.border-width.default`, `component.toggle.track.border-width.default`
+    - `css/tokens/generated/component.css` (14×)
+  - Tokens que referenciam: `component.accordion.item.border-width.default`, `component.alert.border-width.default`, `component.badge.border-width.default`, `component.button.border-width.default`, `component.card-interactive.border-width.default`, `component.card.border-width.default`, `component.checkbox.box.border-width.default`, `component.divider.line.thickness.default`, `component.field.border-width`, `component.menu.surface.border-width.default`, `component.radio.control.border-width.unselected.default`, `component.tabs.list.border-width.default`, `component.toast.border-width.default`, `component.toggle.track.border-width.default`
 
 ### `semantic.border.width.focus`
 
@@ -5493,10 +5580,10 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/base/reset.css` (1×)
     - `css/components/modal.css` (1×)
-    - `css/tokens/generated/component.css` (13×)
+    - `css/tokens/generated/component.css` (17×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `component.accordion.trigger.content.color.default`, `component.alert.title.color.subtle`, `component.alert.description.color.subtle`, `component.badge.label.color.neutral.solid`, `component.card.title.color.default`, `component.combobox.option.content.color.selected`, `component.field.value.color.default`, `component.form-field.label.color.default`, `component.form-field.description.color.default`, `component.menu.item.content.color.hover`, `component.menu.item.content.color.focused`, `component.modal.title.color.default`, `component.tabs.label.color.hover`, `semantic.icon.color.active`, `semantic.icon.color.active`
+  - Tokens que referenciam: `component.accordion.trigger.content.color.default`, `component.alert.title.color.subtle`, `component.alert.description.color.subtle`, `component.alert.action.color.subtle`, `component.badge.label.color.neutral.solid`, `component.card.title.color.default`, `component.combobox.option.content.color.selected`, `component.field.value.color.default`, `component.form-field.label.color.default`, `component.form-field.description.color.default`, `component.menu.item.content.color.hover`, `component.menu.item.content.color.focused`, `component.modal.title.color.default`, `component.tabs.label.color.hover`, `component.toast.title.color.subtle`, `component.toast.description.color.subtle`, `component.toast.action.color.subtle`, `semantic.icon.color.active`, `semantic.icon.color.active`
 
 ### `semantic.content.subtle`
 
@@ -5799,8 +5886,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.red.600.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (4×)
-  - Tokens que referenciam: `component.alert.bg.error.filled`, `component.badge.bg.error.solid`, `component.button.bg.danger.default`, `component.button.bg.danger.focus`
+    - `css/tokens/generated/component.css` (5×)
+  - Tokens que referenciam: `component.alert.bg.error.solid`, `component.badge.bg.error.solid`, `component.button.bg.danger.default`, `component.button.bg.danger.focus`, `component.toast.bg.error.solid`
 
 ### `semantic.feedback.error.background.disabled`
 
@@ -5842,8 +5929,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/components/menu.css` (1×)
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.error.subtle`, `component.badge.bg.error.subtle`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.error.subtle`, `component.badge.bg.error.subtle`, `component.toast.bg.error.subtle`
 
 ### `semantic.feedback.error.border-default`
 
@@ -5856,8 +5943,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.red.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (1×)
-  - Tokens que referenciam: `component.alert.border-color.error.subtle`
+    - `css/tokens/generated/component.css` (2×)
+  - Tokens que referenciam: `component.alert.border-color.error.subtle`, `component.toast.border-color.error.subtle`
 
 ### `semantic.feedback.error.border.hover`
 
@@ -5885,10 +5972,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.neutral.50.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (7×)
+    - `css/tokens/generated/component.css` (11×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `component.alert.title.color.error.filled`, `component.alert.description.color.error.filled`, `component.badge.label.color.error.solid`, `component.button.content.color.danger.default`, `component.button.content.color.danger.hover`, `component.button.content.color.danger.pressed`, `component.button.content.color.danger.focus`, `semantic.icon.color.error-contrast`, `semantic.icon.color.error-contrast`
+  - Tokens que referenciam: `component.alert.title.color.error.solid`, `component.alert.description.color.error.solid`, `component.alert.action.color.error.solid`, `component.badge.label.color.error.solid`, `component.button.content.color.danger.default`, `component.button.content.color.danger.hover`, `component.button.content.color.danger.pressed`, `component.button.content.color.danger.focus`, `component.toast.title.color.error.solid`, `component.toast.description.color.error.solid`, `component.toast.action.color.error.solid`, `semantic.icon.color.error-contrast`, `semantic.icon.color.error-contrast`
 
 ### `semantic.feedback.error.content-default`
 
@@ -5948,8 +6035,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.sky.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.info.filled`, `component.badge.bg.info.solid`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.info.solid`, `component.badge.bg.info.solid`, `component.toast.bg.info.solid`
 
 ### `semantic.feedback.info.background.hover`
 
@@ -5974,8 +6061,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.sky.100.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.info.subtle`, `component.badge.bg.info.subtle`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.info.subtle`, `component.badge.bg.info.subtle`, `component.toast.bg.info.subtle`
 
 ### `semantic.feedback.info.border-default`
 
@@ -5988,8 +6075,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.sky.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (1×)
-  - Tokens que referenciam: `component.alert.border-color.info.subtle`
+    - `css/tokens/generated/component.css` (2×)
+  - Tokens que referenciam: `component.alert.border-color.info.subtle`, `component.toast.border-color.info.subtle`
 
 ### `semantic.feedback.info.content-contrast`
 
@@ -6002,10 +6089,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.neutral.900.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (3×)
+    - `css/tokens/generated/component.css` (7×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `component.alert.title.color.info.filled`, `component.alert.description.color.info.filled`, `component.badge.label.color.info.solid`, `semantic.icon.color.info-contrast`, `semantic.icon.color.info-contrast`
+  - Tokens que referenciam: `component.alert.title.color.info.solid`, `component.alert.description.color.info.solid`, `component.alert.action.color.info.solid`, `component.badge.label.color.info.solid`, `component.toast.title.color.info.solid`, `component.toast.description.color.info.solid`, `component.toast.action.color.info.solid`, `semantic.icon.color.info-contrast`, `semantic.icon.color.info-contrast`
 
 ### `semantic.feedback.info.content-default`
 
@@ -6046,8 +6133,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.green.600.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (4×)
-  - Tokens que referenciam: `component.alert.bg.success.filled`, `component.badge.bg.success.solid`, `component.button.bg.success.default`, `component.button.bg.success.focus`
+    - `css/tokens/generated/component.css` (5×)
+  - Tokens que referenciam: `component.alert.bg.success.solid`, `component.badge.bg.success.solid`, `component.button.bg.success.default`, `component.button.bg.success.focus`, `component.toast.bg.success.solid`
 
 ### `semantic.feedback.success.background.disabled`
 
@@ -6088,8 +6175,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.green.100.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.success.subtle`, `component.badge.bg.success.subtle`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.success.subtle`, `component.badge.bg.success.subtle`, `component.toast.bg.success.subtle`
 
 ### `semantic.feedback.success.border-default`
 
@@ -6102,8 +6189,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.green.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.border-color.success.subtle`, `component.focus-ring.color.success`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.border-color.success.subtle`, `component.focus-ring.color.success`, `component.toast.border-color.success.subtle`
 
 ### `semantic.feedback.success.content-contrast`
 
@@ -6116,10 +6203,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.neutral.50.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (7×)
+    - `css/tokens/generated/component.css` (11×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `component.alert.title.color.success.filled`, `component.alert.description.color.success.filled`, `component.badge.label.color.success.solid`, `component.button.content.color.success.default`, `component.button.content.color.success.hover`, `component.button.content.color.success.pressed`, `component.button.content.color.success.focus`, `semantic.icon.color.success-contrast`, `semantic.icon.color.success-contrast`
+  - Tokens que referenciam: `component.alert.title.color.success.solid`, `component.alert.description.color.success.solid`, `component.alert.action.color.success.solid`, `component.badge.label.color.success.solid`, `component.button.content.color.success.default`, `component.button.content.color.success.hover`, `component.button.content.color.success.pressed`, `component.button.content.color.success.focus`, `component.toast.title.color.success.solid`, `component.toast.description.color.success.solid`, `component.toast.action.color.success.solid`, `semantic.icon.color.success-contrast`, `semantic.icon.color.success-contrast`
 
 ### `semantic.feedback.success.content-default`
 
@@ -6162,8 +6249,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.amber.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.warning.filled`, `component.badge.bg.warning.solid`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.warning.solid`, `component.badge.bg.warning.solid`, `component.toast.bg.warning.solid`
 
 ### `semantic.feedback.warning.background.hover`
 
@@ -6188,8 +6275,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.amber.100.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.bg.warning.subtle`, `component.badge.bg.warning.subtle`
+    - `css/tokens/generated/component.css` (3×)
+  - Tokens que referenciam: `component.alert.bg.warning.subtle`, `component.badge.bg.warning.subtle`, `component.toast.bg.warning.subtle`
 
 ### `semantic.feedback.warning.border-default`
 
@@ -6202,8 +6289,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.amber.500.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (1×)
-  - Tokens que referenciam: `component.alert.border-color.warning.subtle`
+    - `css/tokens/generated/component.css` (2×)
+  - Tokens que referenciam: `component.alert.border-color.warning.subtle`, `component.toast.border-color.warning.subtle`
 
 ### `semantic.feedback.warning.content-contrast`
 
@@ -6216,10 +6303,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a foundation.color.neutral.900.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (3×)
+    - `css/tokens/generated/component.css` (7×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
-  - Tokens que referenciam: `component.alert.title.color.warning.filled`, `component.alert.description.color.warning.filled`, `component.badge.label.color.warning.solid`, `semantic.icon.color.warning-contrast`, `semantic.icon.color.warning-contrast`
+  - Tokens que referenciam: `component.alert.title.color.warning.solid`, `component.alert.description.color.warning.solid`, `component.alert.action.color.warning.solid`, `component.badge.label.color.warning.solid`, `component.toast.title.color.warning.solid`, `component.toast.description.color.warning.solid`, `component.toast.action.color.warning.solid`, `semantic.icon.color.warning-contrast`, `semantic.icon.color.warning-contrast`
 
 ### `semantic.feedback.warning.content-default`
 
@@ -6317,8 +6404,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/icons.css` (1×)
-    - `css/tokens/generated/component.css` (11×)
-  - Tokens que referenciam: `component.accordion.chevron.color.default`, `component.accordion.leading-icon.color.default`, `component.alert.icon.color.info.subtle`, `component.alert.close.icon.color.subtle`, `component.field.icon.color.default`, `component.input.icon.color.default`, `component.menu.item.icon.color.default`, `component.modal.close.color.default`, `component.pagination.icon.color.default`, `component.select.chevron.color.default`, `component.select.icon.color.default`
+    - `css/tokens/generated/component.css` (13×)
+  - Tokens que referenciam: `component.accordion.chevron.color.default`, `component.accordion.leading-icon.color.default`, `component.alert.icon.color.info.subtle`, `component.alert.close.icon.color.subtle`, `component.field.icon.color.default`, `component.input.icon.color.default`, `component.menu.item.icon.color.default`, `component.modal.close.color.default`, `component.pagination.icon.color.default`, `component.select.chevron.color.default`, `component.select.icon.color.default`, `component.toast.icon.color.info.subtle`, `component.toast.close.icon.color.subtle`
 
 ### `semantic.icon.color.disabled`
 
@@ -6347,8 +6434,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/icons.css` (1×)
-    - `css/tokens/generated/component.css` (5×)
-  - Tokens que referenciam: `component.alert.icon.color.error.subtle`, `component.form-field.error.icon.color.default`
+    - `css/tokens/generated/component.css` (8×)
+  - Tokens que referenciam: `component.alert.icon.color.error.subtle`, `component.form-field.error.icon.color.default`, `component.toast.icon.color.error.subtle`
 
 ### `semantic.icon.color.error-contrast`
 
@@ -6361,8 +6448,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias para {semantic.feedback.error.content-contrast} conforme Figma vivo; mantem fill e stroke de icones alinhados ao vocabulario de conteudo semantico.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.icon.color.error.filled`, `component.alert.close.icon.color.error.filled`
+    - `css/tokens/generated/component.css` (4×)
+  - Tokens que referenciam: `component.alert.icon.color.error.solid`, `component.alert.close.icon.color.error.solid`, `component.toast.icon.color.error.solid`, `component.toast.close.icon.color.error.solid`
 
 ### `semantic.icon.color.error-strong`
 
@@ -6401,8 +6488,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias para {semantic.feedback.info.content-contrast} conforme Figma vivo; mantem fill e stroke de icones alinhados ao vocabulario de conteudo semantico.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.icon.color.info.filled`, `component.alert.close.icon.color.info.filled`
+    - `css/tokens/generated/component.css` (4×)
+  - Tokens que referenciam: `component.alert.icon.color.info.solid`, `component.alert.close.icon.color.info.solid`, `component.toast.icon.color.info.solid`, `component.toast.close.icon.color.info.solid`
 
 ### `semantic.icon.color.inverse`
 
@@ -6442,8 +6529,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/icons.css` (1×)
-    - `css/tokens/generated/component.css` (3×)
-  - Tokens que referenciam: `component.alert.icon.color.success.subtle`
+    - `css/tokens/generated/component.css` (6×)
+  - Tokens que referenciam: `component.alert.icon.color.success.subtle`, `component.toast.icon.color.success.subtle`
 
 ### `semantic.icon.color.success-contrast`
 
@@ -6456,8 +6543,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias para {semantic.feedback.success.content-contrast} conforme Figma vivo; mantem fill e stroke de icones alinhados ao vocabulario de conteudo semantico.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.icon.color.success.filled`, `component.alert.close.icon.color.success.filled`
+    - `css/tokens/generated/component.css` (4×)
+  - Tokens que referenciam: `component.alert.icon.color.success.solid`, `component.alert.close.icon.color.success.solid`, `component.toast.icon.color.success.solid`, `component.toast.close.icon.color.success.solid`
 
 ### `semantic.icon.color.warning`
 
@@ -6471,8 +6558,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/icons.css` (1×)
-    - `css/tokens/generated/component.css` (3×)
-  - Tokens que referenciam: `component.alert.icon.color.warning.subtle`
+    - `css/tokens/generated/component.css` (6×)
+  - Tokens que referenciam: `component.alert.icon.color.warning.subtle`, `component.toast.icon.color.warning.subtle`
 
 ### `semantic.icon.color.warning-contrast`
 
@@ -6485,8 +6572,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias para {semantic.feedback.warning.content-contrast} conforme Figma vivo; mantem fill e stroke de icones alinhados ao vocabulario de conteudo semantico.
 - **Usos**:
   - CSS:
-    - `css/tokens/generated/component.css` (2×)
-  - Tokens que referenciam: `component.alert.icon.color.warning.filled`, `component.alert.close.icon.color.warning.filled`
+    - `css/tokens/generated/component.css` (4×)
+  - Tokens que referenciam: `component.alert.icon.color.warning.solid`, `component.alert.close.icon.color.warning.solid`, `component.toast.icon.color.warning.solid`, `component.toast.close.icon.color.warning.solid`
 
 ### `semantic.icon.stroke-width.regular.16`
 
@@ -6515,8 +6602,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/icons.css` (1×)
-    - `css/tokens/generated/component.css` (11×)
-  - Tokens que referenciam: `component.accordion.chevron.stroke-width.md`, `component.accordion.leading-icon.stroke-width.md`, `component.alert.icon.stroke-width.default`, `component.alert.close.icon.stroke-width.default`, `component.avatar.icon.stroke-width.sm`, `component.button.icon.stroke-width.md`, `component.field.icon.stroke-width.md`, `component.input.icon.stroke-width.md`, `component.menu.item.icon.stroke-width.md`, `component.select.chevron.stroke-width.md`, `component.select.icon.stroke-width.md`
+    - `css/tokens/generated/component.css` (13×)
+  - Tokens que referenciam: `component.accordion.chevron.stroke-width.md`, `component.accordion.leading-icon.stroke-width.md`, `component.alert.icon.stroke-width.default`, `component.alert.close.icon.stroke-width.default`, `component.avatar.icon.stroke-width.sm`, `component.button.icon.stroke-width.md`, `component.field.icon.stroke-width.md`, `component.input.icon.stroke-width.md`, `component.menu.item.icon.stroke-width.md`, `component.select.chevron.stroke-width.md`, `component.select.icon.stroke-width.md`, `component.toast.icon.stroke-width.default`, `component.toast.close.icon.stroke-width.default`
 
 ### `semantic.icon.stroke-width.regular.24`
 
@@ -6673,8 +6760,8 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/select.css` (2×)
     - `css/components/tabs.css` (2×)
     - `css/components/textarea.css` (2×)
+    - `css/components/toast.css` (1×)
     - `css/components/toggle.css` (4×)
-    - `css/components/tooltip.css` (1×)
 
 ### `semantic.motion.duration.instant`
 
@@ -6751,8 +6838,8 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/select.css` (2×)
     - `css/components/tabs.css` (2×)
     - `css/components/textarea.css` (2×)
+    - `css/components/toast.css` (1×)
     - `css/components/toggle.css` (4×)
-    - `css/components/tooltip.css` (1×)
 
 ### `semantic.motion.ease.in`
 
@@ -6921,7 +7008,9 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.color.overlay.black.10.
 - **Usos**:
   - CSS:
+    - `css/components/alert.css` (2×)
     - `css/components/tabs.css` (1×)
+    - `css/components/toast.css` (2×)
     - `css/tokens/generated/theme-dark.css` (1×)
     - `css/tokens/generated/theme-light.css` (1×)
   - Tokens que referenciam: `semantic.border.overlay.default`, `semantic.border.overlay.default`
@@ -6991,8 +7080,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/base/reset.css` (1×)
-    - `css/tokens/generated/component.css` (11×)
-  - Tokens que referenciam: `component.accordion.item.radius.default`, `component.alert.radius.default`, `component.button.focus-ring.radius.default`, `component.card.radius.default`, `component.combobox.focus-ring.radius.default`, `component.combobox.listbox.container.radius.default`, `component.input.focus-ring.radius.default`, `component.menu.surface.radius.default`, `component.modal.radius.default`, `component.select.focus-ring.radius.default`, `component.textarea.focus-ring.radius.default`
+    - `css/tokens/generated/component.css` (12×)
+  - Tokens que referenciam: `component.accordion.item.radius.default`, `component.alert.radius.default`, `component.button.focus-ring.radius.default`, `component.card.radius.default`, `component.combobox.focus-ring.radius.default`, `component.combobox.listbox.container.radius.default`, `component.input.focus-ring.radius.default`, `component.menu.surface.radius.default`, `component.modal.radius.default`, `component.select.focus-ring.radius.default`, `component.textarea.focus-ring.radius.default`, `component.toast.radius.default`
 
 ### `semantic.radius.md`
 
@@ -7024,6 +7113,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/link.css` (1×)
     - `css/components/modal.css` (1×)
     - `css/components/radio.css` (1×)
+    - `css/components/toast.css` (1×)
     - `css/tokens/generated/component.css` (4×)
   - Tokens que referenciam: `component.checkbox.box.radius.default`, `component.combobox.option.radius.default`, `component.menu.item.radius.default`, `component.tabs.focus-ring.radius.default`
 
@@ -7081,8 +7171,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/components/combobox.css` (1×)
-    - `css/tokens/generated/component.css` (1×)
-  - Tokens que referenciam: `component.menu.surface.shadow.default`
+    - `css/tokens/generated/component.css` (2×)
+  - Tokens que referenciam: `component.menu.surface.shadow.default`, `component.toast.shadow.default`
 
 ### `semantic.size.2xl`
 
@@ -7135,6 +7225,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.128.
 - **Usos**:
   - CSS:
+    - `css/components/combobox.css` (1×)
     - `css/components/menu.css` (1×)
 
 ### `semantic.size.layout.2xl`
@@ -7188,6 +7279,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.480.
 - **Usos**:
   - CSS:
+    - `css/components/toast.css` (2×)
     - `css/tokens/generated/component.css` (1×)
   - Tokens que referenciam: `component.modal.max-width.sm`
 
@@ -7216,6 +7308,7 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/card.css` (1×)
     - `css/components/menu.css` (1×)
+    - `css/components/tooltip.css` (1×)
 
 ### `semantic.size.lg`
 
@@ -7261,8 +7354,8 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/base/icons.css` (2×)
     - `css/components/checkbox.css` (2×)
     - `css/components/radio.css` (2×)
-    - `css/tokens/generated/component.css` (13×)
-  - Tokens que referenciam: `component.accordion.chevron.size.md`, `component.accordion.leading-icon.size.md`, `component.alert.icon.size.default`, `component.alert.close.icon-size.default`, `component.button.icon.size.md`, `component.checkbox.box.size.md`, `component.field.icon.size.md`, `component.input.icon.size.md`, `component.menu.item.icon.size.md`, `component.modal.close.icon-size.sm`, `component.radio.control.size.md`, `component.select.chevron.size.md`, `component.select.icon.size.md`
+    - `css/tokens/generated/component.css` (15×)
+  - Tokens que referenciam: `component.accordion.chevron.size.md`, `component.accordion.leading-icon.size.md`, `component.alert.icon.size.default`, `component.alert.close.icon-size.default`, `component.button.icon.size.md`, `component.checkbox.box.size.md`, `component.field.icon.size.md`, `component.input.icon.size.md`, `component.menu.item.icon.size.md`, `component.modal.close.icon-size.sm`, `component.radio.control.size.md`, `component.select.chevron.size.md`, `component.select.icon.size.md`, `component.toast.icon.size.default`, `component.toast.close.icon-size.default`
 
 ### `semantic.size.xl`
 
@@ -7289,6 +7382,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.16.
 - **Usos**:
   - CSS:
+    - `css/base/icons.css` (2×)
     - `css/tokens/generated/component.css` (12×)
   - Tokens que referenciam: `component.button.icon.size.sm`, `component.checkbox.box.size.sm`, `component.field.icon.size.sm`, `component.form-field.error.icon.size.default`, `component.input.icon.size.sm`, `component.menu.item.icon.size.sm`, `component.pagination.icon.size.sm`, `component.radio.control.size.sm`, `component.select.chevron.size.sm`, `component.select.icon.size.sm`, `component.spinner.size.sm`, `component.toggle.track.height.sm`
 
@@ -7317,6 +7411,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.2.
 - **Usos**:
   - CSS:
+    - `css/base/reset.css` (1×)
     - `css/components/accordion.css` (1×)
     - `css/components/combobox.css` (1×)
     - `css/components/menu.css` (1×)
@@ -7334,7 +7429,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usar quando 24px for insuficiente para separar grupos internos sem recorrer à escala macro de section.
 - **Decisão**: Adicionado para expandir a escala genérica de space até 64px, mantendo 32px como primeiro degrau acima de 2xl.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/tooltip.css` (1×)
 
 ### `semantic.space.4xl`
 
@@ -7411,6 +7507,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias para foundation.dimension.1 para dar intenção semântica ao 1px sem reutilizar `space.none` ou hardcode no componente.
 - **Usos**:
   - CSS:
+    - `css/components/checkbox.css` (2×)
     - `css/tokens/generated/component.css` (1×)
   - Tokens que referenciam: `component.divider.inset.padding-x.hairline`
 
@@ -7425,6 +7522,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.16.
 - **Usos**:
   - CSS:
+    - `css/base/reset.css` (3×)
+    - `css/components/toast.css` (3×)
     - `css/tokens/generated/component.css` (10×)
     - `css/utilities/layout.css` (1×)
   - Tokens que referenciam: `component.accordion.trigger.padding-y.md`, `component.button.padding-x.lg`, `component.modal.container.padding.sm`, `component.modal.container.gap.md`, `component.modal.header.gap.default`, `component.modal.body.gap.lg`, `component.modal.footer.gap.lg`, `component.tabs.item.padding-x.default`, `component.tabs.panel.padding-y.default`, `component.textarea.padding-x.lg`
@@ -7440,12 +7539,13 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.12.
 - **Usos**:
   - CSS:
+    - `css/base/reset.css` (1×)
     - `css/components/divider.css` (2×)
     - `css/components/menu.css` (1×)
     - `css/components/radio.css` (1×)
-    - `css/tokens/generated/component.css` (22×)
+    - `css/tokens/generated/component.css` (23×)
     - `css/utilities/layout.css` (1×)
-  - Tokens que referenciam: `component.accordion.trigger.gap.md`, `component.accordion.content.gap.md`, `component.alert.padding.default`, `component.button.padding-x.md`, `component.button.padding-y.lg`, `component.button.icon-only-padding.lg`, `component.card.container.gap.default`, `component.combobox.padding-x.lg`, `component.divider.inset.padding-x.md`, `component.divider.inset.padding-y.md`, `component.field.padding-y.lg`, `component.input.padding-x.lg`, `component.menu.item.padding-x.lg`, `component.modal.container.gap.sm`, `component.modal.body.gap.md`, `component.modal.footer.gap.md`, `component.modal.close.padding.lg`, `component.select.padding-x.lg`, `component.tabs.item.padding-top.default`, `component.tabs.item.indicator-gap.default`, `component.textarea.padding-x.md`, `component.tooltip.content.padding-x.default`
+  - Tokens que referenciam: `component.accordion.trigger.gap.md`, `component.accordion.content.gap.md`, `component.alert.padding.default`, `component.button.padding-x.md`, `component.button.padding-y.lg`, `component.button.icon-only-padding.lg`, `component.card.container.gap.default`, `component.combobox.padding-x.lg`, `component.divider.inset.padding-x.md`, `component.divider.inset.padding-y.md`, `component.field.padding-y.lg`, `component.input.padding-x.lg`, `component.menu.item.padding-x.lg`, `component.modal.container.gap.sm`, `component.modal.body.gap.md`, `component.modal.footer.gap.md`, `component.modal.close.padding.lg`, `component.select.padding-x.lg`, `component.tabs.item.padding-top.default`, `component.tabs.item.indicator-gap.default`, `component.textarea.padding-x.md`, `component.toast.padding.default`, `component.tooltip.content.padding-x.default`
 
 ### `semantic.space.none`
 
@@ -7536,9 +7636,9 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/modal.css` (6×)
     - `css/components/radio.css` (3×)
     - `css/components/tooltip.css` (4×)
-    - `css/tokens/generated/component.css` (35×)
+    - `css/tokens/generated/component.css` (39×)
     - `css/utilities/layout.css` (1×)
-  - Tokens que referenciam: `component.alert.gap.default`, `component.badge.padding-x.default`, `component.button.padding-x.sm`, `component.button.padding-y.sm`, `component.button.gap.lg`, `component.button.icon-only-padding.md`, `component.card.header.gap.default`, `component.card.footer.gap.default`, `component.checkbox.target.gap.default`, `component.checkbox.group.options.gap.default`, `component.combobox.listbox.container.padding.default`, `component.combobox.option.gap.default`, `component.combobox.padding-x.md`, `component.divider.inset.padding-x.sm`, `component.divider.inset.padding-y.sm`, `component.field.padding-y.sm`, `component.field.gap.lg`, `component.input.gap.lg`, `component.input.padding-x.md`, `component.menu.surface.padding.default`, `component.menu.item.gap.lg`, `component.menu.item.padding-x.sm`, `component.menu.item.padding-x.md`, `component.modal.body.gap.sm`, `component.modal.content-slot.gap.default`, `component.modal.footer.gap.sm`, `component.modal.close.padding.md`, `component.radio.target.gap.default`, `component.radio.group.options.gap.default`, `component.select.gap.lg`, `component.select.padding-x.md`, `component.textarea.padding-x.sm`, `component.toggle.target.gap.default`, `component.tooltip.content.padding-y.default`, `component.tooltip.arrow.base.default`
+  - Tokens que referenciam: `component.alert.gap.default`, `component.alert.actions.gap.default`, `component.badge.padding-x.default`, `component.button.padding-x.sm`, `component.button.padding-y.sm`, `component.button.gap.lg`, `component.button.icon-only-padding.md`, `component.card.header.gap.default`, `component.card.footer.gap.default`, `component.checkbox.target.gap.default`, `component.checkbox.group.options.gap.default`, `component.combobox.listbox.container.padding.default`, `component.combobox.option.gap.default`, `component.combobox.padding-x.md`, `component.divider.inset.padding-x.sm`, `component.divider.inset.padding-y.sm`, `component.field.padding-y.sm`, `component.field.gap.lg`, `component.input.gap.lg`, `component.input.padding-x.md`, `component.menu.surface.padding.default`, `component.menu.item.gap.lg`, `component.menu.item.padding-x.sm`, `component.menu.item.padding-x.md`, `component.modal.body.gap.sm`, `component.modal.content-slot.gap.default`, `component.modal.footer.gap.sm`, `component.modal.close.padding.md`, `component.radio.target.gap.default`, `component.radio.group.options.gap.default`, `component.select.gap.lg`, `component.select.padding-x.md`, `component.textarea.padding-x.sm`, `component.toast.gap.default`, `component.toast.stack.gap.default`, `component.toast.actions.gap.default`, `component.toggle.target.gap.default`, `component.tooltip.content.padding-y.default`, `component.tooltip.arrow.base.default`
 
 ### `semantic.space.xl`
 
@@ -7566,13 +7666,14 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Aliasado a Foundation foundation.dimension.4.
 - **Usos**:
   - CSS:
+    - `css/base/reset.css` (1×)
     - `css/components/checkbox.css` (5×)
     - `css/components/menu.css` (2×)
     - `css/components/radio.css` (6×)
     - `css/components/toggle.css` (1×)
-    - `css/tokens/generated/component.css` (28×)
+    - `css/tokens/generated/component.css` (29×)
     - `css/utilities/layout.css` (1×)
-  - Tokens que referenciam: `component.action-menu.overlay.gap.default`, `component.alert.content.gap.default`, `component.badge.gap.default`, `component.breadcrumb.gap.default`, `component.breadcrumb.item.gap.default`, `component.button.gap.md`, `component.button.label-frame.padding-x.default`, `component.checkbox.content.gap.default`, `component.combobox.padding-x.sm`, `component.divider.inset.padding-x.xs`, `component.divider.inset.padding-y.xs`, `component.field.gap.sm`, `component.field.gap.md`, `component.form-field.gap.default`, `component.form-field.error.gap.default`, `component.form-field.stack.gap.default`, `component.input.gap.sm`, `component.input.gap.md`, `component.input.padding-x.sm`, `component.menu.item.gap.sm`, `component.menu.item.gap.md`, `component.modal.heading.gap.default`, `component.radio.content.gap.default`, `component.select.gap.sm`, `component.select.gap.md`, `component.select.padding-x.sm`, `component.toggle.content.gap.default`, `component.tooltip.arrow.depth.default`
+  - Tokens que referenciam: `component.action-menu.overlay.gap.default`, `component.alert.content.gap.default`, `component.badge.gap.default`, `component.breadcrumb.gap.default`, `component.breadcrumb.item.gap.default`, `component.button.gap.md`, `component.button.label-frame.padding-x.default`, `component.checkbox.content.gap.default`, `component.combobox.padding-x.sm`, `component.divider.inset.padding-x.xs`, `component.divider.inset.padding-y.xs`, `component.field.gap.sm`, `component.field.gap.md`, `component.form-field.gap.default`, `component.form-field.error.gap.default`, `component.form-field.stack.gap.default`, `component.input.gap.sm`, `component.input.gap.md`, `component.input.padding-x.sm`, `component.menu.item.gap.sm`, `component.menu.item.gap.md`, `component.modal.heading.gap.default`, `component.radio.content.gap.default`, `component.select.gap.sm`, `component.select.gap.md`, `component.select.padding-x.sm`, `component.toast.content.gap.default`, `component.toggle.content.gap.default`, `component.tooltip.arrow.depth.default`
 
 ### `semantic.surface.default`
 
@@ -7892,7 +7993,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Aplicado via Text Style ou utility class `.ds-text-body-sm`.
 - **Decisão**: Aliasado a Foundation foundation.typography.font.size.14.
 - **Usos**:
-  - Tokens que referenciam: `component.alert.title.font-size.default`, `component.alert.description.font-size.default`, `component.avatar.initials.font-size.sm`, `component.avatar.initials.font-size.md`, `component.breadcrumb.label.font-size.default`, `component.button.label.font-size.sm`, `component.button.label.font-size.md`, `component.card.body.font-size.default`, `component.card.subtitle.font-size.default`, `component.form-field.label.font-size.default`, `component.form-field.required.font-size.default`, `component.input.text.font-size.md`, `component.pagination.item.font-size.sm`, `component.select.text.font-size.md`, `component.tabs.label.font-size.default`, `component.textarea.text.font-size.md`, `component.tooltip.label.font-size.default`
+  - Tokens que referenciam: `component.alert.title.font-size.default`, `component.alert.description.font-size.default`, `component.avatar.initials.font-size.sm`, `component.avatar.initials.font-size.md`, `component.breadcrumb.label.font-size.default`, `component.button.label.font-size.sm`, `component.button.label.font-size.md`, `component.card.body.font-size.default`, `component.card.subtitle.font-size.default`, `component.form-field.label.font-size.default`, `component.form-field.required.font-size.default`, `component.input.text.font-size.md`, `component.pagination.item.font-size.sm`, `component.select.text.font-size.md`, `component.tabs.label.font-size.default`, `component.textarea.text.font-size.md`, `component.toast.title.font-size.default`, `component.toast.description.font-size.default`, `component.tooltip.label.font-size.default`
 
 ### `semantic.typography.body.font-size.xl`
 
@@ -7928,7 +8029,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Aplicado via Text Style ou utility class `.ds-text-body-bold`.
 - **Decisão**: Aliasado a Foundation foundation.typography.font.weight.bold.
 - **Usos**:
-  - Tokens que referenciam: `component.alert.title.font-weight.default`, `component.avatar.initials.font-weight.sm`, `component.avatar.initials.font-weight.md`, `component.badge.label.font-weight.default`, `component.breadcrumb.label.font-weight.default`, `component.button.label.font-weight.default`, `component.card.subtitle.font-weight.default`, `component.form-field.error.font-weight.default`, `component.pagination.item.font-weight.current`, `component.tabs.label.font-weight.default`
+  - Tokens que referenciam: `component.alert.title.font-weight.default`, `component.avatar.initials.font-weight.sm`, `component.avatar.initials.font-weight.md`, `component.badge.label.font-weight.default`, `component.breadcrumb.label.font-weight.default`, `component.button.label.font-weight.default`, `component.card.subtitle.font-weight.default`, `component.form-field.error.font-weight.default`, `component.pagination.item.font-weight.current`, `component.tabs.label.font-weight.default`, `component.toast.title.font-weight.default`
 
 ### `semantic.typography.body.font-weight.medium`
 
@@ -7952,7 +8053,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Aplicado via Text Style ou utility class `.ds-text-body-regular`.
 - **Decisão**: Aliasado a Foundation foundation.typography.font.weight.regular.
 - **Usos**:
-  - Tokens que referenciam: `component.alert.description.font-weight.default`, `component.breadcrumb.separator.font-weight.default`, `component.card.body.font-weight.default`, `component.input.text.font-weight.default`, `component.pagination.item.font-weight.default`, `component.select.text.font-weight.default`, `component.textarea.text.font-weight.default`, `component.tooltip.label.font-weight.default`
+  - Tokens que referenciam: `component.alert.description.font-weight.default`, `component.breadcrumb.separator.font-weight.default`, `component.card.body.font-weight.default`, `component.input.text.font-weight.default`, `component.pagination.item.font-weight.default`, `component.select.text.font-weight.default`, `component.textarea.text.font-weight.default`, `component.toast.description.font-weight.default`, `component.tooltip.label.font-weight.default`
 
 ### `semantic.typography.body.font-weight.semibold`
 
@@ -8144,7 +8245,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Aplicado via Text Style ou utility class `.ds-text-body-sm`.
 - **Decisão**: Aliasado a Foundation foundation.typography.line.height.20.
 - **Usos**:
-  - Tokens que referenciam: `component.alert.title.line-height.default`, `component.alert.description.line-height.default`, `component.avatar.initials.line-height.sm`, `component.avatar.initials.line-height.md`, `component.breadcrumb.label.line-height.default`, `component.button.label.line-height.md`, `component.card.body.line-height.default`, `component.card.subtitle.line-height.default`, `component.form-field.label.line-height.default`, `component.form-field.required.line-height.default`, `component.input.text.line-height.md`, `component.pagination.item.line-height.sm`, `component.select.text.line-height.md`, `component.tabs.label.line-height.default`, `component.textarea.text.line-height.md`, `component.tooltip.label.line-height.default`
+  - Tokens que referenciam: `component.alert.title.line-height.default`, `component.alert.description.line-height.default`, `component.avatar.initials.line-height.sm`, `component.avatar.initials.line-height.md`, `component.breadcrumb.label.line-height.default`, `component.button.label.line-height.md`, `component.card.body.line-height.default`, `component.card.subtitle.line-height.default`, `component.form-field.label.line-height.default`, `component.form-field.required.line-height.default`, `component.input.text.line-height.md`, `component.pagination.item.line-height.sm`, `component.select.text.line-height.md`, `component.tabs.label.line-height.default`, `component.textarea.text.line-height.md`, `component.toast.title.line-height.default`, `component.toast.description.line-height.default`, `component.tooltip.label.line-height.default`
 
 ### `semantic.typography.body.line-height.xl`
 
@@ -8183,6 +8284,19 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/tokens/generated/component.css` (1×)
   - Tokens que referenciam: `component.modal.overlay.z-index.default`
+
+### `semantic.z.toast`
+
+- **Camada**: semantic
+- **Tipo**: `number`
+- **Alias**: → `foundation.z.50`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
 
 ### `semantic.z.tooltip`
 
@@ -8576,6 +8690,84 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/menu.css` (2×)
 
+### `component.alert.action.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.action.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.action.color.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.content.strong`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (2×)
+
+### `component.alert.action.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.action.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.actions.gap.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.bg.error.filled`
 
 - **Camada**: component
@@ -8585,6 +8777,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Escopo**: fill
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.bg.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8615,6 +8820,19 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
+### `component.alert.bg.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.bg.info.subtle`
 
 - **Camada**: component
@@ -8641,6 +8859,19 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
+### `component.alert.bg.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.bg.success.subtle`
 
 - **Camada**: component
@@ -8663,6 +8894,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Escopo**: fill
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.bg.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8770,6 +9014,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.close.icon.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.error-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.close.icon.color.info.filled`
 
 - **Camada**: component
@@ -8782,6 +9039,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.close.icon.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.info-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.close.icon.color.subtle`
 
 - **Camada**: component
@@ -8792,7 +9062,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.close.icon.color.success.filled`
 
@@ -8806,6 +9077,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.close.icon.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.success-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.close.icon.color.warning.filled`
 
 - **Camada**: component
@@ -8817,6 +9101,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
+
+### `component.alert.close.icon.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.warning-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.close.icon.stroke-width.default`
 
@@ -8857,6 +9154,19 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
+### `component.alert.description.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.description.color.info.filled`
 
 - **Camada**: component
@@ -8866,6 +9176,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Escopo**: text, fill, stroke
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.description.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8896,6 +9219,19 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
+### `component.alert.description.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.description.color.warning.filled`
 
 - **Camada**: component
@@ -8905,6 +9241,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Escopo**: text, fill, stroke
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
+### `component.alert.description.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8973,6 +9322,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.icon.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.error-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.icon.color.error.subtle`
 
 - **Camada**: component
@@ -8997,6 +9359,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
+
+### `component.alert.icon.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.info-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.icon.color.info.subtle`
 
@@ -9023,6 +9398,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.icon.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.success-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.icon.color.success.subtle`
 
 - **Camada**: component
@@ -9047,6 +9435,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
+
+### `component.alert.icon.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.warning-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.icon.color.warning.subtle`
 
@@ -9125,6 +9526,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.title.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.title.color.info.filled`
 
 - **Camada**: component
@@ -9137,6 +9551,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.title.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.title.color.subtle`
 
 - **Camada**: component
@@ -9147,7 +9574,8 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.title.color.success.filled`
 
@@ -9161,6 +9589,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
 
+### `component.alert.title.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
+
 ### `component.alert.title.color.warning.filled`
 
 - **Camada**: component
@@ -9172,6 +9613,19 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
 - **Usos**:
   - _(nenhum uso detectado — token órfão ou novo)_
+
+### `component.alert.title.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/alert.css` (1×)
 
 ### `component.alert.title.font-size.default`
 
@@ -11973,7 +12427,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias 1:1 para semantic.size.xs/sm/md e mantido em Component porque representa anatomia publica do Checkbox, nao uma decisao Semantic nova.
 - **Usos**:
   - CSS:
-    - `css/components/checkbox.css` (3×)
+    - `css/components/checkbox.css` (5×)
 
 ### `component.checkbox.box.size.md`
 
@@ -11986,7 +12440,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias 1:1 para semantic.size.xs/sm/md e mantido em Component porque representa anatomia publica do Checkbox, nao uma decisao Semantic nova.
 - **Usos**:
   - CSS:
-    - `css/components/checkbox.css` (1×)
+    - `css/components/checkbox.css` (3×)
 
 ### `component.checkbox.box.size.sm`
 
@@ -11999,7 +12453,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Alias 1:1 para semantic.size.xs/sm/md e mantido em Component porque representa anatomia publica do Checkbox, nao uma decisao Semantic nova.
 - **Usos**:
   - CSS:
-    - `css/components/checkbox.css` (3×)
+    - `css/components/checkbox.css` (5×)
 
 ### `component.checkbox.content.gap.default`
 
@@ -12557,7 +13011,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido no registry para refletir o token presente em tokens/ e evitar valores soltos no CSS/Figma. Alias para semantic.surface.default.
 - **Usos**:
   - CSS:
-    - `css/components/combobox.css` (1×)
+    - `css/components/combobox.css` (2×)
     - `css/components/input.css` (7×)
     - `css/components/select.css` (5×)
     - `css/components/textarea.css` (7×)
@@ -12973,7 +13427,7 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Decisão**: Mantido no registry para refletir o token presente em tokens/ e evitar valores soltos no CSS/Figma. Alias para semantic.radius.md.
 - **Usos**:
   - CSS:
-    - `css/components/combobox.css` (1×)
+    - `css/components/combobox.css` (2×)
     - `css/components/input.css` (2×)
     - `css/components/select.css` (2×)
     - `css/components/textarea.css` (2×)
@@ -13065,6 +13519,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/select.css` (1×)
     - `css/components/tabs.css` (1×)
     - `css/components/textarea.css` (1×)
+    - `css/components/toast.css` (1×)
     - `css/components/toggle.css` (1×)
 
 ### `component.focus-ring.color.error`
@@ -13141,6 +13596,7 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/select.css` (2×)
     - `css/components/tabs.css` (5×)
     - `css/components/textarea.css` (2×)
+    - `css/components/toast.css` (2×)
     - `css/components/toggle.css` (2×)
 
 ### `component.form-field.description.color.default`
@@ -16958,6 +17414,760 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Usos**:
   - CSS:
     - `css/components/textarea.css` (1×)
+
+### `component.toast.action.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.action.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.action.color.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.content.strong`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (2×)
+
+### `component.toast.action.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.action.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.actions.gap.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.error.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.background.subtle`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.info.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.background.subtle`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.success.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.background.subtle`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.background.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.bg.warning.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.background.subtle`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.border-color.error.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.border-default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.border-color.info.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.border-default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.border-color.success.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.border-default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.border-color.warning.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.border-default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.border-width.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.border.width.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (4×)
+
+### `component.toast.close.icon-size.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.size.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (4×)
+
+### `component.toast.close.icon.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.error-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.close.icon.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.info-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.close.icon.color.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.close.icon.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.success-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.close.icon.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.warning-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.close.icon.stroke-width.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.icon.stroke-width.regular.20`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.content.gap.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.xs`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.color.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.content.strong`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (5×)
+
+### `component.toast.description.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.font-size.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.typography.body.font-size.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (2×)
+
+### `component.toast.description.font-weight.default`
+
+- **Camada**: component
+- **Tipo**: `number`
+- **Alias**: → `semantic.typography.body.font-weight.regular`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.description.line-height.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.typography.body.line-height.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (2×)
+
+### `component.toast.gap.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.error-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.error.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.error`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.info-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.info.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.default`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.success-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.success.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.success`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.warning-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.color.warning.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.icon.color.warning`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.icon.size.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.size.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (4×)
+
+### `component.toast.icon.stroke-width.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.icon.stroke-width.regular.20`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.padding.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.md`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.radius.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.radius.lg`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.shadow.default`
+
+- **Camada**: component
+- **Tipo**: `shadow`
+- **Alias**: → `semantic.shadow.overlay`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.stack.gap.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (2×)
+
+### `component.toast.title.color.error.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.error.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.color.info.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.info.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.color.subtle`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.content.strong`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.color.success.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.success.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.color.warning.solid`
+
+- **Camada**: component
+- **Tipo**: `color`
+- **Alias**: → `semantic.feedback.warning.content-contrast`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.font-size.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.typography.body.font-size.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.font-weight.default`
+
+- **Camada**: component
+- **Tipo**: `number`
+- **Alias**: → `semantic.typography.body.font-weight.bold`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.title.line-height.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.typography.body.line-height.sm`
+- **Sentido**: TODO
+- **Escopo**: —
+- **Contexto**: TODO
+- **Decisão**: TODO
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
 
 ### `component.toggle.content.gap.default`
 

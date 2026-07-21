@@ -1,5 +1,8 @@
 /* ============================================================
    COMPONENT: Alert
+   Styles: Subtle | Solid (Solid = ênfase forte; não usar "filled"
+   para não confundir com estado filled de inputs).
+   Actions: até 2, abaixo da description, dentro de __content.
    ============================================================ */
 
 .ds-alert {
@@ -12,7 +15,6 @@
   line-height: var(--ds-alert-description-line-height-default);
 }
 
-/* Icon — Figma: container size/md (24), ícone 20 (size/sm) */
 .ds-alert__icon {
   flex-shrink: 0;
   display: inline-flex;
@@ -29,8 +31,6 @@
   stroke-width: var(--ds-alert-icon-stroke-width-default);
 }
 
-/* Icon color em Subtle — tematizado por feedback via component tokens.
-   Em Filled, icon herda `color` do wrapper que já é content-contrast. */
 .ds-alert--success.ds-alert--subtle .ds-alert__icon {
   color: var(--ds-alert-icon-color-success-subtle);
 }
@@ -52,17 +52,76 @@
   gap: var(--ds-alert-content-gap-default);
 }
 
-/* Title — label/md: 14px Bold / 20px */
 .ds-alert__title {
+  margin: 0;
   font-size: var(--ds-alert-title-font-size-default);
   font-weight: var(--ds-alert-title-font-weight-default);
   line-height: var(--ds-alert-title-line-height-default);
 }
 
 .ds-alert__description {
+  margin: 0;
   font-size: var(--ds-alert-description-font-size-default);
   font-weight: var(--ds-alert-description-font-weight-default);
   line-height: var(--ds-alert-description-line-height-default);
+}
+
+.ds-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-alert-actions-gap-default);
+  padding-top: var(--ds-alert-actions-padding-top-default);
+}
+
+.ds-alert__actions:empty {
+  display: none;
+}
+
+/* Actions = Button ghost/sm com cor alinhada ao Style do feedback */
+.ds-alert__actions .ds-button--ghost {
+  color: var(--ds-alert-action-color-subtle);
+}
+
+.ds-alert__actions .ds-button--ghost:hover,
+.ds-alert__actions .ds-button--ghost:active,
+.ds-alert__actions .ds-button--ghost:focus-visible {
+  color: var(--ds-alert-action-color-subtle);
+  background-color: var(--ds-overlay-default);
+}
+
+.ds-alert--success.ds-alert--solid .ds-alert__actions .ds-button--ghost,
+.ds-alert--success.ds-alert--solid .ds-alert__actions .ds-button--ghost:hover,
+.ds-alert--success.ds-alert--solid .ds-alert__actions .ds-button--ghost:active,
+.ds-alert--success.ds-alert--solid .ds-alert__actions .ds-button--ghost:focus-visible {
+  color: var(--ds-alert-action-color-success-solid);
+}
+
+.ds-alert--warning.ds-alert--solid .ds-alert__actions .ds-button--ghost,
+.ds-alert--warning.ds-alert--solid .ds-alert__actions .ds-button--ghost:hover,
+.ds-alert--warning.ds-alert--solid .ds-alert__actions .ds-button--ghost:active,
+.ds-alert--warning.ds-alert--solid .ds-alert__actions .ds-button--ghost:focus-visible {
+  color: var(--ds-alert-action-color-warning-solid);
+}
+
+.ds-alert--error.ds-alert--solid .ds-alert__actions .ds-button--ghost,
+.ds-alert--error.ds-alert--solid .ds-alert__actions .ds-button--ghost:hover,
+.ds-alert--error.ds-alert--solid .ds-alert__actions .ds-button--ghost:active,
+.ds-alert--error.ds-alert--solid .ds-alert__actions .ds-button--ghost:focus-visible {
+  color: var(--ds-alert-action-color-error-solid);
+}
+
+.ds-alert--info.ds-alert--solid .ds-alert__actions .ds-button--ghost,
+.ds-alert--info.ds-alert--solid .ds-alert__actions .ds-button--ghost:hover,
+.ds-alert--info.ds-alert--solid .ds-alert__actions .ds-button--ghost:active,
+.ds-alert--info.ds-alert--solid .ds-alert__actions .ds-button--ghost:focus-visible {
+  color: var(--ds-alert-action-color-info-solid);
+}
+
+.ds-alert--solid .ds-alert__actions .ds-button--ghost:hover,
+.ds-alert--solid .ds-alert__actions .ds-button--ghost:active,
+.ds-alert--solid .ds-alert__actions .ds-button--ghost:focus-visible {
+  background-color: var(--ds-overlay-default);
 }
 
 .ds-alert__close {
@@ -99,26 +158,81 @@
 }
 
 /* ---------------------------------------------------------
-   Filled style
+   Solid style (--filled é alias depreciado de --solid)
    --------------------------------------------------------- */
+.ds-alert--success.ds-alert--solid,
 .ds-alert--success.ds-alert--filled {
-  background-color: var(--ds-alert-bg-success-filled);
-  color: var(--ds-alert-description-color-success-filled);
+  background-color: var(--ds-alert-bg-success-solid);
+  color: var(--ds-alert-description-color-success-solid);
 }
 
+.ds-alert--warning.ds-alert--solid,
 .ds-alert--warning.ds-alert--filled {
-  background-color: var(--ds-alert-bg-warning-filled);
-  color: var(--ds-alert-description-color-warning-filled);
+  background-color: var(--ds-alert-bg-warning-solid);
+  color: var(--ds-alert-description-color-warning-solid);
 }
 
+.ds-alert--error.ds-alert--solid,
 .ds-alert--error.ds-alert--filled {
-  background-color: var(--ds-alert-bg-error-filled);
-  color: var(--ds-alert-description-color-error-filled);
+  background-color: var(--ds-alert-bg-error-solid);
+  color: var(--ds-alert-description-color-error-solid);
 }
 
+.ds-alert--info.ds-alert--solid,
 .ds-alert--info.ds-alert--filled {
-  background-color: var(--ds-alert-bg-info-filled);
-  color: var(--ds-alert-description-color-info-filled);
+  background-color: var(--ds-alert-bg-info-solid);
+  color: var(--ds-alert-description-color-info-solid);
+}
+
+.ds-alert--success.ds-alert--solid .ds-alert__icon,
+.ds-alert--success.ds-alert--filled .ds-alert__icon {
+  color: var(--ds-alert-icon-color-success-solid);
+}
+.ds-alert--warning.ds-alert--solid .ds-alert__icon,
+.ds-alert--warning.ds-alert--filled .ds-alert__icon {
+  color: var(--ds-alert-icon-color-warning-solid);
+}
+.ds-alert--error.ds-alert--solid .ds-alert__icon,
+.ds-alert--error.ds-alert--filled .ds-alert__icon {
+  color: var(--ds-alert-icon-color-error-solid);
+}
+.ds-alert--info.ds-alert--solid .ds-alert__icon,
+.ds-alert--info.ds-alert--filled .ds-alert__icon {
+  color: var(--ds-alert-icon-color-info-solid);
+}
+
+.ds-alert--success.ds-alert--solid .ds-alert__title,
+.ds-alert--success.ds-alert--filled .ds-alert__title {
+  color: var(--ds-alert-title-color-success-solid);
+}
+.ds-alert--warning.ds-alert--solid .ds-alert__title,
+.ds-alert--warning.ds-alert--filled .ds-alert__title {
+  color: var(--ds-alert-title-color-warning-solid);
+}
+.ds-alert--error.ds-alert--solid .ds-alert__title,
+.ds-alert--error.ds-alert--filled .ds-alert__title {
+  color: var(--ds-alert-title-color-error-solid);
+}
+.ds-alert--info.ds-alert--solid .ds-alert__title,
+.ds-alert--info.ds-alert--filled .ds-alert__title {
+  color: var(--ds-alert-title-color-info-solid);
+}
+
+.ds-alert--success.ds-alert--solid .ds-alert__close,
+.ds-alert--success.ds-alert--filled .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-success-solid);
+}
+.ds-alert--warning.ds-alert--solid .ds-alert__close,
+.ds-alert--warning.ds-alert--filled .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-warning-solid);
+}
+.ds-alert--error.ds-alert--solid .ds-alert__close,
+.ds-alert--error.ds-alert--filled .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-error-solid);
+}
+.ds-alert--info.ds-alert--solid .ds-alert__close,
+.ds-alert--info.ds-alert--filled .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-info-solid);
 }
 
 /* ---------------------------------------------------------
@@ -148,14 +262,18 @@
   border: var(--ds-alert-border-width-default) solid var(--ds-alert-border-color-info-subtle);
 }
 
-/* Description uses secondary content tone in subtle variants */
+.ds-alert--subtle .ds-alert__title {
+  color: var(--ds-alert-title-color-subtle);
+}
+
 .ds-alert--subtle .ds-alert__description {
   color: var(--ds-alert-description-color-subtle);
 }
 
-/* ---------------------------------------------------------
-   Reduced motion
-   --------------------------------------------------------- */
+.ds-alert--subtle .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-subtle);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ds-alert__close { transition: none; }
 }

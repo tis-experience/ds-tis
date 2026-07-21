@@ -26,6 +26,12 @@ import {
   initTooltips,
   destroyTooltips,
 } from '../../js/tooltip.js';
+import {
+  initToasts,
+  destroyToasts,
+  showToast,
+  dismissToast,
+} from '../../js/toast.js';
 
 const log = [];
 
@@ -45,6 +51,9 @@ track('ds-accordion-close');
 track('ds-tabs-change');
 track('ds-tooltip-show');
 track('ds-tooltip-hide');
+track('ds-toast-show');
+track('ds-toast-dismiss');
+track('ds-toast-action');
 
 window.__dsLifecycle = {
   init() {
@@ -55,6 +64,7 @@ window.__dsLifecycle = {
       accordions: initAccordions(),
       tabs: initTabs(),
       tooltips: initTooltips(),
+      toasts: initToasts(),
     };
   },
   destroy() {
@@ -64,6 +74,7 @@ window.__dsLifecycle = {
     destroyAccordions();
     destroyTabs();
     destroyTooltips();
+    destroyToasts();
   },
   openModal,
   closeModal,
@@ -81,6 +92,10 @@ window.__dsLifecycle = {
   destroyTabs,
   initTooltips,
   destroyTooltips,
+  initToasts,
+  destroyToasts,
+  showToast,
+  dismissToast,
   events() {
     return [...log];
   },
@@ -96,6 +111,7 @@ window.__dsLifecycle = {
       accordionInit: document.getElementById('life-accordion')?.dataset.dsAccordionInit === 'true',
       tabsInit: document.getElementById('life-tabs')?.dataset.dsTabsInit === 'true',
       tooltipInit: document.getElementById('life-tooltip')?.dataset.dsTooltipInit === 'true',
+      toastInit: document.querySelector('.ds-toast-region')?.dataset.dsToastInit === 'true',
     };
   },
 };

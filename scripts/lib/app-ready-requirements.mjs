@@ -128,6 +128,18 @@ const SPECIFIC_CASES = Object.freeze({
     aria: ['role-and-describedby-valid'],
     'open-close': ['hover-delay-opens', 'trigger-to-content-persists', 'leave-both-closes'],
   },
+  toast: {
+    keyboard: ['escape-dismisses-focused'],
+    focus: ['show-does-not-move-focus', 'action-and-close-focusable'],
+    aria: ['live-region-polite-assertive'],
+    'open-close': [
+      'show-enqueue',
+      'auto-hide-without-action',
+      'no-auto-hide-with-action',
+      'max-stack-5',
+      'dismiss-button',
+    ],
+  },
 });
 
 function mergeCases(specific = {}) {

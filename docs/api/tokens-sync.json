@@ -1,33 +1,56 @@
 {
   "version": "1.0.0",
   "totals": {
-    "jsonTokens": 1464,
-    "sharedTokens": 990,
-    "lightTokens": 237,
-    "darkTokens": 237,
+    "jsonTokens": 1532,
+    "sharedTokens": 1056,
+    "lightTokens": 238,
+    "darkTokens": 238,
     "errors": 0,
-    "warnings": 0
+    "warnings": 2
   },
   "checks": {
     "jsonIntegrity": [],
     "jsonVsCss": [],
     "cssFoundationLeak": [],
-    "registryCompleteness": [],
+    "registryCompleteness": [
+      {
+        "level": "warning",
+        "message": "83 entries com campos TODO (sentido/contexto/decisao). Preencha incrementalmente.",
+        "sample": [
+          "component.toast.padding.default",
+          "component.toast.gap.default",
+          "component.toast.stack.gap.default",
+          "component.toast.radius.default",
+          "component.toast.border-width.default"
+        ]
+      },
+      {
+        "level": "warning",
+        "message": "20 entries em registry.json sem token correspondente em tokens/ (stale).",
+        "sample": [
+          "component.alert.icon.color.success.filled",
+          "component.alert.icon.color.warning.filled",
+          "component.alert.icon.color.error.filled",
+          "component.alert.icon.color.info.filled",
+          "component.alert.title.color.success.filled"
+        ]
+      }
+    ],
     "docTokenDrift": [],
     "jsonVsFigma": {
       "skipped": false,
-      "snapshotAge": "20h",
+      "snapshotAge": "1h",
       "snapshotFreshness": "fresh",
       "snapshotMaxAgeHours": 24,
       "summary": {
-        "figmaVariableCount": 1173,
+        "figmaVariableCount": 1238,
         "figmaCollectionCount": 3,
         "VALUE_DRIFT": 0,
         "NEEDS_SYNC": 0,
         "DRIFT_FROM_SOURCE": 0,
         "ALIAS_BROKEN": 0,
         "CSS_ONLY": 7,
-        "BY_DESIGN": 127
+        "BY_DESIGN": 130
       },
       "divergences": [],
       "diffs": {
@@ -631,6 +654,12 @@
             "json": "{foundation.z.40}"
           },
           {
+            "file": "semantic/light.json",
+            "token": "semantic.z.toast",
+            "side": "json-only",
+            "json": "{foundation.z.50}"
+          },
+          {
             "file": "semantic/dark.json",
             "token": "semantic.typography.body.letter-spacing.normal",
             "side": "divergent-alias",
@@ -846,6 +875,12 @@
             "json": "{foundation.z.40}"
           },
           {
+            "file": "semantic/dark.json",
+            "token": "semantic.z.toast",
+            "side": "json-only",
+            "json": "{foundation.z.50}"
+          },
+          {
             "file": "component/modal.json",
             "token": "component.modal.overlay.z-index.default",
             "side": "json-only-downstream",
@@ -872,6 +907,12 @@
           {
             "file": "component/menu.json",
             "token": "component.menu.surface.shadow.default",
+            "side": "json-only-downstream",
+            "json": "{semantic.shadow.overlay}"
+          },
+          {
+            "file": "component/toast.json",
+            "token": "component.toast.shadow.default",
             "side": "json-only-downstream",
             "json": "{semantic.shadow.overlay}"
           }

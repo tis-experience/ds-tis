@@ -4126,8 +4126,20 @@
       "contexto": "Use via Semantic `z.{base|dropdown|...}`. Componentes top-level (modal, toast, drawer) consomem direto.",
       "decisao": "Escala 0–50 em steps de 10 reserva slots intermediários (5, 15) pra ajustes finos sem refator. Topbar do site usa calc(var(--ds-z-50) + 10) = 60.",
       "usos": {
-        "css": [],
-        "tokens": [],
+        "css": [
+          {
+            "file": "css/tokens/generated/theme-dark.css",
+            "count": 1
+          },
+          {
+            "file": "css/tokens/generated/theme-light.css",
+            "count": 1
+          }
+        ],
+        "tokens": [
+          "semantic.z.toast",
+          "semantic.z.toast"
+        ],
         "figma": []
       }
     },
@@ -4357,7 +4369,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 17
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -4372,6 +4384,7 @@
           "component.accordion.trigger.content.color.default",
           "component.alert.title.color.subtle",
           "component.alert.description.color.subtle",
+          "component.alert.action.color.subtle",
           "component.badge.label.color.neutral.solid",
           "component.card.title.color.default",
           "component.combobox.option.content.color.selected",
@@ -4382,6 +4395,9 @@
           "component.menu.item.content.color.focused",
           "component.modal.title.color.default",
           "component.tabs.label.color.hover",
+          "component.toast.title.color.subtle",
+          "component.toast.description.color.subtle",
+          "component.toast.action.color.subtle",
           "semantic.icon.color.active",
           "semantic.icon.color.active"
         ],
@@ -4670,7 +4686,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 14
           }
         ],
         "tokens": [
@@ -4686,6 +4702,7 @@
           "component.menu.surface.border-width.default",
           "component.radio.control.border-width.unselected.default",
           "component.tabs.list.border-width.default",
+          "component.toast.border-width.default",
           "component.toggle.track.border-width.default"
         ],
         "figma": []
@@ -4874,8 +4891,16 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/alert.css",
+            "count": 2
+          },
+          {
             "file": "css/components/tabs.css",
             "count": 1
+          },
+          {
+            "file": "css/components/toast.css",
+            "count": 2
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -5058,6 +5083,7 @@
           "component.pagination.item.font-weight.default",
           "component.select.text.font-weight.default",
           "component.textarea.text.font-weight.default",
+          "component.toast.description.font-weight.default",
           "component.tooltip.label.font-weight.default"
         ],
         "figma": []
@@ -5120,7 +5146,8 @@
           "component.card.subtitle.font-weight.default",
           "component.form-field.error.font-weight.default",
           "component.pagination.item.font-weight.current",
-          "component.tabs.label.font-weight.default"
+          "component.tabs.label.font-weight.default",
+          "component.toast.title.font-weight.default"
         ],
         "figma": []
       }
@@ -5217,6 +5244,8 @@
           "component.select.text.font-size.md",
           "component.tabs.label.font-size.default",
           "component.textarea.text.font-size.md",
+          "component.toast.title.font-size.default",
+          "component.toast.description.font-size.default",
           "component.tooltip.label.font-size.default"
         ],
         "figma": []
@@ -5364,6 +5393,8 @@
           "component.select.text.line-height.md",
           "component.tabs.label.line-height.default",
           "component.textarea.text.line-height.md",
+          "component.toast.title.line-height.default",
+          "component.toast.description.line-height.default",
           "component.tooltip.label.line-height.default"
         ],
         "figma": []
@@ -5517,12 +5548,12 @@
             "count": 2
           },
           {
-            "file": "css/components/toggle.css",
-            "count": 4
+            "file": "css/components/toast.css",
+            "count": 1
           },
           {
-            "file": "css/components/tooltip.css",
-            "count": 1
+            "file": "css/components/toggle.css",
+            "count": 4
           }
         ],
         "tokens": [],
@@ -5620,12 +5651,12 @@
             "count": 2
           },
           {
-            "file": "css/components/toggle.css",
-            "count": 4
+            "file": "css/components/toast.css",
+            "count": 1
           },
           {
-            "file": "css/components/tooltip.css",
-            "count": 1
+            "file": "css/components/toggle.css",
+            "count": 4
           }
         ],
         "tokens": [],
@@ -6306,12 +6337,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.border-color.success.subtle",
-          "component.focus-ring.color.success"
+          "component.focus-ring.color.success",
+          "component.toast.border-color.success.subtle"
         ],
         "figma": []
       }
@@ -6365,7 +6397,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 7
+            "count": 11
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6377,13 +6409,17 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.success.filled",
-          "component.alert.description.color.success.filled",
+          "component.alert.title.color.success.solid",
+          "component.alert.description.color.success.solid",
+          "component.alert.action.color.success.solid",
           "component.badge.label.color.success.solid",
           "component.button.content.color.success.default",
           "component.button.content.color.success.hover",
           "component.button.content.color.success.pressed",
           "component.button.content.color.success.focus",
+          "component.toast.title.color.success.solid",
+          "component.toast.description.color.success.solid",
+          "component.toast.action.color.success.solid",
           "semantic.icon.color.success-contrast",
           "semantic.icon.color.success-contrast"
         ],
@@ -6404,11 +6440,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.warning.subtle"
+          "component.alert.border-color.warning.subtle",
+          "component.toast.border-color.warning.subtle"
         ],
         "figma": []
       }
@@ -6462,7 +6499,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 7
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6474,9 +6511,13 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.warning.filled",
-          "component.alert.description.color.warning.filled",
+          "component.alert.title.color.warning.solid",
+          "component.alert.description.color.warning.solid",
+          "component.alert.action.color.warning.solid",
           "component.badge.label.color.warning.solid",
+          "component.toast.title.color.warning.solid",
+          "component.toast.description.color.warning.solid",
+          "component.toast.action.color.warning.solid",
           "semantic.icon.color.warning-contrast",
           "semantic.icon.color.warning-contrast"
         ],
@@ -6497,11 +6538,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.error.subtle"
+          "component.alert.border-color.error.subtle",
+          "component.toast.border-color.error.subtle"
         ],
         "figma": []
       }
@@ -6561,7 +6603,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 7
+            "count": 11
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6573,13 +6615,17 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.error.filled",
-          "component.alert.description.color.error.filled",
+          "component.alert.title.color.error.solid",
+          "component.alert.description.color.error.solid",
+          "component.alert.action.color.error.solid",
           "component.badge.label.color.error.solid",
           "component.button.content.color.danger.default",
           "component.button.content.color.danger.hover",
           "component.button.content.color.danger.pressed",
           "component.button.content.color.danger.focus",
+          "component.toast.title.color.error.solid",
+          "component.toast.description.color.error.solid",
+          "component.toast.action.color.error.solid",
           "semantic.icon.color.error-contrast",
           "semantic.icon.color.error-contrast"
         ],
@@ -6600,11 +6646,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.info.subtle"
+          "component.alert.border-color.info.subtle",
+          "component.toast.border-color.info.subtle"
         ],
         "figma": []
       }
@@ -6648,7 +6695,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 7
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6660,9 +6707,13 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.info.filled",
-          "component.alert.description.color.info.filled",
+          "component.alert.title.color.info.solid",
+          "component.alert.description.color.info.solid",
+          "component.alert.action.color.info.solid",
           "component.badge.label.color.info.solid",
+          "component.toast.title.color.info.solid",
+          "component.toast.description.color.info.solid",
+          "component.toast.action.color.info.solid",
           "semantic.icon.color.info-contrast",
           "semantic.icon.color.info-contrast"
         ],
@@ -6795,6 +6846,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/accordion.css",
             "count": 1
           },
@@ -6853,6 +6908,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/checkbox.css",
             "count": 5
           },
@@ -6870,7 +6929,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 28
+            "count": 29
           },
           {
             "file": "css/utilities/layout.css",
@@ -6904,6 +6963,7 @@
           "component.select.gap.sm",
           "component.select.gap.md",
           "component.select.padding-x.sm",
+          "component.toast.content.gap.default",
           "component.toggle.content.gap.default",
           "component.tooltip.arrow.depth.default"
         ],
@@ -6946,7 +7006,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 35
+            "count": 39
           },
           {
             "file": "css/utilities/layout.css",
@@ -6955,6 +7015,8 @@
         ],
         "tokens": [
           "component.alert.gap.default",
+          "component.alert.actions.gap.default",
+          "component.alert.actions.padding-top.default",
           "component.badge.padding-x.default",
           "component.button.padding-x.sm",
           "component.button.padding-y.sm",
@@ -6986,6 +7048,10 @@
           "component.select.gap.lg",
           "component.select.padding-x.md",
           "component.textarea.padding-x.sm",
+          "component.toast.gap.default",
+          "component.toast.stack.gap.default",
+          "component.toast.actions.gap.default",
+          "component.toast.actions.padding-top.default",
           "component.toggle.target.gap.default",
           "component.tooltip.content.padding-y.default",
           "component.tooltip.arrow.base.default"
@@ -7008,6 +7074,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/divider.css",
             "count": 2
           },
@@ -7021,7 +7091,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 22
+            "count": 23
           },
           {
             "file": "css/utilities/layout.css",
@@ -7050,6 +7120,7 @@
           "component.tabs.item.padding-top.default",
           "component.tabs.item.indicator-gap.default",
           "component.textarea.padding-x.md",
+          "component.toast.padding.default",
           "component.tooltip.content.padding-x.default"
         ],
         "figma": []
@@ -7069,6 +7140,14 @@
       "decisao": "Aliasado a Foundation foundation.dimension.16.",
       "usos": {
         "css": [
+          {
+            "file": "css/base/reset.css",
+            "count": 3
+          },
+          {
+            "file": "css/components/toast.css",
+            "count": 3
+          },
           {
             "file": "css/tokens/generated/component.css",
             "count": 10
@@ -7186,6 +7265,10 @@
             "count": 1
           },
           {
+            "file": "css/components/toast.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/component.css",
             "count": 4
           }
@@ -7250,7 +7333,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 12
           }
         ],
         "tokens": [
@@ -7264,7 +7347,8 @@
           "component.menu.surface.radius.default",
           "component.modal.radius.default",
           "component.select.focus-ring.radius.default",
-          "component.textarea.focus-ring.radius.default"
+          "component.textarea.focus-ring.radius.default",
+          "component.toast.radius.default"
         ],
         "figma": []
       }
@@ -7340,10 +7424,6 @@
       "usos": {
         "css": [
           {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
-          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 2
           },
@@ -7375,10 +7455,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
@@ -7506,10 +7582,6 @@
       "usos": {
         "css": [
           {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
-          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 3
           },
@@ -7561,14 +7633,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/base/icons.css",
-            "count": 2
-          },
-          {
-            "file": "css/base/reset.css",
-            "count": 3
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 3
@@ -7983,10 +8047,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/components/combobox.css",
-            "count": 1
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
@@ -8874,14 +8934,15 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
-          "component.alert.bg.success.filled",
+          "component.alert.bg.success.solid",
           "component.badge.bg.success.solid",
           "component.button.bg.success.default",
-          "component.button.bg.success.focus"
+          "component.button.bg.success.focus",
+          "component.toast.bg.success.solid"
         ],
         "figma": []
       }
@@ -8946,12 +9007,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.success.subtle",
-          "component.badge.bg.success.subtle"
+          "component.badge.bg.success.subtle",
+          "component.toast.bg.success.subtle"
         ],
         "figma": []
       }
@@ -8993,12 +9055,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
-          "component.alert.bg.warning.filled",
-          "component.badge.bg.warning.solid"
+          "component.alert.bg.warning.solid",
+          "component.badge.bg.warning.solid",
+          "component.toast.bg.warning.solid"
         ],
         "figma": []
       }
@@ -9033,12 +9096,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.warning.subtle",
-          "component.badge.bg.warning.subtle"
+          "component.badge.bg.warning.subtle",
+          "component.toast.bg.warning.subtle"
         ],
         "figma": []
       }
@@ -9057,14 +9121,15 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
-          "component.alert.bg.error.filled",
+          "component.alert.bg.error.solid",
           "component.badge.bg.error.solid",
           "component.button.bg.danger.default",
-          "component.button.bg.danger.focus"
+          "component.button.bg.danger.focus",
+          "component.toast.bg.error.solid"
         ],
         "figma": []
       }
@@ -9133,12 +9198,13 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.error.subtle",
-          "component.badge.bg.error.subtle"
+          "component.badge.bg.error.subtle",
+          "component.toast.bg.error.subtle"
         ],
         "figma": []
       }
@@ -9180,12 +9246,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
-          "component.alert.bg.info.filled",
-          "component.badge.bg.info.solid"
+          "component.alert.bg.info.solid",
+          "component.badge.bg.info.solid",
+          "component.toast.bg.info.solid"
         ],
         "figma": []
       }
@@ -9220,12 +9287,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.info.subtle",
-          "component.badge.bg.info.subtle"
+          "component.badge.bg.info.subtle",
+          "component.toast.bg.info.subtle"
         ],
         "figma": []
       }
@@ -9269,6 +9337,10 @@
       "decisao": "Aliasado a Foundation foundation.dimension.16.",
       "usos": {
         "css": [
+          {
+            "file": "css/base/icons.css",
+            "count": 2
+          },
           {
             "file": "css/tokens/generated/component.css",
             "count": 12
@@ -9318,7 +9390,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 15
           }
         ],
         "tokens": [
@@ -9334,7 +9406,9 @@
           "component.modal.close.icon-size.sm",
           "component.radio.control.size.md",
           "component.select.chevron.size.md",
-          "component.select.icon.size.md"
+          "component.select.icon.size.md",
+          "component.toast.icon.size.default",
+          "component.toast.close.icon-size.default"
         ],
         "figma": []
       }
@@ -9548,6 +9622,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/combobox.css",
+            "count": 1
+          },
+          {
             "file": "css/components/menu.css",
             "count": 1
           }
@@ -9576,6 +9654,10 @@
           {
             "file": "css/components/menu.css",
             "count": 1
+          },
+          {
+            "file": "css/components/tooltip.css",
+            "count": 1
           }
         ],
         "tokens": [],
@@ -9595,6 +9677,10 @@
       "decisao": "Aliasado a Foundation foundation.dimension.480.",
       "usos": {
         "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          },
           {
             "file": "css/tokens/generated/component.css",
             "count": 1
@@ -10704,7 +10790,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 3
+            "count": 5
           }
         ],
         "tokens": [],
@@ -10726,7 +10812,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 1
+            "count": 3
           }
         ],
         "tokens": [],
@@ -10748,7 +10834,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 3
+            "count": 5
           }
         ],
         "tokens": [],
@@ -20119,7 +20205,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 13
           }
         ],
         "tokens": [
@@ -20133,7 +20219,9 @@
           "component.modal.close.color.default",
           "component.pagination.icon.color.default",
           "component.select.chevron.color.default",
-          "component.select.icon.color.default"
+          "component.select.icon.color.default",
+          "component.toast.icon.color.info.subtle",
+          "component.toast.close.icon.color.subtle"
         ],
         "figma": []
       }
@@ -20275,11 +20363,12 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 6
           }
         ],
         "tokens": [
-          "component.alert.icon.color.success.subtle"
+          "component.alert.icon.color.success.subtle",
+          "component.toast.icon.color.success.subtle"
         ],
         "figma": []
       }
@@ -20304,11 +20393,12 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 6
           }
         ],
         "tokens": [
-          "component.alert.icon.color.warning.subtle"
+          "component.alert.icon.color.warning.subtle",
+          "component.toast.icon.color.warning.subtle"
         ],
         "figma": []
       }
@@ -20333,12 +20423,13 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 5
+            "count": 8
           }
         ],
         "tokens": [
           "component.alert.icon.color.error.subtle",
-          "component.form-field.error.icon.color.default"
+          "component.form-field.error.icon.color.default",
+          "component.toast.icon.color.error.subtle"
         ],
         "figma": []
       }
@@ -20359,12 +20450,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.success.filled",
-          "component.alert.close.icon.color.success.filled"
+          "component.alert.icon.color.success.solid",
+          "component.alert.close.icon.color.success.solid",
+          "component.toast.icon.color.success.solid",
+          "component.toast.close.icon.color.success.solid"
         ],
         "figma": []
       }
@@ -20385,12 +20478,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.warning.filled",
-          "component.alert.close.icon.color.warning.filled"
+          "component.alert.icon.color.warning.solid",
+          "component.alert.close.icon.color.warning.solid",
+          "component.toast.icon.color.warning.solid",
+          "component.toast.close.icon.color.warning.solid"
         ],
         "figma": []
       }
@@ -20411,12 +20506,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.error.filled",
-          "component.alert.close.icon.color.error.filled"
+          "component.alert.icon.color.error.solid",
+          "component.alert.close.icon.color.error.solid",
+          "component.toast.icon.color.error.solid",
+          "component.toast.close.icon.color.error.solid"
         ],
         "figma": []
       }
@@ -20437,12 +20534,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.info.filled",
-          "component.alert.close.icon.color.info.filled"
+          "component.alert.icon.color.info.solid",
+          "component.alert.close.icon.color.info.solid",
+          "component.toast.icon.color.info.solid",
+          "component.toast.close.icon.color.info.solid"
         ],
         "figma": []
       }
@@ -20500,7 +20599,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 13
           }
         ],
         "tokens": [
@@ -20514,7 +20613,9 @@
           "component.input.icon.stroke-width.md",
           "component.menu.item.icon.stroke-width.md",
           "component.select.chevron.stroke-width.md",
-          "component.select.icon.stroke-width.md"
+          "component.select.icon.stroke-width.md",
+          "component.toast.icon.stroke-width.default",
+          "component.toast.close.icon.stroke-width.default"
         ],
         "figma": []
       }
@@ -20669,7 +20770,7 @@
         "css": [
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21263,7 +21364,7 @@
         "css": [
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21470,6 +21571,10 @@
             "count": 1
           },
           {
+            "file": "css/components/toast.css",
+            "count": 1
+          },
+          {
             "file": "css/components/toggle.css",
             "count": 1
           }
@@ -21660,6 +21765,10 @@
             "count": 2
           },
           {
+            "file": "css/components/toast.css",
+            "count": 2
+          },
+          {
             "file": "css/components/toggle.css",
             "count": 2
           }
@@ -21843,7 +21952,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.icon.color.success.subtle": {
       "layer": "component",
@@ -21884,7 +21994,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.icon.color.warning.subtle": {
       "layer": "component",
@@ -21925,7 +22036,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.icon.color.error.subtle": {
       "layer": "component",
@@ -21966,7 +22078,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.icon.color.info.subtle": {
       "layer": "component",
@@ -22029,7 +22142,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.title.color.subtle": {
       "layer": "component",
@@ -22044,7 +22158,12 @@
       "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
       "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -22065,7 +22184,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.title.color.error.filled": {
       "layer": "component",
@@ -22083,7 +22203,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.title.color.info.filled": {
       "layer": "component",
@@ -22101,7 +22222,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.description.color.success.filled": {
       "layer": "component",
@@ -22124,7 +22246,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.description.color.subtle": {
       "layer": "component",
@@ -22170,7 +22293,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.description.color.error.filled": {
       "layer": "component",
@@ -22193,7 +22317,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.description.color.info.filled": {
       "layer": "component",
@@ -22216,7 +22341,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.close.icon.color.success.filled": {
       "layer": "component",
@@ -22234,7 +22360,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.close.icon.color.warning.filled": {
       "layer": "component",
@@ -22252,7 +22379,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.close.icon.color.error.filled": {
       "layer": "component",
@@ -22270,7 +22398,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.close.icon.color.info.filled": {
       "layer": "component",
@@ -22288,7 +22417,8 @@
         "css": [],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.close.icon.color.subtle": {
       "layer": "component",
@@ -22303,7 +22433,12 @@
       "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
       "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -22349,7 +22484,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.bg.success.subtle": {
       "layer": "component",
@@ -22391,7 +22527,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.bg.warning.subtle": {
       "layer": "component",
@@ -22433,7 +22570,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.bg.error.subtle": {
       "layer": "component",
@@ -22475,7 +22613,8 @@
         ],
         "tokens": [],
         "figma": []
-      }
+      },
+      "_stale": true
     },
     "component.alert.bg.info.subtle": {
       "layer": "component",
@@ -25193,7 +25332,12 @@
       "contexto": "Usar quando 24px for insuficiente para separar grupos internos sem recorrer à escala macro de section.",
       "decisao": "Adicionado para expandir a escala genérica de space até 64px, mantendo 32px como primeiro degrau acima de 2xl.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/tooltip.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -26354,11 +26498,12 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.menu.surface.shadow.default"
+          "component.menu.surface.shadow.default",
+          "component.toast.shadow.default"
         ],
         "figma": []
       }
@@ -28443,6 +28588,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/checkbox.css",
+            "count": 2
+          },
+          {
             "file": "css/tokens/generated/component.css",
             "count": 1
           }
@@ -28450,6 +28599,1659 @@
         "tokens": [
           "component.divider.inset.padding-x.hairline"
         ],
+        "figma": []
+      }
+    },
+    "component.toast.padding.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.md",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.stack.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.radius.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.radius.lg",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.border.width.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.stroke-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.20",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.content.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.font-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.line-height.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.font-weight.default": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.bold",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.font-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.line-height.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.font-weight.default": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.regular",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 5
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.sm",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.stroke-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.20",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.subtle",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.subtle",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.subtle",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.subtle",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.border-default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.border-default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.border-default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.border-default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "semantic.z.toast": {
+      "layer": "semantic",
+      "type": "number",
+      "references": "foundation.z.50",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.actions.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap horizontal entre Action 1 e Action 2 no Alert.",
+      "escopo": ["gap"],
+      "contexto": "Fileira `.ds-alert__actions`.",
+      "decisao": "Alias 1:1 para semantic.space.sm (8px); anatomia pública do Alert.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.actions.padding-top.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Padding-top da fileira Actions do Alert.",
+      "escopo": ["padding"],
+      "contexto": "Espaçamento acima dos CTAs em `.ds-alert__actions`.",
+      "decisao": "Alias 1:1 para semantic.space.sm (8px); espelha Figma `alert/actions/padding-top/default`.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.actions.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap horizontal entre Action 1 e Action 2 no Toast.",
+      "escopo": ["gap"],
+      "contexto": "Fileira `.ds-toast__actions`.",
+      "decisao": "Alias 1:1 para semantic.space.sm (8px); anatomia pública do Toast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.actions.padding-top.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Padding-top da fileira Actions do Toast.",
+      "escopo": ["padding"],
+      "contexto": "Espaçamento acima dos CTAs em `.ds-toast__actions`.",
+      "decisao": "Alias 1:1 para semantic.space.sm (8px); espelha Figma `toast/actions/padding-top/default`.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.shadow.default": {
+      "layer": "component",
+      "type": "shadow",
+      "references": "semantic.shadow.overlay",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.default",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "TODO",
+      "escopo": [],
+      "contexto": "TODO",
+      "decisao": "TODO",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
         "figma": []
       }
     }

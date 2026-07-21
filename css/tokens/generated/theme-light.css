@@ -221,6 +221,7 @@
   --ds-body-line-height-9xl: var(--ds-line-height-90); /** 90px. Pareia com body/font-size/9xl (72px). */
   --ds-z-modal: var(--ds-z-40); /** Stack layer para modais e overlays bloqueantes. */
   --ds-z-tooltip: var(--ds-z-40); /** Stack layer para tooltips e floating labels não modais. */
+  --ds-z-toast: var(--ds-z-50); /** Stack layer para toast/snackbar (viewport overlay). */
   --ds-brand-border-default: var(--ds-brand-background-default);
   --ds-brand-border-hover: var(--ds-brand-background-hover);
   --ds-brand-border-disabled: var(--ds-brand-background-disabled);

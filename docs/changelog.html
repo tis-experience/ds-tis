@@ -66,8 +66,14 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>O sistema segue Semantic Versioning. <code>1.0.0</code> marca o primeiro contrato estável; as tags <code>1.0.0-beta.N</code> e 0.x permanecem como histórico. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Toast (Experimental)</strong> — feedback transitório no viewport com tipos success/warning/error/info, estilos Subtle/Solid, dismiss, auto-hide (pausa em hover/focus), até 2 actions (Button ghost/sm abaixo da description), fila até 5 itens e runtime <code>ds-tis/toast</code>. Elevação <code>elevation/2</code> via <code>--ds-toast-shadow-default</code> → <code>semantic.shadow.overlay</code>. Ícones de feedback/close fixos por Type. SemVer: candidato a minor <code>1.1.0</code> na publicação.</li>
+</ul>
 <h3>Alterado</h3>
 <ul>
+<li><strong>Alert: Style Filled → Solid; actions opcionais.</strong> Classe pública <code>ds-alert--solid</code> (alias depreciado <code>ds-alert--filled</code>); tokens Component <code>*.solid</code>; até 2 actions em <code>.ds-alert__actions</code> abaixo da description. Ícones continuam fixos por Type.</li>
+<li><strong>Alert e Toast compartilham skin Subtle/Solid, anatomia e actions.</strong> Docs cruzam o contrato; Toast difere por overlay, elevação e runtime.</li>
 <li><strong>Tooltip preserva a largura natural de textos curtos.</strong> O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.</li>
 </ul>
 <h3>Corrigido</h3>

@@ -1,105 +1,26 @@
 {
   "component": {
-    "alert": {
+    "toast": {
       "padding": {
         "default": {
           "$type": "dimension",
           "$value": "{semantic.space.md}",
-          "$description": "Padding do Alert."
+          "$description": "Padding do Toast."
         }
       },
       "gap": {
         "default": {
           "$type": "dimension",
           "$value": "{semantic.space.sm}",
-          "$description": "Gap horizontal do Alert."
+          "$description": "Gap horizontal do Toast."
         }
       },
-      "radius": {
-        "default": {
-          "$type": "dimension",
-          "$value": "{semantic.radius.lg}",
-          "$description": "Radius do Alert."
-        }
-      },
-      "border-width": {
-        "default": {
-          "$type": "dimension",
-          "$value": "{semantic.border.width.default}",
-          "$description": "Border width do Alert quando stroke esta ativo."
-        }
-      },
-      "icon": {
-        "size": {
-          "default": {
-            "$type": "dimension",
-            "$value": "{semantic.size.sm}",
-            "$description": "Tamanho do ícone Alert."
-          }
-        },
-        "color": {
-          "success": {
-            "solid": {
-              "$value": "{semantic.icon.color.success-contrast}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/success/content/contrast."
-            },
-            "subtle": {
-              "$value": "{semantic.icon.color.success}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/success/content/default."
-            }
-          },
-          "warning": {
-            "solid": {
-              "$value": "{semantic.icon.color.warning-contrast}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/warning/content/contrast."
-            },
-            "subtle": {
-              "$value": "{semantic.icon.color.warning}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/warning/content/default."
-            }
-          },
-          "error": {
-            "solid": {
-              "$value": "{semantic.icon.color.error-contrast}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/error/content/contrast."
-            },
-            "subtle": {
-              "$value": "{semantic.icon.color.error}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/error/content/default."
-            }
-          },
-          "info": {
-            "solid": {
-              "$value": "{semantic.icon.color.info-contrast}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/info/content/contrast."
-            },
-            "subtle": {
-              "$value": "{semantic.icon.color.default}",
-              "$type": "color",
-              "$description": "Cor do ícone do Alert. Alias para feedback/info/content/default."
-            }
-          }
-        },
-        "stroke-width": {
-          "default": {
-            "$value": "{semantic.icon.stroke-width.regular.20}",
-            "$type": "dimension"
-          }
-        }
-      },
-      "content": {
+      "stack": {
         "gap": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.space.xs}",
-            "$description": "Gap vertical do content Alert (title, description, actions)."
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap vertical entre toasts na fila."
           }
         }
       },
@@ -119,26 +40,110 @@
           }
         }
       },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.lg}",
+          "$description": "Radius do Toast."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width do Toast."
+        }
+      },
+      "shadow": {
+        "default": {
+          "$type": "shadow",
+          "$value": "{semantic.shadow.overlay}",
+          "$description": "Elevação do Toast — Effect Style elevation/2 (--ds-shadow-md via semantic.shadow.overlay)."
+        }
+      },
+      "icon": {
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone Toast (fixo por Type, não escolhível)."
+          }
+        },
+        "color": {
+          "success": {
+            "solid": {
+              "$value": "{semantic.icon.color.success-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.success}",
+              "$type": "color"
+            }
+          },
+          "warning": {
+            "solid": {
+              "$value": "{semantic.icon.color.warning-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.warning}",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "solid": {
+              "$value": "{semantic.icon.color.error-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.error}",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "solid": {
+              "$value": "{semantic.icon.color.info-contrast}",
+              "$type": "color"
+            },
+            "subtle": {
+              "$value": "{semantic.icon.color.default}",
+              "$type": "color"
+            }
+          }
+        },
+        "stroke-width": {
+          "default": {
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$type": "dimension"
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical do content Toast (title, description, actions)."
+          }
+        }
+      },
       "title": {
         "font-size": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.typography.body.font-size.sm}",
-            "$description": "Font-size do title Alert."
+            "$value": "{semantic.typography.body.font-size.sm}"
           }
         },
         "line-height": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.typography.body.line-height.sm}",
-            "$description": "Line-height do title Alert."
+            "$value": "{semantic.typography.body.line-height.sm}"
           }
         },
         "font-weight": {
           "default": {
             "$type": "number",
-            "$value": "{semantic.typography.body.font-weight.bold}",
-            "$description": "Font-weight do title Alert."
+            "$value": "{semantic.typography.body.font-weight.bold}"
           }
         },
         "color": {
@@ -176,22 +181,19 @@
         "font-size": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.typography.body.font-size.sm}",
-            "$description": "Font-size da description Alert."
+            "$value": "{semantic.typography.body.font-size.sm}"
           }
         },
         "line-height": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.typography.body.line-height.sm}",
-            "$description": "Line-height da description Alert."
+            "$value": "{semantic.typography.body.line-height.sm}"
           }
         },
         "font-weight": {
           "default": {
             "$type": "number",
-            "$value": "{semantic.typography.body.font-weight.regular}",
-            "$description": "Font-weight da description Alert."
+            "$value": "{semantic.typography.body.font-weight.regular}"
           }
         },
         "color": {
@@ -229,8 +231,7 @@
         "icon-size": {
           "default": {
             "$type": "dimension",
-            "$value": "{semantic.size.sm}",
-            "$description": "Tamanho do ícone Close Alert."
+            "$value": "{semantic.size.sm}"
           }
         },
         "icon": {

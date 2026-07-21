@@ -1,6 +1,6 @@
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -22,6 +22,7 @@
 | Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Toast | 🟡 Experimental | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
 | Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
