@@ -1,7 +1,7 @@
 {
   "schema": "ds-tis/figma-release-evidence@1",
   "packageVersion": "1.0.0",
-  "verifiedAt": "2026-07-19T19:20:58.710Z",
+  "verifiedAt": "2026-07-21T12:49:11.919Z",
   "policy": {
     "snapshotMaxAgeHours": 24,
     "snapshotIsCommitted": false,
@@ -11,26 +11,26 @@
     "fileKey": "IE68amP9Hya5ieFw1rX8S8",
     "expectedFileKey": "IE68amP9Hya5ieFw1rX8S8",
     "fileName": "Document",
-    "snapshotGeneratedAt": "2026-07-19T18:47:14.039Z",
-    "snapshotAgeHoursAtVerification": 0.562,
-    "snapshotSha256": "2aeb47c836427ea2bc18b1371751a2d2979daceea5209e98dcb2322213b74439",
+    "snapshotGeneratedAt": "2026-07-21T11:36:06.543Z",
+    "snapshotAgeHoursAtVerification": 1.218,
+    "snapshotSha256": "92d4087857784ad3807a1536840245ddc0b5f0435cddaeca5536beca3d772614",
     "exporter": {
       "name": "Design System Snapshot Exporter",
       "version": "0.2.0",
       "source": "figma-plugin/snapshot-exporter"
     },
-    "variableCount": 1173,
+    "variableCount": 1238,
     "collectionCount": 3
   },
   "repository": {
-    "tokenSha256": "28a155d50fc88db9c6fe85b4a395f5c506f2ebd1f3c1c415c1516d3afce2b7b0",
-    "tokenFileCount": 39
+    "tokenSha256": "4a44117ff932b34a97bfa6cb92324262df7df53954438cb2a2e0947b44457795",
+    "tokenFileCount": 40
   },
   "checks": {
     "verifyTokens": {
       "errors": 0,
       "warnings": 0,
-      "jsonTokenCount": 1464
+      "jsonTokenCount": 1532
     },
     "jsonVsFigma": {
       "skipped": false,
@@ -40,7 +40,7 @@
       "driftFromSource": 0,
       "aliasBroken": 0,
       "cssOnly": 7,
-      "byDesign": 127
+      "byDesign": 130
     },
     "figmaStructure": {
       "issueCount": 0,

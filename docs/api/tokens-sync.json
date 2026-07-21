@@ -6,36 +6,13 @@
     "lightTokens": 238,
     "darkTokens": 238,
     "errors": 0,
-    "warnings": 2
+    "warnings": 0
   },
   "checks": {
     "jsonIntegrity": [],
     "jsonVsCss": [],
     "cssFoundationLeak": [],
-    "registryCompleteness": [
-      {
-        "level": "warning",
-        "message": "83 entries com campos TODO (sentido/contexto/decisao). Preencha incrementalmente.",
-        "sample": [
-          "component.toast.padding.default",
-          "component.toast.gap.default",
-          "component.toast.stack.gap.default",
-          "component.toast.radius.default",
-          "component.toast.border-width.default"
-        ]
-      },
-      {
-        "level": "warning",
-        "message": "20 entries em registry.json sem token correspondente em tokens/ (stale).",
-        "sample": [
-          "component.alert.icon.color.success.filled",
-          "component.alert.icon.color.warning.filled",
-          "component.alert.icon.color.error.filled",
-          "component.alert.icon.color.info.filled",
-          "component.alert.title.color.success.filled"
-        ]
-      }
-    ],
+    "registryCompleteness": [],
     "docTokenDrift": [],
     "jsonVsFigma": {
       "skipped": false,

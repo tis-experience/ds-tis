@@ -21936,25 +21936,6 @@
         "figma": []
       }
     },
-    "component.alert.icon.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.success-contrast",
-      "sentido": "Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.icon.color.success.subtle": {
       "layer": "component",
       "type": "color",
@@ -21977,25 +21958,6 @@
         "tokens": [],
         "figma": []
       }
-    },
-    "component.alert.icon.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.warning-contrast",
-      "sentido": "Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
     },
     "component.alert.icon.color.warning.subtle": {
       "layer": "component",
@@ -22020,25 +21982,6 @@
         "figma": []
       }
     },
-    "component.alert.icon.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.error-contrast",
-      "sentido": "Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.icon.color.error.subtle": {
       "layer": "component",
       "type": "color",
@@ -22061,25 +22004,6 @@
         "tokens": [],
         "figma": []
       }
-    },
-    "component.alert.icon.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.info-contrast",
-      "sentido": "Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
     },
     "component.alert.icon.color.info.subtle": {
       "layer": "component",
@@ -22126,25 +22050,6 @@
         "figma": []
       }
     },
-    "component.alert.title.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.content-contrast",
-      "sentido": "Contrato title.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.title.color.subtle": {
       "layer": "component",
       "type": "color",
@@ -22168,87 +22073,6 @@
         "figma": []
       }
     },
-    "component.alert.title.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "Contrato title.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.title.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.content-contrast",
-      "sentido": "Contrato title.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.title.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.content-contrast",
-      "sentido": "Contrato title.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.description.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.content-contrast",
-      "sentido": "Contrato description.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.description.color.subtle": {
       "layer": "component",
       "type": "color",
@@ -22271,154 +22095,6 @@
         "tokens": [],
         "figma": []
       }
-    },
-    "component.alert.description.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "Contrato description.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.description.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.content-contrast",
-      "sentido": "Contrato description.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.description.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.content-contrast",
-      "sentido": "Contrato description.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.close.icon.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.success-contrast",
-      "sentido": "Contrato close.icon.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.close.icon.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.warning-contrast",
-      "sentido": "Contrato close.icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.close.icon.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.error-contrast",
-      "sentido": "Contrato close.icon.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
-    "component.alert.close.icon.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.info-contrast",
-      "sentido": "Contrato close.icon.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
     },
     "component.alert.close.icon.color.subtle": {
       "layer": "component",
@@ -22465,28 +22141,6 @@
         "figma": []
       }
     },
-    "component.alert.bg.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.background.default",
-      "sentido": "Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.bg.success.subtle": {
       "layer": "component",
       "type": "color",
@@ -22507,28 +22161,6 @@
         "tokens": [],
         "figma": []
       }
-    },
-    "component.alert.bg.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.background.default",
-      "sentido": "Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
     },
     "component.alert.bg.warning.subtle": {
       "layer": "component",
@@ -22551,28 +22183,6 @@
         "figma": []
       }
     },
-    "component.alert.bg.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.background.default",
-      "sentido": "Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
-    },
     "component.alert.bg.error.subtle": {
       "layer": "component",
       "type": "color",
@@ -22593,28 +22203,6 @@
         "tokens": [],
         "figma": []
       }
-    },
-    "component.alert.bg.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.background.default",
-      "sentido": "Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      },
-      "_stale": true
     },
     "component.alert.bg.info.subtle": {
       "layer": "component",
@@ -28606,10 +28194,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.space.md",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.space.md.",
       "usos": {
         "css": [
           {
@@ -28625,10 +28216,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.space.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.space.sm.",
       "usos": {
         "css": [
           {
@@ -28644,10 +28238,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.space.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.space.sm.",
       "usos": {
         "css": [
           {
@@ -28663,10 +28260,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.radius.lg",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.radius.lg.",
       "usos": {
         "css": [
           {
@@ -28682,10 +28282,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.border.width.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.border.width.default.",
       "usos": {
         "css": [
           {
@@ -28701,10 +28304,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.size.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.size.sm.",
       "usos": {
         "css": [
           {
@@ -28720,10 +28326,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.success",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.success.",
       "usos": {
         "css": [
           {
@@ -28739,10 +28347,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.warning",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.warning.",
       "usos": {
         "css": [
           {
@@ -28758,10 +28368,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.error",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.error.",
       "usos": {
         "css": [
           {
@@ -28777,10 +28389,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.default.",
       "usos": {
         "css": [
           {
@@ -28796,10 +28410,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.icon.stroke-width.regular.20",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.stroke-width.regular.20.",
       "usos": {
         "css": [
           {
@@ -28815,10 +28432,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.space.xs",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.space.xs.",
       "usos": {
         "css": [
           {
@@ -28834,10 +28454,12 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.typography.body.font-size.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "typography"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.font-size.sm.",
       "usos": {
         "css": [
           {
@@ -28853,10 +28475,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.typography.body.line-height.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.line-height.sm.",
       "usos": {
         "css": [
           {
@@ -28872,10 +28497,12 @@
       "layer": "component",
       "type": "number",
       "references": "semantic.typography.body.font-weight.bold",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "typography"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.font-weight.bold.",
       "usos": {
         "css": [
           {
@@ -28891,10 +28518,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.content.strong",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.content.strong.",
       "usos": {
         "css": [
           {
@@ -28910,10 +28539,12 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.typography.body.font-size.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "typography"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.font-size.sm.",
       "usos": {
         "css": [
           {
@@ -28929,10 +28560,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.typography.body.line-height.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.line-height.sm.",
       "usos": {
         "css": [
           {
@@ -28948,10 +28582,12 @@
       "layer": "component",
       "type": "number",
       "references": "semantic.typography.body.font-weight.regular",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "typography"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.typography.body.font-weight.regular.",
       "usos": {
         "css": [
           {
@@ -28967,10 +28603,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.content.strong",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.content.strong.",
       "usos": {
         "css": [
           {
@@ -28986,10 +28624,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.size.sm",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.size.sm.",
       "usos": {
         "css": [
           {
@@ -29005,10 +28646,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.default.",
       "usos": {
         "css": [
           {
@@ -29024,10 +28667,13 @@
       "layer": "component",
       "type": "dimension",
       "references": "semantic.icon.stroke-width.regular.20",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "spacing",
+        "sizing"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.stroke-width.regular.20.",
       "usos": {
         "css": [
           {
@@ -29043,10 +28689,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.background.subtle",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.background.subtle.",
       "usos": {
         "css": [
           {
@@ -29062,10 +28710,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.background.subtle",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.background.subtle.",
       "usos": {
         "css": [
           {
@@ -29081,10 +28731,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.background.subtle",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.background.subtle.",
       "usos": {
         "css": [
           {
@@ -29100,10 +28752,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.background.subtle",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.background.subtle.",
       "usos": {
         "css": [
           {
@@ -29119,10 +28773,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.border-default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.border-default.",
       "usos": {
         "css": [
           {
@@ -29138,10 +28794,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.border-default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.border-default.",
       "usos": {
         "css": [
           {
@@ -29157,10 +28815,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.border-default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.border-default.",
       "usos": {
         "css": [
           {
@@ -29176,10 +28836,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.border-default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.border-default.",
       "usos": {
         "css": [
           {
@@ -29195,10 +28857,12 @@
       "layer": "semantic",
       "type": "number",
       "references": "foundation.z.50",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Camada z-index do Toast overlay acima de conteúdo e abaixo de modal.",
+      "escopo": [
+        "z-index"
+      ],
+      "contexto": "Feedback transitório flutuante (Toast).",
+      "decisao": "Alias foundation.z.50; paridade com elevação overlay.",
       "usos": {
         "css": [
           {
@@ -29214,10 +28878,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.success-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.success-contrast.",
       "usos": {
         "css": [
           {
@@ -29233,10 +28899,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.warning-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.warning-contrast.",
       "usos": {
         "css": [
           {
@@ -29252,10 +28920,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.error-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.error-contrast.",
       "usos": {
         "css": [
           {
@@ -29271,10 +28941,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.info-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.info-contrast.",
       "usos": {
         "css": [
           {
@@ -29291,7 +28963,9 @@
       "type": "dimension",
       "references": "semantic.space.sm",
       "sentido": "Gap horizontal entre Action 1 e Action 2 no Alert.",
-      "escopo": ["gap"],
+      "escopo": [
+        "gap"
+      ],
       "contexto": "Fileira `.ds-alert__actions`.",
       "decisao": "Alias 1:1 para semantic.space.sm (8px); anatomia pública do Alert.",
       "usos": {
@@ -29310,7 +28984,9 @@
       "type": "dimension",
       "references": "semantic.space.sm",
       "sentido": "Padding-top da fileira Actions do Alert.",
-      "escopo": ["padding"],
+      "escopo": [
+        "padding"
+      ],
       "contexto": "Espaçamento acima dos CTAs em `.ds-alert__actions`.",
       "decisao": "Alias 1:1 para semantic.space.sm (8px); espelha Figma `alert/actions/padding-top/default`.",
       "usos": {
@@ -29328,10 +29004,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29347,10 +29025,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29366,10 +29046,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29385,10 +29067,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29404,10 +29088,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29423,10 +29109,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29442,10 +29130,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29461,10 +29151,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29480,10 +29172,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.success-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.success-contrast.",
       "usos": {
         "css": [
           {
@@ -29499,10 +29193,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.warning-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.warning-contrast.",
       "usos": {
         "css": [
           {
@@ -29518,10 +29214,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.error-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.error-contrast.",
       "usos": {
         "css": [
           {
@@ -29537,10 +29235,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.info-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.info-contrast.",
       "usos": {
         "css": [
           {
@@ -29556,10 +29256,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.background.default.",
       "usos": {
         "css": [
           {
@@ -29575,10 +29277,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.background.default.",
       "usos": {
         "css": [
           {
@@ -29594,10 +29298,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.background.default.",
       "usos": {
         "css": [
           {
@@ -29613,10 +29319,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.background.default.",
       "usos": {
         "css": [
           {
@@ -29633,7 +29341,9 @@
       "type": "dimension",
       "references": "semantic.space.sm",
       "sentido": "Gap horizontal entre Action 1 e Action 2 no Toast.",
-      "escopo": ["gap"],
+      "escopo": [
+        "gap"
+      ],
       "contexto": "Fileira `.ds-toast__actions`.",
       "decisao": "Alias 1:1 para semantic.space.sm (8px); anatomia pública do Toast.",
       "usos": {
@@ -29652,7 +29362,9 @@
       "type": "dimension",
       "references": "semantic.space.sm",
       "sentido": "Padding-top da fileira Actions do Toast.",
-      "escopo": ["padding"],
+      "escopo": [
+        "padding"
+      ],
       "contexto": "Espaçamento acima dos CTAs em `.ds-toast__actions`.",
       "decisao": "Alias 1:1 para semantic.space.sm (8px); espelha Figma `toast/actions/padding-top/default`.",
       "usos": {
@@ -29670,10 +29382,12 @@
       "layer": "component",
       "type": "shadow",
       "references": "semantic.shadow.overlay",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "shadow"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.shadow.overlay.",
       "usos": {
         "css": [
           {
@@ -29689,10 +29403,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.success-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.success-contrast.",
       "usos": {
         "css": [
           {
@@ -29708,10 +29424,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.warning-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.warning-contrast.",
       "usos": {
         "css": [
           {
@@ -29727,10 +29445,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.error-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.error-contrast.",
       "usos": {
         "css": [
           {
@@ -29746,10 +29466,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.info-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.info-contrast.",
       "usos": {
         "css": [
           {
@@ -29765,10 +29487,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29784,10 +29508,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29803,10 +29529,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29822,10 +29550,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29841,10 +29571,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29860,10 +29592,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29879,10 +29613,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29898,10 +29634,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
@@ -29917,10 +29655,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.success-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.success-contrast.",
       "usos": {
         "css": [
           {
@@ -29936,10 +29676,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.warning-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.warning-contrast.",
       "usos": {
         "css": [
           {
@@ -29955,10 +29697,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.error-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.error-contrast.",
       "usos": {
         "css": [
           {
@@ -29974,10 +29718,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.icon.color.info-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.icon.color.info-contrast.",
       "usos": {
         "css": [
           {
@@ -29993,10 +29739,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.background.default.",
       "usos": {
         "css": [
           {
@@ -30012,10 +29760,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.background.default.",
       "usos": {
         "css": [
           {
@@ -30031,10 +29781,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.background.default.",
       "usos": {
         "css": [
           {
@@ -30050,10 +29802,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.background.default",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.background.default.",
       "usos": {
         "css": [
           {
@@ -30069,10 +29823,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.content.strong",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.content.strong.",
       "usos": {
         "css": [
           {
@@ -30088,10 +29844,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30107,10 +29865,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30126,10 +29886,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30145,10 +29907,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Alert.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Alert (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30164,10 +29928,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.content.strong",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.content.strong.",
       "usos": {
         "css": [
           {
@@ -30183,10 +29949,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.success.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30202,10 +29970,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.warning.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30221,10 +29991,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.error.content-contrast.",
       "usos": {
         "css": [
           {
@@ -30240,10 +30012,12 @@
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.info.content-contrast",
-      "sentido": "TODO",
-      "escopo": [],
-      "contexto": "TODO",
-      "decisao": "TODO",
+      "sentido": "Token Component do Toast.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Anatomia pública do Toast (Figma Component + CSS).",
+      "decisao": "Alias/contrato Component; referência semantic.feedback.info.content-contrast.",
       "usos": {
         "css": [
           {
