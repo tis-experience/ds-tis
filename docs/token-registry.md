@@ -6,7 +6,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 ## Status
 
-- Há entradas com `TODO` em campos obrigatórios; rode `npm run verify:registry` para ver a lista exata.
+- Metadados obrigatórios preenchidos.
 
 ## Foundation
 
@@ -616,7 +616,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `semantic.space.section.md` | dimension | → `foundation.dimension.64` | Spacing token section.md. | 0 |
 | `semantic.space.section.sm` | dimension | → `foundation.dimension.48` | Spacing token section.sm. | 1 |
 | `semantic.space.section.xl` | dimension | → `foundation.dimension.96` | Spacing token section.xl. | 0 |
-| `semantic.space.sm` | dimension | → `foundation.dimension.8` | Spacing token sm. | 46 |
+| `semantic.space.sm` | dimension | → `foundation.dimension.8` | Spacing token sm. | 48 |
 | `semantic.space.xl` | dimension | → `foundation.dimension.20` | Spacing token xl. | 9 |
 | `semantic.space.xs` | dimension | → `foundation.dimension.4` | Spacing token xs. | 36 |
 
@@ -688,7 +688,7 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
 | `semantic.z.modal` | number | → `foundation.z.40` | Stack layer para modais e overlays bloqueantes. | 2 |
-| `semantic.z.toast` | number | → `foundation.z.50` | ⚠️ TODO | 1 |
+| `semantic.z.toast` | number | → `foundation.z.50` | Camada z-index do Toast overlay acima de conteúdo e abaixo de modal. | 1 |
 | `semantic.z.tooltip` | number | → `foundation.z.40` | Stack layer para tooltips e floating labels não modais. | 3 |
 
 ## Component
@@ -736,23 +736,20 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.alert.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.action.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
-| `component.alert.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.actions.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
-| `component.alert.bg.error.filled` | color | → `semantic.feedback.error.background.default` | Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.error.solid` | color | → `semantic.feedback.error.background.default` | ⚠️ TODO | 1 |
+| `component.alert.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.action.color.subtle` | color | → `semantic.content.strong` | Token Component do Alert. | 1 |
+| `component.alert.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.actions.gap.default` | dimension | → `semantic.space.sm` | Gap horizontal entre Action 1 e Action 2 no Alert. | 1 |
+| `component.alert.actions.padding-top.default` | dimension | → `semantic.space.sm` | Padding-top da fileira Actions do Alert. | 1 |
+| `component.alert.bg.error.solid` | color | → `semantic.feedback.error.background.default` | Token Component do Alert. | 1 |
 | `component.alert.bg.error.subtle` | color | → `semantic.feedback.error.background.subtle` | Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.info.filled` | color | → `semantic.feedback.info.background.default` | Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.info.solid` | color | → `semantic.feedback.info.background.default` | ⚠️ TODO | 1 |
+| `component.alert.bg.info.solid` | color | → `semantic.feedback.info.background.default` | Token Component do Alert. | 1 |
 | `component.alert.bg.info.subtle` | color | → `semantic.feedback.info.background.subtle` | Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.success.filled` | color | → `semantic.feedback.success.background.default` | Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.success.solid` | color | → `semantic.feedback.success.background.default` | ⚠️ TODO | 1 |
+| `component.alert.bg.success.solid` | color | → `semantic.feedback.success.background.default` | Token Component do Alert. | 1 |
 | `component.alert.bg.success.subtle` | color | → `semantic.feedback.success.background.subtle` | Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.warning.filled` | color | → `semantic.feedback.warning.background.default` | Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | ⚠️ TODO | 1 |
+| `component.alert.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | Token Component do Alert. | 1 |
 | `component.alert.bg.warning.subtle` | color | → `semantic.feedback.warning.background.subtle` | Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.border-color.error.subtle` | color | → `semantic.feedback.error.border-default` | Contrato border-color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.border-color.info.subtle` | color | → `semantic.feedback.info.border-default` | Contrato border-color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
@@ -760,55 +757,39 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 | `component.alert.border-color.warning.subtle` | color | → `semantic.feedback.warning.border-default` | Contrato border-color.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.border-width.default` | dimension | → `semantic.border.width.default` | Border width do Alert quando stroke esta ativo. | 1 |
 | `component.alert.close.icon-size.default` | dimension | → `semantic.size.sm` | Tamanho do ícone Close Alert. | 1 |
-| `component.alert.close.icon.color.error.filled` | color | → `semantic.icon.color.error-contrast` | Contrato close.icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
-| `component.alert.close.icon.color.info.filled` | color | → `semantic.icon.color.info-contrast` | Contrato close.icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
+| `component.alert.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | Token Component do Alert. | 1 |
+| `component.alert.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | Token Component do Alert. | 1 |
 | `component.alert.close.icon.color.subtle` | color | → `semantic.icon.color.default` | Contrato close.icon.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.close.icon.color.success.filled` | color | → `semantic.icon.color.success-contrast` | Contrato close.icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
-| `component.alert.close.icon.color.warning.filled` | color | → `semantic.icon.color.warning-contrast` | Contrato close.icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
+| `component.alert.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | Token Component do Alert. | 1 |
+| `component.alert.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | Token Component do Alert. | 1 |
 | `component.alert.close.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Contrato close.icon.stroke-width de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.content.gap.default` | dimension | → `semantic.space.xs` | Gap vertical do content Alert. | 1 |
-| `component.alert.description.color.error.filled` | color | → `semantic.feedback.error.content-contrast` | Contrato description.color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.description.color.info.filled` | color | → `semantic.feedback.info.content-contrast` | Contrato description.color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Alert. | 1 |
 | `component.alert.description.color.subtle` | color | → `semantic.content.strong` | Contrato description.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.description.color.success.filled` | color | → `semantic.feedback.success.content-contrast` | Contrato description.color.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.description.color.warning.filled` | color | → `semantic.feedback.warning.content-contrast` | Contrato description.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Alert. | 1 |
 | `component.alert.description.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Font-size da description Alert. | 1 |
 | `component.alert.description.font-weight.default` | number | → `semantic.typography.body.font-weight.regular` | Font-weight da description Alert. | 1 |
 | `component.alert.description.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Line-height da description Alert. | 1 |
 | `component.alert.gap.default` | dimension | → `semantic.space.sm` | Gap horizontal do Alert. | 1 |
-| `component.alert.icon.color.error.filled` | color | → `semantic.icon.color.error-contrast` | Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
+| `component.alert.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | Token Component do Alert. | 1 |
 | `component.alert.icon.color.error.subtle` | color | → `semantic.icon.color.error` | Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.icon.color.info.filled` | color | → `semantic.icon.color.info-contrast` | Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
+| `component.alert.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | Token Component do Alert. | 1 |
 | `component.alert.icon.color.info.subtle` | color | → `semantic.icon.color.default` | Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.icon.color.success.filled` | color | → `semantic.icon.color.success-contrast` | Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
+| `component.alert.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | Token Component do Alert. | 1 |
 | `component.alert.icon.color.success.subtle` | color | → `semantic.icon.color.success` | Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.icon.color.warning.filled` | color | → `semantic.icon.color.warning-contrast` | Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
+| `component.alert.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | Token Component do Alert. | 1 |
 | `component.alert.icon.color.warning.subtle` | color | → `semantic.icon.color.warning` | Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.icon.size.default` | dimension | → `semantic.size.sm` | Tamanho do container Icon Alert. | 1 |
 | `component.alert.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Contrato icon.stroke-width de alert, sincronizado a partir das Variables Figma atuais. | 1 |
 | `component.alert.padding.default` | dimension | → `semantic.space.md` | Padding do Alert. | 1 |
 | `component.alert.radius.default` | dimension | → `semantic.radius.lg` | Radius do Alert. | 1 |
-| `component.alert.title.color.error.filled` | color | → `semantic.feedback.error.content-contrast` | Contrato title.color.error de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.title.color.info.filled` | color | → `semantic.feedback.info.content-contrast` | Contrato title.color.info de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Alert. | 1 |
 | `component.alert.title.color.subtle` | color | → `semantic.content.strong` | Contrato title.color de alert, sincronizado a partir das Variables Figma atuais. | 1 |
-| `component.alert.title.color.success.filled` | color | → `semantic.feedback.success.content-contrast` | Contrato title.color.success de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.alert.title.color.warning.filled` | color | → `semantic.feedback.warning.content-contrast` | Contrato title.color.warning de alert, sincronizado a partir das Variables Figma atuais. | 0 |
-| `component.alert.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
+| `component.alert.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Alert. | 1 |
+| `component.alert.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Alert. | 1 |
 | `component.alert.title.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Font-size do title Alert. | 1 |
 | `component.alert.title.font-weight.default` | number | → `semantic.typography.body.font-weight.bold` | Font-weight do title Alert. | 1 |
 | `component.alert.title.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Line-height do title Alert. | 1 |
@@ -1512,64 +1493,65 @@ Ver [ADR-013](decisions/ADR-013-camadas-de-consumo-de-tokens.md) para a regra ar
 
 | Token | Tipo | Alias | Sentido | Usos |
 |---|---|---|---|---|
-| `component.toast.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.action.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
-| `component.toast.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.actions.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
-| `component.toast.bg.error.solid` | color | → `semantic.feedback.error.background.default` | ⚠️ TODO | 1 |
-| `component.toast.bg.error.subtle` | color | → `semantic.feedback.error.background.subtle` | ⚠️ TODO | 1 |
-| `component.toast.bg.info.solid` | color | → `semantic.feedback.info.background.default` | ⚠️ TODO | 1 |
-| `component.toast.bg.info.subtle` | color | → `semantic.feedback.info.background.subtle` | ⚠️ TODO | 1 |
-| `component.toast.bg.success.solid` | color | → `semantic.feedback.success.background.default` | ⚠️ TODO | 1 |
-| `component.toast.bg.success.subtle` | color | → `semantic.feedback.success.background.subtle` | ⚠️ TODO | 1 |
-| `component.toast.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | ⚠️ TODO | 1 |
-| `component.toast.bg.warning.subtle` | color | → `semantic.feedback.warning.background.subtle` | ⚠️ TODO | 1 |
-| `component.toast.border-color.error.subtle` | color | → `semantic.feedback.error.border-default` | ⚠️ TODO | 1 |
-| `component.toast.border-color.info.subtle` | color | → `semantic.feedback.info.border-default` | ⚠️ TODO | 1 |
-| `component.toast.border-color.success.subtle` | color | → `semantic.feedback.success.border-default` | ⚠️ TODO | 1 |
-| `component.toast.border-color.warning.subtle` | color | → `semantic.feedback.warning.border-default` | ⚠️ TODO | 1 |
-| `component.toast.border-width.default` | dimension | → `semantic.border.width.default` | ⚠️ TODO | 1 |
-| `component.toast.close.icon-size.default` | dimension | → `semantic.size.sm` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.color.subtle` | color | → `semantic.icon.color.default` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
-| `component.toast.close.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | ⚠️ TODO | 1 |
-| `component.toast.content.gap.default` | dimension | → `semantic.space.xs` | ⚠️ TODO | 1 |
-| `component.toast.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.description.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
-| `component.toast.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.description.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | ⚠️ TODO | 1 |
-| `component.toast.description.font-weight.default` | number | → `semantic.typography.body.font-weight.regular` | ⚠️ TODO | 1 |
-| `component.toast.description.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | ⚠️ TODO | 1 |
-| `component.toast.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.error.subtle` | color | → `semantic.icon.color.error` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.info.subtle` | color | → `semantic.icon.color.default` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.success.subtle` | color | → `semantic.icon.color.success` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | ⚠️ TODO | 1 |
-| `component.toast.icon.color.warning.subtle` | color | → `semantic.icon.color.warning` | ⚠️ TODO | 1 |
-| `component.toast.icon.size.default` | dimension | → `semantic.size.sm` | ⚠️ TODO | 1 |
-| `component.toast.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | ⚠️ TODO | 1 |
-| `component.toast.padding.default` | dimension | → `semantic.space.md` | ⚠️ TODO | 1 |
-| `component.toast.radius.default` | dimension | → `semantic.radius.lg` | ⚠️ TODO | 1 |
-| `component.toast.shadow.default` | shadow | → `semantic.shadow.overlay` | ⚠️ TODO | 1 |
-| `component.toast.stack.gap.default` | dimension | → `semantic.space.sm` | ⚠️ TODO | 1 |
-| `component.toast.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.title.color.subtle` | color | → `semantic.content.strong` | ⚠️ TODO | 1 |
-| `component.toast.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | ⚠️ TODO | 1 |
-| `component.toast.title.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | ⚠️ TODO | 1 |
-| `component.toast.title.font-weight.default` | number | → `semantic.typography.body.font-weight.bold` | ⚠️ TODO | 1 |
-| `component.toast.title.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | ⚠️ TODO | 1 |
+| `component.toast.action.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.action.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.action.color.subtle` | color | → `semantic.content.strong` | Token Component do Toast. | 1 |
+| `component.toast.action.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.action.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.actions.gap.default` | dimension | → `semantic.space.sm` | Gap horizontal entre Action 1 e Action 2 no Toast. | 1 |
+| `component.toast.actions.padding-top.default` | dimension | → `semantic.space.sm` | Padding-top da fileira Actions do Toast. | 1 |
+| `component.toast.bg.error.solid` | color | → `semantic.feedback.error.background.default` | Token Component do Toast. | 1 |
+| `component.toast.bg.error.subtle` | color | → `semantic.feedback.error.background.subtle` | Token Component do Toast. | 1 |
+| `component.toast.bg.info.solid` | color | → `semantic.feedback.info.background.default` | Token Component do Toast. | 1 |
+| `component.toast.bg.info.subtle` | color | → `semantic.feedback.info.background.subtle` | Token Component do Toast. | 1 |
+| `component.toast.bg.success.solid` | color | → `semantic.feedback.success.background.default` | Token Component do Toast. | 1 |
+| `component.toast.bg.success.subtle` | color | → `semantic.feedback.success.background.subtle` | Token Component do Toast. | 1 |
+| `component.toast.bg.warning.solid` | color | → `semantic.feedback.warning.background.default` | Token Component do Toast. | 1 |
+| `component.toast.bg.warning.subtle` | color | → `semantic.feedback.warning.background.subtle` | Token Component do Toast. | 1 |
+| `component.toast.border-color.error.subtle` | color | → `semantic.feedback.error.border-default` | Token Component do Toast. | 1 |
+| `component.toast.border-color.info.subtle` | color | → `semantic.feedback.info.border-default` | Token Component do Toast. | 1 |
+| `component.toast.border-color.success.subtle` | color | → `semantic.feedback.success.border-default` | Token Component do Toast. | 1 |
+| `component.toast.border-color.warning.subtle` | color | → `semantic.feedback.warning.border-default` | Token Component do Toast. | 1 |
+| `component.toast.border-width.default` | dimension | → `semantic.border.width.default` | Token Component do Toast. | 1 |
+| `component.toast.close.icon-size.default` | dimension | → `semantic.size.sm` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.color.subtle` | color | → `semantic.icon.color.default` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | Token Component do Toast. | 1 |
+| `component.toast.close.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Token Component do Toast. | 1 |
+| `component.toast.content.gap.default` | dimension | → `semantic.space.xs` | Token Component do Toast. | 1 |
+| `component.toast.description.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.description.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.description.color.subtle` | color | → `semantic.content.strong` | Token Component do Toast. | 1 |
+| `component.toast.description.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.description.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.description.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Token Component do Toast. | 1 |
+| `component.toast.description.font-weight.default` | number | → `semantic.typography.body.font-weight.regular` | Token Component do Toast. | 1 |
+| `component.toast.description.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Token Component do Toast. | 1 |
+| `component.toast.gap.default` | dimension | → `semantic.space.sm` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.error.solid` | color | → `semantic.icon.color.error-contrast` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.error.subtle` | color | → `semantic.icon.color.error` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.info.solid` | color | → `semantic.icon.color.info-contrast` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.info.subtle` | color | → `semantic.icon.color.default` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.success.solid` | color | → `semantic.icon.color.success-contrast` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.success.subtle` | color | → `semantic.icon.color.success` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.warning.solid` | color | → `semantic.icon.color.warning-contrast` | Token Component do Toast. | 1 |
+| `component.toast.icon.color.warning.subtle` | color | → `semantic.icon.color.warning` | Token Component do Toast. | 1 |
+| `component.toast.icon.size.default` | dimension | → `semantic.size.sm` | Token Component do Toast. | 1 |
+| `component.toast.icon.stroke-width.default` | dimension | → `semantic.icon.stroke-width.regular.20` | Token Component do Toast. | 1 |
+| `component.toast.padding.default` | dimension | → `semantic.space.md` | Token Component do Toast. | 1 |
+| `component.toast.radius.default` | dimension | → `semantic.radius.lg` | Token Component do Toast. | 1 |
+| `component.toast.shadow.default` | shadow | → `semantic.shadow.overlay` | Token Component do Toast. | 1 |
+| `component.toast.stack.gap.default` | dimension | → `semantic.space.sm` | Token Component do Toast. | 1 |
+| `component.toast.title.color.error.solid` | color | → `semantic.feedback.error.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.title.color.info.solid` | color | → `semantic.feedback.info.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.title.color.subtle` | color | → `semantic.content.strong` | Token Component do Toast. | 1 |
+| `component.toast.title.color.success.solid` | color | → `semantic.feedback.success.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.title.color.warning.solid` | color | → `semantic.feedback.warning.content-contrast` | Token Component do Toast. | 1 |
+| `component.toast.title.font-size.default` | dimension | → `semantic.typography.body.font-size.sm` | Token Component do Toast. | 1 |
+| `component.toast.title.font-weight.default` | number | → `semantic.typography.body.font-weight.bold` | Token Component do Toast. | 1 |
+| `component.toast.title.line-height.default` | dimension | → `semantic.typography.body.line-height.sm` | Token Component do Toast. | 1 |
 
 ### component.toggle
 
@@ -7636,9 +7618,9 @@ Seção expandida com contexto, decisão e locais de uso.
     - `css/components/modal.css` (6×)
     - `css/components/radio.css` (3×)
     - `css/components/tooltip.css` (4×)
-    - `css/tokens/generated/component.css` (39×)
+    - `css/tokens/generated/component.css` (41×)
     - `css/utilities/layout.css` (1×)
-  - Tokens que referenciam: `component.alert.gap.default`, `component.alert.actions.gap.default`, `component.badge.padding-x.default`, `component.button.padding-x.sm`, `component.button.padding-y.sm`, `component.button.gap.lg`, `component.button.icon-only-padding.md`, `component.card.header.gap.default`, `component.card.footer.gap.default`, `component.checkbox.target.gap.default`, `component.checkbox.group.options.gap.default`, `component.combobox.listbox.container.padding.default`, `component.combobox.option.gap.default`, `component.combobox.padding-x.md`, `component.divider.inset.padding-x.sm`, `component.divider.inset.padding-y.sm`, `component.field.padding-y.sm`, `component.field.gap.lg`, `component.input.gap.lg`, `component.input.padding-x.md`, `component.menu.surface.padding.default`, `component.menu.item.gap.lg`, `component.menu.item.padding-x.sm`, `component.menu.item.padding-x.md`, `component.modal.body.gap.sm`, `component.modal.content-slot.gap.default`, `component.modal.footer.gap.sm`, `component.modal.close.padding.md`, `component.radio.target.gap.default`, `component.radio.group.options.gap.default`, `component.select.gap.lg`, `component.select.padding-x.md`, `component.textarea.padding-x.sm`, `component.toast.gap.default`, `component.toast.stack.gap.default`, `component.toast.actions.gap.default`, `component.toggle.target.gap.default`, `component.tooltip.content.padding-y.default`, `component.tooltip.arrow.base.default`
+  - Tokens que referenciam: `component.alert.gap.default`, `component.alert.actions.gap.default`, `component.alert.actions.padding-top.default`, `component.badge.padding-x.default`, `component.button.padding-x.sm`, `component.button.padding-y.sm`, `component.button.gap.lg`, `component.button.icon-only-padding.md`, `component.card.header.gap.default`, `component.card.footer.gap.default`, `component.checkbox.target.gap.default`, `component.checkbox.group.options.gap.default`, `component.combobox.listbox.container.padding.default`, `component.combobox.option.gap.default`, `component.combobox.padding-x.md`, `component.divider.inset.padding-x.sm`, `component.divider.inset.padding-y.sm`, `component.field.padding-y.sm`, `component.field.gap.lg`, `component.input.gap.lg`, `component.input.padding-x.md`, `component.menu.surface.padding.default`, `component.menu.item.gap.lg`, `component.menu.item.padding-x.sm`, `component.menu.item.padding-x.md`, `component.modal.body.gap.sm`, `component.modal.content-slot.gap.default`, `component.modal.footer.gap.sm`, `component.modal.close.padding.md`, `component.radio.target.gap.default`, `component.radio.group.options.gap.default`, `component.select.gap.lg`, `component.select.padding-x.md`, `component.textarea.padding-x.sm`, `component.toast.gap.default`, `component.toast.stack.gap.default`, `component.toast.actions.gap.default`, `component.toast.actions.padding-top.default`, `component.toggle.target.gap.default`, `component.tooltip.content.padding-y.default`, `component.tooltip.arrow.base.default`
 
 ### `semantic.space.xl`
 
@@ -8290,10 +8272,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: semantic
 - **Tipo**: `number`
 - **Alias**: → `foundation.z.50`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Camada z-index do Toast overlay acima de conteúdo e abaixo de modal.
+- **Escopo**: z-index
+- **Contexto**: Feedback transitório flutuante (Toast).
+- **Decisão**: Alias foundation.z.50; paridade com elevação overlay.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -8695,10 +8677,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8708,10 +8690,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8721,10 +8703,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.content.strong`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.content.strong.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (2×)
@@ -8734,10 +8716,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8747,10 +8729,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8760,23 +8742,23 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Gap horizontal entre Action 1 e Action 2 no Alert.
+- **Escopo**: gap
+- **Contexto**: Fileira `.ds-alert__actions`.
+- **Decisão**: Alias 1:1 para semantic.space.sm (8px); anatomia pública do Alert.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.bg.error.filled`
+### `component.alert.actions.padding-top.default`
 
 - **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.error.background.default`
-- **Sentido**: Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: fill
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: Padding-top da fileira Actions do Alert.
+- **Escopo**: padding
+- **Contexto**: Espaçamento acima dos CTAs em `.ds-alert__actions`.
+- **Decisão**: Alias 1:1 para semantic.space.sm (8px); espelha Figma `alert/actions/padding-top/default`.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8786,10 +8768,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.background.default.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8807,28 +8789,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.bg.info.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.info.background.default`
-- **Sentido**: Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: fill
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
 ### `component.alert.bg.info.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.background.default.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8846,28 +8815,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.bg.success.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.success.background.default`
-- **Sentido**: Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: fill
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
 ### `component.alert.bg.success.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.background.default.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -8885,28 +8841,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.bg.warning.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.warning.background.default`
-- **Sentido**: Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: fill
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
 ### `component.alert.bg.warning.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.background.default.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9002,52 +8945,28 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (4×)
 
-### `component.alert.close.icon.color.error.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: Contrato close.icon.color.error de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.close.icon.color.error.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.error-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
-
-### `component.alert.close.icon.color.info.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: Contrato close.icon.color.info de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.alert.close.icon.color.info.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.info-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9065,52 +8984,28 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.close.icon.color.success.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: Contrato close.icon.color.success de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.close.icon.color.success.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.success-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
-
-### `component.alert.close.icon.color.warning.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: Contrato close.icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.alert.close.icon.color.warning.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.warning-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9141,41 +9036,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.description.color.error.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: Contrato description.color.error de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
 ### `component.alert.description.color.error.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
-### `component.alert.description.color.info.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: Contrato description.color.info de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9185,10 +9054,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9206,41 +9075,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (5×)
 
-### `component.alert.description.color.success.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: Contrato description.color.success de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
 ### `component.alert.description.color.success.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
-- **Usos**:
-  - CSS:
-    - `css/components/alert.css` (1×)
-
-### `component.alert.description.color.warning.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: Contrato description.color.warning de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9250,10 +9093,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9310,27 +9153,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.icon.color.error.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.icon.color.error.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.error-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9348,27 +9179,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.icon.color.info.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.icon.color.info.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.info-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9386,27 +9205,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.icon.color.success.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.icon.color.success.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.success-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9424,27 +9231,15 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.icon.color.warning.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.icon.color.warning.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.warning-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9514,52 +9309,28 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.title.color.error.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: Contrato title.color.error de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.title.color.error.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
-
-### `component.alert.title.color.info.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: Contrato title.color.info de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.alert.title.color.info.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -9577,52 +9348,28 @@ Seção expandida com contexto, decisão e locais de uso.
   - CSS:
     - `css/components/alert.css` (1×)
 
-### `component.alert.title.color.success.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: Contrato title.color.success de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
-
 ### `component.alert.title.color.success.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
-
-### `component.alert.title.color.warning.filled`
-
-- **Camada**: component
-- **Tipo**: `color`
-- **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: Contrato title.color.warning de alert, sincronizado a partir das Variables Figma atuais.
-- **Escopo**: text, fill, stroke
-- **Contexto**: Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.
-- **Decisão**: Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.
-- **Usos**:
-  - _(nenhum uso detectado — token órfão ou novo)_
 
 ### `component.alert.title.color.warning.solid`
 
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Alert.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Alert (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/alert.css` (1×)
@@ -17420,10 +17167,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17433,10 +17180,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17446,10 +17193,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.content.strong`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.content.strong.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (2×)
@@ -17459,10 +17206,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17472,10 +17219,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17485,10 +17232,23 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Gap horizontal entre Action 1 e Action 2 no Toast.
+- **Escopo**: gap
+- **Contexto**: Fileira `.ds-toast__actions`.
+- **Decisão**: Alias 1:1 para semantic.space.sm (8px); anatomia pública do Toast.
+- **Usos**:
+  - CSS:
+    - `css/components/toast.css` (1×)
+
+### `component.toast.actions.padding-top.default`
+
+- **Camada**: component
+- **Tipo**: `dimension`
+- **Alias**: → `semantic.space.sm`
+- **Sentido**: Padding-top da fileira Actions do Toast.
+- **Escopo**: padding
+- **Contexto**: Espaçamento acima dos CTAs em `.ds-toast__actions`.
+- **Decisão**: Alias 1:1 para semantic.space.sm (8px); espelha Figma `toast/actions/padding-top/default`.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17498,10 +17258,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.background.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17511,10 +17271,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.background.subtle`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.background.subtle.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17524,10 +17284,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.background.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17537,10 +17297,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.background.subtle`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.background.subtle.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17550,10 +17310,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.background.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17563,10 +17323,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.background.subtle`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.background.subtle.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17576,10 +17336,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.background.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.background.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17589,10 +17349,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.background.subtle`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.background.subtle.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17602,10 +17362,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.border-default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.border-default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17615,10 +17375,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.border-default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.border-default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17628,10 +17388,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.border-default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.border-default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17641,10 +17401,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.border-default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.border-default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17654,10 +17414,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.border.width.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.border.width.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (4×)
@@ -17667,10 +17427,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.size.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.size.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (4×)
@@ -17680,10 +17440,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.error-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17693,10 +17453,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.info-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17706,10 +17466,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17719,10 +17479,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.success-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17732,10 +17492,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.warning-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17745,10 +17505,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.icon.stroke-width.regular.20`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.stroke-width.regular.20.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17758,10 +17518,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.xs`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.space.xs.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17771,10 +17531,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17784,10 +17544,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17797,10 +17557,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.content.strong`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.content.strong.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (5×)
@@ -17810,10 +17570,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17823,10 +17583,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17836,10 +17596,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.typography.body.font-size.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: typography
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.font-size.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (2×)
@@ -17849,10 +17609,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `number`
 - **Alias**: → `semantic.typography.body.font-weight.regular`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: typography
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.font-weight.regular.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17862,10 +17622,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.typography.body.line-height.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.line-height.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (2×)
@@ -17875,10 +17635,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.space.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17888,10 +17648,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.error-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.error-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17901,10 +17661,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.error`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.error.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17914,10 +17674,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.info-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.info-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17927,10 +17687,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.default`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.default.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17940,10 +17700,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.success-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.success-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17953,10 +17713,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.success`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.success.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17966,10 +17726,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.warning-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.warning-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17979,10 +17739,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.icon.color.warning`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.color.warning.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -17992,10 +17752,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.size.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.size.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (4×)
@@ -18005,10 +17765,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.icon.stroke-width.regular.20`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.icon.stroke-width.regular.20.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18018,10 +17778,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.md`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.space.md.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18031,10 +17791,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.radius.lg`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.radius.lg.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18044,10 +17804,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `shadow`
 - **Alias**: → `semantic.shadow.overlay`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: shadow
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.shadow.overlay.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18057,10 +17817,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.space.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.space.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (2×)
@@ -18070,10 +17830,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.error.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.error.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18083,10 +17843,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.info.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.info.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18096,10 +17856,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.content.strong`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.content.strong.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18109,10 +17869,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.success.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.success.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18122,10 +17882,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `color`
 - **Alias**: → `semantic.feedback.warning.content-contrast`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: color
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.feedback.warning.content-contrast.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18135,10 +17895,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.typography.body.font-size.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: typography
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.font-size.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18148,10 +17908,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `number`
 - **Alias**: → `semantic.typography.body.font-weight.bold`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: typography
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.font-weight.bold.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)
@@ -18161,10 +17921,10 @@ Seção expandida com contexto, decisão e locais de uso.
 - **Camada**: component
 - **Tipo**: `dimension`
 - **Alias**: → `semantic.typography.body.line-height.sm`
-- **Sentido**: TODO
-- **Escopo**: —
-- **Contexto**: TODO
-- **Decisão**: TODO
+- **Sentido**: Token Component do Toast.
+- **Escopo**: spacing, sizing
+- **Contexto**: Anatomia pública do Toast (Figma Component + CSS).
+- **Decisão**: Alias/contrato Component; referência semantic.typography.body.line-height.sm.
 - **Usos**:
   - CSS:
     - `css/components/toast.css` (1×)

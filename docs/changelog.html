@@ -72,7 +72,8 @@
 </ul>
 <h3>Alterado</h3>
 <ul>
-<li><strong>Alert: Style Filled → Solid; actions opcionais.</strong> Classe pública <code>ds-alert--solid</code> (alias depreciado <code>ds-alert--filled</code>); tokens Component <code>*.solid</code>; até 2 actions em <code>.ds-alert__actions</code> abaixo da description. Ícones continuam fixos por Type.</li>
+<li><strong>Alert: Style Filled → Solid; actions opcionais.</strong> Classe <code>ds-alert--solid</code> (alias <code>ds-alert--filled</code>); tokens <code>*.solid</code> e <code>action.color.*</code>. Figma: Actions = nested Button Ghost/Sm; <code>Show Action 1/2</code>; Label via nested props; cores Subtle/Solid via <code>action/color/*</code>. Código: <code>Button</code> ghost/sm em <code>.ds-alert__actions</code>.</li>
+<li><strong>Alert/Toast Actions: padding-top 8px.</strong> Tokens Component <code>alert|toast/actions/padding-top/default</code> → <code>semantic.space.sm</code>; bind no Figma e CSS (<code>--ds-*-actions-padding-top-default</code>).</li>
 <li><strong>Alert e Toast compartilham skin Subtle/Solid, anatomia e actions.</strong> Docs cruzam o contrato; Toast difere por overlay, elevação e runtime.</li>
 <li><strong>Tooltip preserva a largura natural de textos curtos.</strong> O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.</li>
 </ul>
