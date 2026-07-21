@@ -3,7 +3,7 @@
  * test-runtime-lifecycle.mjs
  *
  * Gate ADR-020: init → interação → destroy → re-init sem listeners órfãos
- * para Modal, Menu, Combobox, Accordion, Tabs e Tooltip.
+ * para Modal, Menu, Combobox, Accordion, Tabs, Tooltip e Toast.
  */
 
 import { spawn } from 'node:child_process';
@@ -119,6 +119,11 @@ try {
     'initTooltips(document) must mark tooltip',
     evidence('tooltip', 'root-init', 'init-document'),
   );
+  ok(
+    markers.toastInit,
+    'initToasts(document) must mark toast region',
+    evidence('toast', 'root-init', 'init-document'),
+  );
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -213,6 +218,92 @@ try {
     'tooltip must hide on Escape',
   );
 
+  // --- Toast show / dismiss / live region ---
+  const toastFocusBefore = await page.evaluate(() => {
+    const before = document.activeElement;
+    const id = window.__dsLifecycle.showToast({ type: 'success', title: 'Salvo', duration: 50 });
+    return {
+      id,
+      focusMoved: document.activeElement !== before,
+      polite: Boolean(document.querySelector('.ds-toast-region__polite')),
+      assertive: Boolean(document.querySelector('.ds-toast-region__assertive')),
+      count: document.querySelectorAll('[data-ds-toast]').length,
+    };
+  });
+  ok(Boolean(toastFocusBefore.id), 'showToast must enqueue a toast', evidence('toast', 'open-close', 'show-enqueue'));
+  ok(!toastFocusBefore.focusMoved, 'showToast must not move focus', evidence('toast', 'focus', 'show-does-not-move-focus'));
+  ok(
+    toastFocusBefore.polite && toastFocusBefore.assertive,
+    'toast region must expose polite and assertive live areas',
+    evidence('toast', 'aria', 'live-region-polite-assertive'),
+  );
+  await page.waitForTimeout(120);
+  ok(
+    await page.evaluate(() => document.querySelectorAll('[data-ds-toast]').length === 0),
+    'toast without action must auto-hide',
+    evidence('toast', 'open-close', 'auto-hide-without-action'),
+  );
+
+  const actionToast = await page.evaluate(() => {
+    const id = window.__dsLifecycle.showToast({
+      type: 'error',
+      title: 'Falha',
+      actions: [{ label: 'Retry' }],
+    });
+    const toast = document.querySelector(`[data-toast-id="${id}"]`);
+    const close = toast?.querySelector('.ds-toast__close');
+    const action = toast?.querySelector('.ds-toast__actions .ds-button');
+    return {
+      id,
+      hasClose: Boolean(close),
+      hasAction: Boolean(action),
+      inAssertive: Boolean(toast?.closest('.ds-toast-region__assertive')),
+    };
+  });
+  await page.waitForTimeout(120);
+  ok(
+    await page.evaluate((id) => Boolean(document.querySelector(`[data-toast-id="${id}"]`)), actionToast.id),
+    'toast with action must not auto-hide',
+    evidence('toast', 'open-close', 'no-auto-hide-with-action'),
+  );
+  ok(
+    actionToast.hasClose && actionToast.hasAction,
+    'action toast must expose focusable action and close',
+    evidence('toast', 'focus', 'action-and-close-focusable'),
+  );
+  await page.locator(`[data-toast-id="${actionToast.id}"] .ds-toast__close`).click();
+  ok(
+    await page.evaluate((id) => !document.querySelector(`[data-toast-id="${id}"]`), actionToast.id),
+    'close button must dismiss toast',
+    evidence('toast', 'open-close', 'dismiss-button'),
+  );
+
+  await page.evaluate(() => {
+    for (let i = 0; i < 6; i += 1) {
+      window.__dsLifecycle.showToast({ type: 'info', title: `T${i}`, duration: Infinity });
+    }
+  });
+  ok(
+    await page.evaluate(() => document.querySelectorAll('[data-ds-toast]').length === 5),
+    'toast stack must cap at 5 visible',
+    evidence('toast', 'open-close', 'max-stack-5'),
+  );
+  await page.evaluate(() => {
+    const close = document.querySelector('[data-ds-toast] .ds-toast__close');
+    close?.focus();
+  });
+  await page.keyboard.press('Escape');
+  ok(
+    await page.evaluate(() => document.querySelectorAll('[data-ds-toast]').length === 4),
+    'Escape must dismiss focused toast',
+    evidence('toast', 'keyboard', 'escape-dismisses-focused'),
+  );
+  await page.evaluate(() => {
+    document.querySelectorAll('[data-ds-toast]').forEach((node) => {
+      window.__dsLifecycle.dismissToast(node.dataset.toastId);
+    });
+  });
+
   const eventsAfterUse = await page.evaluate(() => window.__dsLifecycle.events());
   const eventCount = (name) => eventsAfterUse.filter((eventName) => eventName === name).length;
   const expectedEventCounts = {
@@ -226,6 +317,8 @@ try {
     'ds-tabs-change': 1,
     'ds-tooltip-show': 1,
     'ds-tooltip-hide': 1,
+    'ds-toast-show': 8,
+    'ds-toast-dismiss': 8,
   };
   for (const [eventName, expectedCount] of Object.entries(expectedEventCounts)) {
     ok(
@@ -240,6 +333,7 @@ try {
     accordion: ['ds-accordion-open', 'ds-accordion-close'],
     tabs: ['ds-tabs-change'],
     tooltip: ['ds-tooltip-show', 'ds-tooltip-hide'],
+    toast: ['ds-toast-show', 'ds-toast-dismiss'],
   };
   for (const [slug, eventNames] of Object.entries(eventExpectationsBySlug)) {
     ok(
@@ -2055,6 +2149,7 @@ try {
   ok(!markers.accordionInit, 'destroyAccordions must clear init markers');
   ok(!markers.tabsInit, 'destroyTabs must clear init markers');
   ok(!markers.tooltipInit, 'destroyTooltips must clear init markers');
+  ok(!markers.toastInit, 'destroyToasts must clear init markers');
 
   await page.locator('#open-modal').click();
   ok(

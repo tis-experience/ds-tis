@@ -8,7 +8,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Toast (Experimental)** — feedback transitório no viewport com tipos success/warning/error/info, estilos Subtle/Solid, dismiss, auto-hide (pausa em hover/focus), até 2 actions (Button ghost/sm abaixo da description), fila até 5 itens e runtime `ds-tis/toast`. Elevação `elevation/2` via `--ds-toast-shadow-default` → `semantic.shadow.overlay`. Ícones de feedback/close fixos por Type. SemVer: candidato a minor `1.1.0` na publicação.
+
 ### Alterado
+- **Alert: Style Filled → Solid; actions opcionais.** Classe `ds-alert--solid` (alias `ds-alert--filled`); tokens `*.solid` e `action.color.*`. Figma: Actions = nested Button Ghost/Sm; `Show Action 1/2`; Label via nested props; cores Subtle/Solid via `action/color/*`. Código: `Button` ghost/sm em `.ds-alert__actions`.
+- **Alert/Toast Actions: padding-top 8px.** Tokens Component `alert|toast/actions/padding-top/default` → `semantic.space.sm`; bind no Figma e CSS (`--ds-*-actions-padding-top-default`).
+- **Alert e Toast compartilham skin Subtle/Solid, anatomia e actions.** Docs cruzam o contrato; Toast difere por overlay, elevação e runtime.
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido

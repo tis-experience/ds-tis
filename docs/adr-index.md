@@ -1,6 +1,6 @@
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 20 decisões registradas.

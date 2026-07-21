@@ -1,0 +1,118 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-21-feedback-actions",
+  "title": "Feedback Actions (Alert/Toast)",
+  "createdAt": "2026-07-21",
+  "updatedAt": "2026-07-21",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": null,
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T10:19:46.817Z",
+        "note": "Owner: aprovo. A default + escape B; máx 2 actions abaixo description; freeze repo até figma-audit; label via nested prop Button."
+      },
+      "updatedAt": "2026-07-21T10:19:46.817Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T11:20:27.865Z",
+        "note": "Builder handoff: nested Button Ghost/Sm em Alert+Toast; pronto para Figma Auditor (quem construiu não audita)."
+      },
+      "updatedAt": "2026-07-21T11:20:27.865Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T11:36:14.587Z",
+        "note": "Owner: aprovou padding-top token + avanço para código (correções repo)."
+      },
+      "updatedAt": "2026-07-21T11:36:14.587Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T11:36:14.884Z",
+        "note": "JSON+registry+snapshot locais; Figma vars criadas e bindadas."
+      },
+      "updatedAt": "2026-07-21T11:36:14.884Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T12:26:03.660Z",
+        "note": "Owner: seguir demais itens; melhorias Toast ficam para ajuste posterior."
+      },
+      "updatedAt": "2026-07-21T12:26:03.660Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-21T12:31:24.538Z",
+        "note": "Owner: sim — commit + PR."
+      },
+      "updatedAt": "2026-07-21T12:31:24.538Z"
+    }
+  ],
+  "checks": {}
+}

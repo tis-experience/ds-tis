@@ -1,0 +1,118 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-20-toast",
+  "title": "Toast",
+  "createdAt": "2026-07-20",
+  "updatedAt": "2026-07-20",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": null,
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:39:52.060Z",
+        "note": "Owner: pode fazer; defaults Subtle only, bottom-right, sem auto-hide com action; ajustes depois se precisar"
+      },
+      "updatedAt": "2026-07-20T22:39:52.060Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:43:33.605Z",
+        "note": "Builder handoff"
+      },
+      "updatedAt": "2026-07-20T22:43:33.605Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:43:33.764Z",
+        "note": "Owner: pode fazer; ressalvas Action Label/z"
+      },
+      "updatedAt": "2026-07-20T22:43:33.764Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:50:27.156Z",
+        "note": "toast.json + z.toast + snapshot merge"
+      },
+      "updatedAt": "2026-07-20T22:50:27.156Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:50:27.565Z",
+        "note": "CSS/JS/docs/tests; Experimental; app-ready gate do sistema PASS"
+      },
+      "updatedAt": "2026-07-20T22:50:27.565Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-20T22:50:27.909Z",
+        "note": "Sem bump/publish; CHANGELOG Não publicado"
+      },
+      "updatedAt": "2026-07-20T22:50:27.909Z"
+    }
+  ],
+  "checks": {}
+}

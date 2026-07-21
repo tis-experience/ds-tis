@@ -46,6 +46,7 @@ No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/me
 - [Card](docs/card.html)
 - [Modal](docs/modal.html)
 - [Tooltip](docs/tooltip.html)
+- [Toast](docs/toast.html)
 - [Menu](docs/menu.html)
 - [Tabs](docs/tabs.html)
 - [Breadcrumb](docs/breadcrumb.html)

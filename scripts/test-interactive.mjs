@@ -13,6 +13,7 @@ import { initModals, destroyModals, openModal, closeModal } from '../js/modal.js
 import { initActionMenus, destroyActionMenus, openActionMenu, closeActionMenu } from '../js/menu.js';
 import { initTabs, destroyTabs, selectTab } from '../js/tabs.js';
 import { initTooltips, destroyTooltips, showTooltip, hideTooltip } from '../js/tooltip.js';
+import { initToasts, destroyToasts, showToast, dismissToast } from '../js/toast.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
@@ -43,8 +44,12 @@ expect(typeof initTooltips === 'function', 'initTooltips must be exported.');
 expect(typeof destroyTooltips === 'function', 'destroyTooltips must be exported.');
 expect(typeof showTooltip === 'function', 'showTooltip must be exported.');
 expect(typeof hideTooltip === 'function', 'hideTooltip must be exported.');
+expect(typeof initToasts === 'function', 'initToasts must be exported.');
+expect(typeof destroyToasts === 'function', 'destroyToasts must be exported.');
+expect(typeof showToast === 'function', 'showToast must be exported.');
+expect(typeof dismissToast === 'function', 'dismissToast must be exported.');
 
-for (const subpath of ['./accordion', './modal', './menu', './combobox', './tabs', './tooltip']) {
+for (const subpath of ['./accordion', './modal', './menu', './combobox', './tabs', './tooltip', './toast']) {
   expect(pkg.exports[subpath], `package.json must export ${subpath}.`);
 }
 

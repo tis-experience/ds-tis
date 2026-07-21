@@ -31,6 +31,8 @@
     "./tabs.js": "./js/tabs.js",
     "./tooltip": "./js/tooltip.js",
     "./tooltip.js": "./js/tooltip.js",
+    "./toast": "./js/toast.js",
+    "./toast.js": "./js/toast.js",
     "./theme": "./js/theme/index.js",
     "./theme/*": "./js/theme/*.js",
     "./metadata": "./docs/api/consumer-context.json",
@@ -65,6 +67,7 @@
     "js/modal.js",
     "js/tabs.js",
     "js/tooltip.js",
+    "js/toast.js",
     "js/package.json",
     "js/theme/"
   ],

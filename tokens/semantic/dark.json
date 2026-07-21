@@ -1219,6 +1219,11 @@
         "$type": "number",
         "$value": "{foundation.z.40}",
         "$description": "Stack layer para tooltips e floating labels não modais."
+      },
+      "toast": {
+        "$type": "number",
+        "$value": "{foundation.z.50}",
+        "$description": "Stack layer para toast/snackbar (viewport overlay)."
       }
     }
   }

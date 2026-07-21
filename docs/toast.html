@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+
+  <div class="ds-section">
+    <h1 class="ds-section__title">Toast</h1>
+    <p class="ds-section__subtitle"><span data-lang="pt">Feedback transitório no viewport. Não bloqueia o fluxo. Suporta tipos semânticos, dismiss, ação opcional e fila.</span><span data-lang="en">Transient viewport feedback. Non-blocking. Supports semantic types, dismiss, optional action, and a queue.</span></p>
+    <p><span class="ds-badge ds-badge--warning ds-badge--subtle">Experimental</span></p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Toast quando</span><span data-lang="en">Use Toast when</span></div>
+      <span data-lang="pt">Confirmar ou reportar um resultado transitório (salvo, falhou, desfazer) sem tirar o usuário do contexto.</span><span data-lang="en">Confirming or reporting a transient result (saved, failed, undo) without pulling the user out of context.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Toast quando</span><span data-lang="en">Don't use Toast when</span></div>
+      <span data-lang="pt">A mensagem deve permanecer no layout (use <a href="alert.html">Alert</a>), a decisão exige foco (use <a href="modal.html">Modal</a>), ou o conteúdo é só label de hover (use <a href="tooltip.html">Tooltip</a>).</span><span data-lang="en">The message must stay in the layout (use <a href="alert.html">Alert</a>), the decision needs focus (use <a href="modal.html">Modal</a>), or the content is only a hover label (use <a href="tooltip.html">Tooltip</a>).</span>
+    </div>
+    <div class="ds-callout ds-callout--info">
+      <div class="ds-callout__title"><span data-lang="pt">Skin compartilhado com Alert</span><span data-lang="en">Shared skin with Alert</span></div>
+      <span data-lang="pt">Toast compartilha com Alert Subtle/Solid, ícones fixos, até 2 actions (nested Button Ghost/Sm; <code>Show Action N</code> + Label exposto) com <code>padding-top</code> tokenizado, e cores de action alinhadas ao Style. Diferenças: overlay, <code>elevation/2</code>, fila e runtime.</span><span data-lang="en">Toast shares Alert Subtle/Solid, fixed icons, up to 2 actions (nested Button Ghost/Sm; <code>Show Action N</code> + exposed Label) with tokenized <code>padding-top</code>, and action colors aligned to Style. Differences: overlay, <code>elevation/2</code>, queue, and runtime.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:var(--ds-space-3xl);justify-content:center;">
+      <div class="ds-toast ds-toast--success ds-toast--subtle" inert>
+        <span class="ds-toast__icon"><i data-lucide="circle-check" class="ds-icon"></i></span>
+        <div class="ds-toast__content">
+          <p class="ds-toast__title">Alterações salvas</p>
+          <p class="ds-toast__description">Seu rascunho foi atualizado.</p>
+          <div class="ds-toast__actions">
+            <button type="button" class="ds-button ds-button--ghost ds-button--sm"><span class="ds-button__label">Desfazer</span></button>
+            <button type="button" class="ds-button ds-button--ghost ds-button--sm"><span class="ds-button__label">Ver</span></button>
+          </div>
+        </div>
+        <button type="button" class="ds-toast__close" aria-label="Dispensar"><i data-lucide="x" class="ds-icon"></i></button>
+      </div>
+    </div>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Ícone (fixo) · <strong>2</strong> Título · <strong>3</strong> Descrição · <strong>4</strong> Actions (até 2, Button ghost/sm) · <strong>5</strong> Close (ícone fixo)</span>
+      <span data-lang="en"><strong>1</strong> Icon (fixed) · <strong>2</strong> Title · <strong>3</strong> Description · <strong>4</strong> Actions (up to 2, Button ghost/sm) · <strong>5</strong> Close (fixed icon)</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Demo</span><span data-lang="en">Demo</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas" style="display:flex;flex-wrap:wrap;gap:var(--ds-space-sm);">
+          <button type="button" class="ds-button ds-button--outline ds-button--sm" data-toast-demo="success"><span class="ds-button__label">Success</span></button>
+          <button type="button" class="ds-button ds-button--outline ds-button--sm" data-toast-demo="warning"><span class="ds-button__label">Warning</span></button>
+          <button type="button" class="ds-button ds-button--outline ds-button--sm" data-toast-demo="error"><span class="ds-button__label">Error</span></button>
+          <button type="button" class="ds-button ds-button--outline ds-button--sm" data-toast-demo="info"><span class="ds-button__label">Info</span></button>
+          <button type="button" class="ds-button ds-button--brand ds-button--sm" data-toast-demo="action"><span class="ds-button__label">2 actions</span></button>
+          <button type="button" class="ds-button ds-button--outline ds-button--sm" data-toast-demo="solid"><span class="ds-button__label">Solid</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
+    <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Fila, auto-hide, dismiss e actions dependem de <code>ds-tis/toast</code>. Com qualquer action, não há auto-hide. Máximo 5 toasts e 2 actions. Eventos: <code>ds-toast-show</code>, <code>ds-toast-dismiss</code>, <code>ds-toast-action</code>.</span><span data-lang="en">Queue, auto-hide, dismiss, and actions depend on <code>ds-tis/toast</code>. With any action, there is no auto-hide. Max 5 toasts and 2 actions. Events: <code>ds-toast-show</code>, <code>ds-toast-dismiss</code>, <code>ds-toast-action</code>.</span></p>
+    <div class="ds-preview">
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;script type="module"&gt;
+  import { initToasts, showToast, destroyToasts } from 'ds-tis/toast';
+  initToasts();
+  showToast({ type: 'success', title: 'Salvo', description: 'Rascunho atualizado.' });
+  showToast({
+    type: 'error',
+    style: 'solid',
+    title: 'Falha',
+    actions: [
+      { label: 'Tentar de novo', onAction: () =&gt; {} },
+      { label: 'Detalhes', onAction: () =&gt; {} },
+    ],
+  });
+  // destroyToasts() ao desmontar
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="alert.html" class="ds-related__link">Alert</a>
+      <a href="modal.html" class="ds-related__link">Modal</a>
+      <a href="tooltip.html" class="ds-related__link">Tooltip</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/main.js"></script>
+<script src="assets/vendor/lucide.min.js"></script>
+<script type="module">
+  import { initToasts, showToast } from '../js/toast.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) window.lucide.createIcons();
+    initToasts();
+    const titles = {
+      success: ['Alterações salvas', 'Changes saved'],
+      warning: ['Sessão expirando', 'Session expiring'],
+      error: ['Falha ao salvar', 'Save failed'],
+      info: ['Nova versão disponível', 'New version available'],
+      action: ['Item removido', 'Item removed'],
+      solid: ['Publicado', 'Published'],
+    };
+    document.querySelectorAll('[data-toast-demo]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const kind = btn.getAttribute('data-toast-demo');
+        const lang = document.documentElement.getAttribute('lang') === 'en' ? 1 : 0;
+        if (kind === 'action') {
+          showToast({
+            type: 'success',
+            title: titles.action[lang],
+            description: lang ? 'You can undo or view details.' : 'Você pode desfazer ou ver detalhes.',
+            actions: [
+              {
+                label: lang ? 'Undo' : 'Desfazer',
+                onAction: () => showToast({ type: 'info', title: lang ? 'Undone' : 'Desfeito' }),
+              },
+              {
+                label: lang ? 'View' : 'Ver',
+                onAction: () => showToast({ type: 'info', title: lang ? 'Opening…' : 'Abrindo…' }),
+              },
+            ],
+          });
+          if (window.lucide) window.lucide.createIcons();
+          return;
+        }
+        if (kind === 'solid') {
+          showToast({
+            type: 'success',
+            style: 'solid',
+            title: titles.solid[lang],
+            description: lang ? 'Solid style matches Alert Solid.' : 'Estilo Solid alinhado ao Alert Solid.',
+          });
+          if (window.lucide) window.lucide.createIcons();
+          return;
+        }
+        showToast({ type: kind, title: titles[kind][lang], description: lang ? 'Transient feedback.' : 'Feedback transitório.' });
+        if (window.lucide) window.lucide.createIcons();
+      });
+    });
+  });
+</script>
+</body>
+</html>
