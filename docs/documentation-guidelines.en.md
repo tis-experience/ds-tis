@@ -60,6 +60,16 @@ Allowed exceptions:
 - Simple components may have short anatomy, but must not omit structural intent.
 - `Form Field` uses a dedicated template because ADR-017 defines it as CSS-only.
 
+## Static documentation and Storybook
+
+The two surfaces complement each other and must not maintain competing editorial contracts:
+
+- static documentation is the canonical reference for usage, anatomy, tokens, classes, Figma properties and accessibility;
+- Storybook demonstrates the real public implementation through Controls, variants, sizes, states and runtime behavior;
+- every Storybook component must link to its canonical static page;
+- the documentation home and global navigation must keep access to the published Storybook under `/storybook/`;
+- `npm run test:storybook` protects contract coverage, while `npm run test:storybook:browser:pages` validates the final artifact on desktop, mobile, dark mode, Axe and real interactions.
+
 ## Form Field
 
 `Form Field` is CSS-only and must not be reported as a missing visual component
@@ -129,3 +139,4 @@ Use these labels in English:
 - Observable changes are recorded in `CHANGELOG.md`.
 - Generated files were updated with the correct command.
 - Public bilingual pages contain complete PT-BR and English sources.
+- Storybook and static documentation remain linked in both directions.

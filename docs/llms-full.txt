@@ -110,6 +110,23 @@ npm run build:all
 
 Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). Docs públicas: [GitHub Pages](https://tis-experience.github.io/ds-tis/).
 
+### Storybook
+
+O catálogo interativo cobre os 23 componentes públicos usando o CSS e os runtimes reais do pacote:
+
+```bash
+npm run storybook
+```
+
+Para validar o catálogo e gerar o build estático:
+
+```bash
+npm run test:storybook
+npm run build:storybook
+```
+
+O Storybook publicado fica disponível em [tis-experience.github.io/ds-tis/storybook/](https://tis-experience.github.io/ds-tis/storybook/).
+
 ## Documentação completa
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.
@@ -292,10 +309,15 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Storybook público do Design System TIS.** Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em `/storybook/` no GitHub Pages.
+
 ### Alterado
+- **Catálogo Storybook passa a documentar o contrato completo dos componentes.** Os 23 componentes ganham exemplos explícitos de uso, contraindicações, propriedades, tamanhos, variantes e estados, incluindo composição correta, semântica ARIA e responsabilidade dos seis runtimes; home, navegação global e guia editorial passam a integrar o catálogo à documentação estática nos dois sentidos, enquanto gates automatizados protegem a cobertura e validam todas as stories em desktop/mobile, tema dark, Axe e interações reais.
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido
+- **Tema e altura das amostras no Storybook.** O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.
 - **Anatomia do Pagination na documentação.** O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.
 - **Exemplos de boas práticas do Tooltip.** Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.
 - **Anatomia do Accordion na documentação.** O preview volta a exibir os seis marcadores e conectores que relacionam o componente às partes descritas na legenda.
@@ -1272,7 +1294,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 20 decisões registradas.
@@ -1739,7 +1761,7 @@ Trigger pra revisitar: pedido explícito de consumidor que precise compor contro
 
 ### Storybook
 
-Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine interativa. Só implementar se houver demanda explícita de time Dev consumidor. Integração com os tokens DTCG já gerados (formato padrão de import), sem reinventar.
+**Status (2026-07-21): implementado.** A demanda explícita foi atendida com Storybook HTML/Vite, catálogo dos 23 componentes públicos, controles, Docs, auditoria A11y, light/dark e lifecycle dos seis runtimes. O build é publicado em `/storybook/` dentro do artefato GitHub Pages e consome diretamente o CSS/tokens gerados, sem criar uma camada paralela.
 
 ### MCP próprio do design system
 
@@ -1881,7 +1903,7 @@ apresentadas como comportamento aprovado do sistema.
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -1971,7 +1993,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — opcional, depois do contrato app-ready
+3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
 
 
 ═══════════════════════════════════════════════════════════
@@ -2038,6 +2060,16 @@ Exceções permitidas:
 - Componentes não interativos não precisam de Interação por teclado.
 - Componentes simples podem ter uma anatomia curta, mas não devem omitir a intenção estrutural.
 - `Form Field` segue template próprio porque é CSS-only por ADR-017.
+
+## Documentação estática e Storybook
+
+As duas superfícies são complementares e não devem manter contratos editoriais concorrentes:
+
+- a documentação estática é a referência canônica de uso, anatomia, tokens, classes, propriedades Figma e accessibility;
+- o Storybook demonstra a implementação pública real com Controls, variantes, tamanhos, estados e comportamento dos runtimes;
+- cada componente no Storybook deve apontar para sua página estática canônica;
+- a home e a navegação global da documentação devem manter acesso ao Storybook publicado em `/storybook/`;
+- `npm run test:storybook` protege a cobertura do contrato e `npm run test:storybook:browser:pages` valida o artefato final em desktop, mobile, dark mode, Axe e interações.
 
 ## Form Field
 
@@ -2107,6 +2139,7 @@ Use estes labels em português:
 - Mudança observável está registrada no `CHANGELOG.md`.
 - Arquivos gerados foram atualizados pelo comando correto.
 - Páginas públicas bilíngues têm fontes PT-BR e EN completas.
+- Storybook e documentação estática permanecem ligados nos dois sentidos.
 
 
 ═══════════════════════════════════════════════════════════
@@ -20915,7 +20948,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 

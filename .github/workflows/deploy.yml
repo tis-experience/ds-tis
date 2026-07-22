@@ -9,6 +9,8 @@ on:
       - "css/**"
       - "docs/**"
       - "js/**"
+      - "stories/**"
+      - ".storybook/**"
       - "scripts/**"
       - "package.json"
       - "package-lock.json"
@@ -79,7 +81,7 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
-      - name: Build and audit the public Pages artifact
+      - name: Build and audit the public Pages + Storybook artifact
         run: npm run build:pages
 
       - name: Upload GitHub Pages artifact

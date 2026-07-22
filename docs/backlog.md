@@ -56,7 +56,7 @@ Trigger pra revisitar: pedido explícito de consumidor que precise compor contro
 
 ### Storybook
 
-Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine interativa. Só implementar se houver demanda explícita de time Dev consumidor. Integração com os tokens DTCG já gerados (formato padrão de import), sem reinventar.
+**Status (2026-07-21): implementado.** A demanda explícita foi atendida com Storybook HTML/Vite, catálogo dos 23 componentes públicos, controles, Docs, auditoria A11y, light/dark e lifecycle dos seis runtimes. O build é publicado em `/storybook/` dentro do artefato GitHub Pages e consome diretamente o CSS/tokens gerados, sem criar uma camada paralela.
 
 ### MCP próprio do design system
 

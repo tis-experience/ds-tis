@@ -1,6 +1,6 @@
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-20. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-21. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -90,4 +90,4 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 
 1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — opcional, depois do contrato app-ready
+3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
