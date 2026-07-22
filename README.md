@@ -91,6 +91,23 @@ npm run build:all
 
 Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). Docs públicas: [GitHub Pages](https://tis-experience.github.io/ds-tis/).
 
+### Storybook
+
+O catálogo interativo cobre os 23 componentes públicos usando o CSS e os runtimes reais do pacote:
+
+```bash
+npm run storybook
+```
+
+Para validar o catálogo e gerar o build estático:
+
+```bash
+npm run test:storybook
+npm run build:storybook
+```
+
+O Storybook publicado fica disponível em [tis-experience.github.io/ds-tis/storybook/](https://tis-experience.github.io/ds-tis/storybook/).
+
 ## Documentação completa
 
 Toda a documentação vive em `docs/` e pode ser servida como site estático. Lá estão: componentes com preview ao vivo, foundations, guias de tema, acessibilidade e documentação, ADRs navegáveis, inventário de tokens, e consumo por IA em `docs/llms.txt`.

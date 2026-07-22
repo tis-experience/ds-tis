@@ -8,10 +8,15 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Storybook público do Design System TIS.** Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em `/storybook/` no GitHub Pages.
+
 ### Alterado
+- **Catálogo Storybook passa a documentar o contrato completo dos componentes.** Os 23 componentes ganham exemplos explícitos de uso, contraindicações, propriedades, tamanhos, variantes e estados, incluindo composição correta, semântica ARIA e responsabilidade dos seis runtimes; home, navegação global e guia editorial passam a integrar o catálogo à documentação estática nos dois sentidos, enquanto gates automatizados protegem a cobertura e validam todas as stories em desktop/mobile, tema dark, Axe e interações reais.
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido
+- **Tema e altura das amostras no Storybook.** O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.
 - **Anatomia do Pagination na documentação.** O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.
 - **Exemplos de boas práticas do Tooltip.** Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.
 - **Anatomia do Accordion na documentação.** O preview volta a exibir os seis marcadores e conectores que relacionam o componente às partes descritas na legenda.

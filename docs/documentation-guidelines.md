@@ -59,6 +59,16 @@ Exceções permitidas:
 - Componentes simples podem ter uma anatomia curta, mas não devem omitir a intenção estrutural.
 - `Form Field` segue template próprio porque é CSS-only por ADR-017.
 
+## Documentação estática e Storybook
+
+As duas superfícies são complementares e não devem manter contratos editoriais concorrentes:
+
+- a documentação estática é a referência canônica de uso, anatomia, tokens, classes, propriedades Figma e accessibility;
+- o Storybook demonstra a implementação pública real com Controls, variantes, tamanhos, estados e comportamento dos runtimes;
+- cada componente no Storybook deve apontar para sua página estática canônica;
+- a home e a navegação global da documentação devem manter acesso ao Storybook publicado em `/storybook/`;
+- `npm run test:storybook` protege a cobertura do contrato e `npm run test:storybook:browser:pages` valida o artefato final em desktop, mobile, dark mode, Axe e interações.
+
 ## Form Field
 
 `Form Field` é CSS-only e não deve ser auditado como componente visual ausente no Figma. A página deve deixar claro que:
@@ -127,3 +137,4 @@ Use estes labels em português:
 - Mudança observável está registrada no `CHANGELOG.md`.
 - Arquivos gerados foram atualizados pelo comando correto.
 - Páginas públicas bilíngues têm fontes PT-BR e EN completas.
+- Storybook e documentação estática permanecem ligados nos dois sentidos.

@@ -66,12 +66,18 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>O sistema segue Semantic Versioning. <code>1.0.0</code> marca o primeiro contrato estável; as tags <code>1.0.0-beta.N</code> e 0.x permanecem como histórico. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Storybook público do Design System TIS.</strong> Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em <code>/storybook/</code> no GitHub Pages.</li>
+</ul>
 <h3>Alterado</h3>
 <ul>
+<li><strong>Catálogo Storybook passa a documentar o contrato completo dos componentes.</strong> Os 23 componentes ganham exemplos explícitos de uso, contraindicações, propriedades, tamanhos, variantes e estados, incluindo composição correta, semântica ARIA e responsabilidade dos seis runtimes; home, navegação global e guia editorial passam a integrar o catálogo à documentação estática nos dois sentidos, enquanto gates automatizados protegem a cobertura e validam todas as stories em desktop/mobile, tema dark, Axe e interações reais.</li>
 <li><strong>Tooltip preserva a largura natural de textos curtos.</strong> O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.</li>
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Tema e altura das amostras no Storybook.</strong> O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.</li>
 <li><strong>Anatomia do Pagination na documentação.</strong> O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.</li>
 <li><strong>Exemplos de boas práticas do Tooltip.</strong> Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.</li>
 <li><strong>Anatomia do Accordion na documentação.</strong> O preview volta a exibir os seis marcadores e conectores que relacionam o componente às partes descritas na legenda.</li>

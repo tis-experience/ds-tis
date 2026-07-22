@@ -261,7 +261,7 @@ ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
 1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
 2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — opcional, depois do contrato app-ready
+3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
 `;
 
 fs.writeFileSync(path.join(OUTPUT_DIR, 'component-inventory.md'), inventory);
