@@ -81,7 +81,15 @@ async function visit(entry, viewMode = 'story', mode = 'light') {
   await page.goto(`${baseUrl}/iframe.html?id=${encodeURIComponent(entry.id)}&viewMode=${viewMode}&globals=a11y.manual:!true;mode:${mode}`, { waitUntil: 'domcontentloaded' });
   await page.locator('#storybook-root, #storybook-docs').first().waitFor({ state: 'attached' });
   await page.evaluate(() => document.fonts?.ready);
-  await page.waitForTimeout(30);
+  try {
+    await page.waitForFunction(
+      (expectedMode) => document.documentElement.dataset.mode === expectedMode,
+      mode,
+      { timeout: 3000 },
+    );
+  } catch {
+    failures.push(`${entry.id}: mode=${mode} não foi aplicado dentro do timeout`);
+  }
   if (browserErrors.length) failures.push(`${entry.id}: ${browserErrors.join(' | ')}`);
 }
 
