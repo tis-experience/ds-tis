@@ -322,6 +322,7 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Storybook público do Design System TIS.** Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em `/storybook/` no GitHub Pages.
 
 ### Alterado
+- **Governança de agentes Figma fica mais rígida após Popover e Toast.** Checklists, grounding e workflow passam a exigir dump tipográfico dos modelos, Text Style + variables em TEXTs, re-audit de fills e Content Slot clonado de Modal/Card com default false e master vazio.
 - **Alert adota `solid` como nomenclatura canônica.** Tokens, CSS e documentação acompanham o Figma; `ds-alert--filled` permanece como alias legado para compatibilidade.
 - **Alert espelha integralmente os tokens Component do Figma.** Actions, ícones, conteúdo e variantes `solid`/`subtle` passam pela cadeia Component → Semantic sem valores hardcoded.
 - **Catálogo Storybook passa a documentar o contrato completo dos componentes.** Os 23 componentes ganham exemplos explícitos de uso, contraindicações, propriedades, tamanhos, variantes e estados, incluindo composição correta, semântica ARIA e responsabilidade dos seis runtimes; home, navegação global e guia editorial passam a integrar o catálogo à documentação estática nos dois sentidos, enquanto gates automatizados protegem a cobertura e validam todas as stories em desktop/mobile, tema dark, Axe e interações reais.
@@ -2280,17 +2281,22 @@ Antes de escrever:
 
 1. Escolher 2-3 páginas maduras do DS Core como modelo.
 2. Ler as propriedades reais dessas páginas: root, seções, tabelas, textos, dividers, exemplos e wrappers de component sets.
-3. Capturar screenshot do alvo atual quando existir e screenshots dos modelos.
-4. Registrar o modelo escolhido na spec ou no checkpoint.
-5. Tratar o modelo como contrato operacional, não como inspiração visual vaga.
+3. Dump tipográfico obrigatório em `evidence/`: `textStyleId` + binds de cada classe de TEXT do modelo (não basta ler o layout).
+4. Se houver Content Slot na spec: dump do slot em Modal/Card (defaults, vazio no master, ordem Show→Slot).
+5. Capturar screenshot do alvo atual quando existir e screenshots dos modelos.
+6. Registrar o modelo escolhido na spec ou no checkpoint.
+7. Tratar o modelo como contrato operacional, não como inspiração visual vaga.
+8. Preferir **clonar** o root da página modelo e adaptar conteúdo a recriar textos com Inter/hex.
 
 Regras mínimas:
 
 - Textos de documentação usam altura automática (`textAutoResize` adequado / height hug), não altura fixa criada por script.
+- Textos usam o mesmo Text Style e variables de cor/tipografia do modelo; `fontName`/`fontSize`/`fills` crus são regressão.
 - Frames documentais usam `clipsContent=false`, salvo exceção justificada e aprovada.
 - Root e seções seguem o padrão vivo de auto-layout, padding/gap/binds e background.
 - Tabelas, linhas, exemplos, labels de matriz e component sets ficam aninhados na seção correta.
 - Tabelas de propriedades, tokens e acessibilidade são derivadas da API real do componente. Uma property, slot, token ou estado removido/renomeado deve sair da documentação na mesma matriz de contrato.
+- Content Slot segue Modal/Card: `createSlot()` no component, `Show Content Slot=false` no set, slot vazio no master, exemplos só em instâncias na página.
 - Component matrix pode usar frame `NONE` quando o padrão vivo exigir posicionamento manual, mas não pode cortar focus ring, overlay ou conteúdo.
 - Nenhum node gerado fica solto no canvas fora do frame raiz aprovado.
 - A página resultante precisa parecer parte da mesma família visual dos modelos escolhidos: escala, densidade, espaçamentos, hierarquia, disposição dos component sets, exemplos e tabelas devem estar alinhados ou ter exceção aprovada.
@@ -2298,12 +2304,14 @@ Regras mínimas:
 Depois de escrever, a auditoria deve reportar contagens objetivas:
 
 - textos documentais com altura fixa;
+- textos documentais ou de set sem `textStyleId`/binds quando o modelo equivalente os usa;
 - frames documentais com `clipsContent=true`;
 - seções esperadas sem auto-layout;
 - root sem background ou binds esperados;
 - nós soltos fora do root;
 - linhas de documentação que citam property/slot/token inexistente;
 - bindings ausentes em documentação visual quando a página modelo usa binding equivalente;
+- Content Slot com seed no master, chrome próprio ou default `true` sem exceção;
 - divergências relevantes contra as páginas modelo.
 
 Qualquer contagem acima de zero bloqueia "pronto" até correção ou justificativa explícita do owner.
