@@ -27,6 +27,8 @@ O Builder também é responsável por uma auto-checagem visual e documental ante
 - Bindar qualquer variavel "parecida" so para satisfazer contagem.
 - Remover property publica, renomear instancia ou recriar sublayer fora da matriz aprovada.
 - Tratar contagem agregada de bindings como prova suficiente de aderencia.
+- Criar TEXT documental ou de set com Inter/fontSize/fill crus quando o modelo usa Text Style + variables (`grounding.md` §7.1).
+- Improvisar Content Slot (seed no master, Actions paralelas, default true) — clonar Modal/Card (`grounding.md` §7.2).
 - Declarar `pronto para auditoria` quando apenas contrato estrutural passou.
 - Fazer correcoes pontuais em um draft visualmente rejeitado sem antes auditar read-only contra os modelos vivos.
 - Aprovar o proprio trabalho como final.

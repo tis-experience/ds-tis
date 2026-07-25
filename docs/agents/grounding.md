@@ -103,6 +103,51 @@ Regressão recorrente: variants `Focused` mantendo cor de foco na **borda estrut
    espaçamento, tabelas e exemplos.
 3. Registre cada divergência. Só mantenha diferença com exceção aprovada.
 
+## 7.1 Tipografia e texto: Text Style + variables, nunca Inter cru
+
+Post-mortem Popover/Toast (2026-07-21): páginas e sets foram entregues com
+`fontName`/`fontSize`/`fills` hardcoded (Inter + hex), enquanto Tooltip/Modal/Alert
+usam **Text Style** (`textStyleId`) e binds tipográficos/cores Semantic.
+
+1. Antes de criar qualquer `TEXT` (doc ou set), dump do modelo equivalente deve
+   registrar: `textStyleId`, `boundVariables` (`fills`, `fontSize`, `fontFamily`,
+   `fontStyle`, `lineHeight`, `letterSpacing`) e node ID de referência.
+2. Todo TEXT documental (title, description, section-title, células de tabela)
+   precisa receber o **mesmo** `textStyleId` da classe correspondente no modelo
+   e os mesmos binds de cor/tipografia — não “parecer igual” com fonte solta.
+3. TEXT do component set (Title, Description, Body Text, labels) segue o modelo
+   de componente equivalente (Modal Title/Description, Tooltip Label, etc.).
+4. Nested Button/Label dentro de instâncias DS herda o contrato do Button; não
+   force Text Style de página neles.
+5. Prova pós-escrita: listar TEXTs acionáveis sem `textStyleId` (ou sem binds
+   quando o modelo tem binds). Contagem > 0 → `bloqueado`, salvo exceção
+   aprovada com node ID do modelo que também não usa style.
+6. **Fill é gate separado de Text Style.** Ter `textStyleId` e ainda fill
+   sólido `#000`/`rgb()` sem `boundVariables.fills` (ou paint `color` bind)
+   conta como hardcoded. Toda seção nova (ex.: `section-exemplos`) deve
+   bindar `content/strong` / `content/default` na mesma passagem. Re-audit
+   da página inteira após criar/clonar TEXT — não só o set.
+
+## 7.2 Content Slot: clonar Modal/Card, não improvisar
+
+Post-mortem Popover (2026-07-21): slot foi criado com Button seedado (ícones
+ligados), frame `Actions` concorrente e `Show Content Slot=true` por default —
+divergente de Modal/Card.
+
+1. API: `ComponentNode.createSlot()` (no **variant/component**), **não**
+   `figma.createSlot` (inexistente no runtime MCP).
+2. Anatomia Body como Modal: `Content`/`Body Text` (TEXT + Show Content Text) +
+   `↳ Content Slot` (SLOT + Show Content Slot). Sem frame `Actions` paralelo
+   ao slot no master.
+3. Defaults no set: `Show Content Slot = false`; slot **vazio** e sem fill/stroke
+   próprio no master (como Modal).
+4. Composição de exemplo (Button, Form Field, etc.) vive em **instâncias** na
+   seção de exemplos da página — nunca seedada dentro do variant do set.
+5. Boolean `Show Content Slot` imediatamente **acima** de `↳ Content Slot` no
+   painel (par booleano→dependente).
+6. Dump Modal/Card slot (`componentPropertyDefinitions` + refs do SLOT) deve
+   estar em `evidence/` antes de criar o slot no alvo.
+
 ## 8. Erros que bloqueiam o handoff (status = `bloqueado`)
 
 Qualquer um destes impede declarar "pronto para auditoria":
@@ -113,6 +158,9 @@ Qualquer um destes impede declarar "pronto para auditoria":
 - popup/listbox/empty state com dimensões inventadas (sem modelo vivo);
 - Component token sem uso real nos variants finais;
 - estilo hardcoded (fill/stroke/radius cru) sem justificativa aprovada;
+- TEXT documental ou de set sem `textStyleId`/binds quando o modelo equivalente os usa;
+- Content Slot seedado no master, com chrome visual próprio, ou default `true` sem exceção;
+- página de doc criada “do zero” com Inter/hex em vez de clonar/bindar o modelo vivo;
 - `unmappedRows > 0` na matriz de contrato.
 
 ## 9. Protocolo de recuperação pós-rejeição

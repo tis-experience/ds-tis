@@ -37,6 +37,9 @@ Use este checklist em modo read-only. Nao corrigir durante a auditoria.
 - [ ] Textos de documentacao usam altura automatica/height hug conforme paginas modelo.
 - [ ] Tabelas de propriedades, tokens e acessibilidade não citam property, slot, token ou state inexistente.
 - [ ] Documentação visual tem bindings equivalentes aos das páginas modelo quando houver fills/strokes/backgrounds/dividers/tabelas bindáveis.
+- [ ] TEXTs documentais e de set usam `textStyleId` + binds tipográficos/cores como no modelo (Inter/fontSize/fill crus = falha).
+- [ ] Zero TEXT documental com fill sólido sem bind (`content/strong` / `content/default` ou Component do set) — Text Style sozinho não absolve fill hardcoded.
+- [ ] Content Slot: default `Show Content Slot=false`, slot vazio no master, sem chrome próprio; exemplos só em instâncias na página.
 
 ## Tokens e bindings
 
@@ -75,6 +78,8 @@ Use este checklist em modo read-only. Nao corrigir durante a auditoria.
 - [ ] Contagem de divergências visuais relevantes contra screenshots/modelos.
 - [ ] Contagem de instance name mismatches.
 - [ ] Contagem de hardcoded fills/strokes relevantes.
+- [ ] Contagem de TEXTs sem `textStyleId`/binds quando o modelo equivalente os usa.
+- [ ] Contagem de Content Slots com seed/chrome/default incorreto.
 - [ ] Contagem de loose nodes.
 - [ ] Lista de falhas com node IDs.
 - [ ] Falhas globais fora do componente atual listadas separadamente com impacto e gate afetado.

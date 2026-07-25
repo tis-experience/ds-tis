@@ -15,6 +15,7 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Storybook público do Design System TIS.** Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em `/storybook/` no GitHub Pages.
 
 ### Alterado
+- **Governança de agentes Figma fica mais rígida após Popover e Toast.** Checklists, grounding e workflow passam a exigir dump tipográfico dos modelos, Text Style + variables em TEXTs, re-audit de fills e Content Slot clonado de Modal/Card com default false e master vazio.
 - **Alert adota `solid` como nomenclatura canônica.** Tokens, CSS e documentação acompanham o Figma; `ds-alert--filled` permanece como alias legado para compatibilidade.
 - **Alert espelha integralmente os tokens Component do Figma.** Actions, ícones, conteúdo e variantes `solid`/`subtle` passam pela cadeia Component → Semantic sem valores hardcoded.
 - **Catálogo Storybook passa a documentar o contrato completo dos componentes.** Os 23 componentes ganham exemplos explícitos de uso, contraindicações, propriedades, tamanhos, variantes e estados, incluindo composição correta, semântica ARIA e responsabilidade dos seis runtimes; home, navegação global e guia editorial passam a integrar o catálogo à documentação estática nos dois sentidos, enquanto gates automatizados protegem a cobertura e validam todas as stories em desktop/mobile, tema dark, Axe e interações reais.

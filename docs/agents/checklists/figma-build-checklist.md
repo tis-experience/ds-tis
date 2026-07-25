@@ -14,6 +14,9 @@ Use este checklist antes e durante qualquer escrita no Figma.
 - [ ] Screenshots dos modelos vivos foram capturados.
 - [ ] Screenshot do alvo atual foi capturado quando existir pagina/componente anterior.
 - [ ] Propriedades reais do modelo foram lidas: root, secoes, textos, tabelas, dividers, exemplos e wrappers.
+- [ ] Dump tipográfico dos modelos em `evidence/`: para cada classe de TEXT (page-title, description, section-title, célula, Title/Body do set) registrar `nodeId`, `textStyleId`, binds de fill/fontSize/fontFamily/fontStyle/lineHeight.
+- [ ] Se a spec tiver Content Slot: dump do SLOT em Modal e/ou Card (`Show Content Slot` default, slot vazio, refs `slotContentId`) em `evidence/`.
+- [ ] Preferir clonar root/página modelo e substituir conteúdo a recriar textos do zero.
 - [ ] Componentes DS existentes identificados para nested instances.
 - [ ] Tokens previstos listados por camada e escopo.
 - [ ] Matriz de contrato Figma criada a partir dos modelos vivos.
@@ -35,6 +38,10 @@ Use este checklist antes e durante qualquer escrita no Figma.
 - [ ] Variants em ordem previsivel e menor -> maior quando houver size.
 - [ ] Component properties expostas apenas para API publica necessaria.
 - [ ] Textos configuraveis com `TEXT` property quando forem parte de componente.
+- [ ] Nenhum TEXT novo com Inter/fontSize/fill cru: aplicar `textStyleId` + binds do dump do modelo na mesma chamada (ou imediatamente apos criar o no).
+- [ ] Apos criar/clonar secao documental, re-auditar fills da pagina: todo TEXT com `boundVariables.fills` (ou paint color bind); Text Style sem fill bind = ainda hardcoded.
+- [ ] Content Slot via `variant.createSlot()`; `Show Content Slot` default `false`; master sem filhos no SLOT; sem fill/stroke no SLOT; sem frame Actions concorrente no Body.
+- [ ] Exemplos de composicao no slot so em instancias na secao de exemplos da pagina.
 - [ ] Textos de documentacao sem nome manual: `autoRename=true`.
 - [ ] Instancias nao renomeadas manualmente sem justificativa.
 - [ ] Icones vivos como instancias Lucide, nao glyph/Icon Placeholder.
@@ -74,10 +81,13 @@ Use este checklist antes e durante qualquer escrita no Figma.
 - [ ] Focus ring layers sem cor/largura/radius esperados: `0` ou justificativa aprovada.
 - [ ] Instance name mismatches sem exposed swap/justificativa: `0`.
 - [ ] Hardcoded fills/strokes nos component sets finais: `0`.
+- [ ] TEXTs documentais sem `textStyleId` (quando modelo tem): `0`.
+- [ ] TEXTs do set (Title/Body/Description) sem `textStyleId`/binds tipograficos do modelo: `0`.
 - [ ] Linhas documentais que citam property/slot/token/state inexistente: `0`.
 - [ ] Bindings ausentes em documentação visual quando as páginas modelo usam binding equivalente: `0`.
 - [ ] Textos documentais com altura fixa: `0`.
 - [ ] Nos soltos fora do root da pagina: `0`.
+- [ ] Content Slot: default false, vazio no master, sem chrome proprio; exemplo so na pagina.
 - [ ] Falhas de gate/exporter/checklist encontradas durante a validação foram corrigidas no processo ou deixaram o status como `bloqueado`.
 
 ## Gate de handoff
