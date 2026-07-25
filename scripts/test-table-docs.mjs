@@ -10,7 +10,9 @@ import { chromium } from 'playwright';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const snapshotPath = path.join(ROOT, '.figma-snapshot.json');
-const snapshot = fs.existsSync(snapshotPath) ? JSON.parse(fs.readFileSync(snapshotPath, 'utf8')) : null;
+const snapshot = !process.env.DS_TABLE_TEST_NO_SNAPSHOT && fs.existsSync(snapshotPath)
+  ? JSON.parse(fs.readFileSync(snapshotPath, 'utf8'))
+  : null;
 const tokens = JSON.parse(fs.readFileSync(path.join(ROOT, 'tokens', 'component', 'table.json'), 'utf8'));
 const css = fs.readFileSync(path.join(ROOT, 'css', 'components', 'table.css'), 'utf8');
 const docs = fs.readFileSync(path.join(ROOT, 'docs', 'table.html'), 'utf8');
@@ -124,15 +126,16 @@ for (const publicPart of ['Table', 'Table/Header Row', 'Table/Header Cell', 'Tab
 expect(docs.indexOf('Small') < docs.indexOf('Medium'), 'Sizes precisam aparecer na ordem Small → Medium.');
 
 async function verifyGeometry() {
-  const declarations = snapshot
+  const tokenStyles = snapshot
     ? figmaVariables.map((variable) => {
       const customProperty = variable.codeSyntax.WEB.match(/--ds-[\w-]+/)?.[0];
       return `${customProperty}: ${toCssValue(resolveFigmaValue(variable.id))};`;
     }).join('\n')
     : generatedCss;
+  const styleSource = snapshot ? `:root { ${tokenStyles} }` : tokenStyles;
   const fixture = docs
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace('</head>', `<style>:root { ${declarations} }\n${css}</style></head>`);
+    .replace('</head>', `<style>${styleSource}\n${css}</style></head>`);
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
