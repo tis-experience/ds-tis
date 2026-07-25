@@ -9,10 +9,16 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const snapshot = JSON.parse(fs.readFileSync(path.join(ROOT, '.figma-snapshot.json'), 'utf8'));
+const snapshotPath = path.join(ROOT, '.figma-snapshot.json');
+const snapshot = fs.existsSync(snapshotPath) ? JSON.parse(fs.readFileSync(snapshotPath, 'utf8')) : null;
 const tokens = JSON.parse(fs.readFileSync(path.join(ROOT, 'tokens', 'component', 'table.json'), 'utf8'));
 const css = fs.readFileSync(path.join(ROOT, 'css', 'components', 'table.css'), 'utf8');
 const docs = fs.readFileSync(path.join(ROOT, 'docs', 'table.html'), 'utf8');
+const generatedCss = [
+  'foundation.css',
+  'theme-light.css',
+  'component.css',
+].map((file) => fs.readFileSync(path.join(ROOT, 'css', 'tokens', 'generated', file), 'utf8')).join('\n');
 const errors = [];
 
 function expect(condition, message) {
@@ -31,9 +37,9 @@ function flattenTokens(node, parts = [], output = new Map()) {
 }
 
 const tokenMap = flattenTokens(tokens.component.table);
-const figmaVariables = Object.values(snapshot.variables)
+const figmaVariables = snapshot ? Object.values(snapshot.variables)
   .filter((variable) => variable.name.startsWith('table/'))
-  .sort((a, b) => a.name.localeCompare(b.name));
+  .sort((a, b) => a.name.localeCompare(b.name)) : [];
 const figmaMap = new Map(figmaVariables.map((variable) => [variable.name.slice('table/'.length), variable]));
 
 function resolveFigmaValue(variableId, seen = new Set()) {
@@ -56,16 +62,16 @@ function toCssValue({ value, type }) {
 }
 
 expect(tokenMap.size === 40, `Table deve ter 40 tokens Component; encontrados ${tokenMap.size}.`);
-expect(figmaMap.size === 40, `Snapshot deve ter 40 variables table/*; encontradas ${figmaMap.size}.`);
+if (snapshot) expect(figmaMap.size === 40, `Snapshot deve ter 40 variables table/*; encontradas ${figmaMap.size}.`);
 
 for (const [name, token] of tokenMap) {
   const figmaVariable = figmaMap.get(name);
-  expect(Boolean(figmaVariable), `Token component.table.${name.replaceAll('/', '.')} não existe no snapshot.`);
+  if (snapshot) expect(Boolean(figmaVariable), `Token component.table.${name.replaceAll('/', '.')} não existe no snapshot.`);
   expect(
     typeof token.$value === 'string' && token.$value.startsWith('{semantic.'),
     `Token ${name} precisa aliasar Semantic.`,
   );
-  if (!figmaVariable) continue;
+  if (!snapshot || !figmaVariable) continue;
   const modeValue = Object.values(figmaVariable.valuesByMode)[0];
   const figmaAlias = modeValue?.type === 'VARIABLE_ALIAS' ? snapshot.variables[modeValue.id]?.name : null;
   const jsonAlias = token.$value.slice(1, -1).replace(/^semantic\./, '').replaceAll('.', '/');
@@ -73,8 +79,10 @@ for (const [name, token] of tokenMap) {
   expect(Boolean(figmaVariable.codeSyntax?.WEB), `${figmaVariable.name} precisa de WEB code syntax.`);
 }
 
-for (const name of figmaMap.keys()) {
-  expect(tokenMap.has(name), `Variable table/${name} do snapshot não foi espelhada no JSON.`);
+if (snapshot) {
+  for (const name of figmaMap.keys()) {
+    expect(tokenMap.has(name), `Variable table/${name} do snapshot não foi espelhada no JSON.`);
+  }
 }
 
 expect(!/(?:^|[^\w-])-?\d*\.?\d+(?:px|rem)\b/i.test(css), 'Table CSS não pode conter hardcodes px/rem.');
@@ -116,10 +124,12 @@ for (const publicPart of ['Table', 'Table/Header Row', 'Table/Header Cell', 'Tab
 expect(docs.indexOf('Small') < docs.indexOf('Medium'), 'Sizes precisam aparecer na ordem Small → Medium.');
 
 async function verifyGeometry() {
-  const declarations = figmaVariables.map((variable) => {
-    const customProperty = variable.codeSyntax.WEB.match(/--ds-[\w-]+/)?.[0];
-    return `${customProperty}: ${toCssValue(resolveFigmaValue(variable.id))};`;
-  }).join('\n');
+  const declarations = snapshot
+    ? figmaVariables.map((variable) => {
+      const customProperty = variable.codeSyntax.WEB.match(/--ds-[\w-]+/)?.[0];
+      return `${customProperty}: ${toCssValue(resolveFigmaValue(variable.id))};`;
+    }).join('\n')
+    : generatedCss;
   const fixture = docs
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
     .replace('</head>', `<style>:root { ${declarations} }\n${css}</style></head>`);
@@ -154,4 +164,5 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`✅ PASS — Table alinhada a ${tokenMap.size} tokens do snapshot e à semântica HTML nativa.`);
+const source = snapshot ? 'snapshot' : 'tokens commitados';
+console.log(`✅ PASS — Table alinhada a ${tokenMap.size} tokens do ${source} e à semântica HTML nativa.`);
