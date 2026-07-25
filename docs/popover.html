@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popover — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Popover</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Dialog contextual não modal, ancorado a um trigger, para conteúdo breve que pode incluir ações e componentes interativos.</span>
+      <span data-lang="en">A non-modal contextual dialog anchored to a trigger for concise content that may include actions and interactive components.</span>
+    </p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Popover quando</span><span data-lang="en">Use Popover when</span></div>
+      <span data-lang="pt">O conteúdo contextual precisa de ações, links, um campo simples ou explicação mais rica que Tooltip, sem bloquear o restante da página.</span>
+      <span data-lang="en">Contextual content needs actions, links, a simple field, or richer guidance than a Tooltip without blocking the rest of the page.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Popover quando</span><span data-lang="en">Do not use Popover when</span></div>
+      <span data-lang="pt">O conteúdo é somente um label curto (use Tooltip), exige decisão bloqueante ou fluxo longo (use Modal), ou representa uma lista de comandos (use Menu).</span>
+      <span data-lang="en">Content is only a short label (use Tooltip), requires a blocking decision or long flow (use Modal), or represents a command list (use Menu).</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy-legend">
+      <span data-lang="pt"><strong>1</strong> Trigger — Button que controla abertura e <code>aria-expanded</code>.<br><strong>2</strong> Panel — superfície elevada com <code>role="dialog"</code>.<br><strong>3</strong> Header — title opcional e close absoluto.<br><strong>4</strong> Body — Content Text e Content Slot independentes.<br><strong>5</strong> Actions — até dois Buttons substituíveis e ocultáveis separadamente.<br><strong>6</strong> Arrow — Shape fechada que aponta para o trigger.</span>
+      <span data-lang="en"><strong>1</strong> Trigger — Button controlling open state and <code>aria-expanded</code>.<br><strong>2</strong> Panel — elevated surface with <code>role="dialog"</code>.<br><strong>3</strong> Header — optional title and absolutely positioned close control.<br><strong>4</strong> Body — independent Content Text and Content Slot.<br><strong>5</strong> Actions — up to two independently replaceable and hideable Buttons.<br><strong>6</strong> Arrow — closed Shape pointing to the trigger.</span>
+    </div>
+    <div class="ds-preview">
+      <div class="ds-preview__canvas ds-preview__canvas--centered" style="min-height:var(--ds-size-layout-sm);align-items:flex-start;padding-top:var(--ds-space-section-md);" inert>
+        <div class="ds-popover ds-popover--bottom">
+          <button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button"><span class="ds-button__label"><span data-lang="pt">Trigger</span><span data-lang="en">Trigger</span></span></button>
+          <div class="ds-popover__panel" role="dialog" aria-labelledby="popover-anatomy-title">
+            <div class="ds-popover__header"><h3 class="ds-popover__title" id="popover-anatomy-title"><span data-lang="pt">Título do Popover</span><span data-lang="en">Popover title</span></h3></div>
+            <button class="ds-popover__close" type="button" aria-label="Fechar popover">
+              <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="ds-popover__body"><p><span data-lang="pt">Conteúdo breve com contexto e actions.</span><span data-lang="en">Concise content with context and actions.</span></p></div>
+            <div class="ds-popover__actions">
+              <button class="ds-button ds-button--toned ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Cancelar</span><span data-lang="en">Cancel</span></span></button>
+              <button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Confirmar</span><span data-lang="en">Confirm</span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Exemplo interativo</span><span data-lang="en">Interactive example</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas ds-preview__canvas--centered" style="min-height:var(--ds-size-layout-sm);align-items:flex-start;padding-top:var(--ds-space-section-md);">
+          <div class="ds-popover ds-popover--bottom">
+            <button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button">
+              <span class="ds-button__label"><span data-lang="pt">Ver detalhes</span><span data-lang="en">View details</span></span>
+            </button>
+            <div class="ds-popover__panel" id="popover-basic" role="dialog" aria-labelledby="popover-basic-title" hidden>
+              <div class="ds-popover__header">
+                <h3 class="ds-popover__title" id="popover-basic-title"><span data-lang="pt">Título do Popover</span><span data-lang="en">Popover title</span></h3>
+              </div>
+              <button class="ds-popover__close" type="button" aria-label="Fechar popover">
+                <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="ds-popover__body">
+                <p><span data-lang="pt">Conteúdo composto com componentes DS.</span><span data-lang="en">Content composed with DS components.</span></p>
+              </div>
+              <div class="ds-popover__actions">
+                <button class="ds-button ds-button--toned ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Cancelar</span><span data-lang="en">Cancel</span></span></button>
+                <button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Confirmar</span><span data-lang="en">Confirm</span></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-popover ds-popover--bottom"&gt;
+  &lt;button class="ds-button ds-button--outline ds-popover__trigger"
+          type="button"&gt;Ver detalhes&lt;/button&gt;
+  &lt;div class="ds-popover__panel"
+       role="dialog"
+       aria-labelledby="popover-title"
+       hidden&gt;
+    &lt;div class="ds-popover__header"&gt;
+      &lt;h3 class="ds-popover__title" id="popover-title"&gt;Título&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;button class="ds-popover__close"
+            type="button"
+            aria-label="Fechar popover"&gt;...&lt;/button&gt;
+    &lt;div class="ds-popover__body"&gt;
+      &lt;p&gt;Conteúdo contextual.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="ds-popover__actions"&gt;
+      &lt;button class="ds-button ds-button--toned ds-button--sm"&gt;Cancelar&lt;/button&gt;
+      &lt;button class="ds-button ds-button--brand ds-button--sm"&gt;Confirmar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Content Slot adicional</span><span data-lang="en">Additional Content Slot</span></h2>
+    <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">O slot é opcional e adicional: não substitui Content Text nem Actions. Use anatomias públicas completas dos componentes inseridos.</span>
+      <span data-lang="en">The slot is optional and additive: it does not replace Content Text or Actions. Use the complete public anatomy of inserted components.</span>
+    </p>
+    <div class="ds-preview">
+      <div class="ds-preview__canvas ds-preview__canvas--centered" style="min-height:var(--ds-size-layout-sm);align-items:flex-start;padding-top:var(--ds-space-section-md);">
+        <div class="ds-popover ds-popover--bottom">
+          <button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button"><span class="ds-button__label"><span data-lang="pt">Renomear</span><span data-lang="en">Rename</span></span></button>
+          <div class="ds-popover__panel" role="dialog" aria-labelledby="popover-slot-title" hidden>
+            <div class="ds-popover__header"><h3 class="ds-popover__title" id="popover-slot-title"><span data-lang="pt">Renomear item</span><span data-lang="en">Rename item</span></h3></div>
+            <button class="ds-popover__close" type="button" aria-label="Fechar popover">
+              <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="ds-popover__body">
+              <p><span data-lang="pt">Informe um nome curto e descritivo.</span><span data-lang="en">Provide a short descriptive name.</span></p>
+              <div class="ds-popover__content">
+                <div class="ds-field">
+                  <label class="ds-field__label" for="popover-name"><span data-lang="pt">Nome</span><span data-lang="en">Name</span></label>
+                  <div class="ds-input"><input class="ds-input__field" id="popover-name" type="text" value="Relatório mensal"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-popover__actions">
+              <button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Salvar</span><span data-lang="en">Save</span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Placements</span><span data-lang="en">Placements</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Modifier</th><th><span data-lang="pt">Posição do panel</span><span data-lang="en">Panel position</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>ds-popover--bottom</code></td><td><span data-lang="pt">Abaixo do trigger</span><span data-lang="en">Below the trigger</span></td></tr>
+        <tr><td><code>ds-popover--top</code></td><td><span data-lang="pt">Acima do trigger</span><span data-lang="en">Above the trigger</span></td></tr>
+        <tr><td><code>ds-popover--left</code></td><td><span data-lang="pt">À esquerda do trigger</span><span data-lang="en">To the trigger's left</span></td></tr>
+        <tr><td><code>ds-popover--right</code></td><td><span data-lang="pt">À direita do trigger</span><span data-lang="en">To the trigger's right</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Runtime público</span><span data-lang="en">Public runtime</span></h2>
+    <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">O módulo <code>ds-tis/popover</code> é obrigatório para sincronizar ARIA, foco, Escape, click externo e lifecycle. O Popover é não modal e não prende o foco.</span>
+      <span data-lang="en">The <code>ds-tis/popover</code> module is required to synchronize ARIA, focus, Escape, outside click, and lifecycle. Popover is non-modal and does not trap focus.</span>
+    </p>
+    <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
+      <span data-lang="pt">Eventos públicos: <code>ds-popover-open</code> e <code>ds-popover-close</code>.</span>
+      <span data-lang="en">Public events: <code>ds-popover-open</code> and <code>ds-popover-close</code>.</span>
+    </p>
+    <pre tabindex="0"><code>import {
+  initPopovers,
+  destroyPopovers,
+  openPopover,
+  closePopover
+} from 'ds-tis/popover';
+
+initPopovers();
+// destroyPopovers(root) ao desmontar / on unmount</code></pre>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Parte</span><span data-lang="en">Part</span></th><th>Component tokens</th></tr></thead>
+      <tbody>
+        <tr><td>Panel</td><td><code>component.popover.panel.{bg,border-color,border-width,gap,max-width,padding-x,padding-y,radius,shadow}.default</code></td></tr>
+        <tr><td>Title / Body</td><td><code>component.popover.title.color.default</code>, <code>component.popover.body.{color,gap,padding-bottom}.default</code></td></tr>
+        <tr><td>Close</td><td><code>component.popover.close.{size,icon-size,padding,color}.default</code>, <code>component.popover.close.icon.stroke-width.default</code></td></tr>
+        <tr><td>Content Slot</td><td><code>component.popover.content-slot.gap.default</code></td></tr>
+        <tr><td>Actions</td><td><code>component.popover.actions.{gap,padding-top}.default</code></td></tr>
+        <tr><td>Arrow</td><td><code>component.popover.arrow.{base,fill}.default</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Acessibilidade e teclado</span><span data-lang="en">Accessibility and keyboard</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Entrada</span><span data-lang="en">Input</span></th><th><span data-lang="pt">Comportamento</span><span data-lang="en">Behavior</span></th></tr></thead>
+      <tbody>
+        <tr><td>Enter / Space</td><td><span data-lang="pt">O Button trigger abre ou fecha pelo comportamento nativo de click.</span><span data-lang="en">The Button trigger opens or closes through native click behavior.</span></td></tr>
+        <tr><td>Escape</td><td><span data-lang="pt">Fecha o Popover e retorna foco ao trigger.</span><span data-lang="en">Closes the Popover and returns focus to the trigger.</span></td></tr>
+        <tr><td>Tab</td><td><span data-lang="pt">Segue a ordem natural; não há focus trap.</span><span data-lang="en">Follows natural order; there is no focus trap.</span></td></tr>
+        <tr><td><code>role="dialog"</code></td><td><span data-lang="pt">Use <code>aria-labelledby</code> para title visível ou <code>aria-label</code> quando não houver header.</span><span data-lang="en">Use <code>aria-labelledby</code> for a visible title or <code>aria-label</code> when there is no header.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related">
+      <a href="tooltip.html" class="ds-related__link">Tooltip</a>
+      <a href="menu.html" class="ds-related__link">Menu</a>
+      <a href="modal.html" class="ds-related__link">Modal</a>
+      <a href="button.html" class="ds-related__link">Button</a>
+    </div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+<script type="module">
+  import { initPopovers } from '../js/popover.js';
+  initPopovers(document.querySelector('main'));
+</script>
+</body>
+</html>

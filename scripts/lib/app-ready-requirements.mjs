@@ -110,6 +110,30 @@ const SPECIFIC_CASES = Object.freeze({
     aria: ['dialog-modal-labelled'],
     'open-close': ['trigger-opens', 'escape-closes', 'backdrop-closes', 'inline-app-not-inert'],
   },
+  popover: {
+    keyboard: ['escape-closes', 'escape-returns-focus-to-latest-trigger'],
+    focus: [
+      'initial-focus',
+      'no-focus-trap',
+      'focus-return',
+      'latest-trigger-focus-return',
+      'outside-nonfocusable-no-hidden-focus',
+    ],
+    aria: ['dialog-controls-expanded-sync'],
+    'open-close': [
+      'trigger-opens',
+      'close-button-closes',
+      'outside-closes',
+      'latest-popover-replaces-previous',
+      'four-placement-collision-within-viewport',
+    ],
+  },
+  toast: {
+    keyboard: ['escape-dismisses-focused-toast'],
+    focus: ['does-not-move-focus', 'focus-pauses-timer'],
+    aria: ['polite-assertive-live-regions'],
+    'open-close': ['api-show-dismiss', 'timeout-dismisses', 'queue-limit-oldest', 'action-callback-runs'],
+  },
   menu: {
     keyboard: ['arrows-home-end', 'typeahead', 'escape-returns-focus'],
     focus: ['first-item-focus', 'disabled-focusable-not-activatable'],

@@ -103,6 +103,13 @@ export const STORYBOOK_CONTRACTS = {
     stories: ['Playground', 'Tamanhos', 'CorpoCustomizado'],
     states: ['closed', 'open'],
   },
+  popover: {
+    usage: 'Mostre contexto ou ações breves ancoradas a um trigger sem bloquear a página.',
+    avoid: 'Não use para tarefas longas, navegação principal ou conteúdo que exige foco modal.',
+    properties: ['placement', 'title', 'description', 'showSlot', 'showActions'],
+    stories: ['Playground', 'Posicoes', 'ComSlot', 'SemActions'],
+    states: ['closed', 'open', 'collision adjusted'],
+  },
   pagination: {
     usage: 'Navegue por conjuntos paginados quando a posição e o total importam.',
     avoid: 'Não use para carrossel nem quando carregamento incremental é mais adequado.',
@@ -145,12 +152,26 @@ export const STORYBOOK_CONTRACTS = {
     stories: ['Playground', 'Disabled', 'Multiplas'],
     states: ['active', 'inactive', 'disabled'],
   },
+  table: {
+    usage: 'Compare dados tabulares com cabeçalhos, linhas e células semanticamente nativos.',
+    avoid: 'Não use como layout grid visual nem substitua data grid interativo complexo sem requisitos ARIA próprios.',
+    properties: ['size', 'selectedRow', 'sortable', 'nowrap'],
+    stories: ['Playground', 'Tamanhos', 'Estados', 'Overflow'],
+    states: ['default', 'hover', 'selected', 'focus-visible'],
+  },
   textarea: {
     usage: 'Colete texto livre com múltiplas linhas e contexto de limite.',
     avoid: 'Não use para respostas curtas ou seleção estruturada.',
     properties: ['label', 'placeholder', 'helper', 'value', 'size', 'state', 'required', 'maxLength', 'showCounter'],
     stories: ['Playground', 'Tamanhos', 'Estados', 'ComContador'],
     states: ['default', 'filled', 'error', 'disabled', 'readonly', 'counter over'],
+  },
+  toast: {
+    usage: 'Comunique feedback temporário de sistema sem interromper a tarefa atual.',
+    avoid: 'Não use para erros persistentes, validação de campo ou conteúdo que precisa ser lido antes de seguir.',
+    properties: ['type', 'style', 'title', 'description', 'showAction'],
+    stories: ['Playground', 'Variantes', 'ComAction', 'Regiao'],
+    states: ['info', 'success', 'warning', 'error', 'dismissible'],
   },
   toggle: {
     usage: 'Ative ou desative imediatamente uma configuração binária.',

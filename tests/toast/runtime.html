@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <title>Toast runtime test</title>
+</head>
+<body>
+  <button id="outside">Outside control</button>
+  <div id="scoped-root">
+    <div class="ds-toast-region" data-ds-toast-region>
+      <div class="ds-toast-region__polite" role="status" aria-live="polite" aria-relevant="additions"></div>
+      <div class="ds-toast-region__assertive" role="alert" aria-live="assertive" aria-relevant="additions"></div>
+    </div>
+  </div>
+  <script type="module">
+    import {
+      initToasts,
+      destroyToasts,
+      showToast,
+      dismissToast,
+    } from '../../js/toast.js';
+
+    window.toastApi = {
+      initToasts,
+      destroyToasts,
+      showToast,
+      dismissToast,
+    };
+    document.documentElement.dataset.toastReady = 'true';
+  </script>
+</body>
+</html>

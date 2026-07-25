@@ -37,28 +37,36 @@
   --ds-alert-title-font-size-default: var(--ds-body-font-size-sm); /** Font-size do title Alert. */
   --ds-alert-title-line-height-default: var(--ds-body-line-height-sm); /** Line-height do title Alert. */
   --ds-alert-title-font-weight-default: var(--ds-body-font-weight-bold); /** Font-weight do title Alert. */
-  --ds-alert-title-color-success-filled: var(--ds-feedback-success-content-contrast);
+  --ds-alert-title-color-success-solid: var(--ds-feedback-success-content-contrast);
   --ds-alert-title-color-subtle: var(--ds-content-strong);
-  --ds-alert-title-color-warning-filled: var(--ds-feedback-warning-content-contrast);
-  --ds-alert-title-color-error-filled: var(--ds-feedback-error-content-contrast);
-  --ds-alert-title-color-info-filled: var(--ds-feedback-info-content-contrast);
+  --ds-alert-title-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-alert-title-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-alert-title-color-info-solid: var(--ds-feedback-info-content-contrast);
   --ds-alert-description-font-size-default: var(--ds-body-font-size-sm); /** Font-size da description Alert. */
   --ds-alert-description-line-height-default: var(--ds-body-line-height-sm); /** Line-height da description Alert. */
   --ds-alert-description-font-weight-default: var(--ds-body-font-weight-regular); /** Font-weight da description Alert. */
-  --ds-alert-description-color-success-filled: var(--ds-feedback-success-content-contrast);
+  --ds-alert-description-color-success-solid: var(--ds-feedback-success-content-contrast);
   --ds-alert-description-color-subtle: var(--ds-content-strong);
-  --ds-alert-description-color-warning-filled: var(--ds-feedback-warning-content-contrast);
-  --ds-alert-description-color-error-filled: var(--ds-feedback-error-content-contrast);
-  --ds-alert-description-color-info-filled: var(--ds-feedback-info-content-contrast);
+  --ds-alert-description-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-alert-description-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-alert-description-color-info-solid: var(--ds-feedback-info-content-contrast);
+  --ds-alert-close-size-default: var(--ds-size-md); /** Tamanho do target de close do Alert. */
   --ds-alert-close-icon-size-default: var(--ds-size-sm); /** Tamanho do ícone Close Alert. */
   --ds-alert-close-icon-stroke-width-default: var(--ds-icon-stroke-width-regular-20);
-  --ds-alert-bg-success-filled: var(--ds-feedback-success-background-default);
+  --ds-alert-actions-gap-default: var(--ds-space-sm);
+  --ds-alert-actions-padding-top-default: var(--ds-space-sm); /** Padding-top da fileira Actions (8px / space.sm). */
+  --ds-alert-action-color-subtle: var(--ds-content-strong);
+  --ds-alert-action-color-success-solid: var(--ds-feedback-success-content-contrast);
+  --ds-alert-action-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-alert-action-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-alert-action-color-info-solid: var(--ds-feedback-info-content-contrast);
+  --ds-alert-bg-success-solid: var(--ds-feedback-success-background-default);
   --ds-alert-bg-success-subtle: var(--ds-feedback-success-background-subtle);
-  --ds-alert-bg-warning-filled: var(--ds-feedback-warning-background-default);
+  --ds-alert-bg-warning-solid: var(--ds-feedback-warning-background-default);
   --ds-alert-bg-warning-subtle: var(--ds-feedback-warning-background-subtle);
-  --ds-alert-bg-error-filled: var(--ds-feedback-error-background-default);
+  --ds-alert-bg-error-solid: var(--ds-feedback-error-background-default);
   --ds-alert-bg-error-subtle: var(--ds-feedback-error-background-subtle);
-  --ds-alert-bg-info-filled: var(--ds-feedback-info-background-default);
+  --ds-alert-bg-info-solid: var(--ds-feedback-info-background-default);
   --ds-alert-bg-info-subtle: var(--ds-feedback-info-background-subtle);
   --ds-alert-border-color-success-subtle: var(--ds-feedback-success-border-default);
   --ds-alert-border-color-warning-subtle: var(--ds-feedback-warning-border-default);
@@ -509,6 +517,28 @@
   --ds-pagination-focus-ring-radius-default: var(--ds-radius-md);
   --ds-pagination-icon-size-sm: var(--ds-size-xs);
   --ds-pagination-icon-stroke-width-sm: var(--ds-icon-stroke-width-regular-16);
+  --ds-popover-actions-gap-default: var(--ds-space-sm); /** Gap horizontal entre as actions do Popover. */
+  --ds-popover-actions-padding-top-default: var(--ds-space-xs); /** Padding superior do container de actions do Popover. */
+  --ds-popover-arrow-base-default: var(--ds-space-lg); /** Base visual da seta do Popover. */
+  --ds-popover-arrow-fill-default: var(--ds-surface-overlay); /** Fill da seta do Popover. */
+  --ds-popover-body-color-default: var(--ds-content-default); /** Cor do conteúdo textual do Popover. */
+  --ds-popover-body-gap-default: var(--ds-space-sm); /** Gap interno do body do Popover. */
+  --ds-popover-body-padding-bottom-default: var(--ds-space-xs); /** Padding inferior do body do Popover. */
+  --ds-popover-close-icon-size-default: var(--ds-size-xs); /** Tamanho do ícone de fechar do Popover. */
+  --ds-popover-close-icon-stroke-width-default: var(--ds-icon-stroke-width-regular-24); /** Stroke-width do ícone de fechar do Popover. */
+  --ds-popover-close-padding-default: var(--ds-space-xs); /** Padding interno do close do Popover. */
+  --ds-popover-close-size-default: var(--ds-size-md); /** Tamanho do frame de close do Popover. */
+  --ds-popover-content-slot-gap-default: var(--ds-space-sm); /** Gap fallback do content slot do Popover. */
+  --ds-popover-panel-bg-default: var(--ds-surface-overlay); /** Background da superfície do Popover. */
+  --ds-popover-panel-border-color-default: var(--ds-border-default); /** Cor da borda do Popover. */
+  --ds-popover-panel-border-width-default: var(--ds-border-width-default); /** Largura da borda do Popover. */
+  --ds-popover-panel-gap-default: var(--ds-space-sm); /** Gap vertical entre as partes do Popover. */
+  --ds-popover-panel-max-width-default: var(--ds-size-layout-sm); /** Largura máxima do Popover. */
+  --ds-popover-panel-padding-x-default: var(--ds-space-lg); /** Padding horizontal do Popover. */
+  --ds-popover-panel-padding-y-default: var(--ds-space-lg); /** Padding vertical do Popover. */
+  --ds-popover-panel-radius-default: var(--ds-radius-xl); /** Radius da superfície do Popover. */
+  --ds-popover-panel-shadow-default: var(--ds-shadow-overlay); /** Shadow do Popover, equivalente ao Effect Style elevation/2. */
+  --ds-popover-title-color-default: var(--ds-content-strong); /** Cor do title do Popover. */
   --ds-radio-target-height-sm: var(--ds-size-lg); /** Altura minima da area interativa Radio sm. */
   --ds-radio-target-height-md: var(--ds-size-xl); /** Altura minima da area interativa Radio md. */
   --ds-radio-target-height-lg: var(--ds-size-2xl); /** Altura minima da area interativa Radio lg. */
@@ -594,6 +624,45 @@
   --ds-spinner-ring-stroke-width-default: var(--ds-border-width-strong); /** Stroke width do ring Spinner. */
   --ds-spinner-indicator-border-color-default: var(--ds-border-brand);
   --ds-spinner-indicator-border-color-on-color: var(--ds-border-inverse);
+  --ds-table-container-bg: var(--ds-surface-default); /** Background do container da Table. */
+  --ds-table-header-bg: var(--ds-background-subtle); /** Background da Header Row. */
+  --ds-table-header-color: var(--ds-content-strong); /** Cor do conteúdo de Header Cell. */
+  --ds-table-header-font-family: var(--ds-body-font-family-sans); /** Família tipográfica de Header Cell. */
+  --ds-table-header-font-size-sm: var(--ds-body-font-size-sm); /** Font-size de Header Cell Small. */
+  --ds-table-header-font-size-md: var(--ds-body-font-size-md); /** Font-size de Header Cell Medium. */
+  --ds-table-header-font-weight: var(--ds-body-font-weight-semibold); /** Font-weight de Header Cell. */
+  --ds-table-header-line-height-sm: var(--ds-body-line-height-sm); /** Line-height de Header Cell Small. */
+  --ds-table-header-line-height-md: var(--ds-body-line-height-md); /** Line-height de Header Cell Medium. */
+  --ds-table-header-letter-spacing: var(--ds-body-letter-spacing-normal); /** Letter-spacing de Header Cell. */
+  --ds-table-row-bg-default: var(--ds-surface-default); /** Background da Row Default. */
+  --ds-table-row-bg-hover: var(--ds-surface-hover); /** Background da Row Hover. */
+  --ds-table-row-bg-selected: var(--ds-toned-background-default); /** Background da Row Selected. */
+  --ds-table-row-height-sm: var(--ds-size-xl); /** Altura da Row Small. */
+  --ds-table-row-height-md: var(--ds-size-2xl); /** Altura da Row Medium. */
+  --ds-table-body-color: var(--ds-content-default); /** Cor do conteúdo de Cell. */
+  --ds-table-body-font-family: var(--ds-body-font-family-sans); /** Família tipográfica de Cell. */
+  --ds-table-body-font-size-sm: var(--ds-body-font-size-sm); /** Font-size de Cell Small. */
+  --ds-table-body-font-size-md: var(--ds-body-font-size-md); /** Font-size de Cell Medium. */
+  --ds-table-body-font-weight: var(--ds-body-font-weight-regular); /** Font-weight de Cell. */
+  --ds-table-body-line-height-sm: var(--ds-body-line-height-sm); /** Line-height de Cell Small. */
+  --ds-table-body-line-height-md: var(--ds-body-line-height-md); /** Line-height de Cell Medium. */
+  --ds-table-body-letter-spacing: var(--ds-body-letter-spacing-normal); /** Letter-spacing de Cell. */
+  --ds-table-caption-color: var(--ds-content-subtle); /** Cor da caption da Table. */
+  --ds-table-caption-font-family: var(--ds-body-font-family-sans); /** Família tipográfica da caption. */
+  --ds-table-caption-font-size: var(--ds-body-font-size-sm); /** Font-size da caption. */
+  --ds-table-caption-font-weight: var(--ds-body-font-weight-regular); /** Font-weight da caption. */
+  --ds-table-caption-line-height: var(--ds-body-line-height-sm); /** Line-height da caption. */
+  --ds-table-cell-padding-x-sm: var(--ds-space-sm); /** Padding horizontal de Cell Small. */
+  --ds-table-cell-padding-x-md: var(--ds-space-md); /** Padding horizontal de Cell Medium. */
+  --ds-table-cell-padding-y-sm: var(--ds-space-xs); /** Padding vertical de Cell Small. */
+  --ds-table-cell-padding-y-md: var(--ds-space-sm); /** Padding vertical de Cell Medium. */
+  --ds-table-cell-gap: var(--ds-space-xs); /** Gap entre conteúdos compostos dentro de Cell. */
+  --ds-table-divider-color: var(--ds-border-subtle); /** Cor do divider entre Rows. */
+  --ds-table-divider-width: var(--ds-border-width-default); /** Espessura do divider entre Rows. */
+  --ds-table-sort-icon-size-sm: var(--ds-size-sm); /** Tamanho do ícone de ordenação Small. */
+  --ds-table-sort-icon-size-md: var(--ds-size-md); /** Tamanho do ícone de ordenação Medium. */
+  --ds-table-sort-icon-stroke-width-sm: var(--ds-icon-stroke-width-regular-16); /** Stroke-width do ícone de ordenação Small. */
+  --ds-table-sort-icon-stroke-width-md: var(--ds-icon-stroke-width-regular-20); /** Stroke-width do ícone de ordenação Medium. */
   --ds-tabs-list-border-width-default: var(--ds-border-width-default); /** Largura da borda da lista de Tabs. */
   --ds-tabs-item-padding-x-default: var(--ds-space-lg); /** Espaçamento interno horizontal do item de Tabs. */
   --ds-tabs-item-padding-top-default: var(--ds-space-md); /** Espaçamento interno superior do item de Tabs. */
@@ -626,6 +695,51 @@
   --ds-textarea-text-line-height-sm: var(--ds-body-line-height-2xs); /** Line-height do texto Textarea sm. */
   --ds-textarea-text-line-height-md: var(--ds-body-line-height-sm); /** Line-height do texto Textarea md. */
   --ds-textarea-text-line-height-lg: var(--ds-body-line-height-md); /** Line-height do texto Textarea lg. */
+  --ds-toast-padding-default: var(--ds-space-md); /** Padding do Toast. */
+  --ds-toast-gap-default: var(--ds-space-sm); /** Gap horizontal do Toast. */
+  --ds-toast-actions-gap-default: var(--ds-space-sm); /** Gap horizontal entre as actions do Toast. */
+  --ds-toast-actions-padding-top-default: var(--ds-space-sm); /** Espaço acima das actions do Toast. */
+  --ds-toast-radius-default: var(--ds-radius-lg); /** Radius do Toast. */
+  --ds-toast-border-width-default: var(--ds-border-width-default); /** Border width do Toast Subtle. */
+  --ds-toast-panel-shadow-default: var(--ds-shadow-overlay); /** Elevação do painel Toast, alinhada ao Effect Style elevation/2. */
+  --ds-toast-icon-size-default: var(--ds-size-sm); /** Tamanho do ícone de feedback. */
+  --ds-toast-icon-stroke-width-default: var(--ds-icon-stroke-width-regular-20);
+  --ds-toast-content-gap-default: var(--ds-space-xs); /** Gap vertical entre title, description e actions. */
+  --ds-toast-title-font-size-default: var(--ds-body-font-size-sm);
+  --ds-toast-title-line-height-default: var(--ds-body-line-height-sm);
+  --ds-toast-title-font-weight-default: var(--ds-body-font-weight-bold);
+  --ds-toast-title-color-success-solid: var(--ds-feedback-success-content-contrast);
+  --ds-toast-title-color-subtle: var(--ds-content-strong);
+  --ds-toast-title-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-toast-title-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-toast-title-color-info-solid: var(--ds-feedback-info-content-contrast);
+  --ds-toast-description-font-size-default: var(--ds-body-font-size-sm);
+  --ds-toast-description-line-height-default: var(--ds-body-line-height-sm);
+  --ds-toast-description-font-weight-default: var(--ds-body-font-weight-regular);
+  --ds-toast-description-color-success-solid: var(--ds-feedback-success-content-contrast);
+  --ds-toast-description-color-subtle: var(--ds-content-strong);
+  --ds-toast-description-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-toast-description-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-toast-description-color-info-solid: var(--ds-feedback-info-content-contrast);
+  --ds-toast-close-icon-size-default: var(--ds-size-sm);
+  --ds-toast-close-icon-stroke-width-default: var(--ds-icon-stroke-width-regular-20);
+  --ds-toast-bg-success-solid: var(--ds-feedback-success-background-default);
+  --ds-toast-bg-success-subtle: var(--ds-feedback-success-background-subtle);
+  --ds-toast-bg-warning-solid: var(--ds-feedback-warning-background-default);
+  --ds-toast-bg-warning-subtle: var(--ds-feedback-warning-background-subtle);
+  --ds-toast-bg-error-solid: var(--ds-feedback-error-background-default);
+  --ds-toast-bg-error-subtle: var(--ds-feedback-error-background-subtle);
+  --ds-toast-bg-info-solid: var(--ds-feedback-info-background-default);
+  --ds-toast-bg-info-subtle: var(--ds-feedback-info-background-subtle);
+  --ds-toast-border-color-success-subtle: var(--ds-feedback-success-border-default);
+  --ds-toast-border-color-warning-subtle: var(--ds-feedback-warning-border-default);
+  --ds-toast-border-color-error-subtle: var(--ds-feedback-error-border-default);
+  --ds-toast-border-color-info-subtle: var(--ds-feedback-info-border-default);
+  --ds-toast-action-color-subtle: var(--ds-content-strong);
+  --ds-toast-action-color-success-solid: var(--ds-feedback-success-content-contrast);
+  --ds-toast-action-color-warning-solid: var(--ds-feedback-warning-content-contrast);
+  --ds-toast-action-color-error-solid: var(--ds-feedback-error-content-contrast);
+  --ds-toast-action-color-info-solid: var(--ds-feedback-info-content-contrast);
   --ds-toggle-target-height-sm: var(--ds-size-lg); /** Altura minima da area interativa Toggle sm. */
   --ds-toggle-target-height-md: var(--ds-size-xl); /** Altura minima da area interativa Toggle md. */
   --ds-toggle-target-height-lg: var(--ds-size-2xl); /** Altura minima da area interativa Toggle lg. */
@@ -681,18 +795,18 @@
   --ds-accordion-chevron-color-disabled: var(--ds-icon-color-disabled); /** Accordion Component token aliasing Semantic/icon/color/disabled. */
   --ds-accordion-leading-icon-color-default: var(--ds-icon-color-default); /** Sincronizado a partir da Variable Figma component.accordion.leading-icon.color.default. */
   --ds-accordion-leading-icon-color-disabled: var(--ds-icon-color-disabled); /** Sincronizado a partir da Variable Figma component.accordion.leading-icon.color.disabled. */
-  --ds-alert-icon-color-success-filled: var(--ds-icon-color-success-contrast); /** Cor do ícone do Alert. Alias para feedback/success/content/contrast. */
+  --ds-alert-icon-color-success-solid: var(--ds-icon-color-success-contrast); /** Cor do ícone do Alert. Alias para feedback/success/content/contrast. */
   --ds-alert-icon-color-success-subtle: var(--ds-icon-color-success); /** Cor do ícone do Alert. Alias para feedback/success/content/default. */
-  --ds-alert-icon-color-warning-filled: var(--ds-icon-color-warning-contrast); /** Cor do ícone do Alert. Alias para feedback/warning/content/contrast. */
+  --ds-alert-icon-color-warning-solid: var(--ds-icon-color-warning-contrast); /** Cor do ícone do Alert. Alias para feedback/warning/content/contrast. */
   --ds-alert-icon-color-warning-subtle: var(--ds-icon-color-warning); /** Cor do ícone do Alert. Alias para feedback/warning/content/default. */
-  --ds-alert-icon-color-error-filled: var(--ds-icon-color-error-contrast); /** Cor do ícone do Alert. Alias para feedback/error/content/contrast. */
+  --ds-alert-icon-color-error-solid: var(--ds-icon-color-error-contrast); /** Cor do ícone do Alert. Alias para feedback/error/content/contrast. */
   --ds-alert-icon-color-error-subtle: var(--ds-icon-color-error); /** Cor do ícone do Alert. Alias para feedback/error/content/default. */
-  --ds-alert-icon-color-info-filled: var(--ds-icon-color-info-contrast); /** Cor do ícone do Alert. Alias para feedback/info/content/contrast. */
+  --ds-alert-icon-color-info-solid: var(--ds-icon-color-info-contrast); /** Cor do ícone do Alert. Alias para feedback/info/content/contrast. */
   --ds-alert-icon-color-info-subtle: var(--ds-icon-color-default); /** Cor do ícone do Alert. Alias para feedback/info/content/default. */
-  --ds-alert-close-icon-color-success-filled: var(--ds-icon-color-success-contrast);
-  --ds-alert-close-icon-color-warning-filled: var(--ds-icon-color-warning-contrast);
-  --ds-alert-close-icon-color-error-filled: var(--ds-icon-color-error-contrast);
-  --ds-alert-close-icon-color-info-filled: var(--ds-icon-color-info-contrast);
+  --ds-alert-close-icon-color-success-solid: var(--ds-icon-color-success-contrast);
+  --ds-alert-close-icon-color-warning-solid: var(--ds-icon-color-warning-contrast);
+  --ds-alert-close-icon-color-error-solid: var(--ds-icon-color-error-contrast);
+  --ds-alert-close-icon-color-info-solid: var(--ds-icon-color-info-contrast);
   --ds-alert-close-icon-color-subtle: var(--ds-icon-color-default);
   --ds-card-interactive-border-color-selected: var(--ds-brand-border-default); /** Border color do Card Interactive no estado selected. */
   --ds-checkbox-box-border-color-unchecked-error-hover: var(--ds-border-error-hover);
@@ -708,6 +822,7 @@
   --ds-menu-item-icon-color-destructive: var(--ds-icon-color-error-strong); /** Cor do ícone destructive do item Menu. */
   --ds-modal-close-color-default: var(--ds-icon-color-default); /** Cor do ícone de fechar da Modal. */
   --ds-pagination-icon-color-default: var(--ds-icon-color-default);
+  --ds-popover-close-color-default: var(--ds-icon-color-default); /** Cor do ícone de fechar do Popover. */
   --ds-radio-control-border-color-unselected-error-hover: var(--ds-border-error-hover);
   --ds-radio-control-border-color-selected-default: var(--ds-brand-border-default); /** Border color do control Radio selected default. */
   --ds-radio-control-border-color-selected-hover: var(--ds-brand-border-hover); /** Border color do control Radio selected hover. */
@@ -717,4 +832,18 @@
   --ds-select-icon-color-disabled: var(--ds-icon-color-disabled); /** Cor do ícone Select disabled. */
   --ds-spinner-track-border-color-default: var(--ds-border-overlay-default);
   --ds-spinner-track-border-color-on-color: var(--ds-border-overlay-medium);
+  --ds-table-sort-icon-color: var(--ds-icon-color-subtle); /** Cor do ícone de ordenação. */
+  --ds-toast-icon-color-success-solid: var(--ds-icon-color-success-contrast);
+  --ds-toast-icon-color-success-subtle: var(--ds-icon-color-success);
+  --ds-toast-icon-color-warning-solid: var(--ds-icon-color-warning-contrast);
+  --ds-toast-icon-color-warning-subtle: var(--ds-icon-color-warning);
+  --ds-toast-icon-color-error-solid: var(--ds-icon-color-error-contrast);
+  --ds-toast-icon-color-error-subtle: var(--ds-icon-color-error);
+  --ds-toast-icon-color-info-solid: var(--ds-icon-color-info-contrast);
+  --ds-toast-icon-color-info-subtle: var(--ds-icon-color-default);
+  --ds-toast-close-icon-color-success-solid: var(--ds-icon-color-success-contrast);
+  --ds-toast-close-icon-color-warning-solid: var(--ds-icon-color-warning-contrast);
+  --ds-toast-close-icon-color-error-solid: var(--ds-icon-color-error-contrast);
+  --ds-toast-close-icon-color-info-solid: var(--ds-icon-color-info-contrast);
+  --ds-toast-close-icon-color-subtle: var(--ds-icon-color-default);
 }

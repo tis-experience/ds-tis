@@ -1,0 +1,371 @@
+{
+  "component": {
+    "toast": {
+      "padding": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.md}",
+          "$description": "Padding do Toast."
+        }
+      },
+      "gap": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.space.sm}",
+          "$description": "Gap horizontal do Toast."
+        }
+      },
+      "actions": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal entre as actions do Toast."
+          }
+        },
+        "padding-top": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Espaço acima das actions do Toast."
+          }
+        }
+      },
+      "radius": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.radius.lg}",
+          "$description": "Radius do Toast."
+        }
+      },
+      "border-width": {
+        "default": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Border width do Toast Subtle."
+        }
+      },
+      "panel": {
+        "shadow": {
+          "default": {
+            "$type": "shadow",
+            "$value": "{semantic.shadow.overlay}",
+            "$description": "Elevação do painel Toast, alinhada ao Effect Style elevation/2."
+          }
+        }
+      },
+      "icon": {
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone de feedback."
+          }
+        },
+        "color": {
+          "success": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.success-contrast}"
+            },
+            "subtle": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.success}"
+            }
+          },
+          "warning": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.warning-contrast}"
+            },
+            "subtle": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.warning}"
+            }
+          },
+          "error": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.error-contrast}"
+            },
+            "subtle": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.error}"
+            }
+          },
+          "info": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.info-contrast}"
+            },
+            "subtle": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.default}"
+            }
+          }
+        },
+        "stroke-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.20}"
+          }
+        }
+      },
+      "content": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Gap vertical entre title, description e actions."
+          }
+        }
+      },
+      "title": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}"
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.bold}"
+          }
+        },
+        "color": {
+          "success": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.success.content-contrast}"
+            }
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}"
+          },
+          "warning": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.warning.content-contrast}"
+            }
+          },
+          "error": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.error.content-contrast}"
+            }
+          },
+          "info": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.info.content-contrast}"
+            }
+          }
+        }
+      },
+      "description": {
+        "font-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}"
+          }
+        },
+        "line-height": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}"
+          }
+        },
+        "font-weight": {
+          "default": {
+            "$type": "number",
+            "$value": "{semantic.typography.body.font-weight.regular}"
+          }
+        },
+        "color": {
+          "success": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.success.content-contrast}"
+            }
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}"
+          },
+          "warning": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.warning.content-contrast}"
+            }
+          },
+          "error": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.error.content-contrast}"
+            }
+          },
+          "info": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.info.content-contrast}"
+            }
+          }
+        }
+      },
+      "close": {
+        "icon-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}"
+          }
+        },
+        "icon": {
+          "color": {
+            "success": {
+              "solid": {
+                "$type": "color",
+                "$value": "{semantic.icon.color.success-contrast}"
+              }
+            },
+            "warning": {
+              "solid": {
+                "$type": "color",
+                "$value": "{semantic.icon.color.warning-contrast}"
+              }
+            },
+            "error": {
+              "solid": {
+                "$type": "color",
+                "$value": "{semantic.icon.color.error-contrast}"
+              }
+            },
+            "info": {
+              "solid": {
+                "$type": "color",
+                "$value": "{semantic.icon.color.info-contrast}"
+              }
+            },
+            "subtle": {
+              "$type": "color",
+              "$value": "{semantic.icon.color.default}"
+            }
+          },
+          "stroke-width": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.20}"
+            }
+          }
+        }
+      },
+      "bg": {
+        "success": {
+          "solid": {
+            "$type": "color",
+            "$value": "{semantic.feedback.success.background.default}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.success.background.subtle}"
+          }
+        },
+        "warning": {
+          "solid": {
+            "$type": "color",
+            "$value": "{semantic.feedback.warning.background.default}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.warning.background.subtle}"
+          }
+        },
+        "error": {
+          "solid": {
+            "$type": "color",
+            "$value": "{semantic.feedback.error.background.default}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.error.background.subtle}"
+          }
+        },
+        "info": {
+          "solid": {
+            "$type": "color",
+            "$value": "{semantic.feedback.info.background.default}"
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.info.background.subtle}"
+          }
+        }
+      },
+      "border-color": {
+        "success": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.success.border-default}"
+          }
+        },
+        "warning": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.warning.border-default}"
+          }
+        },
+        "error": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.error.border-default}"
+          }
+        },
+        "info": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.feedback.info.border-default}"
+          }
+        }
+      },
+      "action": {
+        "color": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}"
+          },
+          "success": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.success.content-contrast}"
+            }
+          },
+          "warning": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.warning.content-contrast}"
+            }
+          },
+          "error": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.error.content-contrast}"
+            }
+          },
+          "info": {
+            "solid": {
+              "$type": "color",
+              "$value": "{semantic.feedback.info.content-contrast}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

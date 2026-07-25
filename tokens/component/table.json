@@ -1,0 +1,242 @@
+{
+  "component": {
+    "table": {
+      "container": {
+        "bg": {
+          "$type": "color",
+          "$value": "{semantic.surface.default}",
+          "$description": "Background do container da Table."
+        }
+      },
+      "header": {
+        "bg": {
+          "$type": "color",
+          "$value": "{semantic.background.subtle}",
+          "$description": "Background da Header Row."
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{semantic.content.strong}",
+          "$description": "Cor do conteúdo de Header Cell."
+        },
+        "font-family": {
+          "$type": "string",
+          "$value": "{semantic.typography.body.font-family.sans}",
+          "$description": "Família tipográfica de Header Cell."
+        },
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size de Header Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$description": "Font-size de Header Cell Medium."
+          }
+        },
+        "font-weight": {
+          "$type": "number",
+          "$value": "{semantic.typography.body.font-weight.semibold}",
+          "$description": "Font-weight de Header Cell."
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height de Header Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$description": "Line-height de Header Cell Medium."
+          }
+        },
+        "letter-spacing": {
+          "$type": "dimension",
+          "$value": "{semantic.typography.body.letter-spacing.normal}",
+          "$description": "Letter-spacing de Header Cell."
+        }
+      },
+      "row": {
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.default}",
+            "$description": "Background da Row Default."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{semantic.surface.hover}",
+            "$description": "Background da Row Hover."
+          },
+          "selected": {
+            "$type": "color",
+            "$value": "{semantic.toned.background.default}",
+            "$description": "Background da Row Selected."
+          }
+        },
+        "height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xl}",
+            "$description": "Altura da Row Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.2xl}",
+            "$description": "Altura da Row Medium."
+          }
+        }
+      },
+      "body": {
+        "color": {
+          "$type": "color",
+          "$value": "{semantic.content.default}",
+          "$description": "Cor do conteúdo de Cell."
+        },
+        "font-family": {
+          "$type": "string",
+          "$value": "{semantic.typography.body.font-family.sans}",
+          "$description": "Família tipográfica de Cell."
+        },
+        "font-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.sm}",
+            "$description": "Font-size de Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.font-size.md}",
+            "$description": "Font-size de Cell Medium."
+          }
+        },
+        "font-weight": {
+          "$type": "number",
+          "$value": "{semantic.typography.body.font-weight.regular}",
+          "$description": "Font-weight de Cell."
+        },
+        "line-height": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.sm}",
+            "$description": "Line-height de Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.typography.body.line-height.md}",
+            "$description": "Line-height de Cell Medium."
+          }
+        },
+        "letter-spacing": {
+          "$type": "dimension",
+          "$value": "{semantic.typography.body.letter-spacing.normal}",
+          "$description": "Letter-spacing de Cell."
+        }
+      },
+      "caption": {
+        "color": {
+          "$type": "color",
+          "$value": "{semantic.content.subtle}",
+          "$description": "Cor da caption da Table."
+        },
+        "font-family": {
+          "$type": "string",
+          "$value": "{semantic.typography.body.font-family.sans}",
+          "$description": "Família tipográfica da caption."
+        },
+        "font-size": {
+          "$type": "dimension",
+          "$value": "{semantic.typography.body.font-size.sm}",
+          "$description": "Font-size da caption."
+        },
+        "font-weight": {
+          "$type": "number",
+          "$value": "{semantic.typography.body.font-weight.regular}",
+          "$description": "Font-weight da caption."
+        },
+        "line-height": {
+          "$type": "dimension",
+          "$value": "{semantic.typography.body.line-height.sm}",
+          "$description": "Line-height da caption."
+        }
+      },
+      "cell": {
+        "padding-x": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding horizontal de Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.md}",
+            "$description": "Padding horizontal de Cell Medium."
+          }
+        },
+        "padding-y": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Padding vertical de Cell Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Padding vertical de Cell Medium."
+          }
+        },
+        "gap": {
+          "$type": "dimension",
+          "$value": "{semantic.space.xs}",
+          "$description": "Gap entre conteúdos compostos dentro de Cell."
+        }
+      },
+      "divider": {
+        "color": {
+          "$type": "color",
+          "$value": "{semantic.border.subtle}",
+          "$description": "Cor do divider entre Rows."
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "{semantic.border.width.default}",
+          "$description": "Espessura do divider entre Rows."
+        }
+      },
+      "sort": {
+        "icon-color": {
+          "$type": "color",
+          "$value": "{semantic.icon.color.subtle}",
+          "$description": "Cor do ícone de ordenação."
+        },
+        "icon-size": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.size.sm}",
+            "$description": "Tamanho do ícone de ordenação Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho do ícone de ordenação Medium."
+          }
+        },
+        "icon-stroke-width": {
+          "sm": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.16}",
+            "$description": "Stroke-width do ícone de ordenação Small."
+          },
+          "md": {
+            "$type": "dimension",
+            "$value": "{semantic.icon.stroke-width.regular.20}",
+            "$description": "Stroke-width do ícone de ordenação Medium."
+          }
+        }
+      }
+    }
+  }
+}

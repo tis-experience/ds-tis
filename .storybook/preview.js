@@ -9,8 +9,10 @@ import { destroyAccordions, initAccordions } from '../js/accordion.js';
 import { destroyComboboxes, initComboboxes } from '../js/combobox.js';
 import { destroyActionMenus, initActionMenus } from '../js/menu.js';
 import { destroyModals, initModals } from '../js/modal.js';
+import { destroyPopovers, initPopovers } from '../js/popover.js';
 import { destroyTabs, initTabs } from '../js/tabs.js';
 import { destroyTooltips, initTooltips } from '../js/tooltip.js';
+import { destroyToasts, initToasts } from '../js/toast.js';
 import { modeFromUrl, themeForMode } from './theme.js';
 
 const runtimes = [
@@ -18,8 +20,10 @@ const runtimes = [
   [destroyComboboxes, initComboboxes],
   [destroyActionMenus, initActionMenus],
   [destroyModals, initModals],
+  [destroyPopovers, initPopovers],
   [destroyTabs, initTabs],
   [destroyTooltips, initTooltips],
+  [destroyToasts, initToasts],
 ];
 
 function refreshRuntimes() {

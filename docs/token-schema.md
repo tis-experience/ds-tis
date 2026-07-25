@@ -1,6 +1,6 @@
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-22. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-25. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -88,12 +88,15 @@ Arquivos canônicos em `tokens/component/`:
 - `menu.json`
 - `modal.json`
 - `pagination.json`
+- `popover.json`
 - `radio.json`
 - `select.json`
 - `skeleton.json`
 - `spinner.json`
+- `table.json`
 - `tabs.json`
 - `textarea.json`
+- `toast.json`
 - `toggle.json`
 - `tooltip.json`
 

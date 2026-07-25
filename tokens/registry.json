@@ -4126,8 +4126,20 @@
       "contexto": "Use via Semantic `z.{base|dropdown|...}`. Componentes top-level (modal, toast, drawer) consomem direto.",
       "decisao": "Escala 0–50 em steps de 10 reserva slots intermediários (5, 15) pra ajustes finos sem refator. Topbar do site usa calc(var(--ds-z-50) + 10) = 60.",
       "usos": {
-        "css": [],
-        "tokens": [],
+        "css": [
+          {
+            "file": "css/tokens/generated/theme-dark.css",
+            "count": 1
+          },
+          {
+            "file": "css/tokens/generated/theme-light.css",
+            "count": 1
+          }
+        ],
+        "tokens": [
+          "semantic.z.toast",
+          "semantic.z.toast"
+        ],
         "figma": []
       }
     },
@@ -4170,14 +4182,15 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
           "component.button.bg.outline.pressed",
           "component.skeleton.text.fill.default",
           "component.skeleton.circle.fill.default",
-          "component.skeleton.rectangle.fill.default"
+          "component.skeleton.rectangle.fill.default",
+          "component.table.header.bg"
         ],
         "figma": []
       }
@@ -4247,7 +4260,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 12
+            "count": 14
           }
         ],
         "tokens": [
@@ -4261,6 +4274,8 @@
           "component.field.bg.readonly",
           "component.radio.control.fill.unselected.default",
           "component.radio.control.fill.unselected.focus",
+          "component.table.container.bg",
+          "component.table.row.bg.default",
           "component.toggle.track.fill.off.default",
           "component.toggle.track.fill.off.focus"
         ],
@@ -4304,8 +4319,16 @@
       "contexto": "Use em painéis, cards, modais. Pareado com shadow.",
       "decisao": "Alias resolvido em foundation.color.neutral.50.",
       "usos": {
-        "css": [],
-        "tokens": [],
+        "css": [
+          {
+            "file": "css/tokens/generated/component.css",
+            "count": 2
+          }
+        ],
+        "tokens": [
+          "component.popover.arrow.fill.default",
+          "component.popover.panel.bg.default"
+        ],
         "figma": []
       }
     },
@@ -4356,8 +4379,12 @@
             "count": 1
           },
           {
+            "file": "css/components/popover.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 19
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -4372,6 +4399,7 @@
           "component.accordion.trigger.content.color.default",
           "component.alert.title.color.subtle",
           "component.alert.description.color.subtle",
+          "component.alert.action.color.subtle",
           "component.badge.label.color.neutral.solid",
           "component.card.title.color.default",
           "component.combobox.option.content.color.selected",
@@ -4381,7 +4409,12 @@
           "component.menu.item.content.color.hover",
           "component.menu.item.content.color.focused",
           "component.modal.title.color.default",
+          "component.popover.title.color.default",
+          "component.table.header.color",
           "component.tabs.label.color.hover",
+          "component.toast.title.color.subtle",
+          "component.toast.description.color.subtle",
+          "component.toast.action.color.subtle",
           "semantic.icon.color.active",
           "semantic.icon.color.active"
         ],
@@ -4411,7 +4444,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 18
+            "count": 20
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -4438,6 +4471,8 @@
           "component.modal.description.color.default",
           "component.pagination.item.content.color.default",
           "component.pagination.item.content.color.hover",
+          "component.popover.body.color.default",
+          "component.table.body.color",
           "component.tabs.label.color.default",
           "component.toggle.thumb.fill.off.default",
           "component.toggle.thumb.fill.off.focus",
@@ -4470,7 +4505,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -4484,6 +4519,7 @@
         "tokens": [
           "component.field.placeholder.color.default",
           "component.menu.item.meta.color.default",
+          "component.table.caption.color",
           "semantic.icon.color.subtle",
           "semantic.icon.color.subtle"
         ],
@@ -4585,14 +4621,15 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
           "component.accordion.item.border-color.default",
           "component.badge.border-color.neutral.subtle",
           "component.card-interactive.border-color.default",
-          "component.card.border-color.outlined"
+          "component.card.border-color.outlined",
+          "component.popover.panel.border-color.default"
         ],
         "figma": []
       }
@@ -4637,13 +4674,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 4
           }
         ],
         "tokens": [
           "component.combobox.listbox.container.border-color.default",
           "component.field.border-color.readonly",
-          "component.menu.surface.border-color.default"
+          "component.menu.surface.border-color.default",
+          "component.table.divider.color"
         ],
         "figma": []
       }
@@ -4670,7 +4708,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 16
           }
         ],
         "tokens": [
@@ -4684,8 +4722,11 @@
           "component.divider.line.thickness.default",
           "component.field.border-width",
           "component.menu.surface.border-width.default",
+          "component.popover.panel.border-width.default",
           "component.radio.control.border-width.unselected.default",
+          "component.table.divider.width",
           "component.tabs.list.border-width.default",
+          "component.toast.border-width.default",
           "component.toggle.track.border-width.default"
         ],
         "figma": []
@@ -4878,6 +4919,10 @@
             "count": 1
           },
           {
+            "file": "css/components/toast.css",
+            "count": 1
+          },
+          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
           },
@@ -5033,6 +5078,9 @@
           "component.input.text.font-family.default",
           "component.pagination.item.font-family.default",
           "component.select.text.font-family.default",
+          "component.table.header.font-family",
+          "component.table.body.font-family",
+          "component.table.caption.font-family",
           "component.textarea.text.font-family.default"
         ],
         "figma": []
@@ -5057,7 +5105,10 @@
           "component.input.text.font-weight.default",
           "component.pagination.item.font-weight.default",
           "component.select.text.font-weight.default",
+          "component.table.body.font-weight",
+          "component.table.caption.font-weight",
           "component.textarea.text.font-weight.default",
+          "component.toast.description.font-weight.default",
           "component.tooltip.label.font-weight.default"
         ],
         "figma": []
@@ -5093,7 +5144,8 @@
         "css": [],
         "tokens": [
           "component.avatar.initials.font-weight.lg",
-          "component.card.title.font-weight.default"
+          "component.card.title.font-weight.default",
+          "component.table.header.font-weight"
         ],
         "figma": []
       }
@@ -5120,7 +5172,8 @@
           "component.card.subtitle.font-weight.default",
           "component.form-field.error.font-weight.default",
           "component.pagination.item.font-weight.current",
-          "component.tabs.label.font-weight.default"
+          "component.tabs.label.font-weight.default",
+          "component.toast.title.font-weight.default"
         ],
         "figma": []
       }
@@ -5143,6 +5196,8 @@
           "component.button.label.letter-spacing.default",
           "component.input.text.letter-spacing.default",
           "component.select.text.letter-spacing.default",
+          "component.table.header.letter-spacing",
+          "component.table.body.letter-spacing",
           "component.tabs.label.letter-spacing.default",
           "component.textarea.text.letter-spacing.default"
         ],
@@ -5215,8 +5270,13 @@
           "component.input.text.font-size.md",
           "component.pagination.item.font-size.sm",
           "component.select.text.font-size.md",
+          "component.table.header.font-size.sm",
+          "component.table.body.font-size.sm",
+          "component.table.caption.font-size",
           "component.tabs.label.font-size.default",
           "component.textarea.text.font-size.md",
+          "component.toast.title.font-size.default",
+          "component.toast.description.font-size.default",
           "component.tooltip.label.font-size.default"
         ],
         "figma": []
@@ -5239,6 +5299,8 @@
           "component.input.text.font-size.lg",
           "component.pagination.item.font-size.md",
           "component.select.text.font-size.lg",
+          "component.table.header.font-size.md",
+          "component.table.body.font-size.md",
           "component.textarea.text.font-size.lg"
         ],
         "figma": []
@@ -5362,8 +5424,13 @@
           "component.input.text.line-height.md",
           "component.pagination.item.line-height.sm",
           "component.select.text.line-height.md",
+          "component.table.header.line-height.sm",
+          "component.table.body.line-height.sm",
+          "component.table.caption.line-height",
           "component.tabs.label.line-height.default",
           "component.textarea.text.line-height.md",
+          "component.toast.title.line-height.default",
+          "component.toast.description.line-height.default",
           "component.tooltip.label.line-height.default"
         ],
         "figma": []
@@ -5386,6 +5453,8 @@
           "component.input.text.line-height.lg",
           "component.pagination.item.line-height.md",
           "component.select.text.line-height.lg",
+          "component.table.header.line-height.md",
+          "component.table.body.line-height.md",
           "component.textarea.text.line-height.lg"
         ],
         "figma": []
@@ -5461,10 +5530,6 @@
             "count": 3
           },
           {
-            "file": "css/components/alert.css",
-            "count": 1
-          },
-          {
             "file": "css/components/button.css",
             "count": 4
           },
@@ -5519,10 +5584,6 @@
           {
             "file": "css/components/toggle.css",
             "count": 4
-          },
-          {
-            "file": "css/components/tooltip.css",
-            "count": 1
           }
         ],
         "tokens": [],
@@ -5564,10 +5625,6 @@
             "count": 3
           },
           {
-            "file": "css/components/alert.css",
-            "count": 1
-          },
-          {
             "file": "css/components/button.css",
             "count": 4
           },
@@ -5622,10 +5679,6 @@
           {
             "file": "css/components/toggle.css",
             "count": 4
-          },
-          {
-            "file": "css/components/tooltip.css",
-            "count": 1
           }
         ],
         "tokens": [],
@@ -6306,12 +6359,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.border-color.success.subtle",
-          "component.focus-ring.color.success"
+          "component.focus-ring.color.success",
+          "component.toast.border-color.success.subtle"
         ],
         "figma": []
       }
@@ -6365,7 +6419,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 7
+            "count": 11
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6377,13 +6431,17 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.success.filled",
-          "component.alert.description.color.success.filled",
+          "component.alert.title.color.success.solid",
+          "component.alert.description.color.success.solid",
+          "component.alert.action.color.success.solid",
           "component.badge.label.color.success.solid",
           "component.button.content.color.success.default",
           "component.button.content.color.success.hover",
           "component.button.content.color.success.pressed",
           "component.button.content.color.success.focus",
+          "component.toast.title.color.success.solid",
+          "component.toast.description.color.success.solid",
+          "component.toast.action.color.success.solid",
           "semantic.icon.color.success-contrast",
           "semantic.icon.color.success-contrast"
         ],
@@ -6404,11 +6462,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.warning.subtle"
+          "component.alert.border-color.warning.subtle",
+          "component.toast.border-color.warning.subtle"
         ],
         "figma": []
       }
@@ -6462,7 +6521,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 7
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6474,9 +6533,13 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.warning.filled",
-          "component.alert.description.color.warning.filled",
+          "component.alert.title.color.warning.solid",
+          "component.alert.description.color.warning.solid",
+          "component.alert.action.color.warning.solid",
           "component.badge.label.color.warning.solid",
+          "component.toast.title.color.warning.solid",
+          "component.toast.description.color.warning.solid",
+          "component.toast.action.color.warning.solid",
           "semantic.icon.color.warning-contrast",
           "semantic.icon.color.warning-contrast"
         ],
@@ -6497,11 +6560,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.error.subtle"
+          "component.alert.border-color.error.subtle",
+          "component.toast.border-color.error.subtle"
         ],
         "figma": []
       }
@@ -6561,7 +6625,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 7
+            "count": 11
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6573,13 +6637,17 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.error.filled",
-          "component.alert.description.color.error.filled",
+          "component.alert.title.color.error.solid",
+          "component.alert.description.color.error.solid",
+          "component.alert.action.color.error.solid",
           "component.badge.label.color.error.solid",
           "component.button.content.color.danger.default",
           "component.button.content.color.danger.hover",
           "component.button.content.color.danger.pressed",
           "component.button.content.color.danger.focus",
+          "component.toast.title.color.error.solid",
+          "component.toast.description.color.error.solid",
+          "component.toast.action.color.error.solid",
           "semantic.icon.color.error-contrast",
           "semantic.icon.color.error-contrast"
         ],
@@ -6600,11 +6668,12 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.alert.border-color.info.subtle"
+          "component.alert.border-color.info.subtle",
+          "component.toast.border-color.info.subtle"
         ],
         "figma": []
       }
@@ -6648,7 +6717,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 7
           },
           {
             "file": "css/tokens/generated/theme-dark.css",
@@ -6660,9 +6729,13 @@
           }
         ],
         "tokens": [
-          "component.alert.title.color.info.filled",
-          "component.alert.description.color.info.filled",
+          "component.alert.title.color.info.solid",
+          "component.alert.description.color.info.solid",
+          "component.alert.action.color.info.solid",
           "component.badge.label.color.info.solid",
+          "component.toast.title.color.info.solid",
+          "component.toast.description.color.info.solid",
+          "component.toast.action.color.info.solid",
           "semantic.icon.color.info-contrast",
           "semantic.icon.color.info-contrast"
         ],
@@ -6795,6 +6868,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/accordion.css",
             "count": 1
           },
@@ -6853,6 +6930,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/checkbox.css",
             "count": 5
           },
@@ -6870,7 +6951,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 28
+            "count": 34
           },
           {
             "file": "css/utilities/layout.css",
@@ -6900,10 +6981,16 @@
           "component.menu.item.gap.sm",
           "component.menu.item.gap.md",
           "component.modal.heading.gap.default",
+          "component.popover.actions.padding-top.default",
+          "component.popover.body.padding-bottom.default",
+          "component.popover.close.padding.default",
           "component.radio.content.gap.default",
           "component.select.gap.sm",
           "component.select.gap.md",
           "component.select.padding-x.sm",
+          "component.table.cell.padding-y.sm",
+          "component.table.cell.gap",
+          "component.toast.content.gap.default",
           "component.toggle.content.gap.default",
           "component.tooltip.arrow.depth.default"
         ],
@@ -6941,12 +7028,16 @@
             "count": 3
           },
           {
+            "file": "css/components/toast.css",
+            "count": 2
+          },
+          {
             "file": "css/components/tooltip.css",
             "count": 4
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 35
+            "count": 46
           },
           {
             "file": "css/utilities/layout.css",
@@ -6955,6 +7046,8 @@
         ],
         "tokens": [
           "component.alert.gap.default",
+          "component.alert.actions.gap.default",
+          "component.alert.actions.padding-top.default",
           "component.badge.padding-x.default",
           "component.button.padding-x.sm",
           "component.button.padding-y.sm",
@@ -6981,11 +7074,20 @@
           "component.modal.content-slot.gap.default",
           "component.modal.footer.gap.sm",
           "component.modal.close.padding.md",
+          "component.popover.actions.gap.default",
+          "component.popover.body.gap.default",
+          "component.popover.content-slot.gap.default",
+          "component.popover.panel.gap.default",
           "component.radio.target.gap.default",
           "component.radio.group.options.gap.default",
           "component.select.gap.lg",
           "component.select.padding-x.md",
+          "component.table.cell.padding-x.sm",
+          "component.table.cell.padding-y.md",
           "component.textarea.padding-x.sm",
+          "component.toast.gap.default",
+          "component.toast.actions.gap.default",
+          "component.toast.actions.padding-top.default",
           "component.toggle.target.gap.default",
           "component.tooltip.content.padding-y.default",
           "component.tooltip.arrow.base.default"
@@ -7008,6 +7110,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 1
+          },
+          {
             "file": "css/components/divider.css",
             "count": 2
           },
@@ -7021,7 +7127,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 22
+            "count": 24
           },
           {
             "file": "css/utilities/layout.css",
@@ -7047,9 +7153,11 @@
           "component.modal.footer.gap.md",
           "component.modal.close.padding.lg",
           "component.select.padding-x.lg",
+          "component.table.cell.padding-x.md",
           "component.tabs.item.padding-top.default",
           "component.tabs.item.indicator-gap.default",
           "component.textarea.padding-x.md",
+          "component.toast.padding.default",
           "component.tooltip.content.padding-x.default"
         ],
         "figma": []
@@ -7070,8 +7178,16 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/reset.css",
+            "count": 3
+          },
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          },
+          {
             "file": "css/tokens/generated/component.css",
-            "count": 10
+            "count": 13
           },
           {
             "file": "css/utilities/layout.css",
@@ -7086,6 +7202,9 @@
           "component.modal.header.gap.default",
           "component.modal.body.gap.lg",
           "component.modal.footer.gap.lg",
+          "component.popover.arrow.base.default",
+          "component.popover.panel.padding-x.default",
+          "component.popover.panel.padding-y.default",
           "component.tabs.item.padding-x.default",
           "component.tabs.panel.padding-y.default",
           "component.textarea.padding-x.lg"
@@ -7182,7 +7301,15 @@
             "count": 1
           },
           {
+            "file": "css/components/popover.css",
+            "count": 1
+          },
+          {
             "file": "css/components/radio.css",
+            "count": 1
+          },
+          {
+            "file": "css/components/toast.css",
             "count": 1
           },
           {
@@ -7250,7 +7377,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 12
           }
         ],
         "tokens": [
@@ -7264,7 +7391,8 @@
           "component.menu.surface.radius.default",
           "component.modal.radius.default",
           "component.select.focus-ring.radius.default",
-          "component.textarea.focus-ring.radius.default"
+          "component.textarea.focus-ring.radius.default",
+          "component.toast.radius.default"
         ],
         "figma": []
       }
@@ -7283,12 +7411,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.accordion.focus-ring.radius.default",
-          "component.card-interactive.focus-ring.radius.default"
+          "component.card-interactive.focus-ring.radius.default",
+          "component.popover.panel.radius.default"
         ],
         "figma": []
       }
@@ -7340,10 +7469,6 @@
       "usos": {
         "css": [
           {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
-          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 2
           },
@@ -7375,10 +7500,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
@@ -7506,10 +7627,6 @@
       "usos": {
         "css": [
           {
-            "file": "css/base/reset.css",
-            "count": 1
-          },
-          {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 3
           },
@@ -7561,14 +7678,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/base/icons.css",
-            "count": 2
-          },
-          {
-            "file": "css/base/reset.css",
-            "count": 3
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 3
@@ -7983,10 +8092,6 @@
       "decisao": "Step da escala 2/4/6/8/10/12/14/16/20/24/28/32/36/40/44/48 — múltiplos de 2 e 4 cobrem todas as densidades de UI.",
       "usos": {
         "css": [
-          {
-            "file": "css/components/combobox.css",
-            "count": 1
-          },
           {
             "file": "css/tokens/generated/theme-dark.css",
             "count": 1
@@ -8715,13 +8820,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 4
           }
         ],
         "tokens": [
           "component.badge.bg.brand.subtle",
           "component.button.bg.toned.default",
-          "component.button.bg.toned.focus"
+          "component.button.bg.toned.focus",
+          "component.table.row.bg.selected"
         ],
         "figma": []
       }
@@ -8874,14 +8980,15 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
-          "component.alert.bg.success.filled",
+          "component.alert.bg.success.solid",
           "component.badge.bg.success.solid",
           "component.button.bg.success.default",
-          "component.button.bg.success.focus"
+          "component.button.bg.success.focus",
+          "component.toast.bg.success.solid"
         ],
         "figma": []
       }
@@ -8946,12 +9053,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.success.subtle",
-          "component.badge.bg.success.subtle"
+          "component.badge.bg.success.subtle",
+          "component.toast.bg.success.subtle"
         ],
         "figma": []
       }
@@ -8993,12 +9101,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
-          "component.alert.bg.warning.filled",
-          "component.badge.bg.warning.solid"
+          "component.alert.bg.warning.solid",
+          "component.badge.bg.warning.solid",
+          "component.toast.bg.warning.solid"
         ],
         "figma": []
       }
@@ -9033,12 +9142,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.warning.subtle",
-          "component.badge.bg.warning.subtle"
+          "component.badge.bg.warning.subtle",
+          "component.toast.bg.warning.subtle"
         ],
         "figma": []
       }
@@ -9057,14 +9167,15 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 4
+            "count": 5
           }
         ],
         "tokens": [
-          "component.alert.bg.error.filled",
+          "component.alert.bg.error.solid",
           "component.badge.bg.error.solid",
           "component.button.bg.danger.default",
-          "component.button.bg.danger.focus"
+          "component.button.bg.danger.focus",
+          "component.toast.bg.error.solid"
         ],
         "figma": []
       }
@@ -9133,12 +9244,13 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.error.subtle",
-          "component.badge.bg.error.subtle"
+          "component.badge.bg.error.subtle",
+          "component.toast.bg.error.subtle"
         ],
         "figma": []
       }
@@ -9180,12 +9292,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
-          "component.alert.bg.info.filled",
-          "component.badge.bg.info.solid"
+          "component.alert.bg.info.solid",
+          "component.badge.bg.info.solid",
+          "component.toast.bg.info.solid"
         ],
         "figma": []
       }
@@ -9220,12 +9333,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 3
           }
         ],
         "tokens": [
           "component.alert.bg.info.subtle",
-          "component.badge.bg.info.subtle"
+          "component.badge.bg.info.subtle",
+          "component.toast.bg.info.subtle"
         ],
         "figma": []
       }
@@ -9270,8 +9384,12 @@
       "usos": {
         "css": [
           {
+            "file": "css/base/icons.css",
+            "count": 2
+          },
+          {
             "file": "css/tokens/generated/component.css",
-            "count": 12
+            "count": 13
           }
         ],
         "tokens": [
@@ -9282,6 +9400,7 @@
           "component.input.icon.size.sm",
           "component.menu.item.icon.size.sm",
           "component.pagination.icon.size.sm",
+          "component.popover.close.icon-size.default",
           "component.radio.control.size.sm",
           "component.select.chevron.size.sm",
           "component.select.icon.size.sm",
@@ -9318,7 +9437,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 16
           }
         ],
         "tokens": [
@@ -9334,7 +9453,10 @@
           "component.modal.close.icon-size.sm",
           "component.radio.control.size.md",
           "component.select.chevron.size.md",
-          "component.select.icon.size.md"
+          "component.select.icon.size.md",
+          "component.table.sort.icon-size.sm",
+          "component.toast.icon.size.default",
+          "component.toast.close.icon-size.default"
         ],
         "figma": []
       }
@@ -9358,10 +9480,11 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 12
+            "count": 15
           }
         ],
         "tokens": [
+          "component.alert.close.size.default",
           "component.button.icon.size.lg",
           "component.checkbox.box.size.lg",
           "component.field.icon.size.lg",
@@ -9369,10 +9492,12 @@
           "component.menu.item.icon.size.lg",
           "component.modal.close.icon-size.md",
           "component.modal.close.icon-size.lg",
+          "component.popover.close.size.default",
           "component.radio.control.size.lg",
           "component.select.chevron.size.lg",
           "component.select.icon.size.lg",
           "component.spinner.size.md",
+          "component.table.sort.icon-size.md",
           "component.toggle.track.height.md"
         ],
         "figma": []
@@ -9435,7 +9560,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 14
+            "count": 15
           }
         ],
         "tokens": [
@@ -9452,6 +9577,7 @@
           "component.radio.target.height.md",
           "component.select.height.md",
           "component.skeleton.circle.size.default",
+          "component.table.row.height.sm",
           "component.toggle.target.height.md"
         ],
         "figma": []
@@ -9472,7 +9598,7 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 13
+            "count": 14
           }
         ],
         "tokens": [
@@ -9488,6 +9614,7 @@
           "component.pagination.item.min-width.lg",
           "component.radio.target.height.lg",
           "component.select.height.lg",
+          "component.table.row.height.md",
           "component.toggle.target.height.lg"
         ],
         "figma": []
@@ -9548,6 +9675,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/combobox.css",
+            "count": 1
+          },
+          {
             "file": "css/components/menu.css",
             "count": 1
           }
@@ -9576,6 +9707,10 @@
           {
             "file": "css/components/menu.css",
             "count": 1
+          },
+          {
+            "file": "css/components/tooltip.css",
+            "count": 1
           }
         ],
         "tokens": [],
@@ -9596,12 +9731,17 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/toast.css",
+            "count": 2
+          },
+          {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 2
           }
         ],
         "tokens": [
-          "component.modal.max-width.sm"
+          "component.modal.max-width.sm",
+          "component.popover.panel.max-width.default"
         ],
         "figma": []
       }
@@ -10148,6 +10288,10 @@
           },
           {
             "file": "css/components/menu.css",
+            "count": 1
+          },
+          {
+            "file": "css/components/popover.css",
             "count": 1
           },
           {
@@ -10704,7 +10848,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 3
+            "count": 5
           }
         ],
         "tokens": [],
@@ -10726,7 +10870,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 1
+            "count": 3
           }
         ],
         "tokens": [],
@@ -10748,7 +10892,7 @@
         "css": [
           {
             "file": "css/components/checkbox.css",
-            "count": 3
+            "count": 5
           }
         ],
         "tokens": [],
@@ -12585,7 +12729,7 @@
         "css": [
           {
             "file": "css/components/alert.css",
-            "count": 4
+            "count": 2
           }
         ],
         "tokens": [],
@@ -18503,12 +18647,13 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 4
           }
         ],
         "tokens": [
           "component.checkbox.box.fill.unchecked.hover",
           "component.radio.control.fill.unselected.hover",
+          "component.table.row.bg.hover",
           "component.toggle.track.fill.off.hover"
         ],
         "figma": []
@@ -20119,7 +20264,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 14
           }
         ],
         "tokens": [
@@ -20132,8 +20277,11 @@
           "component.menu.item.icon.color.default",
           "component.modal.close.color.default",
           "component.pagination.icon.color.default",
+          "component.popover.close.color.default",
           "component.select.chevron.color.default",
-          "component.select.icon.color.default"
+          "component.select.icon.color.default",
+          "component.toast.icon.color.info.subtle",
+          "component.toast.close.icon.color.subtle"
         ],
         "figma": []
       }
@@ -20226,9 +20374,15 @@
           {
             "file": "css/base/icons.css",
             "count": 1
+          },
+          {
+            "file": "css/tokens/generated/component.css",
+            "count": 1
           }
         ],
-        "tokens": [],
+        "tokens": [
+          "component.table.sort.icon-color"
+        ],
         "figma": []
       }
     },
@@ -20275,11 +20429,12 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 6
           }
         ],
         "tokens": [
-          "component.alert.icon.color.success.subtle"
+          "component.alert.icon.color.success.subtle",
+          "component.toast.icon.color.success.subtle"
         ],
         "figma": []
       }
@@ -20304,11 +20459,12 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 3
+            "count": 6
           }
         ],
         "tokens": [
-          "component.alert.icon.color.warning.subtle"
+          "component.alert.icon.color.warning.subtle",
+          "component.toast.icon.color.warning.subtle"
         ],
         "figma": []
       }
@@ -20333,12 +20489,13 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 5
+            "count": 8
           }
         ],
         "tokens": [
           "component.alert.icon.color.error.subtle",
-          "component.form-field.error.icon.color.default"
+          "component.form-field.error.icon.color.default",
+          "component.toast.icon.color.error.subtle"
         ],
         "figma": []
       }
@@ -20359,12 +20516,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.success.filled",
-          "component.alert.close.icon.color.success.filled"
+          "component.alert.icon.color.success.solid",
+          "component.alert.close.icon.color.success.solid",
+          "component.toast.icon.color.success.solid",
+          "component.toast.close.icon.color.success.solid"
         ],
         "figma": []
       }
@@ -20385,12 +20544,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.warning.filled",
-          "component.alert.close.icon.color.warning.filled"
+          "component.alert.icon.color.warning.solid",
+          "component.alert.close.icon.color.warning.solid",
+          "component.toast.icon.color.warning.solid",
+          "component.toast.close.icon.color.warning.solid"
         ],
         "figma": []
       }
@@ -20411,12 +20572,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.error.filled",
-          "component.alert.close.icon.color.error.filled"
+          "component.alert.icon.color.error.solid",
+          "component.alert.close.icon.color.error.solid",
+          "component.toast.icon.color.error.solid",
+          "component.toast.close.icon.color.error.solid"
         ],
         "figma": []
       }
@@ -20437,12 +20600,14 @@
         "css": [
           {
             "file": "css/tokens/generated/component.css",
-            "count": 2
+            "count": 4
           }
         ],
         "tokens": [
-          "component.alert.icon.color.info.filled",
-          "component.alert.close.icon.color.info.filled"
+          "component.alert.icon.color.info.solid",
+          "component.alert.close.icon.color.info.solid",
+          "component.toast.icon.color.info.solid",
+          "component.toast.close.icon.color.info.solid"
         ],
         "figma": []
       }
@@ -20466,7 +20631,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 7
+            "count": 8
           }
         ],
         "tokens": [
@@ -20476,7 +20641,8 @@
           "component.menu.item.icon.stroke-width.sm",
           "component.pagination.icon.stroke-width.sm",
           "component.select.chevron.stroke-width.sm",
-          "component.select.icon.stroke-width.sm"
+          "component.select.icon.stroke-width.sm",
+          "component.table.sort.icon-stroke-width.sm"
         ],
         "figma": []
       }
@@ -20500,7 +20666,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 11
+            "count": 14
           }
         ],
         "tokens": [
@@ -20514,7 +20680,10 @@
           "component.input.icon.stroke-width.md",
           "component.menu.item.icon.stroke-width.md",
           "component.select.chevron.stroke-width.md",
-          "component.select.icon.stroke-width.md"
+          "component.select.icon.stroke-width.md",
+          "component.table.sort.icon-stroke-width.md",
+          "component.toast.icon.stroke-width.default",
+          "component.toast.close.icon.stroke-width.default"
         ],
         "figma": []
       }
@@ -20538,7 +20707,7 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 8
+            "count": 9
           }
         ],
         "tokens": [
@@ -20548,6 +20717,7 @@
           "component.input.icon.stroke-width.lg",
           "component.menu.item.icon.stroke-width.lg",
           "component.modal.close.icon.stroke-width.default",
+          "component.popover.close.icon.stroke-width.default",
           "component.select.chevron.stroke-width.lg",
           "component.select.icon.stroke-width.lg"
         ],
@@ -20669,7 +20839,7 @@
         "css": [
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21263,7 +21433,7 @@
         "css": [
           {
             "file": "css/components/combobox.css",
-            "count": 1
+            "count": 2
           },
           {
             "file": "css/components/input.css",
@@ -21454,6 +21624,10 @@
             "count": 1
           },
           {
+            "file": "css/components/popover.css",
+            "count": 1
+          },
+          {
             "file": "css/components/radio.css",
             "count": 1
           },
@@ -21462,11 +21636,19 @@
             "count": 1
           },
           {
+            "file": "css/components/table.css",
+            "count": 2
+          },
+          {
             "file": "css/components/tabs.css",
             "count": 1
           },
           {
             "file": "css/components/textarea.css",
+            "count": 1
+          },
+          {
+            "file": "css/components/toast.css",
             "count": 1
           },
           {
@@ -21644,6 +21826,10 @@
             "count": 2
           },
           {
+            "file": "css/components/popover.css",
+            "count": 2
+          },
+          {
             "file": "css/components/radio.css",
             "count": 2
           },
@@ -21652,11 +21838,19 @@
             "count": 2
           },
           {
+            "file": "css/components/table.css",
+            "count": 3
+          },
+          {
             "file": "css/components/tabs.css",
             "count": 5
           },
           {
             "file": "css/components/textarea.css",
+            "count": 2
+          },
+          {
+            "file": "css/components/toast.css",
             "count": 2
           },
           {
@@ -21827,24 +22021,6 @@
         "figma": []
       }
     },
-    "component.alert.icon.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.success-contrast",
-      "sentido": "Contrato icon.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.icon.color.success.subtle": {
       "layer": "component",
       "type": "color",
@@ -21864,24 +22040,6 @@
             "count": 1
           }
         ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.icon.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.warning-contrast",
-      "sentido": "Contrato icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
         "tokens": [],
         "figma": []
       }
@@ -21909,24 +22067,6 @@
         "figma": []
       }
     },
-    "component.alert.icon.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.error-contrast",
-      "sentido": "Contrato icon.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.icon.color.error.subtle": {
       "layer": "component",
       "type": "color",
@@ -21946,24 +22086,6 @@
             "count": 1
           }
         ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.icon.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.info-contrast",
-      "sentido": "Contrato icon.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
         "tokens": [],
         "figma": []
       }
@@ -22013,101 +22135,11 @@
         "figma": []
       }
     },
-    "component.alert.title.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.content-contrast",
-      "sentido": "Contrato title.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.title.color.subtle": {
       "layer": "component",
       "type": "color",
       "references": "semantic.content.strong",
       "sentido": "Contrato title.color de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.title.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "Contrato title.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.title.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.content-contrast",
-      "sentido": "Contrato title.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.title.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.content-contrast",
-      "sentido": "Contrato title.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.description.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.content-contrast",
-      "sentido": "Contrato description.color.success de alert, sincronizado a partir das Variables Figma atuais.",
       "escopo": [
         "text",
         "fill",
@@ -22149,147 +22181,6 @@
         "figma": []
       }
     },
-    "component.alert.description.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.content-contrast",
-      "sentido": "Contrato description.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.description.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.content-contrast",
-      "sentido": "Contrato description.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.description.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.content-contrast",
-      "sentido": "Contrato description.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.close.icon.color.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.success-contrast",
-      "sentido": "Contrato close.icon.color.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.close.icon.color.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.warning-contrast",
-      "sentido": "Contrato close.icon.color.warning de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.close.icon.color.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.error-contrast",
-      "sentido": "Contrato close.icon.color.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.close.icon.color.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.icon.color.info-contrast",
-      "sentido": "Contrato close.icon.color.info de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "text",
-        "fill",
-        "stroke"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.close.icon.color.subtle": {
       "layer": "component",
       "type": "color",
@@ -22303,7 +22194,12 @@
       "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
       "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -22330,53 +22226,11 @@
         "figma": []
       }
     },
-    "component.alert.bg.success.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.success.background.default",
-      "sentido": "Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.bg.success.subtle": {
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.success.background.subtle",
       "sentido": "Contrato bg.success de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.bg.warning.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.warning.background.default",
-      "sentido": "Contrato bg.warning de alert, sincronizado a partir das Variables Figma atuais.",
       "escopo": [
         "fill"
       ],
@@ -22414,53 +22268,11 @@
         "figma": []
       }
     },
-    "component.alert.bg.error.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.error.background.default",
-      "sentido": "Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
     "component.alert.bg.error.subtle": {
       "layer": "component",
       "type": "color",
       "references": "semantic.feedback.error.background.subtle",
       "sentido": "Contrato bg.error de alert, sincronizado a partir das Variables Figma atuais.",
-      "escopo": [
-        "fill"
-      ],
-      "contexto": "Usado para estabilizar o contrato anatômico do componente alert entre Figma, JSON e CSS.",
-      "decisao": "Mantido porque existe como Variable no Figma e participa do contrato de componente publicado.",
-      "usos": {
-        "css": [
-          {
-            "file": "css/components/alert.css",
-            "count": 1
-          }
-        ],
-        "tokens": [],
-        "figma": []
-      }
-    },
-    "component.alert.bg.info.filled": {
-      "layer": "component",
-      "type": "color",
-      "references": "semantic.feedback.info.background.default",
-      "sentido": "Contrato bg.info de alert, sincronizado a partir das Variables Figma atuais.",
       "escopo": [
         "fill"
       ],
@@ -25193,7 +25005,12 @@
       "contexto": "Usar quando 24px for insuficiente para separar grupos internos sem recorrer à escala macro de section.",
       "decisao": "Adicionado para expandir a escala genérica de space até 64px, mantendo 32px como primeiro degrau acima de 2xl.",
       "usos": {
-        "css": [],
+        "css": [
+          {
+            "file": "css/components/tooltip.css",
+            "count": 1
+          }
+        ],
         "tokens": [],
         "figma": []
       }
@@ -26354,11 +26171,13 @@
           },
           {
             "file": "css/tokens/generated/component.css",
-            "count": 1
+            "count": 3
           }
         ],
         "tokens": [
-          "component.menu.surface.shadow.default"
+          "component.menu.surface.shadow.default",
+          "component.popover.panel.shadow.default",
+          "component.toast.panel.shadow.default"
         ],
         "figma": []
       }
@@ -28443,6 +28262,10 @@
       "usos": {
         "css": [
           {
+            "file": "css/components/checkbox.css",
+            "count": 2
+          },
+          {
             "file": "css/tokens/generated/component.css",
             "count": 1
           }
@@ -28450,6 +28273,3220 @@
         "tokens": [
           "component.divider.inset.padding-x.hairline"
         ],
+        "figma": []
+      }
+    },
+    "component.popover.actions.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap horizontal entre as actions do Popover.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Usado no container Actions quando uma ou duas instâncias de Button estão visíveis.",
+      "decisao": "Contrato anatômico ligado nos quatro placements do Figma; aliasa semantic.space.sm para manter 8px sem hardcode.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.actions.padding-top.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Padding superior do container de actions do Popover.",
+      "escopo": [
+        "padding-top"
+      ],
+      "contexto": "Cria a separação assimétrica aprovada entre body e actions.",
+      "decisao": "Contrato anatômico ligado nos quatro placements do Figma; aliasa semantic.space.xs para manter 4px sem consumo Semantic direto.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.arrow.base.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.lg",
+      "sentido": "Base visual da seta do Popover.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Dimensiona a base do frame Arrow e permite derivar sua profundidade pela metade da base no CSS.",
+      "decisao": "Espelha o frame Arrow aprovado no Figma; não cria token depth inexistente.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 14
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.arrow.fill.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.surface.overlay",
+      "sentido": "Fill da seta do Popover.",
+      "escopo": [
+        "fill",
+        "background"
+      ],
+      "contexto": "Mantém continuidade visual entre a Shape fechada da seta e a superfície do panel.",
+      "decisao": "Alias para semantic.surface.overlay, igual ao binding vivo dos quatro placements.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.body.color.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.default",
+      "sentido": "Cor do conteúdo textual do Popover.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Aplicado ao body e herdado por conteúdo textual padrão.",
+      "decisao": "Alias para semantic.content.default conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.body.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap interno do body do Popover.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Separa Content Text e Content Slot quando ambos estão visíveis.",
+      "decisao": "Alias para semantic.space.sm conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.body.padding-bottom.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Padding inferior do body do Popover.",
+      "escopo": [
+        "padding-bottom"
+      ],
+      "contexto": "Mantém o respiro aprovado entre o conteúdo e as actions sem adicionar padding superior.",
+      "decisao": "Alias para semantic.space.xs por meio de Component token, eliminando o binding Semantic direto.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.close.color.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.default",
+      "sentido": "Cor do ícone de fechar do Popover.",
+      "escopo": [
+        "icon-color"
+      ],
+      "contexto": "Aplicado à instância Lucide X fixa dentro do close.",
+      "decisao": "Alias para semantic.icon.color.default conforme a anatomia aprovada; o ícone não é substituível.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.close.icon-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.xs",
+      "sentido": "Tamanho do ícone Lucide X do Popover.",
+      "escopo": [
+        "icon-size"
+      ],
+      "contexto": "Dimensiona o ícone dentro do frame de close sem alterar sua hit area.",
+      "decisao": "Alias para semantic.size.xs conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.close.icon.stroke-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.24",
+      "sentido": "Stroke-width do ícone Lucide X do Popover.",
+      "escopo": [
+        "icon-stroke-width"
+      ],
+      "contexto": "Mantém o peso do ícone consistente com a biblioteca Lucide.",
+      "decisao": "Alias para semantic.icon.stroke-width.regular.24 conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.close.padding.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Padding interno do close do Popover.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Centraliza o ícone de 16px no frame de 24px.",
+      "decisao": "Alias para semantic.space.xs conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.close.size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.md",
+      "sentido": "Tamanho do frame de close do Popover.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Define a hit area visual do close e a reserva de espaço do header.",
+      "decisao": "Alias para semantic.size.md conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 3
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.content-slot.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap fallback do Content Slot do Popover.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Organiza verticalmente componentes DS inseridos no slot opcional.",
+      "decisao": "Alias para semantic.space.sm conforme o binding vivo; o slot não substitui Content Text nem Actions.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.bg.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.surface.overlay",
+      "sentido": "Background da superfície do Popover.",
+      "escopo": [
+        "background",
+        "fill"
+      ],
+      "contexto": "Aplicado ao panel elevado nos modos light e dark.",
+      "decisao": "Alias para semantic.surface.overlay conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.border-color.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.border.default",
+      "sentido": "Cor da borda do Popover.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Delimita o panel e a Shape da seta contra o conteúdo subjacente.",
+      "decisao": "Alias para semantic.border.default conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 9
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.border-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.border.width.default",
+      "sentido": "Largura da borda do Popover.",
+      "escopo": [
+        "border-width"
+      ],
+      "contexto": "Aplicado ao panel e às arestas visíveis da seta.",
+      "decisao": "Alias para semantic.border.width.default conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 9
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Gap vertical entre as partes do Popover.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Separa Header, Body e Actions na anatomia pública.",
+      "decisao": "Alias para semantic.space.sm conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.max-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.layout.sm",
+      "sentido": "Largura máxima do Popover.",
+      "escopo": [
+        "max-width"
+      ],
+      "contexto": "Limita conteúdo composto sem criar variantes de size quase redundantes.",
+      "decisao": "Alias para semantic.size.layout.sm, equivalente a 480px no Figma vivo.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.padding-x.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.lg",
+      "sentido": "Padding horizontal do Popover.",
+      "escopo": [
+        "padding-left",
+        "padding-right"
+      ],
+      "contexto": "Define o respiro lateral do panel e posiciona o close em relação às bordas.",
+      "decisao": "Alias para semantic.space.lg conforme o padding de 16px aprovado.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 3
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.padding-y.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.lg",
+      "sentido": "Padding vertical do Popover.",
+      "escopo": [
+        "padding-top",
+        "padding-bottom"
+      ],
+      "contexto": "Define o respiro superior e inferior do panel e posiciona o close.",
+      "decisao": "Alias para semantic.space.lg conforme o padding de 16px aprovado.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 3
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.radius.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.radius.xl",
+      "sentido": "Radius da superfície do Popover.",
+      "escopo": [
+        "border-radius"
+      ],
+      "contexto": "Aplicado aos quatro cantos do panel.",
+      "decisao": "Alias para semantic.radius.xl conforme o radius de 16px aprovado.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.panel.shadow.default": {
+      "layer": "component",
+      "type": "shadow",
+      "references": "semantic.shadow.overlay",
+      "sentido": "Shadow da superfície do Popover.",
+      "escopo": [
+        "box-shadow"
+      ],
+      "contexto": "Espelha no CSS a elevação média do panel contextual.",
+      "decisao": "Component token CSS-only que aliasa semantic.shadow.overlay para corresponder ao Effect Style Figma elevation/2, conforme ADR-016.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.popover.title.color.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Cor do title do Popover.",
+      "escopo": [
+        "color"
+      ],
+      "contexto": "Aplicado ao title opcional no Header.",
+      "decisao": "Alias para semantic.content.strong conforme o binding vivo do Figma.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/popover.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "Contrato da parte icon do Alert para icon / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/icon/color/success/solid e mantém a cadeia Component → semantic.icon.color.success-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "Contrato da parte icon do Alert para icon / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/icon/color/warning/solid e mantém a cadeia Component → semantic.icon.color.warning-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "Contrato da parte icon do Alert para icon / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/icon/color/error/solid e mantém a cadeia Component → semantic.icon.color.error-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "Contrato da parte icon do Alert para icon / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/icon/color/info/solid e mantém a cadeia Component → semantic.icon.color.info-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte title do Alert para title / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/title/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte title do Alert para title / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/title/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte title do Alert para title / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/title/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.title.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte title do Alert para title / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/title/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte description do Alert para description / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/description/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte description do Alert para description / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/description/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte description do Alert para description / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/description/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.description.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte description do Alert para description / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/description/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "Contrato da parte close do Alert para close / icon / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/close/icon/color/success/solid e mantém a cadeia Component → semantic.icon.color.success-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "Contrato da parte close do Alert para close / icon / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/close/icon/color/warning/solid e mantém a cadeia Component → semantic.icon.color.warning-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "Contrato da parte close do Alert para close / icon / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/close/icon/color/error/solid e mantém a cadeia Component → semantic.icon.color.error-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "Contrato da parte close do Alert para close / icon / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/close/icon/color/info/solid e mantém a cadeia Component → semantic.icon.color.info-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.actions.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte actions do Alert para actions / gap / default.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/actions/gap/default e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.actions.padding-top.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte actions do Alert para actions / padding-top / default.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/actions/padding-top/default e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Contrato da parte action do Alert para action / color / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/action/color/subtle e mantém a cadeia Component → semantic.content.strong.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte action do Alert para action / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/action/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte action do Alert para action / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/action/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte action do Alert para action / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/action/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.action.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte action do Alert para action / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/action/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.default",
+      "sentido": "Contrato da parte bg do Alert para bg / success / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/bg/success/solid e mantém a cadeia Component → semantic.feedback.success.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.default",
+      "sentido": "Contrato da parte bg do Alert para bg / warning / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/bg/warning/solid e mantém a cadeia Component → semantic.feedback.warning.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.default",
+      "sentido": "Contrato da parte bg do Alert para bg / error / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/bg/error/solid e mantém a cadeia Component → semantic.feedback.error.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.bg.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.default",
+      "sentido": "Contrato da parte bg do Alert para bg / info / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Alert; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma alert/bg/info/solid e mantém a cadeia Component → semantic.feedback.info.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.container.bg": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.surface.default",
+      "sentido": "Contrato da parte container do Table para container / bg.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/container/bg e mantém a cadeia Component → semantic.surface.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.bg": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.background.subtle",
+      "sentido": "Contrato da parte header do Table para header / bg.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/bg e mantém a cadeia Component → semantic.background.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.color": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Contrato da parte header do Table para header / color.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/color e mantém a cadeia Component → semantic.content.strong.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.font-family": {
+      "layer": "component",
+      "type": "string",
+      "references": "semantic.typography.body.font-family.sans",
+      "sentido": "Contrato da parte header do Table para header / font-family.",
+      "escopo": [
+        "font-family"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/font-family e mantém a cadeia Component → semantic.typography.body.font-family.sans.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.font-size.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "Contrato da parte header do Table para header / font-size / sm.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/font-size/sm e mantém a cadeia Component → semantic.typography.body.font-size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.font-size.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.md",
+      "sentido": "Contrato da parte header do Table para header / font-size / md.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/font-size/md e mantém a cadeia Component → semantic.typography.body.font-size.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.font-weight": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.semibold",
+      "sentido": "Contrato da parte header do Table para header / font-weight.",
+      "escopo": [
+        "font-weight"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/font-weight e mantém a cadeia Component → semantic.typography.body.font-weight.semibold.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.line-height.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "Contrato da parte header do Table para header / line-height / sm.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/line-height/sm e mantém a cadeia Component → semantic.typography.body.line-height.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.line-height.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.md",
+      "sentido": "Contrato da parte header do Table para header / line-height / md.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/line-height/md e mantém a cadeia Component → semantic.typography.body.line-height.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.header.letter-spacing": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.letter-spacing.normal",
+      "sentido": "Contrato da parte header do Table para header / letter-spacing.",
+      "escopo": [
+        "letter-spacing"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/header/letter-spacing e mantém a cadeia Component → semantic.typography.body.letter-spacing.normal.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.row.bg.default": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.surface.default",
+      "sentido": "Contrato da parte row do Table para row / bg / default.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/row/bg/default e mantém a cadeia Component → semantic.surface.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.row.bg.hover": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.surface.hover",
+      "sentido": "Contrato da parte row do Table para row / bg / hover.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/row/bg/hover e mantém a cadeia Component → semantic.surface.hover.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.row.bg.selected": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.toned.background.default",
+      "sentido": "Contrato da parte row do Table para row / bg / selected.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/row/bg/selected e mantém a cadeia Component → semantic.toned.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.row.height.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.xl",
+      "sentido": "Contrato da parte row do Table para row / height / sm.",
+      "escopo": [
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/row/height/sm e mantém a cadeia Component → semantic.size.xl.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 3
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.row.height.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.2xl",
+      "sentido": "Contrato da parte row do Table para row / height / md.",
+      "escopo": [
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/row/height/md e mantém a cadeia Component → semantic.size.2xl.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 3
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.color": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.default",
+      "sentido": "Contrato da parte body do Table para body / color.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/color e mantém a cadeia Component → semantic.content.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.font-family": {
+      "layer": "component",
+      "type": "string",
+      "references": "semantic.typography.body.font-family.sans",
+      "sentido": "Contrato da parte body do Table para body / font-family.",
+      "escopo": [
+        "font-family"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/font-family e mantém a cadeia Component → semantic.typography.body.font-family.sans.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.font-size.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "Contrato da parte body do Table para body / font-size / sm.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/font-size/sm e mantém a cadeia Component → semantic.typography.body.font-size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.font-size.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.md",
+      "sentido": "Contrato da parte body do Table para body / font-size / md.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/font-size/md e mantém a cadeia Component → semantic.typography.body.font-size.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.font-weight": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.regular",
+      "sentido": "Contrato da parte body do Table para body / font-weight.",
+      "escopo": [
+        "font-weight"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/font-weight e mantém a cadeia Component → semantic.typography.body.font-weight.regular.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.line-height.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "Contrato da parte body do Table para body / line-height / sm.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/line-height/sm e mantém a cadeia Component → semantic.typography.body.line-height.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.line-height.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.md",
+      "sentido": "Contrato da parte body do Table para body / line-height / md.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/line-height/md e mantém a cadeia Component → semantic.typography.body.line-height.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.body.letter-spacing": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.letter-spacing.normal",
+      "sentido": "Contrato da parte body do Table para body / letter-spacing.",
+      "escopo": [
+        "letter-spacing"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/body/letter-spacing e mantém a cadeia Component → semantic.typography.body.letter-spacing.normal.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.caption.color": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.subtle",
+      "sentido": "Contrato da parte caption do Table para caption / color.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/caption/color e mantém a cadeia Component → semantic.content.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.caption.font-family": {
+      "layer": "component",
+      "type": "string",
+      "references": "semantic.typography.body.font-family.sans",
+      "sentido": "Contrato da parte caption do Table para caption / font-family.",
+      "escopo": [
+        "font-family"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/caption/font-family e mantém a cadeia Component → semantic.typography.body.font-family.sans.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.caption.font-size": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "Contrato da parte caption do Table para caption / font-size.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/caption/font-size e mantém a cadeia Component → semantic.typography.body.font-size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.caption.font-weight": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.regular",
+      "sentido": "Contrato da parte caption do Table para caption / font-weight.",
+      "escopo": [
+        "font-weight"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/caption/font-weight e mantém a cadeia Component → semantic.typography.body.font-weight.regular.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.caption.line-height": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "Contrato da parte caption do Table para caption / line-height.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/caption/line-height e mantém a cadeia Component → semantic.typography.body.line-height.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.cell.padding-x.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte cell do Table para cell / padding-x / sm.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/cell/padding-x/sm e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.cell.padding-x.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.md",
+      "sentido": "Contrato da parte cell do Table para cell / padding-x / md.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/cell/padding-x/md e mantém a cadeia Component → semantic.space.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.cell.padding-y.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Contrato da parte cell do Table para cell / padding-y / sm.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/cell/padding-y/sm e mantém a cadeia Component → semantic.space.xs.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.cell.padding-y.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte cell do Table para cell / padding-y / md.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/cell/padding-y/md e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.cell.gap": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Contrato da parte cell do Table para cell / gap.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/cell/gap e mantém a cadeia Component → semantic.space.xs.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.divider.color": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.border.subtle",
+      "sentido": "Contrato da parte divider do Table para divider / color.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/divider/color e mantém a cadeia Component → semantic.border.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.divider.width": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.border.width.default",
+      "sentido": "Contrato da parte divider do Table para divider / width.",
+      "escopo": [
+        "border-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/divider/width e mantém a cadeia Component → semantic.border.width.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 9
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.sort.icon-color": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.subtle",
+      "sentido": "Contrato da parte sort do Table para sort / icon-color.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/sort/icon-color e mantém a cadeia Component → semantic.icon.color.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.sort.icon-size.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.sm",
+      "sentido": "Contrato da parte sort do Table para sort / icon-size / sm.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/sort/icon-size/sm e mantém a cadeia Component → semantic.size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.sort.icon-size.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.md",
+      "sentido": "Contrato da parte sort do Table para sort / icon-size / md.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/sort/icon-size/md e mantém a cadeia Component → semantic.size.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.sort.icon-stroke-width.sm": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.16",
+      "sentido": "Contrato da parte sort do Table para sort / icon-stroke-width / sm.",
+      "escopo": [
+        "stroke-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/sort/icon-stroke-width/sm e mantém a cadeia Component → semantic.icon.stroke-width.regular.16.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.table.sort.icon-stroke-width.md": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.20",
+      "sentido": "Contrato da parte sort do Table para sort / icon-stroke-width / md.",
+      "escopo": [
+        "stroke-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Table; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma table/sort/icon-stroke-width/md e mantém a cadeia Component → semantic.icon.stroke-width.regular.20.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/table.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.padding.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.md",
+      "sentido": "Contrato da parte padding do Toast para padding / default.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/padding/default e mantém a cadeia Component → semantic.space.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte gap do Toast para gap / default.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/gap/default e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.actions.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte actions do Toast para actions / gap / default.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/actions/gap/default e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.actions.padding-top.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.sm",
+      "sentido": "Contrato da parte actions do Toast para actions / padding-top / default.",
+      "escopo": [
+        "padding"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/actions/padding-top/default e mantém a cadeia Component → semantic.space.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.radius.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.radius.lg",
+      "sentido": "Contrato da parte radius do Toast para radius / default.",
+      "escopo": [
+        "border-radius"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/radius/default e mantém a cadeia Component → semantic.radius.lg.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.border.width.default",
+      "sentido": "Contrato da parte border-width do Toast para border-width / default.",
+      "escopo": [
+        "border-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/border-width/default e mantém a cadeia Component → semantic.border.width.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.panel.shadow.default": {
+      "layer": "component",
+      "type": "shadow",
+      "references": "semantic.shadow.overlay",
+      "sentido": "Contrato da parte panel do Toast para panel / shadow / default.",
+      "escopo": [
+        "box-shadow"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Token Component CSS-only que espelha o Effect Style elevation/2 via semantic.shadow.overlay, conforme ADR-016.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.sm",
+      "sentido": "Contrato da parte icon do Toast para icon / size / default.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/size/default e mantém a cadeia Component → semantic.size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "Contrato da parte icon do Toast para icon / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/success/solid e mantém a cadeia Component → semantic.icon.color.success-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success",
+      "sentido": "Contrato da parte icon do Toast para icon / color / success / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/success/subtle e mantém a cadeia Component → semantic.icon.color.success.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "Contrato da parte icon do Toast para icon / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/warning/solid e mantém a cadeia Component → semantic.icon.color.warning-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning",
+      "sentido": "Contrato da parte icon do Toast para icon / color / warning / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/warning/subtle e mantém a cadeia Component → semantic.icon.color.warning.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "Contrato da parte icon do Toast para icon / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/error/solid e mantém a cadeia Component → semantic.icon.color.error-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error",
+      "sentido": "Contrato da parte icon do Toast para icon / color / error / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/error/subtle e mantém a cadeia Component → semantic.icon.color.error.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "Contrato da parte icon do Toast para icon / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/info/solid e mantém a cadeia Component → semantic.icon.color.info-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.color.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.default",
+      "sentido": "Contrato da parte icon do Toast para icon / color / info / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/color/info/subtle e mantém a cadeia Component → semantic.icon.color.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.icon.stroke-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.20",
+      "sentido": "Contrato da parte icon do Toast para icon / stroke-width / default.",
+      "escopo": [
+        "stroke-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/icon/stroke-width/default e mantém a cadeia Component → semantic.icon.stroke-width.regular.20.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.content.gap.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.space.xs",
+      "sentido": "Contrato da parte content do Toast para content / gap / default.",
+      "escopo": [
+        "gap"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/content/gap/default e mantém a cadeia Component → semantic.space.xs.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.font-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "Contrato da parte title do Toast para title / font-size / default.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/font-size/default e mantém a cadeia Component → semantic.typography.body.font-size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.line-height.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "Contrato da parte title do Toast para title / line-height / default.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/line-height/default e mantém a cadeia Component → semantic.typography.body.line-height.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.font-weight.default": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.bold",
+      "sentido": "Contrato da parte title do Toast para title / font-weight / default.",
+      "escopo": [
+        "font-weight"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/font-weight/default e mantém a cadeia Component → semantic.typography.body.font-weight.bold.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte title do Toast para title / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Contrato da parte title do Toast para title / color / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/color/subtle e mantém a cadeia Component → semantic.content.strong.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte title do Toast para title / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte title do Toast para title / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.title.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte title do Toast para title / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/title/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.font-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.font-size.sm",
+      "sentido": "Contrato da parte description do Toast para description / font-size / default.",
+      "escopo": [
+        "font-size"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/font-size/default e mantém a cadeia Component → semantic.typography.body.font-size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.line-height.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.typography.body.line-height.sm",
+      "sentido": "Contrato da parte description do Toast para description / line-height / default.",
+      "escopo": [
+        "line-height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/line-height/default e mantém a cadeia Component → semantic.typography.body.line-height.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.font-weight.default": {
+      "layer": "component",
+      "type": "number",
+      "references": "semantic.typography.body.font-weight.regular",
+      "sentido": "Contrato da parte description do Toast para description / font-weight / default.",
+      "escopo": [
+        "font-weight"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/font-weight/default e mantém a cadeia Component → semantic.typography.body.font-weight.regular.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte description do Toast para description / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Contrato da parte description do Toast para description / color / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/color/subtle e mantém a cadeia Component → semantic.content.strong.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte description do Toast para description / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte description do Toast para description / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.description.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte description do Toast para description / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/description/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon-size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.sm",
+      "sentido": "Contrato da parte close do Toast para close / icon-size / default.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon-size/default e mantém a cadeia Component → semantic.size.sm.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.success-contrast",
+      "sentido": "Contrato da parte close do Toast para close / icon / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/color/success/solid e mantém a cadeia Component → semantic.icon.color.success-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.warning-contrast",
+      "sentido": "Contrato da parte close do Toast para close / icon / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/color/warning/solid e mantém a cadeia Component → semantic.icon.color.warning-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.error-contrast",
+      "sentido": "Contrato da parte close do Toast para close / icon / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/color/error/solid e mantém a cadeia Component → semantic.icon.color.error-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.info-contrast",
+      "sentido": "Contrato da parte close do Toast para close / icon / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/color/info/solid e mantém a cadeia Component → semantic.icon.color.info-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.icon.color.default",
+      "sentido": "Contrato da parte close do Toast para close / icon / color / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/color/subtle e mantém a cadeia Component → semantic.icon.color.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.close.icon.stroke-width.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.icon.stroke-width.regular.20",
+      "sentido": "Contrato da parte close do Toast para close / icon / stroke-width / default.",
+      "escopo": [
+        "stroke-width"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/close/icon/stroke-width/default e mantém a cadeia Component → semantic.icon.stroke-width.regular.20.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.default",
+      "sentido": "Contrato da parte bg do Toast para bg / success / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/success/solid e mantém a cadeia Component → semantic.feedback.success.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.background.subtle",
+      "sentido": "Contrato da parte bg do Toast para bg / success / subtle.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/success/subtle e mantém a cadeia Component → semantic.feedback.success.background.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.default",
+      "sentido": "Contrato da parte bg do Toast para bg / warning / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/warning/solid e mantém a cadeia Component → semantic.feedback.warning.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.background.subtle",
+      "sentido": "Contrato da parte bg do Toast para bg / warning / subtle.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/warning/subtle e mantém a cadeia Component → semantic.feedback.warning.background.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.default",
+      "sentido": "Contrato da parte bg do Toast para bg / error / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/error/solid e mantém a cadeia Component → semantic.feedback.error.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.background.subtle",
+      "sentido": "Contrato da parte bg do Toast para bg / error / subtle.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/error/subtle e mantém a cadeia Component → semantic.feedback.error.background.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.default",
+      "sentido": "Contrato da parte bg do Toast para bg / info / solid.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/info/solid e mantém a cadeia Component → semantic.feedback.info.background.default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.bg.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.background.subtle",
+      "sentido": "Contrato da parte bg do Toast para bg / info / subtle.",
+      "escopo": [
+        "background-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/bg/info/subtle e mantém a cadeia Component → semantic.feedback.info.background.subtle.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.success.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.border-default",
+      "sentido": "Contrato da parte border-color do Toast para border-color / success / subtle.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/border-color/success/subtle e mantém a cadeia Component → semantic.feedback.success.border-default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.warning.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.border-default",
+      "sentido": "Contrato da parte border-color do Toast para border-color / warning / subtle.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/border-color/warning/subtle e mantém a cadeia Component → semantic.feedback.warning.border-default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.error.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.border-default",
+      "sentido": "Contrato da parte border-color do Toast para border-color / error / subtle.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/border-color/error/subtle e mantém a cadeia Component → semantic.feedback.error.border-default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.border-color.info.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.border-default",
+      "sentido": "Contrato da parte border-color do Toast para border-color / info / subtle.",
+      "escopo": [
+        "border-color"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/border-color/info/subtle e mantém a cadeia Component → semantic.feedback.info.border-default.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.subtle": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.content.strong",
+      "sentido": "Contrato da parte action do Toast para action / color / subtle.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/action/color/subtle e mantém a cadeia Component → semantic.content.strong.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 4
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.success.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.success.content-contrast",
+      "sentido": "Contrato da parte action do Toast para action / color / success / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/action/color/success/solid e mantém a cadeia Component → semantic.feedback.success.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.warning.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.warning.content-contrast",
+      "sentido": "Contrato da parte action do Toast para action / color / warning / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/action/color/warning/solid e mantém a cadeia Component → semantic.feedback.warning.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.error.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.error.content-contrast",
+      "sentido": "Contrato da parte action do Toast para action / color / error / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/action/color/error/solid e mantém a cadeia Component → semantic.feedback.error.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.toast.action.color.info.solid": {
+      "layer": "component",
+      "type": "color",
+      "references": "semantic.feedback.info.content-contrast",
+      "sentido": "Contrato da parte action do Toast para action / color / info / solid.",
+      "escopo": [
+        "color",
+        "fill"
+      ],
+      "contexto": "Consumido pela anatomia pública do Toast; não substituir por valor literal nem por Foundation direta.",
+      "decisao": "Espelha a Variable Figma toast/action/color/info/solid e mantém a cadeia Component → semantic.feedback.info.content-contrast.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "semantic.z.toast": {
+      "layer": "semantic",
+      "type": "number",
+      "references": "foundation.z.50",
+      "sentido": "Camada superior para notificações Toast temporárias.",
+      "escopo": [
+        "z-index"
+      ],
+      "contexto": "Use no container global de Toast para manter notificações acima de overlays sem alterar a ordem do conteúdo.",
+      "decisao": "Alias para foundation.z.50; z-index é CSS-only por ADR-016 e reserva o topo da escala para feedback transitório.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/toast.css",
+            "count": 1
+          }
+        ],
+        "tokens": [],
+        "figma": []
+      }
+    },
+    "component.alert.close.size.default": {
+      "layer": "component",
+      "type": "dimension",
+      "references": "semantic.size.md",
+      "sentido": "Target de 24px para o controle de fechar do Alert.",
+      "escopo": [
+        "width",
+        "height"
+      ],
+      "contexto": "Aplicado ao frame Close Target que envolve o ícone Lucide e preserva o mínimo WCAG 2.5.8 sem ampliar o glifo.",
+      "decisao": "Espelha a Variable Figma alert/close/size/default e mantém a cadeia Component → semantic.size.md.",
+      "usos": {
+        "css": [
+          {
+            "file": "css/components/alert.css",
+            "count": 2
+          }
+        ],
+        "tokens": [],
         "figma": []
       }
     }

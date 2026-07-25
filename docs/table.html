@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table — Design System</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components/table.css">
+  <link rel="stylesheet" href="layout.css">
+  <script>(function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();</script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-space-lg)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <select class="ds-theme-switcher__select" id="lang-switcher" aria-label="Language"><option value="pt">PT</option><option value="en">EN</option></select>
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">Table</h1>
+    <p class="ds-section__subtitle">
+      <span data-lang="pt">Organiza dados relacionais para leitura e comparação por coluna, com semântica HTML nativa e comportamento controlado pela aplicação.</span>
+      <span data-lang="en">Organizes relational data for reading and comparison by column, with native HTML semantics and application-controlled behavior.</span>
+    </p>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
+    <div class="ds-callout ds-callout--success">
+      <div class="ds-callout__title"><span data-lang="pt">Use Table quando</span><span data-lang="en">Use Table when</span></div>
+      <span data-lang="pt">Os dados têm colunas estáveis, rótulos claros e precisam ser comparados entre linhas.</span>
+      <span data-lang="en">Data has stable columns, clear labels, and needs to be compared across rows.</span>
+    </div>
+    <div class="ds-callout ds-callout--warning">
+      <div class="ds-callout__title"><span data-lang="pt">Não use Table quando</span><span data-lang="en">Do not use Table when</span></div>
+      <span data-lang="pt">O conteúdo é uma lista simples, uma grade de layout ou uma planilha editável com navegação de grid.</span>
+      <span data-lang="en">Content is a simple list, a layout grid, or an editable spreadsheet requiring grid navigation.</span>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Exemplo</span><span data-lang="en">Example</span></h2>
+    <div class="ds-preview">
+      <div class="ds-preview__tabs" role="tablist">
+        <button class="ds-preview__tab ds-preview__tab--active" role="tab" aria-selected="true" data-tab="preview">Preview</button>
+        <button class="ds-preview__tab" role="tab" aria-selected="false" data-tab="code">Code</button>
+      </div>
+      <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
+        <div class="ds-preview__canvas">
+          <div class="ds-table-region" role="region" aria-label="Tabela de clientes" tabindex="0">
+            <table class="ds-table ds-table--md">
+              <caption class="ds-table__caption">Clientes</caption>
+              <thead class="ds-table__header">
+                <tr>
+                  <th class="ds-table__header-cell ds-table__header-cell--sortable" scope="col" aria-sort="none">
+                    <button class="ds-table__sort" type="button" aria-label="Ordenar por Cliente">
+                      <span>Cliente</span>
+                      <svg class="ds-table__sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg>
+                    </button>
+                  </th>
+                  <th class="ds-table__header-cell" scope="col">Status</th>
+                  <th class="ds-table__header-cell" scope="col">E-mail</th>
+                  <th class="ds-table__header-cell ds-table__header-cell--end" scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody class="ds-table__body">
+                <tr class="ds-table__row">
+                  <td class="ds-table__cell ds-table__cell--control">
+                    <div class="ds-table__cell-content">
+                      <label class="ds-checkbox-label">
+                        <input class="ds-checkbox ds-checkbox--sm" type="checkbox">
+                        <span class="ds-checkbox__content"><span class="ds-checkbox__label ds-sr-only">Selecionar Ana Silva</span></span>
+                      </label>
+                      <span>Ana Silva</span>
+                    </div>
+                  </td>
+                  <td class="ds-table__cell"><span class="ds-badge ds-badge--success ds-badge--subtle">Ativo</span></td>
+                  <td class="ds-table__cell">ana.silva@tis.com.br</td>
+                  <td class="ds-table__cell ds-table__cell--control ds-table__cell--end"><button class="ds-button ds-button--ghost ds-button--sm" type="button"><span class="ds-button__label">Abrir</span></button></td>
+                </tr>
+                <tr class="ds-table__row ds-table__row--selected">
+                  <td class="ds-table__cell ds-table__cell--control">
+                    <div class="ds-table__cell-content">
+                      <label class="ds-checkbox-label">
+                        <input class="ds-checkbox ds-checkbox--sm" type="checkbox" checked>
+                        <span class="ds-checkbox__content"><span class="ds-checkbox__label ds-sr-only">Selecionar Bruno Lima</span></span>
+                      </label>
+                      <span>Bruno Lima</span>
+                    </div>
+                  </td>
+                  <td class="ds-table__cell"><span class="ds-badge ds-badge--warning ds-badge--subtle">Pendente</span></td>
+                  <td class="ds-table__cell">bruno.lima@tis.com.br</td>
+                  <td class="ds-table__cell ds-table__cell--control ds-table__cell--end"><button class="ds-button ds-button--ghost ds-button--sm" type="button"><span class="ds-button__label">Abrir</span></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="ds-preview__panel" data-panel="code">
+        <div class="ds-preview__code">
+          <button class="ds-preview__copy" aria-label="Copy code">Copy</button>
+          <pre tabindex="0"><code>&lt;div class="ds-table-region" role="region" aria-label="Tabela de clientes" tabindex="0"&gt;
+  &lt;table class="ds-table ds-table--md"&gt;
+    &lt;caption class="ds-table__caption"&gt;Clientes&lt;/caption&gt;
+    &lt;thead class="ds-table__header"&gt;
+      &lt;tr&gt;
+        &lt;th class="ds-table__header-cell" scope="col"&gt;Cliente&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody class="ds-table__body"&gt;
+      &lt;tr class="ds-table__row"&gt;
+        &lt;td class="ds-table__cell"&gt;Ana Silva&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">API pública</span><span data-lang="en">Public API</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Component / part</th><th><span data-lang="pt">Contrato</span><span data-lang="en">Contract</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>Table</code></td><td><code>ds-table</code>; <code>ds-table--md</code>, <code>ds-table--fixed</code>, <code>ds-table--nowrap</code>.</td></tr>
+        <tr><td><code>Table/Header Row</code></td><td><code>thead.ds-table__header</code>.</td></tr>
+        <tr><td><code>Table/Header Cell</code></td><td><code>th.ds-table__header-cell</code>; sortable e alinhamento end são modifiers.</td></tr>
+        <tr><td><code>Table/Row</code></td><td><code>tr.ds-table__row</code>; states Default, Hover e Selected.</td></tr>
+        <tr><td><code>Table/Cell</code></td><td><code>td.ds-table__cell</code>; conteúdo, controles, alinhamento e truncate são composição.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Tamanhos e estados</span><span data-lang="en">Sizes and states</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th>Size</th><th>Row height</th><th>Modifier</th></tr></thead>
+      <tbody>
+        <tr><td>Small</td><td>40</td><td><span data-lang="pt">Padrão</span><span data-lang="en">Default</span></td></tr>
+        <tr><td>Medium</td><td>48</td><td><code>ds-table--md</code></td></tr>
+      </tbody>
+    </table>
+    <table class="ds-token-table" style="margin-top:var(--ds-space-xl)">
+      <thead><tr><th>Row state</th><th><span data-lang="pt">Contrato</span><span data-lang="en">Contract</span></th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td><code>ds-table__row</code></td></tr>
+        <tr><td>Hover</td><td><code>:hover</code>; <code>ds-table__row--hover</code> apenas para demonstração estática.</td></tr>
+        <tr><td>Selected</td><td><code>ds-table__row--selected</code> ou <code>data-selected="true"</code>; Checkbox comunica a seleção sem transformar a table em grid.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Semântica e comportamento</span><span data-lang="en">Semantics and behavior</span></h2>
+    <ul style="color:var(--ds-content-default);display:grid;gap:var(--ds-space-sm);padding-inline-start:var(--ds-space-xl)">
+      <li><span data-lang="pt">Use <code>table</code>, <code>caption</code>, <code>thead</code>, <code>tbody</code>, <code>th scope</code>, <code>tr</code> e <code>td</code> nativos. Não use <code>role="grid"</code> para leitura tabular.</span><span data-lang="en">Use native <code>table</code>, <code>caption</code>, <code>thead</code>, <code>tbody</code>, <code>th scope</code>, <code>tr</code>, and <code>td</code>. Do not use a grid role for reading tables.</span></li>
+      <li><span data-lang="pt"><code>aria-sort</code> pertence somente ao <code>th</code> ordenável; o button atualiza os dados e o atributo.</span><span data-lang="en"><code>aria-sort</code> belongs only on the sortable <code>th</code>; the button updates data and the attribute.</span></li>
+      <li><span data-lang="pt">Sort, seleção, filtros e paginação são controlados pela aplicação. Controles compostos permanecem stops normais na ordem de Tab.</span><span data-lang="en">Sorting, selection, filters, and pagination are application-controlled. Composed controls remain normal stops in the Tab order.</span></li>
+      <li><span data-lang="pt">O wrapper rolável precisa de nome acessível e foco visível quando entra na ordem de Tab.</span><span data-lang="en">The scroll wrapper needs an accessible name and visible focus when included in the Tab order.</span></li>
+    </ul>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
+    <table class="ds-token-table">
+      <thead><tr><th><span data-lang="pt">Parte</span><span data-lang="en">Part</span></th><th>Component tokens</th><th>CSS</th></tr></thead>
+      <tbody>
+        <tr><td>Table / Header / Row</td><td><code>component.table.{container|header|row}.*</code></td><td><code>--ds-table-container-*</code>, <code>--ds-table-header-*</code>, <code>--ds-table-row-*</code></td></tr>
+        <tr><td>Cell</td><td><code>component.table.cell.{padding-x|padding-y|gap}</code></td><td><code>--ds-table-cell-*</code></td></tr>
+        <tr><td>Body / Caption</td><td><code>component.table.{body|caption}.*</code></td><td><code>--ds-table-body-*</code>, <code>--ds-table-caption-*</code></td></tr>
+        <tr><td>Divider / Sort</td><td><code>component.table.{divider|sort}.*</code></td><td><code>--ds-table-divider-*</code>, <code>--ds-table-sort-*</code></td></tr>
+        <tr><td>Focus Ring</td><td><code>component.focus-ring.*</code></td><td><code>--ds-focus-ring-*</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title">Accessibility</h2>
+    <table class="ds-token-table">
+      <thead><tr><th>WCAG</th><th><span data-lang="pt">Implementação</span><span data-lang="en">Implementation</span></th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1.3.1 Info and Relationships</td><td><code>table</code>, <code>caption</code>, <code>thead</code>, <code>tbody</code>, <code>th scope="col"</code>, <code>tr</code> e <code>td</code> nativos.</td><td>✓</td></tr>
+        <tr><td>2.1.1 Keyboard</td><td><span data-lang="pt">A região de overflow, sort, Checkbox e ações são operáveis por teclado.</span><span data-lang="en">The overflow region, sort, Checkbox, and actions are keyboard operable.</span></td><td>✓</td></tr>
+        <tr><td>2.4.11 Focus Not Obscured</td><td><span data-lang="pt">Sort e região usam Focus Ring dedicado sem recorte pelas cells.</span><span data-lang="en">Sort and region use a dedicated Focus Ring without cell clipping.</span></td><td>✓</td></tr>
+        <tr><td>4.1.2 Name, Role, Value</td><td><code>aria-sort</code> fica no header ativo; Checkbox e Buttons têm nomes acessíveis.</td><td>✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
+    <div class="ds-related"><a href="pagination.html" class="ds-related__link">Pagination</a><a href="checkbox.html" class="ds-related__link">Checkbox</a><a href="badge.html" class="ds-related__link">Badge</a><a href="button.html" class="ds-related__link">Button</a></div>
+  </div>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

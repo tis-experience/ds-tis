@@ -39,7 +39,7 @@
         },
         "color": {
           "success": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.icon.color.success-contrast}",
               "$type": "color",
               "$description": "Cor do ícone do Alert. Alias para feedback/success/content/contrast."
@@ -51,7 +51,7 @@
             }
           },
           "warning": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.icon.color.warning-contrast}",
               "$type": "color",
               "$description": "Cor do ícone do Alert. Alias para feedback/warning/content/contrast."
@@ -63,7 +63,7 @@
             }
           },
           "error": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.icon.color.error-contrast}",
               "$type": "color",
               "$description": "Cor do ícone do Alert. Alias para feedback/error/content/contrast."
@@ -75,7 +75,7 @@
             }
           },
           "info": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.icon.color.info-contrast}",
               "$type": "color",
               "$description": "Cor do ícone do Alert. Alias para feedback/info/content/contrast."
@@ -127,7 +127,7 @@
         },
         "color": {
           "success": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.success.content-contrast}",
               "$type": "color"
             }
@@ -137,19 +137,19 @@
             "$type": "color"
           },
           "warning": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.warning.content-contrast}",
               "$type": "color"
             }
           },
           "error": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.error.content-contrast}",
               "$type": "color"
             }
           },
           "info": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.info.content-contrast}",
               "$type": "color"
             }
@@ -180,7 +180,7 @@
         },
         "color": {
           "success": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.success.content-contrast}",
               "$type": "color"
             }
@@ -190,19 +190,19 @@
             "$type": "color"
           },
           "warning": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.warning.content-contrast}",
               "$type": "color"
             }
           },
           "error": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.error.content-contrast}",
               "$type": "color"
             }
           },
           "info": {
-            "filled": {
+            "solid": {
               "$value": "{semantic.feedback.info.content-contrast}",
               "$type": "color"
             }
@@ -210,6 +210,13 @@
         }
       },
       "close": {
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho do target de close do Alert."
+          }
+        },
         "icon-size": {
           "default": {
             "$type": "dimension",
@@ -220,25 +227,25 @@
         "icon": {
           "color": {
             "success": {
-              "filled": {
+              "solid": {
                 "$value": "{semantic.icon.color.success-contrast}",
                 "$type": "color"
               }
             },
             "warning": {
-              "filled": {
+              "solid": {
                 "$value": "{semantic.icon.color.warning-contrast}",
                 "$type": "color"
               }
             },
             "error": {
-              "filled": {
+              "solid": {
                 "$value": "{semantic.icon.color.error-contrast}",
                 "$type": "color"
               }
             },
             "info": {
-              "filled": {
+              "solid": {
                 "$value": "{semantic.icon.color.info-contrast}",
                 "$type": "color"
               }
@@ -256,9 +263,56 @@
           }
         }
       },
+      "actions": {
+        "gap": {
+          "default": {
+            "$value": "{semantic.space.sm}",
+            "$type": "dimension"
+          }
+        },
+        "padding-top": {
+          "default": {
+            "$value": "{semantic.space.sm}",
+            "$type": "dimension",
+            "$description": "Padding-top da fileira Actions (8px / space.sm)."
+          }
+        }
+      },
+      "action": {
+        "color": {
+          "subtle": {
+            "$value": "{semantic.content.strong}",
+            "$type": "color"
+          },
+          "success": {
+            "solid": {
+              "$value": "{semantic.feedback.success.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "warning": {
+            "solid": {
+              "$value": "{semantic.feedback.warning.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "solid": {
+              "$value": "{semantic.feedback.error.content-contrast}",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "solid": {
+              "$value": "{semantic.feedback.info.content-contrast}",
+              "$type": "color"
+            }
+          }
+        }
+      },
       "bg": {
         "success": {
-          "filled": {
+          "solid": {
             "$value": "{semantic.feedback.success.background.default}",
             "$type": "color"
           },
@@ -268,7 +322,7 @@
           }
         },
         "warning": {
-          "filled": {
+          "solid": {
             "$value": "{semantic.feedback.warning.background.default}",
             "$type": "color"
           },
@@ -278,7 +332,7 @@
           }
         },
         "error": {
-          "filled": {
+          "solid": {
             "$value": "{semantic.feedback.error.background.default}",
             "$type": "color"
           },
@@ -288,7 +342,7 @@
           }
         },
         "info": {
-          "filled": {
+          "solid": {
             "$value": "{semantic.feedback.info.background.default}",
             "$type": "color"
           },

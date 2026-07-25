@@ -100,6 +100,27 @@
       <button type="button" class="ds-button ds-button--outline ds-button--sm" id="tip-trigger" aria-describedby="life-tip">Tip</button>
       <span class="ds-tooltip__content" id="life-tip" role="tooltip">Texto do tooltip</span>
     </div>
+
+    <div class="ds-popover ds-popover--bottom" id="life-popover">
+      <button type="button" class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" id="popover-trigger">
+        <span class="ds-button__label">Detalhes</span>
+      </button>
+      <div class="ds-popover__panel" id="life-popover-panel" role="dialog" aria-labelledby="life-popover-title" hidden>
+        <div class="ds-popover__header">
+          <h3 class="ds-popover__title" id="life-popover-title">Lifecycle Popover</h3>
+        </div>
+        <button class="ds-popover__close" id="popover-close" type="button" aria-label="Fechar popover">×</button>
+        <div class="ds-popover__body"><p style="margin:0">Corpo do Popover</p></div>
+        <div class="ds-popover__actions">
+          <button class="ds-button ds-button--brand ds-button--sm" id="popover-primary" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-toast-region" data-ds-toast-region id="life-toast-region">
+      <div class="ds-toast-region__polite" role="status" aria-live="polite" aria-relevant="additions"></div>
+      <div class="ds-toast-region__assertive" role="alert" aria-live="assertive" aria-relevant="additions"></div>
+    </div>
   </main>
 
   <div class="ds-modal-overlay" id="life-modal" hidden>

@@ -101,7 +101,7 @@ Import the public CSS once in the application's global entrypoint:
 import 'ds-tis/css';
 ```
 
-For Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip, initialize the
+For Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip, initialize the
 public behavior after render or hydration. On teardown (SPA route, view or
 portal), call the corresponding `destroy` function to remove listeners:
 
@@ -110,6 +110,8 @@ import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
 import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
 import { initModals, destroyModals } from 'ds-tis/modal';
 import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
+import { initPopovers, destroyPopovers } from 'ds-tis/popover';
+import { initToasts, destroyToasts } from 'ds-tis/toast';
 import { initTabs, destroyTabs } from 'ds-tis/tabs';
 import { initTooltips, destroyTooltips } from 'ds-tis/tooltip';
 
@@ -117,6 +119,8 @@ initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initPopovers();
+initToasts();
 initTabs();
 initTooltips();
 
@@ -125,12 +129,14 @@ destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
+destroyPopovers();
+destroyToasts();
 destroyTabs();
 destroyTooltips();
 ```
 
 A `required` module does not automatically make a component App-ready.
-Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip have completed the
+Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip have completed the
 executable ADR-020 gate. Their modules remain required whenever those
 components are used because they preserve the published interactive and
 accessible contract.
@@ -187,9 +193,9 @@ exposes `runtime`:
 | Field | Meaning |
 |---|---|
 | `null` | CSS-only; no published JS module. |
-| `runtime.level: "required"` | The interactive and accessible contract depends on initialization (Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip). |
+| `runtime.level: "required"` | The interactive and accessible contract depends on initialization (Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip). |
 | `runtime.level: "optional"` | Reserved for enhancements unnecessary to the accessible contract; no current module uses this level. |
-| `runtime.module` | Package export (`ds-tis/accordion`, `ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`, `ds-tis/tabs`, `ds-tis/tooltip`). |
+| `runtime.module` | Package export (`ds-tis/accordion`, `ds-tis/combobox`, `ds-tis/modal`, `ds-tis/menu`, `ds-tis/popover`, `ds-tis/toast`, `ds-tis/tabs`, `ds-tis/tooltip`). |
 | `runtime.init` | Function called after render or hydration. |
 | `runtime.destroy` | Function called during teardown. |
 | `runtime.events` | Public events emitted by the module. |

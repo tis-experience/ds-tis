@@ -43,13 +43,15 @@ HTML estático ou protótipo sem bundler:
 Componentes interativos mantêm CSS puro para a anatomia visual. Quando
 `runtime.level` é `required` em `docs/api/components.json`, o módulo público é
 **obrigatório** para cumprir o contrato interativo e acessível. Os runtimes atuais
-são Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip:
+são Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs e Tooltip:
 
 ```js
 import { initAccordions, destroyAccordions } from 'ds-tis/accordion';
 import { initComboboxes, destroyComboboxes } from 'ds-tis/combobox';
 import { initModals, destroyModals } from 'ds-tis/modal';
 import { initActionMenus, destroyActionMenus } from 'ds-tis/menu';
+import { initPopovers, destroyPopovers } from 'ds-tis/popover';
+import { initToasts, destroyToasts } from 'ds-tis/toast';
 import { initTabs, destroyTabs } from 'ds-tis/tabs';
 import { initTooltips, destroyTooltips } from 'ds-tis/tooltip';
 
@@ -57,6 +59,8 @@ initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initPopovers();
+initToasts();
 initTabs();
 initTooltips();
 
@@ -65,11 +69,13 @@ destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
+destroyPopovers();
+destroyToasts();
 destroyTabs();
 destroyTooltips();
 ```
 
-Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate
+Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs e Tooltip concluíram o gate
 executável da ADR-020 e estão **App-ready**. Seus módulos continuam obrigatórios
 quando os componentes forem usados, pois mantêm o contrato interativo e
 acessível publicado.

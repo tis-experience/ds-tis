@@ -119,6 +119,16 @@ try {
     'initTooltips(document) must mark tooltip',
     evidence('tooltip', 'root-init', 'init-document'),
   );
+  ok(
+    markers.popoverInit,
+    'initPopovers(document) must mark popover',
+    evidence('popover', 'root-init', 'init-document'),
+  );
+  ok(
+    markers.toastInit,
+    'initToasts(document) must mark the Toast region',
+    evidence('toast', 'root-init', 'init-document'),
+  );
 
   await page.evaluate(() => window.__dsLifecycle.clearEvents());
 
@@ -213,6 +223,42 @@ try {
     'tooltip must hide on Escape',
   );
 
+  // --- Popover open/close ---
+  await page.locator('#popover-trigger').click();
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => !el.hidden),
+    'popover must open after init',
+    evidence('popover', 'open-close', 'trigger-opens'),
+  );
+  await page.keyboard.press('Escape');
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => el.hidden),
+    'popover must close on Escape',
+    [
+      evidence('popover', 'keyboard', 'escape-closes'),
+      evidence('popover', 'open-close', 'trigger-opens'),
+    ],
+  );
+
+  // --- Toast show/dismiss ---
+  const toastInitial = await page.evaluate(() => {
+    const id = window.__dsLifecycle.showToast({
+      id: 'life-toast-initial',
+      type: 'success',
+      title: 'Salvo',
+      duration: 0,
+    });
+    const toast = document.querySelector(`[data-toast-id="${id}"]`);
+    const shown = Boolean(toast);
+    const dismissed = window.__dsLifecycle.dismissToast(id);
+    return { shown, dismissed, removed: !toast?.isConnected };
+  });
+  ok(
+    toastInitial.shown && toastInitial.dismissed && toastInitial.removed,
+    `Toast public API must show and dismiss a notification (${JSON.stringify(toastInitial)})`,
+    evidence('toast', 'open-close', 'api-show-dismiss'),
+  );
+
   const eventsAfterUse = await page.evaluate(() => window.__dsLifecycle.events());
   const eventCount = (name) => eventsAfterUse.filter((eventName) => eventName === name).length;
   const expectedEventCounts = {
@@ -226,6 +272,10 @@ try {
     'ds-tabs-change': 1,
     'ds-tooltip-show': 1,
     'ds-tooltip-hide': 1,
+    'ds-popover-open': 1,
+    'ds-popover-close': 1,
+    'ds-toast-show': 1,
+    'ds-toast-dismiss': 1,
   };
   for (const [eventName, expectedCount] of Object.entries(expectedEventCounts)) {
     ok(
@@ -240,6 +290,8 @@ try {
     accordion: ['ds-accordion-open', 'ds-accordion-close'],
     tabs: ['ds-tabs-change'],
     tooltip: ['ds-tooltip-show', 'ds-tooltip-hide'],
+    popover: ['ds-popover-open', 'ds-popover-close'],
+    toast: ['ds-toast-show', 'ds-toast-dismiss'],
   };
   for (const [slug, eventNames] of Object.entries(eventExpectationsBySlug)) {
     ok(
@@ -2037,6 +2089,752 @@ try {
     evidence('tooltip', 'reinit', 'reinit-single-event'),
   );
 
+  // --- Popover: root init, hydration, idempotência e ARIA ---
+  const popoverSetup = await page.evaluate(() => {
+    const { initPopovers, closePopover } = window.__dsLifecycle;
+    const markup = (prefix) => `
+      <div class="ds-popover ds-popover--bottom" id="${prefix}">
+        <button class="ds-popover__trigger" type="button" id="${prefix}-trigger">Abrir</button>
+        <div class="ds-popover__panel" role="dialog" aria-label="${prefix}" hidden>
+          <button class="ds-popover__close" type="button" id="${prefix}-close">Fechar</button>
+          <button type="button" id="${prefix}-action">Ação</button>
+        </div>
+      </div>`;
+
+    const host = document.createElement('div');
+    host.id = 'popover-proof-host';
+    document.body.appendChild(host);
+
+    const containerHost = document.createElement('div');
+    containerHost.innerHTML = markup('popover-container-root');
+    host.appendChild(containerHost);
+    const containerCreated = initPopovers(containerHost).length;
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = markup('popover-component-root').trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    host.appendChild(componentRoot);
+    const componentCreated = initPopovers(componentRoot).length;
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-popover';
+    incomplete.id = 'popover-incomplete-root';
+    incomplete.innerHTML = '<div class="ds-popover__panel" role="dialog" aria-label="Tardio" hidden></div>';
+    host.appendChild(incomplete);
+    const incompleteFirstCreated = initPopovers(incomplete).length;
+    const incompletePoisoned = incomplete.dataset.dsPopoverInit === 'true';
+    incomplete.insertAdjacentHTML('afterbegin', '<button class="ds-popover__trigger" type="button">Abrir</button>');
+    const incompleteRecovered = initPopovers(incomplete).length;
+
+    const lateHost = document.createElement('div');
+    host.appendChild(lateHost);
+    const lateBefore = initPopovers(lateHost).length;
+    lateHost.innerHTML = markup('popover-late-root');
+    const lateAfter = initPopovers(lateHost).length;
+
+    const secondInitCreated = initPopovers(componentRoot).length;
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-popover-open', () => { duplicateEventCount += 1; });
+    componentRoot.querySelector('.ds-popover__trigger').click();
+
+    const panel = componentRoot.querySelector('.ds-popover__panel');
+    const trigger = componentRoot.querySelector('.ds-popover__trigger');
+    const aria = {
+      role: panel.getAttribute('role'),
+      controls: trigger.getAttribute('aria-controls'),
+      panelId: panel.id,
+      expanded: trigger.getAttribute('aria-expanded'),
+      open: componentRoot.dataset.open,
+    };
+    closePopover(componentRoot);
+
+    const scopedHost = document.createElement('div');
+    scopedHost.innerHTML = `${markup('popover-scope-a')}${markup('popover-scope-b')}`;
+    host.appendChild(scopedHost);
+    const scopedCreated = initPopovers(scopedHost).length;
+
+    return {
+      containerCreated,
+      containerMarked: containerHost.querySelector('.ds-popover').dataset.dsPopoverInit === 'true',
+      componentCreated,
+      componentMarked: componentRoot.dataset.dsPopoverInit === 'true',
+      incompleteFirstCreated,
+      incompletePoisoned,
+      incompleteRecovered,
+      incompleteMarked: incomplete.dataset.dsPopoverInit === 'true',
+      lateBefore,
+      lateAfter,
+      lateMarked: lateHost.querySelector('.ds-popover').dataset.dsPopoverInit === 'true',
+      secondInitCreated,
+      duplicateEventCount,
+      aria,
+      scopedCreated,
+    };
+  });
+
+  ok(
+    popoverSetup.containerCreated === 1 && popoverSetup.containerMarked,
+    'initPopovers(container) must initialize one descendant Popover',
+    evidence('popover', 'root-init', 'init-container'),
+  );
+  ok(
+    popoverSetup.componentCreated === 1 && popoverSetup.componentMarked,
+    'initPopovers(componentRoot) must initialize the Popover root itself',
+    evidence('popover', 'root-init', 'init-component-root'),
+  );
+  ok(
+    popoverSetup.incompleteFirstCreated === 0
+      && !popoverSetup.incompletePoisoned
+      && popoverSetup.incompleteRecovered === 1
+      && popoverSetup.incompleteMarked,
+    'incomplete Popover markup must remain recoverable',
+    evidence('popover', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    popoverSetup.lateBefore === 0 && popoverSetup.lateAfter === 1 && popoverSetup.lateMarked,
+    'a late Popover subtree must initialize when scanned again',
+    evidence('popover', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    popoverSetup.secondInitCreated === 0,
+    'double init must create zero additional Popover instances',
+    evidence('popover', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    popoverSetup.duplicateEventCount === 1,
+    `double init must not duplicate Popover events (${popoverSetup.duplicateEventCount})`,
+    evidence('popover', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(
+    popoverSetup.aria.role === 'dialog'
+      && popoverSetup.aria.controls === popoverSetup.aria.panelId
+      && popoverSetup.aria.expanded === 'true'
+      && popoverSetup.aria.open === 'true',
+    `Popover must synchronize dialog/id/controls/expanded (${JSON.stringify(popoverSetup.aria)})`,
+    evidence('popover', 'aria', 'dialog-controls-expanded-sync'),
+  );
+  ok(popoverSetup.scopedCreated === 2, 'scoped destroy fixture must initialize two Popovers');
+
+  // --- Popover: foco, close, click externo e evento público ---
+  await page.locator('#popover-trigger').click();
+  ok(
+    (await page.evaluate(() => document.activeElement?.id)) === 'popover-close',
+    'Popover must focus its first interactive control on open',
+    evidence('popover', 'focus', 'initial-focus'),
+  );
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  ok(
+    await page.evaluate(() => !document.getElementById('life-popover-panel').contains(document.activeElement)),
+    'Popover must not trap focus',
+    evidence('popover', 'focus', 'no-focus-trap'),
+  );
+  await page.evaluate(() => window.__dsLifecycle.closePopover(document.getElementById('life-popover')));
+
+  await page.locator('#popover-trigger').click();
+  await page.keyboard.press('Escape');
+  ok(
+    await page.evaluate(() => (
+      document.getElementById('life-popover-panel').hidden
+      && document.activeElement?.id === 'popover-trigger'
+    )),
+    'Escape must close Popover and return focus to trigger',
+    [
+      evidence('popover', 'keyboard', 'escape-closes'),
+      evidence('popover', 'focus', 'focus-return'),
+    ],
+  );
+
+  await page.locator('#popover-trigger').click();
+  await page.locator('#popover-close').click();
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => el.hidden),
+    'close button must close Popover',
+    evidence('popover', 'open-close', 'close-button-closes'),
+  );
+
+  await page.locator('#popover-trigger').click();
+  await page.mouse.click(1, 1);
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => el.hidden),
+    'outside pointer interaction must close Popover',
+    evidence('popover', 'open-close', 'outside-closes'),
+  );
+
+  // Opening a second Popover must make it the sole focus-return owner.
+  await page.locator('#popover-scope-a-trigger').click();
+  await page.locator('#popover-scope-b-trigger').click();
+  const popoverReplacementOpen = await page.evaluate(() => ({
+    firstHidden: document.querySelector('#popover-scope-a .ds-popover__panel').hidden,
+    secondHidden: document.querySelector('#popover-scope-b .ds-popover__panel').hidden,
+    active: document.activeElement?.id,
+  }));
+  ok(
+    popoverReplacementOpen.firstHidden
+      && !popoverReplacementOpen.secondHidden
+      && popoverReplacementOpen.active === 'popover-scope-b-close',
+    `opening Popover B must close A and focus B (${JSON.stringify(popoverReplacementOpen)})`,
+    evidence('popover', 'open-close', 'latest-popover-replaces-previous'),
+  );
+  await page.keyboard.press('Escape');
+  const popoverReplacementClosed = await page.evaluate(() => ({
+    firstHidden: document.querySelector('#popover-scope-a .ds-popover__panel').hidden,
+    secondHidden: document.querySelector('#popover-scope-b .ds-popover__panel').hidden,
+    active: document.activeElement?.id,
+  }));
+  ok(
+    popoverReplacementClosed.firstHidden
+      && popoverReplacementClosed.secondHidden
+      && popoverReplacementClosed.active === 'popover-scope-b-trigger',
+    `Escape after A → B must return focus to trigger B (${JSON.stringify(popoverReplacementClosed)})`,
+    [
+      evidence('popover', 'keyboard', 'escape-returns-focus-to-latest-trigger'),
+      evidence('popover', 'focus', 'latest-trigger-focus-return'),
+    ],
+  );
+
+  // Pointerdown on a non-focusable outside target must not strand focus in a
+  // panel that was just hidden.
+  const popoverOutsideFocus = await page.evaluate(() => {
+    const outside = document.createElement('div');
+    outside.id = 'popover-outside-nonfocusable';
+    document.body.append(outside);
+    const root = document.getElementById('life-popover');
+    const panel = document.getElementById('life-popover-panel');
+    root.querySelector('.ds-popover__trigger').click();
+    const focusedInsideBefore = panel.contains(document.activeElement);
+    outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+    const result = {
+      focusedInsideBefore,
+      panelHidden: panel.hidden,
+      focusedInsideAfter: panel.contains(document.activeElement),
+      active: document.activeElement?.id,
+      outsideFocusable: outside.matches('a, button, input, select, textarea, [tabindex]'),
+    };
+    outside.remove();
+    return result;
+  });
+  ok(
+    popoverOutsideFocus.focusedInsideBefore
+      && popoverOutsideFocus.panelHidden
+      && !popoverOutsideFocus.focusedInsideAfter
+      && !popoverOutsideFocus.outsideFocusable,
+    `outside pointerdown must not leave focus inside a hidden Popover (${JSON.stringify(popoverOutsideFocus)})`,
+    evidence('popover', 'focus', 'outside-nonfocusable-no-hidden-focus'),
+  );
+
+  // Collision handling must flip every preferred placement when its side is
+  // constrained and then shift the resolved panel inside a narrow viewport.
+  await page.setViewportSize({ width: 320, height: 240 });
+  const popoverCollision = await page.evaluate(() => {
+    const {
+      initPopovers,
+      destroyPopovers,
+      openPopover,
+      closePopover,
+    } = window.__dsLifecycle;
+    const fixture = document.createElement('div');
+    fixture.id = 'popover-collision-fixture';
+    document.body.append(fixture);
+    const definitions = [
+      { placement: 'bottom', expected: 'top', left: 4, top: 208, shift: '--popover-collision-inline' },
+      { placement: 'top', expected: 'bottom', left: 288, top: 4, shift: '--popover-collision-inline' },
+      { placement: 'left', expected: 'right', left: 4, top: 4, shift: '--popover-collision-block' },
+      { placement: 'right', expected: 'left', left: 288, top: 208, shift: '--popover-collision-block' },
+    ];
+
+    for (const definition of definitions) {
+      const root = document.createElement('div');
+      root.className = `ds-popover ds-popover--${definition.placement}`;
+      root.id = `popover-collision-${definition.placement}`;
+      root.style.position = 'fixed';
+      root.style.insetInlineStart = `${definition.left}px`;
+      root.style.insetBlockStart = `${definition.top}px`;
+      root.innerHTML = `
+        <button class="ds-popover__trigger" type="button"
+          style="inline-size:24px;block-size:24px;padding:0">Abrir</button>
+        <div class="ds-popover__panel" role="dialog"
+          aria-label="Collision ${definition.placement}" hidden>
+          <button class="ds-popover__close" type="button">Fechar</button>
+          <div style="inline-size:240px;block-size:120px">Conteúdo para collision</div>
+        </div>`;
+      fixture.append(root);
+    }
+    initPopovers(fixture);
+
+    const results = definitions.map((definition) => {
+      const root = document.getElementById(`popover-collision-${definition.placement}`);
+      const panel = root.querySelector('.ds-popover__panel');
+      openPopover(root);
+      const rect = panel.getBoundingClientRect();
+      const result = {
+        preferred: definition.placement,
+        resolved: root.dataset.dsPopoverPlacement,
+        expected: definition.expected,
+        shift: panel.style.getPropertyValue(definition.shift),
+        rect: {
+          left: rect.left,
+          right: rect.right,
+          top: rect.top,
+          bottom: rect.bottom,
+        },
+        inViewport: rect.left >= -0.5
+          && rect.right <= window.innerWidth + 0.5
+          && rect.top >= -0.5
+          && rect.bottom <= window.innerHeight + 0.5,
+      };
+      closePopover(root);
+      return result;
+    });
+    destroyPopovers(fixture);
+    fixture.remove();
+    return results;
+  });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  ok(
+    popoverCollision.length === 4
+      && popoverCollision.every((result) => (
+        result.resolved === result.expected
+        && result.resolved !== result.preferred
+        && result.shift !== ''
+        && result.inViewport
+      )),
+    `all four Popover placements must flip/shift inside a narrow viewport (${JSON.stringify(popoverCollision)})`,
+    evidence('popover', 'open-close', 'four-placement-collision-within-viewport'),
+  );
+
+  const popoverEvent = await page.evaluate(() => new Promise((resolve) => {
+    const root = document.getElementById('life-popover');
+    root.addEventListener('ds-popover-open', (event) => {
+      resolve({
+        bubbles: event.bubbles,
+        target: event.target.id,
+        root: event.detail.root.id,
+        trigger: event.detail.trigger.id,
+        panel: event.detail.panel.id,
+        reason: event.detail.reason,
+      });
+    }, { once: true });
+    root.querySelector('.ds-popover__trigger').click();
+  }));
+  ok(
+    popoverEvent.bubbles
+      && popoverEvent.target === 'life-popover'
+      && popoverEvent.root === 'life-popover'
+      && popoverEvent.trigger === 'popover-trigger'
+      && popoverEvent.panel === 'life-popover-panel'
+      && popoverEvent.reason === 'trigger',
+    `Popover event must bubble with stable detail (${JSON.stringify(popoverEvent)})`,
+    evidence('popover', 'events', 'public-event-bubbling-target-detail'),
+  );
+  await page.keyboard.press('Escape');
+  const popoverEventCounts = await page.evaluate(() => window.__dsLifecycle.events()
+    .filter((name) => name === 'ds-popover-open' || name === 'ds-popover-close'));
+  ok(
+    popoverEventCounts.length >= 2,
+    'Popover must emit public open and close events',
+    evidence('popover', 'events', 'public-event-count'),
+  );
+
+  const popoverCleanup = await page.evaluate(() => {
+    const { initPopovers, destroyPopovers } = window.__dsLifecycle;
+    const scopeA = document.getElementById('popover-scope-a');
+    const scopeB = document.getElementById('popover-scope-b');
+    destroyPopovers(scopeA);
+    destroyPopovers(scopeA);
+    scopeA.querySelector('.ds-popover__trigger').click();
+    scopeB.querySelector('.ds-popover__trigger').click();
+    const scopeADeadBeforeReinit = scopeA.querySelector('.ds-popover__panel').hidden
+      && scopeA.dataset.dsPopoverInit !== 'true';
+    const scopeBAliveBeforeReinit = !scopeB.querySelector('.ds-popover__panel').hidden
+      && scopeB.dataset.dsPopoverInit === 'true';
+
+    let reinitEvents = 0;
+    scopeA.addEventListener('ds-popover-open', () => { reinitEvents += 1; });
+    const reinitCreated = initPopovers(scopeA).length;
+    scopeA.querySelector('.ds-popover__trigger').click();
+
+    return {
+      scopeADeadBeforeReinit,
+      scopeBAliveBeforeReinit,
+      reinitCreated,
+      reinitOpened: !scopeA.querySelector('.ds-popover__panel').hidden,
+      reinitEvents,
+      reinitMarked: scopeA.dataset.dsPopoverInit === 'true',
+    };
+  });
+  ok(
+    popoverCleanup.scopeADeadBeforeReinit && popoverCleanup.scopeBAliveBeforeReinit,
+    'destroyPopovers(root) must destroy only the scoped Popover',
+    evidence('popover', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    popoverCleanup.reinitCreated === 1,
+    'destroyPopovers(root) must be safe when called twice',
+    evidence('popover', 'destroy', 'double-destroy'),
+  );
+  ok(
+    popoverCleanup.reinitOpened && popoverCleanup.reinitMarked && popoverCleanup.reinitEvents === 1,
+    `Popover re-init must restore one listener/event (${JSON.stringify(popoverCleanup)})`,
+    evidence('popover', 'reinit', 'reinit-single-event'),
+  );
+
+  // --- Toast: roots, hydration, idempotência e live regions ---
+  const toastSetup = await page.evaluate(() => {
+    const { initToasts } = window.__dsLifecycle;
+    const regionMarkup = (id) => `
+      <div class="ds-toast-region" data-ds-toast-region id="${id}">
+        <div class="ds-toast-region__polite" role="status" aria-live="polite" aria-relevant="additions"></div>
+        <div class="ds-toast-region__assertive" role="alert" aria-live="assertive" aria-relevant="additions"></div>
+      </div>`;
+
+    const host = document.createElement('section');
+    host.id = 'toast-proof-host';
+    document.body.append(host);
+
+    const containerHost = document.createElement('div');
+    containerHost.innerHTML = regionMarkup('toast-container-region');
+    host.append(containerHost);
+    const [containerController] = initToasts(containerHost);
+
+    const componentTemplate = document.createElement('template');
+    componentTemplate.innerHTML = regionMarkup('toast-component-region').trim();
+    const componentRoot = componentTemplate.content.firstElementChild;
+    host.append(componentRoot);
+    const [componentController] = initToasts(componentRoot);
+
+    const incomplete = document.createElement('div');
+    incomplete.className = 'ds-toast-region';
+    incomplete.setAttribute('data-ds-toast-region', '');
+    incomplete.id = 'toast-incomplete-region';
+    host.append(incomplete);
+    const [incompleteController] = initToasts(incomplete);
+
+    const lateHost = document.createElement('div');
+    host.append(lateHost);
+    const lateBefore = lateHost.querySelectorAll('[data-ds-toast-region]').length;
+    lateHost.innerHTML = regionMarkup('toast-late-region');
+    const [lateController] = initToasts(lateHost);
+
+    const [secondComponentController] = initToasts(componentRoot);
+    let duplicateEventCount = 0;
+    componentRoot.addEventListener('ds-toast-show', () => { duplicateEventCount += 1; });
+    const duplicateId = componentController.show({
+      id: 'toast-idempotent',
+      title: 'Único',
+      duration: 0,
+    });
+    componentController.dismiss(duplicateId);
+
+    return {
+      containerMarked: containerController.root.id === 'toast-container-region'
+        && containerController.root.dataset.dsToastInit === 'true',
+      componentMarked: componentController.root === componentRoot
+        && componentRoot.dataset.dsToastInit === 'true'
+        && componentRoot.querySelectorAll('[data-ds-toast-region]').length === 0,
+      incompleteRecovered: incompleteController.root === incomplete
+        && incomplete.dataset.dsToastInit === 'true'
+        && incomplete.querySelector('.ds-toast-region__polite')?.getAttribute('role') === 'status'
+        && incomplete.querySelector('.ds-toast-region__assertive')?.getAttribute('role') === 'alert',
+      lateBefore,
+      lateInitialized: lateController.root.id === 'toast-late-region'
+        && lateController.root.dataset.dsToastInit === 'true',
+      sameController: componentController === secondComponentController,
+      duplicateEventCount,
+      aria: {
+        politeRole: containerController.root.querySelector('.ds-toast-region__polite')?.getAttribute('role'),
+        politeLive: containerController.root.querySelector('.ds-toast-region__polite')?.getAttribute('aria-live'),
+        assertiveRole: containerController.root.querySelector('.ds-toast-region__assertive')?.getAttribute('role'),
+        assertiveLive: containerController.root.querySelector('.ds-toast-region__assertive')?.getAttribute('aria-live'),
+      },
+    };
+  });
+  ok(
+    toastSetup.containerMarked,
+    'initToasts(container) must initialize its descendant Toast region',
+    evidence('toast', 'root-init', 'init-container'),
+  );
+  ok(
+    toastSetup.componentMarked,
+    'initToasts(componentRoot) must initialize the Toast region itself without nesting another region',
+    evidence('toast', 'root-init', 'init-component-root'),
+  );
+  ok(
+    toastSetup.incompleteRecovered,
+    'an incomplete Toast region must be repaired with both live-region hosts',
+    evidence('toast', 'late-hydration', 'incomplete-markup-recoverable'),
+  );
+  ok(
+    toastSetup.lateBefore === 0 && toastSetup.lateInitialized,
+    'a Toast region mounted after the initial document scan must initialize in its subtree',
+    evidence('toast', 'late-hydration', 'late-subtree-init'),
+  );
+  ok(
+    toastSetup.sameController,
+    'double init must reuse the same Toast controller',
+    evidence('toast', 'idempotent-init', 'double-init-zero-new-instance'),
+  );
+  ok(
+    toastSetup.duplicateEventCount === 1,
+    `double init must not duplicate Toast events (${toastSetup.duplicateEventCount})`,
+    evidence('toast', 'idempotent-init', 'double-init-no-duplicate-event'),
+  );
+  ok(
+    toastSetup.aria.politeRole === 'status'
+      && toastSetup.aria.politeLive === 'polite'
+      && toastSetup.aria.assertiveRole === 'alert'
+      && toastSetup.aria.assertiveLive === 'assertive',
+    `Toast must expose separate polite and assertive live regions (${JSON.stringify(toastSetup.aria)})`,
+    evidence('toast', 'aria', 'polite-assertive-live-regions'),
+  );
+
+  // --- Toast: foco, timer, teclado, fila, action e eventos públicos ---
+  const toastFocus = await page.evaluate(() => {
+    const { initToasts, showToast } = window.__dsLifecycle;
+    initToasts(document);
+    const before = document.activeElement?.id;
+    const id = showToast({
+      id: 'toast-focus-pause',
+      type: 'info',
+      title: 'Pausável',
+      duration: 140,
+    });
+    return {
+      id,
+      before,
+      after: document.activeElement?.id,
+    };
+  });
+  ok(
+    toastFocus.before === toastFocus.after,
+    `showToast must not move focus (${JSON.stringify(toastFocus)})`,
+    evidence('toast', 'focus', 'does-not-move-focus'),
+  );
+  await page.locator(`[data-toast-id="${toastFocus.id}"] .ds-toast__close`).focus();
+  await page.waitForTimeout(220);
+  const toastStillPaused = await page.locator(`[data-toast-id="${toastFocus.id}"]`).count() === 1;
+  await page.locator('#life-tab-a').focus();
+  await page.waitForTimeout(180);
+  const toastResumed = await page.locator(`[data-toast-id="${toastFocus.id}"]`).count() === 0;
+  ok(
+    toastStillPaused && toastResumed,
+    `Toast focus must pause and then resume auto-hide (${JSON.stringify({ toastStillPaused, toastResumed })})`,
+    evidence('toast', 'focus', 'focus-pauses-timer'),
+  );
+
+  const toastEscapeId = await page.evaluate(() => window.__dsLifecycle.showToast({
+    id: 'toast-escape',
+    type: 'warning',
+    title: 'Teclado',
+    duration: 0,
+  }));
+  await page.locator(`[data-toast-id="${toastEscapeId}"] .ds-toast__close`).focus();
+  await page.keyboard.press('Escape');
+  ok(
+    await page.locator(`[data-toast-id="${toastEscapeId}"]`).count() === 0,
+    'Escape must dismiss the Toast that contains focus',
+    evidence('toast', 'keyboard', 'escape-dismisses-focused-toast'),
+  );
+
+  const toastTimeoutId = await page.evaluate(() => window.__dsLifecycle.showToast({
+    id: 'toast-timeout',
+    type: 'info',
+    title: 'Temporário',
+    duration: 40,
+  }));
+  await page.waitForTimeout(100);
+  ok(
+    await page.locator(`[data-toast-id="${toastTimeoutId}"]`).count() === 0,
+    'Toast without action must dismiss after its configured duration',
+    evidence('toast', 'open-close', 'timeout-dismisses'),
+  );
+
+  const toastQueue = await page.evaluate(() => {
+    const { initToasts, destroyToasts } = window.__dsLifecycle;
+    const host = document.createElement('div');
+    host.id = 'toast-queue-host';
+    host.innerHTML = `
+      <div class="ds-toast-region" data-ds-toast-region id="toast-queue-region">
+        <div class="ds-toast-region__polite" role="status" aria-live="polite"></div>
+        <div class="ds-toast-region__assertive" role="alert" aria-live="assertive"></div>
+      </div>`;
+    document.body.append(host);
+    const [controller] = initToasts(host);
+    const reasons = [];
+    controller.root.addEventListener('ds-toast-dismiss', (event) => reasons.push(event.detail.reason));
+    for (let index = 0; index < 6; index += 1) {
+      controller.show({ id: `toast-queue-${index}`, title: `Toast ${index}`, duration: 0 });
+    }
+    const result = {
+      count: controller.root.querySelectorAll('[data-ds-toast]').length,
+      oldestPresent: Boolean(controller.root.querySelector('[data-toast-id="toast-queue-0"]')),
+      overflowCount: reasons.filter((reason) => reason === 'overflow').length,
+    };
+    destroyToasts(host);
+    return result;
+  });
+  ok(
+    toastQueue.count === 5 && !toastQueue.oldestPresent && toastQueue.overflowCount === 1,
+    `Toast queue must evict only the oldest item after five visible notifications (${JSON.stringify(toastQueue)})`,
+    evidence('toast', 'open-close', 'queue-limit-oldest'),
+  );
+
+  const toastEventId = await page.evaluate(() => {
+    const { initToasts } = window.__dsLifecycle;
+    const host = document.createElement('div');
+    host.id = 'toast-event-host';
+    host.innerHTML = `
+      <div class="ds-toast-region" data-ds-toast-region id="toast-event-region">
+        <div class="ds-toast-region__polite" role="status" aria-live="polite"></div>
+        <div class="ds-toast-region__assertive" role="alert" aria-live="assertive"></div>
+      </div>`;
+    document.body.append(host);
+    const [controller] = initToasts(host);
+    window.__toastEventController = controller;
+    window.__toastActionCalls = 0;
+    window.__toastPublicEvents = [];
+    for (const name of ['ds-toast-show', 'ds-toast-action', 'ds-toast-dismiss']) {
+      controller.root.addEventListener(name, (event) => {
+        window.__toastPublicEvents.push({
+          name,
+          bubbles: event.bubbles,
+          target: event.target.id,
+          id: event.detail.id,
+          type: event.detail.type,
+          root: event.detail.root.id,
+          toastId: event.detail.toast?.dataset.toastId,
+          actionIndex: event.detail.actionIndex,
+          label: event.detail.label,
+          reason: event.detail.reason,
+        });
+      });
+    }
+    return controller.show({
+      id: 'toast-event',
+      type: 'success',
+      title: 'Com ação',
+      actions: [{
+        label: 'Desfazer',
+        onAction: () => { window.__toastActionCalls += 1; },
+      }],
+    });
+  });
+  await page.locator(`[data-toast-id="${toastEventId}"] .ds-toast__actions .ds-button`).click();
+  const toastActionResult = await page.evaluate((id) => {
+    const stillVisibleAfterAction = Boolean(document.querySelector(`[data-toast-id="${id}"]`));
+    window.__toastEventController.dismiss(id);
+    return {
+      calls: window.__toastActionCalls,
+      stillVisibleAfterAction,
+      events: window.__toastPublicEvents,
+    };
+  }, toastEventId);
+  const toastEventNames = toastActionResult.events.map((event) => event.name);
+  const toastEventDetailValid = toastActionResult.events.every((event) => (
+    event.bubbles
+      && event.target === 'toast-event-region'
+      && event.id === 'toast-event'
+      && event.type === 'success'
+      && event.root === 'toast-event-region'
+      && event.toastId === 'toast-event'
+  ));
+  const toastActionEvent = toastActionResult.events.find((event) => event.name === 'ds-toast-action');
+  const toastDismissEvent = toastActionResult.events.find((event) => event.name === 'ds-toast-dismiss');
+  ok(
+    toastActionResult.calls === 1
+      && toastActionResult.stillVisibleAfterAction
+      && toastActionEvent?.actionIndex === 0
+      && toastActionEvent?.label === 'Desfazer',
+    `Toast action must call its callback once without dismissing implicitly (${JSON.stringify(toastActionResult)})`,
+    evidence('toast', 'open-close', 'action-callback-runs'),
+  );
+  ok(
+    toastEventNames.length === 3
+      && ['ds-toast-show', 'ds-toast-action', 'ds-toast-dismiss']
+        .every((name) => toastEventNames.filter((eventName) => eventName === name).length === 1),
+    `Toast public events must emit exactly once per exercised transition (${toastEventNames.join(', ')})`,
+    evidence('toast', 'events', 'public-event-count'),
+  );
+  ok(
+    toastEventDetailValid
+      && toastActionEvent?.actionIndex === 0
+      && toastActionEvent?.label === 'Desfazer'
+      && toastDismissEvent?.reason === 'dismiss',
+    `Toast events must bubble with stable target/detail (${JSON.stringify(toastActionResult.events)})`,
+    evidence('toast', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  // --- Toast: destroy escopado, timers e re-init ---
+  const toastCleanup = await page.evaluate(async () => {
+    const { initToasts, destroyToasts } = window.__dsLifecycle;
+    const markup = (id) => `
+      <div class="ds-toast-region" data-ds-toast-region id="${id}">
+        <div class="ds-toast-region__polite" role="status" aria-live="polite"></div>
+        <div class="ds-toast-region__assertive" role="alert" aria-live="assertive"></div>
+      </div>`;
+    const hostA = document.createElement('div');
+    hostA.id = 'toast-scope-a';
+    hostA.innerHTML = markup('toast-scope-a-region');
+    document.body.append(hostA);
+    const hostB = document.createElement('div');
+    hostB.id = 'toast-scope-b';
+    hostB.innerHTML = markup('toast-scope-b-region');
+    document.body.append(hostB);
+    const [controllerA] = initToasts(hostA);
+    const [controllerB] = initToasts(hostB);
+    const dismissReasons = [];
+    controllerA.root.addEventListener('ds-toast-dismiss', (event) => dismissReasons.push(event.detail.reason));
+    controllerA.show({ id: 'toast-scope-a-item', title: 'A', duration: 40 });
+    controllerB.show({ id: 'toast-scope-b-item', title: 'B', duration: 0 });
+
+    destroyToasts(hostA);
+    destroyToasts(hostA);
+    const dismissCountAfterDestroy = dismissReasons.length;
+    const scopeADeadBeforeReinit = controllerA.root.dataset.dsToastInit !== 'true'
+      && !controllerA.root.querySelector('[data-toast-id="toast-scope-a-item"]');
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    let reinitEvents = 0;
+    controllerA.root.addEventListener('ds-toast-show', () => { reinitEvents += 1; });
+    const [reinitialized] = initToasts(hostA);
+    reinitialized.show({ id: 'toast-scope-a-reinit', title: 'A novamente', duration: 0 });
+
+    const result = {
+      scopeADead: scopeADeadBeforeReinit,
+      scopeBAlive: controllerB.root.dataset.dsToastInit === 'true'
+        && Boolean(controllerB.root.querySelector('[data-toast-id="toast-scope-b-item"]')),
+      dismissCountAfterDestroy,
+      dismissCountAfterWait: dismissReasons.length,
+      destroyReason: dismissReasons[0],
+      reinitialized: reinitialized.root.dataset.dsToastInit === 'true'
+        && Boolean(reinitialized.root.querySelector('[data-toast-id="toast-scope-a-reinit"]')),
+      reinitEvents,
+    };
+    destroyToasts(hostA);
+    destroyToasts(hostB);
+    return result;
+  });
+  ok(
+    toastCleanup.scopeADead && toastCleanup.scopeBAlive,
+    `destroyToasts(root) must destroy only the scoped controller (${JSON.stringify(toastCleanup)})`,
+    evidence('toast', 'destroy', 'scoped-destroy'),
+  );
+  ok(
+    toastCleanup.dismissCountAfterDestroy === 1
+      && toastCleanup.dismissCountAfterWait === 1
+      && toastCleanup.destroyReason === 'destroy',
+    `double destroy must remain safe and cancel pending Toast timers (${JSON.stringify(toastCleanup)})`,
+    [
+      evidence('toast', 'destroy', 'double-destroy'),
+      evidence('toast', 'destroy', 'no-post-destroy-effects'),
+    ],
+  );
+  ok(
+    toastCleanup.reinitialized && toastCleanup.reinitEvents === 1,
+    `Toast re-init must restore one controller/event (${JSON.stringify(toastCleanup)})`,
+    evidence('toast', 'reinit', 'reinit-single-event'),
+  );
+
   await page.evaluate(() => {
     document.getElementById('life-tab-a').focus();
     window.__dsLifecycle.clearEvents();
@@ -2055,6 +2853,8 @@ try {
   ok(!markers.accordionInit, 'destroyAccordions must clear init markers');
   ok(!markers.tabsInit, 'destroyTabs must clear init markers');
   ok(!markers.tooltipInit, 'destroyTooltips must clear init markers');
+  ok(!markers.popoverInit, 'destroyPopovers must clear init markers');
+  ok(!markers.toastInit, 'destroyToasts must clear the Toast init marker');
 
   await page.locator('#open-modal').click();
   ok(
@@ -2098,6 +2898,13 @@ try {
     await page.locator('#life-tip').evaluate((el) => el.hasAttribute('hidden')),
     'destroyed tooltip must not show on hover',
     evidence('tooltip', 'destroy', 'no-post-destroy-effects'),
+  );
+
+  await page.locator('#popover-trigger').click();
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => el.hidden),
+    'destroyed popover trigger must not open panel',
+    evidence('popover', 'destroy', 'no-post-destroy-effects'),
   );
 
   const eventsAfterDestroy = await page.evaluate(() => window.__dsLifecycle.events());
@@ -2153,6 +2960,30 @@ try {
     await page.locator('#life-tip').evaluate((el) => !el.hasAttribute('hidden')),
     're-init must restore tooltip hover',
     evidence('tooltip', 'reinit', 'reinit-restores-behavior'),
+  );
+
+  await page.keyboard.press('Escape');
+  await page.locator('#popover-trigger').click();
+  ok(
+    await page.locator('#life-popover-panel').evaluate((el) => !el.hidden),
+    're-init must restore popover trigger',
+    evidence('popover', 'reinit', 'reinit-restores-behavior'),
+  );
+
+  const toastReinit = await page.evaluate(() => {
+    const id = window.__dsLifecycle.showToast({
+      id: 'toast-reinit',
+      title: 'Restaurado',
+      duration: 0,
+    });
+    const shown = Boolean(document.querySelector(`[data-toast-id="${id}"]`));
+    const dismissed = window.__dsLifecycle.dismissToast(id);
+    return { shown, dismissed };
+  });
+  ok(
+    toastReinit.shown && toastReinit.dismissed,
+    `re-init must restore Toast show/dismiss behavior (${JSON.stringify(toastReinit)})`,
+    evidence('toast', 'reinit', 'reinit-restores-behavior'),
   );
 
   console.log(`Checks: ${checks}`);
