@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE_DIR = path.join(ROOT, "_site");
-const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js"];
+const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js", "storybook"];
+const STORYBOOK_DIR = path.join(SITE_DIR, "storybook");
 const packageJson = readJson(path.join(ROOT, "package.json"));
 const errors = [];
 
@@ -18,13 +19,22 @@ if (fs.existsSync(SITE_DIR)) {
   );
 
   const files = walkFiles(SITE_DIR);
-  const htmlFiles = files.filter((file) => file.endsWith(".html"));
+  const htmlFiles = files.filter(
+    (file) => file.endsWith(".html") && !file.startsWith(`${STORYBOOK_DIR}${path.sep}`)
+  );
   const home = fs.readFileSync(path.join(SITE_DIR, "index.html"), "utf8");
+  const navigation = fs.readFileSync(path.join(SITE_DIR, "js", "main.js"), "utf8");
+
+  for (const requiredFile of ["index.html", "iframe.html", "index.json"]) {
+    expect(fs.existsSync(path.join(STORYBOOK_DIR, requiredFile)), `storybook/${requiredFile}: artefato ausente`);
+  }
 
   expect(
     home.includes(`VERSION:${packageJson.version}`) && home.includes(`v${packageJson.version}`),
     `index.html não anuncia v${packageJson.version}`
   );
+  expect(home.includes('href="storybook/"'), "index.html não oferece acesso ao Storybook");
+  expect(navigation.includes("path: 'storybook/index.html'"), "navegação global não oferece acesso ao Storybook");
 
   for (const file of files) {
     const relativePath = path.relative(SITE_DIR, file);

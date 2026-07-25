@@ -143,6 +143,15 @@
 <li>Componentes simples podem ter uma anatomia curta, mas não devem omitir a intenção estrutural.</li>
 <li><code>Form Field</code> segue template próprio porque é CSS-only por ADR-017.</li>
 </ul>
+<h2>Documentação estática e Storybook</h2>
+<p>As duas superfícies são complementares e não devem manter contratos editoriais concorrentes:</p>
+<ul>
+<li>a documentação estática é a referência canônica de uso, anatomia, tokens, classes, propriedades Figma e accessibility;</li>
+<li>o Storybook demonstra a implementação pública real com Controls, variantes, tamanhos, estados e comportamento dos runtimes;</li>
+<li>cada componente no Storybook deve apontar para sua página estática canônica;</li>
+<li>a home e a navegação global da documentação devem manter acesso ao Storybook publicado em <code>/storybook/</code>;</li>
+<li><code>npm run test:storybook</code> protege a cobertura do contrato e <code>npm run test:storybook:browser:pages</code> valida o artefato final em desktop, mobile, dark mode, Axe e interações.</li>
+</ul>
 <h2>Form Field</h2>
 <p><code>Form Field</code> é CSS-only e não deve ser auditado como componente visual ausente no Figma. A página deve deixar claro que:</p>
 <ul>
@@ -275,6 +284,7 @@
 <li>Mudança observável está registrada no <code>CHANGELOG.md</code>.</li>
 <li>Arquivos gerados foram atualizados pelo comando correto.</li>
 <li>Páginas públicas bilíngues têm fontes PT-BR e EN completas.</li>
+<li>Storybook e documentação estática permanecem ligados nos dois sentidos.</li>
 </ul>
 </div>
 <div data-lang="en"><p>This guide defines the editorial contract for TIS Design System pages. Read it
@@ -354,6 +364,15 @@ before creating, refactoring or reviewing files under <code>docs/</code>.</p>
 <li>Non-interactive components do not need Keyboard interaction.</li>
 <li>Simple components may have short anatomy, but must not omit structural intent.</li>
 <li><code>Form Field</code> uses a dedicated template because ADR-017 defines it as CSS-only.</li>
+</ul>
+<h2>Static documentation and Storybook</h2>
+<p>The two surfaces complement each other and must not maintain competing editorial contracts:</p>
+<ul>
+<li>static documentation is the canonical reference for usage, anatomy, tokens, classes, Figma properties and accessibility;</li>
+<li>Storybook demonstrates the real public implementation through Controls, variants, sizes, states and runtime behavior;</li>
+<li>every Storybook component must link to its canonical static page;</li>
+<li>the documentation home and global navigation must keep access to the published Storybook under <code>/storybook/</code>;</li>
+<li><code>npm run test:storybook</code> protects contract coverage, while <code>npm run test:storybook:browser:pages</code> validates the final artifact on desktop, mobile, dark mode, Axe and real interactions.</li>
 </ul>
 <h2>Form Field</h2>
 <p><code>Form Field</code> is CSS-only and must not be reported as a missing visual component
@@ -488,6 +507,7 @@ in Figma. Its page must explain that it:</p>
 <li>Observable changes are recorded in <code>CHANGELOG.md</code>.</li>
 <li>Generated files were updated with the correct command.</li>
 <li>Public bilingual pages contain complete PT-BR and English sources.</li>
+<li>Storybook and static documentation remain linked in both directions.</li>
 </ul>
 </div>
   </div>

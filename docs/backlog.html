@@ -96,7 +96,7 @@
 <p>Avaliar mudança pra Pattern B (Carbon/Polaris/Atlassian): extrair label/helper/error dos controles Figma, criar Component Form Field standalone com slot pra qualquer controle, recompor cada doc afetada. Custo: refactor profundo nos controles Figma impactados, repensar bindings de Text Style e atualizar a documentação relacionada. Benefício: source of truth do wrapping pattern em um lugar só, alinhamento com DS de referência.</p>
 <p>Trigger pra revisitar: pedido explícito de consumidor que precise compor controles custom (ex: combobox, color-picker) usando o wrapping nativo, ou observação de drift em a11y patterns entre Input/Select/Textarea.</p>
 <h3>Storybook</h3>
-<p>Componente inventory marca como pendente. Hoje o site cumpre o papel de vitrine interativa. Só implementar se houver demanda explícita de time Dev consumidor. Integração com os tokens DTCG já gerados (formato padrão de import), sem reinventar.</p>
+<p><strong>Status (2026-07-21): implementado.</strong> A demanda explícita foi atendida com Storybook HTML/Vite, catálogo dos 23 componentes públicos, controles, Docs, auditoria A11y, light/dark e lifecycle dos seis runtimes. O build é publicado em <code>/storybook/</code> dentro do artefato GitHub Pages e consome diretamente o CSS/tokens gerados, sem criar uma camada paralela.</p>
 <h3>MCP próprio do design system</h3>
 <p>Expõe tokens, componentes e guidelines via MCP para agentes. <code>llms.txt</code> + APIs JSON cobrem a maior parte dos casos. Implementar só se aparecer um caso onde MCP próprio faz diferença real.</p>
 <h3>Resolução de conflitos inteligente no <code>sync-tokens-from-figma</code></h3>

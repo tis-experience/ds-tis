@@ -13,6 +13,7 @@
       heading: 'Overview',
       items: [
         { label: 'Getting Started', path: 'index.html' },
+        { label: 'Storybook', path: 'storybook/index.html' },
         { label: 'Token Architecture', path: 'docs/token-architecture.html' },
         { label: 'Design Principles', path: 'docs/design-principles.html' },
         { label: 'Changelog', path: 'docs/changelog.html' }
