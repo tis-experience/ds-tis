@@ -8,7 +8,14 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Popover conclui o gate App-ready.** Novo componente contextual não modal com quatro placements, Content Text e Content Slot independentes, actions substituíveis/ocultáveis, close fixo e Arrow fechada; o export `ds-tis/popover` mantém ARIA, foco, Escape, click externo, lifecycle e eventos `ds-popover-open`/`ds-popover-close`.
+- **Toast conclui o gate App-ready.** O componente publica variantes `solid` e `subtle`, live regions por prioridade, fila limitada, pausa de timer, actions e lifecycle pelo export `ds-tis/toast`.
+- **Table entra como componente App-ready.** A API pública usa semântica HTML nativa para Table, Header Row, Header Cell, Row e Cell, com tamanhos Small/Medium, estados de linha, sort, overflow e Focus Ring.
+
 ### Alterado
+- **Alert adota `solid` como nomenclatura canônica.** Tokens, CSS e documentação acompanham o Figma; `ds-alert--filled` permanece como alias legado para compatibilidade.
+- **Alert espelha integralmente os tokens Component do Figma.** Actions, ícones, conteúdo e variantes `solid`/`subtle` passam pela cadeia Component → Semantic sem valores hardcoded.
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido

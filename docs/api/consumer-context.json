@@ -9,6 +9,8 @@
       "accordion": "ds-tis/accordion",
       "combobox": "ds-tis/combobox",
       "modal": "ds-tis/modal",
+      "popover": "ds-tis/popover",
+      "toast": "ds-tis/toast",
       "menu": "ds-tis/menu",
       "tabs": "ds-tis/tabs",
       "tooltip": "ds-tis/tooltip"

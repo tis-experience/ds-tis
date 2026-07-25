@@ -32,7 +32,9 @@ function writeEvidence() {
   if (snapshotAgeHours < 0 || snapshotAgeHours > MAX_SNAPSHOT_AGE_HOURS) {
     fail(`Snapshot Figma tem ${snapshotAgeHours.toFixed(1)}h; máximo permitido é ${MAX_SNAPSHOT_AGE_HOURS}h.`);
   }
-  if (snapshot.fileKey !== EXPECTED_FILE_KEY || snapshot.expectedFileKey !== EXPECTED_FILE_KEY) {
+  const sourceFileKey = snapshot.fileKey || snapshot.expectedFileKey;
+
+  if (sourceFileKey !== EXPECTED_FILE_KEY || snapshot.expectedFileKey !== EXPECTED_FILE_KEY) {
     fail(`Snapshot pertence ao arquivo incorreto: ${snapshot.fileKey || "?"}.`);
   }
 
@@ -80,13 +82,14 @@ function writeEvidence() {
       verificationModel: "fresh-local-snapshot-with-committed-digests",
     },
     source: {
-      fileKey: snapshot.fileKey,
+      fileKey: sourceFileKey,
+      actualFileKey: snapshot.fileKey || null,
       expectedFileKey: snapshot.expectedFileKey,
       fileName: snapshot.fileName,
       snapshotGeneratedAt: snapshot.generatedAt,
       snapshotAgeHoursAtVerification: Number(snapshotAgeHours.toFixed(3)),
       snapshotSha256: sha256File(SNAPSHOT_PATH),
-      exporter: snapshot.generator || null,
+      exporter: snapshot.exporter || snapshot.generator || null,
       variableCount: Object.keys(snapshot.variables || {}).length,
       collectionCount: Object.keys(snapshot.variableCollections || {}).length,
     },

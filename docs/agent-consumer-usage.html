@@ -142,11 +142,13 @@ podem ler o arquivo diretamente pelo package resolver ou filesystem.</p>
 <p>Importe o CSS público uma vez no entrypoint global do app:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
-<p>Para Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
+<p>Para Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs e Tooltip, inicialize o comportamento público quando o app renderizar ou hidratar os componentes. Ao desmontar (SPA, rota, portal), chame o <code>destroy</code> correspondente para limpar listeners:</p>
 <pre tabindex="0"><code class="language-js">import { initAccordions, destroyAccordions } from &#39;ds-tis/accordion&#39;;
 import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
 import { initModals, destroyModals } from &#39;ds-tis/modal&#39;;
 import { initActionMenus, destroyActionMenus } from &#39;ds-tis/menu&#39;;
+import { initPopovers, destroyPopovers } from &#39;ds-tis/popover&#39;;
+import { initToasts, destroyToasts } from &#39;ds-tis/toast&#39;;
 import { initTabs, destroyTabs } from &#39;ds-tis/tabs&#39;;
 import { initTooltips, destroyTooltips } from &#39;ds-tis/tooltip&#39;;
 
@@ -154,6 +156,8 @@ initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initPopovers();
+initToasts();
 initTabs();
 initTooltips();
 
@@ -162,11 +166,13 @@ destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
+destroyPopovers();
+destroyToasts();
 destroyTabs();
 destroyTooltips();
 </code></pre>
 <p>Ter módulo <code>required</code> não significa automaticamente estar App-ready. Accordion,
-Combobox, Modal, Action Menu, Tabs e Tooltip concluíram o gate executável da
+Combobox, Modal, Action Menu, Popover, Toast, Tabs e Tooltip concluíram o gate executável da
 ADR-020. Seus módulos continuam obrigatórios quando os componentes forem usados,
 pois mantêm o contrato interativo e acessível publicado.</p>
 <p>No Combobox App-ready, o foco DOM permanece no input enquanto as setas atualizam
@@ -215,7 +221,7 @@ trigger e content em <code>detail</code>.</p>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;required&quot;</code></td>
-<td>O contrato interativo e acessível depende de init (Accordion, Combobox, Modal, Action Menu, Tabs e Tooltip).</td>
+<td>O contrato interativo e acessível depende de init (Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs e Tooltip).</td>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;optional&quot;</code></td>
@@ -223,15 +229,15 @@ trigger e content em <code>detail</code>.</p>
 </tr>
 <tr>
 <td><code>runtime.module</code></td>
-<td>Export do pacote (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
+<td>Export do pacote (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/popover</code>, <code>ds-tis/toast</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.init</code></td>
-<td>Função a chamar após render/hydration (<code>initAccordions</code>, <code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>, <code>initTabs</code>, <code>initTooltips</code>).</td>
+<td>Função a chamar após render/hydration (<code>initAccordions</code>, <code>initComboboxes</code>, <code>initModals</code>, <code>initActionMenus</code>, <code>initPopovers</code>, <code>initToasts</code>, <code>initTabs</code>, <code>initTooltips</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.destroy</code></td>
-<td>Função a chamar ao desmontar (<code>destroyAccordions</code>, <code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>, <code>destroyTabs</code>, <code>destroyTooltips</code>).</td>
+<td>Função a chamar ao desmontar (<code>destroyAccordions</code>, <code>destroyComboboxes</code>, <code>destroyModals</code>, <code>destroyActionMenus</code>, <code>destroyPopovers</code>, <code>destroyToasts</code>, <code>destroyTabs</code>, <code>destroyTooltips</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.events</code></td>
@@ -442,13 +448,15 @@ future prereleases. GitHub release fallback:
 <p>Import the public CSS once in the application&#39;s global entrypoint:</p>
 <pre tabindex="0"><code class="language-js">import &#39;ds-tis/css&#39;;
 </code></pre>
-<p>For Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip, initialize the
+<p>For Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip, initialize the
 public behavior after render or hydration. On teardown (SPA route, view or
 portal), call the corresponding <code>destroy</code> function to remove listeners:</p>
 <pre tabindex="0"><code class="language-js">import { initAccordions, destroyAccordions } from &#39;ds-tis/accordion&#39;;
 import { initComboboxes, destroyComboboxes } from &#39;ds-tis/combobox&#39;;
 import { initModals, destroyModals } from &#39;ds-tis/modal&#39;;
 import { initActionMenus, destroyActionMenus } from &#39;ds-tis/menu&#39;;
+import { initPopovers, destroyPopovers } from &#39;ds-tis/popover&#39;;
+import { initToasts, destroyToasts } from &#39;ds-tis/toast&#39;;
 import { initTabs, destroyTabs } from &#39;ds-tis/tabs&#39;;
 import { initTooltips, destroyTooltips } from &#39;ds-tis/tooltip&#39;;
 
@@ -456,6 +464,8 @@ initAccordions();
 initComboboxes();
 initModals();
 initActionMenus();
+initPopovers();
+initToasts();
 initTabs();
 initTooltips();
 
@@ -464,11 +474,13 @@ destroyAccordions();
 destroyComboboxes();
 destroyModals();
 destroyActionMenus();
+destroyPopovers();
+destroyToasts();
 destroyTabs();
 destroyTooltips();
 </code></pre>
 <p>A <code>required</code> module does not automatically make a component App-ready.
-Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip have completed the
+Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip have completed the
 executable ADR-020 gate. Their modules remain required whenever those
 components are used because they preserve the published interactive and
 accessible contract.</p>
@@ -520,7 +532,7 @@ exposes <code>runtime</code>:</p>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;required&quot;</code></td>
-<td>The interactive and accessible contract depends on initialization (Accordion, Combobox, Modal, Action Menu, Tabs and Tooltip).</td>
+<td>The interactive and accessible contract depends on initialization (Accordion, Combobox, Modal, Action Menu, Popover, Toast, Tabs and Tooltip).</td>
 </tr>
 <tr>
 <td><code>runtime.level: &quot;optional&quot;</code></td>
@@ -528,7 +540,7 @@ exposes <code>runtime</code>:</p>
 </tr>
 <tr>
 <td><code>runtime.module</code></td>
-<td>Package export (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
+<td>Package export (<code>ds-tis/accordion</code>, <code>ds-tis/combobox</code>, <code>ds-tis/modal</code>, <code>ds-tis/menu</code>, <code>ds-tis/popover</code>, <code>ds-tis/toast</code>, <code>ds-tis/tabs</code>, <code>ds-tis/tooltip</code>).</td>
 </tr>
 <tr>
 <td><code>runtime.init</code></td>

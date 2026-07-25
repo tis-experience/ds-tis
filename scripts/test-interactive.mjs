@@ -11,6 +11,7 @@ import { initAccordions, destroyAccordions } from '../js/accordion.js';
 import { initComboboxes, destroyComboboxes } from '../js/combobox.js';
 import { initModals, destroyModals, openModal, closeModal } from '../js/modal.js';
 import { initActionMenus, destroyActionMenus, openActionMenu, closeActionMenu } from '../js/menu.js';
+import { initPopovers, destroyPopovers, openPopover, closePopover } from '../js/popover.js';
 import { initTabs, destroyTabs, selectTab } from '../js/tabs.js';
 import { initTooltips, destroyTooltips, showTooltip, hideTooltip } from '../js/tooltip.js';
 
@@ -36,6 +37,10 @@ expect(typeof initActionMenus === 'function', 'initActionMenus must be exported.
 expect(typeof destroyActionMenus === 'function', 'destroyActionMenus must be exported.');
 expect(typeof openActionMenu === 'function', 'openActionMenu must be exported.');
 expect(typeof closeActionMenu === 'function', 'closeActionMenu must be exported.');
+expect(typeof initPopovers === 'function', 'initPopovers must be exported.');
+expect(typeof destroyPopovers === 'function', 'destroyPopovers must be exported.');
+expect(typeof openPopover === 'function', 'openPopover must be exported.');
+expect(typeof closePopover === 'function', 'closePopover must be exported.');
 expect(typeof initTabs === 'function', 'initTabs must be exported.');
 expect(typeof destroyTabs === 'function', 'destroyTabs must be exported.');
 expect(typeof selectTab === 'function', 'selectTab must be exported.');
@@ -44,7 +49,7 @@ expect(typeof destroyTooltips === 'function', 'destroyTooltips must be exported.
 expect(typeof showTooltip === 'function', 'showTooltip must be exported.');
 expect(typeof hideTooltip === 'function', 'hideTooltip must be exported.');
 
-for (const subpath of ['./accordion', './modal', './menu', './combobox', './tabs', './tooltip']) {
+for (const subpath of ['./accordion', './modal', './menu', './popover', './combobox', './tabs', './tooltip']) {
   expect(pkg.exports[subpath], `package.json must export ${subpath}.`);
 }
 

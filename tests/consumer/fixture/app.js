@@ -8,6 +8,8 @@ import { initAccordions } from './node_modules/ds-tis/js/accordion.js';
 import { initComboboxes } from './node_modules/ds-tis/js/combobox.js';
 import { initModals } from './node_modules/ds-tis/js/modal.js';
 import { initActionMenus } from './node_modules/ds-tis/js/menu.js';
+import { initPopovers } from './node_modules/ds-tis/js/popover.js';
+import { initToasts, showToast } from './node_modules/ds-tis/js/toast.js';
 import { initTabs } from './node_modules/ds-tis/js/tabs.js';
 import { initTooltips } from './node_modules/ds-tis/js/tooltip.js';
 
@@ -24,8 +26,19 @@ try {
   initComboboxes();
   initModals();
   initActionMenus();
+  initPopovers();
+  initToasts();
   initTabs();
   initTooltips();
+  document.getElementById('consumer-toast-trigger')?.addEventListener('click', () => {
+    showToast({
+      id: 'consumer-toast',
+      type: 'success',
+      title: 'Alterações salvas',
+      description: 'Toast instalado pelo tarball.',
+      actions: [{ label: 'Desfazer' }],
+    });
+  });
   status.textContent = 'Runtime ok';
   document.documentElement.dataset.smokeReady = 'true';
 } catch (error) {

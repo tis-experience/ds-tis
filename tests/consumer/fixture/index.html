@@ -152,10 +152,41 @@
       </div>
     </section>
 
+    <section class="smoke-card" aria-labelledby="popover-section-title">
+      <h2 id="popover-section-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Dialog contextual</h2>
+      <div class="ds-popover ds-popover--bottom" id="consumer-popover">
+        <button type="button" class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" id="consumer-popover-trigger">
+          <span class="ds-button__label">Abrir Popover</span>
+        </button>
+        <div class="ds-popover__panel" id="consumer-popover-panel" role="dialog" aria-labelledby="consumer-popover-title" hidden>
+          <div class="ds-popover__header">
+            <h3 class="ds-popover__title" id="consumer-popover-title">Detalhes</h3>
+          </div>
+          <button class="ds-popover__close" type="button" aria-label="Fechar popover">×</button>
+          <div class="ds-popover__body"><p style="margin:0">Popover instalado pelo tarball.</p></div>
+          <div class="ds-popover__actions">
+            <button class="ds-button ds-button--brand ds-button--sm" type="button">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="smoke-card" aria-labelledby="toast-section-title">
+      <h2 id="toast-section-title" style="font-size:var(--ds-heading-font-size-sm);margin:0">Notificação transitória</h2>
+      <button type="button" class="ds-button ds-button--outline ds-button--sm" id="consumer-toast-trigger">
+        <span class="ds-button__label">Mostrar Toast</span>
+      </button>
+    </section>
+
     <p id="status" role="status" style="margin:0;color:var(--ds-content-subtle);font-size:var(--ds-body-font-size-sm)">
       Aguardando runtime…
     </p>
   </main>
+
+  <div class="ds-toast-region" data-ds-toast-region id="consumer-toast-region">
+    <div class="ds-toast-region__polite" role="status" aria-live="polite" aria-relevant="additions"></div>
+    <div class="ds-toast-region__assertive" role="alert" aria-live="assertive" aria-relevant="additions"></div>
+  </div>
 
   <div class="ds-modal-overlay" id="confirm-modal" hidden>
     <div class="ds-modal ds-modal--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">

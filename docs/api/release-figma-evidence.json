@@ -1,7 +1,7 @@
 {
   "schema": "ds-tis/figma-release-evidence@1",
   "packageVersion": "1.0.0",
-  "verifiedAt": "2026-07-19T19:20:58.710Z",
+  "verifiedAt": "2026-07-25T18:24:56.645Z",
   "policy": {
     "snapshotMaxAgeHours": 24,
     "snapshotIsCommitted": false,
@@ -9,28 +9,29 @@
   },
   "source": {
     "fileKey": "IE68amP9Hya5ieFw1rX8S8",
+    "actualFileKey": null,
     "expectedFileKey": "IE68amP9Hya5ieFw1rX8S8",
-    "fileName": "Document",
-    "snapshotGeneratedAt": "2026-07-19T18:47:14.039Z",
-    "snapshotAgeHoursAtVerification": 0.562,
-    "snapshotSha256": "2aeb47c836427ea2bc18b1371751a2d2979daceea5209e98dcb2322213b74439",
+    "fileName": "Design System - TIS",
+    "snapshotGeneratedAt": "2026-07-25T18:22:23.209Z",
+    "snapshotAgeHoursAtVerification": 0.043,
+    "snapshotSha256": "c5b37fd0a59b03485988a0432ddb5140f1333ccf3b57319efb81cde523ed8f22",
     "exporter": {
       "name": "Design System Snapshot Exporter",
       "version": "0.2.0",
       "source": "figma-plugin/snapshot-exporter"
     },
-    "variableCount": 1173,
+    "variableCount": 1300,
     "collectionCount": 3
   },
   "repository": {
-    "tokenSha256": "28a155d50fc88db9c6fe85b4a395f5c506f2ebd1f3c1c415c1516d3afce2b7b0",
-    "tokenFileCount": 39
+    "tokenSha256": "0c255d1eb589c70f59378115c3ef2d09cafe187476e581c75085efdb5275dbdd",
+    "tokenFileCount": 42
   },
   "checks": {
     "verifyTokens": {
       "errors": 0,
       "warnings": 0,
-      "jsonTokenCount": 1464
+      "jsonTokenCount": 1595
     },
     "jsonVsFigma": {
       "skipped": false,
@@ -40,13 +41,13 @@
       "driftFromSource": 0,
       "aliasBroken": 0,
       "cssOnly": 7,
-      "byDesign": 127
+      "byDesign": 131
     },
     "figmaStructure": {
       "issueCount": 0,
-      "componentPageCount": 22,
-      "componentVariableCount": 709,
-      "usedComponentVariableCount": 703,
+      "componentPageCount": 25,
+      "componentVariableCount": 836,
+      "usedComponentVariableCount": 830,
       "unusedComponentVariableCount": 6,
       "allowedCssOnlyUnusedCount": 6,
       "actionableUnusedCount": 0

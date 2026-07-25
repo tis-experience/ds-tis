@@ -62,9 +62,12 @@
         { label: 'Menu',       path: 'docs/menu.html' },
         { label: 'Modal',      path: 'docs/modal.html' },
         { label: 'Pagination', path: 'docs/pagination.html' },
+        { label: 'Popover',    path: 'docs/popover.html' },
         { label: 'Skeleton',   path: 'docs/skeleton.html' },
         { label: 'Spinner',    path: 'docs/spinner.html' },
+        { label: 'Table',      path: 'docs/table.html' },
         { label: 'Tabs',       path: 'docs/tabs.html' },
+        { label: 'Toast',      path: 'docs/toast.html' },
         { label: 'Tooltip',    path: 'docs/tooltip.html' }
       ]
     },

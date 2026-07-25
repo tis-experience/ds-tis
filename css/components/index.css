@@ -16,9 +16,12 @@
 @import 'accordion.css';
 @import 'card.css';
 @import 'modal.css';
+@import 'popover.css';
+@import 'toast.css';
 @import 'tooltip.css';
 @import 'menu.css';
 @import 'tabs.css';
+@import 'table.css';
 @import 'breadcrumb.css';
 @import 'pagination.css';
 @import 'avatar.css';

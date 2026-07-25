@@ -1,0 +1,229 @@
+/* ==========================================================================
+   Table
+   ========================================================================== */
+
+.ds-table-region {
+  inline-size: 100%;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.ds-table-region:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-table {
+  inline-size: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  background: var(--ds-table-container-bg);
+  color: var(--ds-table-body-color);
+  font-family: var(--ds-table-body-font-family);
+  font-size: var(--ds-table-body-font-size-sm);
+  font-weight: var(--ds-table-body-font-weight);
+  line-height: var(--ds-table-body-line-height-sm);
+  letter-spacing: var(--ds-table-body-letter-spacing);
+}
+
+.ds-table--nowrap {
+  white-space: nowrap;
+}
+
+.ds-table--fixed {
+  table-layout: fixed;
+}
+
+.ds-table__caption {
+  padding: 0;
+  color: var(--ds-table-caption-color);
+  font-family: var(--ds-table-caption-font-family);
+  font-size: var(--ds-table-caption-font-size);
+  font-weight: var(--ds-table-caption-font-weight);
+  line-height: var(--ds-table-caption-line-height);
+  text-align: start;
+}
+
+.ds-table__header,
+.ds-table__header-cell {
+  background: var(--ds-table-header-bg);
+  color: var(--ds-table-header-color);
+  font-family: var(--ds-table-header-font-family);
+  font-size: var(--ds-table-header-font-size-sm);
+  font-weight: var(--ds-table-header-font-weight);
+  line-height: var(--ds-table-header-line-height-sm);
+  letter-spacing: var(--ds-table-header-letter-spacing);
+  text-align: start;
+}
+
+.ds-table__header-cell,
+.ds-table__cell {
+  box-sizing: border-box;
+  block-size: var(--ds-table-row-height-sm);
+  padding: var(--ds-table-cell-padding-y-sm) var(--ds-table-cell-padding-x-sm);
+  border: 0;
+  border-block-end: var(--ds-table-divider-width) solid var(--ds-table-divider-color);
+  vertical-align: middle;
+}
+
+.ds-table__header-cell--sortable {
+  padding: 0;
+}
+
+.ds-table__cell--end,
+.ds-table__header-cell--end {
+  text-align: end;
+}
+
+.ds-table__row > .ds-table__cell {
+  background: var(--ds-table-row-bg-default);
+}
+
+.ds-table__row:hover > .ds-table__cell,
+.ds-table__row--hover > .ds-table__cell {
+  background: var(--ds-table-row-bg-hover);
+}
+
+.ds-table__row--selected > .ds-table__cell,
+.ds-table__row[data-selected="true"] > .ds-table__cell,
+.ds-table__row--selected:hover > .ds-table__cell,
+.ds-table__row[data-selected="true"]:hover > .ds-table__cell {
+  background: var(--ds-table-row-bg-selected);
+}
+
+.ds-table__body .ds-table__row:last-child > .ds-table__cell {
+  border-block-end-color: transparent;
+}
+
+.ds-table__cell--control {
+  padding-block-end: calc(var(--ds-table-cell-padding-y-sm) - var(--ds-table-divider-width));
+}
+
+.ds-table__cell--control .ds-checkbox-label {
+  box-sizing: border-box;
+  min-height: calc(
+    var(--ds-table-row-height-sm)
+    - (var(--ds-table-cell-padding-y-sm) * 2)
+    - var(--ds-table-divider-width)
+  );
+}
+
+.ds-table__sort {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--ds-table-cell-gap);
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: calc(var(--ds-table-row-height-sm) - var(--ds-table-divider-width));
+  padding: var(--ds-table-cell-padding-y-sm) var(--ds-table-cell-padding-x-sm);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.ds-table__sort--end {
+  justify-content: flex-end;
+}
+
+.ds-table__sort:hover {
+  background: var(--ds-table-row-bg-hover);
+}
+
+.ds-table__sort:focus-visible {
+  outline: none;
+}
+
+.ds-table__sort:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  pointer-events: none;
+}
+
+.ds-table__sort-icon {
+  flex: none;
+  inline-size: var(--ds-table-sort-icon-size-sm);
+  block-size: var(--ds-table-sort-icon-size-sm);
+  color: var(--ds-table-sort-icon-color);
+  stroke-width: var(--ds-table-sort-icon-stroke-width-sm);
+}
+
+.ds-table__cell-content {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-table-cell-gap);
+  min-inline-size: 0;
+}
+
+.ds-table__cell-content--end {
+  justify-content: flex-end;
+}
+
+.ds-table__cell--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Medium
+   ========================================================================== */
+
+.ds-table--md {
+  font-size: var(--ds-table-body-font-size-md);
+  line-height: var(--ds-table-body-line-height-md);
+}
+
+.ds-table--md .ds-table__header-cell {
+  font-size: var(--ds-table-header-font-size-md);
+  line-height: var(--ds-table-header-line-height-md);
+}
+
+.ds-table--md .ds-table__header-cell,
+.ds-table--md .ds-table__cell {
+  block-size: var(--ds-table-row-height-md);
+  padding: var(--ds-table-cell-padding-y-md) var(--ds-table-cell-padding-x-md);
+}
+
+.ds-table--md .ds-table__header-cell--sortable {
+  padding: 0;
+}
+
+.ds-table--md .ds-table__cell--control {
+  padding-block-end: calc(var(--ds-table-cell-padding-y-md) - var(--ds-table-divider-width));
+}
+
+.ds-table--md .ds-table__cell--control .ds-checkbox-label {
+  min-height: calc(
+    var(--ds-table-row-height-md)
+    - (var(--ds-table-cell-padding-y-md) * 2)
+    - var(--ds-table-divider-width)
+  );
+}
+
+.ds-table--md .ds-table__sort {
+  min-block-size: calc(var(--ds-table-row-height-md) - var(--ds-table-divider-width));
+  padding: var(--ds-table-cell-padding-y-md) var(--ds-table-cell-padding-x-md);
+}
+
+.ds-table--md .ds-table__sort-icon {
+  inline-size: var(--ds-table-sort-icon-size-md);
+  block-size: var(--ds-table-sort-icon-size-md);
+  stroke-width: var(--ds-table-sort-icon-stroke-width-md);
+}
+
+@media (forced-colors: active) {
+  .ds-table__sort:focus-visible::after,
+  .ds-table-region:focus-visible {
+    border-color: CanvasText;
+    outline-color: CanvasText;
+  }
+}

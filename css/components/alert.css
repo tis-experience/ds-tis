@@ -29,8 +29,7 @@
   stroke-width: var(--ds-alert-icon-stroke-width-default);
 }
 
-/* Icon color em Subtle — tematizado por feedback via component tokens.
-   Em Filled, icon herda `color` do wrapper que já é content-contrast. */
+/* Icon color tematizado por feedback via component tokens. */
 .ds-alert--success.ds-alert--subtle .ds-alert__icon {
   color: var(--ds-alert-icon-color-success-subtle);
 }
@@ -65,24 +64,29 @@
   line-height: var(--ds-alert-description-line-height-default);
 }
 
+.ds-alert__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-alert-actions-gap-default);
+  padding-block-start: var(--ds-alert-actions-padding-top-default);
+}
+
+.ds-alert--subtle .ds-alert__actions .ds-button {
+  color: var(--ds-alert-action-color-subtle);
+}
+
 .ds-alert__close {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--ds-alert-close-icon-size-default);
-  height: var(--ds-alert-close-icon-size-default);
+  width: var(--ds-alert-close-size-default);
+  height: var(--ds-alert-close-size-default);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   color: inherit;
-  opacity: 0.7;
-  transition: opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
-}
-
-.ds-alert__close:hover {
-  opacity: 1;
 }
 
 .ds-alert__close .ds-icon {
@@ -99,26 +103,111 @@
 }
 
 /* ---------------------------------------------------------
-   Filled style
+   Solid style
+   `.ds-alert--filled` permanece como alias legado da API 1.0.
    --------------------------------------------------------- */
+.ds-alert--success.ds-alert--solid,
 .ds-alert--success.ds-alert--filled {
-  background-color: var(--ds-alert-bg-success-filled);
-  color: var(--ds-alert-description-color-success-filled);
+  background-color: var(--ds-alert-bg-success-solid);
+  color: var(--ds-alert-description-color-success-solid);
 }
 
+.ds-alert--warning.ds-alert--solid,
 .ds-alert--warning.ds-alert--filled {
-  background-color: var(--ds-alert-bg-warning-filled);
-  color: var(--ds-alert-description-color-warning-filled);
+  background-color: var(--ds-alert-bg-warning-solid);
+  color: var(--ds-alert-description-color-warning-solid);
 }
 
+.ds-alert--error.ds-alert--solid,
 .ds-alert--error.ds-alert--filled {
-  background-color: var(--ds-alert-bg-error-filled);
-  color: var(--ds-alert-description-color-error-filled);
+  background-color: var(--ds-alert-bg-error-solid);
+  color: var(--ds-alert-description-color-error-solid);
 }
 
+.ds-alert--info.ds-alert--solid,
 .ds-alert--info.ds-alert--filled {
-  background-color: var(--ds-alert-bg-info-filled);
-  color: var(--ds-alert-description-color-info-filled);
+  background-color: var(--ds-alert-bg-info-solid);
+  color: var(--ds-alert-description-color-info-solid);
+}
+
+.ds-alert--success:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__icon {
+  color: var(--ds-alert-icon-color-success-solid);
+}
+
+.ds-alert--warning:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__icon {
+  color: var(--ds-alert-icon-color-warning-solid);
+}
+
+.ds-alert--error:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__icon {
+  color: var(--ds-alert-icon-color-error-solid);
+}
+
+.ds-alert--info:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__icon {
+  color: var(--ds-alert-icon-color-info-solid);
+}
+
+.ds-alert--success:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__title {
+  color: var(--ds-alert-title-color-success-solid);
+}
+
+.ds-alert--warning:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__title {
+  color: var(--ds-alert-title-color-warning-solid);
+}
+
+.ds-alert--error:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__title {
+  color: var(--ds-alert-title-color-error-solid);
+}
+
+.ds-alert--info:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__title {
+  color: var(--ds-alert-title-color-info-solid);
+}
+
+.ds-alert--success:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__description {
+  color: var(--ds-alert-description-color-success-solid);
+}
+
+.ds-alert--warning:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__description {
+  color: var(--ds-alert-description-color-warning-solid);
+}
+
+.ds-alert--error:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__description {
+  color: var(--ds-alert-description-color-error-solid);
+}
+
+.ds-alert--info:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__description {
+  color: var(--ds-alert-description-color-info-solid);
+}
+
+.ds-alert--success:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-success-solid);
+}
+
+.ds-alert--warning:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-warning-solid);
+}
+
+.ds-alert--error:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-error-solid);
+}
+
+.ds-alert--info:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-info-solid);
+}
+
+.ds-alert--success:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__actions .ds-button {
+  color: var(--ds-alert-action-color-success-solid);
+}
+
+.ds-alert--warning:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__actions .ds-button {
+  color: var(--ds-alert-action-color-warning-solid);
+}
+
+.ds-alert--error:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__actions .ds-button {
+  color: var(--ds-alert-action-color-error-solid);
+}
+
+.ds-alert--info:is(.ds-alert--solid, .ds-alert--filled) .ds-alert__actions .ds-button {
+  color: var(--ds-alert-action-color-info-solid);
 }
 
 /* ---------------------------------------------------------
@@ -153,9 +242,10 @@
   color: var(--ds-alert-description-color-subtle);
 }
 
-/* ---------------------------------------------------------
-   Reduced motion
-   --------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .ds-alert__close { transition: none; }
+.ds-alert--subtle .ds-alert__title {
+  color: var(--ds-alert-title-color-subtle);
+}
+
+.ds-alert--subtle .ds-alert__close {
+  color: var(--ds-alert-close-icon-color-subtle);
 }

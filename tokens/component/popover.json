@@ -1,0 +1,183 @@
+{
+  "component": {
+    "popover": {
+      "actions": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap horizontal entre as actions do Popover."
+          }
+        },
+        "padding-top": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Padding superior do container de actions do Popover."
+          }
+        }
+      },
+      "arrow": {
+        "base": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Base visual da seta do Popover."
+          }
+        },
+        "fill": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.overlay}",
+            "$description": "Fill da seta do Popover."
+          }
+        }
+      },
+      "body": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.default}",
+            "$description": "Cor do conteúdo textual do Popover."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap interno do body do Popover."
+          }
+        },
+        "padding-bottom": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Padding inferior do body do Popover."
+          }
+        }
+      },
+      "close": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.icon.color.default}",
+            "$description": "Cor do ícone de fechar do Popover."
+          }
+        },
+        "icon-size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.xs}",
+            "$description": "Tamanho do ícone de fechar do Popover."
+          }
+        },
+        "icon": {
+          "stroke-width": {
+            "default": {
+              "$type": "dimension",
+              "$value": "{semantic.icon.stroke-width.regular.24}",
+              "$description": "Stroke-width do ícone de fechar do Popover."
+            }
+          }
+        },
+        "padding": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.xs}",
+            "$description": "Padding interno do close do Popover."
+          }
+        },
+        "size": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.md}",
+            "$description": "Tamanho do frame de close do Popover."
+          }
+        }
+      },
+      "content-slot": {
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap fallback do content slot do Popover."
+          }
+        }
+      },
+      "panel": {
+        "bg": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.surface.overlay}",
+            "$description": "Background da superfície do Popover."
+          }
+        },
+        "border-color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.border.default}",
+            "$description": "Cor da borda do Popover."
+          }
+        },
+        "border-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.border.width.default}",
+            "$description": "Largura da borda do Popover."
+          }
+        },
+        "gap": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.sm}",
+            "$description": "Gap vertical entre as partes do Popover."
+          }
+        },
+        "max-width": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.size.layout.sm}",
+            "$description": "Largura máxima do Popover."
+          }
+        },
+        "padding-x": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Padding horizontal do Popover."
+          }
+        },
+        "padding-y": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.space.lg}",
+            "$description": "Padding vertical do Popover."
+          }
+        },
+        "radius": {
+          "default": {
+            "$type": "dimension",
+            "$value": "{semantic.radius.xl}",
+            "$description": "Radius da superfície do Popover."
+          }
+        },
+        "shadow": {
+          "default": {
+            "$type": "shadow",
+            "$value": "{semantic.shadow.overlay}",
+            "$description": "Shadow do Popover, equivalente ao Effect Style elevation/2."
+          }
+        }
+      },
+      "title": {
+        "color": {
+          "default": {
+            "$type": "color",
+            "$value": "{semantic.content.strong}",
+            "$description": "Cor do title do Popover."
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ const FIXTURE_DIR = path.join(ROOT, 'tests', 'consumer', 'fixture');
 const errors = [];
 const evidenceRecorder = createEvidenceRecorder('consumer-smoke');
 const runtimeEntries = Object.entries(RUNTIME_BY_SLUG);
-const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu', 'tabs', 'tooltip'];
+const exercisedRuntimeSlugs = ['modal', 'combobox', 'accordion', 'menu', 'popover', 'toast', 'tabs', 'tooltip'];
 let checks = 0;
 
 function ok(condition, message, evidenceItems = []) {
@@ -345,6 +345,66 @@ try {
     { slug: 'tooltip', capability: 'consumer-tarball', caseId: 'installed-interaction' },
   );
 
+  // Popover open + ARIA + initial focus + Escape.
+  await page.locator('#consumer-popover-trigger').click();
+  const popoverInstalled = await page.evaluate(() => {
+    const root = document.getElementById('consumer-popover');
+    const trigger = document.getElementById('consumer-popover-trigger');
+    const panel = document.getElementById('consumer-popover-panel');
+    return {
+      hidden: panel.hidden,
+      activeInside: panel.contains(document.activeElement),
+      role: panel.getAttribute('role'),
+      controls: trigger.getAttribute('aria-controls'),
+      expanded: trigger.getAttribute('aria-expanded'),
+      open: root.dataset.open,
+    };
+  });
+  await page.keyboard.press('Escape');
+  const popoverClosed = await page.locator('#consumer-popover-panel').evaluate((el) => el.hidden);
+  ok(
+    !popoverInstalled.hidden
+      && popoverInstalled.activeInside
+      && popoverInstalled.role === 'dialog'
+      && popoverInstalled.controls === 'consumer-popover-panel'
+      && popoverInstalled.expanded === 'true'
+      && popoverInstalled.open === 'true'
+      && popoverClosed,
+    `packed Popover must open, expose valid ARIA/focus and close on Escape (${JSON.stringify(popoverInstalled)})`,
+    { slug: 'popover', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
+  // Toast show + live region + focus preservation + close.
+  await page.locator('#consumer-toast-trigger').focus();
+  await page.locator('#consumer-toast-trigger').click();
+  const toastInstalled = await page.evaluate(() => {
+    const region = document.getElementById('consumer-toast-region');
+    const toast = region.querySelector('[data-toast-id="consumer-toast"]');
+    return {
+      active: document.activeElement?.id,
+      initialized: region.dataset.dsToastInit,
+      title: toast?.querySelector('.ds-toast__title')?.textContent,
+      description: toast?.querySelector('.ds-toast__description')?.textContent,
+      actions: toast?.querySelectorAll('.ds-toast__actions .ds-button').length,
+      politeRole: region.querySelector('.ds-toast-region__polite')?.getAttribute('role'),
+      assertiveRole: region.querySelector('.ds-toast-region__assertive')?.getAttribute('role'),
+    };
+  });
+  await page.locator('[data-toast-id="consumer-toast"] .ds-toast__close').click();
+  const toastClosed = await page.locator('[data-toast-id="consumer-toast"]').count() === 0;
+  ok(
+    toastInstalled.active === 'consumer-toast-trigger'
+      && toastInstalled.initialized === 'true'
+      && toastInstalled.title === 'Alterações salvas'
+      && toastInstalled.description === 'Toast instalado pelo tarball.'
+      && toastInstalled.actions === 1
+      && toastInstalled.politeRole === 'status'
+      && toastInstalled.assertiveRole === 'alert'
+      && toastClosed,
+    `packed Toast must render in its live region without moving focus and close (${JSON.stringify(toastInstalled)})`,
+    { slug: 'toast', capability: 'consumer-tarball', caseId: 'installed-interaction' },
+  );
+
   // Contrato responsivo no tarball: portrait e landscape estreitos. O DS não
   // troca variants por breakpoint; deve preservar o documento e overlays na
   // viewport enquanto o app controla o layout da página.
@@ -388,6 +448,31 @@ try {
       `${viewport.context} Tooltip must stay inside the viewport (${JSON.stringify(tooltipRect)})`,
     );
     await page.keyboard.press('Escape');
+
+    await page.locator('#consumer-popover-trigger').click();
+    const popoverRect = await page.locator('#consumer-popover-panel').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right };
+    });
+    ok(
+      popoverRect.left >= 0 && popoverRect.right <= viewport.width,
+      `${viewport.context} Popover must stay inside the viewport (${JSON.stringify(popoverRect)})`,
+    );
+    await page.keyboard.press('Escape');
+
+    await page.locator('#consumer-toast-trigger').click();
+    const toastRect = await page.locator('[data-toast-id="consumer-toast"]').evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+    });
+    ok(
+      toastRect.left >= 0
+        && toastRect.right <= viewport.width
+        && toastRect.top >= 0
+        && toastRect.bottom <= viewport.height,
+      `${viewport.context} Toast must stay inside the viewport (${JSON.stringify(toastRect)})`,
+    );
+    await page.locator('[data-toast-id="consumer-toast"] .ds-toast__close').click();
 
     await page.locator('#open-modal').click();
     const modalRect = await page.locator('#confirm-modal .ds-modal').evaluate((element) => {
@@ -441,6 +526,8 @@ try {
       { slug: 'menu', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'tabs', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
       { slug: 'tooltip', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'popover', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
+      { slug: 'toast', capability: 'axe-closed', caseId: 'axe-closed-no-blocking' },
     ],
   );
 
@@ -459,6 +546,38 @@ try {
     { slug: 'modal', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
   );
   await page.keyboard.press('Escape');
+
+  // Axe com Popover aberto no tarball instalado.
+  await page.locator('#consumer-popover-trigger').click();
+  const axePopoverOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingPopoverOpen = axePopoverOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingPopoverOpen.length === 0,
+    `axe open Popover found ${blockingPopoverOpen.length} critical/serious violation(s):\n${blockingPopoverOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'popover', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.keyboard.press('Escape');
+
+  // Axe com Toast visível no tarball instalado.
+  await page.locator('#consumer-toast-trigger').click();
+  const axeToastOpen = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  const blockingToastOpen = axeToastOpen.violations
+    .filter((v) => v.impact === 'critical' || v.impact === 'serious');
+  ok(
+    blockingToastOpen.length === 0,
+    `axe visible Toast found ${blockingToastOpen.length} critical/serious violation(s):\n${blockingToastOpen
+      .map((v) => `  - ${v.id}: ${v.help}`)
+      .join('\n')}`,
+    { slug: 'toast', capability: 'axe-open', caseId: 'axe-open-no-blocking' },
+  );
+  await page.locator('[data-toast-id="consumer-toast"] .ds-toast__close').click();
 
   // Axe com o listbox do Combobox aberto no tarball instalado.
   await page.locator('#country').fill('');
