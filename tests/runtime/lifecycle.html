@@ -117,6 +117,21 @@
       </div>
     </div>
 
+    <div inert id="inert-popover-fixture">
+      <div class="ds-popover ds-popover--bottom" id="inert-popover">
+        <button type="button" class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" id="inert-popover-trigger">
+          <span class="ds-button__label">Exemplo estático</span>
+        </button>
+        <div class="ds-popover__panel" id="inert-popover-panel" role="dialog" aria-labelledby="inert-popover-title">
+          <div class="ds-popover__header">
+            <h3 class="ds-popover__title" id="inert-popover-title">Popover estático</h3>
+          </div>
+          <button class="ds-popover__close" type="button" aria-label="Fechar popover">×</button>
+          <div class="ds-popover__body"><p style="margin:0">Exemplo documental não interativo.</p></div>
+        </div>
+      </div>
+    </div>
+
     <div class="ds-toast-region" data-ds-toast-region id="life-toast-region">
       <div class="ds-toast-region__polite" role="status" aria-live="polite" aria-relevant="additions"></div>
       <div class="ds-toast-region__assertive" role="alert" aria-live="assertive" aria-relevant="additions"></div>

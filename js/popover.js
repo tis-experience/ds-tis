@@ -31,6 +31,8 @@ function isInside(root, node) {
 }
 
 function createInstance(root) {
+  if (root.closest('[inert]')) return null;
+
   const trigger = root.querySelector('.ds-popover__trigger, [data-ds-popover-trigger]');
   const panel = root.querySelector('.ds-popover__panel');
   if (!trigger || !panel) return null;

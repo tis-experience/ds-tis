@@ -154,6 +154,19 @@ try {
   await page.keyboard.press('Escape');
   if (await page.locator('.ds-modal-overlay').getAttribute('hidden') === null) failures.push('Modal: Escape não fechou o dialog');
 
+  await story('Components/Popover', 'Playground');
+  const popoverTrigger = page.locator('.ds-popover__trigger');
+  const popoverPanel = page.locator('.ds-popover__panel');
+  if (await popoverTrigger.count() !== 1 || await popoverPanel.count() !== 1) {
+    failures.push('Popover: Playground deve expor exatamente um trigger e um panel');
+  } else {
+    await popoverTrigger.click();
+    if (await popoverTrigger.getAttribute('aria-expanded') !== 'true') failures.push('Popover: trigger não sincronizou aria-expanded ao abrir');
+    if (await popoverPanel.getAttribute('hidden') !== null) failures.push('Popover: trigger não abriu o panel');
+    await page.keyboard.press('Escape');
+    if (await popoverPanel.getAttribute('hidden') === null) failures.push('Popover: Escape não fechou o panel');
+  }
+
   await story('Components/Tabs', 'Playground');
   const secondTab = page.locator('[role="tab"]').nth(1);
   await secondTab.click();
@@ -178,4 +191,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`✅ Storybook browser: ${stories.length} stories em desktop/mobile, ${docs.length} Docs dark, axe critical/serious zero e 6 runtimes funcionais.`);
+console.log(`✅ Storybook browser: ${stories.length} stories em desktop/mobile, ${docs.length} Docs dark, axe critical/serious zero e 7 runtimes funcionais.`);
