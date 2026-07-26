@@ -157,31 +157,72 @@ try {
   await story('Components/Popover', 'Playground');
   const popoverTrigger = page.locator('.ds-popover__trigger');
   const popoverPanel = page.locator('.ds-popover__panel');
+  let popoverVisualContract = null;
   if (await popoverTrigger.count() !== 1 || await popoverPanel.count() !== 1) {
     failures.push('Popover: Playground deve expor exatamente um trigger e um panel');
   } else {
     await popoverTrigger.click();
     if (await popoverTrigger.getAttribute('aria-expanded') !== 'true') failures.push('Popover: trigger não sincronizou aria-expanded ao abrir');
     if (await popoverPanel.getAttribute('hidden') !== null) failures.push('Popover: trigger não abriu o panel');
-    const arrow = await page.locator('.ds-popover').evaluate((root) => {
+    popoverVisualContract = await page.locator('.ds-popover').evaluate((root) => {
       const panel = root.querySelector('.ds-popover__panel');
-      const rootArrow = getComputedStyle(root, '::before');
+      const close = root.querySelector('.ds-popover__close');
+      const outerArrow = getComputedStyle(root, '::before');
+      const innerArrow = getComputedStyle(root, '::after');
       const clippedPanelArrow = getComputedStyle(panel, '::before');
+      const panelStyle = getComputedStyle(panel);
+      const closeStyle = getComputedStyle(close);
+      const panelRect = panel.getBoundingClientRect();
+      const closeRect = close.getBoundingClientRect();
+      const arrowBase = Number.parseFloat(outerArrow.width);
+      const borderWidth = Number.parseFloat(panelStyle.borderTopWidth);
+      const panelPaddingTop = Number.parseFloat(panelStyle.paddingTop);
+      const panelPaddingRight = Number.parseFloat(panelStyle.paddingRight);
+      const closePadding = Number.parseFloat(closeStyle.paddingTop);
+      const transform = new DOMMatrixReadOnly(outerArrow.transform);
       return {
-        rootContent: rootArrow.content,
-        rootWidth: Number.parseFloat(rootArrow.width),
-        rootHeight: Number.parseFloat(rootArrow.height),
+        outerContent: outerArrow.content,
+        outerWidth: Number.parseFloat(outerArrow.width),
+        outerHeight: Number.parseFloat(outerArrow.height),
+        innerContent: innerArrow.content,
+        innerWidth: Number.parseFloat(innerArrow.width),
+        innerHeight: Number.parseFloat(innerArrow.height),
+        clipPath: outerArrow.clipPath,
+        rotated: Math.abs(transform.b) > 0.001 || Math.abs(transform.c) > 0.001,
         panelContent: clippedPanelArrow.content,
         panelOverflow: getComputedStyle(panel).overflow,
+        closeWidth: closeRect.width,
+        closeHeight: closeRect.height,
+        closeTop: closeRect.top - panelRect.top,
+        closeRight: panelRect.right - closeRect.right,
+        expectedOuterHeight: (arrowBase / 2) + borderWidth,
+        expectedInnerWidth: arrowBase - (borderWidth * 2),
+        expectedInnerHeight: arrowBase / 2,
+        expectedCloseTop: panelPaddingTop - (closePadding / 2),
+        expectedCloseRight: panelPaddingRight,
       };
     });
+    const within = (actual, expected) => Math.abs(actual - expected) <= 0.25;
     if (
-      arrow.rootContent === 'none'
-      || arrow.rootWidth <= 0
-      || arrow.rootHeight <= 0
-      || arrow.panelContent !== 'none'
+      popoverVisualContract.outerContent === 'none'
+      || popoverVisualContract.innerContent === 'none'
+      || popoverVisualContract.outerWidth !== 16
+      || !within(popoverVisualContract.outerHeight, popoverVisualContract.expectedOuterHeight)
+      || !within(popoverVisualContract.innerWidth, popoverVisualContract.expectedInnerWidth)
+      || !within(popoverVisualContract.innerHeight, popoverVisualContract.expectedInnerHeight)
+      || popoverVisualContract.clipPath === 'none'
+      || popoverVisualContract.rotated
+      || popoverVisualContract.panelContent !== 'none'
     ) {
-      failures.push(`Popover: Arrow visível deve pertencer ao root e ficar fora do overflow do panel (${JSON.stringify(arrow)})`);
+      failures.push(`Popover: Arrow deve usar geometria triangular 16×9 sem base horizontal (${JSON.stringify(popoverVisualContract)})`);
+    }
+    if (
+      popoverVisualContract.closeWidth !== 24
+      || popoverVisualContract.closeHeight !== 24
+      || !within(popoverVisualContract.closeTop, popoverVisualContract.expectedCloseTop)
+      || !within(popoverVisualContract.closeRight, popoverVisualContract.expectedCloseRight)
+    ) {
+      failures.push(`Popover: close deve alinhar ao content box do panel como no Figma (${JSON.stringify(popoverVisualContract)})`);
     }
     await page.keyboard.press('Escape');
     if (await popoverPanel.getAttribute('hidden') === null) failures.push('Popover: Escape não fechou o panel');
@@ -253,6 +294,37 @@ try {
       await docsTrigger.click();
       if (await docsTrigger.getAttribute('aria-expanded') !== 'true' || await docsPanel.getAttribute('hidden') !== null) {
         failures.push('Popover: exemplo dentro de #storybook-docs não abriu ao clicar');
+      }
+      const docsVisualContract = await docsPopover.evaluate((root) => {
+        const panel = root.querySelector('.ds-popover__panel');
+        const close = root.querySelector('.ds-popover__close');
+        const panelRect = panel.getBoundingClientRect();
+        const closeRect = close.getBoundingClientRect();
+        const outerArrow = getComputedStyle(root, '::before');
+        const innerArrow = getComputedStyle(root, '::after');
+        return {
+          outerWidth: Number.parseFloat(outerArrow.width),
+          outerHeight: Number.parseFloat(outerArrow.height),
+          innerWidth: Number.parseFloat(innerArrow.width),
+          innerHeight: Number.parseFloat(innerArrow.height),
+          closeWidth: closeRect.width,
+          closeHeight: closeRect.height,
+          closeTop: closeRect.top - panelRect.top,
+          closeRight: panelRect.right - closeRect.right,
+        };
+      });
+      const storyVisualContract = popoverVisualContract && {
+        outerWidth: popoverVisualContract.outerWidth,
+        outerHeight: popoverVisualContract.outerHeight,
+        innerWidth: popoverVisualContract.innerWidth,
+        innerHeight: popoverVisualContract.innerHeight,
+        closeWidth: popoverVisualContract.closeWidth,
+        closeHeight: popoverVisualContract.closeHeight,
+        closeTop: popoverVisualContract.closeTop,
+        closeRight: popoverVisualContract.closeRight,
+      };
+      if (JSON.stringify(docsVisualContract) !== JSON.stringify(storyVisualContract)) {
+        failures.push(`Popover: Storybook Docs divergiu do Playground (${JSON.stringify({ storyVisualContract, docsVisualContract })})`);
       }
     }
   }

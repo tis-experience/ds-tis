@@ -62,8 +62,15 @@
 
 .ds-popover__close {
   position: absolute;
-  inset-block-start: var(--ds-popover-panel-padding-y-default);
-  inset-inline-end: var(--ds-popover-panel-padding-x-default);
+  inset-block-start: calc(
+    var(--ds-popover-panel-padding-y-default)
+    - (var(--ds-popover-close-padding-default) / 2)
+    - var(--ds-popover-panel-border-width-default)
+  );
+  inset-inline-end: calc(
+    var(--ds-popover-panel-padding-x-default)
+    - var(--ds-popover-panel-border-width-default)
+  );
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -127,18 +134,25 @@
   padding-block-start: var(--ds-popover-actions-padding-top-default);
 }
 
-.ds-popover::before {
+.ds-popover::before,
+.ds-popover::after {
   position: absolute;
   box-sizing: border-box;
-  inline-size: var(--ds-popover-arrow-base-default);
-  block-size: var(--ds-popover-arrow-base-default);
   z-index: var(--ds-z-tooltip);
   content: none;
   pointer-events: none;
+}
+
+.ds-popover::before {
+  background: var(--ds-popover-panel-border-color-default);
+}
+
+.ds-popover::after {
   background: var(--ds-popover-arrow-fill-default);
 }
 
-.ds-popover:has(> .ds-popover__panel:not([hidden]))::before {
+.ds-popover:has(> .ds-popover__panel:not([hidden]))::before,
+.ds-popover:has(> .ds-popover__panel:not([hidden]))::after {
   content: "";
 }
 
@@ -148,18 +162,29 @@
   transform: translateX(calc(-50% + var(--popover-collision-inline, 0%)));
 }
 
-.ds-popover--bottom::before {
+.ds-popover--bottom::before,
+.ds-popover--bottom::after {
   inset-block-start: 100%;
   inset-inline-start: 50%;
-  border-block-start:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  border-inline-start:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  transform: translateX(-50%) rotate(45deg);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  transform: translateX(-50%);
+}
+
+.ds-popover--bottom::before {
+  inline-size: var(--ds-popover-arrow-base-default);
+  block-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+}
+
+.ds-popover--bottom::after {
+  inset-block-start: calc(100% + var(--ds-popover-panel-border-width-default));
+  inline-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
+  block-size: calc(var(--ds-popover-arrow-base-default) / 2);
 }
 
 .ds-popover--top .ds-popover__panel {
@@ -168,18 +193,29 @@
   transform: translateX(calc(-50% + var(--popover-collision-inline, 0%)));
 }
 
-.ds-popover--top::before {
+.ds-popover--top::before,
+.ds-popover--top::after {
   inset-block-end: 100%;
   inset-inline-start: 50%;
-  border-block-end:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  border-inline-end:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  transform: translateX(-50%) rotate(45deg);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform: translateX(-50%);
+}
+
+.ds-popover--top::before {
+  inline-size: var(--ds-popover-arrow-base-default);
+  block-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+}
+
+.ds-popover--top::after {
+  inset-block-end: calc(100% + var(--ds-popover-panel-border-width-default));
+  inline-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
+  block-size: calc(var(--ds-popover-arrow-base-default) / 2);
 }
 
 .ds-popover--left .ds-popover__panel {
@@ -188,18 +224,29 @@
   transform: translateY(calc(-50% + var(--popover-collision-block, 0%)));
 }
 
-.ds-popover--left::before {
+.ds-popover--left::before,
+.ds-popover--left::after {
   inset-block-start: 50%;
   inset-inline-end: 100%;
-  border-block-start:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  border-inline-end:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  transform: translateY(-50%) rotate(45deg);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translateY(-50%);
+}
+
+.ds-popover--left::before {
+  inline-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+  block-size: var(--ds-popover-arrow-base-default);
+}
+
+.ds-popover--left::after {
+  inset-inline-end: calc(100% + var(--ds-popover-panel-border-width-default));
+  inline-size: calc(var(--ds-popover-arrow-base-default) / 2);
+  block-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
 }
 
 .ds-popover--right .ds-popover__panel {
@@ -208,21 +255,33 @@
   transform: translateY(calc(-50% + var(--popover-collision-block, 0%)));
 }
 
-.ds-popover--right::before {
+.ds-popover--right::before,
+.ds-popover--right::after {
   inset-block-start: 50%;
   inset-inline-start: 100%;
-  border-block-end:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  border-inline-start:
-    var(--ds-popover-panel-border-width-default)
-    solid
-    var(--ds-popover-panel-border-color-default);
-  transform: translateY(-50%) rotate(45deg);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  transform: translateY(-50%);
 }
 
-.ds-popover--no-arrow::before {
+.ds-popover--right::before {
+  inline-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+  block-size: var(--ds-popover-arrow-base-default);
+}
+
+.ds-popover--right::after {
+  inset-inline-start: calc(100% + var(--ds-popover-panel-border-width-default));
+  inline-size: calc(var(--ds-popover-arrow-base-default) / 2);
+  block-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
+}
+
+.ds-popover--no-arrow::before,
+.ds-popover--no-arrow::after {
   content: none;
 }
 
