@@ -163,8 +163,98 @@ try {
     await popoverTrigger.click();
     if (await popoverTrigger.getAttribute('aria-expanded') !== 'true') failures.push('Popover: trigger não sincronizou aria-expanded ao abrir');
     if (await popoverPanel.getAttribute('hidden') !== null) failures.push('Popover: trigger não abriu o panel');
+    const arrow = await page.locator('.ds-popover').evaluate((root) => {
+      const panel = root.querySelector('.ds-popover__panel');
+      const rootArrow = getComputedStyle(root, '::before');
+      const clippedPanelArrow = getComputedStyle(panel, '::before');
+      return {
+        rootContent: rootArrow.content,
+        rootWidth: Number.parseFloat(rootArrow.width),
+        rootHeight: Number.parseFloat(rootArrow.height),
+        panelContent: clippedPanelArrow.content,
+        panelOverflow: getComputedStyle(panel).overflow,
+      };
+    });
+    if (
+      arrow.rootContent === 'none'
+      || arrow.rootWidth <= 0
+      || arrow.rootHeight <= 0
+      || arrow.panelContent !== 'none'
+    ) {
+      failures.push(`Popover: Arrow visível deve pertencer ao root e ficar fora do overflow do panel (${JSON.stringify(arrow)})`);
+    }
     await page.keyboard.press('Escape');
     if (await popoverPanel.getAttribute('hidden') === null) failures.push('Popover: Escape não fechou o panel');
+  }
+
+  await story('Components/Popover', 'Posicoes');
+  const placementRoots = page.locator('.ds-popover');
+  if (await placementRoots.count() !== 4) {
+    failures.push('Popover: matriz de posições deve expor quatro exemplos');
+  } else {
+    for (const [index, placement] of ['bottom', 'top', 'left', 'right'].entries()) {
+      const placementRoot = placementRoots.nth(index);
+      const preferredArrowPositioned = await placementRoot.evaluate((root, expectedPlacement) => {
+        const arrow = getComputedStyle(root, '::before');
+        const insetProperties = expectedPlacement === 'bottom'
+          ? [arrow.top, arrow.left]
+          : expectedPlacement === 'top'
+            ? [arrow.bottom, arrow.left]
+            : expectedPlacement === 'left'
+              ? [arrow.right, arrow.top]
+              : [arrow.left, arrow.top];
+        return root.classList.contains(`ds-popover--${expectedPlacement}`)
+          && insetProperties.every((value) => value !== 'auto');
+      }, placement);
+      await placementRoot.locator('.ds-popover__trigger').click();
+      const resolvedArrowVisible = await placementRoot.evaluate((root) => {
+        const arrow = getComputedStyle(root, '::before');
+        const resolvedPlacement = root.dataset.dsPopoverPlacement;
+        const insetProperties = resolvedPlacement === 'bottom'
+          ? [arrow.top, arrow.left]
+          : resolvedPlacement === 'top'
+            ? [arrow.bottom, arrow.left]
+            : resolvedPlacement === 'left'
+              ? [arrow.right, arrow.top]
+              : [arrow.left, arrow.top];
+        return arrow.content !== 'none'
+          && insetProperties.every((value) => value !== 'auto');
+      });
+      if (!preferredArrowPositioned || !resolvedArrowVisible) {
+        failures.push(`Popover: Arrow não ficou visível e ancorada para a preferência ${placement}`);
+      }
+    }
+  }
+
+  const popoverDocs = docs.find((item) => item.title === 'Components/Popover');
+  if (!popoverDocs) {
+    failures.push('Popover: documentação não encontrada no índice do Storybook');
+  } else {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await visit(popoverDocs, 'docs');
+    await page.waitForFunction(() => {
+      const popovers = [...document.querySelectorAll('.ds-popover')]
+        .filter((root) => !root.closest('[inert]'));
+      return popovers.length > 0
+        && popovers.every((root) => root.dataset.dsPopoverInit === 'true');
+    });
+    await page.evaluate(() => new Promise((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    }));
+    const docsPopover = page.locator('.ds-popover').first();
+    const docsTrigger = docsPopover.locator('.ds-popover__trigger');
+    const docsPanel = docsPopover.locator('.ds-popover__panel');
+    if (await docsPopover.count() !== 1 || await docsPanel.getAttribute('hidden') === null) {
+      failures.push('Popover: primeiro exemplo de Docs deve iniciar fechado e interativo');
+    } else {
+      if (await docsPopover.getAttribute('data-ds-popover-init') !== 'true') {
+        failures.push('Popover: runtime não inicializou o exemplo dentro de #storybook-docs');
+      }
+      await docsTrigger.click();
+      if (await docsTrigger.getAttribute('aria-expanded') !== 'true' || await docsPanel.getAttribute('hidden') !== null) {
+        failures.push('Popover: exemplo dentro de #storybook-docs não abriu ao clicar');
+      }
+    }
   }
 
   await story('Components/Tabs', 'Playground');
