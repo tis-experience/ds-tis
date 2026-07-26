@@ -127,14 +127,19 @@
   padding-block-start: var(--ds-popover-actions-padding-top-default);
 }
 
-.ds-popover__panel::before {
+.ds-popover::before {
   position: absolute;
   box-sizing: border-box;
   inline-size: var(--ds-popover-arrow-base-default);
   block-size: var(--ds-popover-arrow-base-default);
-  content: "";
+  z-index: var(--ds-z-tooltip);
+  content: none;
+  pointer-events: none;
   background: var(--ds-popover-arrow-fill-default);
-  transform: rotate(45deg);
+}
+
+.ds-popover:has(> .ds-popover__panel:not([hidden]))::before {
+  content: "";
 }
 
 .ds-popover--bottom .ds-popover__panel {
@@ -143,21 +148,9 @@
   transform: translateX(calc(-50% + var(--popover-collision-inline, 0%)));
 }
 
-.ds-popover--bottom .ds-popover__panel::before {
-  inset-block-start: calc(var(--ds-popover-arrow-base-default) / -2);
-  inset-inline-start: clamp(
-    var(--ds-popover-panel-radius-default),
-    calc(
-      50%
-      - (var(--ds-popover-arrow-base-default) / 2)
-      - var(--popover-collision-inline, 0%)
-    ),
-    calc(
-      100%
-      - var(--ds-popover-panel-radius-default)
-      - var(--ds-popover-arrow-base-default)
-    )
-  );
+.ds-popover--bottom::before {
+  inset-block-start: 100%;
+  inset-inline-start: 50%;
   border-block-start:
     var(--ds-popover-panel-border-width-default)
     solid
@@ -166,6 +159,7 @@
     var(--ds-popover-panel-border-width-default)
     solid
     var(--ds-popover-panel-border-color-default);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .ds-popover--top .ds-popover__panel {
@@ -174,21 +168,9 @@
   transform: translateX(calc(-50% + var(--popover-collision-inline, 0%)));
 }
 
-.ds-popover--top .ds-popover__panel::before {
-  inset-block-end: calc(var(--ds-popover-arrow-base-default) / -2);
-  inset-inline-start: clamp(
-    var(--ds-popover-panel-radius-default),
-    calc(
-      50%
-      - (var(--ds-popover-arrow-base-default) / 2)
-      - var(--popover-collision-inline, 0%)
-    ),
-    calc(
-      100%
-      - var(--ds-popover-panel-radius-default)
-      - var(--ds-popover-arrow-base-default)
-    )
-  );
+.ds-popover--top::before {
+  inset-block-end: 100%;
+  inset-inline-start: 50%;
   border-block-end:
     var(--ds-popover-panel-border-width-default)
     solid
@@ -197,6 +179,7 @@
     var(--ds-popover-panel-border-width-default)
     solid
     var(--ds-popover-panel-border-color-default);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .ds-popover--left .ds-popover__panel {
@@ -205,21 +188,9 @@
   transform: translateY(calc(-50% + var(--popover-collision-block, 0%)));
 }
 
-.ds-popover--left .ds-popover__panel::before {
-  inset-block-start: clamp(
-    var(--ds-popover-panel-radius-default),
-    calc(
-      50%
-      - (var(--ds-popover-arrow-base-default) / 2)
-      - var(--popover-collision-block, 0%)
-    ),
-    calc(
-      100%
-      - var(--ds-popover-panel-radius-default)
-      - var(--ds-popover-arrow-base-default)
-    )
-  );
-  inset-inline-end: calc(var(--ds-popover-arrow-base-default) / -2);
+.ds-popover--left::before {
+  inset-block-start: 50%;
+  inset-inline-end: 100%;
   border-block-start:
     var(--ds-popover-panel-border-width-default)
     solid
@@ -228,6 +199,7 @@
     var(--ds-popover-panel-border-width-default)
     solid
     var(--ds-popover-panel-border-color-default);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .ds-popover--right .ds-popover__panel {
@@ -236,21 +208,9 @@
   transform: translateY(calc(-50% + var(--popover-collision-block, 0%)));
 }
 
-.ds-popover--right .ds-popover__panel::before {
-  inset-block-start: clamp(
-    var(--ds-popover-panel-radius-default),
-    calc(
-      50%
-      - (var(--ds-popover-arrow-base-default) / 2)
-      - var(--popover-collision-block, 0%)
-    ),
-    calc(
-      100%
-      - var(--ds-popover-panel-radius-default)
-      - var(--ds-popover-arrow-base-default)
-    )
-  );
-  inset-inline-start: calc(var(--ds-popover-arrow-base-default) / -2);
+.ds-popover--right::before {
+  inset-block-start: 50%;
+  inset-inline-start: 100%;
   border-block-end:
     var(--ds-popover-panel-border-width-default)
     solid
@@ -259,9 +219,10 @@
     var(--ds-popover-panel-border-width-default)
     solid
     var(--ds-popover-panel-border-color-default);
+  transform: translateY(-50%) rotate(45deg);
 }
 
-.ds-popover--no-arrow .ds-popover__panel::before {
+.ds-popover--no-arrow::before {
   content: none;
 }
 

@@ -27,7 +27,7 @@ const runtimes = [
 ];
 
 function refreshRuntimes() {
-  const root = document.getElementById('storybook-root') || document;
+  const root = document;
   root.querySelectorAll?.('input[data-indeterminate]').forEach((input) => {
     input.indeterminate = input.dataset.indeterminate === 'true';
   });

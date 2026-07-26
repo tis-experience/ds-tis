@@ -83,6 +83,7 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Arrow e runtime do Popover no Storybook.</strong> A Arrow deixa de ser recortada pelo <code>overflow</code> do panel e permanece ancorada ao trigger nas quatro posições; os exemplos da aba Documentação passam a ser inicializados e interativos, com cobertura de browser para visibilidade da Arrow e abertura dentro de <code>#storybook-docs</code>.</li>
 <li><strong>Runtime do Popover preserva exemplos estáticos em documentação.</strong> <code>initPopovers()</code> deixa de inicializar Popovers dentro de subtrees <code>inert</code>, evitando que o exemplo de anatomia desapareça ao abrir outro Popover; o Storybook também passa a validar o runtime do Popover e usa <code>ds-button--brand</code> nas actions.</li>
 <li><strong>Tema e altura das amostras no Storybook.</strong> O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.</li>
 <li><strong>Anatomia do Pagination na documentação.</strong> O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.</li>
