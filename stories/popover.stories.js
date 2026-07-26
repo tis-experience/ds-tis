@@ -10,7 +10,7 @@ function popoverMarkup({
   open = false,
 }) {
   const actions = showActions
-    ? '<div class="ds-popover__actions"><button class="ds-button ds-button--outline ds-button--sm" type="button" data-ds-popover-close><span class="ds-button__label">Cancelar</span></button><button class="ds-button ds-button--primary ds-button--sm" type="button"><span class="ds-button__label">Salvar</span></button></div>'
+    ? '<div class="ds-popover__actions"><button class="ds-button ds-button--outline ds-button--sm" type="button" data-ds-popover-close><span class="ds-button__label">Cancelar</span></button><button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label">Salvar</span></button></div>'
     : '';
   const slot = showSlot
     ? '<div class="ds-popover__content"><div class="ds-field"><label class="ds-field__label" for="popover-name">Nome</label><div class="ds-input"><input class="ds-input__field" id="popover-name" type="text" value="Relatorio mensal"></div></div></div>'

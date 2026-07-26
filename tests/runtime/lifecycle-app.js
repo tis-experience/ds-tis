@@ -126,6 +126,9 @@ window.__dsLifecycle = {
       tabsInit: document.getElementById('life-tabs')?.dataset.dsTabsInit === 'true',
       tooltipInit: document.getElementById('life-tooltip')?.dataset.dsTooltipInit === 'true',
       popoverInit: document.getElementById('life-popover')?.dataset.dsPopoverInit === 'true',
+      inertPopoverSkipped: document.getElementById('inert-popover')?.dataset.dsPopoverInit !== 'true'
+        && document.getElementById('inert-popover-trigger')?.getAttribute('aria-expanded') === null
+        && document.getElementById('inert-popover-panel')?.hidden === false,
       toastInit: document.getElementById('life-toast-region')?.dataset.dsToastInit === 'true',
     };
   },

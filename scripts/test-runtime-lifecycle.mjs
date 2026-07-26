@@ -125,6 +125,11 @@ try {
     evidence('popover', 'root-init', 'init-document'),
   );
   ok(
+    markers.inertPopoverSkipped,
+    'initPopovers(document) must ignore Popovers inside inert static documentation examples',
+    evidence('popover', 'root-init', 'skip-inert-subtree'),
+  );
+  ok(
     markers.toastInit,
     'initToasts(document) must mark the Toast region',
     evidence('toast', 'root-init', 'init-document'),
@@ -229,6 +234,11 @@ try {
     await page.locator('#life-popover-panel').evaluate((el) => !el.hidden),
     'popover must open after init',
     evidence('popover', 'open-close', 'trigger-opens'),
+  );
+  ok(
+    await page.locator('#inert-popover-panel').evaluate((el) => !el.hidden),
+    'opening a live Popover must not hide an inert static Popover example',
+    evidence('popover', 'open-close', 'inert-static-example-preserved'),
   );
   await page.keyboard.press('Escape');
   ok(

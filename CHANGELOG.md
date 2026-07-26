@@ -22,6 +22,7 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido
+- **Runtime do Popover preserva exemplos estáticos em documentação.** `initPopovers()` deixa de inicializar Popovers dentro de subtrees `inert`, evitando que o exemplo de anatomia desapareça ao abrir outro Popover; o Storybook também passa a validar o runtime do Popover e usa `ds-button--brand` nas actions.
 - **Tema e altura das amostras no Storybook.** O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.
 - **Anatomia do Pagination na documentação.** O preview passa a exibir os seis marcadores e conectores que relacionam a navegação, a lista e seus controles às partes descritas na legenda.
 - **Exemplos de boas práticas do Tooltip.** Os previews com Tooltip no topo agora reservam espaço suficiente para o balão, evitando recorte ao repousar o mouse ou no exemplo aberto.
