@@ -1,6 +1,6 @@
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-26. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-31. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -88,6 +88,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | ADR-018 | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito |
 | ADR-019 | — Reintrodução de Component tokens como contrato anatômico | Aceita |
 | ADR-020 | Biblioteca consumível e contrato de readiness dos componentes | Aceita |
+| ADR-021 | Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag | Aceita |
 
 ## Próximos milestones
 

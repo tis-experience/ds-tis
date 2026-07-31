@@ -1,0 +1,536 @@
+/*
+ * O portal usa o chrome nativo do Starlight. Os tokens do DS são carregados
+ * somente para que os exemplos reais de componentes possam ser renderizados.
+ */
+@import '../../../../css/tokens/generated/foundation.css';
+@import '../../../../css/tokens/generated/theme-light.css';
+@import '../../../../css/tokens/generated/theme-dark.css';
+@import '../../../../css/tokens/generated/component.css';
+
+:root {
+  --sl-content-width: 68rem;
+  --sl-sidebar-width: 17.5rem;
+  --sl-color-accent-low: var(--ds-color-brand-950);
+  --sl-color-accent: var(--ds-color-brand-400);
+  --sl-color-accent-high: var(--ds-color-brand-100);
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: var(--ds-color-brand-100);
+  --sl-color-accent: var(--ds-color-brand-700);
+  --sl-color-accent-high: var(--ds-color-brand-950);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Conteúdo importado da documentação estável. O invólucro é Starlight;
+   somente os componentes dentro dos canvases usam o visual do DS. */
+.ds-source-guidance {
+  display: grid;
+  gap: 2.5rem;
+  min-width: 0;
+  font: inherit;
+}
+
+.ds-source-guidance .ds-subsection {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.ds-source-guidance .ds-subsection > :where(h3, p, table, .ds-preview, .ds-callout) {
+  margin-block: 0;
+}
+
+.ds-source-guidance .ds-subsection__title {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-h4);
+}
+
+.ds-source-guidance .ds-preview,
+.ds-source-guidance .ds-dodont__item,
+.ds-source-guidance .ds-anatomy {
+  overflow: hidden;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.5rem;
+  background: var(--sl-color-bg-nav);
+}
+
+.ds-source-guidance .ds-preview__canvas,
+.ds-source-guidance .ds-dodont__preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 9rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  background: var(--sl-color-bg);
+}
+
+/* O rhythm global do Starlight adiciona margin-top entre irmãos Markdown.
+   Dentro de canvases, o gap do próprio layout é a única separação válida. */
+.ds-source-guidance
+  :where(.ds-preview__canvas, .ds-dodont__preview, .ds-anatomy, .ds-related)
+  > * {
+  margin-block: 0;
+}
+
+.ds-source-guidance .ds-preview__canvas--column {
+  flex-direction: column;
+}
+
+.ds-source-guidance .ds-callout {
+  margin: 0;
+  padding: 1rem;
+  border-inline-start: 0.25rem solid var(--sl-color-text-accent);
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+}
+
+.ds-source-guidance .ds-callout__title {
+  margin-bottom: 0.25rem;
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+
+.ds-source-guidance .ds-callout code {
+  padding: 0.1em 0.3em;
+  border-radius: 0.25rem;
+  background: var(--sl-color-bg-inline-code);
+  color: var(--sl-color-white);
+  font-family: var(--__sl-font-mono);
+  font-size: 0.9em;
+}
+
+.ds-source-guidance .ds-dodont {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.ds-source-guidance .ds-dodont__preview {
+  min-height: 7rem;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.ds-source-guidance .ds-dodont__label {
+  padding: 0.75rem 1rem 0.25rem;
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+}
+
+.ds-source-guidance .ds-dodont__label--do {
+  color: var(--sl-color-green-high);
+}
+
+.ds-source-guidance .ds-dodont__label--dont {
+  color: var(--sl-color-red-high);
+}
+
+.ds-source-guidance .ds-dodont__desc {
+  min-height: 5rem;
+  padding: 0.25rem 1rem 1rem;
+  color: var(--sl-color-text);
+  font-size: var(--sl-text-sm);
+}
+
+.ds-source-guidance .ds-anatomy {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  background: var(--sl-color-bg);
+}
+
+.ds-source-guidance .ds-anatomy__marker {
+  position: absolute;
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sl-color-text-accent);
+  color: var(--sl-color-text-invert);
+  font-size: var(--sl-text-2xs);
+  font-weight: 700;
+}
+
+.ds-source-guidance .ds-anatomy-legend {
+  color: var(--sl-color-text);
+  font-size: var(--sl-text-sm);
+}
+
+.ds-source-guidance .ds-anatomy-legend strong {
+  color: var(--sl-color-white);
+}
+
+.ds-source-guidance .ds-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.ds-source-guidance .ds-related__link {
+  color: var(--sl-color-text-accent);
+  font-size: var(--sl-text-sm);
+  text-underline-offset: 0.2em;
+}
+
+.ds-source-guidance .ds-token-table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.5rem;
+  border-collapse: collapse;
+  font-size: var(--sl-text-sm);
+  scrollbar-width: thin;
+}
+
+.ds-source-guidance .ds-token-table :where(th, td) {
+  min-width: 8rem;
+  max-width: 28rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  text-align: start;
+  vertical-align: top;
+}
+
+.ds-source-guidance .ds-token-table th {
+  background: var(--sl-color-bg-nav);
+  color: var(--sl-color-white);
+  font-weight: 600;
+}
+
+.ds-source-guidance .ds-token-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Troca de tecnologia: navegação editorial, não componente do DS. */
+.ds-doc-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-block: 1.25rem 1.75rem;
+  font-size: var(--sl-text-sm);
+}
+
+.ds-doc-context__technology {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.ds-editorial-tabs {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.ds-editorial-tabs--links {
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.ds-editorial-tabs--panels {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.ds-component-slot starlight-tabs .tablist-wrapper {
+  padding-block: 0.75rem;
+  overflow-x: auto;
+  border-block: 1px solid var(--sl-color-hairline-light);
+  scrollbar-width: thin;
+}
+
+.ds-component-slot starlight-tabs [role='tablist'] {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-editorial-tabs > li {
+  display: flex;
+  margin-block: 0;
+}
+
+.ds-component-slot starlight-tabs [role='tablist'] > li {
+  display: flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ds-editorial-tabs > [role='tab'],
+.ds-editorial-tabs > li > :is(a, span),
+.ds-component-slot starlight-tabs [role='tablist'] > li > [role='tab'] {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-width: 0;
+  min-height: 2.375rem;
+  margin-block: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 0.125rem solid transparent;
+  background: transparent;
+  color: var(--sl-color-gray-3);
+  font: inherit;
+  font-size: var(--sl-text-sm);
+  line-height: 1.5;
+  box-shadow: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ds-editorial-tabs > [role='tab'] {
+  cursor: pointer;
+}
+
+.ds-editorial-tabs > [role='tab']:hover,
+.ds-editorial-tabs > [role='tab']:focus-visible,
+.ds-editorial-tabs > li > a:hover,
+.ds-editorial-tabs > li > a:focus-visible,
+.ds-component-slot starlight-tabs [role='tab']:hover,
+.ds-component-slot starlight-tabs [role='tab']:focus-visible {
+  color: var(--sl-color-white);
+}
+
+.ds-editorial-tabs > [role='tab'][aria-selected='true'],
+.ds-editorial-tabs > li > a[aria-current='page'],
+.ds-component-slot starlight-tabs [role='tab'][aria-selected='true'] {
+  border-bottom-color: var(--sl-color-text-accent);
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+
+/* O estado ativo interno do Starlight vive em uma cascade layer posterior. */
+.ds-component-slot starlight-tabs [role='tab'][aria-selected='true'] {
+  border-bottom-color: var(--sl-color-text-accent) !important;
+  color: var(--sl-color-text-accent) !important;
+  font-weight: 600 !important;
+}
+
+.ds-editorial-tabs > [role='tab']:focus-visible,
+.ds-editorial-tabs > li > a:focus-visible,
+.ds-component-slot starlight-tabs [role='tab']:focus-visible {
+  border-radius: 0.2rem;
+  outline: 0.125rem solid var(--sl-color-accent);
+  outline-offset: 0.2rem;
+}
+
+.ds-editorial-tabs > li > span[aria-disabled='true'] {
+  color: var(--sl-color-gray-4);
+}
+
+.ds-doc-context select {
+  display: none;
+  max-width: 100%;
+  min-height: 2.25rem;
+  padding-inline: 0.75rem 2rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.25rem;
+  background-color: var(--sl-color-bg);
+  color: var(--sl-color-white);
+  font: inherit;
+}
+
+.ds-doc-context__stable-link {
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-xs);
+  text-underline-offset: 0.2em;
+}
+
+.ds-doc-context__stable-link:hover,
+.ds-doc-context__stable-link:focus-visible {
+  color: var(--sl-color-text-accent);
+}
+
+/* Quatro visões editoriais evitam uma página única e excessivamente longa. */
+.ds-component-layout {
+  min-width: 0;
+}
+
+.ds-component-tabs {
+  margin-top: 1.5rem;
+  padding-block: 0.75rem;
+  border-block: 1px solid var(--sl-color-hairline-light);
+}
+
+.ds-component-layout__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 12rem;
+  gap: 3rem;
+  align-items: start;
+}
+
+.ds-component-panels,
+.ds-component-panels [role='tabpanel'],
+.ds-component-slot {
+  min-width: 0;
+}
+
+.ds-component-panels [role='tabpanel'] {
+  padding-block: 2.5rem 4rem;
+}
+
+.ds-component-panels [role='tabpanel'][hidden] {
+  display: none;
+}
+
+.ds-component-slot {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.ds-component-slot > *,
+.ds-component-slot starlight-tabs,
+.ds-component-slot .expressive-code {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ds-component-slot > :where(h3, p, ul, ol, pre, table) {
+  margin-block: 0;
+}
+
+.ds-component-slot > h3 {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+  font-size: var(--sl-text-h4);
+}
+
+.ds-panel-toc {
+  position: sticky;
+  top: calc(var(--sl-nav-height) + 1.5rem);
+  max-height: calc(100vh - var(--sl-nav-height) - 3rem);
+  padding-top: 2.5rem;
+  overflow-y: auto;
+}
+
+.ds-panel-toc > strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-2xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ds-panel-toc ul {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 1px solid var(--sl-color-hairline-light);
+  list-style: none;
+}
+
+.ds-panel-toc a {
+  display: block;
+  padding-block: 0.25rem;
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-xs);
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.ds-panel-toc a:hover,
+.ds-panel-toc a[aria-current='location'] {
+  color: var(--sl-color-text-accent);
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 50rem) {
+  .ds-component-layout__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-panel-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .ds-doc-context,
+  .ds-doc-context__technology {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ds-doc-context__technology-links {
+    display: none;
+  }
+
+  .ds-doc-context select {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (max-width: 34rem) {
+  .ds-component-tabs [role='tablist'] {
+    gap: 1rem;
+  }
+
+  .ds-component-panels [role='tabpanel'] {
+    padding-block: 2rem 3rem;
+  }
+
+  .ds-component-slot,
+  .ds-source-guidance {
+    gap: 2rem;
+  }
+
+  .ds-source-guidance .ds-dodont {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-source-guidance .ds-dodont__desc {
+    min-height: 0;
+  }
+
+  .ds-source-guidance .ds-preview__canvas {
+    justify-content: flex-start;
+  }
+
+  .ds-source-guidance .ds-token-table :where(th, td) {
+    min-width: 7.5rem;
+    padding: 0.625rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

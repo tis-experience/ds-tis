@@ -1,0 +1,51 @@
+---
+title: Design System TIS
+description: Componentes, tokens e orientações para construir produtos TIS consistentes.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+Esta documentação organiza o Design System por tecnologia sem duplicar o contrato
+de design. Use as páginas de componentes para consultar decisões compartilhadas e
+as instruções próprias de cada implementação.
+
+<Aside type="note" title="Estado atual">
+  A linha Web CSS da v1 continua estável e recomendada para consumo. A vNext evolui
+  de forma aditiva e só substituirá a linha atual depois de comprovar cobertura,
+  acessibilidade, consumo e migração.
+</Aside>
+
+## Escolha um caminho
+
+<CardGrid>
+  <Card title="Web CSS">
+    Consulte a implementação estável e agnóstica de framework.
+    [Abrir Web CSS](./web/).
+  </Card>
+  <Card title="React">
+    Acompanhe a construção do adapter e a disponibilidade real dos componentes.
+    [Abrir React](./react/).
+  </Card>
+  <Card title="Componentes">
+    Compare design, uso, implementação e acessibilidade por tecnologia.
+    [Consultar Button](./web/components/button/).
+  </Card>
+  <Card title="Arquitetura">
+    Entenda a coexistência entre v1 e vNext, o motor de tema, Ark/Zag e Figma.
+    [Ler a arquitetura](./architecture/).
+  </Card>
+</CardGrid>
+
+## Como ler uma página de componente
+
+Cada componente separa o conteúdo em quatro visões:
+
+- **Design:** contrato visual, anatomia, variantes e tokens;
+- **Uso:** quando usar, conteúdo e boas práticas;
+- **Implementação ou disponibilidade:** instruções específicas da tecnologia;
+- **Acessibilidade:** requisitos e evidências aplicáveis à implementação.
+
+Quando precisar do catálogo completo que está em produção, consulte a
+[documentação estável da v1](/ds-tis/).

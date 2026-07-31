@@ -6,9 +6,9 @@ Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consu
 
 ## Escopo
 
-O DS TIS é stack-agnóstico. A base pública é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React, Vue, Angular, Svelte ou outro framework podem encapsular essa base dentro do app consumidor, mas esse encapsulamento é responsabilidade do projeto consumidor.
+O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para nove componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
 
-Não apresente wrappers React/Vue/Angular como API oficial do DS TIS se eles não existem neste repositório.
+Não apresente `@tis/react` como pacote público. Para React, use o registry somente quando `docs/api/components.json` marcar `implementations.react.status` como `beta`; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.
 
 ## Entradas esperadas
 
@@ -30,7 +30,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
+- `docs/api/components.json` para componentes, implementações por tecnologia (`implementations.web` e `implementations.react`), readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -45,7 +45,7 @@ instalado, use o fallback público
 `https://tis-experience.github.io/ds-tis/docs/api/components.json`.
 
 `ds-tis/metadata` aponta para `consumer-context.json`: um manifesto pequeno com
-entrypoints oficiais, versão, fontes de verdade e contrato responsivo. JSON
+entrypoints oficiais, tecnologias disponíveis, registry React, versão, fontes de verdade e contrato responsivo. JSON
 modules podem exigir import attribute na stack usada; agents e scripts também
 podem ler o arquivo diretamente pelo package resolver ou filesystem.
 
@@ -164,6 +164,42 @@ import loginTemplate from 'ds-tis/templates/login.html?raw';
 
 O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.
 
+## React beta pelo registry shadcn
+
+O pacote `@tis/react` não é público. Para os nove componentes validados, a API
+React é distribuída como source pelo canal versionado
+`https://tis-experience.github.io/ds-tis/registry/v1`.
+
+Descubra o catálogo em `ds-tis/metadata/components` ou no fallback público
+`docs/api/components.json`. Instale somente quando
+`implementations.react.status` for `beta`; use `implementations.react.item` como
+nome do item.
+
+Configure o namespace no `components.json` do app:
+
+```json
+{
+  "registries": {
+    "@tis": "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json"
+  }
+}
+```
+
+Depois instale apenas o necessário:
+
+```bash
+npx shadcn@latest add @tis/button @tis/field @tis/input
+```
+
+O catálogo beta atual contém Accordion, Button, Checkbox, Form Field, Input
+Text, Modal, Radio, Textarea e Toggle. Os nomes shadcn de Modal, Form Field,
+Radio e Toggle são, respectivamente, `dialog`, `field`, `radio-group` e
+`switch`. Não deduza essa tradução: leia `implementations.react.item`.
+
+O source instalado pertence ao app consumidor e pode ser revisado ou composto
+localmente. Preserve as classes públicas, o primeiro import global
+`@import "ds-tis/css"`, as relações ARIA e as dependências fixadas pelo item.
+
 ## Runtime JS por componente
 
 Consulte `docs/api/components.json` antes de importar módulos JS. Cada componente expõe `runtime`:
@@ -207,7 +243,7 @@ idioma, orientação e layout reais do produto consumidor.
 6. Preserve acessibilidade: landmarks semânticos, heading order, labels, `aria-*`, `aria-describedby`, `aria-expanded`, `aria-current`, teclado, estados disabled/error/read-only e focus ring visível.
 7. Estados não são decoração. Implemente loading, empty, error, disabled, hover, focus e responsive quando fizerem parte do fluxo esperado.
 8. Ícones devem seguir o padrão do projeto consumidor quando houver biblioteca instalada; quando a tela reproduzir exemplos do DS, prefira o mesmo vocabulário visual documentado.
-9. Não invente wrappers oficiais. Em React/Vue/Angular, crie componentes locais do app apenas como adaptação da anatomia pública e declare esse limite.
+9. Em React, prefira o item oficial quando `implementations.react.status` for `beta`; nos demais casos e em Vue/Angular, declare o wrapper como adaptação local e não invente pacote ou item oficial.
 10. Não altere tokens, CSS gerado ou documentação do DS a partir do projeto consumidor. Se encontrar gap real, registre a limitação e abra demanda para o DS.
 
 ## Fluxo recomendado
@@ -224,7 +260,7 @@ idioma, orientação e layout reais do produto consumidor.
 
 ## Adaptação por framework
 
-React, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Essa adaptação deve:
+React pode instalar os nove componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
 
 - manter os nomes de classes públicas do DS;
 - preservar labels, IDs, `aria-*` e relações `for`/`id`;
@@ -251,7 +287,8 @@ Fontes obrigatorias:
 - README.md
 - docs/llms.txt
 - docs/llms-full.txt
-- docs/api/components.json (readiness, responsibility e runtime)
+- docs/api/consumer-context.json (tecnologias e registry)
+- docs/api/components.json (implementations, readiness, responsibility e runtime)
 - docs/api/tokens.json
 - docs/<component>.html dos componentes usados
 - docs/templates/ ou ds-tis/templates/* quando houver template aplicavel
@@ -259,6 +296,7 @@ Fontes obrigatorias:
 Regras:
 - Instale via `npm install ds-tis`; durante a beta, fixe a versão exata em produção.
 - Importe ds-tis/css uma vez no entrypoint global.
+- Para React, quando implementations.react.status for beta, configure @tis em components.json e instale implementations.react.item via shadcn. Nunca invente @tis/react ou um item ausente.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
@@ -267,7 +305,7 @@ Regras:
 - Form controls devem compor ds-field + controle real, como ds-input + ds-input__field.
 - Nao hardcode hex/rgb/px/rem quando existir token, classe ou variante publica.
 - Preserve landmarks, labels, aria-*, teclado, focus ring e estados disabled/error/read-only.
-- Em React/Vue/Angular, adapte a anatomia publica em wrappers locais do app; nao invente wrappers oficiais do DS TIS.
+- Fora do catalogo React beta e em Vue/Angular, adapte a anatomia publica em wrappers locais do app e declare esse limite.
 
 Saida esperada:
 - Arquivos alterados.
@@ -290,7 +328,7 @@ Antes de concluir, o agent deve reportar:
 
 - componentes DS usados e componentes descartados;
 - readiness e responsabilidade dos componentes usados;
-- imports adicionados: `ds-tis/css`, módulos JS com `runtime` em `components.json`, `ds-tis/theme` e/ou `ds-tis/templates/*`;
+- imports e distribuição usados: `ds-tis/css`, módulos JS com `runtime`, itens `@tis/*` do registry, `ds-tis/theme` e/ou `ds-tis/templates/*`;
 - classes públicas principais usadas, como `ds-field`, `ds-input` e `ds-input__field`;
 - tokens CSS relevantes quando houver customização via `var(--ds-...)`;
 - evidência de acessibilidade: labels, landmarks, `aria-*`, teclado, focus ring e contraste quando aplicável;

@@ -1,0 +1,73 @@
+---
+title: React
+description: Consumo beta dos componentes React distribuídos como source pelo registry shadcn do DS TIS.
+sidebar:
+  label: Visão geral · React
+  order: 1
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+import DocumentContext from '../../../../components/DocumentContext.astro';
+
+<DocumentContext
+  technology="react"
+  v1Path="/"
+  technologies={[
+    { label: 'Visão geral', value: 'overview', path: 'pt-br/' },
+    { label: 'Web CSS', value: 'web', path: 'pt-br/web/' },
+    { label: 'React', value: 'react', path: 'pt-br/react/' },
+  ]}
+/>
+
+A implementação React já pode ser consumida em beta por um registry shadcn
+versionado. O código-fonte entra no projeto consumidor e continua usando o CSS,
+os tokens e a anatomia pública do DS TIS.
+
+<Aside type="note" title="Source distribution, não pacote React">
+  `@tis/react` continua privado e não é uma dependência pública. O contrato beta
+  é o source registry em `/registry/v1`, validado em um consumer React/Vite
+  instalado, com interação de browser e Axe.
+</Aside>
+
+## Como funciona
+
+shadcn distribui o source para o app. Base UI fornece comportamento e gestão de
+estado apenas onde necessário; elementos nativos e composição React cobrem os
+casos simples. O provider não define o visual: `ds-tis/css` e os tokens TIS
+continuam canônicos.
+
+O canal `v1` estabiliza os endereços do registry. Como a linha ainda é beta, o
+código instalado deve ser revisado junto com o restante do código da aplicação.
+
+## Componentes validados
+
+<CardGrid>
+  <Card title="Core e overlay">
+    Accordion, Button e Modal (`dialog`) já têm source instalável e stories de
+    interação.
+  </Card>
+  <Card title="Forms">
+    Form Field (`field`), Input Text, Textarea, Checkbox, Radio e Toggle
+    (`switch`) formam a primeira composição de formulário completa.
+  </Card>
+  <Card title="Instalação e catálogo">
+    Consulte os comandos, providers, nomes de item e limites atuais no
+    [catálogo do registry](./registry/).
+  </Card>
+  <Card title="Contrato de Button">
+    Veja API, acessibilidade e instalação específica em
+    [Button React](./components/button/).
+  </Card>
+</CardGrid>
+
+## Garantias da beta
+
+1. schema oficial do registry validado pela CLI shadcn;
+2. source TypeScript e orçamentos gzip verificados no CI;
+3. instalação pelo namespace `@tis` em fixture React/Vite limpa;
+4. build de produção, teclado, estados, responsividade e Axe no browser;
+5. catálogo machine-readable que marca cada implementação como `stable`, `beta`
+   ou `unavailable`.
+
+Para os demais componentes, use a implementação Web CSS estável até que
+`docs/api/components.json` publique `implementations.react.status: "beta"`.

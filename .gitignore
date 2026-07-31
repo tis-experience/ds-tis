@@ -1,6 +1,9 @@
 node_modules/
 _site/
 storybook-static/
+storybook-vnext-static/
+apps/docs/.astro/
+apps/docs/dist/
 
 # Variáveis de ambiente locais (nunca commitar)
 .env

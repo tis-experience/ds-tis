@@ -86,8 +86,15 @@
   "engines": {
     "node": ">=22"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "publishConfig": {
     "access": "public"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.8"
   },
   "scripts": {
     "build:tokens": "node build-tokens.mjs",
@@ -98,7 +105,15 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build --output-dir storybook-static",
     "build:storybook:pages": "storybook build --output-dir _site/storybook",
-    "build:pages": "node scripts/build-pages.mjs && npm run test:storybook && npm run build:storybook:pages && npm run test:storybook:browser:pages && node scripts/test-pages-artifact.mjs",
+    "storybook:vnext": "storybook dev -p 6007 -c .storybook-vnext",
+    "build:storybook:vnext": "storybook build -c .storybook-vnext --output-dir storybook-vnext-static",
+    "build:storybook:vnext:pages": "storybook build -c .storybook-vnext --output-dir _site/next/storybook",
+    "build:docs:vnext": "npm run build --workspace @tis/docs",
+    "build:docs:vnext:pages": "npm run build:docs:vnext && node scripts/copy-vnext-docs.mjs",
+    "build:shadcn-registry": "node scripts/build-shadcn-registry.mjs",
+    "build:preview:vnext": "npm run build:docs:vnext:pages && npm run build:storybook:vnext:pages",
+    "preview:vnext": "node scripts/preview-vnext.mjs",
+    "build:pages": "node scripts/build-pages.mjs && npm run build:shadcn-registry && npm run test:storybook && npm run build:storybook:pages && npm run test:storybook:browser:pages && npm run build:docs:vnext:pages && npm run build:storybook:vnext:pages && npm run test:vnext && npm run test:vnext:browser && node scripts/test-pages-artifact.mjs",
     "build:llms": "node scripts/build-llms.mjs",
     "build:all": "npm run build:tokens && npm run build:icons && npm run sync:docs && npm run build:api && npm run build:llms && npm run verify:tokens && npm test",
     "prepublishOnly": "npm run build:all && npm run test:app-ready -- --release",
@@ -108,6 +123,7 @@
     "test:audit-scenarios": "node scripts/test-audit-scenarios.mjs",
     "test:audit-scenarios:ci": "node scripts/test-audit-scenarios.mjs --skip-local-figma",
     "test:consumer-smoke": "node scripts/test-consumer-smoke.mjs",
+    "test:shadcn-consumer": "node scripts/test-shadcn-consumer.mjs",
     "test:docs-consumption": "node scripts/test-docs-consumption.mjs",
     "test:runtime-lifecycle": "node scripts/test-runtime-lifecycle.mjs",
     "test:self": "node scripts/test-self.mjs",
@@ -117,6 +133,10 @@
     "test:storybook": "node scripts/test-storybook-catalog.mjs",
     "test:storybook:browser": "node scripts/test-storybook-browser.mjs",
     "test:storybook:browser:pages": "node scripts/test-storybook-browser.mjs --static-dir _site/storybook",
+    "test:vnext": "node scripts/test-vnext-foundation.mjs && npm run test:vnext:bundle && npm run test:shadcn-registry",
+    "test:vnext:bundle": "node scripts/test-vnext-bundle.mjs",
+    "test:vnext:browser": "node scripts/test-vnext-browser.mjs",
+    "test:shadcn-registry": "shadcn registry validate && node scripts/test-shadcn-registry.mjs",
     "test:a11y": "node scripts/test-a11y.mjs",
     "test:a11y:theme-playground": "node scripts/test-a11y.mjs --strict-load --server --filter theme-playground --zero-blocking",
     "test:visual": "node scripts/test-visual.mjs",
@@ -145,16 +165,26 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
+    "@base-ui/react": "1.6.0",
     "@storybook/addon-a11y": "^10.5.3",
     "@storybook/addon-docs": "^10.5.3",
     "@storybook/html-vite": "^10.5.3",
+    "@storybook/react-vite": "^10.5.3",
     "@tokens-studio/sd-transforms": "^2.0.3",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
     "lucide": "^1.18.0",
+    "lucide-react": "1.28.0",
     "marked": "^18.0.2",
     "pixelmatch": "^7.1.0",
     "playwright": "^1.59.1",
     "pngjs": "^7.0.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "shadcn": "4.16.0",
     "storybook": "^10.5.3",
-    "style-dictionary": "^5.4.0"
+    "style-dictionary": "5.4.4",
+    "tailwind-merge": "3.6.0",
+    "vite": "8.1.5"
   }
 }

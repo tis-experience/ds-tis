@@ -4,8 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE_DIR = path.join(ROOT, "_site");
-const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js", "storybook"];
+const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js", "next", "registry", "storybook"];
 const STORYBOOK_DIR = path.join(SITE_DIR, "storybook");
+const VNEXT_DIR = path.join(SITE_DIR, "next");
+const VNEXT_STORYBOOK_DIR = path.join(VNEXT_DIR, "storybook");
+const REGISTRY_DIR = path.join(SITE_DIR, "registry");
 const packageJson = readJson(path.join(ROOT, "package.json"));
 const errors = [];
 
@@ -20,13 +23,59 @@ if (fs.existsSync(SITE_DIR)) {
 
   const files = walkFiles(SITE_DIR);
   const htmlFiles = files.filter(
-    (file) => file.endsWith(".html") && !file.startsWith(`${STORYBOOK_DIR}${path.sep}`)
+    (file) =>
+      file.endsWith(".html")
+      && !file.startsWith(`${STORYBOOK_DIR}${path.sep}`)
+      && !file.startsWith(`${VNEXT_STORYBOOK_DIR}${path.sep}`)
   );
   const home = fs.readFileSync(path.join(SITE_DIR, "index.html"), "utf8");
   const navigation = fs.readFileSync(path.join(SITE_DIR, "js", "main.js"), "utf8");
 
   for (const requiredFile of ["index.html", "iframe.html", "index.json"]) {
     expect(fs.existsSync(path.join(STORYBOOK_DIR, requiredFile)), `storybook/${requiredFile}: artefato ausente`);
+    expect(
+      fs.existsSync(path.join(VNEXT_STORYBOOK_DIR, requiredFile)),
+      `next/storybook/${requiredFile}: artefato ausente`
+    );
+  }
+  expect(fs.existsSync(path.join(VNEXT_DIR, "index.html")), "next/index.html: portal Astro ausente");
+
+  const registryManifestPath = path.join(REGISTRY_DIR, "manifest.json");
+  expect(fs.existsSync(registryManifestPath), "registry/manifest.json: manifesto público ausente");
+  if (fs.existsSync(registryManifestPath)) {
+    const registryManifest = readJson(registryManifestPath);
+    const expectedRegistryItems = [
+      "accordion",
+      "button",
+      "checkbox",
+      "dialog",
+      "field",
+      "input",
+      "radio-group",
+      "switch",
+      "textarea",
+      "tis-base",
+    ];
+    expect(registryManifest.schema === "ds-tis/shadcn-registry", "registry manifest: schema inválido");
+    expect(registryManifest.status === "beta", "registry manifest: status deve ser beta");
+    expect(registryManifest.channel === "v1", "registry manifest: channel deve ser v1");
+    expect(
+      registryManifest.namespace?.componentsJson?.registries?.["@tis"]
+        === "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json",
+      "registry manifest: namespace @tis inválido",
+    );
+    expect(
+      JSON.stringify(registryManifest.items?.map((item) => item.name)) === JSON.stringify(expectedRegistryItems),
+      "registry manifest: catálogo de itens incompleto ou fora de ordem",
+    );
+    for (const item of expectedRegistryItems) {
+      const itemPath = path.join(REGISTRY_DIR, "v1", `${item}.json`);
+      expect(fs.existsSync(itemPath), `registry/v1/${item}.json: item público ausente`);
+      if (fs.existsSync(itemPath)) {
+        expect(readJson(itemPath).name === item, `registry/v1/${item}.json: name inválido`);
+      }
+    }
+    expect(fs.existsSync(path.join(REGISTRY_DIR, "v1", "registry.json")), "registry/v1/registry.json: índice shadcn ausente");
   }
 
   expect(
@@ -34,7 +83,9 @@ if (fs.existsSync(SITE_DIR)) {
     `index.html não anuncia v${packageJson.version}`
   );
   expect(home.includes('href="storybook/"'), "index.html não oferece acesso ao Storybook");
+  expect(home.includes('href="next/"'), "index.html não oferece acesso ao portal vNext");
   expect(navigation.includes("path: 'storybook/index.html'"), "navegação global não oferece acesso ao Storybook");
+  expect(navigation.includes("path: 'next/pt-br/'"), "navegação global não oferece acesso ao portal vNext");
 
   for (const file of files) {
     const relativePath = path.relative(SITE_DIR, file);

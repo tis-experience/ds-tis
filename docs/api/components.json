@@ -1,4 +1,6 @@
 {
+  "schema": "ds-tis/components",
+  "schemaVersion": 2,
   "version": "1.0.0",
   "count": 26,
   "readinessLevels": {
@@ -244,6 +246,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/accordion",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/accordion.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "accordion",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/accordion.json",
+          "install": "npx shadcn@latest add @tis/accordion",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/accordion",
@@ -329,6 +351,26 @@
         "label": "Largura selecionável pelo consumidor",
         "ds": "Entrega variantes explícitas de largura quando documentadas; não as ativa automaticamente por viewport.",
         "consumer": "Escolhe a variante ou largura no breakpoint do layout da aplicação."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/button.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "button",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/button.json",
+          "install": "npx shadcn@latest add @tis/button",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -479,6 +521,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/input.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "input",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/input.json",
+          "install": "npx shadcn@latest add @tis/input",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -591,6 +653,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/textarea.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "textarea",
+          "provider": "Native React",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/textarea.json",
+          "install": "npx shadcn@latest add @tis/textarea",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-xs",
@@ -676,6 +758,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/select.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -792,6 +894,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/combobox",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/combobox.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": {
         "level": "required",
@@ -935,6 +1057,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/checkbox.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "checkbox",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/checkbox.json",
+          "install": "npx shadcn@latest add @tis/checkbox",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -1022,6 +1164,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/radio.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "radio-group",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/radio-group.json",
+          "install": "npx shadcn@latest add @tis/radio-group",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -1116,6 +1278,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/toggle.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "switch",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/switch.json",
+          "install": "npx shadcn@latest add @tis/switch",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-body-font-size-sm",
@@ -1201,6 +1383,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/badge.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-badge-bg-brand-solid",
@@ -1271,6 +1473,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/alert.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -1371,6 +1593,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/card.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-card-bg-default",
@@ -1441,6 +1683,26 @@
         "label": "Limitado pela viewport",
         "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
         "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/modal",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/modal.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "dialog",
+          "provider": "Base UI",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/dialog.json",
+          "install": "npx shadcn@latest add @tis/dialog",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": {
         "level": "required",
@@ -1549,6 +1811,26 @@
         "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
         "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/popover",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/popover.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/popover",
@@ -1633,6 +1915,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/toast",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/toast.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": {
         "level": "required",
@@ -1755,6 +2057,26 @@
         "ds": "Aplica limites intrínsecos de largura/altura contra a viewport além de preservar o contrato do componente.",
         "consumer": "Fornece conteúdo conciso e testa teclado, zoom e orientação no contexto real da aplicação."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/tooltip",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/tooltip.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/tooltip",
@@ -1819,6 +2141,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/menu",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/menu.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": {
         "level": "required",
@@ -1933,6 +2275,26 @@
         "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
         "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": "ds-tis/tabs",
+          "docs": "https://tis-experience.github.io/ds-tis/docs/tabs.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": {
         "level": "required",
         "module": "ds-tis/tabs",
@@ -1999,6 +2361,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/table.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -2076,6 +2458,26 @@
         "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
         "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/breadcrumb.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-breadcrumb-focus-ring-radius-default",
@@ -2123,6 +2525,26 @@
         "label": "Coleção horizontal gerida pelo consumidor",
         "ds": "Mantém itens, estados e navegação horizontal; não remove, resume nem reorganiza conteúdo por breakpoint.",
         "consumer": "Decide redução de itens, overflow, wrapping ou composição alternativa conforme conteúdo e regra de produto."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/pagination.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -2191,6 +2613,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/avatar.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-avatar-bg-default",
@@ -2247,6 +2689,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/divider.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-divider-line-color-default",
@@ -2282,6 +2744,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/form-field.html"
+        },
+        "react": {
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "field",
+          "provider": "React composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/field.json",
+          "install": "npx shadcn@latest add @tis/field",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [
@@ -2336,6 +2818,26 @@
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
       },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/spinner.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
+      },
       "runtime": null,
       "tokens": [
         "ds-motion-duration-slower",
@@ -2382,6 +2884,26 @@
         "label": "Container do consumidor",
         "ds": "Preserva anatomia, estados e interação na largura oferecida pelo container; não troca variants por viewport.",
         "consumer": "Define grid, largura, reflow e densidade da tela sem inventar modificadores responsivos do componente."
+      },
+      "implementations": {
+        "web": {
+          "status": "stable",
+          "distribution": "npm",
+          "package": "ds-tis",
+          "css": "ds-tis/css",
+          "runtime": null,
+          "docs": "https://tis-experience.github.io/ds-tis/docs/skeleton.html"
+        },
+        "react": {
+          "status": "unavailable",
+          "distribution": null,
+          "package": null,
+          "item": null,
+          "provider": null,
+          "registryUrl": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+        }
       },
       "runtime": null,
       "tokens": [

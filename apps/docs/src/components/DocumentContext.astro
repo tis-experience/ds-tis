@@ -1,0 +1,114 @@
+---
+interface TechnologyOption {
+  label: string;
+  value: string;
+  path: string;
+  disabled?: boolean;
+}
+
+interface Props {
+  technology: string;
+  technologies: TechnologyOption[];
+  v1Path?: string;
+  showVersion?: boolean;
+}
+
+const { technology, technologies, v1Path = '/', showVersion = true } = Astro.props;
+const isEnglish = Astro.currentLocale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
+const v1Url = `${projectBase}${v1Path.startsWith('/') ? v1Path : `/${v1Path}`}`;
+---
+
+<nav class="ds-doc-context" aria-label={isEnglish ? 'Documentation context' : 'Contexto da documentação'}>
+  <div class="ds-doc-context__technology">
+    <div class="ds-doc-context__technology-links">
+      <ul class="ds-editorial-tabs ds-editorial-tabs--links">
+        {
+          technologies.map((option) => (
+            <li>
+              {option.disabled ? (
+                <span aria-disabled="true">{option.label}</span>
+              ) : (
+                <a
+                  href={`${base}/${option.path.replace(/^\/+/, '')}`}
+                  aria-current={option.value === technology ? 'page' : undefined}
+                  data-technology-link={option.value}
+                >
+                  {option.label}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <select
+      id={`ds-doc-technology-${technology}`}
+      data-route-select
+      data-technology-select
+      aria-label={isEnglish ? 'Technology' : 'Tecnologia'}
+    >
+      {
+        technologies.map((option) => (
+          <option
+            value={`${base}/${option.path.replace(/^\/+/, '')}`}
+            data-technology={option.value}
+            selected={option.value === technology}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </option>
+        ))
+      }
+    </select>
+  </div>
+
+  {
+    showVersion && (
+      <a class="ds-doc-context__stable-link" href={v1Url}>
+        {isEnglish ? 'Open stable v1 documentation' : 'Abrir documentação estável v1'}
+      </a>
+    )
+  }
+</nav>
+
+<script>
+  const technologyStorageKey = 'ds-doc-technology';
+  const setupDocumentContext = () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    document.querySelectorAll('[data-route-select]').forEach((element) => {
+      if (!(element instanceof HTMLSelectElement) || element.dataset.ready === 'true') return;
+      element.dataset.ready = 'true';
+      element.addEventListener('change', () => {
+        if (element.hasAttribute('data-technology-select')) {
+          const option = element.selectedOptions.item(0);
+          if (option?.dataset.technology) {
+            localStorage.setItem(technologyStorageKey, option.dataset.technology);
+          }
+        }
+        if (element.value) window.location.assign(element.value);
+      }, { signal });
+    });
+
+    document.querySelectorAll('[data-technology-link]').forEach((element) => {
+      if (!(element instanceof HTMLAnchorElement) || element.dataset.ready === 'true') return;
+      element.dataset.ready = 'true';
+      element.addEventListener('click', () => {
+        if (element.dataset.technologyLink) {
+          localStorage.setItem(technologyStorageKey, element.dataset.technologyLink);
+        }
+      }, { signal });
+    });
+
+    document.addEventListener('astro:before-swap', () => controller.abort(), {
+      once: true,
+      signal,
+    });
+  };
+
+  setupDocumentContext();
+  document.addEventListener('astro:page-load', setupDocumentContext);
+</script>

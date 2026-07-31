@@ -41,8 +41,8 @@ export const STORYBOOK_CONTRACTS = {
     states: ['link', 'current'],
   },
   button: {
-    usage: 'Dispare uma ação ou navegação com prioridade visual explícita.',
-    avoid: 'Não use vários buttons primários concorrentes no mesmo contexto.',
+    usage: 'Dispare uma ação com prioridade visual explícita.',
+    avoid: 'Não use para navegar entre páginas — prefira Link — nem use vários buttons primários concorrentes no mesmo contexto.',
     properties: ['label', 'variant', 'size', 'disabled', 'loading', 'fullWidth', 'icon', 'iconOnly'],
     stories: ['Playground', 'Variantes', 'Tamanhos', 'Estados', 'Icones'],
     states: ['default', 'hover', 'focus', 'active', 'disabled', 'loading'],

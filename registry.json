@@ -1,0 +1,560 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "tis",
+  "homepage": "https://tis-experience.github.io/ds-tis/next/",
+  "items": [
+    {
+      "name": "tis-base",
+      "type": "registry:base",
+      "extends": "none",
+      "title": "TIS React Base",
+      "description": "Base beta do DS TIS para projetos React com Base UI e distribuição shadcn.",
+      "author": "TIS Experience Engineering",
+      "config": {
+        "style": "tis",
+        "iconLibrary": "lucide",
+        "rsc": false,
+        "tsx": true,
+        "rtl": false
+      },
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@0.7.1",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Base beta. O DS TIS permanece fonte de tokens, visual e contratos; Base UI fornece comportamento e shadcn distribui o código. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerVersion": "1.6.0",
+        "status": "beta",
+        "adr": "ADR-021"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "TIS Button",
+      "description": "Button React com API shadcn, primitive Base UI e classes públicas do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@0.7.1",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/button.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta"
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "TIS Accordion",
+      "description": "Accordion React com teclado e estado por Base UI, preservando a anatomia pública do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/accordion.tsx",
+          "type": "registry:ui",
+          "target": "@ui/accordion.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta"
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "TIS Dialog",
+      "description": "Dialog React com portal e gestão de foco por Base UI, usando o contrato visual de Modal do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/dialog.tsx",
+          "type": "registry:ui",
+          "target": "@ui/dialog.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        "@layer components": {
+          ".ds-tis-dialog__backdrop": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "var(--ds-modal-overlay-bg-default)",
+            "z-index": "var(--ds-modal-overlay-z-index-default)"
+          },
+          ".ds-tis-dialog__viewport": {
+            "position": "fixed",
+            "inset": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "padding": "var(--ds-modal-overlay-padding-default)",
+            "z-index": "var(--ds-modal-overlay-z-index-default)"
+          },
+          ".ds-tis-dialog__popup": {
+            "position": "relative"
+          },
+          ".ds-modal .ds-tis-dialog__close": {
+            "top": "var(--ds-space-sm)",
+            "right": "var(--ds-space-sm)"
+          }
+        }
+      },
+      "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta"
+      }
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "TIS Field",
+      "description": "Composição acessível de label, controle, helper, contador e erro usando o Form Field CSS-only do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/field.tsx",
+          "type": "registry:ui",
+          "target": "@ui/field.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        "@layer components": {
+          ".ds-tis-field-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "var(--ds-space-lg)",
+            "width": "100%"
+          },
+          ".ds-tis-field--horizontal": {
+            "flex-direction": "row",
+            "align-items": "flex-start",
+            "gap": "var(--ds-space-sm)"
+          },
+          ".ds-tis-field-content": {
+            "display": "flex",
+            "flex": "1",
+            "flex-direction": "column",
+            "gap": "var(--ds-space-2xs)",
+            "min-width": "0"
+          },
+          ".ds-tis-field-set": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "var(--ds-space-md)",
+            "border": "0",
+            "margin": "0",
+            "padding": "0"
+          },
+          ".ds-tis-field-legend": {
+            "margin-bottom": "var(--ds-space-xs)"
+          }
+        }
+      },
+      "docs": "Use data-invalid no Field e aria-invalid no controle. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React composition",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "TIS Input",
+      "description": "Input React com primitive Base UI e wrapper anatômico público do Input Text do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/input.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Componha com Field para label, helper e erro. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "TIS Textarea",
+      "description": "Textarea React nativo com wrapper anatômico e estados públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/textarea.tsx",
+          "type": "registry:ui",
+          "target": "@ui/textarea.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Componha com Field e FieldCounter quando houver limite. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "TIS Checkbox",
+      "description": "Checkbox React com estado e input de formulário por Base UI, preservando a anatomia pública do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "@ui/checkbox.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-checkbox[data-checked]": {
+            "background-color": "var(--ds-checkbox-box-fill-checked-default)",
+            "border-width": "0"
+          },
+          ".ds-checkbox[data-checked]::after": {
+            "transform": "translate(-50%, -50%) scale(1)"
+          },
+          ".ds-checkbox[data-indeterminate]": {
+            "background-color": "var(--ds-checkbox-box-fill-indeterminate-default)",
+            "border-width": "0"
+          },
+          ".ds-checkbox[data-indeterminate]::after": {
+            "top": "50%",
+            "left": "50%",
+            "width": "calc(var(--ds-checkbox-box-size-md) * 0.625)",
+            "height": "max(var(--ds-space-hairline), calc(var(--ds-checkbox-box-size-md) * 0.125))",
+            "background-color": "var(--ds-checkbox-mark-fill-indeterminate-default)",
+            "-webkit-mask": "none",
+            "mask": "none",
+            "transform": "translate(-50%, -50%) scale(1)",
+            "border-radius": "var(--ds-space-hairline)"
+          },
+          ".ds-checkbox:hover:not([data-disabled])": {
+            "background-color": "var(--ds-checkbox-box-fill-unchecked-hover)",
+            "border-color": "var(--ds-checkbox-box-border-color-unchecked-hover)"
+          },
+          ".ds-checkbox[data-checked]:hover:not([data-disabled])": {
+            "background-color": "var(--ds-checkbox-box-fill-checked-hover)"
+          },
+          ".ds-checkbox[data-checked]:hover:not([data-disabled])::after": {
+            "background-color": "var(--ds-checkbox-mark-fill-checked-hover)"
+          },
+          ".ds-checkbox[data-indeterminate]:hover:not([data-disabled])": {
+            "background-color": "var(--ds-checkbox-box-fill-indeterminate-hover)"
+          },
+          ".ds-checkbox[data-indeterminate]:hover:not([data-disabled])::after": {
+            "background-color": "var(--ds-checkbox-mark-fill-indeterminate-hover)"
+          },
+          ".ds-checkbox[data-disabled]": {
+            "background-color": "var(--ds-checkbox-box-fill-unchecked-disabled)",
+            "border-color": "var(--ds-checkbox-box-border-color-unchecked-disabled)",
+            "cursor": "not-allowed"
+          },
+          ".ds-checkbox[data-checked][data-disabled]": {
+            "background-color": "var(--ds-checkbox-box-fill-checked-disabled)",
+            "border-width": "0"
+          },
+          ".ds-checkbox[data-checked][data-disabled]::after": {
+            "background-color": "var(--ds-checkbox-mark-fill-checked-disabled)"
+          },
+          ".ds-checkbox[data-indeterminate][data-disabled]": {
+            "background-color": "var(--ds-checkbox-box-fill-indeterminate-disabled)",
+            "border-width": "0"
+          },
+          ".ds-checkbox[data-indeterminate][data-disabled]::after": {
+            "background-color": "var(--ds-checkbox-mark-fill-indeterminate-disabled)"
+          },
+          ".ds-checkbox-label:has(.ds-checkbox[data-disabled])": {
+            "cursor": "not-allowed",
+            "color": "var(--ds-form-field-label-color-disabled)"
+          },
+          ".ds-checkbox-label:has(.ds-checkbox[data-disabled]) .ds-checkbox__label": {
+            "color": "var(--ds-form-field-label-color-disabled)"
+          },
+          ".ds-checkbox--sm[data-indeterminate]::after": {
+            "width": "calc(var(--ds-checkbox-box-size-sm) * 0.5)",
+            "height": "calc(var(--ds-checkbox-box-size-sm) * 0.09375)"
+          },
+          ".ds-checkbox--lg[data-indeterminate]::after": {
+            "width": "calc(var(--ds-checkbox-box-size-lg) * 0.5)",
+            "height": "calc(var(--ds-checkbox-box-size-lg) * 0.1041666667)"
+          }
+      },
+      "docs": "Use CheckboxLabel para ampliar o target e preserve indeterminate no próprio controle. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "TIS Radio Group",
+      "description": "Radio Group React com seleção exclusiva e teclado por Base UI, preservando fieldset e legend do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/radio-group.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-radio[data-checked]": {
+            "background-color": "var(--ds-radio-control-fill-selected-default)",
+            "border-color": "var(--ds-radio-control-border-color-selected-default)",
+            "border-width": "var(--ds-radio-control-border-width-selected-default)"
+          },
+          ".ds-radio[data-checked]::after": {
+            "opacity": "1"
+          },
+          ".ds-radio:hover:not([data-disabled])": {
+            "background-color": "var(--ds-radio-control-fill-unselected-hover)",
+            "border-color": "var(--ds-radio-control-border-color-unselected-hover)"
+          },
+          ".ds-radio[data-checked]:hover:not([data-disabled])": {
+            "background-color": "var(--ds-radio-control-fill-selected-hover)",
+            "border-color": "var(--ds-radio-control-border-color-selected-hover)"
+          },
+          ".ds-radio[data-checked]:hover:not([data-disabled])::after": {
+            "background-color": "var(--ds-radio-dot-fill-selected-hover)"
+          },
+          ".ds-radio[data-disabled]": {
+            "background-color": "var(--ds-radio-control-fill-unselected-disabled)",
+            "border-color": "var(--ds-radio-control-border-color-unselected-disabled)",
+            "cursor": "not-allowed"
+          },
+          ".ds-radio[data-checked][data-disabled]": {
+            "background-color": "var(--ds-radio-control-fill-selected-disabled)",
+            "border-width": "0"
+          },
+          ".ds-radio[data-checked][data-disabled]::after": {
+            "background-color": "var(--ds-radio-dot-fill-selected-disabled)"
+          },
+          ".ds-radio-label:has(.ds-radio[data-disabled])": {
+            "cursor": "not-allowed",
+            "color": "var(--ds-form-field-label-color-disabled)"
+          },
+          ".ds-radio-label:has(.ds-radio[data-disabled]) .ds-radio__label": {
+            "color": "var(--ds-form-field-label-color-disabled)"
+          }
+      },
+      "docs": "RadioGroup renderiza fieldset por padrão; use RadioGroupLegend e RadioGroupOption. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "TIS Switch",
+      "description": "Switch React com estado e input de formulário por Base UI, usando o contrato visual Toggle do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/switch.tsx",
+          "type": "registry:ui",
+          "target": "@ui/switch.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-toggle[data-checked]": {
+            "background-color": "var(--ds-toggle-track-fill-on-default)",
+            "border-width": "0",
+            "--track-border-width": "var(--ds-space-none)"
+          },
+          ".ds-toggle[data-checked]::after": {
+            "background-color": "var(--ds-toggle-thumb-fill-on-default)",
+            "inset-inline-start": "calc(var(--toggle-width) - var(--toggle-thumb-size) - var(--thumb-gap))"
+          },
+          ".ds-toggle:hover:not([data-disabled])": {
+            "background-color": "var(--ds-toggle-track-fill-off-hover)",
+            "border-color": "var(--ds-toggle-track-border-color-off-hover)"
+          },
+          ".ds-toggle:hover:not([data-disabled])::after": {
+            "background-color": "var(--ds-toggle-thumb-fill-off-hover)"
+          },
+          ".ds-toggle[data-checked]:hover:not([data-disabled])": {
+            "background-color": "var(--ds-toggle-track-fill-on-hover)"
+          },
+          ".ds-toggle[data-checked]:hover:not([data-disabled])::after": {
+            "background-color": "var(--ds-toggle-thumb-fill-on-hover)"
+          },
+          ".ds-toggle[data-disabled]": {
+            "background-color": "var(--ds-toggle-track-fill-off-disabled)",
+            "border-color": "var(--ds-toggle-track-border-color-off-disabled)",
+            "cursor": "not-allowed"
+          },
+          ".ds-toggle[data-disabled]::after": {
+            "background-color": "var(--ds-toggle-thumb-fill-off-disabled)"
+          },
+          ".ds-toggle[data-checked][data-disabled]": {
+            "background-color": "var(--ds-toggle-track-fill-on-disabled)",
+            "border-width": "0"
+          },
+          ".ds-toggle[data-checked][data-disabled]::after": {
+            "background-color": "var(--ds-toggle-thumb-fill-on-disabled)"
+          },
+          ".ds-toggle-label:has(.ds-toggle[data-disabled])": {
+            "cursor": "not-allowed",
+            "color": "var(--ds-form-field-label-color-disabled)"
+          },
+          ".ds-toggle-label:has(.ds-toggle[data-disabled]) .ds-toggle__label": {
+            "color": "var(--ds-form-field-label-color-disabled)"
+          }
+      },
+      "docs": "Switch mapeia o componente Toggle do DS e gera input real para forms. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "status": "beta",
+        "wave": "forms"
+      }
+    }
+  ]
+}

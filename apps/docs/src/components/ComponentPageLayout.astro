@@ -1,0 +1,250 @@
+---
+interface Props {
+  slug: string;
+  technology: 'web' | 'react';
+  implementationLabel?: string;
+}
+
+const {
+  slug,
+  technology,
+  implementationLabel = Astro.currentLocale === 'en' ? 'Implementation' : 'Implementação',
+} = Astro.props;
+const isEnglish = Astro.currentLocale === 'en';
+const rootId = `ds-component-${slug}-${technology}`;
+const tabs = [
+  { id: 'design', label: 'Design' },
+  { id: 'usage', label: isEnglish ? 'Usage' : 'Uso' },
+  { id: 'implementation', label: implementationLabel },
+  { id: 'accessibility', label: isEnglish ? 'Accessibility' : 'Acessibilidade' },
+];
+---
+
+<div
+  class="ds-component-layout"
+  data-component-layout
+  data-component-slug={slug}
+  data-toc-label={isEnglish ? 'In this section' : 'Nesta seção'}
+  data-table-scroll-label={isEnglish ? 'Scrollable reference table' : 'Tabela de referência com rolagem'}
+  data-code-scroll-label={isEnglish ? 'Scrollable code example' : 'Exemplo de código com rolagem'}
+>
+  <nav class="ds-component-tabs" aria-label={isEnglish ? 'Component documentation' : 'Documentação do componente'}>
+    <div
+      class="ds-editorial-tabs ds-editorial-tabs--panels"
+      role="tablist"
+      aria-label={isEnglish ? 'Documentation views' : 'Visões da documentação'}
+    >
+      {
+        tabs.map((tab, index) => (
+          <button
+            type="button"
+            id={`${rootId}-tab-${tab.id}`}
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`${rootId}-panel-${tab.id}`}
+            tabindex={index === 0 ? 0 : -1}
+            data-component-tab={tab.id}
+          >
+            {tab.label}
+          </button>
+        ))
+      }
+    </div>
+  </nav>
+
+  <div class="ds-component-layout__body">
+    <div class="ds-component-panels">
+      <slot />
+    </div>
+
+    <aside class="ds-panel-toc" data-panel-toc hidden>
+      <strong data-panel-toc-title></strong>
+      <nav aria-label={isEnglish ? 'In this section' : 'Nesta seção'}>
+        <ul data-panel-toc-list></ul>
+      </nav>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const initializeComponentLayouts = () => {
+    document.querySelectorAll('[data-component-layout]').forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      const controller = new AbortController();
+      const { signal } = controller;
+      const tabs = Array.from(root.querySelectorAll('[data-component-tab]')).filter(
+        (tab) => tab instanceof HTMLButtonElement,
+      );
+      const panels = Array.from(root.querySelectorAll('[data-component-panel]')).filter(
+        (panel) => panel instanceof HTMLElement,
+      );
+      const toc = root.querySelector('[data-panel-toc]');
+      const tocTitle = root.querySelector('[data-panel-toc-title]');
+      const tocList = root.querySelector('[data-panel-toc-list]');
+      let headingObserver: IntersectionObserver | undefined;
+
+      const syncScrollableRegions = () => {
+        root.querySelectorAll('.ds-token-table, pre').forEach((region) => {
+          if (!(region instanceof HTMLElement)) return;
+          const isScrollable = region.scrollWidth > region.clientWidth + 1;
+          if (isScrollable) {
+            if (!region.hasAttribute('tabindex')) {
+              region.tabIndex = 0;
+              region.dataset.autoScrollTabindex = 'true';
+            }
+            if (!region.hasAttribute('aria-label')) {
+              region.setAttribute(
+                'aria-label',
+                region.matches('table')
+                  ? root.dataset.tableScrollLabel || ''
+                  : root.dataset.codeScrollLabel || '',
+              );
+              region.dataset.autoScrollLabel = 'true';
+            }
+          } else {
+            if (region.dataset.autoScrollTabindex === 'true') {
+              region.removeAttribute('tabindex');
+              delete region.dataset.autoScrollTabindex;
+            }
+            if (region.dataset.autoScrollLabel === 'true') {
+              region.removeAttribute('aria-label');
+              delete region.dataset.autoScrollLabel;
+            }
+          }
+        });
+      };
+
+      const panelFor = (id: string) =>
+        panels.find((panel) => panel.dataset.componentPanel === id);
+
+      const createHeadingId = (heading: Element, panelId: string, index: number) => {
+        if (heading.id) return heading.id;
+        const text = (heading.textContent || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+        heading.id = `${root.dataset.componentSlug}-${panelId}-${text || index + 1}`;
+        return heading.id;
+      };
+
+      panels.forEach((panel) => {
+        const panelId = panel.dataset.componentPanel || 'section';
+        panel.querySelectorAll('h3').forEach((heading, index) => {
+          createHeadingId(heading, panelId, index);
+        });
+      });
+
+      const buildToc = (panel: HTMLElement) => {
+        if (!(toc instanceof HTMLElement) || !(tocList instanceof HTMLUListElement)) return;
+        headingObserver?.disconnect();
+        tocList.replaceChildren();
+
+        const headings = Array.from(panel.querySelectorAll('h3'));
+        const links = new Map<Element, HTMLAnchorElement>();
+        headings.forEach((heading, index) => {
+          const id = createHeadingId(heading, panel.dataset.componentPanel || 'section', index);
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `#${id}`;
+          link.textContent = heading.textContent?.trim() || id;
+          item.append(link);
+          tocList.append(item);
+          links.set(heading, link);
+        });
+
+        if (tocTitle instanceof HTMLElement) {
+          tocTitle.textContent = root.dataset.tocLabel || '';
+        }
+        toc.hidden = headings.length < 2;
+
+        if (!toc.hidden && 'IntersectionObserver' in window) {
+          headingObserver = new IntersectionObserver(
+            (entries) => {
+              const visible = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+              if (!visible) return;
+              links.forEach((link, heading) => {
+                if (heading === visible.target) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+              });
+            },
+            { rootMargin: '-20% 0px -70%', threshold: [0, 1] },
+          );
+          headings.forEach((heading) => headingObserver?.observe(heading));
+        }
+      };
+
+      const activate = (id: string, updateHash = true) => {
+        const currentTab = tabs.find((tab) => tab.dataset.componentTab === id);
+        const currentPanel = panelFor(id);
+        if (!currentTab || !currentPanel) return;
+
+        tabs.forEach((tab) => {
+          const selected = tab === currentTab;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+        });
+        panels.forEach((panel) => {
+          panel.hidden = panel !== currentPanel;
+        });
+        root.dataset.activePanel = id;
+        buildToc(currentPanel);
+        syncScrollableRegions();
+        requestAnimationFrame(syncScrollableRegions);
+        if (updateHash) history.replaceState(null, '', `#${id}`);
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+          if (tab.dataset.componentTab) activate(tab.dataset.componentTab);
+        }, { signal });
+        tab.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          const targetIndex = event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+              ? tabs.length - 1
+              : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+          const target = tabs[targetIndex];
+          if (target?.dataset.componentTab) {
+            activate(target.dataset.componentTab);
+            target.focus();
+          }
+        }, { signal });
+      });
+
+      const activateFromHash = () => {
+        const id = decodeURIComponent(location.hash.slice(1));
+        if (panelFor(id)) {
+          activate(id, false);
+          return;
+        }
+        const target = id ? document.getElementById(id) : null;
+        const owningPanel = target?.closest('[data-component-panel]');
+        if (owningPanel instanceof HTMLElement && owningPanel.dataset.componentPanel) {
+          activate(owningPanel.dataset.componentPanel, false);
+          requestAnimationFrame(() => target?.scrollIntoView());
+        }
+      };
+
+      window.addEventListener('hashchange', activateFromHash, { signal });
+      window.addEventListener('resize', syncScrollableRegions, { signal });
+      document.addEventListener('astro:before-swap', () => {
+        headingObserver?.disconnect();
+        controller.abort();
+      }, { once: true, signal });
+
+      activateFromHash();
+      if (!root.dataset.activePanel) activate('design', false);
+    });
+  };
+
+  initializeComponentLayouts();
+  document.addEventListener('astro:page-load', initializeComponentLayouts);
+</script>

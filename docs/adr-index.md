@@ -1,9 +1,9 @@
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-26. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-31. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
-20 decisões registradas.
+21 decisões registradas.
 
 | ADR | Título | Status | Data |
 |-----|--------|--------|------|
@@ -27,3 +27,4 @@
 | [ADR-018](decisions/ADR-018-content-naming-strong-default-subtle.md) | — Renomear `content.{default,secondary,tertiary}` para `content.{strong,default,subtle}` | Aceito | 2026-05-06 |
 | [ADR-019](decisions/ADR-019-component-tokens-contrato-anatomico.md) | — Reintrodução de Component tokens como contrato anatômico | Aceita | 2026-05-11 |
 | [ADR-020](decisions/ADR-020-biblioteca-consumivel-componentes-app-ready.md) | Biblioteca consumível e contrato de readiness dos componentes | Aceita | 2026-07-16 |
+| [ADR-021](decisions/ADR-021-coexistencia-v1-vnext-astro-ark-zag.md) | Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag | Aceita | 2026-07-28 |

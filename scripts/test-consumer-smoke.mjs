@@ -162,6 +162,10 @@ try {
     'utf8',
   ));
   ok(installedContext.schema === 'ds-tis/consumer-context', 'installed consumer context schema must resolve');
+  ok(installedContext.schemaVersion === 2, 'installed consumer context schemaVersion must be 2');
+  ok(installedContext.technologies?.web?.status === 'stable', 'installed context must expose stable Web');
+  ok(installedContext.technologies?.react?.status === 'beta', 'installed context must expose React beta');
+  ok(installedContext.technologies?.react?.componentCount === 9, 'installed context must expose 9 React beta components');
   ok(installedContext.responsive?.model === 'intrinsic-first', 'installed responsive contract must be intrinsic-first');
   ok(installedContext.responsive?.publicBreakpoints?.length === 0, 'installed contract must not invent breakpoints');
 

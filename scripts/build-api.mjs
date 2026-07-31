@@ -26,6 +26,11 @@ import {
   responsiveFor,
   responsibilityFor,
 } from "./lib/component-catalog.mjs";
+import {
+  REACT_REGISTRY_COMPONENTS,
+  SHADCN_REGISTRY,
+  implementationsFor,
+} from "./lib/technology-implementations.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -87,6 +92,7 @@ const components = COMPONENTS.map((c) => {
     readinessNotes: c.readinessNotes,
     responsibility: responsibilityFor(c, runtime),
     responsive: responsiveFor(c),
+    implementations: implementationsFor(c, runtime),
     runtime,
     tokens: extractTokensFromCss(cssPath),
     variants: extractVariantsFromCss(cssPath),
@@ -100,6 +106,8 @@ const components = COMPONENTS.map((c) => {
 });
 
 writeJson(path.join(API_DIR, "components.json"), {
+  schema: "ds-tis/components",
+  schemaVersion: 2,
   version: pkg.version,
   count: components.length,
   readinessLevels: READINESS_LEVELS,
@@ -113,7 +121,7 @@ console.log(`✅ docs/api/components.json (${components.length} componentes)`);
 
 writeJson(path.join(API_DIR, "consumer-context.json"), {
   schema: "ds-tis/consumer-context",
-  schemaVersion: 1,
+  schemaVersion: 2,
   version: pkg.version,
   package: pkg.name,
   entrypoints: {
@@ -144,6 +152,42 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
     releaseEvidence: "docs/api/release-figma-evidence.json",
     agentGuide: "docs/agent-consumer-usage.md",
     agentGuideEn: "docs/agent-consumer-usage.en.md",
+    registry: SHADCN_REGISTRY.source,
+    registryManifest: SHADCN_REGISTRY.manifestUrl,
+  },
+  technologies: {
+    web: {
+      status: "stable",
+      distribution: "npm",
+      package: pkg.name,
+      install: `npm install ${pkg.name}@${pkg.version}`,
+      componentCount: components.length,
+      entrypoints: {
+        css: "ds-tis/css",
+        runtimes: Object.fromEntries(
+          Object.entries(RUNTIME_BY_SLUG).map(([slug, runtime]) => [slug, runtime.module]),
+        ),
+      },
+    },
+    react: {
+      status: SHADCN_REGISTRY.status,
+      distribution: "shadcn-registry",
+      package: null,
+      note: "Source distribution; @tis/react is not a public package.",
+      componentCount: REACT_REGISTRY_COMPONENTS.length,
+      registry: {
+        channel: SHADCN_REGISTRY.channel,
+        baseUrl: SHADCN_REGISTRY.baseUrl,
+        manifest: SHADCN_REGISTRY.manifestUrl,
+        namespace: SHADCN_REGISTRY.namespace,
+        componentsJson: {
+          registries: {
+            [SHADCN_REGISTRY.namespace]: `${SHADCN_REGISTRY.baseUrl}/{name}.json`,
+          },
+        },
+      },
+      components: REACT_REGISTRY_COMPONENTS,
+    },
   },
   responsive: RESPONSIVE_CONTRACT,
 });

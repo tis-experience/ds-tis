@@ -1,0 +1,74 @@
+---
+title: Architecture and coexistence
+description: How v1, vNext, Astro, Storybook, tokens, and Figma evolve without a big-bang migration.
+sidebar:
+  order: 2
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+v1 remains the stable product. vNext is an additive evolution and may become
+primary only after proving coverage, accessibility, consumption, and migration.
+
+<Aside type="note" title="Recorded decision">
+  [ADR-021](../../../docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html)
+  is maintained in Brazilian Portuguese and records routes, responsibilities,
+  and promotion criteria. This page summarizes the decision without replacing
+  the canonical ADR.
+</Aside>
+
+## Coexisting lines
+
+| Line | State | Responsibility |
+| --- | --- | --- |
+| **v1 · Web CSS** | Stable | Tokens, CSS, opt-in runtimes, the current catalog, and framework-agnostic consumption. |
+| **vNext** | In development | Technology-specific documentation, native adapters, and a new behavioral base. |
+
+vNext does not change v1 contracts silently. Each component must declare its
+availability by technology, and migration will be decided only with evidence from
+real consumption.
+
+## Repository responsibilities
+
+```text
+ds-tis/
+├── css/ + js/ + docs/ + stories/      # stable v1
+├── apps/docs/                          # Astro + Starlight
+├── packages/react/                     # React adapter in development
+├── packages/theme-schema/              # JSON contract
+├── packages/theme-engine/              # bridge to js/theme
+├── .storybook/                         # v1 HTML/Vite
+└── .storybook-vnext/                   # internal React/Vite validation
+```
+
+## Interactive behavior
+
+Ark UI is the preferred provider for interactive patterns it covers; Zag is the
+underlying state engine. Each technology uses its native adapter while the DS
+keeps its own API, tokens, visual language, and tests.
+
+Ark/Zag is not applied to every component. Button and other elements whose native
+HTML semantics already provide the behavior remain simple. Accordion and Dialog
+were used in an internal technical validation, but they are not public DS APIs.
+
+## Theme and tokens
+
+Theme JSON is the engine input, not a dump from a specific library.
+`@tis/theme-schema` validates the configuration; `@tis/theme-engine` maps it to
+CSS variables, contrast, radius, and typography.
+
+## Figma
+
+The current file remains associated with v1. The future vNext library will be a
+controlled copy in a separate file. A plugin may apply validated JSON to the
+copy’s Variables, but it will not publish or update libraries automatically.
+
+## Gates
+
+1. Documentation foundation and Storybook.
+2. Ark/Zag provider validated internally.
+3. Pilot component brief.
+4. Approved Figma spec and contract matrix.
+5. TIS API implementation, accessibility, and real consumption.
+6. Equivalent adapter in another technology when demand exists.
+7. v1 × vNext comparison and promotion decision.

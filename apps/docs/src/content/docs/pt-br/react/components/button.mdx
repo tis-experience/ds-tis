@@ -1,0 +1,110 @@
+---
+title: Button
+description: Contrato e instalação beta do Button React distribuído pelo registry shadcn do DS TIS.
+tableOfContents: false
+sidebar:
+  label: Button · React
+  order: 3
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import ComponentGuidance from '../../../../../components/ComponentGuidance.astro';
+import ComponentPanel from '../../../../../components/ComponentPanel.astro';
+import ComponentPageLayout from '../../../../../components/ComponentPageLayout.astro';
+import DocumentContext from '../../../../../components/DocumentContext.astro';
+
+<DocumentContext
+  technology="react"
+  v1Path="/docs/button.html"
+  showVersion={false}
+  technologies={[
+    { label: 'Web CSS', value: 'web', path: 'pt-br/web/components/button/' },
+    { label: 'React', value: 'react', path: 'pt-br/react/components/button/' },
+  ]}
+/>
+
+<ComponentPageLayout slug="button" technology="react" implementationLabel="Implementação">
+  <ComponentPanel id="design" label="Design" slug="button" technology="react" active>
+    <Aside type="note" title="Mesmo contrato visual, source React">
+      O adapter beta aplica as classes e os tokens públicos do Button Web. Base
+      UI mantém composição de props e `render`; o elemento semântico continua
+      sendo um `button` nativo.
+    </Aside>
+
+    <ComponentGuidance slug="button" topic="design" />
+  </ComponentPanel>
+
+  <ComponentPanel id="usage" label="Uso" slug="button" technology="react">
+    <ComponentGuidance slug="button" topic="usage" />
+
+```tsx
+import { Button } from '@/components/ui/button';
+
+<Button variant="default" type="submit">
+  Salvar alterações
+</Button>
+```
+
+  </ComponentPanel>
+
+  <ComponentPanel id="implementation" label="Implementação" slug="button" technology="react">
+    <Aside type="caution" title="Registry beta">
+      A distribuição é por source. `@tis/react` não é um pacote público; revise
+      o arquivo instalado como parte do código da aplicação.
+    </Aside>
+
+    <h3>Instalação</h3>
+
+    Configure primeiro o namespace conforme o [catálogo do registry](../../registry/).
+
+    <Tabs syncKey="package-manager">
+      <TabItem label="npm">
+
+```sh
+npx shadcn@latest add @tis/button
+```
+
+      </TabItem>
+      <TabItem label="pnpm">
+
+```sh
+pnpm dlx shadcn@latest add @tis/button
+```
+
+      </TabItem>
+      <TabItem label="yarn">
+
+```sh
+yarn dlx shadcn@latest add @tis/button
+```
+
+      </TabItem>
+      <TabItem label="bun">
+
+```sh
+bunx --bun shadcn@latest add @tis/button
+```
+
+      </TabItem>
+    </Tabs>
+
+    O item instala `button.tsx`, o helper compartilhado, as dependências fixadas
+    e garante `@import "ds-tis/css"` no CSS global.
+  </ComponentPanel>
+
+  <ComponentPanel id="accessibility" label="Acessibilidade" slug="button" technology="react">
+    <Aside type="tip" title="Gate executado">
+      O Button participa do consumer React/Vite que valida build de produção,
+      submit real, foco e Axe junto com os outros oito componentes beta.
+    </Aside>
+
+    <h3>Responsabilidade do consumidor</h3>
+
+    <ul>
+      <li>fornecer nome acessível por texto ou <code>aria-label</code>;</li>
+      <li>declarar <code>type</code> corretamente dentro de formulários;</li>
+      <li>preservar estados disabled/loading e o focus ring público;</li>
+      <li>validar o contexto real, incluindo textos, fluxo e contraste.</li>
+    </ul>
+  </ComponentPanel>
+</ComponentPageLayout>
