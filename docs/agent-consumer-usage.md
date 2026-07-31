@@ -10,6 +10,9 @@ O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript
 
 Não apresente `@tis/react` como pacote público. Para React, use o registry somente quando `docs/api/components.json` marcar `implementations.react.status` como `beta`; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.
 
+A regra operacional para agents é literal: `nao invente wrappers oficiais`.
+Fora do catálogo beta, documente o wrapper como código local da aplicação.
+
 ## Entradas esperadas
 
 Antes de implementar, o agent deve reunir:

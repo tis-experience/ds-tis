@@ -71,6 +71,8 @@
 <h2>Escopo</h2>
 <p>O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote <code>ds-tis</code>. React também possui uma distribuição beta por source registry shadcn para nove componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.</p>
 <p>Não apresente <code>@tis/react</code> como pacote público. Para React, use o registry somente quando <code>docs/api/components.json</code> marcar <code>implementations.react.status</code> como <code>beta</code>; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.</p>
+<p>A regra operacional para agents é literal: <code>nao invente wrappers oficiais</code>.
+Fora do catálogo beta, documente o wrapper como código local da aplicação.</p>
 <h2>Entradas esperadas</h2>
 <p>Antes de implementar, o agent deve reunir:</p>
 <ul>
@@ -398,6 +400,8 @@ copied into the consumer app and continues to depend on public DS CSS and tokens
 when <code>docs/api/components.json</code> marks <code>implementations.react.status</code> as <code>beta</code>;
 for Vue, Angular, Svelte, or unavailable React components, wrappers remain local
 consumer-project adaptations.</p>
+<p>The operating rule for agents is explicit: do not invent official wrappers.
+Outside the beta catalog, document the wrapper as application-local code.</p>
 <h2>Expected inputs</h2>
 <p>Before implementing, the agent must gather:</p>
 <ul>

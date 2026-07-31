@@ -21,6 +21,9 @@ when `docs/api/components.json` marks `implementations.react.status` as `beta`;
 for Vue, Angular, Svelte, or unavailable React components, wrappers remain local
 consumer-project adaptations.
 
+The operating rule for agents is explicit: do not invent official wrappers.
+Outside the beta catalog, document the wrapper as application-local code.
+
 ## Expected inputs
 
 Before implementing, the agent must gather:
