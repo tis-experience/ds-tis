@@ -180,6 +180,12 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
         baseUrl: SHADCN_REGISTRY.baseUrl,
         manifest: SHADCN_REGISTRY.manifestUrl,
         namespace: SHADCN_REGISTRY.namespace,
+        core: {
+          package: pkg.name,
+          version: pkg.version,
+          ref: SHADCN_REGISTRY.coreRef,
+          dependency: SHADCN_REGISTRY.coreDependency,
+        },
         componentsJson: {
           registries: {
             [SHADCN_REGISTRY.namespace]: `${SHADCN_REGISTRY.baseUrl}/{name}.json`,

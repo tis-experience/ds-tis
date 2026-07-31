@@ -111,6 +111,12 @@ fs.writeFileSync(
         },
       },
       package: null,
+      core: {
+        package: packageJson.name,
+        version: packageJson.version,
+        ref: SHADCN_REGISTRY.coreRef,
+        dependency: SHADCN_REGISTRY.coreDependency,
+      },
       note: "Source distribution beta. @tis/react is not a public package.",
       items: manifestItems,
     },

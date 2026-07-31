@@ -11,6 +11,8 @@ export const SHADCN_REGISTRY = {
   channel: "v1",
   status: "beta",
   namespace: "@tis",
+  coreRef: "dd4c906943847cb7664a72a0c7637a378b39adcc",
+  coreDependency: "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc",
   baseUrl: "https://tis-experience.github.io/ds-tis/registry/v1",
   manifestUrl: "https://tis-experience.github.io/ds-tis/registry/manifest.json",
   source: "registry.json",
@@ -76,4 +78,3 @@ export function implementationsFor(component, runtime) {
         },
   };
 }
-

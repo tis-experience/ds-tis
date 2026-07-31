@@ -117,6 +117,14 @@ expect(
   'React registry base URL must be canonical.',
 );
 expect(
+  context.technologies?.react?.registry?.core?.ref === SHADCN_REGISTRY.coreRef,
+  'React registry must expose the immutable ds-tis core ref.',
+);
+expect(
+  context.technologies?.react?.registry?.core?.dependency === SHADCN_REGISTRY.coreDependency,
+  'React registry must expose the immutable ds-tis core dependency.',
+);
+expect(
   context.technologies?.react?.registry?.componentsJson?.registries?.['@tis'] === `${SHADCN_REGISTRY.baseUrl}/{name}.json`,
   'React registry must expose the @tis namespace template.',
 );

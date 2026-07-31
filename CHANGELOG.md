@@ -17,7 +17,8 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   `@tis/react`. Uma fixture permanente instala todos os itens em uma app
   React/Vite, valida build de produção, formulário, estados, teclado,
   responsividade e Axe; o portal bilíngue e os guias de consumo passam a ensinar
-  o mesmo contrato.
+  o mesmo contrato. O core CSS consumido pelo registry fica preso ao commit
+  imutável validado, sem depender de uma tag anterior à correção de imports.
 - **Piloto React distribuído por shadcn com Base UI.** O source registry
   adiciona `tis-base`, Button, Accordion e Dialog sem tornar
   Tailwind obrigatório: Base UI mantém estado, foco e ARIA; um adapter fino

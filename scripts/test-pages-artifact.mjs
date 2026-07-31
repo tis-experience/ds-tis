@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { SHADCN_REGISTRY } from "./lib/technology-implementations.mjs";
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE_DIR = path.join(ROOT, "_site");
 const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js", "next", "registry", "storybook"];
@@ -59,6 +61,10 @@ if (fs.existsSync(SITE_DIR)) {
     expect(registryManifest.schema === "ds-tis/shadcn-registry", "registry manifest: schema inválido");
     expect(registryManifest.status === "beta", "registry manifest: status deve ser beta");
     expect(registryManifest.channel === "v1", "registry manifest: channel deve ser v1");
+    expect(
+      registryManifest.core?.ref === SHADCN_REGISTRY.coreRef,
+      "registry manifest: ref imutável do core inválido",
+    );
     expect(
       registryManifest.namespace?.componentsJson?.registries?.["@tis"]
         === "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json",

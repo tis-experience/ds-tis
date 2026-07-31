@@ -23,7 +23,7 @@
         "clsx@2.1.1",
         "lucide-react@1.28.0",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -54,7 +54,7 @@
         "class-variance-authority@0.7.1",
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -88,7 +88,7 @@
         "clsx@2.1.1",
         "lucide-react@1.28.0",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -122,7 +122,7 @@
         "clsx@2.1.1",
         "lucide-react@1.28.0",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -178,7 +178,7 @@
       "dependencies": [
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -243,7 +243,7 @@
         "@base-ui/react@1.6.0",
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -276,7 +276,7 @@
       "dependencies": [
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -310,7 +310,7 @@
         "@base-ui/react@1.6.0",
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -416,7 +416,7 @@
         "@base-ui/react@1.6.0",
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {
@@ -488,7 +488,7 @@
         "@base-ui/react@1.6.0",
         "clsx@2.1.1",
         "tailwind-merge@3.6.0",
-        "ds-tis@github:tis-experience/ds-tis#v1.0.0"
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
       ],
       "files": [
         {

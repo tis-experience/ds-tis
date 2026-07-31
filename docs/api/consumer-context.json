@@ -73,6 +73,12 @@
         "baseUrl": "https://tis-experience.github.io/ds-tis/registry/v1",
         "manifest": "https://tis-experience.github.io/ds-tis/registry/manifest.json",
         "namespace": "@tis",
+        "core": {
+          "package": "ds-tis",
+          "version": "1.0.0",
+          "ref": "dd4c906943847cb7664a72a0c7637a378b39adcc",
+          "dependency": "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+        },
         "componentsJson": {
           "registries": {
             "@tis": "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json"

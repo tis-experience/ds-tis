@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 import { loadRegistry, loadRegistryItem } from 'shadcn/registry';
 import { registrySchema } from 'shadcn/schema';
+import { SHADCN_REGISTRY } from './lib/technology-implementations.mjs';
 import { build } from 'vite';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -57,7 +58,7 @@ if (new Set(itemNames).size !== itemNames.length) {
 }
 
 const requiredDependency = '@base-ui/react@1.6.0';
-const requiredDsDependency = 'ds-tis@github:tis-experience/ds-tis#v1.0.0';
+const requiredDsDependency = SHADCN_REGISTRY.coreDependency;
 const baseUiItems = new Set([
   'tis-base',
   'accordion',
