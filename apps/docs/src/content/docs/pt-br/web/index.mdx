@@ -1,0 +1,64 @@
+---
+title: Web CSS
+description: Implementação estável e agnóstica de framework para aplicações web.
+sidebar:
+  label: Visão geral · Web CSS
+  order: 1
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+import DocumentContext from '../../../../components/DocumentContext.astro';
+
+<DocumentContext
+  technology="web"
+  v1Path="/"
+  technologies={[
+    { label: 'Visão geral', value: 'overview', path: 'pt-br/' },
+    { label: 'Web CSS', value: 'web', path: 'pt-br/web/' },
+    { label: 'React', value: 'react', path: 'pt-br/react/' },
+  ]}
+/>
+
+A linha Web CSS é a implementação estável da v1: tokens DTCG, CSS, runtimes
+JavaScript opt-in e contratos consumíveis sem exigir um framework específico.
+
+<Aside type="note" title="Linha recomendada hoje">
+  Use Web CSS em projetos que precisam do catálogo atual ou que não dependem de um
+  adapter oficial de framework. A vNext não interrompe nem descontinua esse
+  contrato.
+</Aside>
+
+## Quando escolher Web CSS
+
+- a aplicação consegue importar CSS e, quando necessário, JavaScript opt-in;
+- a equipe quer compor componentes com HTML nativo ou com a stack de sua escolha;
+- o projeto precisa consumir a linha estável enquanto adapters oficiais evoluem;
+- interoperabilidade e baixo acoplamento ao framework são requisitos.
+
+## Cobertura
+
+- tokens Foundation, Semantic e Component;
+- temas light/dark e motor white-label;
+- catálogo atual de componentes, com disponibilidade documentada;
+- runtimes opt-in para os padrões interativos App-ready;
+- Storybook HTML/Vite e documentação estática da v1.
+
+## Componentes e referências
+
+<CardGrid>
+  <Card title="Button">
+    Consulte o contrato, o uso, a implementação e a acessibilidade.
+    [Abrir Button](./components/button/).
+  </Card>
+  <Card title="Catálogo da v1">
+    A documentação e o Storybook estáveis continuam sendo a referência do catálogo
+    completo. [Abrir documentação](/ds-tis/) ou
+    [abrir Storybook](/ds-tis/storybook/).
+  </Card>
+</CardGrid>
+
+## Evolução
+
+A vNext não elimina esta linha. Tokens, tema e conhecimento continuam neutros; os
+adapters de framework adicionam ergonomia e comportamento sem substituir o contrato
+web quando ele for a melhor escolha.

@@ -1,0 +1,63 @@
+---
+title: Web CSS
+description: Stable, framework-agnostic implementation for web applications.
+sidebar:
+  label: Overview · Web CSS
+  order: 1
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+import DocumentContext from '../../../../components/DocumentContext.astro';
+
+<DocumentContext
+  technology="web"
+  v1Path="/"
+  technologies={[
+    { label: 'Overview', value: 'overview', path: 'en/' },
+    { label: 'Web CSS', value: 'web', path: 'en/web/' },
+    { label: 'React', value: 'react', path: 'en/react/' },
+  ]}
+/>
+
+Web CSS is the stable v1 implementation: DTCG tokens, CSS, opt-in JavaScript
+runtimes, and consumable contracts without requiring a specific framework.
+
+<Aside type="note" title="Recommended line today">
+  Use Web CSS for projects that need the current catalog or do not depend on an
+  official framework adapter. vNext does not interrupt or deprecate this contract.
+</Aside>
+
+## When to choose Web CSS
+
+- the application can import CSS and, when needed, opt-in JavaScript;
+- the team wants to compose components with native HTML or its chosen stack;
+- the project needs the stable line while official adapters evolve;
+- interoperability and low framework coupling are requirements.
+
+## Coverage
+
+- Foundation, Semantic, and Component tokens;
+- light/dark themes and white-label engine;
+- the current component catalog with documented availability;
+- opt-in runtimes for App-ready interactive patterns;
+- HTML/Vite Storybook and the static v1 documentation.
+
+## Components and references
+
+<CardGrid>
+  <Card title="Button">
+    Review its contract, usage, implementation, and accessibility.
+    [Open Button](./components/button/).
+  </Card>
+  <Card title="v1 catalog">
+    The stable documentation and Storybook remain the reference for the complete
+    catalog. [Open documentation](/ds-tis/) or
+    [open Storybook](/ds-tis/storybook/).
+  </Card>
+</CardGrid>
+
+## Evolution
+
+vNext does not remove this line. Tokens, theme, and knowledge remain neutral;
+framework adapters add ergonomics and behavior without replacing the web contract
+when it is the best fit.

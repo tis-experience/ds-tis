@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  background: var(--ds-background-default);
+  color: var(--ds-content-default);
+  font-family: var(--ds-body-font-family-sans);
+}
+
+.vnext-story-shell,
+.vnext-story-shell *,
+.vnext-story-shell *::before,
+.vnext-story-shell *::after,
+.ds-modal-overlay,
+.ds-modal-overlay *,
+.ds-modal-overlay *::before,
+.ds-modal-overlay *::after {
+  box-sizing: border-box;
+}
+
+.vnext-story-shell :where(p, h1, h2, h3, h4, h5, h6),
+.ds-modal-overlay :where(p, h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+}
+
+.vnext-story-shell svg,
+.ds-modal-overlay svg {
+  display: block;
+  max-width: 100%;
+}
+
+.vnext-story-shell {
+  min-height: 100vh;
+  padding: var(--ds-space-3xl);
+  background: var(--ds-background-default);
+  color: var(--ds-content-default);
+  font-family: var(--ds-font-family-sans);
+}
+
+.vnext-provider {
+  width: min(var(--ds-size-layout-md), 100%);
+  margin-inline: auto;
+}
+
+.vnext-provider--combined {
+  display: grid;
+  width: min(var(--ds-size-layout-md), 100%);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: var(--ds-space-xl);
+}
+
+.vnext-example {
+  min-width: 0;
+}
+
+@media (max-width: 42rem) {
+  .vnext-story-shell {
+    padding: var(--ds-space-xl);
+  }
+}

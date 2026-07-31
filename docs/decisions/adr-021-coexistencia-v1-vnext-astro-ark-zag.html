@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-021 — Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-021 — Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-07-28</p>
+  </div>
+
+  <div class="ds-callout ds-callout--info">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceita</li>
+<li><strong>Data:</strong> 2026-07-28</li>
+<li><strong>Relaciona:</strong> ADR-002, ADR-003, ADR-019, ADR-020</li>
+</ul>
+<h2>Contexto</h2>
+<p>A versão 1.0.0 consolidou um núcleo stack-agnóstico consumível em CSS, JavaScript,
+tokens DTCG, documentação estática e Storybook HTML/Vite. Esse trabalho permanece
+útil e estável, mas mostrou um custo alto para criar e manter componentes
+interativos complexos diretamente, incluindo acessibilidade, lifecycle,
+composições e paridade entre superfícies.</p>
+<p>Ao mesmo tempo, o projeto precisa:</p>
+<ul>
+<li>preservar aplicações que já consomem <code>ds-tis</code>;</li>
+<li>reduzir o trabalho artesanal para novos componentes web;</li>
+<li>manter tokens, theming e conhecimento como ativos independentes da biblioteca;</li>
+<li>documentar variações por tecnologia sem duplicar todo o conteúdo;</li>
+<li>permitir que uma futura versão principal substitua gradualmente a v1, com
+evidência de qualidade e sem migração abrupta.</li>
+</ul>
+<p>O núcleo declarado na ADR-020 já concluiu o gate de consumo em 1.0.0. Portanto,
+iniciar um adaptador React não antecipa mais uma superfície sobre um núcleo
+incompleto.</p>
+<h2>Decisão</h2>
+<h3>1. A v1 permanece estável e a vNext nasce de forma aditiva</h3>
+<p>A estrutura existente continua canônica para a linha 1.x:</p>
+<ul>
+<li><code>css/</code>, <code>js/</code>, <code>tokens/</code>, <code>docs/</code>, <code>stories/</code> e <code>.storybook/</code>;</li>
+<li>pacote npm <code>ds-tis</code>;</li>
+<li>documentação pública em <code>/</code>;</li>
+<li>Storybook HTML/Vite em <code>/storybook/</code>.</li>
+</ul>
+<p>A vNext nasce no mesmo repositório, sem substituir arquivos ou rotas da v1:</p>
+<ul>
+<li><code>apps/docs/</code>: portal Astro com Starlight;</li>
+<li><code>packages/react/</code>: futura biblioteca React;</li>
+<li><code>packages/theme-schema/</code>: contrato JSON versionado de tema;</li>
+<li><code>packages/theme-engine/</code>: pacote-ponte para o motor de tema existente;</li>
+<li><code>.storybook-vnext/</code>: Storybook React/Vite independente;</li>
+<li>documentação em <code>/next/</code>;</li>
+<li>Storybook React em <code>/next/storybook/</code>.</li>
+</ul>
+<h3>2. Astro/Starlight é o portal documental progressivo</h3>
+<p>O portal novo organiza conteúdo por idioma e tecnologia em URL. Exemplo:</p>
+<pre tabindex="0"><code class="language-txt">/next/pt-br/web/components/button/
+/next/pt-br/react/components/button/
+</code></pre>
+<p>Cada página pode combinar:</p>
+<ul>
+<li>conteúdo compartilhado de design, uso e acessibilidade;</li>
+<li>conteúdo específico de implementação;</li>
+<li>seleção de tecnologia por rota, com links e fallback por <code>select</code>;</li>
+<li>seletor de idioma e tema fornecidos pelo Starlight;</li>
+<li>visões de conteúdo com deep link (<code>Design</code>, <code>Uso</code>, <code>Implementação</code> e
+<code>Acessibilidade</code>) para evitar uma única página excessivamente longa;</li>
+<li>navegação interna por âncoras e table of contents dentro da visão ativa;</li>
+<li>tabs locais para informações equivalentes, como package managers.</li>
+</ul>
+<p>O chrome do portal usa os componentes e estilos nativos do Starlight, com a cor
+de marca TIS aplicada pelas variables <code>--sl-*</code>. Ele não simula componentes do DS
+nem carrega o reset visual da v1. Somente os canvases que documentam um componente
+real importam seu CSS público e os tokens necessários.</p>
+<p>As quatro visões editoriais usam semântica de tabs com teclado, hash e fallback
+server-rendered. Essa escolha é navegação de conteúdo, não uma cópia visual das
+referências consideradas durante o desenho do portal. Tabs locais continuam
+reservadas a alternativas equivalentes, como package managers.</p>
+<h3>3. Ark UI é o provider preferencial e Zag é o motor de comportamento</h3>
+<p>Na vNext web:</p>
+<ul>
+<li>cada tecnologia suportada usa seu pacote Ark nativo (<code>@ark-ui/react</code>,
+<code>@ark-ui/vue</code>, <code>@ark-ui/solid</code> ou <code>@ark-ui/svelte</code>) quando o padrão existir;</li>
+<li>Ark fornece anatomy headless, composição, atributos e adaptação ao framework;</li>
+<li>Zag permanece a camada de máquinas de estado por baixo do Ark;</li>
+<li>consumo direto de <code>@zag-js/*</code> é exceção para capacidades que o Ark não exponha,
+documentada por componente e encapsulada em adapter fino;</li>
+<li>componentes simples com semântica HTML suficiente, como Button, continuam
+baseados em elementos nativos e não recebem uma máquina sem necessidade;</li>
+<li>vanilla CSS e os tokens <code>--ds-*</code> existentes estilizam as parts e estados; Tailwind,
+Panda CSS, Chakra UI e shadcn não são requisitos;</li>
+<li>o DS mantém nomes públicos, visual, testes, política de atualização e contrato
+de cada tecnologia;</li>
+<li>nenhum spike de provider vira componente público antes de brief, spec Figma e
+matriz de contrato aprovados.</li>
+</ul>
+<p>Paridade multiplataforma significa preservar intenção, estados, acessibilidade,
+tokens e documentação. Não significa compartilhar o mesmo binário ou esconder
+diferenças legítimas entre frameworks.</p>
+<p>As versões de Ark são fixadas por linha de release e atualizadas somente com
+changelog upstream, stories de interação, Axe e teste de consumo. Zag é transitivo
+via Ark; dependência direta só entra quando a exceção acima for aprovada.</p>
+<p>Performance é gate de release, não uma suposição baseada na quantidade de pacotes
+instalados. Os adapters usam imports por subpath, mantêm o framework como peer
+dependency e medem dois recortes com <code>npm run test:vnext:bundle</code>: o JavaScript
+incremental do provider e o preview integrado com wrapper, Lucide, tokens e CSS.
+Na referência inicial (<code>@ark-ui/react</code> 5.37.2), os limites gzip incrementais são
+12 KiB para Accordion, 20 KiB para Dialog + Portal e 25 KiB para ambos. Os previews
+integrados têm limites de 24 KiB, 32 KiB e 38 KiB, respectivamente. Componentes
+pesados também devem admitir code splitting no consumidor. Esses orçamentos não
+incluem React/ReactDOM, não representam o overhead do Storybook e não substituem
+métricas de uma aplicação real, como INP e LCP.</p>
+<p>O MCP oficial do Ark e os arquivos <code>llms*.txt</code> de Ark/Zag são ferramentas opcionais
+para agentes. Não participam do runtime, build, CI nem fonte de verdade da API
+instalada. Tipos do pacote, contrato aprovado e testes locais prevalecem.</p>
+<h3>4. Tokens e tema permanecem independentes da biblioteca de componentes</h3>
+<p>O JSON de tema é o contrato de entrada do motor de estilo. O mesmo tema pode gerar
+artefatos próprios para React, CSS e outras tecnologias web no futuro.</p>
+<p>Nesta etapa:</p>
+<ul>
+<li><code>packages/theme-schema</code> formaliza a entrada suportada;</li>
+<li><code>packages/theme-engine</code> expõe o motor atual de <code>js/theme</code> sem duplicá-lo;</li>
+<li>os exports públicos da v1 permanecem inalterados;</li>
+<li>extração física do motor para dentro do pacote só ocorrerá quando houver teste
+de compatibilidade do tarball da v1 e da vNext.</li>
+</ul>
+<p>Flutter permanece uma integração separada. Pode consumir valores e semântica
+compatíveis quando fizer sentido, mas não define a arquitetura web nem compartilha
+componentes React.</p>
+<h3>5. Figma continua sendo superfície de design, não gerador automático de código</h3>
+<p>O Figma atual permanece associado à v1. A biblioteca vNext será criada em arquivo
+separado, como cópia controlada da biblioteca original, depois da aprovação visual
+e estrutural da primeira spec.</p>
+<p>O futuro importador de tema:</p>
+<ul>
+<li>recebe JSON validado por <code>packages/theme-schema</code>;</li>
+<li>cria ou atualiza Variables na cópia da biblioteca;</li>
+<li>não cria modes para representar clientes diferentes;</li>
+<li>mantém um relatório de alterações e versão do schema;</li>
+<li>não publica nem atualiza bibliotecas sem ação explícita do owner.</li>
+</ul>
+<h3>6. Promoção para versão principal depende de evidência</h3>
+<p>A vNext só pode substituir a v1 como linha principal depois de provar:</p>
+<ol>
+<li>cobertura mínima definida de componentes prioritários;</li>
+<li>paridade visual aprovada no Figma;</li>
+<li>contratos de acessibilidade e interação em Storybook;</li>
+<li>consumo real em pelo menos uma aplicação;</li>
+<li>documentação de migração e compatibilidade;</li>
+<li>política de atualização de recipes e dependências upstream;</li>
+<li>orçamentos de bundle e métricas de runtime aprovados.</li>
+</ol>
+<p>Até esse gate, v1 e vNext são superfícies explícitas e não intercambiáveis.</p>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li>A v1 continua disponível sem reescrita ou quebra de rotas.</li>
+<li>A vNext reduz o risco de comportamento complexo artesanal.</li>
+<li>O mesmo modelo de comportamento pode ser implementado com adapters Ark nativos
+em React, Vue, Solid e Svelte.</li>
+<li>O styling permanece vanilla CSS orientado por tokens, sem Tailwind obrigatório.</li>
+<li>Tokens, tema e documentação deixam de depender de uma única biblioteca.</li>
+<li>O portal consegue apresentar diferenças reais por tecnologia.</li>
+<li>A promoção futura é baseada em evidência, não apenas em intenção arquitetural.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li>Duas superfícies precisam ser mantidas durante a transição.</li>
+<li>Ark e Zag passam a ser dependências externas para componentes que os utilizam.</li>
+<li>O pacote Ark instala o catálogo de máquinas Zag suportadas, aumentando lockfile,
+disco e superfície de atualização no desenvolvimento, embora o browser receba
+somente os módulos preservados pelo bundle do consumidor.</li>
+<li>Cada adapter de framework continua exigindo implementação, teste e release próprios.</li>
+<li>Atualizações de Ark/Zag podem alterar anatomy, atributos ou comportamento e
+exigem revisão antes de serem absorvidas.</li>
+<li>Tecnologias sem adapter Ark precisam de uma estratégia específica.</li>
+<li>O pacote-ponte do motor de tema não é publicável isoladamente até a extração
+física de sua implementação.</li>
+<li>Conteúdo específico por tecnologia precisa de ownership e revisão próprios.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>Reescrever a v1 imediatamente</h3>
+<p>Descartada. Eliminaria compatibilidade antes de a vNext provar cobertura e consumo.</p>
+<h3>Continuar criando todos os componentes em CSS/JavaScript próprios</h3>
+<p>Descartada como padrão para a vNext. Preserva neutralidade, mas mantém o custo e a
+fragilidade observados em componentes interativos complexos.</p>
+<h3>Usar MUI como implementação canônica</h3>
+<p>Descartada para a vNext principal. MUI entrega maior completude imediata, mas impõe
+API, theming e anatomia mais acoplados à biblioteca. Continua possível em produtos
+que decidam consumi-la por integração específica.</p>
+<h3>Usar shadcn com Base UI ou Radix como base canônica</h3>
+<p>Descartada como estratégia principal. É uma excelente receita para aplicações
+React, mas prioriza aquisição de código React e frequentemente Tailwind. Não atende
+tão diretamente ao objetivo atual de manter providers equivalentes em mais de uma
+tecnologia web. Continua possível em aplicações consumidoras sem se tornar o core.</p>
+<h3>Usar apenas Base UI</h3>
+<p>Descartada como provider principal porque sua superfície é React. Pode ser usada
+por uma integração React específica quando houver ganho demonstrável.</p>
+<h3>Usar Zag diretamente em todos os componentes</h3>
+<p>Descartada como padrão. Entrega o máximo de controle e lógica framework-agnostic,
+mas transfere ao DS a composição de anatomy, parts e adapters que Ark já fornece.
+Permanece como escape hatch controlado.</p>
+<h3>Migrar toda a documentação estática para Astro em um único passo</h3>
+<p>Descartada. A migração progressiva preserva URLs e permite comparar conteúdo,
+busca, acessibilidade e publicação antes de retirar a superfície antiga.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-002 — Stack agnóstica: HTML + CSS + vanilla JS como base da v1.</li>
+<li>ADR-020 — Biblioteca consumível e contrato de readiness dos componentes.</li>
+<li>Documentação Starlight — i18n, tabs sincronizadas, table of contents e overrides.</li>
+<li>Documentação Storybook — React com Vite.</li>
+<li>Documentação Ark UI — componentes headless, adapters por framework, MCP e LLMs.txt.</li>
+<li>Documentação Zag — máquinas de estado, adapters e LLMs.txt.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

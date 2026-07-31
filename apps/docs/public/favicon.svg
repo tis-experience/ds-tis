@@ -1,0 +1,16 @@
+<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#0065ED">
+    <circle cx="22.5" cy="4.5" r="4.5"/>
+    <circle cx="22.5" cy="13.5" r="4.5"/>
+    <circle cx="31.5" cy="13.5" r="4.5"/>
+    <circle cx="4.5" cy="22.5" r="4.5"/>
+    <circle cx="13.5" cy="22.5" r="4.5"/>
+    <circle cx="22.5" cy="22.5" r="4.5"/>
+    <circle cx="31.5" cy="22.5" r="4.5"/>
+    <circle cx="40.5" cy="22.5" r="4.5"/>
+    <circle cx="4.5" cy="31.5" r="4.5"/>
+    <circle cx="13.5" cy="31.5" r="4.5"/>
+    <circle cx="22.5" cy="31.5" r="4.5"/>
+    <circle cx="22.5" cy="40.5" r="4.5"/>
+  </g>
+</svg>

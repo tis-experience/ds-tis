@@ -11,6 +11,13 @@ on:
       - "tests/consumer/**"
       - "tests/runtime/**"
       - "js/**"
+      - "stories/**"
+      - ".storybook/**"
+      - ".storybook-vnext/**"
+      - "apps/**"
+      - "packages/**"
+      - "registry.json"
+      - "registry/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -26,6 +33,13 @@ on:
       - "tests/consumer/**"
       - "tests/runtime/**"
       - "js/**"
+      - "stories/**"
+      - ".storybook/**"
+      - ".storybook-vnext/**"
+      - "apps/**"
+      - "packages/**"
+      - "registry.json"
+      - "registry/**"
       - "build-tokens.mjs"
       - "package.json"
       - "package-lock.json"
@@ -58,7 +72,7 @@ jobs:
       - name: Contrato público commitado sem drift
         run: >-
           git diff --exit-code --
-          docs/api/components.json docs/api/tokens.json docs/api/adrs.json docs/api/foundations.json
+          docs/api/components.json docs/api/consumer-context.json docs/api/tokens.json docs/api/adrs.json docs/api/foundations.json
           docs/component-inventory.md docs/adr-index.md docs/changelog.html
           docs/agent-consumer-usage.html docs/decisions/ docs/llms.txt docs/llms-full.txt
 
@@ -97,6 +111,9 @@ jobs:
 
       - name: Gate App-ready (evidência executada, tarball, axe e visual)
         run: npm run test:app-ready
+
+      - name: Consumer React/Vite instalado pelo registry shadcn
+        run: npm run test:shadcn-consumer
 
       - name: Upload visual regression artifacts
         if: failure()

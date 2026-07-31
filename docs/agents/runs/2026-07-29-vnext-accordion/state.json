@@ -1,0 +1,182 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-07-29-vnext-accordion",
+  "title": "Accordion vNext",
+  "createdAt": "2026-07-29",
+  "updatedAt": "2026-07-31",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-30T01:24:45.018Z",
+        "note": "Owner escolheu Ark UI + Zag e autorizou avançar com o piloto Accordion e o arquivo Figma vNext separado."
+      },
+      "updatedAt": "2026-07-30T01:24:45.018Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-30T01:24:52.051Z",
+        "note": "Draft construído no arquivo vNext, sem alterar biblioteca original, e validado estrutural e visualmente."
+      },
+      "updatedAt": "2026-07-30T01:24:52.051Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-30T08:41:21.475Z",
+        "note": "Owner aprovou o draft e autorizou seguir em 2026-07-30."
+      },
+      "updatedAt": "2026-07-30T08:41:21.475Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-30T08:43:31.395Z",
+        "note": "Não aplicável: o draft reutiliza instâncias publicadas e não altera tokens nem a biblioteca original."
+      },
+      "updatedAt": "2026-07-30T08:43:31.395Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-07-31T15:28:09.460Z",
+        "note": "Owner revisou o preview vNext e autorizou seguir com revisão, commit, PR e publicação em 2026-07-31."
+      },
+      "updatedAt": "2026-07-31T15:28:09.460Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "in_progress",
+      "ownerApproval": null,
+      "updatedAt": "2026-07-31T15:28:09.585Z"
+    }
+  ],
+  "checks": {
+    "agents:validate-run": {
+      "exit": 0,
+      "passed": true,
+      "note": "Run válida com gate repo em progresso e release pendente.",
+      "recordedAt": "2026-07-30T10:25:07.130Z"
+    },
+    "agents:validate-matrix": {
+      "exit": 0,
+      "passed": true,
+      "note": "12 linhas; unmappedRows=0; sem exceções.",
+      "recordedAt": "2026-07-30T01:47:25.010Z"
+    },
+    "test:vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "Arquitetura, conteúdo, redirect/canonical/favicon, crawl, hardening e bundles aprovados.",
+      "recordedAt": "2026-07-30T10:24:56.110Z"
+    },
+    "verify:tokens": {
+      "exit": 0,
+      "passed": true,
+      "note": "0 erros; 1 warning conhecido de snapshot Figma antigo; VALUE_DRIFT=0.",
+      "recordedAt": "2026-07-30T10:24:55.751Z"
+    },
+    "build:preview:vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "Astro 15 páginas e Storybook vNext construídos no artefato Pages.",
+      "recordedAt": "2026-07-30T10:24:55.932Z"
+    },
+    "test:vnext:browser": {
+      "exit": 0,
+      "passed": true,
+      "note": "PT/EN, Web/React, quatro painéis, 320/390, tema, Storybook e Axe aprovados.",
+      "recordedAt": "2026-07-30T10:24:56.321Z"
+    },
+    "test:storybook": {
+      "exit": 0,
+      "passed": true,
+      "note": "26/26 componentes, 92 stories contratuais; browser auditou 93 stories.",
+      "recordedAt": "2026-07-30T10:24:56.491Z"
+    },
+    "build:all": {
+      "exit": 0,
+      "passed": true,
+      "note": "Gate completo final: tokens, geradores, Pages, Storybook, vNext e 108 execuções Axe passaram.",
+      "recordedAt": "2026-07-30T10:24:55.592Z"
+    },
+    "test:a11y": {
+      "exit": 0,
+      "passed": true,
+      "note": "108 execuções light/dark com 0 violações de qualquer impacto.",
+      "recordedAt": "2026-07-30T10:24:56.657Z"
+    },
+    "audit:independent": {
+      "exit": 0,
+      "passed": true,
+      "note": "Reauditoria read-only final: P0=0, P1=0, P2=0, P3=0.",
+      "recordedAt": "2026-07-30T10:24:56.853Z"
+    },
+    "git:diff-check": {
+      "exit": 0,
+      "passed": true,
+      "note": "Diff sem erros de whitespace.",
+      "recordedAt": "2026-07-30T10:24:57.027Z"
+    }
+  }
+}

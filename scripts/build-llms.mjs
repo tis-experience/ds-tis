@@ -28,6 +28,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COMPONENTS as CATALOG_COMPONENTS } from "./lib/component-catalog.mjs";
+import {
+  REACT_REGISTRY_COMPONENTS,
+  SHADCN_REGISTRY,
+} from "./lib/technology-implementations.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -111,6 +115,13 @@ No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-t
 - [Design Principles](${docUrl("docs/design-principles.html")}): princípios do sistema.
 - [Agent Consumer Usage](${docUrl("docs/agent-consumer-usage.html")}): como agents implementam telas em projetos consumidores usando o DS TIS.
 
+## Implementações por tecnologia
+
+- Web CSS: ${CATALOG_COMPONENTS.length} componentes estáveis pelo pacote \`ds-tis\`.
+- React: ${REACT_REGISTRY_COMPONENTS.length} componentes beta distribuídos como source pelo registry shadcn \`${SHADCN_REGISTRY.channel}\`; \`@tis/react\` não é um pacote público.
+- Manifesto do registry: [registry/manifest.json](${SHADCN_REGISTRY.manifestUrl}).
+- Namespace shadcn: \`${SHADCN_REGISTRY.namespace}\` → \`${SHADCN_REGISTRY.baseUrl}/{name}.json\`.
+
 ## Foundations
 
 ${FOUNDATIONS.map((f) => `- [${f.name}](${docUrl(`docs/foundations-${f.slug}.html`)})`).join("\n")}
@@ -137,8 +148,8 @@ ${adrs.map((a) => `- [ADR-${a.num} — ${a.title}](${docUrl(`docs/decisions/${a.
 
 ## APIs JSON (consumo programático)
 
-- [consumer-context.json](${docUrl("docs/api/consumer-context.json")}): manifesto pequeno com entrypoints, fontes e contrato responsivo intrinsic-first.
-- [components.json](${docUrl("docs/api/components.json")}): catálogo de componentes com variantes, tokens, readiness, runtime e perfil responsivo.
+- [consumer-context.json](${docUrl("docs/api/consumer-context.json")}): manifesto pequeno com tecnologias, entrypoints, registry React, fontes e contrato responsivo intrinsic-first.
+- [components.json](${docUrl("docs/api/components.json")}): catálogo de componentes com implementações Web/React, variantes, tokens, readiness, runtime e perfil responsivo.
 - [tokens.json](${docUrl("docs/api/tokens.json")}): camadas Foundation, Semantic (light/dark) e Component.
 - [adrs.json](${docUrl("docs/api/adrs.json")}): índice estruturado das decisões.
 - [foundations.json](${docUrl("docs/api/foundations.json")}): catálogo das foundations.

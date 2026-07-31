@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "count": 20,
+  "count": 21,
   "adrs": [
     {
       "id": "ADR-001",
@@ -181,6 +181,15 @@
       "date": "2026-07-16",
       "sourceFile": "docs/decisions/ADR-020-biblioteca-consumivel-componentes-app-ready.md",
       "url": "docs/decisions/adr-020-biblioteca-consumivel-componentes-app-ready.html"
+    },
+    {
+      "id": "ADR-021",
+      "num": 21,
+      "title": "Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag",
+      "status": "Aceita",
+      "date": "2026-07-28",
+      "sourceFile": "docs/decisions/ADR-021-coexistencia-v1-vnext-astro-ark-zag.md",
+      "url": "docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html"
     }
   ]
 }

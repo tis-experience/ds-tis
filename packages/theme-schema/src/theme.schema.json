@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tis-experience.github.io/ds-tis/schemas/theme/v1.json",
+  "title": "TIS Theme Config",
+  "description": "Contrato de entrada do motor de tema web do Design System TIS.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "seed": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "chromaBoost": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1.5
+        },
+        "scale": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(50|100|200|300|400|500|600|700|800|900|950)$": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            }
+          }
+        }
+      },
+      "required": [
+        "seed"
+      ]
+    },
+    "radius": {
+      "type": "string",
+      "enum": [
+        "sharp",
+        "default",
+        "round",
+        "soft"
+      ]
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sans": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mono": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark"
+      ]
+    }
+  }
+}

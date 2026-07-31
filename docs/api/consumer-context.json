@@ -1,6 +1,6 @@
 {
   "schema": "ds-tis/consumer-context",
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "version": "1.0.0",
   "package": "ds-tis",
   "entrypoints": {
@@ -37,7 +37,102 @@
     "tokens": "docs/api/tokens.json",
     "releaseEvidence": "docs/api/release-figma-evidence.json",
     "agentGuide": "docs/agent-consumer-usage.md",
-    "agentGuideEn": "docs/agent-consumer-usage.en.md"
+    "agentGuideEn": "docs/agent-consumer-usage.en.md",
+    "registry": "registry.json",
+    "registryManifest": "https://tis-experience.github.io/ds-tis/registry/manifest.json"
+  },
+  "technologies": {
+    "web": {
+      "status": "stable",
+      "distribution": "npm",
+      "package": "ds-tis",
+      "install": "npm install ds-tis@1.0.0",
+      "componentCount": 26,
+      "entrypoints": {
+        "css": "ds-tis/css",
+        "runtimes": {
+          "accordion": "ds-tis/accordion",
+          "combobox": "ds-tis/combobox",
+          "modal": "ds-tis/modal",
+          "popover": "ds-tis/popover",
+          "toast": "ds-tis/toast",
+          "menu": "ds-tis/menu",
+          "tabs": "ds-tis/tabs",
+          "tooltip": "ds-tis/tooltip"
+        }
+      }
+    },
+    "react": {
+      "status": "beta",
+      "distribution": "shadcn-registry",
+      "package": null,
+      "note": "Source distribution; @tis/react is not a public package.",
+      "componentCount": 9,
+      "registry": {
+        "channel": "v1",
+        "baseUrl": "https://tis-experience.github.io/ds-tis/registry/v1",
+        "manifest": "https://tis-experience.github.io/ds-tis/registry/manifest.json",
+        "namespace": "@tis",
+        "core": {
+          "package": "ds-tis",
+          "version": "1.0.0",
+          "ref": "dd4c906943847cb7664a72a0c7637a378b39adcc",
+          "dependency": "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+        },
+        "componentsJson": {
+          "registries": {
+            "@tis": "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json"
+          }
+        }
+      },
+      "components": [
+        {
+          "slug": "accordion",
+          "item": "accordion",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "button",
+          "item": "button",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "checkbox",
+          "item": "checkbox",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "form-field",
+          "item": "field",
+          "provider": "React composition"
+        },
+        {
+          "slug": "input",
+          "item": "input",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "modal",
+          "item": "dialog",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "radio",
+          "item": "radio-group",
+          "provider": "Base UI"
+        },
+        {
+          "slug": "textarea",
+          "item": "textarea",
+          "provider": "Native React"
+        },
+        {
+          "slug": "toggle",
+          "item": "switch",
+          "provider": "Base UI"
+        }
+      ]
+    }
   },
   "responsive": {
     "version": 1,

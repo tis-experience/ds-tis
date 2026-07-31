@@ -68,6 +68,44 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Tronco público de consumo React para Devs e agents IA.</strong> O source registry
+shadcn passa a ser construído no GitHub Pages pelo canal versionado
+<code>/registry/v1</code>, com namespace <code>@tis</code>, manifesto compacto e nove componentes
+em beta. <code>consumer-context.json</code> v2 e <code>components.json</code> expõem disponibilidade,
+item, provider, URL e comando por tecnologia sem abrir um pacote fictício
+<code>@tis/react</code>. Uma fixture permanente instala todos os itens em uma app
+React/Vite, valida build de produção, formulário, estados, teclado,
+responsividade e Axe; o portal bilíngue e os guias de consumo passam a ensinar
+o mesmo contrato. O core CSS consumido pelo registry fica preso ao commit
+imutável validado, sem depender de uma tag anterior à correção de imports.</li>
+<li><strong>Piloto React distribuído por shadcn com Base UI.</strong> O source registry
+adiciona <code>tis-base</code>, Button, Accordion e Dialog sem tornar
+Tailwind obrigatório: Base UI mantém estado, foco e ARIA; um adapter fino
+preserva setas/Home/End do Accordion, enquanto o CSS, os tokens e a anatomia
+públicos do DS TIS continuam canônicos. Validação da
+CLI, smoke de bundle e Storybook protegem a separação de providers; a
+distribuição pública permanece por source e a superfície de <code>@tis/react</code>
+continua fechada.</li>
+<li><strong>Primeira onda de componentes React do registry shadcn.</strong> O plano aditivo
+organiza os 26 componentes públicos em quatro ondas e implementa Form Field,
+Input Text, Textarea, Checkbox, Radio Group e Toggle. Composições e elementos
+nativos evitam dependência comportamental desnecessária; os demais controles
+delegam estado, teclado e inputs de formulário à Base UI, traduzindo seus data
+attributes para o CSS e os tokens públicos do DS TIS sem alterar a v1, o Figma
+ou a superfície pública de <code>@tis/react</code>.</li>
+<li><strong>Ark/Zag validado como provider comportamental da vNext.</strong> O workspace React
+fixa Ark UI, mantém Zag como motor transitivo, documenta MCP/LLMs como tooling
+opcional e valida Accordion + Modal no Storybook com a anatomia, os tokens e o
+CSS públicos do DS. Ark/Zag fornece somente o comportamento; nenhuma API pública
+nova ou alteração no Figma é criada. Um gate de bundle mede tanto o custo
+incremental de Ark/Zag quanto o preview integrado com wrapper, Lucide, tokens e
+CSS, bloqueando regressões gzip acima dos orçamentos definidos.</li>
+<li><strong>Fundação documental vNext em Astro/Starlight + Storybook React.</strong> A nova
+superfície coexiste com a v1 em <code>/next/</code>, introduz rotas por idioma e tecnologia,
+chrome nativo do Starlight com accent TIS, visões de conteúdo com deep link,
+table of contents contextual, tabs de package manager, Storybook React separado,
+pacote-ponte do motor de tema e schema JSON versionado, sem alterar tokens ou
+arquivos Figma existentes.</li>
 <li><strong>Popover conclui o gate App-ready.</strong> Novo componente contextual não modal com quatro placements, Content Text e Content Slot independentes, actions substituíveis/ocultáveis, close fixo e Arrow fechada; o export <code>ds-tis/popover</code> mantém ARIA, foco, Escape, click externo, lifecycle e eventos <code>ds-popover-open</code>/<code>ds-popover-close</code>.</li>
 <li><strong>Toast conclui o gate App-ready.</strong> O componente publica variantes <code>solid</code> e <code>subtle</code>, live regions por prioridade, fila limitada, pausa de timer, actions e lifecycle pelo export <code>ds-tis/toast</code>.</li>
 <li><strong>Table entra como componente App-ready.</strong> A API pública usa semântica HTML nativa para Table, Header Row, Header Cell, Row e Cell, com tamanhos Small/Medium, estados de linha, sort, overflow e Focus Ring.</li>
@@ -75,6 +113,22 @@
 </ul>
 <h3>Alterado</h3>
 <ul>
+<li><strong>Portal Astro passa a consumir o contrato já refletido no repositório.</strong>
+O chrome retorna ao Starlight nativo e usa somente a cor de marca TIS; status,
+badges de disponibilidade, dashboards, embeds internos e estilos que simulavam
+componentes do DS são removidos. A seleção de tecnologia e as quatro visões
+editoriais passam a ser navegação documental discreta: links tipográficos sem
+label ou caixa no desktop e <code>select</code> nativo em larguras menores, sem copiar
+visualmente as referências avaliadas.
+Design, uso e acessibilidade do Button deixam de manter uma cópia editorial
+própria nos MDX por tecnologia: um adaptador de migração lê o catálogo
+<code>docs/api/components.json</code>, localiza landmarks bilíngues explícitos em
+<code>docs/button.html</code> e renderiza o CSS público real do componente sem carregar o
+chrome ou o JavaScript legado da documentação v1. As páginas por tecnologia
+passam a separar Design, Uso, Implementação/Disponibilidade e Acessibilidade
+em painéis acessíveis com navegação por teclado, hash e índice contextual;
+Web publica somente evidência estável e React comunica explicitamente o que
+ainda não possui API pública.</li>
 <li><strong>Governança de agentes Figma fica mais rígida após Popover e Toast.</strong> Checklists, grounding e workflow passam a exigir dump tipográfico dos modelos, Text Style + variables em TEXTs, re-audit de fills e Content Slot clonado de Modal/Card com default false e master vazio.</li>
 <li><strong>Alert adota <code>solid</code> como nomenclatura canônica.</strong> Tokens, CSS e documentação acompanham o Figma; <code>ds-alert--filled</code> permanece como alias legado para compatibilidade.</li>
 <li><strong>Alert espelha integralmente os tokens Component do Figma.</strong> Actions, ícones, conteúdo e variantes <code>solid</code>/<code>subtle</code> passam pela cadeia Component → Semantic sem valores hardcoded.</li>
@@ -83,6 +137,38 @@
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Thumb do Toggle Base UI permanece centralizado nos estados <code>on</code>.</strong> O adapter
+shadcn troca o zero sem unidade por <code>space.none</code>, preservando o tipo dimensional
+dentro do <code>calc()</code> usado pelo inset vertical em <code>md</code> e <code>lg disabled</code>, com
+regressão de geometria computada no browser.</li>
+<li><strong>Entry CSS mantém imports válidos em consumers com bundler.</strong> O carregamento
+das fontes Inter/DM Mono sobe para o início de <code>ds-tis/css</code>. Com o entrypoint
+do DS mantido como primeiro import global, Vite deixa de encontrar <code>@import</code>
+aninhado depois das regras de tokens ao instalar o piloto shadcn.</li>
+<li><strong>Alinhamento dos exemplos de Button no portal vNext.</strong> O rhythm editorial do
+Starlight deixa de adicionar margem vertical entre componentes irmãos dentro
+dos canvases e entre as tabs principais; variantes, estados, tamanhos, ícones,
+loading e a navegação Design/Uso/Implementação/Acessibilidade passam a respeitar
+somente o <code>gap</code> do layout demonstrativo e a geometria definida pelo portal.
+A troca Web CSS/React compartilha o mesmo contrato visual das tabs de conteúdo,
+preservando links para navegação entre páginas e tabs para alternância de painéis;
+o label visual redundante &quot;Conteúdo&quot; é removido sem perder o nome acessível.
+As tabs nativas do Starlight usadas para npm/pnpm/yarn/bun mantêm sincronização e
+interação prontas, mas passam a reutilizar a mesma geometria e os mesmos estados.</li>
+<li><strong>Portal vNext fecha o ciclo de qualidade funcional e responsiva.</strong> Reflow em
+320/390px, tabelas e código roláveis com foco, tema do Storybook, tipografia,
+título mobile, ícones, links relacionados e semântica PT/EN passam a ter
+cobertura de browser e Axe. Redirect, canonical, favicon e páginas 404
+localizadas respeitam <code>/ds-tis/next/</code>; o adaptador editorial também impede
+que links relativos escapem da base pública de <code>docs/</code>.</li>
+<li><strong>Preview Storybook permanece disponível após rebuild parcial do Astro.</strong>
+<code>copy-vnext-docs</code> atualiza o portal estático sem apagar
+<code>_site/next/storybook</code>, evitando que o preview sob demanda deixe de carregar
+durante iterações da documentação.</li>
+<li><strong>Toolchain de tokens sem os advisories altos detectados na instalação vNext.</strong>
+<code>style-dictionary</code> avança para o patch seguro <code>5.4.4</code> e
+<code>brace-expansion</code> fica fixado em <code>5.0.8</code>; ambos são dependências de build e não
+foram introduzidos pelo runtime Ark/Zag.</li>
 <li><strong>Arrow, close e runtime do Popover no Storybook.</strong> A Arrow deixa de ser recortada pelo <code>overflow</code> do panel, adota a geometria 16×9 sem base horizontal e permanece ancorada ao trigger nas quatro posições; o close volta ao alinhamento absoluto do header sem duplicar o padding do panel; os exemplos da aba Documentação passam a ser inicializados e interativos, com cobertura de browser para paridade visual e abertura dentro de <code>#storybook-docs</code>.</li>
 <li><strong>Runtime do Popover preserva exemplos estáticos em documentação.</strong> <code>initPopovers()</code> deixa de inicializar Popovers dentro de subtrees <code>inert</code>, evitando que o exemplo de anatomia desapareça ao abrir outro Popover; o Storybook também passa a validar o runtime do Popover e usa <code>ds-button--brand</code> nas actions.</li>
 <li><strong>Tema e altura das amostras no Storybook.</strong> O modo dark passa a tematizar também manager, documentação e painéis; amostras inline em Docs deixam de herdar a altura integral da viewport, preservada somente para stories isoladas.</li>

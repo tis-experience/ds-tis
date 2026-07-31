@@ -1,0 +1,51 @@
+---
+import { getComponentGuidance } from '../lib/component-source.mjs';
+import { getComponentAssets } from '../lib/component-assets';
+
+interface Props {
+  slug: string;
+  topic: 'design' | 'usage' | 'code' | 'accessibility';
+}
+
+const { slug, topic } = Astro.props;
+const locale = Astro.currentLocale === 'en' ? 'en' : 'pt';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
+const guidance = getComponentGuidance(slug, topic, locale, {
+  linkBase: `${projectBase}/docs`,
+});
+const assets = getComponentAssets(slug);
+---
+
+{topic === 'design' && assets.css.map((href) => <link rel="stylesheet" href={href} />)}
+
+<div
+  class="ds-source-guidance"
+  data-component-source={guidance.component.slug}
+  data-component-topic={topic}
+  data-source-path={guidance.sourcePath}
+  set:html={guidance.html}
+/>
+
+<script>
+  import {
+    createIcons,
+    Download,
+    Pencil,
+    Plus,
+    Search,
+    Settings,
+    Trash2,
+    X,
+  } from 'lucide';
+
+  const sourceIcons = { Download, Pencil, Plus, Search, Settings, Trash2, X };
+
+  const renderSourceIcons = () => {
+    if (!document.querySelector('.ds-source-guidance [data-lucide]')) return;
+    createIcons({ icons: sourceIcons });
+  };
+
+  renderSourceIcons();
+  document.addEventListener('astro:page-load', renderSourceIcons);
+</script>

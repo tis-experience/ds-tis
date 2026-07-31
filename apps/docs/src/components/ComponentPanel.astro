@@ -1,0 +1,25 @@
+---
+interface Props {
+  id: 'design' | 'usage' | 'implementation' | 'accessibility';
+  label: string;
+  slug: string;
+  technology: 'web' | 'react';
+  active?: boolean;
+}
+
+const { id, label, slug, technology, active = false } = Astro.props;
+const rootId = `ds-component-${slug}-${technology}`;
+---
+
+<section
+  id={`${rootId}-panel-${id}`}
+  role="tabpanel"
+  aria-labelledby={`${rootId}-tab-${id}`}
+  data-component-panel={id}
+  hidden={!active}
+>
+  <h2 class="ds-visually-hidden">{label}</h2>
+  <div class="ds-component-slot">
+    <slot />
+  </div>
+</section>

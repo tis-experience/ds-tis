@@ -1,0 +1,28 @@
+---
+import Default from '@astrojs/starlight/components/ThemeProvider.astro';
+---
+
+<Default />
+<script is:inline>
+  const root = document.documentElement;
+
+  if (root) {
+    const syncMode = () => {
+      root.dataset.mode = root.dataset.theme === 'dark' ? 'dark' : 'light';
+    };
+
+    syncMode();
+    window.__dsThemeModeObserver?.disconnect();
+    window.__dsThemeModeObserver = new MutationObserver(syncMode);
+    window.__dsThemeModeObserver.observe(root, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => window.__dsThemeModeObserver?.disconnect(),
+      { once: true },
+    );
+  }
+</script>

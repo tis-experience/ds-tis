@@ -11,6 +11,11 @@ on:
       - "js/**"
       - "stories/**"
       - ".storybook/**"
+      - ".storybook-vnext/**"
+      - "apps/**"
+      - "packages/**"
+      - "registry.json"
+      - "registry/**"
       - "scripts/**"
       - "package.json"
       - "package-lock.json"
@@ -61,6 +66,9 @@ jobs:
           FIGMA_PAT: ${{ secrets.FIGMA_PAT }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
         run: npm run build:all
+
+      - name: Consumer React/Vite instalado pelo registry shadcn
+        run: npm run test:shadcn-consumer
 
       - name: Security check — block sensitive content in artifacts
         run: npm run security:check
