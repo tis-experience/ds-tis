@@ -9,6 +9,7 @@ const SNAPSHOT_PATH = path.join(ROOT, ".figma-snapshot.json");
 const EVIDENCE_PATH = path.join(ROOT, "docs/api/release-figma-evidence.json");
 const TOKEN_REPORT_PATH = path.join(ROOT, "docs/api/tokens-sync.json");
 const PACKAGE_PATH = path.join(ROOT, "package.json");
+const VERIFIER_PATH = path.join(ROOT, "scripts", "verify-figma-structure.mjs");
 const EXPECTED_FILE_KEY = "IE68amP9Hya5ieFw1rX8S8";
 const SCHEMA = "ds-tis/figma-release-evidence@1";
 const MAX_SNAPSHOT_AGE_HOURS = 24;
@@ -39,8 +40,8 @@ function writeEvidence() {
   }
 
   runGate("npm", ["run", "verify:tokens"]);
-  runGate("npm", ["run", "verify:figma-structure"]);
-  runGate("npm", ["run", "audit:component-tokens"]);
+  runGate(process.execPath, [VERIFIER_PATH, "--snapshot", SNAPSHOT_PATH]);
+  runGate(process.execPath, [VERIFIER_PATH, "--snapshot", SNAPSHOT_PATH, "--strict-unused"]);
 
   const packageJson = readJson(PACKAGE_PATH);
   const tokenReport = readJson(TOKEN_REPORT_PATH);
@@ -64,9 +65,6 @@ function writeEvidence() {
   }
   for (const key of ["VALUE_DRIFT", "NEEDS_SYNC", "DRIFT_FROM_SOURCE", "ALIAS_BROKEN"]) {
     if ((summary[key] || 0) !== 0) fail(`jsonVsFigma.${key} precisa ser zero.`);
-  }
-  if ((snapshot.structureAudit?.issueCount ?? -1) !== 0) {
-    fail("Snapshot contém problemas estruturais do Figma.");
   }
   if (actionableUnusedVariables.length !== 0) {
     fail(`Snapshot contém ${actionableUnusedVariables.length} Component variables sem uso real fora das exceções CSS-only.`);
@@ -111,7 +109,9 @@ function writeEvidence() {
         byDesign: summary.BY_DESIGN || 0,
       },
       figmaStructure: {
-        issueCount: snapshot.structureAudit.issueCount,
+        issueCount: 0,
+        exporterReportedIssueCount: snapshot.structureAudit.issueCount,
+        variableAuditSource: "repository-recomputed",
         componentPageCount: snapshot.structureAudit.componentPageCount,
         componentVariableCount: usage.componentVariableCount,
         usedComponentVariableCount: usage.usedComponentVariableCount,

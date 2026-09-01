@@ -1,5 +1,5 @@
 const EXPECTED_FILE_KEY = "IE68amP9Hya5ieFw1rX8S8";
-const EXPORTER_VERSION = "0.2.0";
+const EXPORTER_VERSION = "0.2.1";
 const STROKE_WEIGHT_FIELDS = [
   "strokeWeight",
   "strokeTopWeight",
@@ -54,8 +54,9 @@ async function exportSnapshot() {
 
   figma.ui.postMessage({ type: "snapshot-status", message: "Auditando estrutura dos componentes..." });
 
-  const structureAudit = await buildStructureAudit(variables, variableCollections);
-  const collectionCounts = countByCollection(variables, variableCollections);
+  const serializedVariableList = Object.values(serializedVariables);
+  const structureAudit = await buildStructureAudit(serializedVariableList, variableCollections);
+  const collectionCounts = countByCollection(serializedVariableList, variableCollections);
   const snapshot = {
     generatedAt: new Date().toISOString(),
     generator: {
@@ -196,6 +197,7 @@ async function buildStructureAudit(variables, collectionsById) {
 
   return {
     generatedAt: new Date().toISOString(),
+    variableAuditComplete: true,
     componentPageCount: componentPages.length,
     collectionCounts: countByCollection(variables, collectionsById),
     aliasSummary: summarizeAliases(variables, variablesById, collectionNameById),

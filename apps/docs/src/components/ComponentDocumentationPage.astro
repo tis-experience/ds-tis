@@ -1,0 +1,379 @@
+---
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+import {
+  getComponentDocumentation,
+  type DocumentationLocale,
+  type DocumentationSlug,
+  type DocumentationTechnology,
+} from '../lib/component-documentation';
+import ComponentGuidance from './ComponentGuidance.astro';
+import ComponentPageHeader from './ComponentPageHeader.astro';
+import ComponentPageLayout from './ComponentPageLayout.astro';
+import ComponentPanel from './ComponentPanel.astro';
+import OutputStoryPreview from './OutputStoryPreview.astro';
+
+interface Props {
+  locale: DocumentationLocale;
+  slug: DocumentationSlug;
+  technology: DocumentationTechnology;
+}
+
+const { locale, slug, technology } = Astro.props;
+const isEnglish = locale === 'en';
+const documentation = getComponentDocumentation(slug, technology, locale);
+const { component, config, implementation, react } = documentation;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
+const stableUrl = `${projectBase}/docs/${slug}.html`;
+const integrationUrl = `${base}/${locale}/react/`;
+const outputPaths = {
+  web: `${locale}/web/components/${slug}/`,
+  ark: `${locale}/ark/components/${slug}/`,
+  react: `${locale}/react/components/${slug}/`,
+  angular: `${locale}/angular/components/${slug}/`,
+};
+
+const webInstall = {
+  npm: 'npm install ds-tis',
+  pnpm: 'pnpm add ds-tis',
+  yarn: 'yarn add ds-tis',
+  bun: 'bun add ds-tis',
+};
+const reactItems = react ? [react.react.item, ...(react.relatedItems || [])] : [];
+const reactInstallBase = reactItems.map((item) => `@tis/${item}`).join(' ');
+const reactInstall = {
+  npm: `npx shadcn@latest add ${reactInstallBase}`,
+  pnpm: `pnpm dlx shadcn@latest add ${reactInstallBase}`,
+  yarn: `yarn dlx shadcn@latest add ${reactInstallBase}`,
+  bun: `bunx --bun shadcn@latest add ${reactInstallBase}`,
+};
+const angularInstall = {
+  npm: 'npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis',
+  pnpm: 'pnpm add ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis',
+  yarn: 'yarn add ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis',
+  bun: 'bun add ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis',
+};
+const selectedInstall = technology === 'web'
+  ? webInstall
+  : technology === 'angular'
+    ? angularInstall
+    : reactInstall;
+const runtimeDescriptions: Record<DocumentationTechnology, string> = {
+  web: isEnglish
+    ? 'Running with the stable ds-tis/popover JavaScript runtime.'
+    : 'Executado pelo runtime JavaScript estável ds-tis/popover.',
+  ark: isEnglish
+    ? 'Running with the independent Ark UI adapter and Zag behavior.'
+    : 'Executado pelo adapter independente Ark UI com comportamento Zag.',
+  react: isEnglish
+    ? 'Running with the React source recipe distributed through shadcn and based on Base UI.'
+    : 'Executado pela recipe React distribuída via shadcn e baseada em Base UI.',
+  angular: isEnglish
+    ? 'Running with the native Angular component and CDK Overlay/Portal.'
+    : 'Executado pelo componente Angular nativo com CDK Overlay/Portal.',
+};
+---
+
+<ComponentPageHeader
+  locale={locale}
+  technology={technology}
+  status={documentation.statusLabel}
+  distribution={documentation.distributionLabel}
+  categoryLabel={documentation.categoryLabel}
+  description={documentation.description}
+  showMetadata={false}
+  v1Path={`/docs/${slug}.html`}
+  technologies={[
+    { label: 'HTML/CSS/JS', value: 'web', path: outputPaths.web },
+    {
+      label: documentation.component.implementations.ark.status === 'planned'
+        ? (isEnglish ? 'Ark/Zag — planned' : 'Ark/Zag — planejada')
+        : 'Ark/Zag',
+      value: 'ark',
+      path: outputPaths.ark,
+      disabled: documentation.component.implementations.ark.status === 'planned',
+    },
+    { label: 'React · shadcn/Base UI', value: 'react', path: outputPaths.react },
+    {
+      label: documentation.component.implementations.angular.status === 'planned'
+        ? (isEnglish ? 'Angular — planned' : 'Angular — planejada')
+        : 'Angular',
+      value: 'angular',
+      path: outputPaths.angular,
+      disabled: documentation.component.implementations.angular.status === 'planned',
+    },
+  ]}
+/>
+
+<ComponentPageLayout slug={slug} technology={technology} locale={locale}>
+  <ComponentPanel id="design" label="Design" slug={slug} technology={technology} active>
+    {slug === 'popover' ? (
+      <>
+        <ComponentGuidance slug={slug} topic="design" includeOrders={[10]} />
+
+        {documentation.storyId && (
+          <div class="ds-output-example" data-output-example="playground" data-output-technology={technology}>
+            <h3>{isEnglish ? 'Interactive example' : 'Exemplo interativo'} · {documentation.technologyLabel}</h3>
+            <p class="ds-output-example__runtime">{runtimeDescriptions[technology]}</p>
+            <OutputStoryPreview
+              storyId={documentation.storyId}
+              storybook={documentation.storybook}
+              size={config.previewSize}
+              title={`${component.name} · ${documentation.technologyLabel}`}
+            >
+              {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
+            </OutputStoryPreview>
+          </div>
+        )}
+
+        {documentation.examples.map((example) => (
+          <div class="ds-output-example" data-output-example="content-slot" data-output-technology={technology}>
+            <h3>{example.title} · {documentation.technologyLabel}</h3>
+            <p class="ds-output-example__runtime">{example.description}</p>
+            <OutputStoryPreview
+              storyId={example.storyId}
+              storybook={documentation.storybook}
+              size={example.size || config.previewSize}
+              title={`${example.title} · ${documentation.technologyLabel}`}
+            >
+              {isEnglish ? `Open this example in ${documentation.technologyLabel}` : `Abrir este exemplo em ${documentation.technologyLabel}`}
+            </OutputStoryPreview>
+          </div>
+        ))}
+
+        <ComponentGuidance slug={slug} topic="design" includeOrders={[40, 50]} />
+      </>
+    ) : documentation.storyId ? (
+      <>
+        <h3>{isEnglish ? 'Functional preview' : 'Preview funcional'}</h3>
+        <OutputStoryPreview
+          storyId={documentation.storyId}
+          storybook={documentation.storybook}
+          size={config.previewSize}
+          title={`${component.name} · ${documentation.technologyLabel}`}
+        >
+          {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
+        </OutputStoryPreview>
+        <ComponentGuidance slug={slug} topic="design" />
+      </>
+    ) : (
+      <>
+        <h3>{isEnglish ? 'Output status' : 'Status da saída'}</h3>
+        <Aside type="note" title={isEnglish ? 'Planned, not installable' : 'Planejada, ainda não instalável'}>
+          {isEnglish
+            ? `There is no public ${component.name} Ark/Zag output yet. This page documents the shared contract and the gates required before source, preview, installation, or implementation evidence can be offered.`
+            : `Ainda não existe uma saída pública Ark/Zag de ${component.name}. Esta página documenta o contrato compartilhado e os gates necessários antes de oferecer source, preview, instalação ou evidência de implementação.`}
+        </Aside>
+        <ComponentGuidance slug={slug} topic="design" />
+      </>
+    )}
+  </ComponentPanel>
+
+  <ComponentPanel id="usage" label={isEnglish ? 'Usage' : 'Uso'} slug={slug} technology={technology}>
+    {documentation.usageGuidance ? (
+      <>
+        <h3>{isEnglish ? 'When to use' : 'Quando usar'}</h3>
+        <ul>{documentation.usageGuidance.useWhen.map((item) => <li>{item}</li>)}</ul>
+        <h3>{isEnglish ? 'When not to use' : 'Quando não usar'}</h3>
+        <ul>{documentation.usageGuidance.avoidWhen.map((item) => <li>{item}</li>)}</ul>
+        {documentation.usageGuidance.note && (
+          <Aside type="note" title={isEnglish ? 'Usage note' : 'Nota de uso'}>
+            {documentation.usageGuidance.note}
+          </Aside>
+        )}
+      </>
+    ) : (
+      <ComponentGuidance slug={slug} topic="usage" />
+    )}
+
+    {technology === 'react' && react && (
+      <>
+        <h3>{isEnglish ? 'React composition' : 'Composição React'}</h3>
+        <pre tabindex="0" aria-label={isEnglish ? `${component.name} React example` : `Exemplo React de ${component.name}`}><code>{react.usage}</code></pre>
+      </>
+    )}
+
+    {technology === 'ark' && documentation.status === 'beta' && (
+      <>
+        <h3>{isEnglish ? 'When to choose this output' : 'Quando escolher esta saída'}</h3>
+        <p>
+          {isEnglish
+            ? 'Choose this adapter in projects that adopted Ark UI and Zag as their behavioral architecture. Do not import it into the shadcn/Base UI output.'
+            : 'Adote este adapter em projetos que escolheram Ark UI e Zag como arquitetura comportamental. Não o importe dentro da saída shadcn/Base UI.'}
+        </p>
+      </>
+    )}
+
+    {technology === 'angular' && documentation.status === 'beta' && (
+      <>
+        <h3>{isEnglish ? 'When to choose this output' : 'Quando escolher esta saída'}</h3>
+        <p>
+          {isEnglish
+            ? 'Choose this native Angular output when the application already uses Angular. It consumes the same DS CSS and has no dependency on the Web runtime or React adapters.'
+            : 'Adote esta saída Angular nativa quando a aplicação já usa Angular. Ela consome o mesmo CSS do DS e não depende do runtime Web nem dos adapters React.'}
+        </p>
+      </>
+    )}
+  </ComponentPanel>
+
+  <ComponentPanel id="implementation" label={isEnglish ? 'Implementation' : 'Implementação'} slug={slug} technology={technology}>
+    <dl class="ds-react-contract" aria-label={isEnglish ? 'Output availability' : 'Disponibilidade da saída'}>
+      <div><dt>Status</dt><dd>{documentation.statusLabel}</dd></div>
+      <div><dt>{isEnglish ? 'Distribution' : 'Distribuição'}</dt><dd>{documentation.distributionLabel}</dd></div>
+    </dl>
+
+    {documentation.status === 'planned' ? (
+      <>
+        <h3>{isEnglish ? 'Current availability' : 'Disponibilidade atual'}</h3>
+        <p>
+          {isEnglish
+            ? 'There is no package, adapter, registry item, or public Storybook story for this output yet.'
+            : 'Ainda não existe pacote, adapter, item de registry ou story pública para esta saída.'}
+        </p>
+        <h3>{isEnglish ? 'Next gates' : 'Próximos gates'}</h3>
+        <ol>
+          <li>{isEnglish ? 'Approve the output contract matrix.' : 'Aprovar a matriz de contrato da saída.'}</li>
+          <li>{isEnglish ? 'Implement it without depending on another output source.' : 'Implementá-la sem depender do source de outra saída.'}</li>
+          <li>{isEnglish ? 'Pass consumer, keyboard, responsive, Axe, and bundle gates.' : 'Passar pelos gates de consumo, teclado, responsividade, Axe e bundle.'}</li>
+        </ol>
+      </>
+    ) : technology === 'ark' ? (
+      <>
+        <h3>{isEnglish ? 'Adapter source' : 'Source do adapter'}</h3>
+        <p><code>{implementation.adapter}</code></p>
+        <pre tabindex="0"><code>{config.ark?.adapterImport}</code></pre>
+        <Aside type="caution" title={isEnglish ? 'Workspace beta' : 'Beta de workspace'}>
+          {isEnglish
+            ? 'This path is a workspace contract, not a public package. No package-manager installation is advertised yet.'
+            : 'Este caminho é um contrato de workspace, não um pacote público. Ainda não se anuncia instalação por package manager.'}
+        </Aside>
+      </>
+    ) : (
+      <>
+        <h3>{isEnglish ? 'Installation' : 'Instalação'}</h3>
+        {technology === 'react' && (
+          <p>
+            {isEnglish ? 'Configure the namespace once in the ' : 'Configure o namespace uma única vez na '}
+            <a href={integrationUrl}>{isEnglish ? 'React integration guide' : 'integração React'}</a>.
+          </p>
+        )}
+        <Tabs syncKey="package-manager">
+          <TabItem label="npm"><pre><code>{selectedInstall.npm}</code></pre></TabItem>
+          <TabItem label="pnpm"><pre><code>{selectedInstall.pnpm}</code></pre></TabItem>
+          <TabItem label="yarn"><pre><code>{selectedInstall.yarn}</code></pre></TabItem>
+          <TabItem label="bun"><pre><code>{selectedInstall.bun}</code></pre></TabItem>
+        </Tabs>
+
+        {technology === 'angular' && (
+          <Aside type="caution" title={isEnglish ? 'Validated workspace beta' : 'Beta de workspace validada'}>
+            {isEnglish
+              ? 'The command installs the locally generated and consumer-tested tarball. @tis/angular is not published on the public npm registry.'
+              : 'O comando instala o tarball local gerado e validado no consumer. @tis/angular ainda não está publicado no registry público do npm.'}
+          </Aside>
+        )}
+
+        {technology === 'web' ? (
+          <>
+            <h3>{isEnglish ? 'Imports' : 'Importações'}</h3>
+            <pre tabindex="0"><code>{config.web.imports}</code></pre>
+            <h3>Markup</h3>
+            <pre tabindex="0"><code>{config.web.markup}</code></pre>
+            {!implementation.runtime && (
+              <Aside type="tip" title={isEnglish ? `No ${component.name} runtime` : `Sem runtime para ${component.name}`}>
+                {isEnglish
+                  ? 'The component uses a native HTML element. JavaScript remains the application responsibility; the DS provides anatomy, visual treatment, and states.'
+                  : 'O componente usa um elemento HTML nativo. JavaScript permanece sob responsabilidade da aplicação; o DS entrega anatomia, visual e estados.'}
+              </Aside>
+            )}
+            <h3>{isEnglish ? 'Web implementation contract' : 'Contrato da implementação Web'}</h3>
+            <ComponentGuidance slug={slug} topic="code" />
+          </>
+        ) : technology === 'angular' && config.angular ? (
+          <>
+            <h3>{isEnglish ? 'DS styles' : 'Estilos do DS'}</h3>
+            <pre tabindex="0"><code>{`@import "ds-tis/css";`}</code></pre>
+            <h3>{isEnglish ? 'Angular imports' : 'Importações Angular'}</h3>
+            <pre tabindex="0"><code>{config.angular.imports}</code></pre>
+            <h3>{isEnglish ? 'Template' : 'Template'}</h3>
+            <pre tabindex="0"><code>{config.angular.markup}</code></pre>
+            <h3>{isEnglish ? 'Public contract' : 'Contrato público'}</h3>
+            <dl class="ds-react-contract">
+              <div><dt>{isEnglish ? 'Package' : 'Pacote'}</dt><dd><code>{implementation.package}</code></dd></div>
+              <div><dt>Entrypoint</dt><dd><code>@tis/angular/{implementation.entrypoint}</code></dd></div>
+              <div><dt>Primitive</dt><dd><code>{config.angular.primitive}</code></dd></div>
+              <div><dt>Status</dt><dd>Beta</dd></div>
+            </dl>
+          </>
+        ) : react ? (
+          <>
+            <h3>{isEnglish ? 'Public contract' : 'Contrato público'}</h3>
+            <dl class="ds-react-contract">
+              <div><dt>{isEnglish ? 'Registry item' : 'Item do registry'}</dt><dd><code>@tis/{react.react.item}</code></dd></div>
+              <div><dt>Provider</dt><dd>{react.providerLabel}</dd></div>
+              <div><dt>{isEnglish ? 'Distribution' : 'Distribuição'}</dt><dd>{isEnglish ? 'Source copied into the application' : 'Source copiado para a aplicação'}</dd></div>
+              <div><dt>Status</dt><dd>Beta</dd></div>
+            </dl>
+            <details class="ds-component-technical-details">
+              <summary>{isEnglish ? 'Technical architecture' : 'Arquitetura técnica'}</summary>
+              <p><a href={react.react.registryUrl}>{isEnglish ? 'Open registry JSON' : 'Abrir JSON do registry'}</a></p>
+              <p><a href={react.sourceUrl}>{isEnglish ? 'Inspect distributed source' : 'Inspecionar source distribuído'}</a></p>
+            </details>
+          </>
+        ) : (
+          <Aside type="caution" title={isEnglish ? 'React contract unavailable' : 'Contrato React indisponível'}>
+            {isEnglish
+              ? 'This output has no installable registry contract.'
+              : 'Esta saída não possui contrato instalável no registry.'}
+          </Aside>
+        )}
+      </>
+    )}
+  </ComponentPanel>
+
+  <ComponentPanel id="accessibility" label={isEnglish ? 'Accessibility' : 'Acessibilidade'} slug={slug} technology={technology}>
+    <ComponentGuidance slug={slug} topic="accessibility" />
+
+    <h3>{isEnglish ? 'Output responsibility' : 'Responsabilidade da saída'}</h3>
+    {technology === 'web' && (
+      <p>{implementation.runtime
+        ? (isEnglish ? 'Initialize the public runtime after render and destroy it when the owning view unmounts.' : 'Inicialize o runtime público após o render e destrua-o quando a view responsável for desmontada.')
+        : (isEnglish ? 'Preserve native element semantics, accessible names, keyboard behavior, and visible focus.' : 'Preserve a semântica do elemento nativo, nomes acessíveis, comportamento de teclado e foco visível.')}</p>
+    )}
+    {technology === 'react' && (
+      <p>{isEnglish ? 'Preserve Base UI semantics and test real content, focus visibility, and accessible names in the consuming application.' : 'Preserve a semântica da Base UI e teste conteúdo real, foco visível e nomes acessíveis na aplicação consumidora.'}</p>
+    )}
+    {technology === 'ark' && (
+      <p>{documentation.status === 'planned'
+        ? (isEnglish ? 'Accessibility evidence remains pending until an independent Ark/Zag adapter exists.' : 'A evidência de acessibilidade permanece pendente até existir um adapter Ark/Zag independente.')
+        : slug === 'accordion'
+          ? (isEnglish ? 'Preserve the Ark/Zag semantics and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve a semântica Ark/Zag e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
+          : slug === 'checkbox'
+            ? (isEnglish ? 'Preserve the Ark/Zag semantics and validate Space, checked and mixed states, disabled and invalid states, visible focus, and hidden-input form submission.' : 'Preserve a semântica Ark/Zag e valide Space, estados checked e mixed, disabled e invalid, foco visível e envio do hidden input no formulário.')
+          : slug === 'radio'
+            ? (isEnglish ? 'Preserve the Ark/Zag semantics and validate exclusive selection, arrow navigation, Space, disabled and invalid states, visible focus, and hidden-input form submission.' : 'Preserve a semântica Ark/Zag e valide seleção exclusiva, navegação por setas, Space, estados disabled e invalid, foco visível e envio dos hidden inputs no formulário.')
+          : slug === 'toggle'
+            ? (isEnglish ? 'Preserve the Ark/Zag switch semantics and validate Space, on/off state, disabled state, a stable accessible label, visible focus, and hidden-input form submission.' : 'Preserve a semântica de switch Ark/Zag e valide Space, estado ligado/desligado, disabled, label acessível estável, foco visível e envio do hidden input no formulário.')
+          : (isEnglish ? 'Preserve the Ark/Zag semantics and validate Escape, outside interaction, ARIA relationships, and focus return.' : 'Preserve a semântica Ark/Zag e valide Escape, interação externa, relações ARIA e retorno de foco.')}</p>
+    )}
+    {technology === 'angular' && (
+      <p>{documentation.status === 'planned'
+        ? (isEnglish ? 'Accessibility evidence remains pending until the native Angular implementation exists.' : 'A evidência de acessibilidade permanece pendente até existir a implementação Angular nativa.')
+        : slug === 'accordion'
+          ? (isEnglish ? 'Preserve Angular Aria relationships and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve as relações de Angular Aria e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
+          : slug === 'popover'
+            ? (isEnglish ? 'Preserve the non-modal dialog contract and validate Escape, outside interaction, ARIA relationships, and focus return.' : 'Preserve o contrato de dialog não modal e valide Escape, interação externa, relações ARIA e retorno de foco.')
+            : (isEnglish ? 'Preserve native button semantics, submit behavior, accessible names, disabled state, and visible focus.' : 'Preserve a semântica nativa do button, submit, nomes acessíveis, estado disabled e foco visível.')}</p>
+    )}
+
+    <h3>{isEnglish ? 'Validation evidence' : 'Evidência de validação'}</h3>
+    <p>
+      {documentation.status === 'planned'
+        ? (isEnglish ? 'No implementation evidence is claimed while this output is planned.' : 'Nenhuma evidência de implementação é alegada enquanto esta saída estiver planejada.')
+        : technology === 'web'
+          ? (isEnglish ? 'Covered by the stable Storybook, public runtime tests when applicable, keyboard scenarios, responsive checks, and Axe.' : 'Coberta pelo Storybook estável, testes do runtime público quando aplicável, cenários de teclado, responsividade e Axe.')
+          : (isEnglish ? 'Covered by its independent Storybook output plus browser, responsive, keyboard, Axe, and bundle checks.' : 'Coberta pelo Storybook da saída independente e por verificações de browser, responsividade, teclado, Axe e bundle.')}
+    </p>
+    <p class="ds-component-support-link"><a href={stableUrl}>{isEnglish ? 'Open the stable reference' : 'Abrir referência estável'}</a></p>
+  </ComponentPanel>
+</ComponentPageLayout>

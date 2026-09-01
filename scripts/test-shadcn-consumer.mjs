@@ -252,6 +252,15 @@ try {
   expect(firstStatement.startsWith('@import "ds-tis/css";'), "ds-tis/css deve ser o primeiro import global");
   expect(globalCss.includes("var(--ds-toggle-track-fill-on-default)"), "adapter do Switch deve chegar ao consumer");
   expect(globalCss.includes("var(--ds-modal-overlay-bg-default)"), "adapter do Dialog deve chegar ao consumer");
+  expect(globalCss.includes("var(--ds-popover-arrow-fill-default)"), "adapter do Popover deve chegar ao consumer");
+  expect(globalCss.includes("var(--ds-menu-item-bg-focused)"), "adapter do Select deve chegar ao consumer");
+  expect(globalCss.includes(".ds-tis-menu__item[data-checked]"), "adapter do Menu deve chegar ao consumer");
+  expect(globalCss.includes(".ds-tooltip__content.ds-tis-tooltip__popup"), "adapter do Tooltip deve chegar ao consumer");
+  expect(globalCss.includes(".ds-tab--disabled"), "adapter de estado disabled do Tabs deve chegar ao consumer");
+  expect(globalCss.includes('[data-slot="tabs-list"]'), "overflow local do Tabs deve chegar ao consumer");
+  expect(globalCss.includes('[data-slot="tabs-trigger"]'), "nowrap do label de Tabs deve chegar ao consumer");
+  expect(globalCss.includes(".ds-tis-toast__content"), "adapter do Toast deve chegar ao consumer");
+  expect(globalCss.includes(".ds-tis-toast[data-limited]"), "limite visual do Toast deve chegar ao consumer");
 
   const viteExecutable = path.join(
     ROOT,
@@ -274,8 +283,23 @@ try {
   await page.goto(appServing.url, { waitUntil: "networkidle" });
 
   expect(await page.getByRole("heading", { name: "Preferências da conta" }).isVisible(), "app React não renderizou");
+  expect(await page.locator('[data-slot="alert"]').count() === 1, "Alert instalado não renderizou");
+  expect(await page.locator('[data-slot="badge"]').count() === 2, "Badge instalado não renderizou os estados");
+  expect(await page.locator('[data-slot="card"]').count() === 4, "Card instalado não preservou a composição da tela");
+  expect(await page.locator('[data-slot="separator"]').count() === 1, "Separator instalado não renderizou");
+  expect(await page.locator('[data-slot="skeleton"][aria-hidden="true"]').count() === 3, "Skeleton instalado deve permanecer silencioso");
+  expect(await page.locator('[data-slot="spinner"][role="status"]').count() === 1, "Spinner instalado deve anunciar status");
   expect(await page.locator('[data-slot="input"]').inputValue() === "Marcell", "Input instalado perdeu o valor inicial");
   expect(await page.locator('[data-slot="textarea"]').inputValue() === "Experience Engineering", "Textarea instalado perdeu o valor inicial");
+
+  const selectTrigger = page.getByRole("combobox", { name: "País" });
+  expect((await selectTrigger.textContent())?.includes("Brasil"), "Select instalado perdeu o valor inicial");
+  await selectTrigger.click();
+  const unavailableOption = page.getByRole("option", { name: "Indisponível" });
+  expect(await unavailableOption.getAttribute("aria-disabled") === "true", "Select instalado perdeu a opção disabled");
+  await page.getByRole("option", { name: "Chile" }).click();
+  expect((await selectTrigger.textContent())?.includes("Chile"), "Select instalado não atualizou o valor");
+  expect(await page.locator('input[name="country"]').inputValue() === "cl", "Select instalado não preservou o valor de formulário");
 
   const checkbox = page.locator('[data-slot="checkbox"]');
   await checkbox.click();
@@ -290,11 +314,161 @@ try {
   await toggle.click();
   expect(await toggle.getAttribute("data-checked") === null, "Switch instalado não alternou estado");
 
-  await page.getByRole("button", { name: "Quando a alteração entra em vigor?" }).click();
+  const accordionTriggers = page.locator('[data-slot="accordion-trigger"]');
+  expect(await accordionTriggers.count() === 2, "Accordion instalado deve expor os dois triggers do consumer");
+  await accordionTriggers.nth(1).click();
   expect(await page.getByText("A atualização é aplicada imediatamente após salvar.").isVisible(), "Accordion instalado não abriu o painel");
+  await page.keyboard.press("ArrowUp");
+  expect(
+    await accordionTriggers.first().evaluate((element) => element === document.activeElement),
+    "Accordion instalado não moveu foco com ArrowUp",
+  );
+  await page.keyboard.press("End");
+  expect(
+    await accordionTriggers.nth(1).evaluate((element) => element === document.activeElement),
+    "Accordion instalado não moveu foco com End",
+  );
+
+  const tablist = page.getByRole("tablist", { name: "Seções da conta" });
+  const tabs = tablist.getByRole("tab");
+  expect(await tabs.count() === 3, "Tabs instalado deve expor três tabs");
+  expect(await tabs.first().getAttribute("aria-selected") === "true", "Tabs deve iniciar em Visão geral");
+  expect(await tabs.nth(2).getAttribute("aria-disabled") === "true", "Tabs perdeu o item disabled");
+  await tabs.first().focus();
+  await page.keyboard.press("ArrowRight");
+  expect(
+    await tabs.nth(1).getAttribute("aria-selected") === "true" &&
+      await tabs.nth(1).evaluate((element) => element === document.activeElement),
+    "Tabs não ativou Segurança com ArrowRight",
+  );
+  await page.keyboard.press("End");
+  expect(
+    await tabs.nth(1).evaluate((element) => element === document.activeElement),
+    "Tabs não ignorou Cobrança disabled com End",
+  );
+  await page.keyboard.press("Home");
+  expect(await tabs.first().getAttribute("aria-selected") === "true", "Tabs não voltou à primeira tab com Home");
+  expect(
+    await page.getByRole("tabpanel").getByText("Preferências gerais desta conta.").isVisible(),
+    "Tabs não sincronizou o painel selecionado",
+  );
+
+  const menuTrigger = page.getByRole("button", { name: "Ações da conta" });
+  await menuTrigger.click();
+  const accountMenu = page.getByRole("menu", { name: "Ações da conta" });
+  const menuOpened = await accountMenu
+    .waitFor({ state: "visible", timeout: 3000 })
+    .then(() => true, () => false);
+  expect(menuOpened, "Menu instalado não abriu");
+  const disabledMenuItem = page.getByRole("menuitem", { name: "Transferir propriedade" });
+  expect(await disabledMenuItem.getAttribute("aria-disabled") === "true", "Menu instalado perdeu o item disabled");
+  await page.keyboard.press("End");
+  const destructiveMenuItem = page.getByRole("menuitem", { name: "Excluir conta" });
+  expect(
+    await destructiveMenuItem.evaluate((element) => element === document.activeElement),
+    "Menu instalado não moveu foco para a última ação com End",
+  );
+  await page.keyboard.press("Home");
+  const firstMenuItem = page.getByRole("menuitem", { name: "Salvar agora" });
+  expect(
+    await firstMenuItem.evaluate((element) => element === document.activeElement),
+    "Menu instalado não moveu foco para a primeira ação com Home",
+  );
+  await page.keyboard.press("Escape");
+  const menuClosed = await accountMenu
+    .waitFor({ state: "hidden", timeout: 3000 })
+    .then(() => true, () => false);
+  expect(menuClosed, "Menu instalado não fechou com Escape");
+  expect(
+    await menuTrigger.evaluate((element) => element === document.activeElement),
+    "Menu instalado não restaurou foco ao trigger",
+  );
+
+  const popoverTrigger = page.getByRole("button", { name: "Ver contexto" });
+  await popoverTrigger.click();
+  expect(await page.getByText("As preferências são aplicadas somente a esta conta.").isVisible(), "Popover instalado não abriu");
+  const popoverDialog = page.getByRole("dialog");
+  expect(
+    await popoverDialog.evaluate((element) => element.contains(document.activeElement)),
+    "Popover instalado não moveu foco para o conteúdo",
+  );
+  await page.keyboard.press("Escape");
+  const popoverClosed = await page
+    .getByText("As preferências são aplicadas somente a esta conta.")
+    .waitFor({ state: "hidden", timeout: 3000 })
+    .then(() => true, () => false);
+  expect(popoverClosed, "Popover instalado não fechou com Escape");
+  expect(
+    await popoverTrigger.evaluate((element) => element === document.activeElement),
+    "Popover instalado não restaurou foco ao trigger",
+  );
+
+  const tooltipTrigger = page.getByRole("button", { name: "Sobre as preferências" });
+  await tooltipTrigger.hover();
+  const tooltip = page.getByRole("tooltip");
+  expect(
+    await tooltip.waitFor({ state: "visible", timeout: 3000 }).then(() => true, () => false),
+    "Tooltip instalado não abriu em hover",
+  );
+  expect(
+    await tooltipTrigger.getAttribute("aria-describedby") === await tooltip.getAttribute("id"),
+    "Tooltip instalado não preservou aria-describedby",
+  );
+  const tooltipBox = await tooltip.boundingBox();
+  if (tooltipBox) {
+    await page.mouse.move(tooltipBox.x + tooltipBox.width / 2, tooltipBox.y + tooltipBox.height / 2);
+    await page.waitForTimeout(180);
+    expect(await tooltip.isVisible(), "Tooltip instalado não permaneceu aberto ao mover o pointer para o conteúdo");
+  }
+  await tooltipTrigger.focus();
+  await page.keyboard.press("Escape");
+  expect(
+    await tooltip.waitFor({ state: "hidden", timeout: 3000 }).then(() => true, () => false),
+    "Tooltip instalado não fechou com Escape",
+  );
+  expect(
+    await tooltipTrigger.evaluate((element) => element === document.activeElement),
+    "Tooltip instalado moveu foco para fora do trigger",
+  );
+
+  const toastTrigger = page.getByRole("button", { name: "Mostrar confirmação Toast" });
+  await toastTrigger.click();
+  const toast = page.locator('[data-slot="toast"]').first();
+  expect(
+    await toast.waitFor({ state: "visible", timeout: 3000 }).then(() => true, () => false),
+    "Toast instalado não abriu",
+  );
+  expect(await toast.getAttribute("data-type") === "success", "Toast perdeu o tipo success");
+  expect(await toast.getByText("Configuração confirmada").isVisible(), "Toast perdeu o título");
+  expect(await toast.getByRole("button", { name: "Desfazer" }).isVisible(), "Toast perdeu a action");
+  const toastBox = await toast.boundingBox();
+  expect(
+    toastBox && toastBox.x >= 0 && toastBox.x + toastBox.width <= 390,
+    `Toast excedeu o viewport de 390px (${JSON.stringify(toastBox)})`,
+  );
+  await toast.getByRole("button", { name: "Desfazer" }).click();
+  expect(
+    await toast.isVisible(),
+    "Action do Toast deveria manter a mensagem disponível até dismiss explícito",
+  );
+  await toast.getByRole("button", { name: "Dispensar" }).click();
+  expect(
+    await toast.waitFor({ state: "hidden", timeout: 3000 }).then(() => true, () => false),
+    "Close do Toast não dispensou a mensagem",
+  );
 
   await page.getByRole("button", { name: "Revisar alterações" }).click();
-  expect(await page.getByRole("dialog").isVisible(), "Dialog instalado não abriu");
+  const installedDialog = page.getByRole("dialog");
+  expect(await installedDialog.isVisible(), "Dialog instalado não abriu");
+  const installedDialogCloseIcon = installedDialog.getByRole("button", { name: "Fechar revisão" }).locator("svg");
+  expect(await installedDialogCloseIcon.count() === 1, "Dialog instalado perdeu o ícone de fechar");
+  expect(
+    await installedDialogCloseIcon.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    }),
+    "Dialog instalado colapsou visualmente o ícone de fechar",
+  );
   await page.keyboard.press("Escape");
   const dialogClosed = await page
     .getByRole("dialog")
@@ -304,12 +478,44 @@ try {
 
   await page.getByRole("button", { name: "Salvar preferências" }).click();
   expect(await page.getByText("Preferências salvas.").isVisible(), "Button instalado não submeteu o formulário");
+  expect(await page.getByText("As alterações já estão disponíveis para esta conta.").isVisible(), "Alert instalado não refletiu o sucesso do consumer");
+  await page.getByRole("button", { name: "Dispensar confirmação" }).click();
+  expect(await page.getByText("Revise antes de salvar").isVisible(), "AlertClose instalado não delegou dismiss ao consumer");
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow <= 1, `consumer criou overflow horizontal em 390px (${overflow}px)`);
 
-  const axe = await new AxeBuilder({ page }).analyze();
-  expect(axe.violations.length === 0, `consumer React tem ${axe.violations.length} violações Axe: ${axe.violations.map((violation) => violation.id).join(", ")}`);
+  const submitButton = page.getByRole("button", { name: "Salvar preferências" });
+  const buttonContract = await submitButton.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    return { height: rect.height, radius: style.borderRadius };
+  });
+  expect(Math.abs(buttonContract.height - 40) <= 0.5, `Button instalado perdeu a altura md de 40px (${buttonContract.height}px)`);
+  expect(buttonContract.radius === "8px", `Button instalado perdeu o radius de 8px (${buttonContract.radius})`);
+
+  const axeLight = await new AxeBuilder({ page }).analyze();
+  expect(axeLight.violations.length === 0, `consumer React light tem ${axeLight.violations.length} violações Axe: ${axeLight.violations.map((violation) => violation.id).join(", ")}`);
+
+  const lightBackground = await page.locator("body").evaluate((element) => getComputedStyle(element).backgroundColor);
+  await page.evaluate(() => {
+    document.documentElement.dataset.mode = "dark";
+  });
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.waitForTimeout(200);
+  const darkBackground = await page.locator("body").evaluate((element) => getComputedStyle(element).backgroundColor);
+  expect(darkBackground !== lightBackground, "consumer instalado não aplicou o modo dark dos tokens TIS");
+
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const narrowOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(narrowOverflow <= 1, `consumer criou overflow horizontal em 320px (${narrowOverflow}px)`);
+
+  const axeDark = await new AxeBuilder({ page }).analyze();
+  expect(
+    axeDark.violations.length === 0,
+    `consumer React dark tem ${axeDark.violations.length} violações Axe: ${axeDark.violations.map((violation) => `${violation.id} em ${violation.nodes.map((node) => node.target.join(" ")).join(", ")}`).join("; ")}`,
+  );
 
   if (errors.length > 0) {
     throw new Error(errors.join("\n"));

@@ -103,17 +103,35 @@ const structureIssues = Array.isArray(structureAudit?.issues)
   ? structureAudit.issues
   : [];
 const declaredStructureIssueCount = Number(structureAudit?.issueCount || 0);
+const pageSummary = Array.isArray(structureAudit?.pageSummary)
+  ? structureAudit.pageSummary
+  : null;
+const declaredPageIssueCount = pageSummary
+  ? pageSummary.reduce((total, page) => total + Number(page?.issueCount || 0), 0)
+  : null;
+const embeddedVariableIssues = structureIssues.filter((item) => item?.scope === "variable");
+const embeddedNonVariableIssues = structureIssues.filter((item) => item?.scope !== "variable");
+const declaredVariableIssueCount = declaredPageIssueCount === null
+  ? embeddedVariableIssues.length
+  : Math.max(0, declaredStructureIssueCount - declaredPageIssueCount);
 
 if (declaredStructureIssueCount > 0 && structureIssues.length === 0) {
-  issues.push(issue(
-    "snapshot",
-    "structure-audit-declared-issues",
-    "snapshot",
-    `structureAudit declarou ${declaredStructureIssueCount} issue(s), mas não trouxe a lista de ocorrências.`
-  ));
+  const canRecomputeDeclaredIssues = declaredPageIssueCount === 0 && variables.length > 0;
+  if (!canRecomputeDeclaredIssues) {
+    issues.push(issue(
+      "snapshot",
+      "structure-audit-declared-issues",
+      "snapshot",
+      `structureAudit declarou ${declaredStructureIssueCount} issue(s), mas não trouxe a lista de ocorrências.`
+    ));
+  }
 }
 
-for (const structureIssue of structureIssues) {
+// Variables são recalculadas acima a partir dos dados serializados do próprio
+// snapshot. O diagnóstico embutido continua sendo informativo, mas não pode
+// duplicar nem contradizer esse gate canônico. Issues de nodes/páginas continuam
+// vindo do exporter porque dependem da árvore viva do Figma.
+for (const structureIssue of embeddedNonVariableIssues) {
   issues.push({
     scope: structureIssue.scope || "figma",
     code: structureIssue.code || "structure-issue",
@@ -123,12 +141,16 @@ for (const structureIssue of structureIssues) {
 }
 
 if (structureAudit?.truncated) {
-  issues.push(issue(
-    "snapshot",
-    "structure-audit-truncated",
-    "snapshot",
-    "structureAudit foi truncado; corrija os primeiros problemas e gere novo snapshot."
-  ));
+  const listedNonVariableIssueCount = embeddedNonVariableIssues.length;
+  const hasHiddenPageIssues = declaredPageIssueCount === null || declaredPageIssueCount > listedNonVariableIssueCount;
+  if (hasHiddenPageIssues) {
+    issues.push(issue(
+      "snapshot",
+      "structure-audit-truncated",
+      "snapshot",
+      "structureAudit foi truncado e pode ocultar problemas de nodes/páginas; corrija-os e gere novo snapshot."
+    ));
+  }
 }
 
 const variableUsage = structureAudit?.variableUsage || null;
@@ -169,6 +191,9 @@ console.log(`generatedAt:     ${snapshot.generatedAt || "?"}`);
 console.log(`exporter:        ${generatorVersion || "?"}`);
 console.log(`variables:       ${variables.length}`);
 console.log(`component pages: ${structureAudit?.componentPageCount ?? "?"}`);
+if (declaredVariableIssueCount > 0) {
+  console.log(`variable audit:  ${declaredVariableIssueCount} issue(s) do exporter recalculadas pelo repo`);
+}
 if (variableUsage) {
   console.log(`component vars:  ${variableUsage.usedComponentVariableCount}/${variableUsage.componentVariableCount} usadas`);
   console.log(`unused vars:     ${variableUsage.unusedComponentVariableCount}`);

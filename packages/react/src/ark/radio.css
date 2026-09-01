@@ -1,0 +1,70 @@
+.ds-ark-radio-group {
+  box-sizing: border-box;
+}
+
+.ds-ark-radio__option,
+.ds-ark-radio__control {
+  box-sizing: border-box;
+}
+
+.ds-ark-radio__control[data-state='checked'] {
+  background-color: var(--ds-radio-control-fill-selected-default);
+  border-color: var(--ds-radio-control-border-color-selected-default);
+  border-width: var(--ds-radio-control-border-width-selected-default);
+}
+
+.ds-ark-radio__control[data-state='checked']::after {
+  opacity: 1;
+}
+
+.ds-ark-radio__option[data-hover]:not([data-disabled]) .ds-ark-radio__control {
+  background-color: var(--ds-radio-control-fill-unselected-hover);
+  border-color: var(--ds-radio-control-border-color-unselected-hover);
+}
+
+.ds-ark-radio__option[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-radio__control {
+  background-color: var(--ds-radio-control-fill-selected-hover);
+  border-color: var(--ds-radio-control-border-color-selected-hover);
+}
+
+.ds-ark-radio__option[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-radio__control::after {
+  background-color: var(--ds-radio-dot-fill-selected-hover);
+}
+
+.ds-ark-radio__option[data-focus-visible] .ds-ark-radio__control {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-ark-radio__option[data-disabled] {
+  color: var(--ds-form-field-label-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-radio__option[data-disabled] .ds-ark-radio__control {
+  background-color: var(--ds-radio-control-fill-unselected-disabled);
+  border-color: var(--ds-radio-control-border-color-unselected-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-radio__option[data-state='checked'][data-disabled] .ds-ark-radio__control {
+  background-color: var(--ds-radio-control-fill-selected-disabled);
+  border-width: 0;
+}
+
+.ds-ark-radio__option[data-state='checked'][data-disabled] .ds-ark-radio__control::after {
+  background-color: var(--ds-radio-dot-fill-selected-disabled);
+}
+
+.ds-ark-radio__option[data-disabled] .ds-radio__label {
+  color: var(--ds-form-field-label-color-disabled);
+}
+
+.ds-ark-radio-group[data-invalid] .ds-ark-radio__control {
+  border-color: var(--ds-radio-control-border-color-unselected-error);
+}
+
+.ds-ark-radio-group[data-invalid] .ds-ark-radio__option[data-state='checked'] .ds-ark-radio__control {
+  background-color: var(--ds-radio-control-fill-selected-default);
+  border-color: var(--ds-radio-control-border-color-selected-default);
+}

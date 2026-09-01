@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-022 — Três saídas de implementação coexistentes — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-022 — Três saídas de implementação coexistentes</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-08-03</p>
+  </div>
+
+  <div class="ds-callout ds-callout--info">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceita</li>
+<li><strong>Data:</strong> 2026-08-03</li>
+<li><strong>Substitui parcialmente:</strong> ADR-021, nas decisões de provider preferencial e seleção excludente entre implementações</li>
+<li><strong>Relaciona:</strong> ADR-002, ADR-003, ADR-019, ADR-020, ADR-021</li>
+</ul>
+<h2>Contexto</h2>
+<p>A ADR-021 iniciou a vNext com Ark/Zag como base comportamental preferencial e
+Base UI como trilha React comparativa. O intake posterior de shadcn, Base UI,
+Ark UI e Zag revelou que esse enquadramento ainda sugeria uma competição na qual
+uma implementação seria promovida e as demais descartadas.</p>
+<p>Esse não é o produto desejado. O DS TIS precisa atender consumidores com e sem
+framework, aproveitar a cobertura multiplataforma de Ark/Zag e oferecer também
+uma experiência React baseada em source distribuído pelo ecossistema shadcn.
+Essas necessidades não são atendidas por uma implementação híbrida nem pela
+escolha de um único provider.</p>
+<h2>Decisão</h2>
+<h3>1. Cada componente pode ter três saídas públicas coexistentes</h3>
+<p>As saídas canônicas são:</p>
+<table>
+<thead>
+<tr>
+<th>ID estável</th>
+<th>Nome documental</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>web-html-css-js</code></td>
+<td>HTML/CSS/JS</td>
+<td>Implementação agnóstica, distribuída pelo pacote <code>ds-tis</code>, com CSS e runtime JavaScript opt-in quando necessário.</td>
+</tr>
+<tr>
+<td><code>ark-zag</code></td>
+<td>Ark/Zag</td>
+<td>Implementações headless por tecnologia usando Ark UI e Zag, com adapters, dependências e releases próprios.</td>
+</tr>
+<tr>
+<td><code>react-shadcn-base-ui</code></td>
+<td>React · shadcn/Base UI</td>
+<td>Implementação React em source, estruturada e distribuída pelo registry shadcn, com Base UI como provider comportamental quando necessário.</td>
+</tr>
+</tbody></table>
+<p>As três saídas são produtos do DS. Uma não é fallback temporário, benchmark ou
+candidata à eliminação da outra. A disponibilidade pode evoluir em ritmos
+diferentes por componente, mas a documentação sempre declara o estado real das
+três: <code>estável</code>, <code>beta</code>, <code>planejada</code> ou <code>indisponível</code>.</p>
+<h3>2. Contrato compartilhado não significa implementação compartilhada</h3>
+<p>As saídas compartilham:</p>
+<ul>
+<li>decisões visuais e tokens TIS;</li>
+<li>linguagem, nomenclatura e intenção dos componentes;</li>
+<li>requisitos WCAG 2.2 AA e cenários mínimos de interação;</li>
+<li>conteúdo de design, uso e acessibilidade que seja realmente comum.</li>
+</ul>
+<p>Cada saída mantém separadamente:</p>
+<ul>
+<li>source e árvore de dependências;</li>
+<li>API técnica e convenções legítimas da tecnologia;</li>
+<li>instalação, bundle, SSR/hydration e lifecycle;</li>
+<li>testes de consumo e política de atualização;</li>
+<li>diferenças documentadas que não possam ou não devam ser normalizadas.</li>
+</ul>
+<p>É proibido criar um source híbrido que importe Base UI e Ark/Zag para representar
+o mesmo componente. Também é proibido fazer uma saída depender da implementação
+de outra. Melhorias encontradas em qualquer saída podem voltar ao brief/spec e
+influenciar o contrato compartilhado somente após aprovação.</p>
+<h3>3. shadcn tem papel de estrutura, composição e distribuição na saída React</h3>
+<p>shadcn não é reduzido a transporte de arquivos: seus components e recipes podem
+fornecer estrutura React, composição, API inicial, exemplos e convenções de
+integração. Para a saída <code>react-shadcn-base-ui</code>, o registry é também o canal de
+aquisição e atualização do source.</p>
+<p>Esse papel não transforma shadcn no motor comportamental. Base UI, React
+DayPicker ou outra dependência explicitamente registrada podem fornecer o
+comportamento especializado da composição. Nenhuma dessas escolhas determina a
+implementação HTML/CSS/JS ou Ark/Zag.</p>
+<h3>4. A documentação apresenta uma escolha entre as três saídas</h3>
+<p>Toda página de componente deve reservar um seletor com a ordem estável:</p>
+<pre tabindex="0"><code class="language-txt">[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ]
+</code></pre>
+<p>A seleção muda apenas a camada técnica: preview, instalação, imports, API,
+exemplo, dependências, compatibilidade, limitações e evidências. Design, uso e
+acessibilidade compartilhados não devem ser triplicados artificialmente.</p>
+<p>O usuário escolhe qual saída visualizar e utilizar. O portal pode lembrar essa
+preferência durante a navegação, mas deve manter deep links e fallback acessível.
+Uma saída indisponível deve exibir seu estado e próximo gate; nunca um exemplo
+falso ou código emprestado de outra saída.</p>
+<h3>5. Comparação significa paridade, não seleção de vencedor</h3>
+<p>Os mesmos cenários são executados nas três saídas para medir paridade visual,
+semântica, acessibilidade, comportamento e consumo. Diferenças legítimas ficam
+registradas por tecnologia. A matriz não possui <code>selectedCandidate</code>,
+<code>selectedProvider</code> ou equivalente.</p>
+<p>Implementação, validação e release avançam por saída. Uma saída aprovada não
+autoriza, bloqueia, substitui ou publica automaticamente as demais.</p>
+<h3>6. Figma e tokens permanecem compartilhados e agnósticos</h3>
+<p>Figma e tokens não recebem nomes de provider nem duplicam componentes por saída.
+Eles registram o contrato visual e anatômico comum. Quando uma tecnologia exigir
+uma diferença exclusivamente técnica, ela permanece na documentação e no
+adapter daquela saída.</p>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li>consumidores escolhem a implementação adequada sem perder a identidade TIS;</li>
+<li>HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI podem evoluir sem substituição;</li>
+<li>Devs e agents IA recebem disponibilidade, instalação e API sem ambiguidade;</li>
+<li>comparações upstream passam a procurar paridade e melhorias, não um vencedor;</li>
+<li>o core visual continua independente de bibliotecas e frameworks.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li>cada saída exige ownership, testes, documentação e política de atualização;</li>
+<li>paridade não pode ser presumida a partir de aparência semelhante;</li>
+<li>alguns componentes ficarão temporariamente indisponíveis em uma ou duas saídas;</li>
+<li>o portal e os metadados precisam representar três estados por componente.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>Criar uma única implementação que combine as três tecnologias</h3>
+<p>Descartada. Misturaria dependências e APIs incompatíveis, aumentaria bundle e
+apagaria as vantagens próprias de cada saída.</p>
+<h3>Comparar providers e manter somente o vencedor</h3>
+<p>Descartada. Não atende simultaneamente consumidores agnósticos, multiplataforma e
+React source-first.</p>
+<h3>Manter apenas conteúdo documental separado, sem saídas reais</h3>
+<p>Descartada. O seletor precisa apontar para implementação instalável e evidência
+executável, não apenas exemplos visuais.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-002 — Stack agnóstica.</li>
+<li>ADR-020 — Biblioteca consumível e contrato App-ready.</li>
+<li>ADR-021 — Coexistência de v1 e vNext.</li>
+<li><code>docs/process-upstream-component-intake.md</code> — intake e matriz de paridade.</li>
+<li><code>docs/agents/templates/upstream-intake.schema.json</code> — contrato verificável das três saídas.</li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

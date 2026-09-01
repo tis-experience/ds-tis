@@ -117,8 +117,10 @@ No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-t
 
 ## Implementações por tecnologia
 
-- Web CSS: ${CATALOG_COMPONENTS.length} componentes estáveis pelo pacote \`ds-tis\`.
-- React: ${REACT_REGISTRY_COMPONENTS.length} componentes beta distribuídos como source pelo registry shadcn \`${SHADCN_REGISTRY.channel}\`; \`@tis/react\` não é um pacote público.
+- HTML/CSS/JS: ${CATALOG_COMPONENTS.length} componentes estáveis pelo pacote \`ds-tis\`.
+- Ark/Zag: saída por tecnologia com adapters, status e releases próprios.
+- React · shadcn/Base UI: ${REACT_REGISTRY_COMPONENTS.length} componentes beta estruturados e distribuídos como source pelo registry \`${SHADCN_REGISTRY.channel}\`; \`@tis/react\` não é um pacote público.
+- As três saídas coexistem conforme ADR-022; a documentação oferece escolha e a matriz mede paridade sem eleger vencedor.
 - Manifesto do registry: [registry/manifest.json](${SHADCN_REGISTRY.manifestUrl}).
 - Namespace shadcn: \`${SHADCN_REGISTRY.namespace}\` → \`${SHADCN_REGISTRY.baseUrl}/{name}.json\`.
 

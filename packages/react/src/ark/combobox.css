@@ -1,0 +1,20 @@
+.ds-ark-combobox__positioner {
+  z-index: var(--ds-z-tooltip);
+  inline-size: var(--reference-width);
+  max-inline-size: var(--available-width);
+}
+
+.ds-combobox__listbox.ds-ark-combobox__content {
+  position: relative;
+  inset: auto;
+  top: auto;
+  inline-size: 100%;
+}
+
+.ds-combobox[data-scope='combobox'][data-state='open'] .ds-combobox__chevron {
+  transform: rotate(180deg);
+}
+
+.ds-combobox[data-scope='combobox']:has(.ds-combobox__input:not(:placeholder-shown)) {
+  border-color: var(--ds-field-border-color-filled);
+}

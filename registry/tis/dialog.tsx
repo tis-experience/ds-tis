@@ -78,6 +78,7 @@ function DialogContent({
             className,
           )}
           {...props}
+          aria-modal="true"
         >
           {children}
           {showCloseButton && (
@@ -85,9 +86,12 @@ function DialogContent({
               aria-label={closeLabel}
               data-slot="dialog-close"
               className="ds-modal__close ds-tis-dialog__close"
+              style={{
+                right: "var(--ds-space-sm)",
+                top: "var(--ds-space-sm)",
+              }}
             >
               <XIcon aria-hidden="true" className="ds-icon" />
-              <span className="ds-sr-only">{closeLabel}</span>
             </DialogPrimitive.Close>
           )}
         </DialogPrimitive.Popup>

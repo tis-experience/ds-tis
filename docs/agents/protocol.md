@@ -136,6 +136,9 @@ npm run agents:gate -- docs/agents/runs/YYYY-MM-DD-combobox --record-check verif
 
 # Contrato Figma como artefato executavel (rode antes do handoff ao Builder)
 npm run agents:validate-matrix -- docs/agents/runs/YYYY-MM-DD-combobox/contract-matrix.md --strict-exceptions
+
+# Intake controlado de componentes upstream
+npm run agents:validate-intake
 ```
 
 Esses comandos nao chamam nenhuma IA. Eles apenas criam, validam e orientam a run.

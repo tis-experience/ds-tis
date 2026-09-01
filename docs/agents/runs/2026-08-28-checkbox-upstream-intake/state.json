@@ -1,0 +1,32 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-08-28-checkbox-upstream-intake",
+  "title": "Checkbox",
+  "createdAt": "2026-08-28",
+  "updatedAt": "2026-08-28",
+  "figmaSnapshot": {
+    "id": "checkbox-page-121-2",
+    "generatedAt": "2026-08-28T08:35:08.535Z",
+    "path": ".figma-snapshot.json"
+  },
+  "currentGate": "release",
+  "gates": [
+    { "id": "brief", "role": "DS Architect", "artifacts": ["01-brief.md", "02-figma-spec.md"], "requires": [], "needsOwnerApproval": true, "status": "approved", "ownerApproval": { "at": "2026-08-28", "note": "Owner autorizou execução contínua" }, "updatedAt": "2026-08-28" },
+    { "id": "figma-build", "role": "Figma Builder", "artifacts": ["03-figma-build-report.md"], "requires": ["brief"], "needsOwnerApproval": false, "status": "approved", "ownerApproval": null, "updatedAt": "2026-08-28" },
+    { "id": "figma-audit", "role": "Figma Auditor", "artifacts": ["04-figma-audit-report.md"], "requires": ["figma-build"], "needsOwnerApproval": true, "status": "approved", "ownerApproval": { "at": "2026-08-28", "note": "Figma aprovado unchanged" }, "updatedAt": "2026-08-28" },
+    { "id": "token-sync", "role": "Token Sync Agent", "artifacts": ["05-repo-sync-plan.md"], "requires": ["figma-audit"], "needsOwnerApproval": false, "status": "approved", "ownerApproval": null, "updatedAt": "2026-08-28" },
+    { "id": "repo", "role": "Repo Component Agent", "artifacts": ["06-repo-implementation-report.md"], "requires": ["token-sync"], "needsOwnerApproval": true, "status": "approved", "ownerApproval": { "at": "2026-08-28", "note": "Implementação autorizada" }, "updatedAt": "2026-08-28" },
+    { "id": "release", "role": "Release Agent", "artifacts": ["07-release-report.md"], "requires": ["repo"], "needsOwnerApproval": true, "status": "pending", "ownerApproval": null, "updatedAt": null }
+  ],
+  "checks": {
+    "verify:tokens": { "exit": 0, "passed": true, "note": "1595 tokens; VALUE_DRIFT=0", "recordedAt": "2026-08-28" },
+    "test:vnext": { "exit": 0, "passed": true, "note": "foundation, intake, bundle e registry", "recordedAt": "2026-08-28" },
+    "test:vnext:browser": { "exit": 0, "passed": true, "note": "Web, Ark e React", "recordedAt": "2026-08-28" },
+    "test:vnext:bundle": { "exit": 0, "passed": true, "note": "Ark e Base UI abaixo dos orçamentos", "recordedAt": "2026-08-28" },
+    "test:shadcn-registry": { "exit": 0, "passed": true, "note": "23 itens", "recordedAt": "2026-08-28" },
+    "test:shadcn-consumer": { "exit": 0, "passed": true, "note": "22 componentes, Vite, interação e Axe", "recordedAt": "2026-08-28" },
+    "test:pages-artifact": { "exit": 0, "passed": true, "note": "896 arquivos e 191 páginas HTML", "recordedAt": "2026-08-28" },
+    "test:a11y": { "exit": 0, "passed": true, "note": "108/108 mais Theme Playground 2/2", "recordedAt": "2026-08-28" }
+  }
+}

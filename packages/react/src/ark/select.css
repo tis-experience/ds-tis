@@ -1,0 +1,80 @@
+.ds-ark-select__control {
+  position: relative;
+  inline-size: 100%;
+}
+
+.ds-ark-select__trigger {
+  inline-size: 100%;
+  justify-content: flex-start;
+  margin: 0;
+  text-align: start;
+  cursor: pointer;
+}
+
+.ds-ark-select__trigger[data-disabled] {
+  background: var(--ds-field-bg-disabled);
+  border-color: var(--ds-field-border-color-disabled);
+  color: var(--ds-field-value-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-select__trigger[data-readonly] {
+  background: var(--ds-field-bg-readonly);
+  border-color: var(--ds-field-border-color-readonly);
+  color: var(--ds-field-value-color-readonly);
+}
+
+.ds-ark-select__trigger:not([data-placeholder-shown]):not([data-invalid]) {
+  border-color: var(--ds-field-border-color-filled);
+}
+
+.ds-ark-select__trigger[data-invalid] {
+  border-color: var(--ds-field-border-color-error);
+}
+
+.ds-ark-select__trigger[data-placeholder-shown] .ds-ark-select__value {
+  color: var(--ds-field-placeholder-color-default);
+}
+
+.ds-ark-select__value {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-ark-select__indicator {
+  display: inline-flex;
+}
+
+.ds-ark-select__trigger[data-state='open'] .ds-select__arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.ds-ark-select__positioner {
+  z-index: var(--ds-z-tooltip);
+  inline-size: var(--reference-width);
+  max-inline-size: var(--available-width);
+}
+
+.ds-ark-select__content {
+  inline-size: 100%;
+  max-block-size: min(var(--available-height), var(--ds-size-layout-md));
+  overflow-y: auto;
+}
+
+.ds-ark-select__item[data-highlighted] {
+  background: var(--ds-menu-item-bg-focused);
+  color: var(--ds-menu-item-content-color-focused);
+}
+
+.ds-ark-select__item[data-disabled] {
+  background: var(--ds-menu-item-bg-disabled);
+  color: var(--ds-menu-item-content-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-select__item[data-state='checked'] .ds-menu__check {
+  visibility: visible;
+}

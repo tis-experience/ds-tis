@@ -2,7 +2,7 @@
 
 Plugin local do Figma para exportar as Variables do arquivo do Design System no formato lido por `scripts/sync-tokens-from-figma.mjs`.
 
-Versão atual do exporter: `0.2.0`.
+Versão atual do exporter: `0.2.1`.
 
 ## Instalação local
 
@@ -45,6 +45,9 @@ O agente deve executar esse comando assim que o export estiver na pasta — inst
 ## Escopo
 
 - Exporta `variableCollections` e `variables` locais.
+- Audita aliases e demais invariantes de Variables sobre a mesma representação
+  serializada gravada no snapshot, evitando divergência entre o diagnóstico e o
+  arquivo exportado.
 - Audita uso de Component tokens em nós dentro de `COMPONENT` e `COMPONENT_SET` reais, independente do nome da seção onde o component set aparece.
 - Preserva aliases como `{ type: "VARIABLE_ALIAS", id }`.
 - Preserva valores de cor, número, string, boolean e objetos serializáveis.

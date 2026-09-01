@@ -85,6 +85,9 @@ function freePort() {
 console.log('\n═══ test-consumer-smoke ══════════════════════');
 
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+const expectedReactComponentCount = JSON.parse(
+  fs.readFileSync(path.join(ROOT, 'docs', 'api', 'components.json'), 'utf8'),
+).components.filter((component) => component.implementations?.react?.status === 'beta').length;
 const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-tis-consumer-'));
 const packDir = path.join(tmpRoot, 'pack');
 const consumerDir = path.join(tmpRoot, 'app');
@@ -165,7 +168,10 @@ try {
   ok(installedContext.schemaVersion === 2, 'installed consumer context schemaVersion must be 2');
   ok(installedContext.technologies?.web?.status === 'stable', 'installed context must expose stable Web');
   ok(installedContext.technologies?.react?.status === 'beta', 'installed context must expose React beta');
-  ok(installedContext.technologies?.react?.componentCount === 9, 'installed context must expose 9 React beta components');
+  ok(
+    installedContext.technologies?.react?.componentCount === expectedReactComponentCount,
+    `installed context must expose ${expectedReactComponentCount} React beta components`,
+  );
   ok(installedContext.responsive?.model === 'intrinsic-first', 'installed responsive contract must be intrinsic-first');
   ok(installedContext.responsive?.publicBreakpoints?.length === 0, 'installed contract must not invent breakpoints');
 

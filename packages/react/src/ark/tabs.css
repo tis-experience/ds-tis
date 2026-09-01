@@ -1,0 +1,9 @@
+.ds-ark-tabs__list {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.ds-ark-tabs__trigger {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}

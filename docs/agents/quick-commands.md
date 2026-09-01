@@ -36,6 +36,26 @@ Resolve para:
 - Templates: `docs/agents/templates/component-brief.md` e `docs/agents/templates/figma-spec.md`
 - Bloqueado antes de: Figma write, repo sync, commit/push
 
+## Intake upstream
+
+```txt
+Inicie o intake controlado de [componente] usando [referências upstream].
+```
+
+Resolve para:
+
+- Role: `docs/agents/roles/ds-architect.md`
+- Processo: `docs/process-upstream-component-intake.md`
+- Artefatos: run canônica, `upstream-intake.json`, benchmark, contrato atual e
+  matriz de paridade das três saídas
+- Validador: `npm run agents:validate-intake`
+- Bloqueado antes de: implementação das saídas, Figma write, Web core, adapter,
+  commit/push/publicação
+
+O comando autoriza registro e auditoria. Não autoriza implementação. HTML/CSS/JS,
+Ark/Zag e React/shadcn/Base UI permanecem como três saídas coexistentes e
+separadas; a documentação oferece a escolha entre elas.
+
 ## Execução Figma
 
 ```txt
@@ -130,6 +150,8 @@ Resolve para:
 
 Quando o comando curto mencionar:
 
+- `traga`, `adapte`, `personalize`, `compare upstream`, usar DS Architect com o
+  processo de intake upstream.
 - `planeje`, usar DS Architect.
 - `execute`, `crie`, `corrija no Figma`, usar Figma Builder.
 - `audite`, `revise sem editar`, usar Figma Auditor.

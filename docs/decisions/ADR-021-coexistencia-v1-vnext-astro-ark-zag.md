@@ -2,6 +2,7 @@
 
 - **Status:** Aceita
 - **Data:** 2026-07-28
+- **Substituída parcialmente por:** ADR-022, nas decisões de provider preferencial e seleção excludente entre implementações
 - **Relaciona:** ADR-002, ADR-003, ADR-019, ADR-020
 
 ## Contexto
@@ -98,6 +99,18 @@ Na vNext web:
 Paridade multiplataforma significa preservar intenção, estados, acessibilidade,
 tokens e documentação. Não significa compartilhar o mesmo binário ou esconder
 diferenças legítimas entre frameworks.
+
+shadcn pode distribuir source React sem se tornar provider de comportamento.
+Quando usado pelo DS, seu registry é somente o canal de aquisição e atualização
+do adapter React. A escolha entre HTML nativo, Ark UI ou acesso excepcional a
+Zag continua sendo feita pelo contrato de cada componente, segundo esta ADR.
+
+Uma implementação React com Base UI pode permanecer como trilha beta de
+comparação, desde que declare o provider real, não seja apresentada como
+substituição de Ark/Zag e não determine as implementações de Vue, Solid ou
+Svelte. Sua promoção exige comparação componente a componente contra a opção
+Ark/Zag e decisão arquitetural explícita; a existência de source validado no
+registry, isoladamente, não altera o provider preferencial da vNext.
 
 As versões de Ark são fixadas por linha de release e atualizadas somente com
 changelog upstream, stories de interação, Axe e teste de consumo. Zag é transitivo

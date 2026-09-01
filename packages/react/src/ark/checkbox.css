@@ -1,0 +1,95 @@
+.ds-ark-checkbox {
+  box-sizing: border-box;
+  inline-size: fit-content;
+}
+
+.ds-ark-checkbox__control {
+  box-sizing: border-box;
+}
+
+.ds-ark-checkbox__indicator {
+  display: contents;
+}
+
+.ds-ark-checkbox[data-state='checked'] .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-checked-default);
+  border-width: 0;
+}
+
+.ds-ark-checkbox[data-state='checked'] .ds-ark-checkbox__control::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ds-ark-checkbox[data-state='indeterminate'] .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-default);
+  border-width: 0;
+}
+
+.ds-ark-checkbox[data-state='indeterminate'] .ds-ark-checkbox__control::after {
+  width: calc(var(--checkbox-box-size) * 0.625);
+  height: max(var(--ds-space-hairline), calc(var(--checkbox-box-size) * 0.125));
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-default);
+  border-radius: var(--ds-space-hairline);
+  -webkit-mask: none;
+  mask: none;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ds-ark-checkbox[data-hover]:not([data-disabled]) .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-unchecked-hover);
+  border-color: var(--ds-checkbox-box-border-color-unchecked-hover);
+}
+
+.ds-ark-checkbox[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-checked-hover);
+}
+
+.ds-ark-checkbox[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-checkbox__control::after {
+  background-color: var(--ds-checkbox-mark-fill-checked-hover);
+}
+
+.ds-ark-checkbox[data-state='indeterminate'][data-hover]:not([data-disabled]) .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-hover);
+}
+
+.ds-ark-checkbox[data-state='indeterminate'][data-hover]:not([data-disabled]) .ds-ark-checkbox__control::after {
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-hover);
+}
+
+.ds-ark-checkbox[data-focus-visible] .ds-ark-checkbox__control {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-ark-checkbox[data-disabled] {
+  color: var(--ds-form-field-label-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-checkbox[data-disabled] .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-unchecked-disabled);
+  border-color: var(--ds-checkbox-box-border-color-unchecked-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-checkbox[data-state='checked'][data-disabled] .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-checked-disabled);
+  border-width: 0;
+}
+
+.ds-ark-checkbox[data-state='checked'][data-disabled] .ds-ark-checkbox__control::after {
+  background-color: var(--ds-checkbox-mark-fill-checked-disabled);
+}
+
+.ds-ark-checkbox[data-state='indeterminate'][data-disabled] .ds-ark-checkbox__control {
+  background-color: var(--ds-checkbox-box-fill-indeterminate-disabled);
+  border-width: 0;
+}
+
+.ds-ark-checkbox[data-state='indeterminate'][data-disabled] .ds-ark-checkbox__control::after {
+  background-color: var(--ds-checkbox-mark-fill-indeterminate-disabled);
+}
+
+.ds-ark-checkbox[data-invalid] .ds-ark-checkbox__control {
+  border-color: var(--ds-checkbox-box-border-color-unchecked-error);
+}

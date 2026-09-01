@@ -5,47 +5,34 @@ sidebar:
   order: 1
 ---
 
-import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+This documentation organizes the Design System around components. Technology is
+an implementation decision within the same design contract.
 
-This documentation organizes the Design System by technology without duplicating
-the design contract. Use component pages for shared decisions and instructions
-specific to each implementation.
+The v1 HTML/CSS/JS implementation remains stable. The new documentation first
+validates Accordion, Button, and Popover; React and Ark/Zag are only selectable
+when a functional, verifiable output exists.
 
-<Aside type="note" title="Current state">
-  The v1 Web CSS line remains stable and recommended for consumption. vNext evolves
-  additively and will replace the current line only after proving coverage,
-  accessibility, consumption, and migration.
-</Aside>
+## Start with components
 
-## Choose a path
+The [component catalog](./components/) organizes all 26 contracts by purpose and
+shows only implementations that are already available. The unified editorial
+pilot for Accordion, Button, and Popover will expand after validation.
 
-<CardGrid>
-  <Card title="Web CSS">
-    Review the stable, framework-agnostic implementation.
-    [Open Web CSS](./web/).
-  </Card>
-  <Card title="React">
-    Follow the adapter’s progress and the actual availability of each component.
-    [Open React](./react/).
-  </Card>
-  <Card title="Components">
-    Compare design, usage, implementation, and accessibility by technology.
-    [Review Button](./web/components/button/).
-  </Card>
-  <Card title="Architecture">
-    Understand v1 and vNext coexistence, the theme engine, Ark/Zag, and Figma.
-    [Read the architecture](./architecture/).
-  </Card>
-</CardGrid>
+## Integrate with your technology
+
+- [Web CSS](./web/) is the stable, framework-agnostic implementation;
+- [React](./react/) is distributed in beta as source through the shadcn registry;
+- Ark/Zag currently has beta Accordion, Combobox, Menu, Modal, Popover, and Select adapters in the workspace;
+- [AI agents](./ai/) use structured APIs and the same human-readable pages.
 
 ## How to read a component page
 
-Each component separates its content into four views:
+Every component separates content into four views:
 
-- **Design:** visual contract, anatomy, variants, and tokens;
-- **Usage:** when to use it, content, and best practices;
-- **Implementation or availability:** technology-specific instructions;
-- **Accessibility:** requirements and evidence for that implementation.
+- **Design:** preview, anatomy, variants, and states;
+- **Usage:** when to use, when not to use, and composition;
+- **Implementation:** installation, public contract, and technical architecture;
+- **Accessibility:** semantics, responsibilities, and validation evidence.
 
-For the complete production catalog, use the
-[stable v1 documentation](/ds-tis/).
+For architectural decisions, read [Architecture and coexistence](./architecture/).
+The complete production catalog remains in the [stable v1 documentation](/ds-tis/).

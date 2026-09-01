@@ -172,6 +172,10 @@
   cursor: pointer;
 }
 
+.ds-combobox__clear[hidden] {
+  display: none !important;
+}
+
 /* Listbox
    ========================================================================== */
 
@@ -222,6 +226,10 @@
   transition:
     background-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
     color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
+}
+
+.ds-combobox__option[hidden] {
+  display: none !important;
 }
 
 .ds-combobox--sm .ds-combobox__option {

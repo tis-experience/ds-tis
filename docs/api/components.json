@@ -3,6 +3,74 @@
   "schemaVersion": 2,
   "version": "1.0.0",
   "count": 26,
+  "componentCategories": {
+    "actions": {
+      "order": 1,
+      "label": {
+        "pt": "Ações",
+        "en": "Actions"
+      },
+      "description": {
+        "pt": "Componentes que iniciam ou confirmam uma ação.",
+        "en": "Components that start or confirm an action."
+      }
+    },
+    "content-structure": {
+      "order": 2,
+      "label": {
+        "pt": "Conteúdo e estrutura",
+        "en": "Content and structure"
+      },
+      "description": {
+        "pt": "Elementos para organizar, separar e apresentar informação.",
+        "en": "Elements used to organize, separate, and present information."
+      }
+    },
+    "input-selection": {
+      "order": 3,
+      "label": {
+        "pt": "Entrada e seleção",
+        "en": "Input and selection"
+      },
+      "description": {
+        "pt": "Controles para coletar, editar e selecionar dados.",
+        "en": "Controls used to collect, edit, and select data."
+      }
+    },
+    "feedback-status": {
+      "order": 4,
+      "label": {
+        "pt": "Feedback e status",
+        "en": "Feedback and status"
+      },
+      "description": {
+        "pt": "Componentes que comunicam resultado, progresso ou estado.",
+        "en": "Components that communicate outcomes, progress, or status."
+      }
+    },
+    "navigation": {
+      "order": 5,
+      "label": {
+        "pt": "Navegação",
+        "en": "Navigation"
+      },
+      "description": {
+        "pt": "Padrões para orientar deslocamento e localização no produto.",
+        "en": "Patterns used to orient movement and location in a product."
+      }
+    },
+    "overlay-disclosure": {
+      "order": 6,
+      "label": {
+        "pt": "Overlay e disclosure",
+        "en": "Overlay and disclosure"
+      },
+      "description": {
+        "pt": "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+        "en": "Components that reveal contextual content or a new interface layer."
+      }
+    }
+  },
   "readinessLevels": {
     "app-ready": {
       "label": "App-ready",
@@ -232,6 +300,18 @@
       "cssClass": "ds-accordion",
       "cssFile": "css/components/accordion.css",
       "cssOnly": false,
+      "category": {
+        "id": "overlay-disclosure",
+        "order": 6,
+        "label": {
+          "pt": "Overlay e disclosure",
+          "en": "Overlay and disclosure"
+        },
+        "description": {
+          "pt": "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+          "en": "Components that reveal contextual content or a new interface layer."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -248,6 +328,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -255,15 +336,39 @@
           "runtime": "ds-tis/accordion",
           "docs": "https://tis-experience.github.io/ds-tis/docs/accordion.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/accordion.jsx",
+          "storyId": "ark-accordion--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/accordion/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "accordion",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/accordion.json",
           "install": "npx shadcn@latest add @tis/accordion",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "beta",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": "accordion",
+          "primitive": "@angular/aria/accordion",
+          "storyId": "angular-accordion--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -338,6 +443,18 @@
       "cssClass": "ds-button",
       "cssFile": "css/components/button.css",
       "cssOnly": false,
+      "category": {
+        "id": "actions",
+        "order": 1,
+        "label": {
+          "pt": "Ações",
+          "en": "Actions"
+        },
+        "description": {
+          "pt": "Componentes que iniciam ou confirmam uma ação.",
+          "en": "Components that start or confirm an action."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -354,6 +471,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -361,15 +479,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/button.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI Factory",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/button.jsx",
+          "storyId": "ark-button--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/button/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "button",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/button.json",
           "install": "npx shadcn@latest add @tis/button",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "beta",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": "button",
+          "primitive": "native button",
+          "storyId": "angular-button--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -507,6 +649,18 @@
       "cssClass": "ds-input",
       "cssFile": "css/components/input.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -523,6 +677,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -530,15 +685,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/input.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "input",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/input.json",
           "install": "npx shadcn@latest add @tis/input",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -639,6 +818,18 @@
       "cssClass": "ds-textarea",
       "cssFile": "css/components/textarea.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -655,6 +846,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -662,15 +854,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/textarea.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "textarea",
           "provider": "Native React",
+          "providerRole": "native-or-composition",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/textarea.json",
           "install": "npx shadcn@latest add @tis/textarea",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -745,6 +961,18 @@
       "cssClass": "ds-select",
       "cssFile": "css/components/select.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -761,6 +989,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -768,15 +997,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/select.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/select.jsx",
+          "storyId": "ark-select--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/select/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "select",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/select.json",
+          "install": "npx shadcn@latest add @tis/select",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -881,6 +1134,18 @@
       "cssClass": "ds-combobox",
       "cssFile": "css/components/combobox.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -897,6 +1162,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -904,15 +1170,39 @@
           "runtime": "ds-tis/combobox",
           "docs": "https://tis-experience.github.io/ds-tis/docs/combobox.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/combobox.jsx",
+          "storyId": "ark-combobox--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/combobox/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "combobox",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/combobox.json",
+          "install": "npx shadcn@latest add @tis/combobox",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -1043,6 +1333,18 @@
       "cssClass": "ds-checkbox",
       "cssFile": "css/components/checkbox.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1059,6 +1361,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1066,15 +1369,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/checkbox.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/checkbox.jsx",
+          "storyId": "ark-checkbox--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/checkbox/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "checkbox",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/checkbox.json",
           "install": "npx shadcn@latest add @tis/checkbox",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1151,6 +1478,18 @@
       "cssClass": "ds-radio",
       "cssFile": "css/components/radio.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1167,6 +1506,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1174,15 +1514,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/radio.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/radio.jsx",
+          "storyId": "ark-radio--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/radio/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "radio-group",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/radio-group.json",
           "install": "npx shadcn@latest add @tis/radio-group",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1264,6 +1628,18 @@
       "cssClass": "ds-toggle",
       "cssFile": "css/components/toggle.css",
       "cssOnly": false,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1280,6 +1656,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1287,15 +1664,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/toggle.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/toggle.jsx",
+          "storyId": "ark-toggle--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/toggle/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "switch",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/switch.json",
           "install": "npx shadcn@latest add @tis/switch",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1369,6 +1770,18 @@
       "cssClass": "ds-badge",
       "cssFile": "css/components/badge.css",
       "cssOnly": false,
+      "category": {
+        "id": "feedback-status",
+        "order": 4,
+        "label": {
+          "pt": "Feedback e status",
+          "en": "Feedback and status"
+        },
+        "description": {
+          "pt": "Componentes que comunicam resultado, progresso ou estado.",
+          "en": "Components that communicate outcomes, progress, or status."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1385,6 +1798,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1392,15 +1806,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/badge.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "badge",
+          "provider": "React composition",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/badge.json",
+          "install": "npx shadcn@latest add @tis/badge",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1460,6 +1898,18 @@
       "cssClass": "ds-alert",
       "cssFile": "css/components/alert.css",
       "cssOnly": false,
+      "category": {
+        "id": "feedback-status",
+        "order": 4,
+        "label": {
+          "pt": "Feedback e status",
+          "en": "Feedback and status"
+        },
+        "description": {
+          "pt": "Componentes que comunicam resultado, progresso ou estado.",
+          "en": "Components that communicate outcomes, progress, or status."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1476,6 +1926,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1483,15 +1934,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/alert.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "alert",
+          "provider": "React composition",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/alert.json",
+          "install": "npx shadcn@latest add @tis/alert",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1579,6 +2054,18 @@
       "cssClass": "ds-card",
       "cssFile": "css/components/card.css",
       "cssOnly": false,
+      "category": {
+        "id": "content-structure",
+        "order": 2,
+        "label": {
+          "pt": "Conteúdo e estrutura",
+          "en": "Content and structure"
+        },
+        "description": {
+          "pt": "Elementos para organizar, separar e apresentar informação.",
+          "en": "Elements used to organize, separate, and present information."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1595,6 +2082,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1602,15 +2090,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/card.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "card",
+          "provider": "React composition",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/card.json",
+          "install": "npx shadcn@latest add @tis/card",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -1670,6 +2182,18 @@
       "cssClass": "ds-modal",
       "cssFile": "css/components/modal.css",
       "cssOnly": false,
+      "category": {
+        "id": "overlay-disclosure",
+        "order": 6,
+        "label": {
+          "pt": "Overlay e disclosure",
+          "en": "Overlay and disclosure"
+        },
+        "description": {
+          "pt": "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+          "en": "Components that reveal contextual content or a new interface layer."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1686,6 +2210,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1693,15 +2218,39 @@
           "runtime": "ds-tis/modal",
           "docs": "https://tis-experience.github.io/ds-tis/docs/modal.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/modal.jsx",
+          "storyId": "ark-modal--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/modal/"
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "dialog",
           "provider": "Base UI",
+          "providerRole": "output-provider",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/dialog.json",
           "install": "npx shadcn@latest add @tis/dialog",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -1797,6 +2346,18 @@
       "cssClass": "ds-popover",
       "cssFile": "css/components/popover.css",
       "cssOnly": false,
+      "category": {
+        "id": "overlay-disclosure",
+        "order": 6,
+        "label": {
+          "pt": "Overlay e disclosure",
+          "en": "Overlay and disclosure"
+        },
+        "description": {
+          "pt": "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+          "en": "Components that reveal contextual content or a new interface layer."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1813,6 +2374,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1820,15 +2382,39 @@
           "runtime": "ds-tis/popover",
           "docs": "https://tis-experience.github.io/ds-tis/docs/popover.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
-          "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/popover.jsx",
+          "storyId": "ark-popover--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/popover/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "popover",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/popover.json",
+          "install": "npx shadcn@latest add @tis/popover",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "beta",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": "popover",
+          "primitive": "@angular/cdk/overlay + portal + a11y",
+          "storyId": "angular-popover--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -1902,6 +2488,18 @@
       "cssClass": "ds-toast",
       "cssFile": "css/components/toast.css",
       "cssOnly": false,
+      "category": {
+        "id": "feedback-status",
+        "order": 4,
+        "label": {
+          "pt": "Feedback e status",
+          "en": "Feedback and status"
+        },
+        "description": {
+          "pt": "Componentes que comunicam resultado, progresso ou estado.",
+          "en": "Components that communicate outcomes, progress, or status."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -1918,6 +2516,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -1925,15 +2524,39 @@
           "runtime": "ds-tis/toast",
           "docs": "https://tis-experience.github.io/ds-tis/docs/toast.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/toast.jsx",
+          "storyId": "ark-toast--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/toast/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "toast",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/toast.json",
+          "install": "npx shadcn@latest add @tis/toast",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -2043,6 +2666,18 @@
       "cssClass": "ds-tooltip",
       "cssFile": "css/components/tooltip.css",
       "cssOnly": false,
+      "category": {
+        "id": "overlay-disclosure",
+        "order": 6,
+        "label": {
+          "pt": "Overlay e disclosure",
+          "en": "Overlay and disclosure"
+        },
+        "description": {
+          "pt": "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+          "en": "Components that reveal contextual content or a new interface layer."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2059,6 +2694,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2066,15 +2702,39 @@
           "runtime": "ds-tis/tooltip",
           "docs": "https://tis-experience.github.io/ds-tis/docs/tooltip.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/tooltip.jsx",
+          "storyId": "ark-tooltip--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/tooltip/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "tooltip",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/tooltip.json",
+          "install": "npx shadcn@latest add @tis/tooltip",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -2128,6 +2788,18 @@
       "cssClass": "ds-menu",
       "cssFile": "css/components/menu.css",
       "cssOnly": false,
+      "category": {
+        "id": "navigation",
+        "order": 5,
+        "label": {
+          "pt": "Navegação",
+          "en": "Navigation"
+        },
+        "description": {
+          "pt": "Padrões para orientar deslocamento e localização no produto.",
+          "en": "Patterns used to orient movement and location in a product."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2144,6 +2816,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2151,15 +2824,39 @@
           "runtime": "ds-tis/menu",
           "docs": "https://tis-experience.github.io/ds-tis/docs/menu.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/menu.jsx",
+          "storyId": "ark-menu--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/menu/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "menu",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/menu.json",
+          "install": "npx shadcn@latest add @tis/menu",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -2261,6 +2958,18 @@
       "cssClass": "ds-tabs",
       "cssFile": "css/components/tabs.css",
       "cssOnly": false,
+      "category": {
+        "id": "navigation",
+        "order": 5,
+        "label": {
+          "pt": "Navegação",
+          "en": "Navigation"
+        },
+        "description": {
+          "pt": "Padrões para orientar deslocamento e localização no produto.",
+          "en": "Patterns used to orient movement and location in a product."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2277,6 +2986,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2284,15 +2994,39 @@
           "runtime": "ds-tis/tabs",
           "docs": "https://tis-experience.github.io/ds-tis/docs/tabs.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "beta",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/tabs.jsx",
+          "storyId": "ark-tabs--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/tabs/"
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "tabs",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/tabs.json",
+          "install": "npx shadcn@latest add @tis/tabs",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": {
@@ -2348,6 +3082,18 @@
       "cssClass": "ds-table",
       "cssFile": "css/components/table.css",
       "cssOnly": false,
+      "category": {
+        "id": "content-structure",
+        "order": 2,
+        "label": {
+          "pt": "Conteúdo e estrutura",
+          "en": "Content and structure"
+        },
+        "description": {
+          "pt": "Elementos para organizar, separar e apresentar informação.",
+          "en": "Elements used to organize, separate, and present information."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2364,6 +3110,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2371,15 +3118,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/table.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "unavailable",
           "distribution": null,
           "package": null,
           "item": null,
           "provider": null,
+          "providerRole": null,
           "registryUrl": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2444,6 +3215,18 @@
       "cssClass": "ds-breadcrumb",
       "cssFile": "css/components/breadcrumb.css",
       "cssOnly": false,
+      "category": {
+        "id": "navigation",
+        "order": 5,
+        "label": {
+          "pt": "Navegação",
+          "en": "Navigation"
+        },
+        "description": {
+          "pt": "Padrões para orientar deslocamento e localização no produto.",
+          "en": "Patterns used to orient movement and location in a product."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2460,6 +3243,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2467,15 +3251,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/breadcrumb.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "unavailable",
           "distribution": null,
           "package": null,
           "item": null,
           "provider": null,
+          "providerRole": null,
           "registryUrl": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2512,6 +3320,18 @@
       "cssClass": "ds-pagination",
       "cssFile": "css/components/pagination.css",
       "cssOnly": false,
+      "category": {
+        "id": "navigation",
+        "order": 5,
+        "label": {
+          "pt": "Navegação",
+          "en": "Navigation"
+        },
+        "description": {
+          "pt": "Padrões para orientar deslocamento e localização no produto.",
+          "en": "Patterns used to orient movement and location in a product."
+        }
+      },
       "readiness": "composition",
       "readinessNotes": "O DS entrega itens e estados; a aplicação mantém URL, carregamento e página atual.",
       "responsibility": {
@@ -2528,6 +3348,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2535,15 +3356,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/pagination.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "unavailable",
           "distribution": null,
           "package": null,
           "item": null,
           "provider": null,
+          "providerRole": null,
           "registryUrl": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2599,6 +3444,18 @@
       "cssClass": "ds-avatar",
       "cssFile": "css/components/avatar.css",
       "cssOnly": false,
+      "category": {
+        "id": "content-structure",
+        "order": 2,
+        "label": {
+          "pt": "Conteúdo e estrutura",
+          "en": "Content and structure"
+        },
+        "description": {
+          "pt": "Elementos para organizar, separar e apresentar informação.",
+          "en": "Elements used to organize, separate, and present information."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2615,6 +3472,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2622,15 +3480,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/avatar.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "unavailable",
           "distribution": null,
           "package": null,
           "item": null,
           "provider": null,
+          "providerRole": null,
           "registryUrl": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2675,6 +3557,18 @@
       "cssClass": "ds-divider",
       "cssFile": "css/components/divider.css",
       "cssOnly": false,
+      "category": {
+        "id": "content-structure",
+        "order": 2,
+        "label": {
+          "pt": "Conteúdo e estrutura",
+          "en": "Content and structure"
+        },
+        "description": {
+          "pt": "Elementos para organizar, separar e apresentar informação.",
+          "en": "Elements used to organize, separate, and present information."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2691,6 +3585,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2698,15 +3593,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/divider.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "separator",
+          "provider": "Native React",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/separator.json",
+          "install": "npx shadcn@latest add @tis/separator",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2731,6 +3650,18 @@
       "cssClass": "ds-field",
       "cssFile": "css/components/form-field.css",
       "cssOnly": true,
+      "category": {
+        "id": "input-selection",
+        "order": 3,
+        "label": {
+          "pt": "Entrada e seleção",
+          "en": "Input and selection"
+        },
+        "description": {
+          "pt": "Controles para coletar, editar e selecionar dados.",
+          "en": "Controls used to collect, edit, and select data."
+        }
+      },
       "readiness": "composition",
       "readinessNotes": "O DS entrega label, helper e erro; a aplicação mantém IDs, validação, valor e mensagens.",
       "responsibility": {
@@ -2747,6 +3678,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2754,15 +3686,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/form-field.html"
         },
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
+          "package": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
         "react": {
+          "outputId": "react-shadcn-base-ui",
           "status": "beta",
           "distribution": "shadcn-registry",
           "package": null,
           "item": "field",
           "provider": "React composition",
+          "providerRole": "native-or-composition",
           "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/field.json",
           "install": "npx shadcn@latest add @tis/field",
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
+          "install": null,
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2804,6 +3760,18 @@
       "cssClass": "ds-spinner",
       "cssFile": "css/components/spinner.css",
       "cssOnly": false,
+      "category": {
+        "id": "feedback-status",
+        "order": 4,
+        "label": {
+          "pt": "Feedback e status",
+          "en": "Feedback and status"
+        },
+        "description": {
+          "pt": "Componentes que comunicam resultado, progresso ou estado.",
+          "en": "Components that communicate outcomes, progress, or status."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2820,6 +3788,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2827,15 +3796,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/spinner.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "spinner",
+          "provider": "React presentation",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/spinner.json",
+          "install": "npx shadcn@latest add @tis/spinner",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,
@@ -2871,6 +3864,18 @@
       "cssClass": "ds-skeleton",
       "cssFile": "css/components/skeleton.css",
       "cssOnly": false,
+      "category": {
+        "id": "feedback-status",
+        "order": 4,
+        "label": {
+          "pt": "Feedback e status",
+          "en": "Feedback and status"
+        },
+        "description": {
+          "pt": "Componentes que comunicam resultado, progresso ou estado.",
+          "en": "Components that communicate outcomes, progress, or status."
+        }
+      },
       "readiness": "app-ready",
       "readinessNotes": "API pública recomendada para aplicações: anatomia, estados e responsabilidade de comportamento estão documentados.",
       "responsibility": {
@@ -2887,6 +3892,7 @@
       },
       "implementations": {
         "web": {
+          "outputId": "web-html-css-js",
           "status": "stable",
           "distribution": "npm",
           "package": "ds-tis",
@@ -2894,15 +3900,39 @@
           "runtime": null,
           "docs": "https://tis-experience.github.io/ds-tis/docs/skeleton.html"
         },
-        "react": {
-          "status": "unavailable",
-          "distribution": null,
+        "ark": {
+          "outputId": "ark-zag",
+          "status": "planned",
+          "distribution": "technology-adapters",
           "package": null,
-          "item": null,
-          "provider": null,
-          "registryUrl": null,
+          "provider": "Ark UI + Zag",
+          "framework": null,
+          "adapter": null,
+          "storyId": null,
+          "docs": null
+        },
+        "react": {
+          "outputId": "react-shadcn-base-ui",
+          "status": "beta",
+          "distribution": "shadcn-registry",
+          "package": null,
+          "item": "skeleton",
+          "provider": "React presentation",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/skeleton.json",
+          "install": "npx shadcn@latest add @tis/skeleton",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
+        },
+        "angular": {
+          "outputId": "angular-native",
+          "status": "planned",
+          "distribution": "angular-package",
+          "package": "@tis/angular",
+          "entrypoint": null,
+          "primitive": null,
+          "storyId": null,
           "install": null,
-          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/registry/"
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
       "runtime": null,

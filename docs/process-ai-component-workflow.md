@@ -4,6 +4,11 @@ Este processo define como qualquer agente IA deve criar ou redesenhar componente
 
 Ele existe para evitar execução prematura. Um componente novo ruim custa retrabalho em Figma, tokens, CSS, docs, testes e changelog. Portanto, o agente deve primeiro produzir contexto e spec, depois executar.
 
+Quando o trabalho parte de shadcn, Base UI, Ark UI, Zag ou outra biblioteca,
+aplique em conjunto `docs/process-upstream-component-intake.md`. Esse processo
+adiciona manifesto, três saídas coexistentes e paridade reproduzível sem alterar
+a ordem de gates definida aqui.
+
 ## Quando usar
 
 Use este processo quando a tarefa envolver:

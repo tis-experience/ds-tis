@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "count": 21,
+  "count": 23,
   "adrs": [
     {
       "id": "ADR-001",
@@ -190,6 +190,24 @@
       "date": "2026-07-28",
       "sourceFile": "docs/decisions/ADR-021-coexistencia-v1-vnext-astro-ark-zag.md",
       "url": "docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html"
+    },
+    {
+      "id": "ADR-022",
+      "num": 22,
+      "title": "Três saídas de implementação coexistentes",
+      "status": "Aceita",
+      "date": "2026-08-03",
+      "sourceFile": "docs/decisions/ADR-022-tres-saidas-de-implementacao-coexistentes.md",
+      "url": "docs/decisions/adr-022-tres-saidas-de-implementacao-coexistentes.html"
+    },
+    {
+      "id": "ADR-023",
+      "num": 23,
+      "title": "Quatro saídas de implementação com Angular nativo",
+      "status": "Aceita",
+      "date": "2026-08-28",
+      "sourceFile": "docs/decisions/ADR-023-quatro-saidas-com-angular-nativo.md",
+      "url": "docs/decisions/adr-023-quatro-saidas-com-angular-nativo.html"
     }
   ]
 }

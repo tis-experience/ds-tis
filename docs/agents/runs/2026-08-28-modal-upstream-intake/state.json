@@ -1,0 +1,85 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-08-28-modal-upstream-intake",
+  "title": "Modal · intake upstream",
+  "createdAt": "2026-08-28",
+  "updatedAt": "2026-08-28",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": "2026-08-28T08:35:08.535Z",
+    "path": ".figma-snapshot.json"
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": ["01-brief.md", "02-figma-spec.md"],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": { "at": "2026-08-28T23:50:00.000Z", "note": "Owner autorizou execução local contínua." },
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": ["03-figma-build-report.md"],
+      "requires": ["brief"],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": { "at": "2026-08-28T23:50:00.000Z", "note": "Figma preservado sem escrita." },
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": ["04-figma-audit-report.md"],
+      "requires": ["figma-build"],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": { "at": "2026-08-28T23:50:00.000Z", "note": "Snapshot Modal: root 155:370 e issueCount=0." },
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": ["05-repo-sync-plan.md"],
+      "requires": ["figma-audit"],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": { "at": "2026-08-28T23:50:00.000Z", "note": "Nenhum token alterado." },
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": ["06-repo-implementation-report.md"],
+      "requires": ["token-sync"],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": { "at": "2026-08-28T23:50:00.000Z", "note": "Implementação corrigida e auditoria local concluída durante execução contínua autorizada." },
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": ["07-release-report.md"],
+      "requires": ["repo"],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": null,
+      "updatedAt": "2026-08-28T23:50:00.000Z"
+    }
+  ],
+  "checks": {
+    "figma:snapshot": { "exit": 0, "passed": true, "note": "Modal issueCount=0", "recordedAt": "2026-08-28T23:50:00.000Z" },
+    "visual-review": { "exit": 0, "passed": true, "note": "Web, Ark e React validados em 900px e 390px; exemplos Astro íntegros.", "recordedAt": "2026-08-28T23:50:00.000Z" },
+    "test:vnext": { "exit": 0, "passed": true, "note": "foundation, 13 intakes, bundles e registry passaram após a correção final.", "recordedAt": "2026-08-29T02:55:00.000Z" },
+    "test:vnext:browser": { "exit": 0, "passed": true, "note": "portal, Storybook, Docs, Controls, 320/390, dark mode, Base UI e Axe passaram.", "recordedAt": "2026-08-29T02:55:00.000Z" },
+    "test:shadcn-consumer": { "exit": 0, "passed": true, "note": "22 componentes instalados; Vite build, interação e Axe passaram.", "recordedAt": "2026-08-29T02:55:00.000Z" },
+    "verify:tokens": { "exit": 0, "passed": true, "note": "1595 tokens, 0 erros, 0 avisos, VALUE_DRIFT=0.", "recordedAt": "2026-08-29T02:55:00.000Z" },
+    "npm-test": { "exit": 0, "passed": true, "note": "suíte integral, 223 lifecycle checks, 93 stories Web, 1064 arquivos Pages e 110 runs Axe passaram.", "recordedAt": "2026-08-29T02:55:00.000Z" }
+  }
+}

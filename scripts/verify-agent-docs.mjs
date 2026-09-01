@@ -23,6 +23,9 @@ const requiredFiles = [
   "docs/agents/grounding.md",
   "docs/agents/quick-commands.md",
   "docs/agents/templates/figma-contract-matrix.md",
+  "docs/agents/templates/upstream-intake.schema.json",
+  "docs/process-upstream-component-intake.md",
+  "docs/decisions/ADR-022-tres-saidas-de-implementacao-coexistentes.md",
   "docs/agents/adapters/codex.md",
   "docs/agents/adapters/claude.md",
   "docs/agents/adapters/gemini.md",
@@ -44,7 +47,20 @@ const adapterRequirements = [
 const sharedInstructionRequirements = [
   {
     file: "AGENTS.md",
-    includes: ["docs/agent-consumer-usage.md", "docs/agent-consumer-usage.html"],
+    includes: [
+      "docs/agent-consumer-usage.md",
+      "docs/agent-consumer-usage.html",
+      "docs/process-upstream-component-intake.md",
+      "ADR-022"
+    ],
+  },
+  {
+    file: "docs/agents/README.md",
+    includes: ["docs/process-upstream-component-intake.md", "agents:validate-intake", "ADR-022"],
+  },
+  {
+    file: "docs/process-upstream-component-intake.md",
+    includes: ["web-html-css-js", "ark-zag", "react-shadcn-base-ui", "provider vencedor"],
   },
   {
     file: "docs/agent-consumer-usage.md",

@@ -4,7 +4,7 @@
   "runId": "2026-07-29-vnext-accordion",
   "title": "Accordion vNext",
   "createdAt": "2026-07-29",
-  "updatedAt": "2026-07-31",
+  "updatedAt": "2026-08-28",
   "figmaSnapshot": {
     "id": null,
     "generatedAt": null,
@@ -106,9 +106,9 @@
         "repo"
       ],
       "needsOwnerApproval": true,
-      "status": "in_progress",
+      "status": "pending",
       "ownerApproval": null,
-      "updatedAt": "2026-07-31T15:28:09.585Z"
+      "updatedAt": "2026-08-28T23:45:00.000Z"
     }
   ],
   "checks": {
@@ -171,6 +171,12 @@
       "passed": true,
       "note": "Reauditoria read-only final: P0=0, P1=0, P2=0, P3=0.",
       "recordedAt": "2026-07-30T10:24:56.853Z"
+    },
+    "visual-review": {
+      "exit": 0,
+      "passed": true,
+      "note": "Web, Ark/Zag e React visualmente equivalentes em 900px e 390px, sem overflow.",
+      "recordedAt": "2026-08-28T23:45:00.000Z"
     },
     "git:diff-check": {
       "exit": 0,

@@ -1,0 +1,29 @@
+.ds-ark-toast-region,
+.ds-ark-toast {
+  box-sizing: border-box;
+}
+
+.ds-ark-toast-region {
+  z-index: var(--ds-z-toast) !important;
+}
+
+.ds-ark-toast {
+  translate: var(--x) var(--y);
+  scale: var(--scale);
+  opacity: var(--opacity);
+  transition:
+    translate var(--ds-motion-duration-moderate) var(--ds-motion-ease-out),
+    scale var(--ds-motion-duration-moderate) var(--ds-motion-ease-out),
+    opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-out),
+    height var(--ds-motion-duration-moderate) var(--ds-motion-ease-out);
+}
+
+.ds-ark-toast[data-state='closed'] {
+  transition-timing-function: var(--ds-motion-ease-in);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-ark-toast {
+    transition-duration: var(--ds-motion-duration-instant);
+  }
+}

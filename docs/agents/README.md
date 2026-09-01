@@ -121,11 +121,16 @@ Ferramentas externas ajudam, mas nao substituem o processo do repo.
 - Use Figma MCP para ler/escrever o arquivo, sempre seguindo a skill `figma-use` antes de `use_figma`.
 - Para a vNext Ark/Zag, leia `docs/agents/ark-zag-reference.md` antes de consultar
   MCP, LLMs.txt ou exemplos upstream.
+- Para trazer componentes ou ideias de qualquer biblioteca para o DS TIS, leia
+  `docs/process-upstream-component-intake.md`, crie uma run com
+  `upstream-intake.json` e rode `npm run agents:validate-intake`. O processo
+  preserva o core atual, exige resultado Figma explícito e mantém HTML/CSS/JS,
+  Ark/Zag e React/shadcn/Base UI como três saídas coexistentes e separadas.
 - Para o piloto React distribuído por shadcn com Base UI, leia
   `docs/agents/shadcn-base-ui-pilot.md` e
   `docs/agents/shadcn-base-ui-implementation-plan.md`; ele é uma integração
-  React beta distribuída como source e não substitui o provider principal
-  definido pela ADR-021.
+  React beta distribuída como source. Ela é a terceira saída definida pela
+  ADR-022 e não substitui HTML/CSS/JS nem Ark/Zag.
 - Use WAI-ARIA APG e documentacao primaria para padroes interativos como menu button, combobox, dialog e tabs.
 - Use os validadores do repo para confirmar drift e regressao objetiva.
 

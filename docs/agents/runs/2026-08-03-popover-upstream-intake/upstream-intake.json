@@ -1,0 +1,321 @@
+{
+  "$schema": "../../templates/upstream-intake.schema.json",
+  "schema": "ds-tis/upstream-intake",
+  "schemaVersion": 2,
+  "id": "2026-08-03-popover-upstream-intake",
+  "component": {
+    "name": "Popover",
+    "slug": "popover",
+    "classification": "overlay"
+  },
+  "authorization": {
+    "approvedScope": [
+      "process-registration",
+      "read-only-parity-audit",
+      "three-output-architecture-registration",
+      "ark-zag-popover-implementation",
+      "react-shadcn-base-ui-popover-implementation",
+      "three-output-documentation-selector"
+    ],
+    "blockedActions": [
+      "figma-write",
+      "web-core-write",
+      "adapter-write",
+      "commit-push-release"
+    ],
+    "ownerDecision": "Em 2026-08-03, o owner confirmou que HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI são três saídas coexistentes, aprovou preservar o Figma sem mudança e autorizou implementar separadamente Ark/Zag, React/shadcn/Base UI e o seletor documental. Commit, push e release continuam bloqueados."
+  },
+  "baseline": {
+    "figma": {
+      "fileKey": "IE68amP9Hya5ieFw1rX8S8",
+      "page": "Popover",
+      "providerAgnostic": true,
+      "evidenceStatus": "live-read-current",
+      "liveReadAt": "2026-08-03",
+      "liveEvidence": "evidence/figma-live-contract.md",
+      "snapshotAgeDaysAtKickoff": 8,
+      "writeStatus": "approved"
+    },
+    "sharedContract": {
+      "providerAgnostic": true,
+      "sharedByAllOutputs": true,
+      "tokens": "tokens/component/popover.json",
+      "design": "evidence/figma-live-contract.md",
+      "accessibility": "evidence/current-contract.md"
+    }
+  },
+  "outputs": [
+    {
+      "id": "web-html-css-js",
+      "label": "HTML/CSS/JS",
+      "technologyFamily": "native-web",
+      "distribution": {
+        "channel": "npm",
+        "package": "ds-tis"
+      },
+      "resolutionContext": {
+        "css": "css/components/popover.css",
+        "runtime": "js/popover.js",
+        "api": "docs/api/components.json#popover"
+      },
+      "status": "stable",
+      "sourceModules": [
+        "css/components/popover.css",
+        "js/popover.js"
+      ],
+      "readiness": "app-ready",
+      "writeStatus": "preserved"
+    },
+    {
+      "id": "ark-zag",
+      "label": "Ark/Zag",
+      "technologyFamily": "ark-zag",
+      "distribution": {
+        "channel": "technology-adapters",
+        "package": null
+      },
+      "resolutionContext": {
+        "package": "@ark-ui/react/popover",
+        "arkVersion": "5.37.2",
+        "zagVersion": "1.41.2",
+        "zagUsage": "transitive-via-ark"
+      },
+      "status": "validated",
+      "sourceModules": [
+        "packages/react/src/ark/popover.jsx",
+        "@ark-ui/react/popover",
+        "@zag-js/popover (transitive via Ark UI)"
+      ],
+      "mayInfluence": [
+        "cross-framework-api",
+        "anatomy-review",
+        "behavior-review",
+        "accessibility-review"
+      ],
+      "writeStatus": "implemented"
+    },
+    {
+      "id": "react-shadcn-base-ui",
+      "label": "React · shadcn/Base UI",
+      "technologyFamily": "base-ui",
+      "distribution": {
+        "channel": "shadcn-registry",
+        "namespace": "@tis"
+      },
+      "resolutionContext": {
+        "base": "base",
+        "source": "shadcn-ui/ui@a7d77e0cf78d338f213bed172f68261bb6c053e8:apps/v4/registry/bases/base/ui/popover.tsx",
+        "warning": "A CLI sem components.json no root resolveu Radix; esse output não é evidência da saída Base UI."
+      },
+      "status": "validated",
+      "sourceModules": [
+        "registry/tis/popover.tsx",
+        "@base-ui/react/popover"
+      ],
+      "mayInfluence": [
+        "react-api",
+        "composition-structure",
+        "anatomy-review",
+        "accessibility-review"
+      ],
+      "writeStatus": "implemented"
+    }
+  ],
+  "separation": {
+    "dependencyDirection": "figma-and-tokens -> three-independent-outputs -> documentation-choice",
+    "outputsCoexist": true,
+    "outputSourcesMustRemainSeparate": true,
+    "oneOutputCannotReplaceAnother": true,
+    "sharedContractDoesNotMeanSharedImplementation": true
+  },
+  "parity": {
+    "requiredDimensions": [
+      "tis-contract-parity",
+      "aria-keyboard-focus-dismiss",
+      "controlled-uncontrolled-lifecycle",
+      "adapter-complexity",
+      "bundle-and-dependencies",
+      "update-policy",
+      "technology-fit",
+      "real-consumer-installation"
+    ],
+    "status": "approved",
+    "ownerApproval": {
+      "at": "2026-08-28",
+      "note": "Owner autorizou execução local contínua; paridade validada por testes funcionais, visuais, acessíveis e de bundle."
+    },
+    "selectsWinner": false,
+    "allowsDocumentedDifferences": true
+  },
+  "documentation": {
+    "selectionMode": "user-choice",
+    "trackIds": [
+      "web-html-css-js",
+      "ark-zag",
+      "react-shadcn-base-ui"
+    ],
+    "labels": [
+      "HTML/CSS/JS",
+      "Ark/Zag",
+      "React · shadcn/Base UI"
+    ],
+    "defaultTrack": "web-html-css-js",
+    "showsUnavailableState": true,
+    "status": "implemented"
+  },
+  "figmaOutcome": {
+    "status": "approved-unchanged",
+    "allowedOutcomes": [
+      "unchanged-with-evidence",
+      "improvement-proposal"
+    ],
+    "requiresOwnerApproval": true
+  },
+  "gates": [
+    {
+      "id": "current-state",
+      "status": "done",
+      "evidence": "evidence/current-contract.md"
+    },
+    {
+      "id": "upstream-benchmark",
+      "status": "done",
+      "evidence": "evidence/upstream-benchmark.md"
+    },
+    {
+      "id": "current-contract",
+      "status": "done",
+      "evidence": "evidence/provider-comparison.md"
+    },
+    {
+      "id": "improvement-classification",
+      "status": "done",
+      "evidence": "evidence/provider-comparison.md"
+    },
+    {
+      "id": "brief-owner-approval",
+      "status": "done"
+    },
+    {
+      "id": "figma-outcome",
+      "status": "done"
+    },
+    {
+      "id": "output-implementation",
+      "status": "done",
+      "evidence": "evidence/implementation-validation.md"
+    },
+    {
+      "id": "parity-validation",
+      "status": "done"
+    },
+    {
+      "id": "documentation-selector",
+      "status": "done"
+    },
+    {
+      "id": "release",
+      "status": "pending"
+    }
+  ],
+  "evidence": [
+    {
+      "type": "repo-contract",
+      "path": "evidence/current-contract.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "upstream-benchmark",
+      "path": "evidence/upstream-benchmark.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "output-parity",
+      "path": "evidence/provider-comparison.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-live-contract",
+      "path": "evidence/figma-live-contract.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-screenshot",
+      "path": "evidence/figma-popover-root-2026-08-03.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-model-comparison",
+      "path": "evidence/figma-model-comparison.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-model-screenshot",
+      "path": "evidence/figma-model-modal-2026-08-03.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-model-screenshot",
+      "path": "evidence/figma-model-tooltip-2026-08-03.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-model-screenshot",
+      "path": "evidence/figma-model-menu-2026-08-03.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "figma-snapshot",
+      "path": ".figma-snapshot.json",
+      "scope": "repo",
+      "status": "stale",
+      "freshness": "stale"
+    },
+    {
+      "type": "implementation-validation",
+      "path": "evidence/implementation-validation.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "visual-comparison-web",
+      "path": "evidence/web-open-2026-08-28.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "visual-comparison-ark",
+      "path": "evidence/ark-open-2026-08-28.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "visual-comparison-react",
+      "path": "evidence/react-open-2026-08-28.png",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ import {
 
 export default {
   id: 'vnext-provider-spike',
-  title: 'vNext/React components',
+  title: 'Internal/Ark + Zag comparison',
   tags: ['autodocs'],
   parameters: {
     docs: {

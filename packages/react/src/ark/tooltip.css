@@ -1,0 +1,25 @@
+.ds-ark-tooltip__positioner {
+  z-index: var(--ds-z-tooltip);
+  max-inline-size: var(--available-width);
+}
+
+.ds-tooltip__content.ds-ark-tooltip__content {
+  position: relative;
+  inset: auto;
+  margin: 0;
+  transform: none;
+  pointer-events: auto;
+}
+
+.ds-tooltip__content.ds-ark-tooltip__content::before {
+  display: none;
+}
+
+.ds-ark-tooltip__arrow {
+  --arrow-background: var(--ds-tooltip-arrow-fill-default);
+  --arrow-size: var(--ds-tooltip-arrow-base-default);
+}
+
+.ds-ark-tooltip__arrow-tip {
+  background: var(--ds-tooltip-arrow-fill-default);
+}

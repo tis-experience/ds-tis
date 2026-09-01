@@ -41,8 +41,42 @@
     "registry": "registry.json",
     "registryManifest": "https://tis-experience.github.io/ds-tis/registry/manifest.json"
   },
+  "outputPolicy": {
+    "adr": "ADR-023",
+    "mode": "coexisting-user-choice",
+    "defaultOutput": "web-html-css-js",
+    "outputs": [
+      {
+        "id": "web-html-css-js",
+        "key": "web",
+        "label": "HTML/CSS/JS",
+        "distribution": "npm"
+      },
+      {
+        "id": "ark-zag",
+        "key": "ark",
+        "label": "Ark/Zag",
+        "distribution": "technology-adapters"
+      },
+      {
+        "id": "react-shadcn-base-ui",
+        "key": "react",
+        "label": "React · shadcn/Base UI",
+        "distribution": "shadcn-registry"
+      },
+      {
+        "id": "angular-native",
+        "key": "angular",
+        "label": "Angular",
+        "distribution": "angular-package"
+      }
+    ],
+    "selectsWinner": false,
+    "sharedContractDoesNotMeanSharedImplementation": true
+  },
   "technologies": {
     "web": {
+      "outputId": "web-html-css-js",
       "status": "stable",
       "distribution": "npm",
       "package": "ds-tis",
@@ -62,12 +96,118 @@
         }
       }
     },
+    "ark": {
+      "outputId": "ark-zag",
+      "status": "beta",
+      "distribution": "technology-adapters",
+      "behaviorArchitecture": "ark-zag",
+      "package": null,
+      "note": "Saída independente por tecnologia; o primeiro adapter validado é React e não é distribuído pelo registry shadcn.",
+      "componentCount": 13,
+      "components": [
+        {
+          "slug": "accordion",
+          "adapter": "packages/react/src/ark/accordion.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-accordion--playground"
+        },
+        {
+          "slug": "button",
+          "adapter": "packages/react/src/ark/button.jsx",
+          "framework": "React",
+          "provider": "Ark UI Factory",
+          "storyId": "ark-button--playground"
+        },
+        {
+          "slug": "checkbox",
+          "adapter": "packages/react/src/ark/checkbox.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-checkbox--playground"
+        },
+        {
+          "slug": "combobox",
+          "adapter": "packages/react/src/ark/combobox.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-combobox--playground"
+        },
+        {
+          "slug": "menu",
+          "adapter": "packages/react/src/ark/menu.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-menu--playground"
+        },
+        {
+          "slug": "modal",
+          "adapter": "packages/react/src/ark/modal.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-modal--playground"
+        },
+        {
+          "slug": "popover",
+          "adapter": "packages/react/src/ark/popover.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-popover--playground"
+        },
+        {
+          "slug": "radio",
+          "adapter": "packages/react/src/ark/radio.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-radio--playground"
+        },
+        {
+          "slug": "select",
+          "adapter": "packages/react/src/ark/select.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-select--playground"
+        },
+        {
+          "slug": "tabs",
+          "adapter": "packages/react/src/ark/tabs.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-tabs--playground"
+        },
+        {
+          "slug": "toast",
+          "adapter": "packages/react/src/ark/toast.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-toast--playground"
+        },
+        {
+          "slug": "toggle",
+          "adapter": "packages/react/src/ark/toggle.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-toggle--playground"
+        },
+        {
+          "slug": "tooltip",
+          "adapter": "packages/react/src/ark/tooltip.jsx",
+          "framework": "React",
+          "provider": "Ark UI + Zag",
+          "storyId": "ark-tooltip--playground"
+        }
+      ]
+    },
     "react": {
+      "outputId": "react-shadcn-base-ui",
       "status": "beta",
       "distribution": "shadcn-registry",
+      "behaviorArchitecture": "base-ui",
+      "currentBehaviorTrack": "react-shadcn-base-ui",
+      "providerPolicy": "Base UI is the behavior provider for this React output; ADR-022 keeps Web and Ark/Zag as separate coexisting outputs.",
       "package": null,
       "note": "Source distribution; @tis/react is not a public package.",
-      "componentCount": 9,
+      "componentCount": 22,
       "registry": {
         "channel": "v1",
         "baseUrl": "https://tis-experience.github.io/ds-tis/registry/v1",
@@ -89,49 +229,168 @@
         {
           "slug": "accordion",
           "item": "accordion",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "alert",
+          "item": "alert",
+          "provider": "React composition",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "badge",
+          "item": "badge",
+          "provider": "React composition",
+          "providerRole": "native-or-composition"
         },
         {
           "slug": "button",
           "item": "button",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "card",
+          "item": "card",
+          "provider": "React composition",
+          "providerRole": "native-or-composition"
         },
         {
           "slug": "checkbox",
           "item": "checkbox",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "combobox",
+          "item": "combobox",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "divider",
+          "item": "separator",
+          "provider": "Native React",
+          "providerRole": "native-or-composition"
         },
         {
           "slug": "form-field",
           "item": "field",
-          "provider": "React composition"
+          "provider": "React composition",
+          "providerRole": "native-or-composition"
         },
         {
           "slug": "input",
           "item": "input",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "menu",
+          "item": "menu",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
         },
         {
           "slug": "modal",
           "item": "dialog",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "popover",
+          "item": "popover",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
         },
         {
           "slug": "radio",
           "item": "radio-group",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "select",
+          "item": "select",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "skeleton",
+          "item": "skeleton",
+          "provider": "React presentation",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "spinner",
+          "item": "spinner",
+          "provider": "React presentation",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "tabs",
+          "item": "tabs",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
         },
         {
           "slug": "textarea",
           "item": "textarea",
-          "provider": "Native React"
+          "provider": "Native React",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "toast",
+          "item": "toast",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
         },
         {
           "slug": "toggle",
           "item": "switch",
-          "provider": "Base UI"
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
+          "slug": "tooltip",
+          "item": "tooltip",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
         }
       ]
+    },
+    "angular": {
+      "outputId": "angular-native",
+      "status": "beta",
+      "distribution": "angular-package",
+      "package": "@tis/angular",
+      "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
+      "publicRegistry": false,
+      "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
+      "componentCount": 3,
+      "components": [
+        {
+          "slug": "accordion",
+          "entrypoint": "accordion",
+          "primitive": "@angular/aria/accordion",
+          "storyId": "angular-accordion--playground"
+        },
+        {
+          "slug": "button",
+          "entrypoint": "button",
+          "primitive": "native button",
+          "storyId": "angular-button--playground"
+        },
+        {
+          "slug": "popover",
+          "entrypoint": "popover",
+          "primitive": "@angular/cdk/overlay + portal + a11y",
+          "storyId": "angular-popover--playground"
+        }
+      ],
+      "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/",
+      "storybook": "https://tis-experience.github.io/ds-tis/next/storybook-angular/"
     }
   },
   "responsive": {

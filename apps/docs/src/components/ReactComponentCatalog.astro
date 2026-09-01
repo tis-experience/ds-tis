@@ -1,0 +1,41 @@
+---
+import { getReactComponentGroups } from '../lib/react-component-catalog.mjs';
+
+interface Props {
+  locale?: 'pt-br' | 'en';
+}
+
+const { locale = 'pt-br' } = Astro.props;
+const isEnglish = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const groups = getReactComponentGroups(locale);
+const componentHref = (slug: string) => `${base}/${locale}/react/components/${slug}/`;
+---
+
+<div
+  class="ds-component-catalog"
+  data-component-catalog
+  data-component-count={groups.reduce((total, group) => total + group.components.length, 0)}
+>
+  {
+    groups.map((group) => (
+      <section class="ds-component-catalog__group" data-component-category={group.id}>
+        <header class="ds-component-catalog__group-header">
+          <h2>{group.label}</h2>
+          <p>{group.description}</p>
+        </header>
+        <ul aria-label={`${group.label} · ${isEnglish ? 'React components' : 'componentes React'}`}>
+          {group.components.map((component) => (
+            <li>
+              <a href={componentHref(component.slug)}>
+                <span class="ds-component-catalog__name">{component.name}</span>
+                <span class="ds-component-catalog__description">{component.description}</span>
+                <span class="ds-component-catalog__arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

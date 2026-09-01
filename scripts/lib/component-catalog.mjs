@@ -86,6 +86,93 @@ export const RESPONSIVE_CONTRACT = {
   ],
 };
 
+export const COMPONENT_CATEGORIES = {
+  actions: {
+    order: 1,
+    label: { pt: "Ações", en: "Actions" },
+    description: {
+      pt: "Componentes que iniciam ou confirmam uma ação.",
+      en: "Components that start or confirm an action.",
+    },
+  },
+  "content-structure": {
+    order: 2,
+    label: { pt: "Conteúdo e estrutura", en: "Content and structure" },
+    description: {
+      pt: "Elementos para organizar, separar e apresentar informação.",
+      en: "Elements used to organize, separate, and present information.",
+    },
+  },
+  "input-selection": {
+    order: 3,
+    label: { pt: "Entrada e seleção", en: "Input and selection" },
+    description: {
+      pt: "Controles para coletar, editar e selecionar dados.",
+      en: "Controls used to collect, edit, and select data.",
+    },
+  },
+  "feedback-status": {
+    order: 4,
+    label: { pt: "Feedback e status", en: "Feedback and status" },
+    description: {
+      pt: "Componentes que comunicam resultado, progresso ou estado.",
+      en: "Components that communicate outcomes, progress, or status.",
+    },
+  },
+  navigation: {
+    order: 5,
+    label: { pt: "Navegação", en: "Navigation" },
+    description: {
+      pt: "Padrões para orientar deslocamento e localização no produto.",
+      en: "Patterns used to orient movement and location in a product.",
+    },
+  },
+  "overlay-disclosure": {
+    order: 6,
+    label: { pt: "Overlay e disclosure", en: "Overlay and disclosure" },
+    description: {
+      pt: "Componentes que revelam conteúdo contextual ou em uma nova camada.",
+      en: "Components that reveal contextual content or a new interface layer.",
+    },
+  },
+};
+
+const COMPONENT_CATEGORY_BY_SLUG = {
+  accordion: "overlay-disclosure",
+  alert: "feedback-status",
+  avatar: "content-structure",
+  badge: "feedback-status",
+  breadcrumb: "navigation",
+  button: "actions",
+  card: "content-structure",
+  checkbox: "input-selection",
+  combobox: "input-selection",
+  divider: "content-structure",
+  "form-field": "input-selection",
+  input: "input-selection",
+  menu: "navigation",
+  modal: "overlay-disclosure",
+  pagination: "navigation",
+  popover: "overlay-disclosure",
+  radio: "input-selection",
+  select: "input-selection",
+  skeleton: "feedback-status",
+  spinner: "feedback-status",
+  table: "content-structure",
+  tabs: "navigation",
+  textarea: "input-selection",
+  toast: "feedback-status",
+  toggle: "input-selection",
+  tooltip: "overlay-disclosure",
+};
+
+export function categoryFor(component) {
+  const id = COMPONENT_CATEGORY_BY_SLUG[component.slug];
+  const category = COMPONENT_CATEGORIES[id];
+  if (!category) throw new Error(`Categoria ausente em ${component.slug}`);
+  return { id, ...category };
+}
+
 const RESPONSIVE_PROFILE_BY_SLUG = {
   button: "consumer-selectable-width",
   modal: "viewport-constrained",
