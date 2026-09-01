@@ -326,7 +326,9 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   Os actions usam dois Buttons alinhados, as quatro setas preservam contorno e
   preenchimento sem divisória, e a anatomia compacta identifica Trigger, Panel,
   Header, Body, Actions e Arrow com seis marcadores numerados. Rebuilds parciais
-  do portal preservam também o Storybook Angular, evitando previews em 404.
+  do portal preservam também o Storybook Angular, evitando previews em 404. Os
+  exemplos com Content Slot recebem altura própria para exibir campo e actions
+  completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
 - **Quarta saída tecnológica Angular nativa em beta de workspace.** Button,
@@ -1583,7 +1585,7 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-08-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
 23 decisões registradas.
@@ -2251,7 +2253,7 @@ apresentadas como comportamento aprovado do sistema.
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-08-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -23391,7 +23393,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-08-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
