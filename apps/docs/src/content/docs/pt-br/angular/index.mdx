@@ -1,0 +1,42 @@
+---
+title: Integração Angular
+description: Consuma a biblioteca Angular nativa beta do DS TIS sem duplicar CSS ou runtime Web.
+sidebar:
+  label: Angular
+  order: 3
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+A saída Angular é uma biblioteca nativa e independente. Ela reutiliza o contrato
+visual de `ds-tis/css`, mas não importa componentes, source ou runtime das saídas
+Web e React.
+
+<Aside type="caution" title="Beta de workspace">
+  `@tis/angular` ainda não está publicado no registry público do npm. A evidência
+  atual usa o tarball local `dist/tis-angular-0.0.0-beta.0.tgz`, instalado num
+  consumer Angular separado.
+</Aside>
+
+## Instalação validada
+
+```bash
+npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis
+```
+
+No CSS global da aplicação:
+
+```css
+@import "ds-tis/css";
+@import "@angular/cdk/overlay-prebuilt.css";
+```
+
+## Cobertura atual
+
+- `@tis/angular/button`: componente standalone com `button` nativo;
+- `@tis/angular/accordion`: diretivas standalone sobre Angular Aria;
+- `@tis/angular/popover`: componente standalone sobre CDK Overlay/Portal/A11y;
+- Modal: planejado, sem contrato instalável anunciado.
+
+Cada entrypoint tem import, bundle e testes próprios. Os testes do consumer cobrem
+build de produção, forms/submit, teclado, foco, responsividade, tema e Axe.

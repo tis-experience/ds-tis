@@ -10,6 +10,7 @@ const EXPECTED_TOP_LEVEL = [".nojekyll", "css", "docs", "index.html", "js", "nex
 const STORYBOOK_DIR = path.join(SITE_DIR, "storybook");
 const VNEXT_DIR = path.join(SITE_DIR, "next");
 const VNEXT_STORYBOOK_DIR = path.join(VNEXT_DIR, "storybook");
+const ANGULAR_STORYBOOK_DIR = path.join(VNEXT_DIR, "storybook-angular");
 const REGISTRY_DIR = path.join(SITE_DIR, "registry");
 const packageJson = readJson(path.join(ROOT, "package.json"));
 const errors = [];
@@ -29,6 +30,7 @@ if (fs.existsSync(SITE_DIR)) {
       file.endsWith(".html")
       && !file.startsWith(`${STORYBOOK_DIR}${path.sep}`)
       && !file.startsWith(`${VNEXT_STORYBOOK_DIR}${path.sep}`)
+      && !file.startsWith(`${ANGULAR_STORYBOOK_DIR}${path.sep}`)
   );
   const home = fs.readFileSync(path.join(SITE_DIR, "index.html"), "utf8");
   const navigation = fs.readFileSync(path.join(SITE_DIR, "js", "main.js"), "utf8");
@@ -39,6 +41,10 @@ if (fs.existsSync(SITE_DIR)) {
       fs.existsSync(path.join(VNEXT_STORYBOOK_DIR, requiredFile)),
       `next/storybook/${requiredFile}: artefato ausente`
     );
+    expect(
+      fs.existsSync(path.join(ANGULAR_STORYBOOK_DIR, requiredFile)),
+      `next/storybook-angular/${requiredFile}: artefato ausente`
+    );
   }
   expect(fs.existsSync(path.join(VNEXT_DIR, "index.html")), "next/index.html: portal Astro ausente");
 
@@ -48,15 +54,28 @@ if (fs.existsSync(SITE_DIR)) {
     const registryManifest = readJson(registryManifestPath);
     const expectedRegistryItems = [
       "accordion",
+      "alert",
+      "badge",
       "button",
+      "card",
       "checkbox",
+      "combobox",
       "dialog",
       "field",
       "input",
+      "menu",
+      "popover",
       "radio-group",
+      "select",
+      "separator",
+      "skeleton",
+      "spinner",
       "switch",
+      "tabs",
       "textarea",
       "tis-base",
+      "toast",
+      "tooltip",
     ];
     expect(registryManifest.schema === "ds-tis/shadcn-registry", "registry manifest: schema inválido");
     expect(registryManifest.status === "beta", "registry manifest: status deve ser beta");

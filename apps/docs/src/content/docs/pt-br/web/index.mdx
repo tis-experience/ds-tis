@@ -1,23 +1,12 @@
 ---
-title: Web CSS
+title: Integração Web CSS
 description: Implementação estável e agnóstica de framework para aplicações web.
 sidebar:
-  label: Visão geral · Web CSS
+  label: Web CSS
   order: 1
 ---
 
-import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
-import DocumentContext from '../../../../components/DocumentContext.astro';
-
-<DocumentContext
-  technology="web"
-  v1Path="/"
-  technologies={[
-    { label: 'Visão geral', value: 'overview', path: 'pt-br/' },
-    { label: 'Web CSS', value: 'web', path: 'pt-br/web/' },
-    { label: 'React', value: 'react', path: 'pt-br/react/' },
-  ]}
-/>
+import { Aside } from '@astrojs/starlight/components';
 
 A linha Web CSS é a implementação estável da v1: tokens DTCG, CSS, runtimes
 JavaScript opt-in e contratos consumíveis sem exigir um framework específico.
@@ -45,17 +34,9 @@ JavaScript opt-in e contratos consumíveis sem exigir um framework específico.
 
 ## Componentes e referências
 
-<CardGrid>
-  <Card title="Button">
-    Consulte o contrato, o uso, a implementação e a acessibilidade.
-    [Abrir Button](./components/button/).
-  </Card>
-  <Card title="Catálogo da v1">
-    A documentação e o Storybook estáveis continuam sendo a referência do catálogo
-    completo. [Abrir documentação](/ds-tis/) ou
-    [abrir Storybook](/ds-tis/storybook/).
-  </Card>
-</CardGrid>
+- [Catálogo estável da v1](/ds-tis/);
+- [Storybook Web CSS](/ds-tis/storybook/);
+- [Button Web CSS](./components/button/).
 
 ## Evolução
 

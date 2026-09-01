@@ -1,0 +1,122 @@
+@import "ds-tis/css";
+@import "@angular/cdk/overlay-prebuilt.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-block-size: 100%;
+  margin: 0;
+  background: var(--ds-background-default);
+  color: var(--ds-content-default);
+  font-family: var(--ds-body-font-family-sans);
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.consumer-shell {
+  inline-size: min(100% - (var(--ds-space-lg) * 2), var(--ds-size-layout-lg));
+  margin-inline: auto;
+  padding-block: var(--ds-space-2xl);
+}
+
+.consumer-header,
+.consumer-section__heading,
+.consumer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-lg);
+  flex-wrap: wrap;
+}
+
+.consumer-header {
+  align-items: flex-start;
+  margin-block-end: var(--ds-space-2xl);
+}
+
+.consumer-header h1,
+.consumer-section h2,
+.consumer-header p {
+  margin: 0;
+}
+
+.consumer-header h1 {
+  margin-block: var(--ds-space-xs);
+  color: var(--ds-content-strong);
+  font-size: var(--ds-body-font-size-3xl);
+  line-height: var(--ds-body-line-height-3xl);
+}
+
+.consumer-eyebrow,
+.consumer-status,
+.consumer-meta {
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.consumer-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: var(--ds-body-letter-spacing-wide);
+}
+
+.consumer-section {
+  display: grid;
+  gap: var(--ds-space-lg);
+  margin-block: var(--ds-space-lg);
+  padding: var(--ds-space-xl);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface-default);
+}
+
+.consumer-row {
+  justify-content: flex-start;
+}
+
+.consumer-section--popover {
+  min-block-size: var(--ds-size-4xl);
+}
+
+.consumer-switch,
+.consumer-field {
+  display: grid;
+  gap: var(--ds-space-xs);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.consumer-switch {
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.consumer-field select {
+  min-block-size: var(--ds-size-lg);
+  padding-inline: var(--ds-space-sm);
+  color: var(--ds-content-default);
+  background: var(--ds-surface-default);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-sm);
+}
+
+@media (max-width: 390px) {
+  .consumer-shell {
+    inline-size: 100%;
+    padding: var(--ds-space-md);
+  }
+
+  .consumer-section {
+    padding: var(--ds-space-md);
+  }
+
+  .consumer-row > *,
+  .consumer-row tis-button,
+  .consumer-row .ds-button {
+    inline-size: 100%;
+  }
+}

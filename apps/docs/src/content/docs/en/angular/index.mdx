@@ -1,0 +1,42 @@
+---
+title: Angular integration
+description: Consume the native beta Angular library without duplicating DS CSS or the Web runtime.
+sidebar:
+  label: Angular
+  order: 3
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The Angular output is a native, independent library. It reuses the visual
+contract from `ds-tis/css`, but does not import components, source, or runtime
+from the Web and React outputs.
+
+<Aside type="caution" title="Workspace beta">
+  `@tis/angular` is not published on the public npm registry. Current evidence
+  installs the local `dist/tis-angular-0.0.0-beta.0.tgz` tarball into a separate
+  Angular consumer.
+</Aside>
+
+## Validated installation
+
+```bash
+npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis
+```
+
+In the application's global CSS:
+
+```css
+@import "ds-tis/css";
+@import "@angular/cdk/overlay-prebuilt.css";
+```
+
+## Current coverage
+
+- `@tis/angular/button`: standalone component with a native `button`;
+- `@tis/angular/accordion`: standalone directives over Angular Aria;
+- `@tis/angular/popover`: standalone component over CDK Overlay/Portal/A11y;
+- Modal: planned, with no installable contract advertised.
+
+Each entrypoint has independent imports, bundles, and tests. Consumer checks cover
+production build, forms/submit, keyboard, focus, responsiveness, theme, and Axe.

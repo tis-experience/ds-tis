@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-023 — Quatro saídas de implementação com Angular nativo — Design System</title>
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../layout.css">
+  <style>
+    .ds-md-content h1, .ds-md-content h2, .ds-md-content h3 { margin-top: var(--ds-dimension-32); margin-bottom: var(--ds-dimension-12); color: var(--ds-content-default); }
+    .ds-md-content h1 { font-size: var(--ds-body-font-size-2xl); font-weight: var(--ds-body-font-weight-semibold); margin-top: 0; }
+    .ds-md-content h2 { font-size: var(--ds-body-font-size-xl); font-weight: var(--ds-body-font-weight-semibold); border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); padding-top: var(--ds-dimension-24); }
+    .ds-md-content h3 { font-size: var(--ds-body-font-size-lg); font-weight: var(--ds-body-font-weight-semibold); }
+    .ds-md-content p { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content ul, .ds-md-content ol { color: var(--ds-content-default); line-height: var(--ds-body-line-height-md); padding-left: var(--ds-dimension-24); margin: var(--ds-dimension-12) 0; }
+    .ds-md-content li { margin: var(--ds-dimension-4) 0; }
+    .ds-md-content code { font-family: var(--ds-font-family-mono); font-size: 0.9em; background: var(--ds-background-subtle); color: var(--ds-link-content-default); padding: 1px var(--ds-dimension-4); border-radius: var(--ds-radius-sm); }
+    .ds-md-content pre { background: var(--ds-background-inverse); color: var(--ds-content-inverse); padding: var(--ds-dimension-16); border-radius: var(--ds-radius-md); overflow-x: auto; font-size: var(--ds-body-font-size-sm); margin: var(--ds-dimension-16) 0; }
+    .ds-md-content pre code { background: none; color: inherit; padding: 0; }
+    .ds-md-content table { width: 100%; border-collapse: collapse; margin: var(--ds-dimension-16) 0; font-size: var(--ds-body-font-size-sm); }
+    .ds-md-content table th, .ds-md-content table td { text-align: left; padding: var(--ds-dimension-8) var(--ds-dimension-12); border-bottom: var(--ds-border-width-1) solid var(--ds-border-default); }
+    .ds-md-content table th { font-weight: var(--ds-body-font-weight-semibold); background: var(--ds-background-subtle); }
+    .ds-md-content a { color: var(--ds-link-content-default); }
+    .ds-md-content a:hover { color: var(--ds-link-content-hover); }
+    .ds-md-content blockquote { border-left: 3px solid var(--ds-border-default); margin: var(--ds-dimension-16) 0; padding: var(--ds-dimension-8) var(--ds-dimension-16); color: var(--ds-content-subtle); font-style: italic; }
+    .ds-md-content hr { border: none; border-top: var(--ds-border-width-1) solid var(--ds-border-subtle); margin: var(--ds-dimension-32) 0; }
+    .ds-md-content strong { color: var(--ds-content-default); }
+  </style>
+  <script>
+    (function(){var l=localStorage.getItem('ds-lang');if(l)document.documentElement.setAttribute('lang',l)})();
+  </script>
+</head>
+<body>
+
+<header class="ds-site-header">
+  <div style="display:flex;align-items:center;gap:var(--ds-dimension-16)">
+    <button class="ds-menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="../../index.html" class="ds-site-header__brand" aria-label="TIS Design System">
+      <img class="ds-site-header__logo" src="../assets/logo-tis-mark.svg" alt="TIS" width="36" height="36">
+      <span class="ds-site-header__title ds-site-header__title--brand">TIS</span>
+      <span class="ds-site-header__brand-separator" aria-hidden="true"></span>
+      <span class="ds-site-header__title ds-site-header__title--product">Design System</span>
+    </a>
+  </div>
+  <div class="ds-site-header__actions">
+    <button class="ds-button ds-button--ghost ds-button--sm" id="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode"><svg class="ds-button__icon ds-site-header__mode-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><span class="ds-button__label">Dark</span></button>
+  </div>
+</header>
+<div class="ds-sidebar-overlay" id="sidebar-overlay"></div>
+<nav class="ds-sidebar" id="sidebar" aria-label="Main navigation"></nav>
+
+<main class="ds-main">
+  <div class="ds-section">
+    <h1 class="ds-section__title">ADR-023 — Quatro saídas de implementação com Angular nativo</h1>
+    <p class="ds-section__subtitle">Status: <strong>Aceita</strong> · Data: 2026-08-28</p>
+  </div>
+
+  <div class="ds-callout ds-callout--info">
+    Este arquivo é gerado automaticamente por <code>scripts/sync-docs.mjs</code>. Editar a fonte original, não este HTML.
+  </div>
+
+  <div class="ds-md-content">
+<ul>
+<li><strong>Status:</strong> Aceita</li>
+<li><strong>Data:</strong> 2026-08-28</li>
+<li><strong>Substitui parcialmente:</strong> ADR-022, na quantidade de saídas públicas e no seletor documental</li>
+<li><strong>Relaciona:</strong> ADR-002, ADR-003, ADR-019, ADR-020, ADR-021, ADR-022</li>
+</ul>
+<h2>Contexto</h2>
+<p>A ADR-022 formalizou três saídas independentes para o DS TIS: HTML/CSS/JavaScript,
+Ark/Zag e React com shadcn/Base UI. Essa decisão preservou o core visual
+agnóstico, mas não oferece uma biblioteca nativa para aplicações Angular.</p>
+<p>Angular possui primitives oficiais para este problema. Angular Aria entrega
+diretivas headless para padrões WAI-ARIA, enquanto o Angular CDK fornece Overlay,
+Portal e utilitários de acessibilidade. Usar essas ferramentas permite expor uma
+API Angular legítima sem introduzir Angular Material visual, React, Ark/Zag,
+Web Components ou uma cópia do CSS e dos tokens do DS.</p>
+<h2>Decisão</h2>
+<h3>1. O DS TIS passa a ter quatro saídas públicas coexistentes</h3>
+<table>
+<thead>
+<tr>
+<th>ID estável</th>
+<th>Nome documental</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>web-html-css-js</code></td>
+<td>HTML/CSS/JS</td>
+<td>Implementação agnóstica e estável distribuída pelo pacote <code>ds-tis</code>.</td>
+</tr>
+<tr>
+<td><code>ark-zag</code></td>
+<td>Ark/Zag</td>
+<td>Adapters headless por framework apoiados em Ark UI e Zag.</td>
+</tr>
+<tr>
+<td><code>react-shadcn-base-ui</code></td>
+<td>React · shadcn/Base UI</td>
+<td>Source React distribuído pelo registry shadcn, com Base UI quando necessário.</td>
+</tr>
+<tr>
+<td><code>angular-native</code></td>
+<td>Angular</td>
+<td>Biblioteca Angular nativa, com HTML nativo, Angular Aria e Angular CDK conforme o padrão.</td>
+</tr>
+</tbody></table>
+<p>As quatro saídas são independentes. Nenhuma é provider universal, fallback ou
+candidata automática a substituir outra. Cada componente declara o estado real
+de cada saída: <code>estável</code>, <code>beta</code>, <code>planejada</code> ou <code>indisponível</code>.</p>
+<h3>2. A saída Angular é uma biblioteca Angular nativa</h3>
+<p>A saída usa o package futuro <code>@tis/angular</code>, componentes standalone, inputs e
+outputs tipados, signals quando adequados, content projection e entrypoints
+secundários tree-shakable.</p>
+<p>As responsabilidades comportamentais seguem esta ordem:</p>
+<ol>
+<li>HTML nativo quando a plataforma já cobre o comportamento;</li>
+<li><code>@angular/aria</code> para patterns headless oficialmente disponíveis;</li>
+<li>Angular CDK, especialmente Overlay, Portal e A11y, para posicionamento,
+lifecycle de overlays, foco e comportamentos complementares.</li>
+</ol>
+<p>Form controls Angular devem integrar Angular Forms e implementar
+<code>ControlValueAccessor</code>. Esse requisito não se aplica a Button, Accordion ou
+Popover porque nenhum deles representa um value-bearing form control.</p>
+<p>Angular Material visual, Tailwind, React, Base UI, shadcn, Ark UI e Zag não fazem
+parte dessa implementação. Angular Elements e Web Components não são usados como
+camada principal.</p>
+<h3>3. Tokens, CSS e contrato visual permanecem compartilhados</h3>
+<p>O consumidor Angular importa o CSS público do DS:</p>
+<pre tabindex="0"><code class="language-css">@import &quot;ds-tis/css&quot;;
+</code></pre>
+<p>Os componentes Angular aplicam a anatomia e as classes públicas existentes,
+como <code>ds-button</code>, <code>ds-accordion</code> e <code>ds-popover</code>. A biblioteca não duplica tokens,
+não empacota uma segunda cópia do CSS global e não altera o contrato Web estável.</p>
+<p>CSS local de adapter é permitido somente para adaptar uma diferença técnica do
+framework, como o painel portalled do CDK Overlay. Esse CSS deve continuar
+consumindo os tokens e as classes públicas existentes e não pode redefinir a
+linguagem visual do componente.</p>
+<h3>4. Dependências e imports permanecem separados</h3>
+<p>Cada saída mantém source, dependências, instalação, API, testes, bundle e release
+próprios. São proibidos imports cruzados entre as implementações.</p>
+<p>A saída Angular declara Angular, Angular Aria e Angular CDK como peer
+dependencies. O pacote <code>ds-tis</code> permanece uma dependência de consumo visual do
+aplicativo, não uma cópia incorporada dentro de <code>@tis/angular</code>.</p>
+<h3>5. Storybook e documentação preservam o isolamento</h3>
+<p>Angular possui uma instância Storybook separada, com renderer Angular e build
+estático próprio. O Storybook React não é convertido nem usado como renderer da
+saída Angular.</p>
+<p>O seletor documental passa a usar a ordem estável:</p>
+<pre tabindex="0"><code class="language-txt">[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ] [ Angular ]
+</code></pre>
+<p>Uma saída Angular permanece <code>planejada</code> enquanto não houver, em conjunto, pacote
+instalável, story funcional e consumer real validado. Após esses gates, pode ser
+apresentada como <code>beta</code>; estabilidade exige decisão posterior de release.</p>
+<h2>Consequências</h2>
+<h3>Positivas</h3>
+<ul>
+<li>aplicações Angular recebem uma API nativa e tree-shakable;</li>
+<li>Angular Aria e CDK concentram comportamento complexo mantido pelo ecossistema
+oficial do framework;</li>
+<li>o HTML/CSS/JavaScript estável e as saídas React e Ark/Zag permanecem intactos;</li>
+<li>a identidade visual continua centralizada nos tokens, no CSS e no contrato TIS;</li>
+<li>testes e bundle podem ser avaliados por entrypoint e por tecnologia.</li>
+</ul>
+<h3>Negativas</h3>
+<ul>
+<li>uma quarta saída aumenta custo de manutenção, CI, documentação e atualização;</li>
+<li><code>@storybook/angular-vite</code> ainda está em preview e precisa de acompanhamento;</li>
+<li>overlays portalled exigem uma adaptação CSS técnica, documentada e testada;</li>
+<li>Angular, Angular Aria e CDK precisam avançar em versões compatíveis entre si.</li>
+</ul>
+<h2>Alternativas consideradas</h2>
+<h3>Reutilizar Angular Elements ou Web Components</h3>
+<p>Descartada. Entregaria uma camada de interoperabilidade, não uma biblioteca
+Angular nativa com signals, content projection, forms e entrypoints legítimos.</p>
+<h3>Usar Angular Material visual</h3>
+<p>Descartada. Introduziria outra linguagem visual e duplicaria decisões que já
+pertencem ao DS TIS. Apenas os primitives headless do CDK são permitidos.</p>
+<h3>Reutilizar Ark/Zag ou a implementação React dentro de Angular</h3>
+<p>Descartada. Criaria imports cruzados, APIs não idiomáticas e um provider universal
+implícito, contrariando a coexistência independente.</p>
+<h3>Manter Angular apenas como exemplo de consumo do HTML agnóstico</h3>
+<p>Descartada. Não atende distribuição, typing, lifecycle, Forms, signals nem
+composição esperada por consumidores Angular.</p>
+<h2>Referências</h2>
+<ul>
+<li>ADR-022 — Três saídas de implementação coexistentes.</li>
+<li>Angular — Creating libraries: <a href="https://angular.dev/tools/libraries/creating-libraries">https://angular.dev/tools/libraries/creating-libraries</a></li>
+<li>Angular Aria — Accordion: <a href="https://angular.dev/guide/aria/accordion">https://angular.dev/guide/aria/accordion</a></li>
+<li>Angular CDK — <a href="https://material.angular.dev/cdk">https://material.angular.dev/cdk</a></li>
+<li>Storybook for Angular with Vite: <a href="https://storybook.js.org/docs/get-started/frameworks/angular-vite">https://storybook.js.org/docs/get-started/frameworks/angular-vite</a></li>
+</ul>
+
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

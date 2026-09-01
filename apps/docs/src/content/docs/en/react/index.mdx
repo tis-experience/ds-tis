@@ -1,73 +1,90 @@
 ---
-title: React
-description: Beta consumption of React components distributed as source through the DS TIS shadcn registry.
+title: React integration
+description: Install beta React components through the DS TIS shadcn source registry.
 sidebar:
-  label: Overview · React
-  order: 1
+  label: React
+  order: 2
 ---
 
-import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
-import DocumentContext from '../../../../components/DocumentContext.astro';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<DocumentContext
-  technology="react"
-  v1Path="/"
-  technologies={[
-    { label: 'Overview', value: 'overview', path: 'en/' },
-    { label: 'Web CSS', value: 'web', path: 'en/web/' },
-    { label: 'React', value: 'react', path: 'en/react/' },
-  ]}
-/>
+React is distributed as **source**: the shadcn CLI copies the component into the
+application, installs its dependencies, and preserves `ds-tis/css` as the visual
+contract.
 
-The React implementation is now available in beta through a versioned shadcn
-registry. Source code is added to the consumer project while continuing to use
-the public DS TIS CSS, tokens, and anatomy.
-
-<Aside type="note" title="Source distribution, not a React package">
-  `@tis/react` remains private and is not a public dependency. The beta contract
-  is the source registry under `/registry/v1`, validated in an installed
-  React/Vite consumer with browser interaction and Axe.
+<Aside type="caution" title="Beta with a versioned channel">
+  The `/registry/v1` channel keeps URLs predictable, but the React API may still
+  receive compatible adjustments before stable promotion. `@tis/react` is not a
+  public package.
 </Aside>
 
-## How it works
+## 1. Configure the namespace
 
-shadcn distributes source into the app. Base UI provides behavior and state
-management only when needed; native elements and React composition cover simple
-cases. The provider does not define the visual language: `ds-tis/css` and TIS
-tokens remain canonical.
+Add the registry to the project's `components.json`:
 
-The `v1` channel stabilizes registry addresses. Because this line is still beta,
-installed source should be reviewed with the rest of the application code.
+```json
+{
+  "registries": {
+    "@tis": "https://tis-experience.github.io/ds-tis/registry/v1/{name}.json"
+  }
+}
+```
 
-## Validated components
+## 2. Install a component
 
-<CardGrid>
-  <Card title="Core and overlay">
-    Accordion, Button, and Modal (`dialog`) have installable source and
-    interaction stories.
-  </Card>
-  <Card title="Forms">
-    Form Field (`field`), Input Text, Textarea, Checkbox, Radio, and Toggle
-    (`switch`) provide the first complete form composition.
-  </Card>
-  <Card title="Installation and catalog">
-    Review commands, providers, item names, and current limits in the
-    [registry catalog](./registry/).
-  </Card>
-  <Card title="Button contract">
-    Review its API, accessibility, and dedicated installation command on
-    [React Button](./components/button/).
-  </Card>
-</CardGrid>
+Choose an item from the [component catalog](./components/) and use its install
+command. Button example:
 
-## Beta guarantees
+<Tabs syncKey="package-manager">
+  <TabItem label="npm">
 
-1. official registry schema validated by the shadcn CLI;
-2. TypeScript source and gzip budgets checked in CI;
-3. installation through the `@tis` namespace in a clean React/Vite fixture;
-4. production build, keyboard, states, responsiveness, and Axe in a browser;
-5. a machine-readable catalog marking each implementation as `stable`, `beta`,
-   or `unavailable`.
+```bash
+npx shadcn@latest add @tis/button
+```
 
-For all remaining components, use the stable Web CSS implementation until
-`docs/api/components.json` publishes `implementations.react.status: "beta"`.
+  </TabItem>
+  <TabItem label="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add @tis/button
+```
+
+  </TabItem>
+  <TabItem label="yarn">
+
+```bash
+yarn dlx shadcn@latest add @tis/button
+```
+
+  </TabItem>
+  <TabItem label="bun">
+
+```bash
+bunx --bun shadcn@latest add @tis/button
+```
+
+  </TabItem>
+</Tabs>
+
+## 3. Load the DS visual layer
+
+Keep the DS import before every global rule:
+
+```css
+@import "ds-tis/css";
+```
+
+## Distribution contract
+
+- installed source is application code and must be reviewed;
+- shadcn provides composition structure and distributes this output's source;
+- Base UI supplies behavioral primitives when needed;
+- HTML/CSS/JS and Ark/Zag are two other coexisting outputs, each with its own
+  source, installation, and tests;
+- cross-output comparison measures parity and never selects a winning provider;
+- native elements and React composition cover simpler cases;
+- DS TIS CSS, tokens, and anatomy remain canonical;
+- build, keyboard, responsiveness, and Axe are validated in a React/Vite consumer.
+
+For automated consumption, read the [AI agent guide](../ai/) and the
+`docs/api/consumer-context.json` manifest.

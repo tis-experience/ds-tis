@@ -1,0 +1,8 @@
+{
+  "extends": "../../../tsconfig.angular.json",
+  "compilerOptions": {
+    "outDir": "../../../out-tsc/angular-consumer-spec",
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}

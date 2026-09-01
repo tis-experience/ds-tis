@@ -1,0 +1,29 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+import ComponentDocumentationPage from '../../../../components/ComponentDocumentationPage.astro';
+
+export function getStaticPaths() {
+  const slugs = ['accordion', 'button', 'modal', 'popover'] as const;
+  return ['pt-br', 'en'].flatMap((locale) =>
+    slugs.map((slug) => ({
+      params: { locale, slug },
+      props: { locale, slug },
+    })),
+  );
+}
+
+const { locale, slug } = Astro.props;
+const names = { accordion: 'Accordion', button: 'Button', modal: 'Modal', popover: 'Popover' };
+---
+
+<StarlightPage
+  frontmatter={{
+    title: names[slug as keyof typeof names],
+    description: locale === 'en' ? 'Native Angular output.' : 'Saída Angular nativa.',
+    tableOfContents: false,
+    lastUpdated: false,
+  }}
+>
+  <ComponentDocumentationPage slug={slug} technology="angular" locale={locale} />
+</StarlightPage>
