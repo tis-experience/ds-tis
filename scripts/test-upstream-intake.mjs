@@ -42,6 +42,34 @@ try {
     }
   };
 
+  const expectValid = (name, mutate) => {
+    const manifest = structuredClone(canonical);
+    for (const evidence of manifest.evidence) {
+      if (evidence.scope === "run") {
+        evidence.path = path.resolve(path.dirname(VALID_MANIFEST), evidence.path);
+      }
+    }
+    mutate(manifest);
+    const manifestPath = path.join(tempDir, `${name}.json`);
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    const validManifest = run([manifestPath]);
+    if (validManifest.status !== 0) {
+      console.error(validManifest.stdout);
+      console.error(validManifest.stderr);
+      throw new Error(`validator must accept ${name}`);
+    }
+  };
+
+  expectValid("gitignored-figma-snapshot", (manifest) => {
+    manifest.evidence.push({
+      type: "figma-snapshot",
+      path: ".figma-snapshot.ci-missing.json",
+      scope: "repo",
+      status: "current",
+      freshness: "fresh",
+    });
+  });
+
   expectInvalid(
     "mixed-provider",
     (manifest) => {

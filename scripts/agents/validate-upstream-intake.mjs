@@ -60,6 +60,7 @@ const FIGMA_OUTCOME_STATUSES = new Set([
   "approved-unchanged",
   "approved-improvement",
 ]);
+const LOCAL_FIGMA_SNAPSHOT_PATH = /^\.figma-snapshot(?:\.[^/]+)?\.json$/;
 
 const errors = [];
 
@@ -95,6 +96,12 @@ function moduleFamilies(modules) {
       (item) => item.includes("@ark-ui/") || item.includes("@zag-js/") || item.includes("ark ui") || item.includes("zag")
     ),
   };
+}
+
+function isLocalFigmaSnapshotEvidence(item, evidencePath, scope) {
+  return item.type === "figma-snapshot"
+    && scope === "repo"
+    && LOCAL_FIGMA_SNAPSHOT_PATH.test(evidencePath);
 }
 
 function validateManifest(file) {
@@ -303,7 +310,10 @@ function validateManifest(file) {
       } else if (evidencePath) {
         const base = scope === "run" ? path.dirname(file) : ROOT;
         const resolved = path.resolve(base, evidencePath);
-        if (!fs.existsSync(resolved)) {
+        // Snapshots Figma são evidência local e gitignored por contrato. O
+        // manifest deve preservar a referência, mas clones limpos e CI não
+        // podem exigir que o ficheiro privado esteja materializado.
+        if (!fs.existsSync(resolved) && !isLocalFigmaSnapshotEvidence(item, evidencePath, scope)) {
           fail(file, `evidence[${index}] path does not exist: ${evidencePath}`);
         }
       }
