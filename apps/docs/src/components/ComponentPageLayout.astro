@@ -1,16 +1,18 @@
 ---
 interface Props {
   slug: string;
-  technology: 'web' | 'react';
+  technology: 'web' | 'ark' | 'react' | 'angular';
+  locale?: 'pt-br' | 'en';
   implementationLabel?: string;
 }
 
 const {
   slug,
   technology,
-  implementationLabel = Astro.currentLocale === 'en' ? 'Implementation' : 'Implementação',
+  locale,
+  implementationLabel = (locale ? locale === 'en' : Astro.currentLocale === 'en') ? 'Implementation' : 'Implementação',
 } = Astro.props;
-const isEnglish = Astro.currentLocale === 'en';
+const isEnglish = locale ? locale === 'en' : Astro.currentLocale === 'en';
 const rootId = `ds-component-${slug}-${technology}`;
 const tabs = [
   { id: 'design', label: 'Design' },
@@ -50,6 +52,14 @@ const tabs = [
         ))
       }
     </div>
+    <div class="ds-component-tabs__select">
+      <label for={`${rootId}-section`}>
+        {isEnglish ? 'Documentation section' : 'Seção da documentação'}
+      </label>
+      <select id={`${rootId}-section`} data-component-panel-select>
+        {tabs.map((tab) => <option value={tab.id}>{tab.label}</option>)}
+      </select>
+    </div>
   </nav>
 
   <div class="ds-component-layout__body">
@@ -80,13 +90,14 @@ const tabs = [
       const panels = Array.from(root.querySelectorAll('[data-component-panel]')).filter(
         (panel) => panel instanceof HTMLElement,
       );
+      const panelSelect = root.querySelector('[data-component-panel-select]');
       const toc = root.querySelector('[data-panel-toc]');
       const tocTitle = root.querySelector('[data-panel-toc-title]');
       const tocList = root.querySelector('[data-panel-toc-list]');
       let headingObserver: IntersectionObserver | undefined;
 
       const syncScrollableRegions = () => {
-        root.querySelectorAll('.ds-token-table, pre').forEach((region) => {
+        root.querySelectorAll('.ds-table-scroll, pre').forEach((region) => {
           if (!(region instanceof HTMLElement)) return;
           const isScrollable = region.scrollWidth > region.clientWidth + 1;
           if (isScrollable) {
@@ -97,7 +108,7 @@ const tabs = [
             if (!region.hasAttribute('aria-label')) {
               region.setAttribute(
                 'aria-label',
-                region.matches('table')
+                region.matches('.ds-table-scroll')
                   ? root.dataset.tableScrollLabel || ''
                   : root.dataset.codeScrollLabel || '',
               );
@@ -119,6 +130,13 @@ const tabs = [
       const panelFor = (id: string) =>
         panels.find((panel) => panel.dataset.componentPanel === id);
 
+      const editorialHeadings = (panel: HTMLElement) =>
+        Array.from(panel.querySelectorAll('h3')).filter(
+          (heading) => !heading.closest(
+            '.ds-preview__canvas, .ds-dodont__preview, .ds-output-preview, .ds-preview, .ds-anatomy, [inert], [role="dialog"], [data-doc-secondary]',
+          ),
+        );
+
       const createHeadingId = (heading: Element, panelId: string, index: number) => {
         if (heading.id) return heading.id;
         const text = (heading.textContent || '')
@@ -133,7 +151,7 @@ const tabs = [
 
       panels.forEach((panel) => {
         const panelId = panel.dataset.componentPanel || 'section';
-        panel.querySelectorAll('h3').forEach((heading, index) => {
+        editorialHeadings(panel).forEach((heading, index) => {
           createHeadingId(heading, panelId, index);
         });
       });
@@ -143,7 +161,7 @@ const tabs = [
         headingObserver?.disconnect();
         tocList.replaceChildren();
 
-        const headings = Array.from(panel.querySelectorAll('h3'));
+        const headings = editorialHeadings(panel);
         const links = new Map<Element, HTMLAnchorElement>();
         headings.forEach((heading, index) => {
           const id = createHeadingId(heading, panel.dataset.componentPanel || 'section', index);
@@ -193,6 +211,7 @@ const tabs = [
           panel.hidden = panel !== currentPanel;
         });
         root.dataset.activePanel = id;
+        if (panelSelect instanceof HTMLSelectElement) panelSelect.value = id;
         buildToc(currentPanel);
         syncScrollableRegions();
         requestAnimationFrame(syncScrollableRegions);
@@ -218,6 +237,10 @@ const tabs = [
           }
         }, { signal });
       });
+
+      if (panelSelect instanceof HTMLSelectElement) {
+        panelSelect.addEventListener('change', () => activate(panelSelect.value), { signal });
+      }
 
       const activateFromHash = () => {
         const id = decodeURIComponent(location.hash.slice(1));
@@ -245,6 +268,20 @@ const tabs = [
     });
   };
 
+  const resetComponentPageScroll = () => {
+    if (location.hash || !document.querySelector('[data-component-layout]')) return;
+    const previousScrollRestoration = history.scrollRestoration;
+    history.scrollRestoration = 'manual';
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      history.scrollRestoration = previousScrollRestoration;
+    });
+  };
+
   initializeComponentLayouts();
-  document.addEventListener('astro:page-load', initializeComponentLayouts);
+  resetComponentPageScroll();
+  document.addEventListener('astro:page-load', () => {
+    initializeComponentLayouts();
+    resetComponentPageScroll();
+  });
 </script>

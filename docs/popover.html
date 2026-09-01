@@ -44,7 +44,7 @@
     </p>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
     <div class="ds-callout ds-callout--success">
       <div class="ds-callout__title"><span data-lang="pt">Use Popover quando</span><span data-lang="en">Use Popover when</span></div>
@@ -58,33 +58,55 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
-    <div class="ds-anatomy-legend">
-      <span data-lang="pt"><strong>1</strong> Trigger — Button que controla abertura e <code>aria-expanded</code>.<br><strong>2</strong> Panel — superfície elevada com <code>role="dialog"</code>.<br><strong>3</strong> Header — title opcional e close absoluto.<br><strong>4</strong> Body — Content Text e Content Slot independentes.<br><strong>5</strong> Actions — até dois Buttons substituíveis e ocultáveis separadamente.<br><strong>6</strong> Arrow — Shape fechada que aponta para o trigger.</span>
-      <span data-lang="en"><strong>1</strong> Trigger — Button controlling open state and <code>aria-expanded</code>.<br><strong>2</strong> Panel — elevated surface with <code>role="dialog"</code>.<br><strong>3</strong> Header — optional title and absolutely positioned close control.<br><strong>4</strong> Body — independent Content Text and Content Slot.<br><strong>5</strong> Actions — up to two independently replaceable and hideable Buttons.<br><strong>6</strong> Arrow — closed Shape pointing to the trigger.</span>
-    </div>
-    <div class="ds-preview">
-      <div class="ds-preview__canvas ds-preview__canvas--centered" style="min-height:var(--ds-size-layout-sm);align-items:flex-start;padding-top:var(--ds-space-section-md);" inert>
-        <div class="ds-popover ds-popover--bottom">
-          <button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button"><span class="ds-button__label"><span data-lang="pt">Trigger</span><span data-lang="en">Trigger</span></span></button>
-          <div class="ds-popover__panel" role="dialog" aria-labelledby="popover-anatomy-title">
-            <div class="ds-popover__header"><h3 class="ds-popover__title" id="popover-anatomy-title"><span data-lang="pt">Título do Popover</span><span data-lang="en">Popover title</span></h3></div>
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl) var(--ds-space-3xl);">
+      <div class="ds-popover ds-popover--bottom ds-popover--no-arrow ds-popover--documentation" inert>
+          <button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button" style="position:relative;">
+            <span class="ds-button__label"><span data-lang="pt">Abrir popover</span><span data-lang="en">Open popover</span></span>
+            <span aria-hidden="true" class="ds-popover-anatomy__connector" style="inset-block-start:calc(-1 * var(--ds-space-2xl));inset-inline-start:50%;block-size:var(--ds-space-2xl);inline-size:var(--ds-border-width-default);"></span>
+            <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-md)));inset-inline-start:50%;transform:translateX(-50%);">1</span>
+          </button>
+          <span class="ds-popover-documentation__arrow" aria-hidden="true">
+            <span class="ds-popover-anatomy__connector" style="inset-block-start:50%;inset-inline-end:100%;block-size:var(--ds-border-width-default);inline-size:var(--ds-space-6xl);"></span>
+            <span class="ds-anatomy__marker" style="inset-block-start:50%;inset-inline-end:calc(100% + var(--ds-space-6xl));transform:translateY(-50%);">6</span>
+          </span>
+          <div class="ds-popover__panel" role="dialog" aria-labelledby="popover-anatomy-title" style="overflow:visible;">
+            <span aria-hidden="true" class="ds-popover-anatomy__connector" style="inset-block-start:var(--ds-space-2xl);inset-inline-end:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);"></span>
+            <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:calc(var(--ds-space-2xl) - (var(--ds-size-md) / 2));inset-inline-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-md)));">2</span>
+            <div class="ds-popover__header" style="position:relative;">
+              <h3 class="ds-popover__title" id="popover-anatomy-title"><span data-lang="pt">Título do Popover</span><span data-lang="en">Popover title</span></h3>
+              <span aria-hidden="true" class="ds-popover-anatomy__connector" style="inset-block-start:50%;inset-inline-start:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:50%;inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-md)));transform:translateY(-50%);">3</span>
+            </div>
             <button class="ds-popover__close" type="button" aria-label="Fechar popover">
               <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
             </button>
-            <div class="ds-popover__body"><p><span data-lang="pt">Conteúdo breve com contexto e actions.</span><span data-lang="en">Concise content with context and actions.</span></p></div>
-            <div class="ds-popover__actions">
+            <div class="ds-popover__body" style="position:relative;">
+              <p><span data-lang="pt">Conteúdo contextual breve.</span><span data-lang="en">Concise contextual content.</span></p>
+              <span aria-hidden="true" class="ds-popover-anatomy__connector" style="inset-block-start:50%;inset-inline-start:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:50%;inset-inline-start:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-md)));transform:translateY(-50%);">4</span>
+            </div>
+            <div class="ds-popover__actions" style="position:relative;">
               <button class="ds-button ds-button--toned ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Cancelar</span><span data-lang="en">Cancel</span></span></button>
               <button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label"><span data-lang="pt">Confirmar</span><span data-lang="en">Confirm</span></span></button>
+              <span aria-hidden="true" class="ds-popover-anatomy__connector" style="inset-block-start:50%;inset-inline-end:calc(-1 * var(--ds-space-2xl));block-size:var(--ds-border-width-default);inline-size:var(--ds-space-2xl);"></span>
+              <span aria-hidden="true" class="ds-anatomy__marker" style="inset-block-start:50%;inset-inline-end:calc(-1 * (var(--ds-space-2xl) + var(--ds-size-md)));transform:translateY(-50%);">5</span>
             </div>
           </div>
-        </div>
       </div>
     </div>
+    <ol class="ds-component-anatomy-list">
+      <li><span data-lang="pt">Trigger — Button que controla abertura e <code>aria-expanded</code>.</span><span data-lang="en">Trigger — Button controlling open state and <code>aria-expanded</code>.</span></li>
+      <li><span data-lang="pt">Panel — superfície elevada com <code>role="dialog"</code>.</span><span data-lang="en">Panel — elevated surface with <code>role="dialog"</code>.</span></li>
+      <li><span data-lang="pt">Header — title opcional e close absoluto.</span><span data-lang="en">Header — optional title and absolutely positioned close control.</span></li>
+      <li><span data-lang="pt">Body — Content Text e Content Slot independentes.</span><span data-lang="en">Body — independent Content Text and Content Slot.</span></li>
+      <li><span data-lang="pt">Actions — até dois Buttons substituíveis e ocultáveis separadamente.</span><span data-lang="en">Actions — up to two independently replaceable and hideable Buttons.</span></li>
+      <li><span data-lang="pt">Arrow — Shape fechada que aponta para o trigger.</span><span data-lang="en">Arrow — closed Shape pointing to the trigger.</span></li>
+    </ol>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Exemplo interativo</span><span data-lang="en">Interactive example</span></h2>
     <div class="ds-preview">
       <div class="ds-preview__tabs" role="tablist">
@@ -145,7 +167,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Content Slot adicional</span><span data-lang="en">Additional Content Slot</span></h2>
     <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
       <span data-lang="pt">O slot é opcional e adicional: não substitui Content Text nem Actions. Use anatomias públicas completas dos componentes inseridos.</span>
@@ -178,7 +200,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="40">
     <h2 class="ds-subsection__title"><span data-lang="pt">Placements</span><span data-lang="en">Placements</span></h2>
     <table class="ds-token-table">
       <thead><tr><th>Modifier</th><th><span data-lang="pt">Posição do panel</span><span data-lang="en">Panel position</span></th></tr></thead>
@@ -191,7 +213,7 @@
     </table>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="code" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Runtime público</span><span data-lang="en">Public runtime</span></h2>
     <p style="color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);">
       <span data-lang="pt">O módulo <code>ds-tis/popover</code> é obrigatório para sincronizar ARIA, foco, Escape, click externo e lifecycle. O Popover é não modal e não prende o foco.</span>
@@ -212,7 +234,7 @@ initPopovers();
 // destroyPopovers(root) ao desmontar / on unmount</code></pre>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="50">
     <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Parte</span><span data-lang="en">Part</span></th><th>Component tokens</th></tr></thead>
@@ -227,7 +249,7 @@ initPopovers();
     </table>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Acessibilidade e teclado</span><span data-lang="en">Accessibility and keyboard</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Entrada</span><span data-lang="en">Input</span></th><th><span data-lang="pt">Comportamento</span><span data-lang="en">Behavior</span></th></tr></thead>
@@ -240,7 +262,7 @@ initPopovers();
     </table>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="tooltip.html" class="ds-related__link">Tooltip</a>

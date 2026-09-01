@@ -1,0 +1,111 @@
+---
+interface Props {
+  storyId: string;
+  title: string;
+  storybook?: 'stable' | 'vnext' | 'angular';
+  size?: 'compact' | 'medium' | 'large';
+}
+
+const { storyId, title, storybook = 'vnext', size = 'medium' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : base;
+const storybookBase = storybook === 'stable'
+  ? `${projectBase}/storybook`
+  : storybook === 'angular'
+    ? `${base}/storybook-angular`
+    : `${base}/storybook`;
+const storyUrl = `${storybookBase}/iframe.html?viewMode=story&id=${storyId}`;
+const storybookUrl = `${storybookBase}/?path=/story/${storyId}`;
+---
+
+<div class={`ds-output-preview ds-output-preview--${size}`} data-output-preview-shell aria-busy="true">
+  <span class="ds-output-preview__status" role="status">
+    {Astro.currentLocale === 'en' ? 'Loading functional preview…' : 'Carregando preview funcional…'}
+  </span>
+  <iframe
+    data-output-preview
+    data-output-storybook={storybook}
+    data-story-url={storyUrl}
+    title={title}
+    loading="eager"
+  ></iframe>
+</div>
+<p class="ds-component-support-link">
+  <a href={storybookUrl} data-output-storybook-link data-storybook-url={storybookUrl}><slot /></a>
+</p>
+
+<script>
+  const setupOutputPreviews = () => {
+    const root = document.documentElement;
+    if (!(root instanceof HTMLElement)) return;
+    const frames = Array.from(document.querySelectorAll('[data-output-preview]')).filter(
+      (frame) => frame instanceof HTMLIFrameElement,
+    );
+    if (!frames.length) return;
+
+    const syncFrame = (frame) => {
+      const source = frame.dataset.storyUrl;
+      if (!source) return;
+      const mode = root.dataset.theme === 'dark' ? 'dark' : 'light';
+      const url = new URL(source, window.location.origin);
+      url.searchParams.set('globals', `mode:${mode}`);
+      const next = `${url.pathname}${url.search}`;
+
+      const link = frame
+        .closest('[data-output-preview-shell]')
+        ?.nextElementSibling
+        ?.querySelector('[data-output-storybook-link]');
+      const storybookSource = link instanceof HTMLAnchorElement
+        ? link.dataset.storybookUrl
+        : undefined;
+      if (link instanceof HTMLAnchorElement && storybookSource) {
+        const storybookTarget = new URL(storybookSource, window.location.origin);
+        storybookTarget.searchParams.set('globals', `mode:${mode}`);
+        link.href = `${storybookTarget.pathname}${storybookTarget.search}`;
+      }
+
+      if (frame.getAttribute('src') !== next) {
+        const shell = frame.closest('[data-output-preview-shell]');
+        shell?.setAttribute('aria-busy', 'true');
+        shell?.removeAttribute('data-loaded');
+        frame.setAttribute('src', next);
+      }
+    };
+
+    const sync = () => frames.forEach(syncFrame);
+
+    frames.forEach((frame) => {
+      if (frame.dataset.loadReady === 'true') return;
+      frame.dataset.loadReady = 'true';
+      frame.addEventListener('load', () => {
+        const shell = frame.closest('[data-output-preview-shell]');
+        shell?.setAttribute('aria-busy', 'false');
+        shell?.setAttribute('data-loaded', 'true');
+      });
+      syncFrame(frame);
+    });
+
+    window.__dsOutputPreviewController?.abort();
+    const controller = new AbortController();
+    window.__dsOutputPreviewController = controller;
+    const { signal } = controller;
+
+    document.addEventListener('change', (event) => {
+      if (
+        event.target instanceof HTMLSelectElement &&
+        event.target.closest('starlight-theme-select')
+      ) {
+        sync();
+        window.requestAnimationFrame(sync);
+      }
+    }, { signal });
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', sync, { signal });
+    document.addEventListener('astro:before-swap', () => {
+      controller.abort();
+    }, { once: true, signal });
+  };
+
+  setupOutputPreviews();
+  document.addEventListener('astro:page-load', setupOutputPreviews);
+</script>

@@ -103,6 +103,7 @@
 
 .ds-popover__body {
   display: flex;
+  margin: 0;
   min-inline-size: 0;
   flex-direction: column;
   gap: var(--ds-popover-body-gap-default);
@@ -138,13 +139,18 @@
 .ds-popover::after {
   position: absolute;
   box-sizing: border-box;
-  z-index: var(--ds-z-tooltip);
+  z-index: calc(var(--ds-z-tooltip) + 1);
   content: none;
   pointer-events: none;
 }
 
 .ds-popover::before {
   background: var(--ds-popover-panel-border-color-default);
+  background: color-mix(
+    in srgb,
+    var(--ds-popover-panel-border-color-default),
+    var(--ds-popover-body-color-default) 25%
+  );
 }
 
 .ds-popover::after {
@@ -280,8 +286,8 @@
   );
 }
 
-.ds-popover--no-arrow::before,
-.ds-popover--no-arrow::after {
+.ds-popover.ds-popover--no-arrow:has(> .ds-popover__panel)::before,
+.ds-popover.ds-popover--no-arrow:has(> .ds-popover__panel)::after {
   content: none;
 }
 

@@ -8,6 +8,8 @@ export default defineConfig({
   base,
   redirects: {
     '/': `${base}/pt-br/`,
+    '/pt-br/react/registry/': `${base}/pt-br/react/`,
+    '/en/react/registry/': `${base}/en/react/`,
   },
   integrations: [
     starlight({
@@ -53,22 +55,16 @@ export default defineConfig({
         {
           label: 'Componentes',
           translations: { en: 'Components' },
+          items: [{ slug: 'components' }],
+        },
+        {
+          label: 'Integração',
+          translations: { en: 'Integration' },
           items: [
-            {
-              label: 'Web CSS',
-              items: [
-                { slug: 'web' },
-                { slug: 'web/components/button' },
-              ],
-            },
-            {
-              label: 'React',
-              items: [
-                { slug: 'react' },
-                { slug: 'react/registry' },
-                { slug: 'react/components/button' },
-              ],
-            },
+            { slug: 'web' },
+            { slug: 'react' },
+            { slug: 'angular' },
+            { slug: 'ai' },
           ],
         },
       ],

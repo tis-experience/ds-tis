@@ -5,14 +5,18 @@ import { getComponentAssets } from '../lib/component-assets';
 interface Props {
   slug: string;
   topic: 'design' | 'usage' | 'code' | 'accessibility';
+  excludeOrders?: number[];
+  includeOrders?: number[];
 }
 
-const { slug, topic } = Astro.props;
+const { slug, topic, excludeOrders = [], includeOrders = [] } = Astro.props;
 const locale = Astro.currentLocale === 'en' ? 'en' : 'pt';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
 const guidance = getComponentGuidance(slug, topic, locale, {
   linkBase: `${projectBase}/docs`,
+  excludeOrders,
+  includeOrders,
 });
 const assets = getComponentAssets(slug);
 ---
@@ -29,23 +33,45 @@ const assets = getComponentAssets(slug);
 
 <script>
   import {
+    ChevronDown,
     createIcons,
+    CreditCard,
     Download,
+    Layers,
+    Lock,
     Pencil,
     Plus,
     Search,
     Settings,
+    ShieldCheck,
     Trash2,
     X,
   } from 'lucide';
 
-  const sourceIcons = { Download, Pencil, Plus, Search, Settings, Trash2, X };
+  const sourceIcons = {
+    ChevronDown,
+    CreditCard,
+    Download,
+    Layers,
+    Lock,
+    Pencil,
+    Plus,
+    Search,
+    Settings,
+    ShieldCheck,
+    Trash2,
+    X,
+  };
 
   const renderSourceIcons = () => {
     if (!document.querySelector('.ds-source-guidance [data-lucide]')) return;
     createIcons({ icons: sourceIcons });
   };
 
-  renderSourceIcons();
-  document.addEventListener('astro:page-load', renderSourceIcons);
+  const initializeSourceGuidance = () => {
+    renderSourceIcons();
+  };
+
+  initializeSourceGuidance();
+  document.addEventListener('astro:page-load', initializeSourceGuidance);
 </script>

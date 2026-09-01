@@ -12,17 +12,26 @@ import Default from '@astrojs/starlight/components/ThemeProvider.astro';
     };
 
     syncMode();
-    window.__dsThemeModeObserver?.disconnect();
-    window.__dsThemeModeObserver = new MutationObserver(syncMode);
-    window.__dsThemeModeObserver.observe(root, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
+    window.__dsThemeModeController?.abort();
+    const controller = new AbortController();
+    window.__dsThemeModeController = controller;
+    const { signal } = controller;
+
+    document.addEventListener('change', (event) => {
+      if (
+        event.target instanceof HTMLSelectElement &&
+        event.target.closest('starlight-theme-select')
+      ) {
+        syncMode();
+      }
+    }, { signal });
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', syncMode, { signal });
 
     document.addEventListener(
       'astro:before-swap',
-      () => window.__dsThemeModeObserver?.disconnect(),
-      { once: true },
+      () => controller.abort(),
+      { once: true, signal },
     );
   }
 </script>

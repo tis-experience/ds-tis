@@ -18,6 +18,8 @@ const BLOCKED_CLASSES = new Set([
   'ds-preview__copy',
 ]);
 const INERT_DEMO_CLASSES = new Set(['ds-preview__canvas', 'ds-dodont__preview']);
+const REFERENCE_TABLE_CLASSES = new Set(['ds-token-table']);
+const TABLE_SCROLL_CLASS = 'ds-table-scroll';
 const URL_ATTRIBUTES = new Set(['action', 'formaction', 'href', 'poster', 'src', 'xlink:href']);
 
 let catalogCache;
@@ -40,6 +42,8 @@ export function getComponentGuidance(slug, topic, locale = 'pt', options = {}) {
     locale,
     sourceLabel,
     linkBase: options.linkBase,
+    excludeOrders: options.excludeOrders,
+    includeOrders: options.includeOrders,
   });
 
   return {
@@ -61,6 +65,8 @@ export function extractGuidanceHtml(
     locale = 'pt',
     sourceLabel = 'HTML informado',
     linkBase = '',
+    excludeOrders = [],
+    includeOrders = [],
   },
 ) {
   if (!ALLOWED_TOPICS.has(topic)) {
@@ -83,6 +89,8 @@ export function extractGuidanceHtml(
   }
 
   return sourceSections
+    .filter((section) => includeOrders.length === 0 || includeOrders.includes(getDocumentOrder(section)))
+    .filter((section) => !excludeOrders.includes(getDocumentOrder(section)))
     .sort((left, right) => getDocumentOrder(left) - getDocumentOrder(right))
     .map((section) => {
       const localized = structuredClone(section);
@@ -104,6 +112,10 @@ export function getComponent(slug) {
     throw new Error(`Componente ausente em docs/api/components.json: ${slug}`);
   }
   return component;
+}
+
+export function getComponents() {
+  return [...getCatalog().components];
 }
 
 function getCatalog() {
@@ -164,7 +176,9 @@ function transformChildren(parent, locale, linkBase) {
 
     sanitizeAttributes(child);
     rewriteRelativeDocumentLink(child, linkBase);
-    if (hasAnyClass(child, INERT_DEMO_CLASSES)) setBooleanAttribute(child, 'inert');
+    if (hasAnyClass(child, INERT_DEMO_CLASSES)) {
+      setBooleanAttribute(child, 'inert');
+    }
     transformChildren(child, locale, linkBase);
 
     if (child.tagName === 'h2') {
@@ -177,6 +191,15 @@ function transformChildren(parent, locale, linkBase) {
         grandchild.parentNode = parent;
         localizedChildren.push(grandchild);
       }
+      continue;
+    }
+
+    if (
+      child.tagName === 'table' &&
+      hasAnyClass(child, REFERENCE_TABLE_CLASSES) &&
+      !hasClass(parent, TABLE_SCROLL_CLASS)
+    ) {
+      localizedChildren.push(createTableScroller(child, parent));
       continue;
     }
 
@@ -214,6 +237,23 @@ function hasAnyClass(node, classNames) {
   return (getAttribute(node, 'class') || '')
     .split(/\s+/)
     .some((className) => classNames.has(className));
+}
+
+function hasClass(node, className) {
+  return (getAttribute(node, 'class') || '').split(/\s+/).includes(className);
+}
+
+function createTableScroller(table, parent) {
+  const wrapper = {
+    nodeName: 'div',
+    tagName: 'div',
+    attrs: [{ name: 'class', value: TABLE_SCROLL_CLASS }],
+    namespaceURI: table.namespaceURI,
+    childNodes: [table],
+    parentNode: parent,
+  };
+  table.parentNode = wrapper;
+  return wrapper;
 }
 
 function setBooleanAttribute(node, name) {
