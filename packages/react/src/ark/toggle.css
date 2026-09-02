@@ -1,0 +1,70 @@
+.ds-ark-toggle,
+.ds-ark-toggle__control {
+  box-sizing: border-box;
+}
+
+.ds-ark-toggle__thumb {
+  display: contents;
+}
+
+.ds-ark-toggle__control[data-state='checked'] {
+  --track-border-width: 0px;
+
+  background-color: var(--ds-toggle-track-fill-on-default);
+  border-width: 0;
+}
+
+.ds-ark-toggle__control[data-state='checked']::after {
+  background-color: var(--ds-toggle-thumb-fill-on-default);
+  inset-inline-start: calc(var(--toggle-width) - var(--toggle-thumb-size) - var(--thumb-gap));
+}
+
+.ds-ark-toggle[data-hover]:not([data-disabled]) .ds-ark-toggle__control {
+  background-color: var(--ds-toggle-track-fill-off-hover);
+  border-color: var(--ds-toggle-track-border-color-off-hover);
+}
+
+.ds-ark-toggle[data-hover]:not([data-disabled]) .ds-ark-toggle__control::after {
+  background-color: var(--ds-toggle-thumb-fill-off-hover);
+}
+
+.ds-ark-toggle[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-toggle__control {
+  background-color: var(--ds-toggle-track-fill-on-hover);
+}
+
+.ds-ark-toggle[data-state='checked'][data-hover]:not([data-disabled]) .ds-ark-toggle__control::after {
+  background-color: var(--ds-toggle-thumb-fill-on-hover);
+}
+
+.ds-ark-toggle[data-focus-visible] .ds-ark-toggle__control {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+}
+
+.ds-ark-toggle[data-disabled] {
+  color: var(--ds-form-field-label-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-toggle[data-disabled] .ds-ark-toggle__control {
+  background-color: var(--ds-toggle-track-fill-off-disabled);
+  border-color: var(--ds-toggle-track-border-color-off-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-toggle[data-disabled] .ds-ark-toggle__control::after {
+  background-color: var(--ds-toggle-thumb-fill-off-disabled);
+}
+
+.ds-ark-toggle[data-state='checked'][data-disabled] .ds-ark-toggle__control {
+  background-color: var(--ds-toggle-track-fill-on-disabled);
+  border-width: 0;
+}
+
+.ds-ark-toggle[data-state='checked'][data-disabled] .ds-ark-toggle__control::after {
+  background-color: var(--ds-toggle-thumb-fill-on-disabled);
+}
+
+.ds-ark-toggle[data-disabled] .ds-toggle__label {
+  color: var(--ds-form-field-label-color-disabled);
+}

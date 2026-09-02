@@ -1,0 +1,218 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-08-03-popover-upstream-intake",
+  "title": "Popover · intake upstream",
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-28",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-03T15:45:33.887Z",
+        "note": "Owner aprovou em 2026-08-03 o brief do Popover, o resultado Figma sem mudança e autorizou implementar separadamente Ark/Zag, React/shadcn/Base UI e o seletor documental, sem commit, push ou release."
+      },
+      "updatedAt": "2026-08-03T15:45:33.887Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-03T15:51:17.345Z",
+        "note": "Figma preservado sem escrita; contrato, documentação e visual foram validados por evidência viva e comparação com modelos."
+      },
+      "updatedAt": "2026-08-03T15:51:17.345Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-03T15:51:17.505Z",
+        "note": "Owner aprovou o resultado sem mudança; auditoria read-only confirmou ausência de alterações e liberou somente as duas saídas novas e o seletor."
+      },
+      "updatedAt": "2026-08-03T15:51:17.505Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-03T15:51:17.684Z",
+        "note": "Token sync não aplicável: Popover reutiliza o contrato existente e nenhuma variável Figma-canônica ou token JSON será alterado."
+      },
+      "updatedAt": "2026-08-03T15:51:17.684Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T23:30:00.000Z",
+        "note": "Implementação e auditoria local concluídas; owner autorizou execução contínua em 2026-08-28."
+      },
+      "updatedAt": "2026-08-28T23:30:00.000Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": null,
+      "updatedAt": "2026-08-28T23:30:00.000Z"
+    }
+  ],
+  "checks": {
+    "agent:preflight": {
+      "exit": 0,
+      "passed": true,
+      "note": "Kickoff isolado; snapshot Figma com 8 dias e implementação bloqueada.",
+      "recordedAt": "2026-08-03T10:06:07.476Z"
+    },
+    "agents:validate-intake": {
+      "exit": 0,
+      "passed": true,
+      "note": "Manifesto e todos os paths de evidência válidos; mistura e contexto de base protegidos.",
+      "recordedAt": "2026-08-03T10:21:35.628Z"
+    },
+    "agents:validate-run": {
+      "exit": 0,
+      "passed": true,
+      "note": "Estrutura e estado da run válidos.",
+      "recordedAt": "2026-08-03T10:20:11.359Z"
+    },
+    "verify:agent-docs": {
+      "exit": 0,
+      "passed": true,
+      "note": "Documentação canônica e referências obrigatórias válidas.",
+      "recordedAt": "2026-08-03T10:20:11.542Z"
+    },
+    "test:vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "Gate final: fundação, intake, bundles Ark/Zag e registry shadcn passaram.",
+      "recordedAt": "2026-08-03T10:21:35.808Z"
+    },
+    "git:diff-check": {
+      "exit": 0,
+      "passed": true,
+      "note": "Diff final sem erros de whitespace.",
+      "recordedAt": "2026-08-03T10:21:35.988Z"
+    },
+    "figma:live-read": {
+      "exit": 0,
+      "passed": true,
+      "note": "Popover vivo: root 10333:818 e set 10332:504; 13 properties e quatro variants lidos sem escrita.",
+      "recordedAt": "2026-08-03T10:20:10.640Z"
+    },
+    "figma:model-comparison": {
+      "exit": 0,
+      "passed": true,
+      "note": "Modal, Tooltip e Menu comparados por estrutura e screenshot; resultado sem mudança proposto.",
+      "recordedAt": "2026-08-03T10:20:10.820Z"
+    },
+    "upstream:benchmark": {
+      "exit": 0,
+      "passed": true,
+      "note": "Source React/shadcn/Base UI fixado por commit; Ark 5.37.2 e Zag 1.41.2 fixados; três saídas coexistentes e separadas registradas pela ADR-022.",
+      "recordedAt": "2026-08-03T10:20:10.999Z"
+    },
+    "test:upstream-intake": {
+      "exit": 0,
+      "passed": true,
+      "note": "Manifesto válido; mistura de providers, contexto Base ausente e evidência inexistente rejeitados.",
+      "recordedAt": "2026-08-03T10:22:38.957Z"
+    },
+    "test:shadcn-registry": {
+      "exit": 0,
+      "passed": true,
+      "note": "Registry com 17 itens, typecheck e contratos de source passaram.",
+      "recordedAt": "2026-08-03T16:11:51.892Z"
+    },
+    "test:shadcn-consumer": {
+      "exit": 0,
+      "passed": true,
+      "note": "Consumer Vite instalou 16 componentes via CLI; build, Popover, Escape, retorno de foco e Axe passaram.",
+      "recordedAt": "2026-08-03T16:11:52.058Z"
+    },
+    "test:vnext:bundle": {
+      "exit": 0,
+      "passed": true,
+      "note": "Ark Popover integrado 40,34 KiB gzip; todos os providers dentro dos orçamentos.",
+      "recordedAt": "2026-08-27T10:28:53.087Z"
+    },
+    "test:vnext:browser": {
+      "exit": 0,
+      "passed": true,
+      "note": "Portal, lazy previews, quatro placements, foco, Escape, 320/390, dark mode e Axe passaram.",
+      "recordedAt": "2026-08-27T10:28:52.914Z"
+    },
+    "verify:tokens": {
+      "exit": 0,
+      "passed": true,
+      "note": "0 erros e 0 value drift; snapshot Figma com 784h permanece warning e bloqueia release.",
+      "recordedAt": "2026-08-27T10:28:53.268Z"
+    },
+    "test:a11y": {
+      "exit": 0,
+      "passed": true,
+      "note": "108 execuções light/dark e 2 do theme playground, zero violações.",
+      "recordedAt": "2026-08-27T10:28:53.455Z"
+    },
+    "build:all": {
+      "exit": 0,
+      "passed": true,
+      "note": "Build integral passou: 681 arquivos, 147 HTML, 93 stories, browser vNext e acessibilidade sem falhas.",
+      "recordedAt": "2026-08-27T10:28:52.738Z"
+    }
+  }
+}

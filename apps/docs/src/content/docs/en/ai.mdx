@@ -1,0 +1,29 @@
+---
+title: AI agent consumption
+description: Structured sources and rules for implementing products with DS TIS without inventing APIs.
+sidebar:
+  label: AI agents
+  order: 3
+---
+
+Use machine-readable surfaces before generating a screen or component:
+
+1. `docs/api/consumer-context.json` to discover technologies and distribution methods;
+2. `docs/api/components.json` to inspect category, readiness, and availability;
+3. `implementations.react.item` to form the `@tis/<item>` command;
+4. the component page for Design, Usage, Implementation, and Accessibility;
+5. installed source as the effective API contract copied into the React application.
+
+## Selection rule
+
+Use React only when `implementations.react.status` is `beta` or `stable`. When
+status is `unavailable`, use Web CSS or explicitly declare a local adaptation.
+Do not invent registry items or `@tis/react` exports.
+
+## Public sources
+
+- [Component catalog](../components/);
+- [Complete AI agent guide](/ds-tis/docs/agent-consumer-usage.html);
+- [React integration](../react/);
+- [Web CSS integration](../web/);
+- `docs/llms.txt` and `docs/llms-full.txt` for textual grounding.

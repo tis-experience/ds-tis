@@ -41,6 +41,35 @@ Owner
   -> Release Agent publica
 ```
 
+## Fluxo de intake upstream
+
+Quando a demanda for “trazer”, “adaptar”, “personalizar” ou “comparar” um
+componente de shadcn, Base UI, Ark UI, Zag ou outra biblioteca, o Orchestrator
+mantém as mesmas roles e adiciona o protocolo de
+`docs/process-upstream-component-intake.md`:
+
+1. cria a run canônica;
+2. cria `upstream-intake.json` e registra somente o escopo autorizado;
+3. preserva Figma e o contrato compartilhado como baseline agnóstico;
+4. registra HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI como três saídas
+   coexistentes e separadas;
+5. exige benchmark, auditoria do contrato atual e classificação das melhorias;
+6. para no brief/spec para aprovação do owner;
+7. somente depois conduz Figma, implementação por saída, paridade, seletor
+   documental e release pelos gates normais.
+
+O registry shadcn distribui somente a saída React/shadcn/Base UI. Não distribui
+Ark/Zag nem HTML/CSS/JS e não seleciona provider vencedor. O Orchestrator deve
+rodar:
+
+```bash
+npm run agents:validate-intake
+npm run agents:validate-run -- docs/agents/runs/YYYY-MM-DD-slug
+npm run agents:next-step -- docs/agents/runs/YYYY-MM-DD-slug
+```
+
+Se `agents:validate-intake` falhar, nenhum handoff de implementação pode começar.
+
 ## Criar run
 
 ```bash

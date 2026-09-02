@@ -1165,6 +1165,7 @@ try {
         root: event.detail?.root?.id,
         option: event.detail?.option?.textContent.trim(),
         value: event.detail?.value,
+        clearHidden: document.getElementById('combo-clear').hidden,
       });
     }, { once: true });
     input.focus();
@@ -1178,9 +1179,52 @@ try {
       && comboboxEvent.input === 'combo-input'
       && comboboxEvent.root === 'life-combo'
       && comboboxEvent.option === 'Alpha'
-      && comboboxEvent.value === 'Alpha',
+      && comboboxEvent.value === 'Alpha'
+      && !comboboxEvent.clearHidden,
     `Combobox event must bubble from the input with stable detail (${JSON.stringify(comboboxEvent)})`,
     evidence('combobox', 'events', 'public-event-bubbling-target-detail'),
+  );
+
+  const clearState = await page.evaluate(() => new Promise((resolve) => {
+    const input = document.getElementById('combo-input');
+    const clear = document.getElementById('combo-clear');
+    document.addEventListener('ds-combobox-change', (event) => {
+      requestAnimationFrame(() => resolve({
+        value: input.value,
+        selectedCount: document.querySelectorAll('#combo-list [aria-selected="true"]').length,
+        eventValue: event.detail?.value,
+        eventOption: event.detail?.option ?? null,
+        focusId: document.activeElement?.id,
+        clearHidden: clear.hidden,
+      }));
+    }, { once: true });
+    clear.click();
+  }));
+  ok(
+    clearState.value === ''
+      && clearState.selectedCount === 0
+      && clearState.eventValue === ''
+      && clearState.eventOption === null
+      && clearState.focusId === 'combo-input'
+      && clearState.clearHidden,
+    `Combobox clear must reset value/selection, emit once and restore input focus (${JSON.stringify(clearState)})`,
+    evidence('combobox', 'open-close', 'clear-resets-and-restores-focus'),
+  );
+
+  const disabledOptionState = await page.evaluate(() => {
+    const input = document.getElementById('combo-input');
+    const disabled = Array.from(document.querySelectorAll('#combo-list .ds-combobox__option'))
+      .find((option) => option.getAttribute('aria-disabled') === 'true');
+    disabled.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+    return {
+      value: input.value,
+      selected: disabled.getAttribute('aria-selected'),
+    };
+  });
+  ok(
+    disabledOptionState.value === '' && disabledOptionState.selected !== 'true',
+    `Combobox must ignore aria-disabled options (${JSON.stringify(disabledOptionState)})`,
+    evidence('combobox', 'open-close', 'disabled-option-ignored'),
   );
 
   // --- Combobox: destroy escopado/idempotente e re-init sem duplicação ---

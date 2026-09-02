@@ -24,6 +24,7 @@ const requiredSharedFiles = [
   "docs/agents/orchestration.md",
   "docs/agents/grounding.md",
   "docs/agents/quick-commands.md",
+  "docs/process-upstream-component-intake.md",
   "docs/agents/roles/ds-architect.md",
   "docs/agents/roles/figma-builder.md",
   "docs/agents/roles/figma-auditor.md",
@@ -36,6 +37,7 @@ const requiredSharedFiles = [
   "docs/agents/checklists/repo-implementation-checklist.md",
   "docs/agents/checklists/release-checklist.md",
   "docs/agents/templates/figma-contract-matrix.md",
+  "docs/agents/templates/upstream-intake.schema.json",
 ];
 
 function usage() {

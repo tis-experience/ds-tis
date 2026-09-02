@@ -1,0 +1,113 @@
+.ds-ark-popover__positioner {
+  z-index: var(--ds-z-tooltip);
+  max-inline-size: var(--available-width);
+}
+
+.ds-popover__panel.ds-ark-popover__panel {
+  position: relative;
+}
+
+.ds-ark-popover__arrow {
+  --arrow-size: var(--ds-space-none);
+
+  visibility: hidden;
+}
+
+.ds-ark-popover__arrow-tip {
+  display: none;
+}
+
+.ds-ark-popover__positioner::before,
+.ds-ark-popover__positioner::after {
+  position: absolute;
+  box-sizing: border-box;
+  z-index: calc(var(--ds-z-tooltip) + 1);
+  content: none;
+  pointer-events: none;
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel > .ds-ark-popover__arrow)::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel > .ds-ark-popover__arrow)::after {
+  content: "";
+}
+
+.ds-ark-popover__positioner::before {
+  background: var(--ds-popover-panel-border-color-default);
+  background: color-mix(
+    in srgb,
+    var(--ds-popover-panel-border-color-default),
+    var(--ds-popover-body-color-default) 25%
+  );
+}
+
+.ds-ark-popover__positioner::after {
+  background: var(--ds-popover-arrow-fill-default);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="bottom"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="bottom"])::after {
+  inset-block-end: calc(100% - var(--ds-popover-panel-border-width-default));
+  inset-inline-start: 50%;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  transform: translateX(-50%);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="bottom"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="top"])::before {
+  inline-size: var(--ds-popover-arrow-base-default);
+  block-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="bottom"])::after,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="top"])::after {
+  inline-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
+  block-size: calc(var(--ds-popover-arrow-base-default) / 2);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="top"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="top"])::after {
+  inset-block-start: calc(100% - var(--ds-popover-panel-border-width-default));
+  inset-inline-start: 50%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform: translateX(-50%);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="left"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="left"])::after {
+  inset-block-start: 50%;
+  inset-inline-start: calc(100% - var(--ds-popover-panel-border-width-default));
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translateY(-50%);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="left"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="right"])::before {
+  inline-size: calc(
+    (var(--ds-popover-arrow-base-default) / 2)
+    + var(--ds-popover-panel-border-width-default)
+  );
+  block-size: var(--ds-popover-arrow-base-default);
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="left"])::after,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="right"])::after {
+  inline-size: calc(var(--ds-popover-arrow-base-default) / 2);
+  block-size: calc(
+    var(--ds-popover-arrow-base-default)
+    - (var(--ds-popover-panel-border-width-default) * 2)
+  );
+}
+
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="right"])::before,
+.ds-ark-popover__positioner:has(> .ds-ark-popover__panel[data-placement^="right"])::after {
+  inset-block-start: 50%;
+  inset-inline-end: calc(100% - var(--ds-popover-panel-border-width-default));
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  transform: translateY(-50%);
+}

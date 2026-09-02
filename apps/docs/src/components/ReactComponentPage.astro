@@ -1,0 +1,224 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+import ComponentDocumentationPage from './ComponentDocumentationPage.astro';
+import ComponentGuidance from './ComponentGuidance.astro';
+import ComponentPageHeader from './ComponentPageHeader.astro';
+import ComponentPageLayout from './ComponentPageLayout.astro';
+import ComponentPanel from './ComponentPanel.astro';
+import OutputStoryPreview from './OutputStoryPreview.astro';
+
+interface ReactComponent {
+  accessibility: string;
+  anatomy: string[];
+  avoidWhen: string[];
+  category: {
+    id: string;
+    label: { pt: string; en: string };
+  };
+  description: string;
+  name: string;
+  providerLabel: string;
+  providerRoleLabel: string;
+  react: {
+    item: string;
+    provider: string;
+    providerRole: string;
+    registryUrl: string;
+    status: string;
+  };
+  relatedItems?: string[];
+  slug: string;
+  sourceUrl: string;
+  storyId: string;
+  usage: string;
+  useWhen: string[];
+  variants?: string[];
+}
+
+interface Props {
+  component: ReactComponent;
+  locale: 'pt-br' | 'en';
+}
+
+const { component, locale } = Astro.props;
+const isEnglish = locale === 'en';
+const language = isEnglish ? 'en' : 'pt';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
+const stableUrl = `${projectBase}/docs/${component.slug}.html`;
+const currentPath = `${locale}/react/components/${component.slug}/`;
+const integrationUrl = `${base}/${locale}/react/`;
+const installItems = [component.react.item, ...(component.relatedItems || [])];
+const install = `npx shadcn@latest add ${installItems.map((item) => `@tis/${item}`).join(' ')}`;
+const pnpmInstall = install.replace('npx shadcn@latest', 'pnpm dlx shadcn@latest');
+const yarnInstall = install.replace('npx shadcn@latest', 'yarn dlx shadcn@latest');
+const bunInstall = install.replace('npx shadcn@latest', 'bunx --bun shadcn@latest');
+const webPath = `${locale}/web/components/${component.slug}/`;
+const arkPath = `${locale}/ark/components/${component.slug}/`;
+const angularPath = `${locale}/angular/components/${component.slug}/`;
+const hasUnifiedDocumentation = ['accordion', 'button', 'checkbox', 'combobox', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'toast', 'toggle', 'tooltip'].includes(component.slug);
+const unifiedSlug = component.slug as 'accordion' | 'button' | 'checkbox' | 'combobox' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
+const hasThreePopoverOutputs = component.slug === 'popover';
+---
+
+{hasUnifiedDocumentation ? (
+  <ComponentDocumentationPage slug={unifiedSlug} technology="react" locale={locale} />
+) : (
+<>
+<ComponentPageHeader
+  locale={locale}
+  technology="react"
+  status="Beta"
+  distribution="Source via shadcn"
+  categoryLabel={component.category.label[language]}
+  description={component.description}
+  v1Path={`/docs/${component.slug}.html`}
+  technologies={[
+    { label: 'HTML/CSS/JS', value: 'web', ...(hasThreePopoverOutputs ? { path: webPath } : { href: stableUrl }) },
+    { label: 'Ark/Zag', value: 'ark', path: arkPath, disabled: !hasThreePopoverOutputs },
+    { label: 'React · shadcn/Base UI', value: 'react', path: currentPath },
+    { label: isEnglish ? 'Angular — planned' : 'Angular — planejada', value: 'angular', path: angularPath, disabled: true },
+  ]}
+/>
+
+<ComponentPageLayout
+  slug={component.slug}
+  technology="react"
+  locale={locale}
+  implementationLabel={isEnglish ? 'Implementation' : 'Implementação'}
+>
+  <ComponentPanel id="design" label="Design" slug={component.slug} technology="react" active>
+    <h3>{isEnglish ? 'Functional preview' : 'Preview funcional'}</h3>
+    <OutputStoryPreview storyId={component.storyId} title={`${component.name} · Storybook`}>
+      {isEnglish ? 'Open interactive playground' : 'Abrir playground interativo'}
+    </OutputStoryPreview>
+
+    {hasThreePopoverOutputs ? (
+      <>
+        <h3>{isEnglish ? 'Shared design contract' : 'Contrato de design compartilhado'}</h3>
+        <p>
+          {isEnglish
+            ? 'The reference below is agnostic and shared by all four outputs; the functional preview above remains exclusively React with shadcn/Base UI.'
+            : 'A referência abaixo é agnóstica e comum às quatro saídas; o preview funcional acima continua sendo exclusivamente React com shadcn/Base UI.'}
+        </p>
+        <ComponentGuidance slug="popover" topic="design" />
+      </>
+    ) : (
+      <>
+        <details class="ds-component-reference" data-doc-secondary>
+          <summary>{isEnglish ? 'Explore anatomy and visual states' : 'Explorar anatomia e estados visuais'}</summary>
+          <h3>{isEnglish ? 'Anatomy' : 'Anatomia'}</h3>
+          <ol class="ds-component-anatomy-list">
+            {component.anatomy.map((part) => <li>{part}</li>)}
+          </ol>
+
+          <h3>{isEnglish ? 'Variants and states' : 'Variantes e estados'}</h3>
+          {component.variants?.length ? (
+            <ul class="ds-react-variant-list">
+              {component.variants.map((variant) => <li><code>{variant}</code></li>)}
+            </ul>
+          ) : (
+            <p>{isEnglish ? 'No public visual variants.' : 'Sem variantes visuais públicas.'}</p>
+          )}
+          <p class="ds-component-support-link">
+            <a href={stableUrl}>{isEnglish ? 'Open the complete design reference' : 'Abrir referência completa de design'}</a>
+          </p>
+        </details>
+      </>
+    )}
+  </ComponentPanel>
+
+  <ComponentPanel
+    id="usage"
+    label={isEnglish ? 'Usage' : 'Uso'}
+    slug={component.slug}
+    technology="react"
+  >
+    {hasThreePopoverOutputs ? (
+      <ComponentGuidance slug="popover" topic="usage" />
+    ) : (
+      <>
+        <h3>{isEnglish ? 'When to use' : 'Quando usar'}</h3>
+        <ul>{component.useWhen.map((item) => <li>{item}</li>)}</ul>
+
+        <h3>{isEnglish ? 'When not to use' : 'Quando não usar'}</h3>
+        <ul>{component.avoidWhen.map((item) => <li>{item}</li>)}</ul>
+      </>
+    )}
+
+    <h3>{isEnglish ? 'React composition' : 'Composição React'}</h3>
+    <pre tabindex="0" aria-label={isEnglish ? `${component.name} React example` : `Exemplo React de ${component.name}`}><code>{component.usage}</code></pre>
+  </ComponentPanel>
+
+  <ComponentPanel
+    id="implementation"
+    label={isEnglish ? 'Implementation' : 'Implementação'}
+    slug={component.slug}
+    technology="react"
+  >
+    <h3>{isEnglish ? 'Installation' : 'Instalação'}</h3>
+    <p>
+      {isEnglish ? 'Configure the namespace once in the ' : 'Configure o namespace uma única vez na '}
+      <a href={integrationUrl}>{isEnglish ? 'React integration guide' : 'integração React'}</a>.
+    </p>
+    <Tabs syncKey="package-manager">
+      <TabItem label="npm"><pre><code>{install}</code></pre></TabItem>
+      <TabItem label="pnpm"><pre><code>{pnpmInstall}</code></pre></TabItem>
+      <TabItem label="yarn"><pre><code>{yarnInstall}</code></pre></TabItem>
+      <TabItem label="bun"><pre><code>{bunInstall}</code></pre></TabItem>
+    </Tabs>
+
+    <h3>{isEnglish ? 'Public contract' : 'Contrato público'}</h3>
+    <dl class="ds-react-contract">
+      <div><dt>{isEnglish ? 'Registry item' : 'Item do registry'}</dt><dd><code>@tis/{component.react.item}</code></dd></div>
+      <div><dt>{isEnglish ? 'Distribution' : 'Distribuição'}</dt><dd>{isEnglish ? 'Source copied into the application' : 'Source copiado para a aplicação'}</dd></div>
+      <div><dt>Status</dt><dd>Beta</dd></div>
+    </dl>
+
+    <details class="ds-component-technical-details">
+      <summary>{isEnglish ? 'Technical architecture' : 'Arquitetura técnica'}</summary>
+      <dl class="ds-react-contract">
+        <div><dt>Provider</dt><dd>{component.providerLabel}</dd></div>
+        <div><dt>{isEnglish ? 'Provider role' : 'Papel do provider'}</dt><dd>{component.providerRoleLabel}</dd></div>
+        <div><dt>{isEnglish ? 'Behavioral architecture' : 'Arquitetura comportamental'}</dt><dd>Base UI</dd></div>
+        <div><dt>CSS</dt><dd><code>ds-tis/css</code></dd></div>
+      </dl>
+      <p><a href={component.react.registryUrl}>{isEnglish ? 'Open registry JSON' : 'Abrir JSON do registry'}</a></p>
+      <p><a href={component.sourceUrl}>{isEnglish ? 'Inspect distributed source' : 'Inspecionar source distribuído'}</a></p>
+    </details>
+  </ComponentPanel>
+
+  <ComponentPanel
+    id="accessibility"
+    label={isEnglish ? 'Accessibility' : 'Acessibilidade'}
+    slug={component.slug}
+    technology="react"
+  >
+    {hasThreePopoverOutputs ? (
+      <ComponentGuidance slug="popover" topic="accessibility" />
+    ) : (
+      <>
+        <h3>{isEnglish ? 'Semantics and behavior' : 'Semântica e comportamento'}</h3>
+        <p>{component.accessibility}</p>
+      </>
+    )}
+
+    <h3>{isEnglish ? 'Consumer responsibility' : 'Responsabilidade do consumidor'}</h3>
+    <ul>
+      <li>{isEnglish ? 'provide contextual accessible names and descriptions;' : 'fornecer nomes e descrições acessíveis contextuais;'}</li>
+      <li>{isEnglish ? 'preserve keyboard behavior, focus visibility, and semantic HTML;' : 'preservar teclado, foco visível e HTML semântico;'}</li>
+      <li>{isEnglish ? 'test real content, flow, and contrast in the application.' : 'testar conteúdo, fluxo e contraste reais na aplicação.'}</li>
+    </ul>
+
+    <h3>{isEnglish ? 'Validation evidence' : 'Evidência de validação'}</h3>
+    <p>
+      {isEnglish
+        ? 'Installed in the permanent React/Vite consumer and covered by production build, browser, responsive, and Axe checks.'
+        : 'Instalado no consumer React/Vite permanente e coberto por build de produção, browser, responsividade e Axe.'}
+    </p>
+    <p class="ds-component-support-link"><a href={stableUrl}>{isEnglish ? 'Open stable accessibility guidance' : 'Abrir diretrizes estáveis de acessibilidade'}</a></p>
+  </ComponentPanel>
+</ComponentPageLayout>
+</>
+)}

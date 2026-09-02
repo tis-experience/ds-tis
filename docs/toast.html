@@ -46,7 +46,7 @@
     <p><span class="ds-badge ds-badge--success ds-badge--subtle">App-ready</span></p>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
     <div class="ds-callout ds-callout--success">
       <div class="ds-callout__title"><span data-lang="pt">Use Toast quando</span><span data-lang="en">Use Toast when</span></div>
@@ -60,8 +60,8 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
-    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia pública</span><span data-lang="en">Public anatomy</span></h2>
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
     <div class="ds-anatomy" style="padding:var(--ds-space-3xl);justify-content:center;">
       <div class="ds-toast ds-toast--success ds-toast--subtle" inert>
         <span class="ds-toast__icon" aria-hidden="true"><i data-lucide="circle-check" class="ds-icon"></i></span>
@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Demo</span><span data-lang="en">Demo</span></h2>
     <div class="ds-preview">
       <div class="ds-preview__panel ds-preview__panel--active" data-panel="preview">
@@ -98,7 +98,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="code" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Runtime obrigatório</span><span data-lang="en">Required runtime</span></h2>
     <p>
       <span data-lang="pt">Fila, live regions, auto-hide, pausa, dismiss e actions dependem de <code>ds-tis/toast</code>. Sem action, a duração padrão é 5 segundos. Com action, não há auto-hide por padrão; uma duração explícita nunca fica abaixo de 10 segundos. O limite é de cinco toasts visíveis e duas actions por toast.</span>
@@ -137,6 +137,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
+    <h2 class="ds-subsection__title"><span data-lang="pt">Acessibilidade</span><span data-lang="en">Accessibility</span></h2>
     <div class="ds-callout ds-callout--info">
       <div class="ds-callout__title"><span data-lang="pt">Acessibilidade</span><span data-lang="en">Accessibility</span></div>
       <span data-lang="pt">Success, warning e info são anunciados por uma região <code>role="status"</code>. Error usa <code>role="alert"</code>. O runtime não move foco; hover e foco pausam o timer; Escape dispensa o toast que contém o foco.</span>
@@ -144,7 +148,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="alert.html" class="ds-related__link">Alert</a>

@@ -8,7 +8,12 @@ function selectMarkup(args, suffix = 'playground') {
   const selectedValue = value || (state === 'filled' || state === 'readonly' ? 'Brasil' : '');
   return fieldMarkup({
     id, label, required, helper: ['error', 'disabled', 'readonly'].includes(state) ? '' : helper, error: state === 'error' ? 'Selecione uma opção.' : '',
-    control: (describedBy) => `<div class="ds-select ds-select--${size}${state !== 'default' ? ` ds-select--${state}` : ''}">${showLeadingIcon ? icon('circle', 'ds-select__icon') : ''}<select class="ds-select__field" id="${id}"${describedBy ? ` aria-describedby="${describedBy}"` : ''}${required ? ' required aria-required="true"' : ''}${state === 'error' ? ' aria-invalid="true"' : ''}${state === 'disabled' || state === 'readonly' ? ' disabled' : ''}><option value=""${selectedValue ? '' : ' selected'}>Selecione…</option>${['Brasil', 'Chile', 'Portugal'].map((option) => `<option${selectedValue === option ? ' selected' : ''}>${escapeHtml(option)}</option>`).join('')}</select><span class="ds-select__arrow" aria-hidden="true"></span></div>`,
+    control: (describedBy) => `<div class="ds-select ds-select--${size}${state !== 'default' ? ` ds-select--${state}` : ''}">${showLeadingIcon ? icon('circle', 'ds-select__icon') : ''}<select class="ds-select__field" id="${id}"${describedBy ? ` aria-describedby="${describedBy}"` : ''}${required ? ' required aria-required="true"' : ''}${state === 'error' ? ' aria-invalid="true"' : ''}${state === 'disabled' || state === 'readonly' ? ' disabled' : ''}><option value=""${selectedValue ? '' : ' selected'}>Selecione…</option>${[
+      { label: 'Brasil' },
+      { label: 'Chile' },
+      { disabled: true, label: 'Indisponível' },
+      { label: 'Portugal' },
+    ].map((option) => `<option${selectedValue === option.label ? ' selected' : ''}${option.disabled ? ' disabled' : ''}>${escapeHtml(option.label)}</option>`).join('')}</select><span class="ds-select__arrow" aria-hidden="true"></span></div>`,
   });
 }
 

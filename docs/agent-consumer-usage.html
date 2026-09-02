@@ -69,7 +69,7 @@
 <div data-lang="pt"><p>Este guia é a instrução oficial para agents IA que precisam implementar telas em aplicações consumidoras usando o DS TIS. Ele não substitui <code>AGENTS.md</code>, que é voltado para manutenção deste repositório. Aqui o foco é consumo: montar telas reais com a API pública do pacote, sem inventar uma camada oficial que não existe.</p>
 <p>Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consumidor.</p>
 <h2>Escopo</h2>
-<p>O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote <code>ds-tis</code>. React também possui uma distribuição beta por source registry shadcn para nove componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.</p>
+<p>O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote <code>ds-tis</code>. React também possui uma distribuição beta por source registry shadcn para dezesseis componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.</p>
 <p>Não apresente <code>@tis/react</code> como pacote público. Para React, use o registry somente quando <code>docs/api/components.json</code> marcar <code>implementations.react.status</code> como <code>beta</code>; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.</p>
 <p>A regra operacional para agents é literal: <code>nao invente wrappers oficiais</code>.
 Fora do catálogo beta, documente o wrapper como código local da aplicação.</p>
@@ -209,7 +209,7 @@ trigger e content em <code>detail</code>.</p>
 </code></pre>
 <p>O caminho <code>ds-tis/templates/*</code> referencia templates HTML públicos. Adapte conteúdo, rotas e dados ao app consumidor; não copie textos fictícios para produção.</p>
 <h2>React beta pelo registry shadcn</h2>
-<p>O pacote <code>@tis/react</code> não é público. Para os nove componentes validados, a API
+<p>O pacote <code>@tis/react</code> não é público. Para os dezesseis componentes validados, a API
 React é distribuída como source pelo canal versionado
 <code>https://tis-experience.github.io/ds-tis/registry/v1</code>.</p>
 <p>Descubra o catálogo em <code>ds-tis/metadata/components</code> ou no fallback público
@@ -226,10 +226,18 @@ nome do item.</p>
 <p>Depois instale apenas o necessário:</p>
 <pre tabindex="0"><code class="language-bash">npx shadcn@latest add @tis/button @tis/field @tis/input
 </code></pre>
-<p>O catálogo beta atual contém Accordion, Button, Checkbox, Form Field, Input
-Text, Modal, Radio, Textarea e Toggle. Os nomes shadcn de Modal, Form Field,
-Radio e Toggle são, respectivamente, <code>dialog</code>, <code>field</code>, <code>radio-group</code> e
-<code>switch</code>. Não deduza essa tradução: leia <code>implementations.react.item</code>.</p>
+<p>O catálogo beta atual contém Accordion, Alert, Badge, Button, Card, Checkbox,
+Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner, Textarea e
+Toggle. Os nomes shadcn de Modal, Form Field, Radio e Toggle são,
+respectivamente, <code>dialog</code>, <code>field</code>, <code>radio-group</code> e <code>switch</code>. Não deduza essa
+tradução: leia <code>implementations.react.item</code>.</p>
+<p>Não confunda as três saídas da ADR-022. Em
+<code>docs/api/consumer-context.json</code>, <code>outputPolicy.outputs</code> lista HTML/CSS/JS,
+Ark/Zag e React/shadcn/Base UI como alternativas coexistentes. A saída React usa
+<code>technologies.react.distribution: &quot;shadcn-registry&quot;</code>,
+<code>behaviorArchitecture: &quot;base-ui&quot;</code> e <code>providerRole: &quot;output-provider&quot;</code>. Isso não
+transforma Base UI em core nem substitui as outras duas saídas. Consulte o status
+da saída escolhida; não misture imports ou instruções entre elas.</p>
 <p>O source instalado pertence ao app consumidor e pode ser revisado ou composto
 localmente. Preserve as classes públicas, o primeiro import global
 <code>@import &quot;ds-tis/css&quot;</code>, as relações ARIA e as dependências fixadas pelo item.</p>
@@ -313,7 +321,7 @@ idioma, orientação e layout reais do produto consumidor.</p>
 <li>Entregue evidências: componentes usados, imports, tokens/classes relevantes, validação a11y e limites assumidos.</li>
 </ol>
 <h2>Adaptação por framework</h2>
-<p>React pode instalar os nove componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:</p>
+<p>React pode instalar os dezesseis componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:</p>
 <ul>
 <li>manter os nomes de classes públicas do DS;</li>
 <li>preservar labels, IDs, <code>aria-*</code> e relações <code>for</code>/<code>id</code>;</li>
@@ -394,7 +402,7 @@ consumer application.</p>
 <h2>Scope</h2>
 <p>DS TIS is stack-agnostic. Its stable public foundation is HTML, CSS and
 JavaScript distributed by the <code>ds-tis</code> package. React also has a beta source
-distribution through a shadcn registry for nine validated components; source is
+distribution through a shadcn registry for sixteen validated components; source is
 copied into the consumer app and continues to depend on public DS CSS and tokens.</p>
 <p>Do not present <code>@tis/react</code> as a public package. In React, use the registry only
 when <code>docs/api/components.json</code> marks <code>implementations.react.status</code> as <code>beta</code>;
@@ -551,7 +559,7 @@ root, trigger and content in <code>detail</code>.</p>
 <p><code>ds-tis/templates/*</code> points to public HTML templates. Adapt content, routes and
 data to the consumer application; do not copy fictional text into production.</p>
 <h2>React beta through the shadcn registry</h2>
-<p>The <code>@tis/react</code> package is not public. For the nine validated components, the
+<p>The <code>@tis/react</code> package is not public. For the sixteen validated components, the
 React API is distributed as source through the versioned channel
 <code>https://tis-experience.github.io/ds-tis/registry/v1</code>.</p>
 <p>Discover the catalog through <code>ds-tis/metadata/components</code> or the public
@@ -568,10 +576,18 @@ item name.</p>
 <p>Then install only what is needed:</p>
 <pre tabindex="0"><code class="language-bash">npx shadcn@latest add @tis/button @tis/field @tis/input
 </code></pre>
-<p>The current beta catalog contains Accordion, Button, Checkbox, Form Field,
-Input Text, Modal, Radio, Textarea, and Toggle. The shadcn names for Modal, Form
-Field, Radio, and Toggle are <code>dialog</code>, <code>field</code>, <code>radio-group</code>, and <code>switch</code>.
-Do not infer that translation: read <code>implementations.react.item</code>.</p>
+<p>The current beta catalog contains Accordion, Alert, Badge, Button, Card,
+Checkbox, Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner,
+Textarea, and Toggle. The shadcn names for Modal, Form Field, Radio, and Toggle
+are <code>dialog</code>, <code>field</code>, <code>radio-group</code>, and <code>switch</code>. Do not infer that
+translation: read <code>implementations.react.item</code>.</p>
+<p>Do not conflate the three outputs defined by ADR-022. In
+<code>docs/api/consumer-context.json</code>, <code>outputPolicy.outputs</code> lists HTML/CSS/JS,
+Ark/Zag, and React/shadcn/Base UI as coexisting alternatives. The React output
+uses <code>technologies.react.distribution: &quot;shadcn-registry&quot;</code>,
+<code>behaviorArchitecture: &quot;base-ui&quot;</code>, and <code>providerRole: &quot;output-provider&quot;</code>. This
+does not turn Base UI into the core or replace the other two outputs. Read the
+status of the selected output and never mix imports or instructions across them.</p>
 <p>Installed source belongs to the consumer app and can be reviewed or composed
 locally. Preserve public classes, the first global <code>@import &quot;ds-tis/css&quot;</code>, ARIA
 relationships, and dependencies pinned by the item.</p>
@@ -657,7 +673,7 @@ consumer product&#39;s content, zoom, language, orientation and layout.</p>
 <li>Deliver evidence: components, imports, relevant tokens/classes, accessibility validation and assumed limits.</li>
 </ol>
 <h2>Framework adaptation</h2>
-<p>React can install the nine beta components through the registry. React outside
+<p>React can install the sixteen beta components through the registry. React outside
 that catalog, Vue, and Angular may render public DS anatomy through local
 components. Every local adaptation must:</p>
 <ul>

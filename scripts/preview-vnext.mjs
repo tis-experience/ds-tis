@@ -16,8 +16,9 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 
 const portalEntry = path.join(SITE, 'next', 'pt-br', 'index.html');
 const storybookEntry = path.join(SITE, 'next', 'storybook', 'index.html');
+const angularStorybookEntry = path.join(SITE, 'next', 'storybook-angular', 'index.html');
 
-if (!existsSync(portalEntry) || !existsSync(storybookEntry)) {
+if (!existsSync(portalEntry) || !existsSync(storybookEntry) || !existsSync(angularStorybookEntry)) {
   console.error(
     'Preview vNext incompleta. Rode npm run build:preview:vnext para gerar Astro + Storybook.',
   );
@@ -70,6 +71,7 @@ const server = createServer((request, response) => {
 server.listen(port, host, () => {
   console.log(`✅ Preview vNext: http://${host}:${port}/ds-tis/next/pt-br/`);
   console.log(`   Storybook:     http://${host}:${port}/ds-tis/next/storybook/`);
+  console.log(`   Angular:       http://${host}:${port}/ds-tis/next/storybook-angular/`);
 });
 
 for (const signal of ['SIGINT', 'SIGTERM']) {

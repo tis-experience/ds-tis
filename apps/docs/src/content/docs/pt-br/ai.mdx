@@ -1,0 +1,29 @@
+---
+title: Consumo por agents IA
+description: Fontes estruturadas e regras para implementar produtos com o DS TIS sem inventar APIs.
+sidebar:
+  label: Agents IA
+  order: 3
+---
+
+Use as superfícies machine-readable antes de gerar uma tela ou componente:
+
+1. `docs/api/consumer-context.json` para descobrir tecnologias e formas de distribuição;
+2. `docs/api/components.json` para consultar categoria, readiness e disponibilidade;
+3. `implementations.react.item` para formar o comando `@tis/<item>`;
+4. a página do componente para Design, Uso, Implementação e Acessibilidade;
+5. o source instalado como contrato efetivo da API React copiada na aplicação.
+
+## Regra de seleção
+
+Use React somente quando `implementations.react.status` for `beta` ou `stable`.
+Quando o status for `unavailable`, use Web CSS ou declare explicitamente uma
+adaptação local. Não invente item de registry nem export de `@tis/react`.
+
+## Fontes públicas
+
+- [Catálogo de componentes](../components/);
+- [Guia completo para agents IA](/ds-tis/docs/agent-consumer-usage.html);
+- [Integração React](../react/);
+- [Integração Web CSS](../web/);
+- `docs/llms.txt` e `docs/llms-full.txt` para grounding textual.

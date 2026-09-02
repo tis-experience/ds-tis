@@ -1,0 +1,66 @@
+---
+import DocumentContext from './DocumentContext.astro';
+
+interface TechnologyOption {
+  label: string;
+  value: string;
+  path?: string;
+  href?: string;
+  disabled?: boolean;
+}
+
+interface Props {
+  categoryLabel: string;
+  description: string;
+  distribution: string;
+  locale: 'pt-br' | 'en';
+  status: string;
+  technologies: TechnologyOption[];
+  technology: string;
+  v1Path?: string;
+  showMetadata?: boolean;
+}
+
+const {
+  categoryLabel,
+  description,
+  distribution,
+  locale,
+  status,
+  technologies,
+  technology,
+  v1Path = '/',
+  showMetadata = true,
+} = Astro.props;
+const isEnglish = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const catalogUrl = `${base}/${locale}/components/`;
+---
+
+<nav
+  class="ds-component-breadcrumb"
+  data-component-breadcrumb
+  aria-label={isEnglish ? 'Component path' : 'Caminho do componente'}
+>
+  <a href={catalogUrl}>{isEnglish ? 'Components' : 'Componentes'}</a>
+  <span aria-hidden="true">/</span>
+  <span>{categoryLabel}</span>
+</nav>
+
+<DocumentContext
+  locale={locale}
+  technology={technology}
+  technologies={technologies}
+  v1Path={v1Path}
+  showVersion={false}
+/>
+
+<header class="ds-component-intro" data-component-intro>
+  <p>{description}</p>
+  {showMetadata && (
+    <dl aria-label={isEnglish ? 'Component availability' : 'Disponibilidade do componente'}>
+      <div><dt>Status</dt><dd>{status}</dd></div>
+      <div><dt>{isEnglish ? 'Distribution' : 'Distribuição'}</dt><dd>{distribution}</dd></div>
+    </dl>
+  )}
+</header>

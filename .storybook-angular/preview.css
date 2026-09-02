@@ -1,0 +1,30 @@
+:root {
+  color-scheme: light;
+  background: var(--ds-background-default);
+}
+
+:root[data-mode="dark"] {
+  color-scheme: dark;
+}
+
+html,
+body,
+#storybook-root {
+  min-block-size: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ds-background-default);
+  color: var(--ds-content-default);
+  font-family: var(--ds-body-font-family-sans);
+}
+
+body:has(.ds-angular-popover-stage) {
+  background: var(--ds-background-subtle);
+}
+
+#storybook-root > main {
+  min-block-size: 100%;
+  color: var(--ds-content-default);
+}

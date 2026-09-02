@@ -2,8 +2,16 @@ node_modules/
 _site/
 storybook-static/
 storybook-vnext-static/
+storybook-angular-static/
+.angular/
+.playwright-cli/
 apps/docs/.astro/
 apps/docs/dist/
+dist/angular/
+dist/angular-consumer/
+dist/tis-angular-*.tgz
+tests/consumer/angular-app/.angular/
+tests/consumer/angular-app/dist/
 
 # Variáveis de ambiente locais (nunca commitar)
 .env

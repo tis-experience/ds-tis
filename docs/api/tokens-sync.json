@@ -16,7 +16,7 @@
     "docTokenDrift": [],
     "jsonVsFigma": {
       "skipped": false,
-      "snapshotAge": "141h",
+      "snapshotAge": "105h",
       "snapshotFreshness": "stale",
       "snapshotMaxAgeHours": 24,
       "summary": {
@@ -34,7 +34,7 @@
           "level": "warning",
           "category": "STALE_SNAPSHOT",
           "token": ".figma-snapshot.json",
-          "message": "snapshot Figma tem 141h (> 24h). Regenerar via use_figma antes de concluir sync/release."
+          "message": "snapshot Figma tem 105h (> 24h). Regenerar via use_figma antes de concluir sync/release."
         }
       ],
       "diffs": {

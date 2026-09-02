@@ -12,9 +12,9 @@ primary only after proving coverage, accessibility, consumption, and migration.
 
 <Aside type="note" title="Recorded decision">
   [ADR-021](../../../docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html)
-  is maintained in Brazilian Portuguese and records routes, responsibilities,
-  and promotion criteria. This page summarizes the decision without replacing
-  the canonical ADR.
+  records additive evolution. ADR-022 records the three coexisting outputs. Both
+  are maintained in Brazilian Portuguese. This page summarizes them without
+  replacing the canonical ADRs.
 </Aside>
 
 ## Coexisting lines
@@ -41,15 +41,34 @@ ds-tis/
 └── .storybook-vnext/                   # internal React/Vite validation
 ```
 
-## Interactive behavior
+## Three outputs per component
 
-Ark UI is the preferred provider for interactive patterns it covers; Zag is the
-underlying state engine. Each technology uses its native adapter while the DS
-keeps its own API, tokens, visual language, and tests.
+The DS does not seek one implementation or a winning provider. Each component
+may be delivered through three independent outputs:
 
-Ark/Zag is not applied to every component. Button and other elements whose native
-HTML semantics already provide the behavior remain simple. Accordion and Dialog
-were used in an internal technical validation, but they are not public DS APIs.
+| Output | Role | Distribution |
+| --- | --- | --- |
+| **HTML/CSS/JS** | Framework-agnostic implementation and opt-in runtime | `ds-tis` package |
+| **Ark/Zag** | Headless implementations by technology | dedicated adapters and releases |
+| **React · shadcn/Base UI** | React source composed with shadcn and Base UI primitives | `@tis` shadcn registry |
+
+All three share tokens, visual language, intent, and accessibility requirements.
+Source, dependencies, technical APIs, installation, and tests are not merged. An
+unavailable output remains visible as unavailable and never borrows another
+output's code to simulate coverage.
+
+## Documentation choice
+
+Every component page must allow the user to choose:
+
+```text
+[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ]
+```
+
+The choice switches preview, installation, imports, API, example, dependencies,
+compatibility, limitations, and evidence. Shared design, usage, and accessibility
+content is not duplicated. Comparison measures parity and legitimate differences;
+it never removes an output.
 
 ## Theme and tokens
 
@@ -66,9 +85,11 @@ copy’s Variables, but it will not publish or update libraries automatically.
 ## Gates
 
 1. Documentation foundation and Storybook.
-2. Ark/Zag provider validated internally.
-3. Pilot component brief.
-4. Approved Figma spec and contract matrix.
-5. TIS API implementation, accessibility, and real consumption.
-6. Equivalent adapter in another technology when demand exists.
-7. v1 × vNext comparison and promotion decision.
+2. Ark/Zag output validated internally.
+3. React/shadcn/Base UI output validated through the registry.
+4. Pilot component brief.
+5. Approved Figma spec and contract matrix.
+6. Separate implementation of authorized outputs.
+7. Parity, accessibility, and real consumption per output.
+8. Documentation selector exposing the real state of all three outputs.
+9. v1 × vNext comparison and promotion decision.

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tis-experience.github.io/ds-tis/schemas/upstream-intake.schema.json",
+  "title": "DS TIS upstream component intake",
+  "type": "object",
+  "required": [
+    "schema",
+    "schemaVersion",
+    "id",
+    "component",
+    "authorization",
+    "baseline",
+    "outputs",
+    "separation",
+    "parity",
+    "documentation",
+    "figmaOutcome",
+    "gates",
+    "evidence"
+  ],
+  "properties": {
+    "schema": { "const": "ds-tis/upstream-intake" },
+    "schemaVersion": { "const": 2 },
+    "id": { "type": "string", "minLength": 1 },
+    "component": {
+      "type": "object",
+      "required": ["name", "slug", "classification"]
+    },
+    "authorization": {
+      "type": "object",
+      "required": ["approvedScope", "blockedActions", "ownerDecision"]
+    },
+    "baseline": {
+      "type": "object",
+      "required": ["figma", "sharedContract"]
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "technologyFamily",
+          "distribution",
+          "resolutionContext",
+          "status",
+          "sourceModules",
+          "writeStatus"
+        ]
+      }
+    },
+    "separation": {
+      "type": "object",
+      "required": [
+        "outputsCoexist",
+        "outputSourcesMustRemainSeparate",
+        "oneOutputCannotReplaceAnother",
+        "sharedContractDoesNotMeanSharedImplementation"
+      ]
+    },
+    "parity": {
+      "type": "object",
+      "required": [
+        "requiredDimensions",
+        "status",
+        "selectsWinner",
+        "allowsDocumentedDifferences"
+      ]
+    },
+    "documentation": {
+      "type": "object",
+      "required": [
+        "selectionMode",
+        "trackIds",
+        "defaultTrack",
+        "showsUnavailableState",
+        "status"
+      ]
+    },
+    "figmaOutcome": {
+      "type": "object",
+      "required": ["status", "allowedOutcomes", "requiresOwnerApproval"]
+    },
+    "gates": { "type": "array", "minItems": 10 },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "path", "scope", "status", "freshness"]
+      }
+    }
+  },
+  "additionalProperties": true
+}

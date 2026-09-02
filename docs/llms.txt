@@ -19,8 +19,10 @@ No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/me
 
 ## Implementações por tecnologia
 
-- Web CSS: 26 componentes estáveis pelo pacote `ds-tis`.
-- React: 9 componentes beta distribuídos como source pelo registry shadcn `v1`; `@tis/react` não é um pacote público.
+- HTML/CSS/JS: 26 componentes estáveis pelo pacote `ds-tis`.
+- Ark/Zag: saída por tecnologia com adapters, status e releases próprios.
+- React · shadcn/Base UI: 22 componentes beta estruturados e distribuídos como source pelo registry `v1`; `@tis/react` não é um pacote público.
+- As três saídas coexistem conforme ADR-022; a documentação oferece escolha e a matriz mede paridade sem eleger vencedor.
 - Manifesto do registry: [registry/manifest.json](https://tis-experience.github.io/ds-tis/registry/manifest.json).
 - Namespace shadcn: `@tis` → `https://tis-experience.github.io/ds-tis/registry/v1/{name}.json`.
 
@@ -89,6 +91,8 @@ No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/me
 - [ADR-019 — — Reintrodução de Component tokens como contrato anatômico](docs/decisions/adr-019-component-tokens-contrato-anatomico.html) — Aceita
 - [ADR-020 — Biblioteca consumível e contrato de readiness dos componentes](docs/decisions/adr-020-biblioteca-consumivel-componentes-app-ready.html) — Aceita
 - [ADR-021 — Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag](docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html) — Aceita
+- [ADR-022 — Três saídas de implementação coexistentes](docs/decisions/adr-022-tres-saidas-de-implementacao-coexistentes.html) — Aceita
+- [ADR-023 — Quatro saídas de implementação com Angular nativo](docs/decisions/adr-023-quatro-saidas-com-angular-nativo.html) — Aceita
 
 ## Processo
 

@@ -16,9 +16,11 @@ import {
   responsiveFor,
 } from './lib/component-catalog.mjs';
 import {
+  ARK_ADAPTER_COMPONENTS,
   REACT_REGISTRY_BY_SLUG,
   REACT_REGISTRY_COMPONENTS,
   SHADCN_REGISTRY,
+  TECHNOLOGY_OUTPUTS,
   implementationsFor,
 } from './lib/technology-implementations.mjs';
 
@@ -103,6 +105,24 @@ expect(
 );
 expect(context.technologies?.web?.status === 'stable', 'Web technology must remain stable.');
 expect(
+  JSON.stringify(context.outputPolicy?.outputs) === JSON.stringify(TECHNOLOGY_OUTPUTS) &&
+    context.outputPolicy?.mode === 'coexisting-user-choice' &&
+    context.outputPolicy?.selectsWinner === false,
+  'Consumer context must publish the three coexisting outputs without a winner.',
+);
+expect(
+  context.technologies?.web?.outputId === 'web-html-css-js' &&
+    context.technologies?.ark?.outputId === 'ark-zag' &&
+    context.technologies?.react?.outputId === 'react-shadcn-base-ui',
+  'Technology metadata must expose the three canonical output ids.',
+);
+expect(
+  context.technologies?.ark?.status === 'beta' &&
+    context.technologies?.ark?.distribution === 'technology-adapters' &&
+    context.technologies?.ark?.componentCount === ARK_ADAPTER_COMPONENTS.length,
+  'Ark/Zag must remain a separate adapter output with its own real component count.',
+);
+expect(
   context.technologies?.web?.componentCount === COMPONENTS.length,
   'Web technology must publish every catalog component.',
 );
@@ -128,6 +148,12 @@ expect(
   context.technologies?.react?.registry?.componentsJson?.registries?.['@tis'] === `${SHADCN_REGISTRY.baseUrl}/{name}.json`,
   'React registry must expose the @tis namespace template.',
 );
+expect(
+  context.technologies?.react?.distribution === SHADCN_REGISTRY.distribution &&
+    context.technologies?.react?.behaviorArchitecture === SHADCN_REGISTRY.behaviorArchitecture &&
+    context.technologies?.react?.currentBehaviorTrack === SHADCN_REGISTRY.currentReactBehaviorTrack,
+  'React metadata must identify shadcn distribution and Base UI behavior for its independent output.',
+);
 
 const reactPublished = componentsApi.components.filter(
   (component) => component.implementations?.react?.status === SHADCN_REGISTRY.status,
@@ -140,6 +166,11 @@ for (const component of reactPublished) {
   const expected = REACT_REGISTRY_BY_SLUG[component.slug];
   expect(Boolean(expected), `${component.slug}: unexpected React registry implementation.`);
   expect(component.implementations.react.item === expected?.item, `${component.slug}: React item drift.`);
+  expect(
+    component.implementations.react.providerRole ===
+      (expected?.provider === 'Base UI' ? 'output-provider' : 'native-or-composition'),
+    `${component.slug}: React provider role drift.`,
+  );
   expect(
     component.implementations.react.registryUrl === `${SHADCN_REGISTRY.baseUrl}/${expected?.item}.json`,
     `${component.slug}: React registry URL drift.`,

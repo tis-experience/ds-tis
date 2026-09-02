@@ -1,10 +1,11 @@
-# Piloto React: DS TIS com shadcn e Base UI
+# Piloto da saída React: registry shadcn com Base UI
 
 ## Status
 
-Beta. Esta integração não substitui a v1 nem transforma shadcn em fonte de
-verdade. Ela implementa a integração React específica permitida pela ADR-021 e
-é distribuída como source por um canal público versionado.
+Beta. Esta integração materializa a saída `react-shadcn-base-ui` definida pela
+ADR-022. Ela não substitui HTML/CSS/JS nem Ark/Zag e não transforma shadcn em
+fonte de verdade visual. O registry fornece estrutura, composição e distribuição
+do source React; Base UI fornece os primitives comportamentais necessários.
 
 ## Decisão operacional
 
@@ -12,10 +13,15 @@ verdade. Ela implementa a integração React específica permitida pela ADR-021 
 |---|---|
 | Figma + tokens DTCG | Contrato visual e semântico do DS TIS |
 | `ds-tis/css` | CSS público, Component tokens e light/dark |
-| Base UI `1.6.0` | Estado, foco, portal e ARIA em React |
+| Ark/Zag | Saída headless por tecnologia, mantida separadamente |
+| Base UI `1.6.0` | Provider comportamental da saída React |
 | Adapter TIS fino | Setas/Home/End do Accordion e layout tokenizado do Dialog |
 | shadcn registry | Distribuição do source code para a aplicação |
 | Aplicação consumidora | Ownership do código instalado e das regras de produto |
+
+O fato de Base UI estar presente nos itens atuais registra a implementação real
+da saída React. O registry shadcn não distribui a saída Ark/Zag; cada saída possui
+source, dependências, instalação e release próprios.
 
 O piloto não exige Tailwind para estilizar os componentes. O registry injeta o
 import público `ds-tis/css`; os sources usam apenas as classes anatômicas do DS e
@@ -73,7 +79,7 @@ stylesheets. O entrypoint do pacote carrega as fontes antes dos tokens e
 componentes, mas o bundler só preserva imports CSS externos quando todos os
 `@import` aparecem antes de regras emitidas por outros arquivos.
 
-## Gates para promoção
+## Gates para avaliação
 
 1. Registry schema e paths válidos pela CLI oficial.
 2. Instalação real em projeto Vite/React temporário.
@@ -86,10 +92,18 @@ componentes, mas o bundler só preserva imports CSS externos quando todos os
    porque a referência `1.6.0` mede 20,12 KiB, contra o limite Ark de 20 KiB.
 6. Política de atualização Base UI e diff de recipes documentada.
 7. Consumo por pelo menos uma aplicação antes de qualquer API React pública.
+8. Matriz de paridade com HTML/CSS/JS e Ark/Zag, preservando diferenças legítimas
+   e sem declarar provider vencedor.
 
 O registry beta passou os gates de schema, instalação, build, browser, teclado,
 responsividade, bundle e Axe. `packages/react/src/index.js` continua sem exports:
-o contrato público é o source instalado pelo registry, não `@tis/react`.
+o contrato público é o source instalado pelo registry, não `@tis/react`. Esse
+resultado comprova a implementação React/Base UI, mas não substitui o gate e os
+testes próprios da saída Ark/Zag.
 
 O plano completo de expansão e o status por componente ficam em
 `docs/agents/shadcn-base-ui-implementation-plan.md`.
+
+Novos componentes seguem `docs/process-upstream-component-intake.md`, com
+manifesto por run e as três saídas da ADR-022. A saída React pode reutilizar a
+base Base UI aprovada, mas continua exigindo contrato e evidência por componente.

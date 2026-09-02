@@ -1,0 +1,157 @@
+---
+import { getComponents } from '../lib/component-source.mjs';
+import { getReactComponents } from '../lib/react-component-catalog.mjs';
+
+interface Props {
+  locale?: 'pt-br' | 'en';
+}
+
+const { locale = 'pt-br' } = Astro.props;
+const isEnglish = locale === 'en';
+const language = isEnglish ? 'en' : 'pt';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
+const pilotSlugs = new Set(['accordion', 'button', 'modal', 'popover']);
+const reactDescriptions = new Map(
+  getReactComponents(locale).map((component) => [component.slug, component.description]),
+);
+const fallbackDescriptions: Record<string, { pt: string; en: string }> = {
+  avatar: {
+    pt: 'Representa uma pessoa ou organização por imagem, iniciais ou fallback.',
+    en: 'Represents a person or organization with an image, initials, or fallback.',
+  },
+  breadcrumb: {
+    pt: 'Indica a posição atual na hierarquia e oferece acesso aos níveis anteriores.',
+    en: 'Shows the current position in a hierarchy and links to previous levels.',
+  },
+  combobox: {
+    pt: 'Permite pesquisar e escolher uma opção em uma lista filtrável.',
+    en: 'Lets people search and choose an option from a filterable list.',
+  },
+  menu: {
+    pt: 'Agrupa ações contextuais abertas a partir de um trigger.',
+    en: 'Groups contextual actions opened from a trigger.',
+  },
+  pagination: {
+    pt: 'Divide coleções extensas e permite navegar entre páginas de resultados.',
+    en: 'Divides long collections and moves between result pages.',
+  },
+  select: {
+    pt: 'Permite escolher uma opção em uma lista predefinida.',
+    en: 'Lets people choose one option from a predefined list.',
+  },
+  table: {
+    pt: 'Organiza dados relacionados em linhas e colunas com cabeçalhos semânticos.',
+    en: 'Organizes related data in rows and columns with semantic headers.',
+  },
+  tabs: {
+    pt: 'Alterna entre seções relacionadas sem sair da página.',
+    en: 'Switches between related sections without leaving the page.',
+  },
+  toast: {
+    pt: 'Comunica um resultado ou mudança de estado de forma temporária.',
+    en: 'Communicates a result or state change temporarily.',
+  },
+  tooltip: {
+    pt: 'Oferece uma explicação breve ao receber hover ou foco.',
+    en: 'Provides a brief explanation on hover or focus.',
+  },
+};
+const collator = new Intl.Collator(language, { sensitivity: 'base' });
+const statusLabel = (status: string) => ({
+  stable: isEnglish ? 'Stable' : 'Estável',
+  beta: 'Beta',
+  planned: isEnglish ? 'Planned' : 'Planejada',
+  unavailable: isEnglish ? 'Unavailable' : 'Indisponível',
+}[status] || status);
+const routeFor = (component: any, technology: 'web' | 'ark' | 'react' | 'angular') => {
+  const implementation = component.implementations[technology];
+  if (technology === 'web') {
+    return pilotSlugs.has(component.slug)
+      ? `${base}/${locale}/web/components/${component.slug}/`
+      : `${projectBase}/docs/${component.slug}.html`;
+  }
+  if (technology === 'ark') {
+    return implementation.status === 'beta'
+      ? `${base}/${locale}/ark/components/${component.slug}/`
+      : undefined;
+  }
+  if (technology === 'angular') {
+    return pilotSlugs.has(component.slug) && implementation.status === 'beta'
+      ? `${base}/${locale}/angular/components/${component.slug}/`
+      : undefined;
+  }
+  return implementation.status === 'beta'
+    ? `${base}/${locale}/react/components/${component.slug}/`
+    : undefined;
+};
+const outputDefinitions = [
+  ['web', 'HTML/CSS/JS'],
+  ['ark', 'Ark/Zag'],
+  ['react', 'React'],
+  ['angular', 'Angular'],
+] as const;
+
+const groups = [...getComponents()]
+  .sort((left, right) => left.category.order - right.category.order || collator.compare(left.name, right.name))
+  .reduce((result, component) => {
+    let group = result.find((entry) => entry.id === component.category.id);
+    if (!group) {
+      group = {
+        id: component.category.id,
+        label: component.category.label[language],
+        description: component.category.description[language],
+        components: [],
+      };
+      result.push(group);
+    }
+    group.components.push(component);
+    return result;
+  }, [] as Array<{ id: string; label: string; description: string; components: any[] }>);
+---
+
+<div class="ds-component-catalog" data-component-catalog data-component-count={getComponents().length}>
+  {groups.map((group) => (
+    <section class="ds-component-catalog__group" data-component-category={group.id}>
+      <header class="ds-component-catalog__group-header">
+        <h2>{group.label}</h2>
+        <p>{group.description}</p>
+      </header>
+      <ul aria-label={`${group.label} · ${isEnglish ? 'components' : 'componentes'}`}>
+        {group.components.map((component) => {
+          const webHref = routeFor(component, 'web');
+          const availableOutputs = outputDefinitions
+            .map(([technology, label]) => ({
+              href: routeFor(component, technology),
+              implementation: component.implementations[technology],
+              label,
+              technology,
+            }))
+            .filter((output) => output.href);
+
+          return (
+            <li class="ds-component-catalog__item">
+              <div class="ds-component-catalog__summary">
+                <a class="ds-component-catalog__name" href={webHref}>{component.name}</a>
+                <span class="ds-component-catalog__description">
+                  {reactDescriptions.get(component.slug)
+                    || fallbackDescriptions[component.slug]?.[language]}
+                </span>
+              </div>
+              <ul class="ds-component-catalog__outputs" aria-label={isEnglish ? `${component.name} available implementations` : `Implementações disponíveis de ${component.name}`}>
+                {availableOutputs.map(({ href, implementation, label, technology }) => (
+                  <li>
+                    <a href={href} data-output={technology}>
+                      <span>{label}</span>
+                      <small data-status={implementation.status}>{statusLabel(implementation.status)}</small>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>

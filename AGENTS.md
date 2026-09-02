@@ -128,6 +128,19 @@ Esse guia ensina o agent consumidor a instalar/importar `ds-tis/css`, `ds-tis/co
 
 Novo componente, redesenho estrutural ou novo padrão de documentação **não começa com escrita no Figma nem no repo**. Primeiro siga `docs/process-ai-component-workflow.md` e obtenha aprovação explícita do owner para o brief/spec.
 
+Quando shadcn, Base UI, Ark UI, Zag ou outra biblioteca for usada como
+matéria-prima, siga também `docs/process-upstream-component-intake.md`. A run deve
+conter `upstream-intake.json`; Figma e o contrato visual permanecem agnósticos.
+O resultado público é composto por **três saídas coexistentes**, nunca por um
+provider vencedor ou por uma implementação que some as três: (1) HTML/CSS +
+JavaScript agnóstico, (2) Ark UI + Zag e (3) React + shadcn + Base UI. shadcn
+fornece estrutura de composição e distribuição de source para a terceira saída;
+Base UI fornece seus primitives comportamentais. Cada saída mantém source,
+dependências, instalação, API e testes próprios, e a documentação deve permitir
+que a pessoa escolha qual delas visualizar e utilizar. As três compartilham
+tokens, linguagem visual, requisitos de acessibilidade e contrato conceitual,
+sem imports cruzados nem eliminação de uma saída em favor de outra. Ver ADR-022.
+
 Para trabalho com agentes especializados, use também `docs/agents/README.md`. Para Product Designers, a entrada preferencial é `docs/agents/product-designer-workflow.md`: o Orchestrator deve esconder terminal, scripts e handoffs técnicos, conduzindo o fluxo por gates de aprovação. Comandos curtos oficiais vivem em `docs/agents/quick-commands.md` e devem ser resolvidos para a role/checklist correspondente. Para trabalho multi-chat ou multi-IA, use `docs/agents/protocol.md`, `docs/agents/orchestration.md` e uma run em `docs/agents/runs/` criada por `npm run agents:create-run`. Cada agente deve declarar a role e o checklist antes de agir (`DS Architect`, `Figma Builder`, `Figma Auditor`, `Token Sync Agent`, `Repo Component Agent` ou `Release Agent`). A regra operacional é: **quem constrói não aprova o próprio trabalho**.
 
 Gate obrigatório antes de qualquer escrita:

@@ -1,0 +1,164 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-08-28-select-upstream-intake",
+  "title": "Select · intake upstream",
+  "createdAt": "2026-08-28",
+  "updatedAt": "2026-08-28",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T21:18:54.291Z",
+        "note": "Owner autorizou execução contínua e aprovou o brief de Select."
+      },
+      "updatedAt": "2026-08-28T21:18:54.291Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T21:18:54.446Z",
+        "note": "Figma preservado sem escrita; spec unchanged."
+      },
+      "updatedAt": "2026-08-28T21:18:54.446Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T21:18:54.628Z",
+        "note": "Auditoria read-only: página Select issueCount=0 e 38 variables select/*."
+      },
+      "updatedAt": "2026-08-28T21:18:54.628Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T21:18:54.804Z",
+        "note": "Nenhum token alterado; adapters reutilizam o contrato existente."
+      },
+      "updatedAt": "2026-08-28T21:18:54.804Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:09:40Z",
+        "note": "Owner autorizou execução contínua; implementação passou nos gates funcionais, visuais, acessíveis, de consumer e bundle."
+      },
+      "updatedAt": "2026-08-28T22:09:40Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": null,
+      "updatedAt": null
+    }
+  ],
+  "checks": {
+    "verify-tokens": {
+      "exit": 0,
+      "passed": true,
+      "note": "0 erros, 0 avisos, VALUE_DRIFT=0",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "runtime-lifecycle": {
+      "exit": 0,
+      "passed": true,
+      "note": "223 checks",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "fundação, intake, bundles e registry",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "shadcn-consumer": {
+      "exit": 0,
+      "passed": true,
+      "note": "22 componentes, Vite, interação e Axe",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "storybook": {
+      "exit": 0,
+      "passed": true,
+      "note": "26/26 componentes e 93 stories",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "a11y": {
+      "exit": 0,
+      "passed": true,
+      "note": "108 runs e 0 violações",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "browser-vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "três saídas, teclado, foco, 320/390, Axe",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    },
+    "full-suite": {
+      "exit": 0,
+      "passed": true,
+      "note": "npm test integral; Pages 919 arquivos; 199 páginas; 108 Axe; browser vNext",
+      "recordedAt": "2026-08-28T22:09:40Z"
+    }
+  }
+}

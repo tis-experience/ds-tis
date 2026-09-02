@@ -16,28 +16,22 @@ body {
 
 .consumer-header,
 .consumer-form,
-.consumer-section,
-.consumer-section-heading,
 .consumer-actions {
   display: flex;
   flex-direction: column;
 }
 
-.consumer-header,
-.consumer-section-heading {
+.consumer-header {
   gap: var(--ds-space-sm);
 }
 
 .consumer-header h1,
-.consumer-section h2,
 .consumer-header p,
-.consumer-section p,
 .consumer-status {
   margin: var(--ds-space-none);
 }
 
-.consumer-header h1,
-.consumer-section h2 {
+.consumer-header h1 {
   color: var(--ds-content-strong);
 }
 
@@ -50,12 +44,39 @@ body {
   gap: var(--ds-space-2xl);
 }
 
-.consumer-section {
+.consumer-card-content,
+.consumer-loading-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.consumer-card-content {
   gap: var(--ds-space-xl);
-  padding: var(--ds-space-2xl);
-  background: var(--ds-surface-default);
-  border: var(--ds-border-width-default) solid var(--ds-border-default);
-  border-radius: var(--ds-radius-lg);
+}
+
+.consumer-badge-row,
+.consumer-spinner-row,
+.consumer-loading-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+}
+
+.consumer-badge-row {
+  flex-wrap: wrap;
+}
+
+.consumer-loading-copy {
+  flex: 1;
+  gap: var(--ds-space-xs);
+}
+
+.consumer-loading-copy .ds-skeleton:first-child {
+  width: 60%;
+}
+
+.consumer-loading-copy .ds-skeleton:last-child {
+  width: 40%;
 }
 
 .consumer-actions {

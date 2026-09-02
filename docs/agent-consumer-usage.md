@@ -6,7 +6,7 @@ Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consu
 
 ## Escopo
 
-O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para nove componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
+O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para dezesseis componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
 
 Não apresente `@tis/react` como pacote público. Para React, use o registry somente quando `docs/api/components.json` marcar `implementations.react.status` como `beta`; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.
 
@@ -169,7 +169,7 @@ O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conte
 
 ## React beta pelo registry shadcn
 
-O pacote `@tis/react` não é público. Para os nove componentes validados, a API
+O pacote `@tis/react` não é público. Para os dezesseis componentes validados, a API
 React é distribuída como source pelo canal versionado
 `https://tis-experience.github.io/ds-tis/registry/v1`.
 
@@ -194,10 +194,19 @@ Depois instale apenas o necessário:
 npx shadcn@latest add @tis/button @tis/field @tis/input
 ```
 
-O catálogo beta atual contém Accordion, Button, Checkbox, Form Field, Input
-Text, Modal, Radio, Textarea e Toggle. Os nomes shadcn de Modal, Form Field,
-Radio e Toggle são, respectivamente, `dialog`, `field`, `radio-group` e
-`switch`. Não deduza essa tradução: leia `implementations.react.item`.
+O catálogo beta atual contém Accordion, Alert, Badge, Button, Card, Checkbox,
+Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner, Textarea e
+Toggle. Os nomes shadcn de Modal, Form Field, Radio e Toggle são,
+respectivamente, `dialog`, `field`, `radio-group` e `switch`. Não deduza essa
+tradução: leia `implementations.react.item`.
+
+Não confunda as três saídas da ADR-022. Em
+`docs/api/consumer-context.json`, `outputPolicy.outputs` lista HTML/CSS/JS,
+Ark/Zag e React/shadcn/Base UI como alternativas coexistentes. A saída React usa
+`technologies.react.distribution: "shadcn-registry"`,
+`behaviorArchitecture: "base-ui"` e `providerRole: "output-provider"`. Isso não
+transforma Base UI em core nem substitui as outras duas saídas. Consulte o status
+da saída escolhida; não misture imports ou instruções entre elas.
 
 O source instalado pertence ao app consumidor e pode ser revisado ou composto
 localmente. Preserve as classes públicas, o primeiro import global
@@ -263,7 +272,7 @@ idioma, orientação e layout reais do produto consumidor.
 
 ## Adaptação por framework
 
-React pode instalar os nove componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
+React pode instalar os dezesseis componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
 
 - manter os nomes de classes públicas do DS;
 - preservar labels, IDs, `aria-*` e relações `for`/`id`;

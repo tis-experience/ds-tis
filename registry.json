@@ -8,7 +8,7 @@
       "type": "registry:base",
       "extends": "none",
       "title": "TIS React Base",
-      "description": "Base beta do DS TIS para projetos React com Base UI e distribuição shadcn.",
+      "description": "Base da saída React beta implementada com shadcn e Base UI; HTML/CSS/JS e Ark/Zag permanecem saídas coexistentes e separadas.",
       "author": "TIS Experience Engineering",
       "config": {
         "style": "tis",
@@ -35,12 +35,14 @@
       "css": {
         "@import \"ds-tis/css\"": {}
       },
-      "docs": "Base beta. O DS TIS permanece fonte de tokens, visual e contratos; Base UI fornece comportamento e shadcn distribui o código. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "docs": "Saída React beta. O DS TIS permanece fonte de tokens, visual e contratos; shadcn estrutura e distribui o source, e Base UI fornece os primitives comportamentais desta saída conforme a ADR-022. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
         "providerVersion": "1.6.0",
+        "providerRole": "output-provider",
+        "behaviorArchitecture": "Base UI",
         "status": "beta",
-        "adr": "ADR-021"
+        "adr": "ADR-022"
       }
     },
     {
@@ -74,6 +76,7 @@
       "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta"
       }
     },
@@ -108,6 +111,7 @@
       "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta"
       }
     },
@@ -155,17 +159,18 @@
             "z-index": "var(--ds-modal-overlay-z-index-default)"
           },
           ".ds-tis-dialog__popup": {
-            "position": "relative"
+            "position": "relative",
+            "box-sizing": "border-box"
           },
-          ".ds-modal .ds-tis-dialog__close": {
-            "top": "var(--ds-space-sm)",
-            "right": "var(--ds-space-sm)"
+          ".ds-tis-dialog__close .ds-icon": {
+            "flex-shrink": "0"
           }
         }
       },
       "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta"
       }
     },
@@ -234,6 +239,277 @@
       }
     },
     {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "TIS Popover",
+      "description": "Popover React com composição shadcn e comportamento Base UI, preservando a anatomia e os tokens públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/popover.tsx",
+          "type": "registry:ui",
+          "target": "@ui/popover.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-popover__positioner": {
+          "z-index": "var(--ds-z-tooltip)",
+          "max-inline-size": "var(--available-width)"
+        },
+        ".ds-popover__panel.ds-tis-popover__popup": {
+          "position": "relative"
+        },
+        ".ds-tis-popover__arrow": {
+          "inline-size": "var(--ds-space-none)",
+          "block-size": "var(--ds-space-none)",
+          "visibility": "hidden"
+        },
+        ".ds-tis-popover__positioner::before, .ds-tis-popover__positioner::after": {
+          "position": "absolute",
+          "box-sizing": "border-box",
+          "z-index": "calc(var(--ds-z-tooltip) + 1)",
+          "content": "none",
+          "pointer-events": "none"
+        },
+        ".ds-tis-popover__positioner:has(> .ds-tis-popover__popup > .ds-tis-popover__arrow)::before, .ds-tis-popover__positioner:has(> .ds-tis-popover__popup > .ds-tis-popover__arrow)::after": {
+          "content": "\"\""
+        },
+        ".ds-tis-popover__positioner::before": {
+          "background": "var(--ds-popover-panel-border-color-default)",
+          "background-color": "color-mix(in srgb, var(--ds-popover-panel-border-color-default), var(--ds-popover-body-color-default) 25%)"
+        },
+        ".ds-tis-popover__positioner::after": {
+          "background": "var(--ds-popover-arrow-fill-default)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"bottom\"]::before, .ds-tis-popover__positioner[data-side=\"bottom\"]::after": {
+          "inset-block-end": "calc(100% - var(--ds-popover-panel-border-width-default))",
+          "inset-inline-start": "50%",
+          "clip-path": "polygon(0 100%, 50% 0, 100% 100%)",
+          "transform": "translateX(-50%)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"bottom\"]::before, .ds-tis-popover__positioner[data-side=\"top\"]::before": {
+          "inline-size": "var(--ds-popover-arrow-base-default)",
+          "block-size": "calc((var(--ds-popover-arrow-base-default) / 2) + var(--ds-popover-panel-border-width-default))"
+        },
+        ".ds-tis-popover__positioner[data-side=\"bottom\"]::after, .ds-tis-popover__positioner[data-side=\"top\"]::after": {
+          "inline-size": "calc(var(--ds-popover-arrow-base-default) - (var(--ds-popover-panel-border-width-default) * 2))",
+          "block-size": "calc(var(--ds-popover-arrow-base-default) / 2)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"top\"]::before, .ds-tis-popover__positioner[data-side=\"top\"]::after": {
+          "inset-block-start": "calc(100% - var(--ds-popover-panel-border-width-default))",
+          "inset-inline-start": "50%",
+          "clip-path": "polygon(0 0, 100% 0, 50% 100%)",
+          "transform": "translateX(-50%)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"left\"]::before, .ds-tis-popover__positioner[data-side=\"left\"]::after": {
+          "inset-block-start": "50%",
+          "inset-inline-start": "calc(100% - var(--ds-popover-panel-border-width-default))",
+          "clip-path": "polygon(0 0, 100% 50%, 0 100%)",
+          "transform": "translateY(-50%)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"left\"]::before, .ds-tis-popover__positioner[data-side=\"right\"]::before": {
+          "inline-size": "calc((var(--ds-popover-arrow-base-default) / 2) + var(--ds-popover-panel-border-width-default))",
+          "block-size": "var(--ds-popover-arrow-base-default)"
+        },
+        ".ds-tis-popover__positioner[data-side=\"left\"]::after, .ds-tis-popover__positioner[data-side=\"right\"]::after": {
+          "inline-size": "calc(var(--ds-popover-arrow-base-default) / 2)",
+          "block-size": "calc(var(--ds-popover-arrow-base-default) - (var(--ds-popover-panel-border-width-default) * 2))"
+        },
+        ".ds-tis-popover__positioner[data-side=\"right\"]::before, .ds-tis-popover__positioner[data-side=\"right\"]::after": {
+          "inset-block-start": "50%",
+          "inset-inline-end": "calc(100% - var(--ds-popover-panel-border-width-default))",
+          "clip-path": "polygon(100% 0, 0 50%, 100% 100%)",
+          "transform": "translateY(-50%)"
+        }
+      },
+      "docs": "Mantenha @import \"ds-tis/css\" como o primeiro import global. Use PopoverTitle e PopoverDescription para nome e descrição acessíveis.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "overlay"
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "TIS Tooltip",
+      "description": "Tooltip React com composição shadcn e comportamento Base UI, preservando o contrato visual e os tokens públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "@ui/tooltip.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-tooltip__positioner": {
+          "z-index": "var(--ds-z-tooltip)",
+          "max-inline-size": "var(--available-width)"
+        },
+        ".ds-tooltip__content.ds-tis-tooltip__popup": {
+          "position": "relative",
+          "inset": "auto",
+          "margin": "0",
+          "transform": "none",
+          "pointer-events": "auto"
+        },
+        ".ds-tooltip__content.ds-tis-tooltip__popup::before": {
+          "display": "none"
+        },
+        ".ds-tis-tooltip__arrow": {
+          "inline-size": "var(--ds-tooltip-arrow-base-default)",
+          "block-size": "var(--ds-tooltip-arrow-depth-default)",
+          "background": "var(--ds-tooltip-arrow-fill-default)",
+          "clip-path": "polygon(0 100%, 50% 0, 100% 100%)"
+        },
+        ".ds-tis-tooltip__arrow[data-side=\"top\"]": {
+          "clip-path": "polygon(0 0, 100% 0, 50% 100%)"
+        },
+        ".ds-tis-tooltip__arrow[data-side=\"left\"]": {
+          "inline-size": "var(--ds-tooltip-arrow-depth-default)",
+          "block-size": "var(--ds-tooltip-arrow-base-default)",
+          "clip-path": "polygon(0 0, 100% 50%, 0 100%)"
+        },
+        ".ds-tis-tooltip__arrow[data-side=\"right\"]": {
+          "inline-size": "var(--ds-tooltip-arrow-depth-default)",
+          "block-size": "var(--ds-tooltip-arrow-base-default)",
+          "clip-path": "polygon(0 50%, 100% 0, 100% 100%)"
+        }
+      },
+      "docs": "Use Tooltip somente como label complementar, mantenha nome acessível no trigger e preserve @import \"ds-tis/css\" como o primeiro import global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "overlay"
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "TIS Tabs",
+      "description": "Tabs React com composição shadcn e comportamento Base UI, preservando a anatomia, o teclado e os tokens públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/tabs.tsx",
+          "type": "registry:ui",
+          "target": "@ui/tabs.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+    ".ds-tab--disabled": {
+      "color": "var(--ds-tabs-label-color-disabled)",
+      "cursor": "not-allowed"
+    },
+    "[data-slot=\"tabs-list\"]": {
+      "overflow-x": "auto",
+      "overflow-y": "hidden"
+    },
+    "[data-slot=\"tabs-trigger\"]": {
+      "flex": "0 0 auto",
+      "white-space": "nowrap"
+    }
+      },
+      "docs": "Use Tabs para painéis relacionados, preserve rótulo acessível no tablist e mantenha @import \"ds-tis/css\" como o primeiro import global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "navigation"
+      }
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "TIS Toast",
+      "description": "Toast React com composição shadcn e manager Base UI, preservando tipos, estilos, anatomia e tokens públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/toast.tsx",
+          "type": "registry:ui",
+          "target": "@ui/toast.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-toast__content": {
+          "display": "contents"
+        },
+        ".ds-tis-toast__viewport, .ds-tis-toast": {
+          "box-sizing": "border-box"
+        },
+        ".ds-tis-toast": {
+          "transition": "opacity var(--ds-motion-duration-fast) var(--ds-motion-ease-out)"
+        },
+        ".ds-tis-toast[data-starting-style], .ds-tis-toast[data-ending-style]": {
+          "opacity": "0"
+        },
+        ".ds-tis-toast[data-limited]": {
+          "display": "none"
+        }
+      },
+      "docs": "Monte ToastProvider uma vez no app, chame showToast para feedback transitório e preserve @import \"ds-tis/css\" como o primeiro import global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "feedback"
+      }
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "TIS Input",
@@ -263,6 +539,7 @@
       "docs": "Componha com Field para label, helper e erro. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta",
         "wave": "forms"
       }
@@ -402,6 +679,7 @@
       "docs": "Use CheckboxLabel para ampliar o target e preserve indeterminate no próprio controle. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta",
         "wave": "forms"
       }
@@ -474,6 +752,7 @@
       "docs": "RadioGroup renderiza fieldset por padrão; use RadioGroupLegend e RadioGroupOption. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta",
         "wave": "forms"
       }
@@ -552,8 +831,418 @@
       "docs": "Switch mapeia o componente Toggle do DS e gera input real para forms. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
       "meta": {
         "provider": "Base UI",
+        "providerRole": "output-provider",
         "status": "beta",
         "wave": "forms"
+      }
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "TIS Alert",
+      "description": "Alert React por composição, preservando tons, variantes e anatomia pública do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/alert.tsx",
+          "type": "registry:ui",
+          "target": "@ui/alert.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Componha AlertIcon, AlertContent, AlertTitle, AlertDescription, AlertActions e AlertClose. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React composition",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "TIS Badge",
+      "description": "Badge React por composição com os tons e estilos públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/badge.tsx",
+          "type": "registry:ui",
+          "target": "@ui/badge.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Use tone para intenção e variant para solid/subtle. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React composition",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "TIS Card",
+      "description": "Card React por composição completa, incluindo media, header, content e footer públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/card.tsx",
+          "type": "registry:ui",
+          "target": "@ui/card.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Use CardHeader, CardTitle, CardDescription, CardContent e CardFooter; CardMedia e CardContainer preservam media full-bleed. Para variant interactive, renderize com as=\"button\" ou as=\"a\" e forneça a semântica de seleção apropriada ao padrão quando selected estiver ativo. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React composition",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "TIS Separator",
+      "description": "Separator React nativo que mapeia o componente Divider sem perder a semântica de hr.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/separator.tsx",
+          "type": "registry:ui",
+          "target": "@ui/separator.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Separator usa hr semântico por padrão; marque decorative somente quando a linha for puramente visual. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "TIS Skeleton",
+      "description": "Skeleton React de apresentação com variantes text, circle e rectangle do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/skeleton.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeleton.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Skeleton é aria-hidden por padrão; anuncie o carregamento no container com aria-busy e nome acessível. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React presentation",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "TIS Spinner",
+      "description": "Spinner React com tamanhos e tratamento on-color públicos do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/spinner.tsx",
+          "type": "registry:ui",
+          "target": "@ui/spinner.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Forneça aria-label contextual quando Loading não for suficiente. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "React presentation",
+        "status": "beta",
+        "wave": "presentation"
+      }
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "TIS Combobox",
+      "description": "Combobox React com filtro, seleção e teclado por Base UI, preservando a anatomia pública do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/combobox.tsx",
+          "type": "registry:ui",
+          "target": "@ui/combobox.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-combobox__positioner": {
+          "z-index": "var(--ds-z-tooltip)",
+          "inline-size": "var(--anchor-width)",
+          "max-inline-size": "var(--available-width)"
+        },
+        ".ds-combobox__listbox.ds-tis-combobox__popup": {
+          "position": "relative",
+          "inset": "auto",
+          "top": "auto",
+          "inline-size": "100%"
+        },
+        ".ds-tis-combobox__popup [data-slot=\"combobox-list\"]": {
+          "display": "flex",
+          "flex-direction": "column",
+          "gap": "var(--ds-combobox-listbox-container-gap-default)"
+        },
+        ".ds-combobox__option[data-highlighted]": {
+          "background": "var(--ds-menu-item-bg-hover-default)",
+          "color": "var(--ds-menu-item-content-color-hover)"
+        }
+      },
+      "docs": "Componha com ComboboxField e ComboboxLabel. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "TIS Select",
+      "description": "Select React single-value com typeahead, foco e teclado por Base UI, preservando o contrato visual do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/select.tsx",
+          "type": "registry:ui",
+          "target": "@ui/select.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-select__trigger": {
+          "inline-size": "100%",
+          "justify-content": "flex-start",
+          "margin": "0",
+          "text-align": "start",
+          "cursor": "pointer"
+        },
+        ".ds-tis-select__value": {
+          "flex": "1",
+          "min-inline-size": "0",
+          "overflow": "hidden",
+          "text-overflow": "ellipsis",
+          "white-space": "nowrap"
+        },
+        ".ds-tis-select__value[data-placeholder]": {
+          "color": "var(--ds-field-placeholder-color-default)"
+        },
+        ".ds-tis-select__trigger[data-popup-open] .ds-select__arrow": {
+          "transform": "translateY(-50%) rotate(180deg)"
+        },
+        ".ds-tis-select__positioner": {
+          "z-index": "var(--ds-z-tooltip)",
+          "inline-size": "var(--anchor-width)",
+          "max-inline-size": "var(--available-width)"
+        },
+        ".ds-tis-select__content": {
+          "inline-size": "100%",
+          "max-block-size": "min(var(--available-height), var(--ds-size-layout-md))",
+          "overflow-y": "auto"
+        },
+        ".ds-tis-select__list": {
+          "display": "flex",
+          "flex-direction": "column",
+          "gap": "var(--ds-menu-surface-gap-default)"
+        },
+        ".ds-tis-select__item[data-highlighted]": {
+          "background": "var(--ds-menu-item-bg-focused)",
+          "color": "var(--ds-menu-item-content-color-focused)"
+        },
+        ".ds-tis-select__item[data-disabled]": {
+          "background": "var(--ds-menu-item-bg-disabled)",
+          "color": "var(--ds-menu-item-content-color-disabled)",
+          "cursor": "not-allowed"
+        },
+        ".ds-tis-select__item[data-selected] .ds-menu__check": {
+          "visibility": "visible"
+        }
+      },
+      "docs": "Use Select para uma opção sem busca; mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "forms"
+      }
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "TIS Menu",
+      "description": "Menu React com comandos, escolhas, foco e teclado por Base UI, preservando o contrato visual do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/menu.tsx",
+          "type": "registry:ui",
+          "target": "@ui/menu.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        ".ds-tis-menu__trigger": {
+          "margin": "0"
+        },
+        ".ds-tis-menu__trigger-indicator": {
+          "transition": "transform var(--ds-motion-duration-fast) var(--ds-motion-ease-default)"
+        },
+        ".ds-tis-menu__trigger[data-popup-open] .ds-tis-menu__trigger-indicator": {
+          "transform": "rotate(180deg)"
+        },
+        ".ds-tis-menu__positioner": {
+          "z-index": "var(--ds-z-tooltip)",
+          "max-inline-size": "var(--available-width)"
+        },
+        ".ds-tis-menu__content": {
+          "max-block-size": "min(var(--available-height), var(--ds-size-layout-md))",
+          "overflow-y": "auto"
+        },
+        ".ds-tis-menu__indicator": {
+          "display": "contents"
+        },
+        ".ds-tis-menu__indicator .ds-icon": {
+          "width": "100%",
+          "height": "100%"
+        },
+        ".ds-tis-menu__item[data-highlighted]": {
+          "background": "var(--ds-menu-item-bg-focused)",
+          "color": "var(--ds-menu-item-content-color-focused)"
+        },
+        ".ds-tis-menu__item[data-disabled]": {
+          "background": "var(--ds-menu-item-bg-disabled)",
+          "color": "var(--ds-menu-item-content-color-disabled)",
+          "cursor": "not-allowed"
+        },
+        ".ds-tis-menu__item[data-checked] .ds-menu__check": {
+          "visibility": "visible"
+        }
+      },
+      "docs": "Use Menu para comandos contextuais, não para valor de formulário. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "overlay"
       }
     }
   ]

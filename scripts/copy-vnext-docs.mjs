@@ -14,7 +14,7 @@ assertNoSymlinks(source);
 fs.mkdirSync(destination, { recursive: true });
 
 for (const entry of fs.readdirSync(destination, { withFileTypes: true })) {
-  if (entry.name === 'storybook' && entry.isDirectory()) continue;
+  if (['storybook', 'storybook-angular'].includes(entry.name) && entry.isDirectory()) continue;
   fs.rmSync(path.join(destination, entry.name), { recursive: true, force: true });
 }
 

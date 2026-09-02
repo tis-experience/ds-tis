@@ -1,0 +1,152 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-08-28-menu-upstream-intake",
+  "title": "Menu · intake upstream",
+  "createdAt": "2026-08-28",
+  "updatedAt": "2026-08-28",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": null
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:16:45.957Z",
+        "note": "Owner autorizou execução contínua do brief do Menu em 2026-08-28."
+      },
+      "updatedAt": "2026-08-28T22:16:45.957Z"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:16:46.202Z",
+        "note": "Figma preservado sem escrita; spec unchanged."
+      },
+      "updatedAt": "2026-08-28T22:16:46.202Z"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:16:46.446Z",
+        "note": "Auditoria read-only: Menu issueCount=0 e 39 variables menu/action-menu."
+      },
+      "updatedAt": "2026-08-28T22:16:46.446Z"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:16:46.691Z",
+        "note": "Nenhum token alterado; adapters reutilizam o contrato existente."
+      },
+      "updatedAt": "2026-08-28T22:16:46.691Z"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-08-28T22:54:26.846Z",
+        "note": "Implementação e auditoria local concluídas; owner autorizou execução contínua em 2026-08-28."
+      },
+      "updatedAt": "2026-08-28T22:54:26.846Z"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": null,
+      "updatedAt": "2026-08-28T22:54:27.015Z"
+    }
+  ],
+  "checks": {
+    "verify:tokens": {
+      "exit": 0,
+      "passed": true,
+      "note": "0 erros, 0 avisos, VALUE_DRIFT=0",
+      "recordedAt": "2026-08-28T22:54:25.818Z"
+    },
+    "test:vnext": {
+      "exit": 0,
+      "passed": true,
+      "note": "foundation, intake, bundle e registry passaram",
+      "recordedAt": "2026-08-28T22:54:25.993Z"
+    },
+    "test:shadcn-consumer": {
+      "exit": 0,
+      "passed": true,
+      "note": "22 componentes instalados, Vite, interação e Axe",
+      "recordedAt": "2026-08-28T22:54:26.168Z"
+    },
+    "test:vnext:browser": {
+      "exit": 0,
+      "passed": true,
+      "note": "Web, Ark e React, teclado, dark, 320/390 e Axe",
+      "recordedAt": "2026-08-28T22:54:26.338Z"
+    },
+    "visual-review": {
+      "exit": 0,
+      "passed": true,
+      "note": "separadores, indicadores, destructive e foco alinhados nas três saídas",
+      "recordedAt": "2026-08-28T22:54:26.507Z"
+    },
+    "npm-test": {
+      "exit": 0,
+      "passed": true,
+      "note": "919 arquivos Pages, 199 HTML, 108 runs Axe sem violações",
+      "recordedAt": "2026-08-28T22:54:26.678Z"
+    }
+  }
+}

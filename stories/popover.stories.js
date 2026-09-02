@@ -6,17 +6,18 @@ function popoverMarkup({
   description,
   showSlot,
   showActions,
+  triggerLabel = 'Abrir popover',
   id = 'story-popover',
   open = false,
 }) {
   const actions = showActions
-    ? '<div class="ds-popover__actions"><button class="ds-button ds-button--outline ds-button--sm" type="button" data-ds-popover-close><span class="ds-button__label">Cancelar</span></button><button class="ds-button ds-button--brand ds-button--sm" type="button"><span class="ds-button__label">Salvar</span></button></div>'
+    ? '<div class="ds-popover__actions"><button class="ds-button ds-button--toned ds-button--sm" type="button" data-ds-popover-close><span class="ds-button__label">Cancelar</span></button><button class="ds-button ds-button--brand ds-button--sm" type="button" data-ds-popover-close><span class="ds-button__label">Confirmar</span></button></div>'
     : '';
   const slot = showSlot
-    ? '<div class="ds-popover__content"><div class="ds-field"><label class="ds-field__label" for="popover-name">Nome</label><div class="ds-input"><input class="ds-input__field" id="popover-name" type="text" value="Relatorio mensal"></div></div></div>'
+    ? '<div class="ds-popover__content"><div class="ds-field"><label class="ds-field__label" for="popover-name">Nome</label><div class="ds-input"><input class="ds-input__field" id="popover-name" type="text" value="Relatório mensal"></div></div></div>'
     : '';
 
-  return `<div class="ds-popover ds-popover--${placement}"${open ? ' data-open="true"' : ''}><button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button"><span class="ds-button__label">Abrir popover</span></button><div class="ds-popover__panel" id="${id}" role="dialog" aria-labelledby="${id}-title"${open ? '' : ' hidden'}><div class="ds-popover__header"><h3 class="ds-popover__title" id="${id}-title">${escapeHtml(title)}</h3></div><button class="ds-popover__close" type="button" aria-label="Fechar popover">${icon('x')}</button><div class="ds-popover__body"><p>${escapeHtml(description)}</p>${slot}</div>${actions}</div></div>`;
+  return `<div class="ds-popover ds-popover--${placement}"${open ? ' data-open="true"' : ''}><button class="ds-button ds-button--outline ds-button--sm ds-popover__trigger" type="button"><span class="ds-button__label">${escapeHtml(triggerLabel)}</span></button><div class="ds-popover__panel" id="${id}" role="dialog" aria-labelledby="${id}-title"${open ? '' : ' hidden'}><div class="ds-popover__header"><h3 class="ds-popover__title" id="${id}-title">${escapeHtml(title)}</h3></div><button class="ds-popover__close" type="button" aria-label="Fechar popover">${icon('x')}</button><div class="ds-popover__body"><p>${escapeHtml(description)}</p>${slot}</div>${actions}</div></div>`;
 }
 
 export default {
@@ -24,9 +25,9 @@ export default {
   tags: ['autodocs'],
   args: {
     placement: 'bottom',
-    title: 'Renomear item',
-    description: 'Aplique uma alteração curta sem sair do contexto atual.',
-    showSlot: true,
+    title: 'Detalhes da ação',
+    description: 'Conteúdo breve associado ao trigger.',
+    showSlot: false,
     showActions: true,
   },
   argTypes: {
@@ -46,7 +47,7 @@ export const Posicoes = {
   parameters: storyDescription('Matriz de triggers para exercitar as quatro posições pelo runtime sem forçar overflow em viewports estreitos.'),
 };
 export const ComSlot = {
-  render: (args) => `<div class="sb-story-popover-stage">${popoverMarkup({ ...args, showSlot: true, showActions: true, id: 'popover-slot', open: true })}</div>`,
+  render: (args) => `<div class="sb-story-popover-stage">${popoverMarkup({ ...args, triggerLabel: 'Renomear', title: 'Renomear item', description: 'Informe um nome curto e descritivo.', showSlot: true, showActions: true, id: 'popover-slot', open: false })}</div>`,
   parameters: storyDescription('O slot é uma opção adicional ao conteúdo e aos actions, não substitui os buttons.'),
 };
 export const SemActions = {

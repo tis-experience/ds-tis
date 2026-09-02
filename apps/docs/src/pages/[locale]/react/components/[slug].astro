@@ -1,0 +1,29 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+import ReactComponentPage from '../../../../components/ReactComponentPage.astro';
+import { getReactComponents } from '../../../../lib/react-component-catalog.mjs';
+
+export function getStaticPaths() {
+  return ['pt-br', 'en'].flatMap((locale) =>
+    getReactComponents(locale)
+      .map((component) => ({
+        params: { locale, slug: component.slug },
+        props: { component, locale },
+      })),
+  );
+}
+
+const { component, locale } = Astro.props;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: component.name,
+    description: component.description,
+    tableOfContents: false,
+    lastUpdated: false,
+  }}
+>
+  <ReactComponentPage component={component} locale={locale} />
+</StarlightPage>

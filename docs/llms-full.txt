@@ -315,10 +315,118 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Corrigido
+- **Tabelas de referência do portal vNext ocupam toda a largura disponível.**
+  O grid interno volta a usar layout semântico de tabela e recebe um invólucro
+  de rolagem apenas quando as colunas excedem o container, preservando leitura,
+  foco acessível e ausência de overflow global em desktop, 390px e 320px.
+- **Playground e anatomia do Popover consistentes nas quatro saídas.** Web,
+  Ark/Zag, React e Angular passam a abrir cenários equivalentes executados pelo
+  Storybook e runtime próprios de cada tecnologia, sem reutilizar o exemplo Web.
+  Os actions usam dois Buttons alinhados, as quatro setas preservam contorno e
+  preenchimento sem divisória, e a anatomia compacta identifica Trigger, Panel,
+  Header, Body, Actions e Arrow com seis marcadores numerados. Rebuilds parciais
+  do portal preservam também o Storybook Angular, evitando previews em 404. Os
+  exemplos com Content Slot recebem altura própria para exibir campo e actions
+  completos, sem recortar o painel nem alterar a altura pública do Input.
+
 ### Adicionado
+- **Quarta saída tecnológica Angular nativa em beta de workspace.** Button,
+  Accordion e Popover recebem entrypoints tree-shakable em `@tis/angular`,
+  Storybook próprio, consumer real e rotas PT-BR/EN no seletor documental. A
+  biblioteca usa HTML nativo, Angular Aria e CDK Overlay/Portal/A11y, consome o
+  CSS existente e preserva Figma, tokens e as saídas Web, Ark/Zag e React.
+- **Button conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  A saída Ark usa `ark.button` da Ark Factory e mantém semântica e teclado
+  nativos, sem máquina Zag desnecessária. Variantes, tamanhos, disabled,
+  loading, formulário, foco, visual, acessibilidade e bundle passam a ser
+  validados junto às saídas Web e React/Base UI independentes.
+- **Toggle conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente com estados on/off, tamanhos, disabled,
+  foco, teclado e hidden input de formulário. Web nativo e a recipe React/Base
+  UI permanecem independentes e compartilham somente tokens, linguagem visual
+  e contrato conceitual; browser, Axe e bundle passam a bloquear regressões.
+- **Radio conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente com seleção exclusiva, setas, Space,
+  disabled, invalid, foco e hidden inputs de formulário. Web nativo e a recipe
+  React/Base UI permanecem independentes e compartilham somente tokens, visual
+  e contrato conceitual; browser, Axe e bundle passam a bloquear regressões.
+- **Checkbox conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente com checked, mixed, disabled, invalid,
+  focus e hidden input de formulário. Web nativo e a recipe React/Base UI
+  permanecem independentes e compartilham apenas tokens, visual e contrato
+  conceitual; browser, Axe e bundle passam a bloquear regressões.
+- **Toast conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente e o registry React recebe uma recipe
+  shadcn baseada em Base UI. As saídas preservam tipos e estilos, fila com
+  limite, prioridade acessível, timer pausável, action, dismiss e responsividade;
+  browser, consumidor instalado, Axe e bundle passam a bloquear regressões. O
+  catálogo React passa a ter vinte e dois componentes beta.
+- **Tabs conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente e o registry React recebe uma recipe
+  shadcn baseada em Base UI. As duas saídas preservam anatomia, tokens,
+  ativação automática, roving tabindex, setas, Home/End, disabled ignorado e
+  relações entre tabs e painéis. Ark e React impedem quebra de linha nos labels
+  e usam overflow horizontal local quando o conteúdo excede a largura, evitando
+  tabs deformadas em 320px; a validação permanece separada por provider. O
+  catálogo React passa a ter vinte e um componentes beta.
+- **Tooltip conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
+  Ark UI/Zag recebe adapter independente e o registry React recebe uma recipe
+  shadcn baseada em Base UI, ambos alinhados ao visual, aos 11 tokens e ao
+  comportamento do Tooltip existente. As saídas preservam hover/focus,
+  `aria-describedby`, conteúdo hoverable, Escape e foco no trigger; browser,
+  consumidor instalado, Axe e orçamentos de bundle passam a bloquear regressões.
+  O catálogo React passa a ter vinte componentes beta.
+- **Menu conclui a paridade local nas três saídas sem alterar o contrato Web.**
+  O Action Menu HTML/CSS/JavaScript e o componente no Figma permanecem
+  canônicos; Ark UI/Zag recebe um adapter isolado e o registry React recebe uma
+  recipe shadcn baseada em Base UI. Os adapters cobrem comandos, checkbox,
+  radio, disabled, destructive, grupos e separadores, preservando alinhamento,
+  foco composto, typeahead, Escape e retorno ao trigger. Portal, Storybook,
+  consumidor instalado, Axe e orçamentos de bundle passam a validar as três
+  saídas, e o catálogo React passa a ter dezenove componentes beta.
+- **Select conclui a paridade local nas três saídas sem alterar o Web nativo.**
+  O contrato HTML/CSS continua baseado em `<select>`; Ark UI/Zag recebe adapter
+  isolado e o registry React recebe uma recipe shadcn baseada em Base UI. As
+  três rotas documentam placeholder, opções desabilitadas, typeahead e valor de
+  formulário. A validação corrigiu uma colisão de namespace entre providers,
+  confirmou largura do popup, teclado, foco, Axe, consumidor instalado e os
+  limites de bundle. O catálogo React passa a ter dezoito componentes beta.
+- **Combobox conclui a paridade local nas três saídas.** A implementação
+  HTML/CSS/JS preserva a API pública e corrige clear, opções desabilitadas e a
+  ocultação real dos itens filtrados; Ark UI/Zag recebe adapter e story
+  independentes; e o registry React recebe a recipe shadcn baseada somente em
+  Base UI. O portal bilíngue expõe as três implementações com conteúdo
+  compartilhado, seleção explícita de tecnologia e testes de teclado, foco,
+  Axe, consumidor instalado e bundle, sem alterar tokens ou Figma. O catálogo
+  React passa a ter dezessete componentes beta.
+- **Modal Ark/Zag passa a ter adapter público de workspace.** O subpath
+  `@tis/react/ark/modal`, a story isolada e as rotas PT-BR/EN preservam a
+  anatomia, os três tamanhos e os tokens do Modal TIS, com foco, teclado,
+  portal, bloqueio de scroll e retorno de foco mantidos por Ark UI/Zag. O
+  contrato cobre apenas Dialog modal comum e reserva confirmações críticas ou
+  destrutivas para um futuro Alert Dialog, sem alterar o Figma, o CSS ou o
+  runtime HTML/JavaScript estável. A saída React/Base UI recebe o mesmo exemplo
+  reversível, tamanho `md` padrão e semântica `aria-modal` explícita. O adapter
+  React também passa a manter largura border-box e close icônico totalmente
+  contido na superfície, sem depender de texto auxiliar visualmente oculto.
+- **Accordion Ark/Zag deixa de ser apenas um spike interno.** O adapter aprovado
+  passa a ter entrypoint de workspace, story pública e rota selecionável no
+  portal PT-BR/EN. A saída preserva a anatomia, o visual e os tokens do Accordion
+  estável, com estado e teclado fornecidos por Ark UI/Zag, sem importar Base UI,
+  shadcn ou alterar a implementação HTML/CSS/JS.
+- **Popover inaugura as três saídas tecnológicas selecionáveis.** A implementação
+  HTML/CSS/JS permanece estável e agnóstica; um adapter React independente usa
+  Ark UI com Zag transitivo; e o registry React recebe um source shadcn baseado
+  somente em Base UI. O portal bilíngue permite alternar entre as três rotas sem
+  fundir providers, e consumers, browser, Axe e bundle passam a validar cada
+  saída. Naquele incremento, o catálogo React cresceu para dezesseis componentes
+  beta. Os adapters passam também a diferenciar o close icônico do cabeçalho e a
+  ação textual do rodapé, preservando conteúdo, estilo e nomes acessíveis em
+  desktop e mobile, sem escrita no Figma ou no core Web.
 - **Tronco público de consumo React para Devs e agents IA.** O source registry
   shadcn passa a ser construído no GitHub Pages pelo canal versionado
-  `/registry/v1`, com namespace `@tis`, manifesto compacto e nove componentes
+  `/registry/v1`, com namespace `@tis`, manifesto compacto e quinze componentes
   em beta. `consumer-context.json` v2 e `components.json` expõem disponibilidade,
   item, provider, URL e comando por tecnologia sem abrir um pacote fictício
   `@tis/react`. Uma fixture permanente instala todos os itens em uma app
@@ -326,6 +434,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   responsividade e Axe; o portal bilíngue e os guias de consumo passam a ensinar
   o mesmo contrato. O core CSS consumido pelo registry fica preso ao commit
   imutável validado, sem depender de uma tag anterior à correção de imports.
+- **Onda de apresentação do registry React.** Alert, Badge, Card,
+  Divider/Separator, Skeleton e Spinner entram no catálogo beta por source,
+  reutilizando a anatomia e as classes públicas do DS sem provider
+  comportamental desnecessário. Stories e fixture de consumo cobrem composição,
+  semântica nativa, estados de loading, responsividade e Axe; o catálogo legível
+  por Devs e agents IA passa a expor quinze componentes validados.
 - **Piloto React distribuído por shadcn com Base UI.** O source registry
   adiciona `tis-base`, Button, Accordion e Dialog sem tornar
   Tailwind obrigatório: Base UI mantém estado, foco e ARIA; um adapter fino
@@ -360,6 +474,79 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Storybook público do Design System TIS.** Catálogo HTML/Vite cobre os 23 componentes com Controls, Docs, auditoria A11y, modo light/dark e lifecycle dos seis runtimes; o CI valida cobertura e publica o build em `/storybook/` no GitHub Pages.
 
 ### Alterado
+- **Snapshot Figma passa a validar aliases com uma segunda fonte independente.**
+  O exporter `0.2.1` audita a mesma representação serializada que entrega ao
+  repositório; `verify:figma-structure` recalcula invariantes de Variables sem
+  confiar no diagnóstico embutido, mas continua bloqueando problemas de nodes,
+  páginas e truncamentos que possam ocultá-los. A evidência de release preserva
+  a contagem informada pelo exporter e registra separadamente o resultado
+  canônico verificado pelo repo.
+- **Portal vNext reduz carga e repetição sem alterar o contrato das três saídas.**
+  O catálogo troca 78 caixas de disponibilidade por uma matriz textual compacta,
+  recebe descrições específicas para todos os componentes e remove um callout
+  redundante. Previews Storybook sincronizam o tema e carregam imediatamente, sem
+  depender de scroll; referências de design deixam de ficar ocultas; e o catálogo
+  mostra somente implementações utilizáveis, mantendo trabalho planejado no
+  roadmap. A navegação móvel troca tabs sem espaço por um select nativo, e o
+  Popover Ark/Zag expõe `placement` no Root com cobertura executável para top,
+  right, bottom e left. Os playgrounds comparáveis de Accordion e Popover passam
+  a preservar conteúdo, estado inicial, ícones, largura e tamanho do trigger da
+  referência HTML/CSS/JS, com regressões no portal e no consumer instalado.
+- **Portal vNext passa a ter um catálogo canônico independente de tecnologia.**
+  Os 26 componentes aparecem em um único ponto de entrada, com disponibilidade
+  real e links próprios para HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI. O
+  breadcrumb deixa de apontar para o catálogo React; a troca de implementação
+  vira um controle único e rotulado; previews sincronizam o tema antes da
+  primeira carga, usam alturas proporcionais e estados de loading acessíveis; e
+  a navegação móvel substitui tabs cortadas por um select nativo. O renderer não
+  exige mais uma implementação React para documentar Web ou Ark, snippets
+  passam a ter scroll local e os testes de browser aguardam o reflow real.
+- **Accordion, Button e Popover passam a usar um renderer documental Astro único.**
+  As referências estáveis HTML/CSS/JS continuam canônicas e fornecem uma única
+  fonte bilíngue para anatomia, exemplos, Figma, tokens, uso e acessibilidade. O
+  portal reorganiza o conteúdo no padrão editorial aprovado e oferece três rotas
+  por componente, preservando preview, distribuição, source e testes próprios de
+  Web, Ark/Zag e React/shadcn/Base UI. Saídas planejadas permanecem explícitas e
+  não exibem instalação, código, preview ou evidência falsos.
+- **Documentação do Popover recupera o padrão editorial completo do Button.**
+  As três saídas passam a compartilhar breadcrumb, descrição, disponibilidade e
+  as quatro visões editoriais, mantendo preview, distribuição e API próprios.
+  HTML/CSS/JS volta a exibir o Playground nativo do Storybook estável; anatomia,
+  exemplos, placements, tokens, uso e teclado são reaproveitados da referência
+  canônica bilíngue, sem fundir Web, Ark/Zag e React/shadcn/Base UI.
+- **Intake upstream passa a ter orquestração e gates verificáveis.** Um processo
+  canônico, manifesto por run e validador automatizado preservam Figma e o
+  contrato compartilhado como agnósticos e bloqueiam mistura entre as saídas. A
+  ADR-022 formaliza HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI como três saídas
+  coexistentes, escolhidas pelo consumidor na documentação e nunca fundidas ou
+  submetidas a uma seleção de provider vencedor. O Popover abre a primeira run
+  formal de paridade sem autorizar ainda Figma, adapters ou release.
+- **Arquitetura React volta a distinguir distribuição e comportamento.** A
+  ADR-022, o portal bilíngue, o plano operacional, o registry e os contratos
+  machine-readable passam a declarar shadcn como estrutura/composição e canal de
+  source da saída React, com Base UI como seu provider comportamental. Ark/Zag e
+  HTML/CSS/JS mantêm implementações, distribuição, testes e release próprios. O
+  primeiro gate mede a paridade do Accordion nas três saídas sem remover nenhuma.
+- **Storybook React reorganizado como catálogo público por componente.** A
+  superfície vNext deixa de misturar ondas, formulários, providers e vários
+  componentes na mesma story: os quinze componentes beta passam a viver em
+  cinco categorias semânticas, cada um com Docs funcional, Playground com
+  Controls e ao menos dois exemplos isolados. As tabelas de API passam a expor
+  tipo, valor padrão e descrição; a entrada Overview orienta a navegação e
+  comparações internas de Ark/Zag ficam fora do build público. Gates estáticos
+  e de browser protegem os 16 documentos, 50 stories, links do portal,
+  comportamento Base UI, 320/390px, light/dark, Axe e densidade dos exemplos em
+  Docs.
+- **Portal React consolidado em um único catálogo operacional.** A navegação
+  deixa de espalhar componentes entre tecnologia, pilotos, forms, apresentação
+  e uma tabela paralela de registry. Os quinze componentes beta passam a ser
+  agrupados pelo problema que resolvem e usam o mesmo template bilíngue de
+  Design, Uso, Implementação e Acessibilidade — inclusive Button. Cada página
+  reúne preview funcional sincronizado com o tema do portal, anatomia, estados,
+  exemplo copiável, instalação e evidência; provider e source ficam recolhidos
+  como arquitetura técnica. Web CSS, React e agents IA tornam-se guias de
+  integração separados, enquanto API, registry e metadados preservam a fonte
+  estruturada para Devs e agents IA.
 - **Portal Astro passa a consumir o contrato já refletido no repositório.**
   O chrome retorna ao Starlight nativo e usa somente a cor de marca TIS; status,
   badges de disponibilidade, dashboards, embeds internos e estilos que simulavam
@@ -383,6 +570,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Tooltip preserva a largura natural de textos curtos.** O conteúdo deixa de ser comprimido em colunas estreitas nas posições laterais, mantendo a quebra responsiva para textos longos e viewports reduzidas.
 
 ### Corrigido
+- **Exemplos estáticos de Modal recuperam a apresentação TIS no portal vNext.**
+  O adaptador de conteúdo do Astro passa a carregar as folhas públicas de Modal,
+  Button, Form Field e Input usadas pelas composições, evitando superfícies
+  transparentes e controles nativos sem estilo nas rotas Web, Ark/Zag e React.
 - **Thumb do Toggle Base UI permanece centralizado nos estados `on`.** O adapter
   shadcn troca o zero sem unidade por `space.none`, preservando o tipo dimensional
   dentro do `calc()` usado pelo inset vertical em `md` e `lg disabled`, com
@@ -1394,10 +1585,10 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 
 # Índice de ADRs — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 
-21 decisões registradas.
+23 decisões registradas.
 
 | ADR | Título | Status | Data |
 |-----|--------|--------|------|
@@ -1422,6 +1613,8 @@ Consolidação da documentação como fonte única de verdade. Plano em seis fas
 | [ADR-019](decisions/ADR-019-component-tokens-contrato-anatomico.md) | — Reintrodução de Component tokens como contrato anatômico | Aceita | 2026-05-11 |
 | [ADR-020](decisions/ADR-020-biblioteca-consumivel-componentes-app-ready.md) | Biblioteca consumível e contrato de readiness dos componentes | Aceita | 2026-07-16 |
 | [ADR-021](decisions/ADR-021-coexistencia-v1-vnext-astro-ark-zag.md) | Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag | Aceita | 2026-07-28 |
+| [ADR-022](decisions/ADR-022-tres-saidas-de-implementacao-coexistentes.md) | Três saídas de implementação coexistentes | Aceita | 2026-08-03 |
+| [ADR-023](decisions/ADR-023-quatro-saidas-com-angular-nativo.md) | Quatro saídas de implementação com Angular nativo | Aceita | 2026-08-28 |
 
 
 ═══════════════════════════════════════════════════════════
@@ -1436,7 +1629,7 @@ Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consu
 
 ## Escopo
 
-O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para nove componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
+O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para dezesseis componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
 
 Não apresente `@tis/react` como pacote público. Para React, use o registry somente quando `docs/api/components.json` marcar `implementations.react.status` como `beta`; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.
 
@@ -1599,7 +1792,7 @@ O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conte
 
 ## React beta pelo registry shadcn
 
-O pacote `@tis/react` não é público. Para os nove componentes validados, a API
+O pacote `@tis/react` não é público. Para os dezesseis componentes validados, a API
 React é distribuída como source pelo canal versionado
 `https://tis-experience.github.io/ds-tis/registry/v1`.
 
@@ -1624,10 +1817,19 @@ Depois instale apenas o necessário:
 npx shadcn@latest add @tis/button @tis/field @tis/input
 ```
 
-O catálogo beta atual contém Accordion, Button, Checkbox, Form Field, Input
-Text, Modal, Radio, Textarea e Toggle. Os nomes shadcn de Modal, Form Field,
-Radio e Toggle são, respectivamente, `dialog`, `field`, `radio-group` e
-`switch`. Não deduza essa tradução: leia `implementations.react.item`.
+O catálogo beta atual contém Accordion, Alert, Badge, Button, Card, Checkbox,
+Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner, Textarea e
+Toggle. Os nomes shadcn de Modal, Form Field, Radio e Toggle são,
+respectivamente, `dialog`, `field`, `radio-group` e `switch`. Não deduza essa
+tradução: leia `implementations.react.item`.
+
+Não confunda as três saídas da ADR-022. Em
+`docs/api/consumer-context.json`, `outputPolicy.outputs` lista HTML/CSS/JS,
+Ark/Zag e React/shadcn/Base UI como alternativas coexistentes. A saída React usa
+`technologies.react.distribution: "shadcn-registry"`,
+`behaviorArchitecture: "base-ui"` e `providerRole: "output-provider"`. Isso não
+transforma Base UI em core nem substitui as outras duas saídas. Consulte o status
+da saída escolhida; não misture imports ou instruções entre elas.
 
 O source instalado pertence ao app consumidor e pode ser revisado ou composto
 localmente. Preserve as classes públicas, o primeiro import global
@@ -1693,7 +1895,7 @@ idioma, orientação e layout reais do produto consumidor.
 
 ## Adaptação por framework
 
-React pode instalar os nove componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
+React pode instalar os dezesseis componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
 
 - manter os nomes de classes públicas do DS;
 - preservar labels, IDs, `aria-*` e relações `for`/`id`;
@@ -2051,7 +2253,7 @@ apresentadas como comportamento aprovado do sistema.
 
 # Inventário de componentes — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -2140,6 +2342,8 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | ADR-019 | — Reintrodução de Component tokens como contrato anatômico | Aceita |
 | ADR-020 | Biblioteca consumível e contrato de readiness dos componentes | Aceita |
 | ADR-021 | Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag | Aceita |
+| ADR-022 | Três saídas de implementação coexistentes | Aceita |
+| ADR-023 | Quatro saídas de implementação com Angular nativo | Aceita |
 
 ## Próximos milestones
 
@@ -2303,6 +2507,11 @@ Use estes labels em português:
 Este processo define como qualquer agente IA deve criar ou redesenhar componentes, padrões de interação ou documentação visual no DS Core.
 
 Ele existe para evitar execução prematura. Um componente novo ruim custa retrabalho em Figma, tokens, CSS, docs, testes e changelog. Portanto, o agente deve primeiro produzir contexto e spec, depois executar.
+
+Quando o trabalho parte de shadcn, Base UI, Ark UI, Zag ou outra biblioteca,
+aplique em conjunto `docs/process-upstream-component-intake.md`. Esse processo
+adiciona manifesto, três saídas coexistentes e paridade reproduzível sem alterar
+a ordem de gates definida aqui.
 
 ## Quando usar
 
@@ -3166,6 +3375,214 @@ que o commit mesclado estiver verde.
   nova pré-release.
 - produção deve usar `latest` ou pin exato; `beta` nunca é promovida
   automaticamente.
+
+
+═══════════════════════════════════════════════════════════
+# docs/process-upstream-component-intake.md
+═══════════════════════════════════════════════════════════
+
+# Processo: intake controlado de componentes upstream
+
+Este processo governa o uso de shadcn, Base UI, Ark UI, Zag ou outra biblioteca
+como matéria-prima para evoluir o DS TIS. Ele complementa
+`docs/process-ai-component-workflow.md`: o workflow de componentes continua
+definindo brief, Figma, implementação e release; este documento impede que uma
+referência externa vire, por acidente, fonte de verdade ou uma segunda arquitetura
+misturada ao core.
+
+## Resultado esperado
+
+Cada intake deve preservar e evoluir três saídas públicas separadas:
+
+1. `web-html-css-js` — HTML/CSS + JavaScript agnóstico;
+2. `ark-zag` — Ark UI + Zag por tecnologia;
+3. `react-shadcn-base-ui` — React + shadcn + Base UI.
+
+O objetivo não é somar as três tecnologias em uma implementação nem escolher um
+provider vencedor. É entregar alternativas reais que compartilham o contrato TIS
+e permanecem independentes em source, dependências, API técnica, instalação,
+testes e release. Ver ADR-022.
+
+## Camadas e responsabilidades
+
+| Camada | Autoridade | Pode receber do upstream | Não pode receber |
+|---|---|---|---|
+| Figma TIS | contrato visual, anatomia, properties e documentação para designers | proposta de melhoria visual/anatômica, após auditoria | nomes de provider, estrutura React ou recipe copiada |
+| Tokens DTCG | decisões visuais aprovadas e cadeia Foundation → Semantic → Component | tokens justificados pela spec aprovada | valores de theme do upstream sem normalização |
+| Saída HTML/CSS/JS | API agnóstica e runtime estável do DS | melhoria de semântica, teclado ou lifecycle validada | dependência de Base UI, Ark UI, Zag, React ou registry |
+| Saída Ark/Zag | integração headless por tecnologia | parts Ark e comportamento Zag via Ark | imports Base UI ou source da saída React |
+| Saída React · shadcn/Base UI | composição e source React distribuído pelo registry | estrutura/recipes shadcn + primitives Base UI + adapter TIS | imports Ark/Zag ou dependência da saída Ark |
+| Portal documental | escolha explícita entre as três saídas | preview, instalação, API e evidência da saída selecionada | esconder saída, eleger vencedor ou reutilizar código de outra saída como se fosse nativo |
+
+A direção de dependência é sempre:
+
+```txt
+Figma + tokens TIS -> HTML/CSS/JS
+                   -> Ark/Zag por tecnologia
+                   -> React + shadcn/Base UI
+                   -> documentação com escolha da saída
+```
+
+O sentido inverso é bloqueado. Um adapter pode revelar uma melhoria possível no
+core ou no Figma, mas essa melhoria volta ao gate de brief/spec e só então é
+incorporada ao contrato TIS.
+
+## Regras duras
+
+1. Preservar a implementação atual até existir decisão aprovada por componente.
+2. Manter as três saídas coexistentes. Uma não pode substituir, incorporar ou
+   importar a implementação de outra.
+3. Tratar shadcn como estrutura de composição e distribuição de source da saída
+   React; Base UI permanece o provider comportamental dessa saída quando o
+   componente precisar de primitives.
+4. Tratar Ark como adapter headless por tecnologia e Zag como motor de estado;
+   acesso direto a Zag exige exceção registrada.
+5. Manter Figma e Web core livres de nomes e dependências de provider.
+6. Não copiar theme, Tailwind recipe, CSS literal ou nomes de parts upstream para
+   o consumidor final. Tudo passa pelo contrato anatômico e pelos tokens TIS.
+7. Não declarar melhoria no Figma a partir de snapshot antigo. O resultado Figma
+   deve ser `sem mudança, com evidência` ou `proposta de melhoria`, nunca omitido.
+8. Não implementar, substituir ou publicar uma saída no mesmo gate que faz a
+   auditoria de paridade.
+9. Não remover uma implementação existente durante o comparativo.
+10. Toda decisão deve estar em uma run e em `upstream-intake.json`, validado por
+    `npm run agents:validate-intake`.
+
+## Fluxo obrigatório
+
+### Gate U0 — estado atual
+
+- Rodar `npm run agent:preflight` e isolar a sujeira existente.
+- Registrar contrato Web, readiness, runtime, tokens e evidência Figma disponível.
+- Marcar snapshot Figma antigo como `stale`; ele não prova o estado vivo.
+- Declarar explicitamente o que será preservado e quais escritas estão bloqueadas.
+
+### Gate U1 — benchmark upstream reproduzível
+
+- Para shadcn, registrar recipe/base/provider e usar a CLI oficial para consulta:
+  `info`, `docs`, `search`, `view`, `--dry-run` e `--diff`, conforme aplicável.
+- Registrar o `components.json`, preset ou base usados na resolução. Um `view`
+  executado fora de um projeto configurado pode resolver outra base e não vale
+  como evidência da saída pretendida.
+- Para Ark, registrar package, versão fixada, anatomy e documentação primária.
+- Para Zag, registrar se o uso é transitivo por Ark ou uma exceção direta.
+- Guardar apenas evidência e links necessários; não importar vendor corpus.
+- Comparar versões fixadas no repo. “Latest” sem data e sem evidência não é aceito.
+
+### Gate U2 — contrato TIS atual
+
+- Auditar anatomia, estados, teclado, foco, dismiss, ARIA, lifecycle, tokens,
+  responsividade e API pública existentes.
+- Para Figma, usar snapshot fresco ou leitura viva persistida em `evidence/`.
+- Separar defeito atual, oportunidade de melhoria e diferença legítima de provider.
+
+### Gate U3 — classificação das melhorias
+
+Cada achado recebe exatamente uma classificação:
+
+| Classificação | Destino |
+|---|---|
+| `figma-core` | volta a brief/spec Figma e aprovação do owner |
+| `web-core` | proposta agnóstica para HTML/CSS/JS, após contrato aprovado |
+| `adapter-only` | permanece na saída específica |
+| `docs-only` | documentação derivada do contrato real |
+| `reject` | não entra no DS, com justificativa |
+
+Um achado não pode ser implementado em duas camadas “por garantia”. A matriz deve
+declarar uma camada proprietária e como as demais consomem o resultado.
+
+### Gate U4 — brief e resultado Figma
+
+- Atualizar `01-brief.md` com problema, comparação e mudanças propostas.
+- Atualizar `02-figma-spec.md` ou registrar, com evidência, que o Figma não muda.
+- Obter aprovação explícita do owner para o brief/spec.
+- Sem essa aprovação, Figma, Web core e adapters continuam bloqueados.
+
+### Gate U5 — saídas isoladas
+
+- Construir somente as saídas autorizadas no gate, em paths distintos.
+- Preservar HTML/CSS/JS mesmo quando as outras saídas forem implementadas.
+- A saída React/shadcn/Base UI só importa Base UI e dependências React
+  explicitamente registradas.
+- A saída Ark/Zag só importa Ark e, por exceção registrada, Zag direto.
+- O registry shadcn distribui somente a saída React/shadcn/Base UI.
+- Cada saída declara instalação, API, dependências, status e testes próprios.
+
+### Gate U6 — paridade e diferenças legítimas
+
+Aplicar o mesmo método às três saídas:
+
+- semântica, ARIA, teclado, foco e dismiss;
+- controlled/uncontrolled e forms, quando aplicável;
+- SSR/hydration e lifecycle;
+- quantidade de adapter e desvios documentados do contrato TIS;
+- bundle, dependências e política de atualização;
+- capacidade de cumprir o contrato na tecnologia declarada;
+- instalação real em consumer e manutenção por agents IA.
+
+O resultado é uma matriz de paridade com status por saída e diferenças legítimas.
+Não existe campo de provider escolhido. Uma saída pode estar `estável`, `beta`,
+`planejada` ou `indisponível` sem eliminar nem bloquear as demais.
+
+### Gate U7 — documentação, implementação e release por saída
+
+Depois da paridade aprovada, retomar a sequência canônica da run para cada saída
+autorizada:
+
+```txt
+Figma Builder -> Figma Auditor -> Token Sync Agent -> Repo Component Agent -> Release Agent
+```
+
+O portal deve oferecer `HTML/CSS/JS`, `Ark/Zag` e `React · shadcn/Base UI` como
+escolhas explícitas e mostrar o estado real quando uma saída ainda não estiver
+disponível. Quando Figma/tokens não mudarem, o gate correspondente deve ser
+fechado como não aplicável com evidência, nunca pulado em silêncio. Commit, push,
+PR e publicação continuam exigindo autorização explícita por saída.
+
+## Manifesto obrigatório
+
+Cada run de intake contém `upstream-intake.json`, conforme
+`docs/agents/templates/upstream-intake.schema.json`. O manifesto registra:
+
+- baseline TIS e freshness da evidência Figma;
+- as três saídas, famílias tecnológicas, módulos, distribuição e status;
+- separação entre sources e coexistência obrigatória;
+- dimensões comuns da comparação;
+- contrato do seletor documental;
+- resultado Figma obrigatório;
+- gates, aprovações e ações bloqueadas;
+- paths de evidência reproduzível.
+
+Validação:
+
+```bash
+npm run agents:validate-intake
+npm run agents:validate-run -- docs/agents/runs/YYYY-MM-DD-slug
+npm run agents:next-step -- docs/agents/runs/YYYY-MM-DD-slug
+```
+
+O validador bloqueia manifesto sem as três saídas, source que mistura Base UI e
+Ark/Zag, campo de provider vencedor, seletor documental incompleto ou gate
+posterior avançado antes dos anteriores.
+
+## Política de atualização
+
+Antes de atualizar a saída React/shadcn/Base UI, use `--dry-run` e `--diff`;
+preserve alterações TIS e nunca aceite overwrite automático. Antes de atualizar
+Ark ou Base UI, repita os cenários, bundle e consumer da saída. Mudança de major,
+anatomia, data attributes ou comportamento reabre U1, U2 e U6.
+
+## Piloto atual
+
+Popover é o primeiro intake formal deste processo porque já possui contrato Web
+App-ready, runtime público e página Figma registrada, mas ainda não possui
+implementação React pública. A run canônica é
+`docs/agents/runs/2026-08-03-popover-upstream-intake/`.
+
+Esta run começa somente com registro e auditoria de paridade. A saída HTML/CSS/JS
+existente permanece preservada; escrita no Figma, implementação das saídas
+Ark/Zag e React/shadcn/Base UI e publicação permanecem bloqueadas até seus gates
+específicos.
 
 
 ═══════════════════════════════════════════════════════════
@@ -22976,7 +23393,7 @@ Seção expandida com contexto, decisão e locais de uso.
 
 # Token schema — Design System Core
 
-> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-07-31. Não editar manualmente.
+> Gerado automaticamente por `scripts/sync-docs.mjs` em 2026-09-01. Não editar manualmente.
 > Para regenerar: `npm run sync:docs`
 > Versão atual: **1.0.0**
 
@@ -23114,6 +23531,8 @@ Arquivos canônicos em `tokens/component/`:
 - **ADR-019** — — Reintrodução de Component tokens como contrato anatômico (Aceita)
 - **ADR-020** — Biblioteca consumível e contrato de readiness dos componentes (Aceita)
 - **ADR-021** — Coexistência da v1 com vNext em Astro, Storybook e Ark/Zag (Aceita)
+- **ADR-022** — Três saídas de implementação coexistentes (Aceita)
+- **ADR-023** — Quatro saídas de implementação com Angular nativo (Aceita)
 
 
 ═══════════════════════════════════════════════════════════
@@ -25769,6 +26188,7 @@ Descartada. Devs e agents precisam do mesmo contrato; a classificação deve ser
 
 - **Status:** Aceita
 - **Data:** 2026-07-28
+- **Substituída parcialmente por:** ADR-022, nas decisões de provider preferencial e seleção excludente entre implementações
 - **Relaciona:** ADR-002, ADR-003, ADR-019, ADR-020
 
 ## Contexto
@@ -25865,6 +26285,18 @@ Na vNext web:
 Paridade multiplataforma significa preservar intenção, estados, acessibilidade,
 tokens e documentação. Não significa compartilhar o mesmo binário ou esconder
 diferenças legítimas entre frameworks.
+
+shadcn pode distribuir source React sem se tornar provider de comportamento.
+Quando usado pelo DS, seu registry é somente o canal de aquisição e atualização
+do adapter React. A escolha entre HTML nativo, Ark UI ou acesso excepcional a
+Zag continua sendo feita pelo contrato de cada componente, segundo esta ADR.
+
+Uma implementação React com Base UI pode permanecer como trilha beta de
+comparação, desde que declare o provider real, não seja apresentada como
+substituição de Ark/Zag e não determine as implementações de Vue, Solid ou
+Svelte. Sua promoção exige comparação componente a componente contra a opção
+Ark/Zag e decisão arquitetural explícita; a existência de source validado no
+registry, isoladamente, não altera o provider preferencial da vNext.
 
 As versões de Ark são fixadas por linha de release e atualizadas somente com
 changelog upstream, stories de interação, Axe e teste de consumo. Zag é transitivo
@@ -26006,6 +26438,308 @@ busca, acessibilidade e publicação antes de retirar a superfície antiga.
 - Documentação Storybook — React com Vite.
 - Documentação Ark UI — componentes headless, adapters por framework, MCP e LLMs.txt.
 - Documentação Zag — máquinas de estado, adapters e LLMs.txt.
+
+
+═══════════════════════════════════════════════════════════
+# ADR-022 — Três saídas de implementação coexistentes
+═══════════════════════════════════════════════════════════
+
+# ADR-022: Três saídas de implementação coexistentes
+
+- **Status:** Aceita
+- **Data:** 2026-08-03
+- **Substitui parcialmente:** ADR-021, nas decisões de provider preferencial e seleção excludente entre implementações
+- **Relaciona:** ADR-002, ADR-003, ADR-019, ADR-020, ADR-021
+
+## Contexto
+
+A ADR-021 iniciou a vNext com Ark/Zag como base comportamental preferencial e
+Base UI como trilha React comparativa. O intake posterior de shadcn, Base UI,
+Ark UI e Zag revelou que esse enquadramento ainda sugeria uma competição na qual
+uma implementação seria promovida e as demais descartadas.
+
+Esse não é o produto desejado. O DS TIS precisa atender consumidores com e sem
+framework, aproveitar a cobertura multiplataforma de Ark/Zag e oferecer também
+uma experiência React baseada em source distribuído pelo ecossistema shadcn.
+Essas necessidades não são atendidas por uma implementação híbrida nem pela
+escolha de um único provider.
+
+## Decisão
+
+### 1. Cada componente pode ter três saídas públicas coexistentes
+
+As saídas canônicas são:
+
+| ID estável | Nome documental | Responsabilidade |
+|---|---|---|
+| `web-html-css-js` | HTML/CSS/JS | Implementação agnóstica, distribuída pelo pacote `ds-tis`, com CSS e runtime JavaScript opt-in quando necessário. |
+| `ark-zag` | Ark/Zag | Implementações headless por tecnologia usando Ark UI e Zag, com adapters, dependências e releases próprios. |
+| `react-shadcn-base-ui` | React · shadcn/Base UI | Implementação React em source, estruturada e distribuída pelo registry shadcn, com Base UI como provider comportamental quando necessário. |
+
+As três saídas são produtos do DS. Uma não é fallback temporário, benchmark ou
+candidata à eliminação da outra. A disponibilidade pode evoluir em ritmos
+diferentes por componente, mas a documentação sempre declara o estado real das
+três: `estável`, `beta`, `planejada` ou `indisponível`.
+
+### 2. Contrato compartilhado não significa implementação compartilhada
+
+As saídas compartilham:
+
+- decisões visuais e tokens TIS;
+- linguagem, nomenclatura e intenção dos componentes;
+- requisitos WCAG 2.2 AA e cenários mínimos de interação;
+- conteúdo de design, uso e acessibilidade que seja realmente comum.
+
+Cada saída mantém separadamente:
+
+- source e árvore de dependências;
+- API técnica e convenções legítimas da tecnologia;
+- instalação, bundle, SSR/hydration e lifecycle;
+- testes de consumo e política de atualização;
+- diferenças documentadas que não possam ou não devam ser normalizadas.
+
+É proibido criar um source híbrido que importe Base UI e Ark/Zag para representar
+o mesmo componente. Também é proibido fazer uma saída depender da implementação
+de outra. Melhorias encontradas em qualquer saída podem voltar ao brief/spec e
+influenciar o contrato compartilhado somente após aprovação.
+
+### 3. shadcn tem papel de estrutura, composição e distribuição na saída React
+
+shadcn não é reduzido a transporte de arquivos: seus components e recipes podem
+fornecer estrutura React, composição, API inicial, exemplos e convenções de
+integração. Para a saída `react-shadcn-base-ui`, o registry é também o canal de
+aquisição e atualização do source.
+
+Esse papel não transforma shadcn no motor comportamental. Base UI, React
+DayPicker ou outra dependência explicitamente registrada podem fornecer o
+comportamento especializado da composição. Nenhuma dessas escolhas determina a
+implementação HTML/CSS/JS ou Ark/Zag.
+
+### 4. A documentação apresenta uma escolha entre as três saídas
+
+Toda página de componente deve reservar um seletor com a ordem estável:
+
+```txt
+[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ]
+```
+
+A seleção muda apenas a camada técnica: preview, instalação, imports, API,
+exemplo, dependências, compatibilidade, limitações e evidências. Design, uso e
+acessibilidade compartilhados não devem ser triplicados artificialmente.
+
+O usuário escolhe qual saída visualizar e utilizar. O portal pode lembrar essa
+preferência durante a navegação, mas deve manter deep links e fallback acessível.
+Uma saída indisponível deve exibir seu estado e próximo gate; nunca um exemplo
+falso ou código emprestado de outra saída.
+
+### 5. Comparação significa paridade, não seleção de vencedor
+
+Os mesmos cenários são executados nas três saídas para medir paridade visual,
+semântica, acessibilidade, comportamento e consumo. Diferenças legítimas ficam
+registradas por tecnologia. A matriz não possui `selectedCandidate`,
+`selectedProvider` ou equivalente.
+
+Implementação, validação e release avançam por saída. Uma saída aprovada não
+autoriza, bloqueia, substitui ou publica automaticamente as demais.
+
+### 6. Figma e tokens permanecem compartilhados e agnósticos
+
+Figma e tokens não recebem nomes de provider nem duplicam componentes por saída.
+Eles registram o contrato visual e anatômico comum. Quando uma tecnologia exigir
+uma diferença exclusivamente técnica, ela permanece na documentação e no
+adapter daquela saída.
+
+## Consequências
+
+### Positivas
+
+- consumidores escolhem a implementação adequada sem perder a identidade TIS;
+- HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI podem evoluir sem substituição;
+- Devs e agents IA recebem disponibilidade, instalação e API sem ambiguidade;
+- comparações upstream passam a procurar paridade e melhorias, não um vencedor;
+- o core visual continua independente de bibliotecas e frameworks.
+
+### Negativas
+
+- cada saída exige ownership, testes, documentação e política de atualização;
+- paridade não pode ser presumida a partir de aparência semelhante;
+- alguns componentes ficarão temporariamente indisponíveis em uma ou duas saídas;
+- o portal e os metadados precisam representar três estados por componente.
+
+## Alternativas consideradas
+
+### Criar uma única implementação que combine as três tecnologias
+
+Descartada. Misturaria dependências e APIs incompatíveis, aumentaria bundle e
+apagaria as vantagens próprias de cada saída.
+
+### Comparar providers e manter somente o vencedor
+
+Descartada. Não atende simultaneamente consumidores agnósticos, multiplataforma e
+React source-first.
+
+### Manter apenas conteúdo documental separado, sem saídas reais
+
+Descartada. O seletor precisa apontar para implementação instalável e evidência
+executável, não apenas exemplos visuais.
+
+## Referências
+
+- ADR-002 — Stack agnóstica.
+- ADR-020 — Biblioteca consumível e contrato App-ready.
+- ADR-021 — Coexistência de v1 e vNext.
+- `docs/process-upstream-component-intake.md` — intake e matriz de paridade.
+- `docs/agents/templates/upstream-intake.schema.json` — contrato verificável das três saídas.
+
+
+═══════════════════════════════════════════════════════════
+# ADR-023 — Quatro saídas de implementação com Angular nativo
+═══════════════════════════════════════════════════════════
+
+# ADR-023: Quatro saídas de implementação com Angular nativo
+
+- **Status:** Aceita
+- **Data:** 2026-08-28
+- **Substitui parcialmente:** ADR-022, na quantidade de saídas públicas e no seletor documental
+- **Relaciona:** ADR-002, ADR-003, ADR-019, ADR-020, ADR-021, ADR-022
+
+## Contexto
+
+A ADR-022 formalizou três saídas independentes para o DS TIS: HTML/CSS/JavaScript,
+Ark/Zag e React com shadcn/Base UI. Essa decisão preservou o core visual
+agnóstico, mas não oferece uma biblioteca nativa para aplicações Angular.
+
+Angular possui primitives oficiais para este problema. Angular Aria entrega
+diretivas headless para padrões WAI-ARIA, enquanto o Angular CDK fornece Overlay,
+Portal e utilitários de acessibilidade. Usar essas ferramentas permite expor uma
+API Angular legítima sem introduzir Angular Material visual, React, Ark/Zag,
+Web Components ou uma cópia do CSS e dos tokens do DS.
+
+## Decisão
+
+### 1. O DS TIS passa a ter quatro saídas públicas coexistentes
+
+| ID estável | Nome documental | Responsabilidade |
+|---|---|---|
+| `web-html-css-js` | HTML/CSS/JS | Implementação agnóstica e estável distribuída pelo pacote `ds-tis`. |
+| `ark-zag` | Ark/Zag | Adapters headless por framework apoiados em Ark UI e Zag. |
+| `react-shadcn-base-ui` | React · shadcn/Base UI | Source React distribuído pelo registry shadcn, com Base UI quando necessário. |
+| `angular-native` | Angular | Biblioteca Angular nativa, com HTML nativo, Angular Aria e Angular CDK conforme o padrão. |
+
+As quatro saídas são independentes. Nenhuma é provider universal, fallback ou
+candidata automática a substituir outra. Cada componente declara o estado real
+de cada saída: `estável`, `beta`, `planejada` ou `indisponível`.
+
+### 2. A saída Angular é uma biblioteca Angular nativa
+
+A saída usa o package futuro `@tis/angular`, componentes standalone, inputs e
+outputs tipados, signals quando adequados, content projection e entrypoints
+secundários tree-shakable.
+
+As responsabilidades comportamentais seguem esta ordem:
+
+1. HTML nativo quando a plataforma já cobre o comportamento;
+2. `@angular/aria` para patterns headless oficialmente disponíveis;
+3. Angular CDK, especialmente Overlay, Portal e A11y, para posicionamento,
+   lifecycle de overlays, foco e comportamentos complementares.
+
+Form controls Angular devem integrar Angular Forms e implementar
+`ControlValueAccessor`. Esse requisito não se aplica a Button, Accordion ou
+Popover porque nenhum deles representa um value-bearing form control.
+
+Angular Material visual, Tailwind, React, Base UI, shadcn, Ark UI e Zag não fazem
+parte dessa implementação. Angular Elements e Web Components não são usados como
+camada principal.
+
+### 3. Tokens, CSS e contrato visual permanecem compartilhados
+
+O consumidor Angular importa o CSS público do DS:
+
+```css
+@import "ds-tis/css";
+```
+
+Os componentes Angular aplicam a anatomia e as classes públicas existentes,
+como `ds-button`, `ds-accordion` e `ds-popover`. A biblioteca não duplica tokens,
+não empacota uma segunda cópia do CSS global e não altera o contrato Web estável.
+
+CSS local de adapter é permitido somente para adaptar uma diferença técnica do
+framework, como o painel portalled do CDK Overlay. Esse CSS deve continuar
+consumindo os tokens e as classes públicas existentes e não pode redefinir a
+linguagem visual do componente.
+
+### 4. Dependências e imports permanecem separados
+
+Cada saída mantém source, dependências, instalação, API, testes, bundle e release
+próprios. São proibidos imports cruzados entre as implementações.
+
+A saída Angular declara Angular, Angular Aria e Angular CDK como peer
+dependencies. O pacote `ds-tis` permanece uma dependência de consumo visual do
+aplicativo, não uma cópia incorporada dentro de `@tis/angular`.
+
+### 5. Storybook e documentação preservam o isolamento
+
+Angular possui uma instância Storybook separada, com renderer Angular e build
+estático próprio. O Storybook React não é convertido nem usado como renderer da
+saída Angular.
+
+O seletor documental passa a usar a ordem estável:
+
+```txt
+[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ] [ Angular ]
+```
+
+Uma saída Angular permanece `planejada` enquanto não houver, em conjunto, pacote
+instalável, story funcional e consumer real validado. Após esses gates, pode ser
+apresentada como `beta`; estabilidade exige decisão posterior de release.
+
+## Consequências
+
+### Positivas
+
+- aplicações Angular recebem uma API nativa e tree-shakable;
+- Angular Aria e CDK concentram comportamento complexo mantido pelo ecossistema
+  oficial do framework;
+- o HTML/CSS/JavaScript estável e as saídas React e Ark/Zag permanecem intactos;
+- a identidade visual continua centralizada nos tokens, no CSS e no contrato TIS;
+- testes e bundle podem ser avaliados por entrypoint e por tecnologia.
+
+### Negativas
+
+- uma quarta saída aumenta custo de manutenção, CI, documentação e atualização;
+- `@storybook/angular-vite` ainda está em preview e precisa de acompanhamento;
+- overlays portalled exigem uma adaptação CSS técnica, documentada e testada;
+- Angular, Angular Aria e CDK precisam avançar em versões compatíveis entre si.
+
+## Alternativas consideradas
+
+### Reutilizar Angular Elements ou Web Components
+
+Descartada. Entregaria uma camada de interoperabilidade, não uma biblioteca
+Angular nativa com signals, content projection, forms e entrypoints legítimos.
+
+### Usar Angular Material visual
+
+Descartada. Introduziria outra linguagem visual e duplicaria decisões que já
+pertencem ao DS TIS. Apenas os primitives headless do CDK são permitidos.
+
+### Reutilizar Ark/Zag ou a implementação React dentro de Angular
+
+Descartada. Criaria imports cruzados, APIs não idiomáticas e um provider universal
+implícito, contrariando a coexistência independente.
+
+### Manter Angular apenas como exemplo de consumo do HTML agnóstico
+
+Descartada. Não atende distribuição, typing, lifecycle, Forms, signals nem
+composição esperada por consumidores Angular.
+
+## Referências
+
+- ADR-022 — Três saídas de implementação coexistentes.
+- Angular — Creating libraries: https://angular.dev/tools/libraries/creating-libraries
+- Angular Aria — Accordion: https://angular.dev/guide/aria/accordion
+- Angular CDK — https://material.angular.dev/cdk
+- Storybook for Angular with Vite: https://storybook.js.org/docs/get-started/frameworks/angular-vite
 
 
 ═══════════════════════════════════════════════════════════

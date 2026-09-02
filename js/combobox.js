@@ -31,6 +31,10 @@ function getOptions(listbox) {
   return Array.from(listbox.querySelectorAll('.ds-combobox__option'));
 }
 
+function isOptionDisabled(option) {
+  return option.getAttribute('aria-disabled') === 'true';
+}
+
 function ensureId(element, prefix) {
   if (!element.id) {
     generatedId += 1;
@@ -52,6 +56,10 @@ export function syncComboboxState(root, value) {
 
   const current = value != null ? value : input.value.trim();
   combobox.classList.toggle('ds-combobox--filled', current.length > 0);
+  const clearButton = root.querySelector('.ds-combobox__clear');
+  if (clearButton) {
+    clearButton.hidden = current.length === 0 || input.disabled || input.readOnly;
+  }
   for (const opt of getOptions(listbox)) {
     opt.setAttribute('aria-selected', opt.textContent.trim() === current ? 'true' : 'false');
   }
@@ -61,6 +69,7 @@ function createInstance(root, { onChange } = {}) {
   const combobox = root.querySelector('.ds-combobox');
   const input = root.querySelector('.ds-combobox__input');
   const listbox = root.querySelector('.ds-combobox__listbox');
+  const clearButton = root.querySelector('.ds-combobox__clear');
   if (!combobox || !input || !listbox) return null;
 
   const listboxId = ensureId(listbox, 'ds-combobox-listbox');
@@ -130,13 +139,14 @@ function createInstance(root, { onChange } = {}) {
   }
 
   function selectOption(opt) {
+    if (isOptionDisabled(opt)) return;
     input.value = opt.textContent.trim();
     inst.close();
     emitChange(opt);
   }
 
   function visibleOptions() {
-    return getOptions(listbox).filter((opt) => !opt.hidden);
+    return getOptions(listbox).filter((opt) => !opt.hidden && !isOptionDisabled(opt));
   }
 
   on(input, 'focus', () => inst.open());
@@ -147,6 +157,17 @@ function createInstance(root, { onChange } = {}) {
   });
 
   on(input, 'change', () => emitChange());
+
+  if (clearButton) {
+    on(clearButton, 'click', (event) => {
+      event.preventDefault();
+      if (input.disabled || input.readOnly) return;
+      input.value = '';
+      filterOptions();
+      emitChange();
+      input.focus();
+    });
+  }
 
   on(input, 'blur', () => {
     requestAnimationFrame(() => {
@@ -196,7 +217,7 @@ function createInstance(root, { onChange } = {}) {
     const opt = e.target.closest('.ds-combobox__option');
     if (opt && listbox.contains(opt)) {
       e.preventDefault();
-      selectOption(opt);
+      if (!isOptionDisabled(opt)) selectOption(opt);
     }
   });
 

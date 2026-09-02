@@ -3,13 +3,26 @@ import registry from '../registry.json';
 
 import '../css/tokens/generated/index.css';
 import '../css/components/accordion.css';
+import '../css/components/alert.css';
+import '../css/components/badge.css';
 import '../css/components/button.css';
+import '../css/components/card.css';
 import '../css/components/checkbox.css';
+import '../css/components/combobox.css';
+import '../css/components/divider.css';
 import '../css/components/form-field.css';
 import '../css/components/input.css';
+import '../css/components/menu.css';
 import '../css/components/modal.css';
+import '../css/components/popover.css';
 import '../css/components/radio.css';
+import '../css/components/select.css';
+import '../css/components/skeleton.css';
+import '../css/components/spinner.css';
+import '../css/components/tabs.css';
 import '../css/components/textarea.css';
+import '../css/components/toast.css';
+import '../css/components/tooltip.css';
 import '../css/components/toggle.css';
 import '../packages/react/src/storybook.css';
 
@@ -47,6 +60,22 @@ function installRegistryAdapters() {
   document.head.append(style);
 }
 
+function normalizeFocusPrototypeForZag() {
+  const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'focus');
+  if (!descriptor?.get) return;
+
+  // Storybook instrumenta focus como accessor. Zag lê HTMLElement.prototype.focus
+  // para rastrear focus-visible, então precisa encontrar uma função chamável.
+  const probe = document.createElement('button');
+  const focus = descriptor.get.call(probe);
+  if (typeof focus !== 'function') return;
+  Object.defineProperty(HTMLElement.prototype, 'focus', {
+    configurable: true,
+    value: focus,
+    writable: true,
+  });
+}
+
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   globalTypes: {
@@ -68,11 +97,15 @@ const preview = {
   decorators: [
     (Story, context) => {
       installRegistryAdapters();
+      normalizeFocusPrototypeForZag();
       const mode = context.globals.mode || 'light';
       document.documentElement.setAttribute('data-mode', mode);
       return React.createElement(
         'div',
-        { className: 'vnext-story-shell', 'data-mode': mode },
+        {
+          className: `ds-story-shell ds-story-shell--${context.viewMode || 'story'}`,
+          'data-mode': mode,
+        },
         React.createElement(Story),
       );
     },
@@ -84,7 +117,27 @@ const preview = {
     },
     options: {
       storySort: {
-        order: ['vNext'],
+        order: [
+          'Overview',
+          ['React registry'],
+          'Components',
+          [
+            'Actions',
+            ['Button'],
+            'Content and structure',
+            ['Card', 'Divider'],
+            'Input and selection',
+            ['Checkbox', 'Combobox', 'Form Field', 'Input Text', 'Radio', 'Select', 'Textarea', 'Toggle'],
+            'Feedback and status',
+            ['Alert', 'Badge', 'Skeleton', 'Spinner', 'Toast'],
+            'Navigation',
+            ['Menu', 'Tabs'],
+            'Overlay and disclosure',
+            ['Accordion', 'Modal', 'Popover', 'Tooltip'],
+          ],
+          'Outputs',
+          ['Ark + Zag'],
+        ],
       },
     },
   },

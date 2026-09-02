@@ -1,8 +1,25 @@
-import { Accordion } from '@ark-ui/react/accordion';
-import { Dialog } from '@ark-ui/react/dialog';
-import { Portal } from '@ark-ui/react/portal';
-import { ChevronDown, Settings, X } from 'lucide';
+import { Settings } from 'lucide';
 import { createElement } from 'react';
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTitle,
+  AccordionTrigger,
+} from './ark/accordion.jsx';
+import {
+  Modal,
+  ModalBody,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalHeading,
+  ModalTitle,
+  ModalTrigger,
+} from './ark/modal.jsx';
 
 const accordionItems = [
   {
@@ -44,86 +61,62 @@ function LucideIcon({ icon, className = 'ds-icon' }) {
 
 export function AccordionPreview() {
   return (
-    <Accordion.Root
-      className="ds-accordion"
-      collapsible
-      defaultValue={['billing']}
-    >
+    <Accordion defaultExpandedItems={['billing']}>
       {accordionItems.map((item) => (
-        <Accordion.Item
-          className={`ds-accordion__item${item.disabled ? ' ds-accordion__item--disabled' : ''}`}
+        <AccordionItem
           disabled={item.disabled}
           key={item.value}
           value={item.value}
         >
-          <Accordion.ItemTrigger className="ds-accordion__trigger">
+          <AccordionTrigger>
             <LucideIcon
               className="ds-accordion__leading-icon"
               icon={Settings}
             />
-            <span className="ds-accordion__title">{item.title}</span>
-            <LucideIcon
-              className="ds-accordion__chevron"
-              icon={ChevronDown}
-            />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent className="ds-accordion__panel">
+            <AccordionTitle>{item.title}</AccordionTitle>
+          </AccordionTrigger>
+          <AccordionContent>
             <p>{item.content}</p>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+          </AccordionContent>
+        </AccordionItem>
       ))}
-    </Accordion.Root>
+    </Accordion>
   );
 }
 
 export function ModalPreview() {
   return (
-    <Dialog.Root lazyMount unmountOnExit>
-      <Dialog.Trigger className="ds-button ds-button--outline" type="button">
-        <span className="ds-button__label">Abrir modal</span>
-      </Dialog.Trigger>
-      <Portal>
-        <Dialog.Positioner className="ds-modal-overlay">
-          <Dialog.Content className="ds-modal ds-modal--sm">
-            <header className="ds-modal__header">
-              <div className="ds-modal__heading">
-                <Dialog.Title className="ds-modal__title">
-                  Excluir projeto
-                </Dialog.Title>
-                <Dialog.Description asChild>
-                  <p className="ds-modal__description">
-                    Esta ação não pode ser desfeita.
-                  </p>
-                </Dialog.Description>
-              </div>
-              <Dialog.CloseTrigger
-                aria-label="Fechar modal"
-                className="ds-modal__close"
-                type="button"
-              >
-                <LucideIcon icon={X} />
-              </Dialog.CloseTrigger>
-            </header>
-
-            <div className="ds-modal__body">
-              <p>O projeto e seus dados associados serão removidos permanentemente.</p>
-            </div>
-
-            <footer className="ds-modal__footer">
-              <Dialog.CloseTrigger
-                className="ds-button ds-button--outline"
-                type="button"
-              >
-                <span className="ds-button__label">Cancelar</span>
-              </Dialog.CloseTrigger>
-              <button className="ds-button ds-button--danger" type="button">
-                <span className="ds-button__label">Confirmar</span>
-              </button>
-            </footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
-    </Dialog.Root>
+    <Modal>
+      <ModalTrigger asChild>
+        <button className="ds-button ds-button--outline" type="button">
+          <span className="ds-button__label">Abrir modal</span>
+        </button>
+      </ModalTrigger>
+      <ModalContent size="md">
+        <ModalHeader>
+          <ModalHeading>
+            <ModalTitle>Revisar alterações</ModalTitle>
+            <ModalDescription>
+              Confira os dados antes de continuar.
+            </ModalDescription>
+          </ModalHeading>
+          <ModalClose label="Fechar modal" />
+        </ModalHeader>
+        <ModalBody>
+          <p>As alterações poderão ser revertidas posteriormente.</p>
+        </ModalBody>
+        <ModalFooter>
+          <ModalClose asChild>
+            <button className="ds-button ds-button--outline" type="button">
+              <span className="ds-button__label">Cancelar</span>
+            </button>
+          </ModalClose>
+          <button className="ds-button ds-button--brand" type="button">
+            <span className="ds-button__label">Aplicar alterações</span>
+          </button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

@@ -1,0 +1,60 @@
+.ds-ark-menu__trigger {
+  margin: 0;
+}
+
+.ds-ark-menu__trigger-indicator {
+  display: inline-flex;
+}
+
+.ds-ark-menu__trigger[data-state='open'] .ds-ark-menu__trigger-indicator {
+  transform: rotate(180deg);
+}
+
+.ds-ark-menu__positioner {
+  z-index: var(--ds-z-tooltip);
+  max-inline-size: var(--available-width);
+}
+
+.ds-ark-menu__content {
+  max-block-size: min(var(--available-height), var(--ds-size-layout-md));
+  overflow-y: auto;
+}
+
+.ds-ark-menu__content:focus {
+  outline: none;
+}
+
+.ds-ark-menu__content .ds-menu__separator {
+  border: none;
+}
+
+.ds-ark-menu__indicator {
+  display: contents;
+}
+
+.ds-ark-menu__indicator .ds-icon {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.ds-ark-menu__item[data-highlighted] {
+  background: var(--ds-menu-item-bg-focused);
+  color: var(--ds-menu-item-content-color-focused);
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
+  outline-offset: var(--ds-focus-ring-width);
+  border-radius: var(--ds-menu-focus-ring-radius-default);
+}
+
+.ds-ark-menu__item.ds-menu__item--destructive[data-highlighted] {
+  outline-color: var(--ds-focus-ring-color-error);
+}
+
+.ds-ark-menu__item[data-disabled] {
+  background: var(--ds-menu-item-bg-disabled);
+  color: var(--ds-menu-item-content-color-disabled);
+  cursor: not-allowed;
+}
+
+.ds-ark-menu__item[data-state='checked'] .ds-menu__check {
+  visibility: visible;
+}
