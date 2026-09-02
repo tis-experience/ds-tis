@@ -42,10 +42,6 @@ function countTokens(obj) {
   return count;
 }
 
-function today() {
-  return new Date().toISOString().split('T')[0];
-}
-
 // ─── Leitura do repo ─────────────────────────────────────────────────────────
 
 const pkg = readJson(path.join(ROOT, 'package.json')) || {};
@@ -127,7 +123,7 @@ const pipelineClean = generatedFiles.length > 0 && nonGeneratedImports.length ==
 
 const tokenSchema = `# Token schema — Design System Core
 
-> Gerado automaticamente por \`scripts/sync-docs.mjs\` em ${today()}. Não editar manualmente.
+> Gerado automaticamente por \`scripts/sync-docs.mjs\`. Não editar manualmente.
 > Para regenerar: \`npm run sync:docs\`
 > Versão atual: **${version}**
 
@@ -214,7 +210,7 @@ const rows = COMPONENTS.map(c => {
 
 const inventory = `# Inventário de componentes — Design System Core
 
-> Gerado automaticamente por \`scripts/sync-docs.mjs\` em ${today()}. Não editar manualmente.
+> Gerado automaticamente por \`scripts/sync-docs.mjs\`. Não editar manualmente.
 > Para regenerar: \`npm run sync:docs\`
 > Versão atual: **${version}**
 
@@ -271,7 +267,7 @@ console.log(`✅ component-inventory.md (${COMPONENTS.length} componentes)`);
 
 const adrIndex = `# Índice de ADRs — Design System Core
 
-> Gerado automaticamente por \`scripts/sync-docs.mjs\` em ${today()}. Não editar manualmente.
+> Gerado automaticamente por \`scripts/sync-docs.mjs\`. Não editar manualmente.
 > Para regenerar: \`npm run sync:docs\`
 
 ${adrs.length} decisões registradas.

@@ -3,7 +3,8 @@
  * Generator output validation — pega bugs em scripts que geram HTML.
  *
  * Verifica que `var(--ds-X)` e DTCG paths emitidos por scripts/sync-docs.mjs
- * e scripts/tokens-verify.mjs apontam para tokens que existem.
+ * e scripts/tokens-verify.mjs apontam para tokens que existem. Também garante
+ * que os cabeçalhos gerados por sync-docs não dependem da data de execução.
  *
  * Pega o bug do sync-docs emitindo `var(--ds-feedback-info-background)` que
  * não existe mais pós-2-layer.
@@ -80,6 +81,18 @@ for (const file of generators) {
         errors.push(`[orphan-dtcg-ref] ${file}:${i + 1} → ${m[1]}`);
       }
     }
+  }
+}
+
+for (const file of [
+  'docs/token-schema.md',
+  'docs/component-inventory.md',
+  'docs/adr-index.md',
+]) {
+  const content = fs.readFileSync(path.join(ROOT, file), 'utf-8');
+  const generatedHeader = content.split('\n').find(line => line.includes('Gerado automaticamente por `scripts/sync-docs.mjs`'));
+  if (/\b\d{4}-\d{2}-\d{2}\b/.test(generatedHeader || '')) {
+    errors.push(`[non-deterministic-date] ${file} → ${generatedHeader}`);
   }
 }
 
