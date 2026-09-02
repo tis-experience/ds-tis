@@ -12,9 +12,10 @@ primary only after proving coverage, accessibility, consumption, and migration.
 
 <Aside type="note" title="Recorded decision">
   [ADR-021](../../../docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html)
-  records additive evolution. ADR-022 records the three coexisting outputs. Both
-  are maintained in Brazilian Portuguese. This page summarizes them without
-  replacing the canonical ADRs.
+  records additive evolution. ADR-022 introduced three coexisting outputs and
+  ADR-023 added native Angular as the fourth output. The ADRs are maintained in
+  Brazilian Portuguese. This page summarizes them without replacing the
+  canonical decisions.
 </Aside>
 
 ## Coexisting lines
@@ -35,24 +36,27 @@ ds-tis/
 ├── css/ + js/ + docs/ + stories/      # stable v1
 ├── apps/docs/                          # Astro + Starlight
 ├── packages/react/                     # React adapter in development
+├── packages/angular/                   # native Angular beta library
 ├── packages/theme-schema/              # JSON contract
 ├── packages/theme-engine/              # bridge to js/theme
 ├── .storybook/                         # v1 HTML/Vite
-└── .storybook-vnext/                   # internal React/Vite validation
+├── .storybook-vnext/                   # internal React/Vite validation
+└── .storybook-angular/                 # isolated Angular validation
 ```
 
-## Three outputs per component
+## Four outputs per component
 
 The DS does not seek one implementation or a winning provider. Each component
-may be delivered through three independent outputs:
+may be delivered through four independent outputs:
 
 | Output | Role | Distribution |
 | --- | --- | --- |
 | **HTML/CSS/JS** | Framework-agnostic implementation and opt-in runtime | `ds-tis` package |
 | **Ark/Zag** | Headless implementations by technology | dedicated adapters and releases |
 | **React · shadcn/Base UI** | React source composed with shadcn and Base UI primitives | `@tis` shadcn registry |
+| **Angular** | Native Angular library with Angular Aria/CDK when needed | local beta package `@tis/angular` |
 
-All three share tokens, visual language, intent, and accessibility requirements.
+All four share tokens, visual language, intent, and accessibility requirements.
 Source, dependencies, technical APIs, installation, and tests are not merged. An
 unavailable output remains visible as unavailable and never borrows another
 output's code to simulate coverage.
@@ -62,7 +66,7 @@ output's code to simulate coverage.
 Every component page must allow the user to choose:
 
 ```text
-[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ]
+[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ] [ Angular ]
 ```
 
 The choice switches preview, installation, imports, API, example, dependencies,
@@ -87,9 +91,10 @@ copy’s Variables, but it will not publish or update libraries automatically.
 1. Documentation foundation and Storybook.
 2. Ark/Zag output validated internally.
 3. React/shadcn/Base UI output validated through the registry.
-4. Pilot component brief.
-5. Approved Figma spec and contract matrix.
-6. Separate implementation of authorized outputs.
-7. Parity, accessibility, and real consumption per output.
-8. Documentation selector exposing the real state of all three outputs.
-9. v1 × vNext comparison and promotion decision.
+4. Native Angular output validated through package, Storybook, and a real consumer.
+5. Pilot component brief.
+6. Approved Figma spec and contract matrix.
+7. Separate implementation of authorized outputs.
+8. Parity, accessibility, and real consumption per output.
+9. Documentation selector exposing the real state of all four outputs.
+10. v1 × vNext comparison and promotion decision.

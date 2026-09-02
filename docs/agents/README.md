@@ -125,12 +125,14 @@ Ferramentas externas ajudam, mas nao substituem o processo do repo.
   `docs/process-upstream-component-intake.md`, crie uma run com
   `upstream-intake.json` e rode `npm run agents:validate-intake`. O processo
   preserva o core atual, exige resultado Figma explícito e mantém HTML/CSS/JS,
-  Ark/Zag e React/shadcn/Base UI como três saídas coexistentes e separadas.
+  Ark/Zag, React/shadcn/Base UI e Angular nativo como quatro saídas coexistentes
+  e separadas.
 - Para o piloto React distribuído por shadcn com Base UI, leia
   `docs/agents/shadcn-base-ui-pilot.md` e
   `docs/agents/shadcn-base-ui-implementation-plan.md`; ele é uma integração
   React beta distribuída como source. Ela é a terceira saída definida pela
-  ADR-022 e não substitui HTML/CSS/JS nem Ark/Zag.
+  ADR-022; a ADR-023 adiciona Angular nativo como quarta saída. React não
+  substitui HTML/CSS/JS, Ark/Zag nem Angular.
 - Use WAI-ARIA APG e documentacao primaria para padroes interativos como menu button, combobox, dialog e tabs.
 - Use os validadores do repo para confirmar drift e regressao objetiva.
 

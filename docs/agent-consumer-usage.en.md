@@ -12,14 +12,15 @@ consumer application.
 ## Scope
 
 DS TIS is stack-agnostic. Its stable public foundation is HTML, CSS and
-JavaScript distributed by the `ds-tis` package. React also has a beta source
-distribution through a shadcn registry for sixteen validated components; source is
-copied into the consumer app and continues to depend on public DS CSS and tokens.
+JavaScript distributed by the `ds-tis` package. React has a beta source
+distribution through a shadcn registry, and Angular has a native beta library
+validated through a local tarball. Both continue to depend on public DS CSS and
+tokens.
 
-Do not present `@tis/react` as a public package. In React, use the registry only
-when `docs/api/components.json` marks `implementations.react.status` as `beta`;
-for Vue, Angular, Svelte, or unavailable React components, wrappers remain local
-consumer-project adaptations.
+Do not present `@tis/react` as a public package or `@tis/angular` as published on
+npm. Use an output only when `docs/api/components.json` marks its status as
+`beta` or `stable`. For Vue, Svelte, and unavailable React or Angular components,
+wrappers remain local consumer-project adaptations.
 
 The operating rule for agents is explicit: do not invent official wrappers.
 Outside the beta catalog, document the wrapper as application-local code.
@@ -45,7 +46,7 @@ Before writing new markup, consult the public DS sources:
 - `README.md` for installation and primary imports;
 - `docs/llms.txt` for the lightweight LLM index;
 - `docs/llms-full.txt` for complete canonical context;
-- `docs/api/components.json` for components, technology implementations (`implementations.web` and `implementations.react`), readiness, responsibility, variants, consumed tokens and JS runtime metadata (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
+- `docs/api/components.json` for components, technology implementations (`implementations.web`, `implementations.ark`, `implementations.react`, and `implementations.angular`), readiness, responsibility, variants, consumed tokens and JS runtime metadata (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
 - `docs/api/tokens.json` for Foundation, Semantic and Component layers;
 - component pages at `docs/<component>.html`;
 - templates under `docs/templates/` and exports under `ds-tis/templates/*` when the flow matches a published pattern.
@@ -193,8 +194,8 @@ data to the consumer application; do not copy fictional text into production.
 
 ## React beta through the shadcn registry
 
-The `@tis/react` package is not public. For the sixteen validated components, the
-React API is distributed as source through the versioned channel
+The `@tis/react` package is not public. The beta React API is distributed as
+source through the versioned channel
 `https://tis-experience.github.io/ds-tis/registry/v1`.
 
 Discover the catalog through `ds-tis/metadata/components` or the public
@@ -218,23 +219,28 @@ Then install only what is needed:
 npx shadcn@latest add @tis/button @tis/field @tis/input
 ```
 
-The current beta catalog contains Accordion, Alert, Badge, Button, Card,
-Checkbox, Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner,
-Textarea, and Toggle. The shadcn names for Modal, Form Field, Radio, and Toggle
-are `dialog`, `field`, `radio-group`, and `switch`. Do not infer that
-translation: read `implementations.react.item`.
+The React beta catalog evolves independently. Do not maintain a local list or
+infer shadcn names: read `implementations.react.status` and
+`implementations.react.item` in `docs/api/components.json`.
 
-Do not conflate the three outputs defined by ADR-022. In
+Do not conflate the four outputs defined by ADR-023. In
 `docs/api/consumer-context.json`, `outputPolicy.outputs` lists HTML/CSS/JS,
-Ark/Zag, and React/shadcn/Base UI as coexisting alternatives. The React output
-uses `technologies.react.distribution: "shadcn-registry"`,
+Ark/Zag, React/shadcn/Base UI, and Angular as coexisting alternatives. The React
+output uses `technologies.react.distribution: "shadcn-registry"`,
 `behaviorArchitecture: "base-ui"`, and `providerRole: "output-provider"`. This
-does not turn Base UI into the core or replace the other two outputs. Read the
+does not turn Base UI into the core or replace the other outputs. Read the
 status of the selected output and never mix imports or instructions across them.
 
 Installed source belongs to the consumer app and can be reviewed or composed
 locally. Preserve public classes, the first global `@import "ds-tis/css"`, ARIA
 relationships, and dependencies pinned by the item.
+
+## Native Angular beta
+
+`@tis/angular` is not published on the npm registry. Use the validated tarball
+only when `implementations.angular.status` is `beta`; derive the entrypoint from
+`implementations.angular.entrypoint` and keep `ds-tis/css` as the global import.
+Angular components with `planned` status do not expose a usable official API.
 
 ## JavaScript runtime by component
 
@@ -281,7 +287,9 @@ consumer product's content, zoom, language, orientation and layout.
 6. Preserve accessibility: semantic landmarks, heading order, labels, `aria-*`, `aria-describedby`, `aria-expanded`, `aria-current`, keyboard support, disabled/error/read-only states and a visible focus ring.
 7. States are not decoration. Implement loading, empty, error, disabled, hover, focus and responsive states when they belong to the expected flow.
 8. Icons should follow the consumer project's library when one exists; when reproducing DS examples, prefer the documented visual vocabulary.
-9. In React, prefer the official item when `implementations.react.status` is `beta`; otherwise, and in Vue/Angular, declare the wrapper as a local adaptation and do not invent an official package or item.
+9. In React or Angular, prefer the official output when its status is `beta`;
+   otherwise, and in Vue/Svelte, declare the wrapper as a local adaptation and
+   do not invent an official package, entrypoint, or item.
 10. Do not change DS tokens, generated CSS or documentation from the consumer project. Record real gaps and open a demand for the DS.
 
 ## Recommended workflow
@@ -298,9 +306,10 @@ consumer product's content, zoom, language, orientation and layout.
 
 ## Framework adaptation
 
-React can install the sixteen beta components through the registry. React outside
-that catalog, Vue, and Angular may render public DS anatomy through local
-components. Every local adaptation must:
+React installs beta components through the registry; Angular installs beta
+entrypoints from the native library. Outside those coverage sets, React, Angular,
+Vue, and Svelte may render public DS anatomy through local components. Every
+local adaptation must:
 
 - preserve public DS class names;
 - preserve labels, IDs, `aria-*` and `for`/`id` relationships;
@@ -340,6 +349,7 @@ Rules:
 - Install with `npm install ds-tis`; pin the exact version in production during beta.
 - Import ds-tis/css once in the global entrypoint.
 - In React, when implementations.react.status is beta, configure @tis in components.json and install implementations.react.item through shadcn. Never invent @tis/react or a missing item.
+- In Angular, when implementations.angular.status is beta, install the validated tarball and import implementations.angular.entrypoint. Do not advertise @tis/angular as a public npm package.
 - For each component, derive the module from runtime.module in docs/api/components.json; when runtime.level is required, call init after render/hydration and destroy before unmount.
 - Prefer App-ready components; treat Composition as an explicit app boundary and do not use Experimental in critical flows without recording the limitation.
 - Use ds-tis/theme only for an actual runtime theme or brand requirement.
@@ -348,7 +358,7 @@ Rules:
 - Form controls must combine ds-field with the actual control, such as ds-input + ds-input__field.
 - Do not hardcode hex/rgb/px/rem when a public token, class or variant exists.
 - Preserve landmarks, labels, aria-*, keyboard behavior, focus ring and disabled/error/read-only states.
-- Outside the React beta catalog and in Vue/Angular, adapt public anatomy through local app wrappers and state that boundary.
+- Outside the React/Angular beta coverage and in Vue/Svelte, adapt public anatomy through local app wrappers and state that boundary.
 
 Expected output:
 - Changed files.

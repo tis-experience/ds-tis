@@ -1001,7 +1001,7 @@ async function auditAccordionOutputSelector() {
     (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === 'Ark/Zag',
     'Accordion: navegação React → Ark/Zag não preservou a implementação selecionada',
   );
-  recordBrowserErrors('Accordion · seletor das três saídas');
+  recordBrowserErrors('Accordion · seletor das quatro saídas');
 }
 
 async function auditButtonOutputSelector() {
@@ -1080,7 +1080,7 @@ async function auditButtonOutputSelector() {
     await auditAxe(`${route} · Button`);
   }
 
-  recordBrowserErrors('Button · seletor das três saídas');
+  recordBrowserErrors('Button · seletor das quatro saídas');
 }
 
 async function auditModalOutputSelector() {
@@ -1251,7 +1251,7 @@ async function auditModalOutputSelector() {
     (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === 'Ark/Zag',
     'Modal: navegação React → Ark/Zag não preservou a implementação selecionada',
   );
-  recordBrowserErrors('Modal · seletor das três saídas');
+  recordBrowserErrors('Modal · seletor das quatro saídas');
 }
 
 async function auditPopoverOutputSelector() {
@@ -1763,7 +1763,7 @@ async function auditComboboxOutputSelector() {
     await auditAxe(`${route} · Combobox`);
   }
 
-  recordBrowserErrors('Combobox · seletor das três saídas');
+  recordBrowserErrors('Combobox · seletor das quatro saídas');
 }
 
 async function auditSelectOutputSelector() {
@@ -1864,7 +1864,7 @@ async function auditSelectOutputSelector() {
     await auditAxe(`${route} · Select`);
   }
 
-  recordBrowserErrors('Select · seletor das três saídas');
+  recordBrowserErrors('Select · seletor das quatro saídas');
 }
 
 async function auditMenuOutputSelector() {
@@ -2008,7 +2008,7 @@ async function auditMenuOutputSelector() {
     await auditAxe(`${route} · Menu`);
   }
 
-  recordBrowserErrors('Menu · seletor das três saídas');
+  recordBrowserErrors('Menu · seletor das quatro saídas');
 }
 
 async function auditTooltipOutputSelector() {
@@ -2102,7 +2102,7 @@ async function auditTooltipOutputSelector() {
     await auditAxe(`${route} · Tooltip`);
   }
 
-  recordBrowserErrors('Tooltip · seletor das três saídas');
+  recordBrowserErrors('Tooltip · seletor das quatro saídas');
 }
 
 async function auditTabsOutputSelector() {
@@ -2231,7 +2231,7 @@ async function auditTabsOutputSelector() {
     await auditAxe(`${route} · Tabs`);
   }
 
-  recordBrowserErrors('Tabs · seletor das três saídas');
+  recordBrowserErrors('Tabs · seletor das quatro saídas');
 }
 
 async function auditToastOutputSelector() {
@@ -2335,7 +2335,7 @@ async function auditToastOutputSelector() {
     await auditAxe(`${route} · Toast`);
   }
 
-  recordBrowserErrors('Toast · seletor das três saídas');
+  recordBrowserErrors('Toast · seletor das quatro saídas');
 }
 
 async function auditCheckboxOutputSelector() {
@@ -2397,7 +2397,7 @@ async function auditCheckboxOutputSelector() {
     await auditAxe(`${route} · Checkbox`);
   }
 
-  recordBrowserErrors('Checkbox · seletor das três saídas');
+  recordBrowserErrors('Checkbox · seletor das quatro saídas');
 }
 
 async function auditRadioOutputSelector() {
@@ -2459,7 +2459,7 @@ async function auditRadioOutputSelector() {
     await auditAxe(`${route} · Radio`);
   }
 
-  recordBrowserErrors('Radio · seletor das três saídas');
+  recordBrowserErrors('Radio · seletor das quatro saídas');
 }
 
 async function auditToggleOutputSelector() {
@@ -2526,7 +2526,7 @@ async function auditToggleOutputSelector() {
     await auditAxe(`${route} · Toggle`);
   }
 
-  recordBrowserErrors('Toggle · seletor das três saídas');
+  recordBrowserErrors('Toggle · seletor das quatro saídas');
 }
 
 async function auditResponsiveButton(width, height) {

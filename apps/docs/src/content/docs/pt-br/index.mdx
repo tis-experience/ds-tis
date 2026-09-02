@@ -8,21 +8,22 @@ sidebar:
 Esta documentação organiza o Design System a partir dos componentes. A tecnologia
 é uma decisão de implementação dentro do mesmo contrato de design.
 
-A implementação HTML/CSS/JS da v1 continua estável. A nova documentação valida,
-primeiro, Accordion, Button e Popover; React e Ark/Zag só ficam disponíveis para
-seleção quando existe uma saída funcional e verificável.
+A implementação HTML/CSS/JS da v1 continua estável. A vNext publica o estado real
+das quatro saídas definidas pela ADR-023; uma tecnologia só fica selecionável
+quando existe implementação funcional e verificável para aquele componente.
 
 ## Comece pelos componentes
 
 O [catálogo de componentes](./components/) organiza os 26 contratos por função e
-mostra apenas as implementações já disponíveis. O piloto editorial unificado de
-Accordion, Button e Popover será ampliado depois de validado.
+mostra somente implementações disponíveis. Nas páginas unificadas, saídas ainda
+planejadas permanecem identificadas no seletor sem abrir um preview inerte.
 
 ## Integre na sua tecnologia
 
 - [Web CSS](./web/) é a implementação estável e agnóstica de framework;
 - [React](./react/) é distribuído em beta como source pelo registry shadcn;
-- Ark/Zag possui adapters beta de Accordion, Combobox, Menu, Modal, Popover e Select no workspace;
+- Ark/Zag possui adapters beta independentes, expostos componente a componente no catálogo;
+- [Angular](./angular/) é uma biblioteca nativa beta validada por tarball local;
 - [agents IA](./ai/) usam APIs estruturadas e as mesmas páginas humanas.
 
 ## Como ler uma página de componente

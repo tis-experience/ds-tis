@@ -16,7 +16,7 @@
  *   node scripts/test-a11y.mjs --json out.json     # dump JSON pra CI artifact
  *   node scripts/test-a11y.mjs --port 9999         # porta alternativa do server
  *   node scripts/test-a11y.mjs --strict-load --server # falha em qualquer erro de página/carga
- *   node scripts/test-a11y.mjs --readiness-pages       # limita às páginas dos 23 componentes
+ *   node scripts/test-a11y.mjs --readiness-pages       # limita às páginas dos 26 componentes
  *   node scripts/test-a11y.mjs --zero-blocking         # não aceita critical/serious da baseline
  */
 

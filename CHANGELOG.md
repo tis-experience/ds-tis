@@ -9,6 +9,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Documentação e governança passam a refletir as quatro saídas da ADR-023.**
+  Portal PT-BR/EN, guias para agents, APIs e LLMs deixam de anunciar o piloto de
+  três saídas como estado atual. O intake v3 exige Web, Ark/Zag, React e Angular,
+  preservando runs históricas v2, e o inventário calcula cobertura real de
+  Storybook e tecnologias a partir das fontes canônicas em vez de milestones e
+  contagens hardcoded.
 - **Tabelas de referência do portal vNext ocupam toda a largura disponível.**
   O grid interno volta a usar layout semântico de tabela e recebe um invólucro
   de rolagem apenas quando as colunas excedem o container, preservando leitura,

@@ -105,5 +105,6 @@ O plano completo de expansão e o status por componente ficam em
 `docs/agents/shadcn-base-ui-implementation-plan.md`.
 
 Novos componentes seguem `docs/process-upstream-component-intake.md`, com
-manifesto por run e as três saídas da ADR-022. A saída React pode reutilizar a
-base Base UI aprovada, mas continua exigindo contrato e evidência por componente.
+manifesto por run e as quatro saídas definidas pelas ADR-022/023. A saída React
+pode reutilizar a base Base UI aprovada, mas continua exigindo contrato e
+evidência por componente; Angular permanece uma saída nativa separada.

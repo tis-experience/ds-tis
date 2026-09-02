@@ -16,6 +16,8 @@ import {
   responsiveFor,
 } from './lib/component-catalog.mjs';
 import {
+  ANGULAR_COMPONENTS_BY_SLUG,
+  ANGULAR_LIBRARY,
   ARK_ADAPTER_COMPONENTS,
   REACT_REGISTRY_BY_SLUG,
   REACT_REGISTRY_COMPONENTS,
@@ -108,13 +110,14 @@ expect(
   JSON.stringify(context.outputPolicy?.outputs) === JSON.stringify(TECHNOLOGY_OUTPUTS) &&
     context.outputPolicy?.mode === 'coexisting-user-choice' &&
     context.outputPolicy?.selectsWinner === false,
-  'Consumer context must publish the three coexisting outputs without a winner.',
+  'Consumer context must publish the four coexisting outputs without a winner.',
 );
 expect(
   context.technologies?.web?.outputId === 'web-html-css-js' &&
     context.technologies?.ark?.outputId === 'ark-zag' &&
-    context.technologies?.react?.outputId === 'react-shadcn-base-ui',
-  'Technology metadata must expose the three canonical output ids.',
+    context.technologies?.react?.outputId === 'react-shadcn-base-ui' &&
+    context.technologies?.angular?.outputId === 'angular-native',
+  'Technology metadata must expose the four canonical output ids.',
 );
 expect(
   context.technologies?.ark?.status === 'beta' &&
@@ -131,6 +134,12 @@ expect(context.technologies?.react?.package === null, '@tis/react must not be ad
 expect(
   context.technologies?.react?.componentCount === REACT_REGISTRY_COMPONENTS.length,
   'React component count must match the canonical registry mapping.',
+);
+expect(
+  context.technologies?.angular?.status === ANGULAR_LIBRARY.status &&
+    context.technologies?.angular?.distribution === ANGULAR_LIBRARY.distribution &&
+    context.technologies?.angular?.componentCount === Object.keys(ANGULAR_COMPONENTS_BY_SLUG).length,
+  'Angular must remain a separate native output with its own real component count.',
 );
 expect(
   context.technologies?.react?.registry?.baseUrl === SHADCN_REGISTRY.baseUrl,
@@ -190,7 +199,7 @@ expect(
 );
 
 if (errors.length === 0) {
-  console.log(`✅ PASS — metadata v2 + ${COMPONENTS.length} perfis Web + ${REACT_REGISTRY_COMPONENTS.length} React beta`);
+  console.log(`✅ PASS — metadata v2 + ${COMPONENTS.length} Web + ${ARK_ADAPTER_COMPONENTS.length} Ark/Zag + ${REACT_REGISTRY_COMPONENTS.length} React + ${Object.keys(ANGULAR_COMPONENTS_BY_SLUG).length} Angular`);
   process.exit(0);
 }
 

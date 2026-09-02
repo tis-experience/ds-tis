@@ -29,6 +29,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COMPONENTS as CATALOG_COMPONENTS } from "./lib/component-catalog.mjs";
 import {
+  ANGULAR_COMPONENTS_BY_SLUG,
+  ARK_ADAPTER_COMPONENTS,
   REACT_REGISTRY_COMPONENTS,
   SHADCN_REGISTRY,
 } from "./lib/technology-implementations.mjs";
@@ -118,9 +120,10 @@ No pacote instalado: \`ds-tis/metadata\`, \`ds-tis/metadata/components\`, \`ds-t
 ## Implementações por tecnologia
 
 - HTML/CSS/JS: ${CATALOG_COMPONENTS.length} componentes estáveis pelo pacote \`ds-tis\`.
-- Ark/Zag: saída por tecnologia com adapters, status e releases próprios.
+- Ark/Zag: ${ARK_ADAPTER_COMPONENTS.length} componentes beta em adapters com status e releases próprios.
 - React · shadcn/Base UI: ${REACT_REGISTRY_COMPONENTS.length} componentes beta estruturados e distribuídos como source pelo registry \`${SHADCN_REGISTRY.channel}\`; \`@tis/react\` não é um pacote público.
-- As três saídas coexistem conforme ADR-022; a documentação oferece escolha e a matriz mede paridade sem eleger vencedor.
+- Angular: ${Object.keys(ANGULAR_COMPONENTS_BY_SLUG).length} componentes beta na biblioteca nativa validada por tarball local.
+- As quatro saídas coexistem conforme ADR-022/023; a documentação oferece escolha e a matriz mede paridade sem eleger vencedor.
 - Manifesto do registry: [registry/manifest.json](${SHADCN_REGISTRY.manifestUrl}).
 - Namespace shadcn: \`${SHADCN_REGISTRY.namespace}\` → \`${SHADCN_REGISTRY.baseUrl}/{name}.json\`.
 

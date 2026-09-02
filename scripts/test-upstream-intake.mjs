@@ -26,6 +26,28 @@ if (valid.status !== 0) {
   throw new Error("canonical upstream intake manifest must pass validation");
 }
 
+function promoteToV3(manifest) {
+  manifest.schemaVersion = 3;
+  manifest.outputs.push({
+    id: "angular-native",
+    label: "Angular",
+    technologyFamily: "angular",
+    distribution: {
+      channel: "angular-package",
+      package: "@tis/angular",
+    },
+    resolutionContext: {
+      package: "@tis/angular",
+      entrypoint: null,
+    },
+    status: "planned",
+    sourceModules: [],
+    writeStatus: "blocked",
+  });
+  manifest.documentation.trackIds.push("angular-native");
+  manifest.documentation.labels.push("Angular");
+}
+
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ds-tis-upstream-intake-"));
 try {
   const canonical = JSON.parse(fs.readFileSync(VALID_MANIFEST, "utf8"));
@@ -70,6 +92,10 @@ try {
     });
   });
 
+  expectValid("four-output-schema-v3", (manifest) => {
+    promoteToV3(manifest);
+  });
+
   expectInvalid(
     "mixed-provider",
     (manifest) => {
@@ -93,9 +119,21 @@ try {
   expectInvalid(
     "missing-output",
     (manifest) => {
+      promoteToV3(manifest);
       manifest.outputs = manifest.outputs.filter((output) => output.id !== "ark-zag");
     },
-    "outputs must contain exactly the three canonical outputs"
+    "outputs must contain exactly the four canonical outputs"
+  );
+
+  expectInvalid(
+    "angular-provider-mixing",
+    (manifest) => {
+      promoteToV3(manifest);
+      manifest.outputs
+        .find((output) => output.id === "angular-native")
+        .sourceModules.push("@base-ui/react/popover");
+    },
+    "is Angular but imports another output provider"
   );
 
   expectInvalid(
@@ -110,9 +148,10 @@ try {
   expectInvalid(
     "missing-documentation-track",
     (manifest) => {
+      promoteToV3(manifest);
       manifest.documentation.trackIds.pop();
     },
-    "documentation.trackIds must contain the three canonical outputs in stable order"
+    "documentation.trackIds must contain the four canonical outputs in stable order"
   );
 
   expectInvalid(
@@ -127,5 +166,5 @@ try {
 }
 
 console.log(
-  "test:upstream-intake ok: three coexisting outputs accepted; provider mixing, winner selection, incomplete docs and missing evidence rejected"
+  "test:upstream-intake ok: historical v2 and four-output v3 accepted; provider mixing, winner selection, incomplete docs and missing evidence rejected"
 );
