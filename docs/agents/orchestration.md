@@ -51,8 +51,8 @@ mantém as mesmas roles e adiciona o protocolo de
 1. cria a run canônica;
 2. cria `upstream-intake.json` e registra somente o escopo autorizado;
 3. preserva Figma e o contrato compartilhado como baseline agnóstico;
-4. registra HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI como três saídas
-   coexistentes e separadas;
+4. registra HTML/CSS/JS, Ark/Zag, React/shadcn/Base UI e Angular nativo como
+   quatro saídas coexistentes e separadas;
 5. exige benchmark, auditoria do contrato atual e classificação das melhorias;
 6. para no brief/spec para aprovação do owner;
 7. somente depois conduz Figma, implementação por saída, paridade, seletor

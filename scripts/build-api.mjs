@@ -202,7 +202,7 @@ writeJson(path.join(API_DIR, "consumer-context.json"), {
       distribution: SHADCN_REGISTRY.distribution,
       behaviorArchitecture: SHADCN_REGISTRY.behaviorArchitecture,
       currentBehaviorTrack: SHADCN_REGISTRY.currentReactBehaviorTrack,
-      providerPolicy: "Base UI is the behavior provider for this React output; ADR-022 keeps Web and Ark/Zag as separate coexisting outputs.",
+      providerPolicy: "Base UI is the behavior provider for this React output; ADR-023 keeps Web, Ark/Zag, React, and Angular as separate coexisting outputs.",
       package: null,
       note: "Source distribution; @tis/react is not a public package.",
       componentCount: REACT_REGISTRY_COMPONENTS.length,

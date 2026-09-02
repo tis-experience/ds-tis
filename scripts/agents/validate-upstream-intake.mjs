@@ -43,16 +43,19 @@ const OUTPUT_STATUSES = new Set([
   "implemented",
   "validated",
 ]);
-const REQUIRED_OUTPUTS = new Map([
+const V2_OUTPUTS = new Map([
   ["web-html-css-js", "native-web"],
   ["ark-zag", "ark-zag"],
   ["react-shadcn-base-ui", "base-ui"],
 ]);
-const REQUIRED_DOCUMENTATION_ORDER = [
-  "web-html-css-js",
-  "ark-zag",
-  "react-shadcn-base-ui",
-];
+const V3_OUTPUTS = new Map([
+  ...V2_OUTPUTS,
+  ["angular-native", "angular"],
+]);
+const REQUIRED_OUTPUTS_BY_VERSION = new Map([
+  [2, V2_OUTPUTS],
+  [3, V3_OUTPUTS],
+]);
 const FIGMA_OUTCOME_STATUSES = new Set([
   "pending-current-audit",
   "unchanged-with-evidence-proposed",
@@ -95,6 +98,12 @@ function moduleFamilies(modules) {
     ark: normalized.some(
       (item) => item.includes("@ark-ui/") || item.includes("@zag-js/") || item.includes("ark ui") || item.includes("zag")
     ),
+    angular: normalized.some(
+      (item) => item.includes("@angular/") || item.includes("angular aria") || item.includes("angular cdk")
+    ),
+    react: normalized.some(
+      (item) => item.includes("react") && !item.includes("@angular/")
+    ),
   };
 }
 
@@ -114,7 +123,12 @@ function validateManifest(file) {
   }
 
   if (data.schema !== "ds-tis/upstream-intake") fail(file, "invalid schema marker");
-  if (data.schemaVersion !== 2) fail(file, "schemaVersion must be 2");
+  if (!REQUIRED_OUTPUTS_BY_VERSION.has(data.schemaVersion)) {
+    fail(file, "schemaVersion must be 2 or 3");
+  }
+  const requiredOutputs = REQUIRED_OUTPUTS_BY_VERSION.get(data.schemaVersion) ?? V3_OUTPUTS;
+  const requiredDocumentationOrder = [...requiredOutputs.keys()];
+  const outputCountLabel = requiredOutputs.size === 4 ? "four" : "three";
   requireString(file, data, "id");
 
   const component = requireObject(file, data, "component");
@@ -148,8 +162,8 @@ function validateManifest(file) {
     fail(file, "baseline.sharedContract.sharedByAllOutputs must be true");
   }
 
-  if (!Array.isArray(data.outputs) || data.outputs.length !== REQUIRED_OUTPUTS.size) {
-    fail(file, "outputs must contain exactly the three canonical outputs");
+  if (!Array.isArray(data.outputs) || data.outputs.length !== requiredOutputs.size) {
+    fail(file, `outputs must contain exactly the ${outputCountLabel} canonical outputs`);
   } else {
     const ids = new Set();
     for (const [index, output] of data.outputs.entries()) {
@@ -158,7 +172,7 @@ function validateManifest(file) {
       if (ids.has(id)) fail(file, `${prefix}.id is duplicated: ${id}`);
       ids.add(id);
       requireString(file, output, "label");
-      const expectedFamily = REQUIRED_OUTPUTS.get(id);
+      const expectedFamily = requiredOutputs.get(id);
       if (!expectedFamily) {
         fail(file, `${prefix}.id is not a canonical output: ${id}`);
       } else if (output.technologyFamily !== expectedFamily) {
@@ -176,6 +190,9 @@ function validateManifest(file) {
       if (id === "ark-zag") {
         requireString(file, resolutionContext, "arkVersion");
         requireString(file, resolutionContext, "zagVersion");
+      }
+      if (id === "angular-native" && distribution.channel !== "angular-package") {
+        fail(file, `${prefix}.distribution.channel must be angular-package`);
       }
       if (id === "web-html-css-js" && distribution.channel !== "npm") {
         fail(file, `${prefix}.distribution.channel must be npm`);
@@ -196,11 +213,23 @@ function validateManifest(file) {
         if (id === "ark-zag" && families.base) {
           fail(file, `${prefix} is Ark/Zag but imports Base UI`);
         }
+        if (id === "react-shadcn-base-ui" && families.angular) {
+          fail(file, `${prefix} is React/shadcn/Base UI but imports Angular`);
+        }
+        if (id === "ark-zag" && families.angular) {
+          fail(file, `${prefix} is Ark/Zag but imports Angular`);
+        }
+        if (id === "angular-native" && (families.base || families.ark || families.react)) {
+          fail(file, `${prefix} is Angular but imports another output provider`);
+        }
       }
       requireString(file, output, "writeStatus");
     }
-    for (const id of REQUIRED_OUTPUTS.keys()) {
+    for (const id of requiredOutputs.keys()) {
       if (!ids.has(id)) fail(file, `outputs missing canonical output ${id}`);
+    }
+    if (JSON.stringify(data.outputs.map((output) => output.id)) !== JSON.stringify(requiredDocumentationOrder)) {
+      fail(file, `outputs must contain the ${outputCountLabel} canonical outputs in stable order`);
     }
   }
 
@@ -246,8 +275,8 @@ function validateManifest(file) {
   if (documentation.showsUnavailableState !== true) {
     fail(file, "documentation.showsUnavailableState must be true");
   }
-  if (JSON.stringify(documentation.trackIds) !== JSON.stringify(REQUIRED_DOCUMENTATION_ORDER)) {
-    fail(file, "documentation.trackIds must contain the three canonical outputs in stable order");
+  if (JSON.stringify(documentation.trackIds) !== JSON.stringify(requiredDocumentationOrder)) {
+    fail(file, `documentation.trackIds must contain the ${outputCountLabel} canonical outputs in stable order`);
   }
 
   const figmaOutcome = requireObject(file, data, "figmaOutcome");

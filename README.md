@@ -99,7 +99,7 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 
 ### Storybook
 
-O catálogo interativo cobre os 23 componentes públicos usando o CSS e os runtimes reais do pacote:
+O catálogo interativo cobre os 26 componentes públicos usando o CSS e os runtimes reais do pacote:
 
 ```bash
 npm run storybook

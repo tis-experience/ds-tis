@@ -8,32 +8,32 @@
 
 | Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
 |------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Popover | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toast | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Table | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
-| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Popover | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Toast | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Table | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | 🟢 | 🟢 |
+| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
 
 **Legenda de artefatos:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
 
@@ -92,8 +92,12 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | ADR-022 | Três saídas de implementação coexistentes | Aceita |
 | ADR-023 | Quatro saídas de implementação com Angular nativo | Aceita |
 
-## Próximos milestones
+## Cobertura atual por saída
 
-1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
+| Saída | Estado | Componentes |
+|-------|--------|-------------|
+| HTML/CSS/JS | Estável | 26 |
+| Ark/Zag | Beta | 13 |
+| React · shadcn/Base UI | Beta | 22 |
+| Angular nativo | Beta local | 3 |
+| Storybook Web | Completo | 26/26 |

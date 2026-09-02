@@ -59,7 +59,7 @@ const arkPath = `${locale}/ark/components/${component.slug}/`;
 const angularPath = `${locale}/angular/components/${component.slug}/`;
 const hasUnifiedDocumentation = ['accordion', 'button', 'checkbox', 'combobox', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'toast', 'toggle', 'tooltip'].includes(component.slug);
 const unifiedSlug = component.slug as 'accordion' | 'button' | 'checkbox' | 'combobox' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
-const hasThreePopoverOutputs = component.slug === 'popover';
+const hasFourPopoverOutputs = component.slug === 'popover';
 ---
 
 {hasUnifiedDocumentation ? (
@@ -75,8 +75,8 @@ const hasThreePopoverOutputs = component.slug === 'popover';
   description={component.description}
   v1Path={`/docs/${component.slug}.html`}
   technologies={[
-    { label: 'HTML/CSS/JS', value: 'web', ...(hasThreePopoverOutputs ? { path: webPath } : { href: stableUrl }) },
-    { label: 'Ark/Zag', value: 'ark', path: arkPath, disabled: !hasThreePopoverOutputs },
+    { label: 'HTML/CSS/JS', value: 'web', ...(hasFourPopoverOutputs ? { path: webPath } : { href: stableUrl }) },
+    { label: 'Ark/Zag', value: 'ark', path: arkPath, disabled: !hasFourPopoverOutputs },
     { label: 'React · shadcn/Base UI', value: 'react', path: currentPath },
     { label: isEnglish ? 'Angular — planned' : 'Angular — planejada', value: 'angular', path: angularPath, disabled: true },
   ]}
@@ -94,7 +94,7 @@ const hasThreePopoverOutputs = component.slug === 'popover';
       {isEnglish ? 'Open interactive playground' : 'Abrir playground interativo'}
     </OutputStoryPreview>
 
-    {hasThreePopoverOutputs ? (
+    {hasFourPopoverOutputs ? (
       <>
         <h3>{isEnglish ? 'Shared design contract' : 'Contrato de design compartilhado'}</h3>
         <p>
@@ -135,7 +135,7 @@ const hasThreePopoverOutputs = component.slug === 'popover';
     slug={component.slug}
     technology="react"
   >
-    {hasThreePopoverOutputs ? (
+    {hasFourPopoverOutputs ? (
       <ComponentGuidance slug="popover" topic="usage" />
     ) : (
       <>
@@ -195,7 +195,7 @@ const hasThreePopoverOutputs = component.slug === 'popover';
     slug={component.slug}
     technology="react"
   >
-    {hasThreePopoverOutputs ? (
+    {hasFourPopoverOutputs ? (
       <ComponentGuidance slug="popover" topic="accessibility" />
     ) : (
       <>

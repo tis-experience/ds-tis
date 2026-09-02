@@ -13,8 +13,9 @@ migração.
 
 <Aside type="note" title="Decisão registrada">
   A [ADR-021](../../../docs/decisions/adr-021-coexistencia-v1-vnext-astro-ark-zag.html)
-  registra a evolução aditiva. A ADR-022 registra as três saídas coexistentes.
-  Esta página resume as decisões sem substituí-las.
+  registra a evolução aditiva. A ADR-022 introduziu três saídas coexistentes e
+  a ADR-023 acrescentou Angular nativo como quarta saída. Esta página resume as
+  decisões sem substituí-las.
 </Aside>
 
 ## Linhas em coexistência
@@ -35,24 +36,27 @@ ds-tis/
 ├── css/ + js/ + docs/ + stories/      # v1 estável
 ├── apps/docs/                          # Astro + Starlight
 ├── packages/react/                     # adapter React em construção
+├── packages/angular/                   # biblioteca Angular nativa beta
 ├── packages/theme-schema/              # contrato JSON
 ├── packages/theme-engine/              # ponte para js/theme
 ├── .storybook/                         # v1 HTML/Vite
-└── .storybook-vnext/                   # validação interna React/Vite
+├── .storybook-vnext/                   # validação interna React/Vite
+└── .storybook-angular/                 # validação Angular isolada
 ```
 
-## Três saídas por componente
+## Quatro saídas por componente
 
 O DS não procura uma implementação única nem um provider vencedor. Cada
-componente pode ser entregue em três saídas independentes:
+componente pode ser entregue em quatro saídas independentes:
 
 | Saída | Papel | Distribuição |
 | --- | --- | --- |
 | **HTML/CSS/JS** | Implementação agnóstica e runtime opt-in | pacote `ds-tis` |
 | **Ark/Zag** | Implementações headless por tecnologia | adapters e releases próprios |
 | **React · shadcn/Base UI** | Source React composto pelo shadcn, com primitives Base UI | registry shadcn `@tis` |
+| **Angular** | Biblioteca Angular nativa com Angular Aria/CDK quando necessário | pacote `@tis/angular`, atualmente em beta local |
 
-As três compartilham tokens, linguagem visual, intenção e requisitos de
+As quatro compartilham tokens, linguagem visual, intenção e requisitos de
 acessibilidade. Source, dependências, API técnica, instalação e testes não são
 fundidos. Uma saída indisponível continua visível como tal e não reutiliza código
 de outra para simular cobertura.
@@ -62,7 +66,7 @@ de outra para simular cobertura.
 Cada página de componente deve permitir escolher:
 
 ```text
-[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ]
+[ HTML/CSS/JS ] [ Ark/Zag ] [ React · shadcn/Base UI ] [ Angular ]
 ```
 
 A escolha troca preview, instalação, imports, API, exemplo, dependências,
@@ -87,9 +91,10 @@ da cópia, mas não publicará nem atualizará bibliotecas automaticamente.
 1. Fundação documental e Storybook.
 2. Saída Ark/Zag validada internamente.
 3. Saída React/shadcn/Base UI validada pelo registry.
-4. Brief do componente piloto.
-5. Spec Figma e matriz de contrato aprovadas.
-6. Implementação separada das saídas autorizadas.
-7. Paridade, acessibilidade e consumo real por saída.
-8. Seletor documental com estado real das três saídas.
-9. Comparação v1 × vNext e decisão de promoção.
+4. Saída Angular nativa validada por pacote, Storybook e consumer real.
+5. Brief do componente piloto.
+6. Spec Figma e matriz de contrato aprovadas.
+7. Implementação separada das saídas autorizadas.
+8. Paridade, acessibilidade e consumo real por saída.
+9. Seletor documental com estado real das quatro saídas.
+10. Comparação v1 × vNext e decisão de promoção.

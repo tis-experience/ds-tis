@@ -8,21 +8,22 @@ sidebar:
 This documentation organizes the Design System around components. Technology is
 an implementation decision within the same design contract.
 
-The v1 HTML/CSS/JS implementation remains stable. The new documentation first
-validates Accordion, Button, and Popover; React and Ark/Zag are only selectable
-when a functional, verifiable output exists.
+The v1 HTML/CSS/JS implementation remains stable. vNext publishes the real state
+of the four outputs defined by ADR-023; a technology is selectable only when a
+functional, verifiable implementation exists for that component.
 
 ## Start with components
 
 The [component catalog](./components/) organizes all 26 contracts by purpose and
-shows only implementations that are already available. The unified editorial
-pilot for Accordion, Button, and Popover will expand after validation.
+shows only available implementations. On unified pages, planned outputs remain
+identified in the selector without opening an inert preview.
 
 ## Integrate with your technology
 
 - [Web CSS](./web/) is the stable, framework-agnostic implementation;
 - [React](./react/) is distributed in beta as source through the shadcn registry;
-- Ark/Zag currently has beta Accordion, Combobox, Menu, Modal, Popover, and Select adapters in the workspace;
+- Ark/Zag has independent beta adapters exposed component by component in the catalog;
+- [Angular](./angular/) is a native beta library validated through a local tarball;
 - [AI agents](./ai/) use structured APIs and the same human-readable pages.
 
 ## How to read a component page

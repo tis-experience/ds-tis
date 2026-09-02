@@ -1,5 +1,9 @@
 # Plano de implementação: saída React · shadcn/Base UI
 
+> Este plano registra a evolução da saída React. Contagens e próximas etapas
+> datadas são evidência histórica; o estado atual vive em
+> `docs/api/consumer-context.json` e `docs/api/components.json`.
+
 ## Objetivo
 
 Distribuir os 26 componentes públicos do DS TIS como source code React pelo
@@ -7,10 +11,10 @@ registry shadcn, preservando o CSS, os tokens DTCG, a anatomia e os nomes
 canônicos do core. shadcn fornece estrutura de composição e distribuição;
 Base UI fornece o comportamento quando o componente precisa de primitives.
 
-A ADR-022 é canônica: HTML/CSS/JS, Ark/Zag e React/shadcn/Base UI são três saídas
-coexistentes. Este plano cobre somente a terceira. Ele não escolhe um provider
-vencedor, não substitui as outras saídas e não distribui Ark/Zag pelo registry
-shadcn.
+As ADR-022/023 são canônicas: HTML/CSS/JS, Ark/Zag, React/shadcn/Base UI e Angular
+nativo são quatro saídas coexistentes. Este plano cobre somente a terceira. Ele
+não escolhe um provider vencedor, não substitui as outras saídas e não distribui
+Ark/Zag ou Angular pelo registry shadcn.
 
 Este plano é aditivo. A v1 continua estável, `packages/react/src/index.js`
 permanece fechado e nenhuma mudança em Figma ou token faz parte das ondas.
@@ -209,6 +213,7 @@ implementado.
 - A inspeção visual final cobriu Overview, Docs de Button, estados do Toggle em
   mobile e variantes de Button em dark mode.
 
-Próxima etapa: executar a matriz de paridade das três saídas no Accordion. Avatar,
-Breadcrumb, Pagination e Table permanecem preservados no backlog, sem antecipar
-implementações ainda não aprovadas.
+Naquele checkpoint, a etapa seguinte era executar a matriz de paridade de
+HTML/CSS/JS, Ark/Zag e React no Accordion. Essa etapa foi concluída antes da
+ADR-023 adicionar Angular nativo como quarta saída. O estado atual não deve ser
+deduzido deste registro histórico.

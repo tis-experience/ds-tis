@@ -118,7 +118,7 @@ Depois sirva o diretório estático (`python3 -m http.server` ou equivalente). D
 
 ### Storybook
 
-O catálogo interativo cobre os 23 componentes públicos usando o CSS e os runtimes reais do pacote:
+O catálogo interativo cobre os 26 componentes públicos usando o CSS e os runtimes reais do pacote:
 
 ```bash
 npm run storybook
@@ -316,6 +316,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Documentação e governança passam a refletir as quatro saídas da ADR-023.**
+  Portal PT-BR/EN, guias para agents, APIs e LLMs deixam de anunciar o piloto de
+  três saídas como estado atual. O intake v3 exige Web, Ark/Zag, React e Angular,
+  preservando runs históricas v2, e o inventário calcula cobertura real de
+  Storybook e tecnologias a partir das fontes canônicas em vez de milestones e
+  contagens hardcoded.
 - **Tabelas de referência do portal vNext ocupam toda a largura disponível.**
   O grid interno volta a usar layout semântico de tabela e recebe um invólucro
   de rolagem apenas quando as colunas excedem o container, preservando leitura,
@@ -1629,9 +1635,16 @@ Use este guia antes de gerar, revisar ou refatorar qualquer tela em um app consu
 
 ## Escopo
 
-O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript distribuídos pelo pacote `ds-tis`. React também possui uma distribuição beta por source registry shadcn para dezesseis componentes validados; o código é copiado para o app consumidor e continua dependente do CSS e dos tokens públicos do DS.
+O DS TIS é stack-agnóstico. A base pública estável é HTML, CSS e JavaScript
+distribuídos pelo pacote `ds-tis`. React possui uma distribuição beta por source
+registry shadcn, e Angular possui uma biblioteca nativa beta validada por tarball
+local. As duas continuam dependentes do CSS e dos tokens públicos do DS.
 
-Não apresente `@tis/react` como pacote público. Para React, use o registry somente quando `docs/api/components.json` marcar `implementations.react.status` como `beta`; para Vue, Angular, Svelte ou componentes React ainda indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto consumidor.
+Não apresente `@tis/react` como pacote público nem `@tis/angular` como publicado
+no npm. Use uma saída somente quando `docs/api/components.json` marcar seu status
+como `beta` ou `stable`. Para Vue, Svelte e componentes React ou Angular ainda
+indisponíveis, qualquer wrapper continua sendo uma adaptação local do projeto
+consumidor.
 
 A regra operacional para agents é literal: `nao invente wrappers oficiais`.
 Fora do catálogo beta, documente o wrapper como código local da aplicação.
@@ -1656,7 +1669,7 @@ Antes de escrever markup novo, consulte as fontes públicas do DS:
 - `README.md` para instalação e imports principais;
 - `docs/llms.txt` para o índice leve consumível por LLMs;
 - `docs/llms-full.txt` para contexto textual completo;
-- `docs/api/components.json` para componentes, implementações por tecnologia (`implementations.web` e `implementations.react`), readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
+- `docs/api/components.json` para componentes, implementações por tecnologia (`implementations.web`, `implementations.ark`, `implementations.react` e `implementations.angular`), readiness, responsabilidade, variantes, tokens consumidos e metadados de runtime JS (`runtime.level`, `runtime.module`, `runtime.init`, `runtime.destroy`, `runtime.events`);
 - `docs/api/tokens.json` para camadas Foundation, Semantic e Component;
 - páginas HTML dos componentes em `docs/<component>.html`;
 - templates em `docs/templates/` e exports `ds-tis/templates/*`, quando o fluxo se aproxima de um padrão já publicado.
@@ -1792,8 +1805,7 @@ O caminho `ds-tis/templates/*` referencia templates HTML públicos. Adapte conte
 
 ## React beta pelo registry shadcn
 
-O pacote `@tis/react` não é público. Para os dezesseis componentes validados, a API
-React é distribuída como source pelo canal versionado
+O pacote `@tis/react` não é público. A API React beta é distribuída como source pelo canal versionado
 `https://tis-experience.github.io/ds-tis/registry/v1`.
 
 Descubra o catálogo em `ds-tis/metadata/components` ou no fallback público
@@ -1817,23 +1829,28 @@ Depois instale apenas o necessário:
 npx shadcn@latest add @tis/button @tis/field @tis/input
 ```
 
-O catálogo beta atual contém Accordion, Alert, Badge, Button, Card, Checkbox,
-Divider, Form Field, Input Text, Modal, Radio, Skeleton, Spinner, Textarea e
-Toggle. Os nomes shadcn de Modal, Form Field, Radio e Toggle são,
-respectivamente, `dialog`, `field`, `radio-group` e `switch`. Não deduza essa
-tradução: leia `implementations.react.item`.
+O catálogo beta React evolui de forma independente. Não mantenha uma lista local
+nem deduza nomes shadcn: leia `implementations.react.status` e
+`implementations.react.item` em `docs/api/components.json`.
 
-Não confunda as três saídas da ADR-022. Em
+Não confunda as quatro saídas da ADR-023. Em
 `docs/api/consumer-context.json`, `outputPolicy.outputs` lista HTML/CSS/JS,
-Ark/Zag e React/shadcn/Base UI como alternativas coexistentes. A saída React usa
-`technologies.react.distribution: "shadcn-registry"`,
+Ark/Zag, React/shadcn/Base UI e Angular como alternativas coexistentes. A saída
+React usa `technologies.react.distribution: "shadcn-registry"`,
 `behaviorArchitecture: "base-ui"` e `providerRole: "output-provider"`. Isso não
-transforma Base UI em core nem substitui as outras duas saídas. Consulte o status
+transforma Base UI em core nem substitui as outras saídas. Consulte o status
 da saída escolhida; não misture imports ou instruções entre elas.
 
 O source instalado pertence ao app consumidor e pode ser revisado ou composto
 localmente. Preserve as classes públicas, o primeiro import global
 `@import "ds-tis/css"`, as relações ARIA e as dependências fixadas pelo item.
+
+## Angular beta nativo
+
+`@tis/angular` ainda não está publicado no registry npm. Use o tarball validado
+somente quando `implementations.angular.status` for `beta`; derive o entrypoint de
+`implementations.angular.entrypoint` e mantenha `ds-tis/css` como import global.
+Componentes Angular com status `planned` não possuem API oficial utilizável.
 
 ## Runtime JS por componente
 
@@ -1878,7 +1895,9 @@ idioma, orientação e layout reais do produto consumidor.
 6. Preserve acessibilidade: landmarks semânticos, heading order, labels, `aria-*`, `aria-describedby`, `aria-expanded`, `aria-current`, teclado, estados disabled/error/read-only e focus ring visível.
 7. Estados não são decoração. Implemente loading, empty, error, disabled, hover, focus e responsive quando fizerem parte do fluxo esperado.
 8. Ícones devem seguir o padrão do projeto consumidor quando houver biblioteca instalada; quando a tela reproduzir exemplos do DS, prefira o mesmo vocabulário visual documentado.
-9. Em React, prefira o item oficial quando `implementations.react.status` for `beta`; nos demais casos e em Vue/Angular, declare o wrapper como adaptação local e não invente pacote ou item oficial.
+9. Em React ou Angular, prefira a saída oficial quando o respectivo status for
+   `beta`; nos demais casos e em Vue/Svelte, declare o wrapper como adaptação
+   local e não invente pacote, entrypoint ou item oficial.
 10. Não altere tokens, CSS gerado ou documentação do DS a partir do projeto consumidor. Se encontrar gap real, registre a limitação e abra demanda para o DS.
 
 ## Fluxo recomendado
@@ -1895,7 +1914,10 @@ idioma, orientação e layout reais do produto consumidor.
 
 ## Adaptação por framework
 
-React pode instalar os dezesseis componentes beta pelo registry. React fora desse catálogo, Vue e Angular podem renderizar a anatomia pública do DS por meio de componentes locais. Toda adaptação local deve:
+React instala os componentes beta pelo registry; Angular instala os entrypoints
+beta da biblioteca nativa. Fora dessas coberturas, React, Angular, Vue e Svelte
+podem renderizar a anatomia pública do DS por meio de componentes locais. Toda
+adaptação local deve:
 
 - manter os nomes de classes públicas do DS;
 - preservar labels, IDs, `aria-*` e relações `for`/`id`;
@@ -1932,6 +1954,7 @@ Regras:
 - Instale via `npm install ds-tis`; durante a beta, fixe a versão exata em produção.
 - Importe ds-tis/css uma vez no entrypoint global.
 - Para React, quando implementations.react.status for beta, configure @tis em components.json e instale implementations.react.item via shadcn. Nunca invente @tis/react ou um item ausente.
+- Para Angular, quando implementations.angular.status for beta, instale o tarball validado e importe implementations.angular.entrypoint. Não anuncie @tis/angular como pacote npm público.
 - Para cada componente usado, derive o módulo de `runtime.module` em docs/api/components.json; quando `runtime.level` for required, chame init após render/hydration e destroy antes do unmount.
 - Prefira componentes app-ready; trate composition como fronteira explícita do app e não use experimental em fluxo crítico sem registrar a limitação.
 - Use ds-tis/theme apenas para requisito real de tema/brand em runtime.
@@ -1940,7 +1963,7 @@ Regras:
 - Form controls devem compor ds-field + controle real, como ds-input + ds-input__field.
 - Nao hardcode hex/rgb/px/rem quando existir token, classe ou variante publica.
 - Preserve landmarks, labels, aria-*, teclado, focus ring e estados disabled/error/read-only.
-- Fora do catalogo React beta e em Vue/Angular, adapte a anatomia publica em wrappers locais do app e declare esse limite.
+- Fora das coberturas React/Angular beta e em Vue/Svelte, adapte a anatomia publica em wrappers locais do app e declare esse limite.
 
 Saida esperada:
 - Arquivos alterados.
@@ -2111,7 +2134,7 @@ Trigger pra revisitar: pedido explícito de consumidor que precise compor contro
 
 ### Storybook
 
-**Status (2026-07-21): implementado.** A demanda explícita foi atendida com Storybook HTML/Vite, catálogo dos 23 componentes públicos, controles, Docs, auditoria A11y, light/dark e lifecycle dos seis runtimes. O build é publicado em `/storybook/` dentro do artefato GitHub Pages e consome diretamente o CSS/tokens gerados, sem criar uma camada paralela.
+**Status (2026-07-21): implementado.** A demanda explícita foi atendida com Storybook HTML/Vite, controles, Docs, auditoria A11y, light/dark e lifecycle dos runtimes. A cobertura atual acompanha os 26 componentes públicos e os oito runtimes. O build é publicado em `/storybook/` dentro do artefato GitHub Pages e consome diretamente o CSS/tokens gerados, sem criar uma camada paralela.
 
 ### MCP próprio do design system
 
@@ -2261,32 +2284,32 @@ apresentadas como comportamento aprovado do sistema.
 
 | Componente | Readiness | Responsabilidade | CSS | Figma (visual) | Figma (binding) | Stories | Docs site |
 |------------|-----------|------------------|-----|-----------------|-----------------|---------|----------|
-| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Popover | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Toast | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Table | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |
-| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
-| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | ⬜ | 🟢 |
+| Accordion | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Button | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Input Text | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Textarea | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Select | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Combobox | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Checkbox | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Radio | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Toggle | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Badge | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Alert | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Card | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Modal | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Popover | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Toast | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Tooltip | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Menu | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Tabs | 🟢 App-ready | Runtime do DS | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Table | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Breadcrumb | 🟢 App-ready | HTML nativo | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Pagination | 🔵 Composição | Aplicação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Avatar | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Divider | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Form Field | 🔵 Composição | Aplicação | 🟢 | — (CSS-only, ADR-017) | — | 🟢 | 🟢 |
+| Spinner | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
+| Skeleton | 🟢 App-ready | Apresentação | 🟢 | 🟢 | 🟢 | 🟢 | 🟢 |
 
 **Legenda de artefatos:** ⬜ Não iniciado | 🟡 Em progresso | 🟢 Completo | ⚠️ Verificar | 🔴 Precisa revisão | — Não aplicável
 
@@ -2345,11 +2368,15 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | ADR-022 | Três saídas de implementação coexistentes | Aceita |
 | ADR-023 | Quatro saídas de implementação com Angular nativo | Aceita |
 
-## Próximos milestones
+## Cobertura atual por saída
 
-1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
+| Saída | Estado | Componentes |
+|-------|--------|-------------|
+| HTML/CSS/JS | Estável | 26 |
+| Ark/Zag | Beta | 13 |
+| React · shadcn/Base UI | Beta | 22 |
+| Angular nativo | Beta local | 3 |
+| Storybook Web | Completo | 26/26 |
 
 
 ═══════════════════════════════════════════════════════════
@@ -2510,7 +2537,7 @@ Ele existe para evitar execução prematura. Um componente novo ruim custa retra
 
 Quando o trabalho parte de shadcn, Base UI, Ark UI, Zag ou outra biblioteca,
 aplique em conjunto `docs/process-upstream-component-intake.md`. Esse processo
-adiciona manifesto, três saídas coexistentes e paridade reproduzível sem alterar
+adiciona manifesto, quatro saídas coexistentes e paridade reproduzível sem alterar
 a ordem de gates definida aqui.
 
 ## Quando usar
@@ -3392,16 +3419,18 @@ misturada ao core.
 
 ## Resultado esperado
 
-Cada intake deve preservar e evoluir três saídas públicas separadas:
+Cada intake novo deve registrar quatro saídas públicas separadas:
 
 1. `web-html-css-js` — HTML/CSS + JavaScript agnóstico;
 2. `ark-zag` — Ark UI + Zag por tecnologia;
-3. `react-shadcn-base-ui` — React + shadcn + Base UI.
+3. `react-shadcn-base-ui` — React + shadcn + Base UI;
+4. `angular-native` — biblioteca Angular nativa com HTML nativo, Angular Aria e Angular CDK.
 
-O objetivo não é somar as três tecnologias em uma implementação nem escolher um
+O objetivo não é somar as quatro tecnologias em uma implementação nem escolher um
 provider vencedor. É entregar alternativas reais que compartilham o contrato TIS
 e permanecem independentes em source, dependências, API técnica, instalação,
-testes e release. Ver ADR-022.
+testes e release. Uma saída pode permanecer `planejada` ou `indisponível`, mas
+continua representada no contrato e no seletor documental. Ver ADR-022 e ADR-023.
 
 ## Camadas e responsabilidades
 
@@ -3412,7 +3441,8 @@ testes e release. Ver ADR-022.
 | Saída HTML/CSS/JS | API agnóstica e runtime estável do DS | melhoria de semântica, teclado ou lifecycle validada | dependência de Base UI, Ark UI, Zag, React ou registry |
 | Saída Ark/Zag | integração headless por tecnologia | parts Ark e comportamento Zag via Ark | imports Base UI ou source da saída React |
 | Saída React · shadcn/Base UI | composição e source React distribuído pelo registry | estrutura/recipes shadcn + primitives Base UI + adapter TIS | imports Ark/Zag ou dependência da saída Ark |
-| Portal documental | escolha explícita entre as três saídas | preview, instalação, API e evidência da saída selecionada | esconder saída, eleger vencedor ou reutilizar código de outra saída como se fosse nativo |
+| Saída Angular nativa | API Angular standalone e tree-shakable | HTML nativo, Angular Aria, Angular CDK e integração com Angular Forms quando aplicável | Angular Material visual, React, Base UI, Ark/Zag, Web Components ou cópia do CSS global |
+| Portal documental | escolha explícita entre as quatro saídas | preview, instalação, API, estado e evidência da saída selecionada | esconder saída, eleger vencedor ou reutilizar código de outra saída como se fosse nativo |
 
 A direção de dependência é sempre:
 
@@ -3420,6 +3450,7 @@ A direção de dependência é sempre:
 Figma + tokens TIS -> HTML/CSS/JS
                    -> Ark/Zag por tecnologia
                    -> React + shadcn/Base UI
+                   -> Angular nativo
                    -> documentação com escolha da saída
 ```
 
@@ -3430,22 +3461,24 @@ incorporada ao contrato TIS.
 ## Regras duras
 
 1. Preservar a implementação atual até existir decisão aprovada por componente.
-2. Manter as três saídas coexistentes. Uma não pode substituir, incorporar ou
+2. Manter as quatro saídas coexistentes. Uma não pode substituir, incorporar ou
    importar a implementação de outra.
 3. Tratar shadcn como estrutura de composição e distribuição de source da saída
    React; Base UI permanece o provider comportamental dessa saída quando o
    componente precisar de primitives.
 4. Tratar Ark como adapter headless por tecnologia e Zag como motor de estado;
    acesso direto a Zag exige exceção registrada.
-5. Manter Figma e Web core livres de nomes e dependências de provider.
-6. Não copiar theme, Tailwind recipe, CSS literal ou nomes de parts upstream para
+5. Tratar Angular como saída nativa separada; usar HTML nativo, Angular Aria e
+   Angular CDK conforme ADR-023, sem reutilizar source das outras saídas.
+6. Manter Figma e Web core livres de nomes e dependências de provider.
+7. Não copiar theme, Tailwind recipe, CSS literal ou nomes de parts upstream para
    o consumidor final. Tudo passa pelo contrato anatômico e pelos tokens TIS.
-7. Não declarar melhoria no Figma a partir de snapshot antigo. O resultado Figma
+8. Não declarar melhoria no Figma a partir de snapshot antigo. O resultado Figma
    deve ser `sem mudança, com evidência` ou `proposta de melhoria`, nunca omitido.
-8. Não implementar, substituir ou publicar uma saída no mesmo gate que faz a
+9. Não implementar, substituir ou publicar uma saída no mesmo gate que faz a
    auditoria de paridade.
-9. Não remover uma implementação existente durante o comparativo.
-10. Toda decisão deve estar em uma run e em `upstream-intake.json`, validado por
+10. Não remover uma implementação existente durante o comparativo.
+11. Toda decisão deve estar em uma run e em `upstream-intake.json`, validado por
     `npm run agents:validate-intake`.
 
 ## Fluxo obrigatório
@@ -3505,12 +3538,15 @@ declarar uma camada proprietária e como as demais consomem o resultado.
 - A saída React/shadcn/Base UI só importa Base UI e dependências React
   explicitamente registradas.
 - A saída Ark/Zag só importa Ark e, por exceção registrada, Zag direto.
+- A saída Angular nativa só importa Angular, Angular Aria, Angular CDK e
+  dependências Angular explicitamente registradas.
 - O registry shadcn distribui somente a saída React/shadcn/Base UI.
 - Cada saída declara instalação, API, dependências, status e testes próprios.
 
 ### Gate U6 — paridade e diferenças legítimas
 
-Aplicar o mesmo método às três saídas:
+Aplicar o mesmo método às quatro saídas. Saídas `planejadas` ou
+`indisponíveis` registram a lacuna sem simular evidência:
 
 - semântica, ARIA, teclado, foco e dismiss;
 - controlled/uncontrolled e forms, quando aplicável;
@@ -3533,11 +3569,11 @@ autorizada:
 Figma Builder -> Figma Auditor -> Token Sync Agent -> Repo Component Agent -> Release Agent
 ```
 
-O portal deve oferecer `HTML/CSS/JS`, `Ark/Zag` e `React · shadcn/Base UI` como
-escolhas explícitas e mostrar o estado real quando uma saída ainda não estiver
-disponível. Quando Figma/tokens não mudarem, o gate correspondente deve ser
-fechado como não aplicável com evidência, nunca pulado em silêncio. Commit, push,
-PR e publicação continuam exigindo autorização explícita por saída.
+O portal deve oferecer `HTML/CSS/JS`, `Ark/Zag`, `React · shadcn/Base UI` e
+`Angular` como escolhas explícitas e mostrar o estado real quando uma saída ainda
+não estiver disponível. Quando Figma/tokens não mudarem, o gate correspondente
+deve ser fechado como não aplicável com evidência, nunca pulado em silêncio.
+Commit, push, PR e publicação continuam exigindo autorização explícita por saída.
 
 ## Manifesto obrigatório
 
@@ -3545,7 +3581,7 @@ Cada run de intake contém `upstream-intake.json`, conforme
 `docs/agents/templates/upstream-intake.schema.json`. O manifesto registra:
 
 - baseline TIS e freshness da evidência Figma;
-- as três saídas, famílias tecnológicas, módulos, distribuição e status;
+- as quatro saídas, famílias tecnológicas, módulos, distribuição e status;
 - separação entre sources e coexistência obrigatória;
 - dimensões comuns da comparação;
 - contrato do seletor documental;
@@ -3561,9 +3597,12 @@ npm run agents:validate-run -- docs/agents/runs/YYYY-MM-DD-slug
 npm run agents:next-step -- docs/agents/runs/YYYY-MM-DD-slug
 ```
 
-O validador bloqueia manifesto sem as três saídas, source que mistura Base UI e
-Ark/Zag, campo de provider vencedor, seletor documental incompleto ou gate
-posterior avançado antes dos anteriores.
+Novos manifests usam `schemaVersion: 3` e registram as quatro saídas na ordem
+estável da ADR-023. O validador mantém compatibilidade com manifests históricos v2
+de três saídas, sem reescrever decisões encerradas. Para v3, ele bloqueia
+manifesto sem as quatro saídas, source que mistura providers, campo de provider
+vencedor, seletor documental incompleto ou gate posterior avançado antes dos
+anteriores.
 
 ## Política de atualização
 
@@ -3572,17 +3611,13 @@ preserve alterações TIS e nunca aceite overwrite automático. Antes de atualiz
 Ark ou Base UI, repita os cenários, bundle e consumer da saída. Mudança de major,
 anatomia, data attributes ou comportamento reabre U1, U2 e U6.
 
-## Piloto atual
+## Compatibilidade com runs existentes
 
-Popover é o primeiro intake formal deste processo porque já possui contrato Web
-App-ready, runtime público e página Figma registrada, mas ainda não possui
-implementação React pública. A run canônica é
-`docs/agents/runs/2026-08-03-popover-upstream-intake/`.
-
-Esta run começa somente com registro e auditoria de paridade. A saída HTML/CSS/JS
-existente permanece preservada; escrita no Figma, implementação das saídas
-Ark/Zag e React/shadcn/Base UI e publicação permanecem bloqueadas até seus gates
-específicos.
+Popover foi o primeiro intake formal e permanece registrado em
+`docs/agents/runs/2026-08-03-popover-upstream-intake/` com `schemaVersion: 2`,
+refletindo corretamente a decisão vigente quando a run foi criada. Runs novas
+usam v3 e incluem `angular-native`, mesmo quando essa saída ainda está
+`planejada`. Históricos v2 não são convertidos retroativamente.
 
 
 ═══════════════════════════════════════════════════════════

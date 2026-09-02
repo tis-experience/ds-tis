@@ -6,7 +6,7 @@ Ele existe para evitar execução prematura. Um componente novo ruim custa retra
 
 Quando o trabalho parte de shadcn, Base UI, Ark UI, Zag ou outra biblioteca,
 aplique em conjunto `docs/process-upstream-component-intake.md`. Esse processo
-adiciona manifesto, três saídas coexistentes e paridade reproduzível sem alterar
+adiciona manifesto, quatro saídas coexistentes e paridade reproduzível sem alterar
 a ordem de gates definida aqui.
 
 ## Quando usar

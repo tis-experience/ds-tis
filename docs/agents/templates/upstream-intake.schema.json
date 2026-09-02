@@ -20,7 +20,7 @@
   ],
   "properties": {
     "schema": { "const": "ds-tis/upstream-intake" },
-    "schemaVersion": { "const": 2 },
+    "schemaVersion": { "enum": [2, 3] },
     "id": { "type": "string", "minLength": 1 },
     "component": {
       "type": "object",
@@ -37,7 +37,7 @@
     "outputs": {
       "type": "array",
       "minItems": 3,
-      "maxItems": 3,
+      "maxItems": 4,
       "items": {
         "type": "object",
         "required": [
@@ -94,5 +94,25 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "required": ["schemaVersion"],
+        "properties": { "schemaVersion": { "const": 2 } }
+      },
+      "then": {
+        "properties": { "outputs": { "minItems": 3, "maxItems": 3 } }
+      }
+    },
+    {
+      "if": {
+        "required": ["schemaVersion"],
+        "properties": { "schemaVersion": { "const": 3 } }
+      },
+      "then": {
+        "properties": { "outputs": { "minItems": 4, "maxItems": 4 } }
+      }
+    }
+  ],
   "additionalProperties": true
 }

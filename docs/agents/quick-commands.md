@@ -47,14 +47,15 @@ Resolve para:
 - Role: `docs/agents/roles/ds-architect.md`
 - Processo: `docs/process-upstream-component-intake.md`
 - Artefatos: run canônica, `upstream-intake.json`, benchmark, contrato atual e
-  matriz de paridade das três saídas
+  matriz de paridade das quatro saídas
 - Validador: `npm run agents:validate-intake`
 - Bloqueado antes de: implementação das saídas, Figma write, Web core, adapter,
   commit/push/publicação
 
 O comando autoriza registro e auditoria. Não autoriza implementação. HTML/CSS/JS,
-Ark/Zag e React/shadcn/Base UI permanecem como três saídas coexistentes e
-separadas; a documentação oferece a escolha entre elas.
+Ark/Zag, React/shadcn/Base UI e Angular nativo permanecem como quatro saídas
+coexistentes e separadas; a documentação oferece a escolha entre elas e mostra o
+estado real das ainda planejadas.
 
 ## Execução Figma
 

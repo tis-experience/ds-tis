@@ -19,6 +19,12 @@ import {
   COMPONENTS,
   READINESS_LEVELS,
 } from './lib/component-catalog.mjs';
+import { STORYBOOK_CONTRACTS } from './lib/storybook-contracts.mjs';
+import {
+  ANGULAR_COMPONENTS_BY_SLUG,
+  ARK_ADAPTER_COMPONENTS,
+  REACT_REGISTRY_COMPONENTS,
+} from './lib/technology-implementations.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -200,13 +206,16 @@ const readinessSymbols = {
 
 const rows = COMPONENTS.map(c => {
   const hasCss = cssComponents.includes(path.basename(c.css, '.css'));
+  const hasStory = Boolean(STORYBOOK_CONTRACTS[c.slug]);
   const readiness = `${readinessSymbols[c.readiness]} ${READINESS_LEVELS[c.readiness].label}`;
   const responsibility = BEHAVIOR_MODELS[c.behaviorModel].label;
   if (c.cssOnly) {
-    return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | — (CSS-only, ADR-017) | — | ⬜ | 🟢 |`;
+    return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | — (CSS-only, ADR-017) | — | ${hasStory ? '🟢' : '⬜'} | 🟢 |`;
   }
-  return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | 🟢 | 🟢 | ⬜ | 🟢 |`;
+  return `| ${c.name} | ${readiness} | ${responsibility} | ${hasCss ? '🟢' : '⬜'} | 🟢 | 🟢 | ${hasStory ? '🟢' : '⬜'} | 🟢 |`;
 });
+
+const storybookComponentCount = COMPONENTS.filter((component) => STORYBOOK_CONTRACTS[component.slug]).length;
 
 const inventory = `# Inventário de componentes — Design System Core
 
@@ -253,11 +262,15 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 |-----|--------|--------|
 ${adrs.map(a => `| ADR-${a.num} | ${a.title} | ${a.status} |`).join('\n')}
 
-## Próximos milestones
+## Cobertura atual por saída
 
-1. **Adaptadores por framework** — só após o núcleo App-ready estabilizar demanda real (ADR-020)
-2. **Componentes pendentes** — Table, Toast, Popover
-3. **Storybook** — implementado para os 23 componentes públicos; manter cobertura alinhada ao catálogo canônico
+| Saída | Estado | Componentes |
+|-------|--------|-------------|
+| HTML/CSS/JS | Estável | ${COMPONENTS.length} |
+| Ark/Zag | Beta | ${ARK_ADAPTER_COMPONENTS.length} |
+| React · shadcn/Base UI | Beta | ${REACT_REGISTRY_COMPONENTS.length} |
+| Angular nativo | Beta local | ${Object.keys(ANGULAR_COMPONENTS_BY_SLUG).length} |
+| Storybook Web | Completo | ${storybookComponentCount}/${COMPONENTS.length} |
 `;
 
 fs.writeFileSync(path.join(OUTPUT_DIR, 'component-inventory.md'), inventory);

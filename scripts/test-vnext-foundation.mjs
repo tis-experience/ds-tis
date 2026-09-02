@@ -915,11 +915,17 @@ if (!read('apps/docs/src/content/docs/pt-br/index.mdx').includes('./components/'
 if (!read('apps/docs/src/content/docs/en/index.mdx').includes('./components/')) {
   errors.push('landing EN deve apontar diretamente para o catálogo de componentes');
 }
-if (!read('apps/docs/src/content/docs/pt-br/index.mdx').includes('adapters beta de Accordion, Combobox, Menu, Modal, Popover e Select')) {
+if (!read('apps/docs/src/content/docs/pt-br/index.mdx').includes('adapters beta independentes')) {
   errors.push('landing PT-BR deve refletir os adapters Ark/Zag realmente disponíveis');
 }
-if (!read('apps/docs/src/content/docs/en/index.mdx').includes('beta Accordion, Combobox, Menu, Modal, Popover, and Select adapters')) {
+if (!read('apps/docs/src/content/docs/en/index.mdx').includes('independent beta adapters')) {
   errors.push('landing EN deve refletir os adapters Ark/Zag realmente disponíveis');
+}
+if (!read('apps/docs/src/content/docs/pt-br/index.mdx').includes('[Angular](./angular/)')) {
+  errors.push('landing PT-BR deve apresentar a quarta saída Angular');
+}
+if (!read('apps/docs/src/content/docs/en/index.mdx').includes('[Angular](./angular/)')) {
+  errors.push('landing EN deve apresentar a quarta saída Angular');
 }
 for (const rootLanding of [
   'apps/docs/src/content/docs/pt-br/index.mdx',
