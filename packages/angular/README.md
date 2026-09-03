@@ -12,9 +12,14 @@ Use entrypoints independentes:
 ```ts
 import { TisButton } from "@tis/angular/button";
 import { TisAccordion, TisAccordionItem } from "@tis/angular/accordion";
+import { TisCheckbox } from "@tis/angular/checkbox";
+import { TisModal, TisModalBody, TisModalFooter } from "@tis/angular/modal";
 import { TisPopover } from "@tis/angular/popover";
+import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
+import { TisSelect, TisSelectIcon } from "@tis/angular/select";
+import { TisToggle } from "@tis/angular/toggle";
 ```
 
-Os pilotos são standalone e usam Angular 21, Angular Aria/CDK 21 e RxJS 7 como
-peer dependencies. O pacote permanece privado enquanto a saída estiver em beta e
-não foi publicado.
+Os componentes são standalone e usam Angular 21, Angular Forms, Angular Aria/CDK
+21 e RxJS 7 como peer dependencies. O pacote permanece privado enquanto a saída
+estiver em beta e não foi publicado.

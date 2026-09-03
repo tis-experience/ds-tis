@@ -161,6 +161,10 @@ initAccordions()`,
     },
     previewSize: 'compact',
     descriptions: {
+      angular: {
+        pt: 'Componente standalone com checkbox nativo, estado indeterminate e integração ControlValueAccessor com Angular Forms.',
+        en: 'Standalone component with a native checkbox, indeterminate state, and ControlValueAccessor integration with Angular Forms.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém checked, mixed, foco e formulário.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains checked, mixed, focus, and form behavior.',
@@ -202,6 +206,18 @@ initAccordions()`,
   CheckboxLabel,
 } from '@tis/react/ark/checkbox'`,
     },
+    angular: {
+      primitive: 'HTML checkbox + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisCheckbox } from '@tis/angular/checkbox'`,
+      markup: `<tis-checkbox
+  name="notifications"
+  [(ngModel)]="notifications"
+  description="Receba um resumo semanal por e-mail."
+>
+  Receber novidades
+</tis-checkbox>`,
+    },
     web: {
       storyId: 'components-form-checkbox--playground',
       imports: `import 'ds-tis/css'`,
@@ -220,6 +236,10 @@ initAccordions()`,
     },
     previewSize: 'compact',
     descriptions: {
+      angular: {
+        pt: 'Grupo standalone com fieldset, legend e radios nativos, seleção exclusiva e integração ControlValueAccessor com Angular Forms.',
+        en: 'Standalone group with a native fieldset, legend, and radios, exclusive selection, and ControlValueAccessor integration with Angular Forms.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém seleção exclusiva, roving focus, teclado e formulário.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains exclusive selection, roving focus, keyboard, and form behavior.',
@@ -261,6 +281,20 @@ initAccordions()`,
   RadioGroupLegend,
   RadioGroupOption,
 } from '@tis/react/ark/radio'`,
+    },
+    angular: {
+      primitive: 'HTML radio group + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisRadioGroup, TisRadioOption } from '@tis/angular/radio'`,
+      markup: `<tis-radio-group
+  legend="Preferência de contato"
+  name="contact"
+  [(ngModel)]="contact"
+  [required]="true"
+>
+  <tis-radio-option value="email">E-mail</tis-radio-option>
+  <tis-radio-option value="sms">SMS</tis-radio-option>
+</tis-radio-group>`,
     },
     web: {
       storyId: 'components-form-radio--playground',
@@ -329,6 +363,10 @@ initComboboxes()`,
     },
     previewSize: 'medium',
     descriptions: {
+      angular: {
+        pt: 'Componente Angular standalone sobre select nativo, com Form Field completo, validação e ControlValueAccessor.',
+        en: 'A standalone Angular component over a native select, with a complete Form Field, validation, and ControlValueAccessor.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém valor, typeahead, foco e teclado.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains value, typeahead, focus, and keyboard behavior.',
@@ -346,6 +384,22 @@ initComboboxes()`,
   SelectTrigger,
   SelectValue,
 } from '@tis/react/ark/select'`,
+    },
+    angular: {
+      primitive: 'HTML select + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
+      markup: `<tis-select
+  name="country"
+  label="País"
+  [(ngModel)]="country"
+  helperText="Selecione o país de residência."
+  [required]="true"
+>
+  <svg tisSelectIcon aria-hidden="true">…</svg>
+  <option value="br">Brasil</option>
+  <option value="cl">Chile</option>
+</tis-select>`,
     },
     web: {
       storyId: 'components-form-select--playground',
@@ -411,10 +465,96 @@ initActionMenus()`,
       en: 'Keeps a short, reversible task in focus without removing the person from the current context.',
     },
     previewSize: 'medium',
+    examples: {
+      web: [
+        {
+          storyId: 'components-modal--tamanhos',
+          size: 'medium',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: {
+            pt: 'Três dialogs independentes executados pelo runtime HTML/CSS/JavaScript estável.',
+            en: 'Three independent dialogs running with the stable HTML/CSS/JavaScript runtime.',
+          },
+        },
+        {
+          storyId: 'components-modal--corpo-customizado',
+          size: 'large',
+          title: { pt: 'Body customizado', en: 'Custom body' },
+          description: {
+            pt: 'Form Field, Input e Buttons públicos compostos dentro do runtime Web.',
+            en: 'Public Form Field, Input, and Buttons composed inside the Web runtime.',
+          },
+        },
+      ],
+      ark: [
+        {
+          storyId: 'ark-modal--sizes',
+          size: 'medium',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: {
+            pt: 'Três dialogs independentes controlados pelas parts Ark UI e pelo comportamento Zag.',
+            en: 'Three independent dialogs controlled by Ark UI parts and Zag behavior.',
+          },
+        },
+        {
+          storyId: 'ark-modal--custom-body',
+          size: 'large',
+          title: { pt: 'Body customizado', en: 'Custom body' },
+          description: {
+            pt: 'Composição real de campo e ações dentro do adapter Ark/Zag.',
+            en: 'A real field-and-actions composition inside the Ark/Zag adapter.',
+          },
+        },
+      ],
+      react: [
+        {
+          storyId: 'react-modal--sizes',
+          size: 'medium',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: {
+            pt: 'Três dialogs independentes executados pela recipe shadcn com primitives Base UI.',
+            en: 'Three independent dialogs running through the shadcn recipe with Base UI primitives.',
+          },
+        },
+        {
+          storyId: 'react-modal--custom-body',
+          size: 'large',
+          title: { pt: 'Body customizado', en: 'Custom body' },
+          description: {
+            pt: 'Field, Input e Button da própria saída React compostos dentro do Dialog.',
+            en: 'Field, Input, and Button from the React output composed inside the Dialog.',
+          },
+        },
+      ],
+      angular: [
+        {
+          storyId: 'angular-modal--tamanhos',
+          size: 'medium',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: {
+            pt: 'Três dialogs independentes executados pelo componente Angular com CDK Overlay.',
+            en: 'Three independent dialogs running through the Angular component with CDK Overlay.',
+          },
+        },
+        {
+          storyId: 'angular-modal--corpo-customizado',
+          size: 'large',
+          title: { pt: 'Body customizado', en: 'Custom body' },
+          description: {
+            pt: 'Content projection com Form Field, Input e Buttons públicos dentro do Overlay Angular.',
+            en: 'Content projection with public Form Field, Input, and Buttons inside the Angular Overlay.',
+          },
+        },
+      ],
+    },
     descriptions: {
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém foco, teclado, estado e bloqueio do conteúdo externo.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains focus, keyboard behavior, state, and outside-content blocking.',
+      },
+      angular: {
+        pt: 'Componente standalone com CDK Overlay/Portal/A11y, focus trap, backdrop, Escape e retorno de foco.',
+        en: 'Standalone component with CDK Overlay/Portal/A11y, focus trap, backdrop, Escape, and focus return.',
       },
     },
     usageGuidance: {
@@ -456,6 +596,30 @@ initActionMenus()`,
   ModalTitle,
   ModalTrigger,
 } from '@tis/react/ark/modal'`,
+    },
+    angular: {
+      primitive: '@angular/cdk/overlay + portal + a11y',
+      imports: `import { TisButton } from '@tis/angular/button'
+import {
+  TisModal,
+  TisModalBody,
+  TisModalFooter,
+  TisModalInitialFocus,
+} from '@tis/angular/modal'`,
+      markup: `<tis-button (click)="modalOpen.set(true)">Revisar alterações</tis-button>
+<tis-modal
+  #modal
+  title="Revisar alterações"
+  description="Confira os dados antes de continuar."
+  size="md"
+  [open]="modalOpen()"
+  (openChange)="modalOpen.set($event)"
+>
+  <div tisModalBody>Conteúdo curto da tarefa.</div>
+  <div tisModalFooter>
+    <tis-button (click)="modal.close('api')">Guardar</tis-button>
+  </div>
+</tis-modal>`,
     },
     web: {
       storyId: 'components-modal--playground',
@@ -585,6 +749,10 @@ initPopovers()`,
     },
     previewSize: 'compact',
     descriptions: {
+      angular: {
+        pt: 'Componente standalone com checkbox nativo, role switch e integração ControlValueAccessor com Angular Forms.',
+        en: 'Standalone component with a native checkbox, switch role, and ControlValueAccessor integration with Angular Forms.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém hover, focus, delays, posicionamento e Escape.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains hover, focus, delays, positioning, and Escape.',
@@ -766,6 +934,18 @@ showToast({
   SwitchThumb,
   SwitchTitle,
 } from '@tis/react/ark/toggle'`,
+    },
+    angular: {
+      primitive: 'HTML switch + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisToggle } from '@tis/angular/toggle'`,
+      markup: `<tis-toggle
+  name="securityAlerts"
+  [(ngModel)]="securityAlerts"
+  description="Notifica sobre acessos suspeitos."
+>
+  Alertas de segurança
+</tis-toggle>`,
     },
     web: {
       storyId: 'components-form-toggle--playground',

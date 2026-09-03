@@ -1022,13 +1022,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "select",
+          "primitive": "native select + Angular Forms",
+          "storyId": "angular-select--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -1394,13 +1394,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "checkbox",
+          "primitive": "native checkbox + Angular Forms",
+          "storyId": "angular-checkbox--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -1539,13 +1539,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "radio",
+          "primitive": "native radio group + Angular Forms",
+          "storyId": "angular-radio--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -1689,13 +1689,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "toggle",
+          "primitive": "native switch + Angular Forms",
+          "storyId": "angular-toggle--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -2243,13 +2243,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "modal",
+          "primitive": "@angular/cdk/overlay + portal + a11y",
+          "storyId": "angular-modal--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },

@@ -11,8 +11,9 @@
 
 ## Objective
 
-Validar o Modal nas três saídas coexistentes, corrigir regressões do adapter
-React e fechar evidências funcionais, visuais, acessíveis e de performance.
+Validar o Modal nas quatro saídas coexistentes, corrigir regressões do adapter
+React, implementar a saída Angular nativa e fechar evidências funcionais,
+visuais, acessíveis e de performance.
 
 ## Owner decision log
 
@@ -22,6 +23,10 @@ React e fechar evidências funcionais, visuais, acessíveis e de performance.
 - 2026-08-28: Web, Ark/Zag e React/shadcn/Base UI validados em desktop e 390px.
 - 2026-08-28: A saída React foi corrigida para manter largura border-box e close
   icônico dentro da superfície, sem texto auxiliar visível.
+- 2026-09-02: O owner autorizou seguir sem pausas com a implementação Angular,
+  mantendo Figma e tokens inalterados.
+- 2026-09-02: Angular validado como entrypoint independente com CDK Overlay,
+  Portal e A11y, focus trap, Escape, backdrop, retorno de foco, dark mode e Axe.
 
 ## Out of scope
 

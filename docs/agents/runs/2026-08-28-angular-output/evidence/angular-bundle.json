@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T17:31:28.971Z",
+  "generatedAt": "2026-09-03T01:37:16.153Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -9,16 +9,46 @@
       "budgetGzipBytes": 4096
     },
     {
+      "name": "checkbox",
+      "rawBytes": 8816,
+      "gzipBytes": 1987,
+      "budgetGzipBytes": 5120
+    },
+    {
       "name": "accordion",
       "rawBytes": 7797,
       "gzipBytes": 1501,
       "budgetGzipBytes": 8192
     },
     {
+      "name": "modal",
+      "rawBytes": 12500,
+      "gzipBytes": 2910,
+      "budgetGzipBytes": 12288
+    },
+    {
       "name": "popover",
       "rawBytes": 16570,
       "gzipBytes": 3698,
       "budgetGzipBytes": 12288
+    },
+    {
+      "name": "radio",
+      "rawBytes": 11680,
+      "gzipBytes": 2275,
+      "budgetGzipBytes": 6144
+    },
+    {
+      "name": "select",
+      "rawBytes": 11281,
+      "gzipBytes": 2373,
+      "budgetGzipBytes": 6144
+    },
+    {
+      "name": "toggle",
+      "rawBytes": 6572,
+      "gzipBytes": 1611,
+      "budgetGzipBytes": 5120
     }
   ]
 }

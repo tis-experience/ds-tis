@@ -79,6 +79,11 @@ select {
   justify-content: flex-start;
 }
 
+.consumer-row--checkbox,
+.consumer-row--selection {
+  align-items: flex-start;
+}
+
 .consumer-section--popover {
   min-block-size: var(--ds-size-4xl);
 }

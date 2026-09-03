@@ -60,6 +60,12 @@ html {
   background: var(--sl-color-bg-nav);
 }
 
+.ds-source-guidance[data-component-source='modal'] .ds-anatomy {
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
 .ds-source-guidance .ds-preview__canvas,
 .ds-source-guidance .ds-dodont__preview {
   display: flex;
@@ -149,6 +155,21 @@ html {
 /* O rhythm editorial não pode deslocar Buttons dentro do componente real. */
 .ds-source-guidance .ds-popover--documentation .ds-popover__close,
 .ds-source-guidance .ds-popover--documentation .ds-popover__actions > .ds-button {
+  margin: 0;
+}
+
+/* A composição documental do Modal reutiliza a anatomia pública completa.
+   O rhythm global do Starlight não pode criar espaçamento entre as partes
+   internas, mas a margem negativa do body continua pertencendo ao componente. */
+.ds-source-guidance .ds-modal__close,
+.ds-source-guidance .ds-modal__title,
+.ds-source-guidance .ds-modal__description,
+.ds-source-guidance .ds-modal__body > :where(p, ul, ol, dl, blockquote, figure),
+.ds-source-guidance .ds-modal__footer,
+.ds-source-guidance .ds-modal__footer > .ds-button,
+.ds-source-guidance .ds-modal__body > .ds-button,
+.ds-source-guidance .ds-modal__body .ds-field > .ds-input,
+.ds-source-guidance .ds-modal__body .ds-field > :where(.ds-field__label-row, .ds-field__label, .ds-field__helper, .ds-field__error) {
   margin: 0;
 }
 
@@ -997,6 +1018,10 @@ html {
 
   .ds-source-guidance .ds-preview__canvas {
     justify-content: flex-start;
+  }
+
+  .ds-source-guidance[data-component-source='modal'] .ds-anatomy {
+    padding: var(--ds-dimension-48) var(--ds-dimension-40) !important;
   }
 
   .ds-source-guidance .ds-token-table :where(th, td) {

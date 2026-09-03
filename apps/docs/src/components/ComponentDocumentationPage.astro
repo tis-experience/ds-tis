@@ -70,8 +70,8 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     ? 'Running with the React source recipe distributed through shadcn and based on Base UI.'
     : 'Executado pela recipe React distribuída via shadcn e baseada em Base UI.',
   angular: isEnglish
-    ? 'Running with the native Angular component and CDK Overlay/Portal.'
-    : 'Executado pelo componente Angular nativo com CDK Overlay/Portal.',
+    ? `Running with the native Angular component and ${config.angular?.primitive || 'platform primitives'}.`
+    : `Executado pelo componente Angular nativo com ${config.angular?.primitive || 'primitives da plataforma'}.`,
 };
 ---
 
@@ -108,7 +108,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
 
 <ComponentPageLayout slug={slug} technology={technology} locale={locale}>
   <ComponentPanel id="design" label="Design" slug={slug} technology={technology} active>
-    {slug === 'popover' ? (
+    {slug === 'popover' || slug === 'modal' ? (
       <>
         <ComponentGuidance slug={slug} topic="design" includeOrders={[10]} />
 
@@ -128,7 +128,12 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
         )}
 
         {documentation.examples.map((example) => (
-          <div class="ds-output-example" data-output-example="content-slot" data-output-technology={technology}>
+          <div
+            class="ds-output-example"
+            data-output-example={slug === 'popover' ? 'content-slot' : 'documented'}
+            data-output-story-id={example.storyId}
+            data-output-technology={technology}
+          >
             <h3>{example.title} · {documentation.technologyLabel}</h3>
             <p class="ds-output-example__runtime">{example.description}</p>
             <OutputStoryPreview
@@ -142,7 +147,11 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           </div>
         ))}
 
-        <ComponentGuidance slug={slug} topic="design" includeOrders={[40, 50]} />
+        <ComponentGuidance
+          slug={slug}
+          topic="design"
+          includeOrders={slug === 'popover' ? [40, 50] : [60]}
+        />
       </>
     ) : documentation.storyId ? (
       <>
@@ -361,8 +370,12 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
         ? (isEnglish ? 'Accessibility evidence remains pending until the native Angular implementation exists.' : 'A evidência de acessibilidade permanece pendente até existir a implementação Angular nativa.')
         : slug === 'accordion'
           ? (isEnglish ? 'Preserve Angular Aria relationships and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve as relações de Angular Aria e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
+          : slug === 'checkbox'
+            ? (isEnglish ? 'Preserve native checkbox semantics and validate Space, checked and indeterminate states, disabled and invalid states, visible focus, and Angular Forms integration.' : 'Preserve a semântica nativa do checkbox e valide Space, estados checked e indeterminate, disabled e invalid, foco visível e integração com Angular Forms.')
           : slug === 'popover'
             ? (isEnglish ? 'Preserve the non-modal dialog contract and validate Escape, outside interaction, ARIA relationships, and focus return.' : 'Preserve o contrato de dialog não modal e valide Escape, interação externa, relações ARIA e retorno de foco.')
+          : slug === 'modal'
+            ? (isEnglish ? 'Preserve the modal dialog contract and validate focus trap, Escape, backdrop dismiss, scroll blocking, ARIA relationships, and focus return.' : 'Preserve o contrato de dialog modal e valide focus trap, Escape, dismiss pelo backdrop, bloqueio de scroll, relações ARIA e retorno de foco.')
             : (isEnglish ? 'Preserve native button semantics, submit behavior, accessible names, disabled state, and visible focus.' : 'Preserve a semântica nativa do button, submit, nomes acessíveis, estado disabled e foco visível.')}</p>
     )}
 

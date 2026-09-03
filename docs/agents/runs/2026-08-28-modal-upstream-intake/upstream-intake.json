@@ -1,7 +1,7 @@
 {
   "$schema": "../../templates/upstream-intake.schema.json",
   "schema": "ds-tis/upstream-intake",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "id": "2026-08-28-modal-upstream-intake",
   "component": {
     "name": "Modal",
@@ -13,7 +13,8 @@
       "preserve-web-modal",
       "ark-zag-modal-validation",
       "react-shadcn-base-ui-modal-fix",
-      "three-output-documentation",
+      "four-output-documentation",
+      "angular-native-modal-implementation",
       "functional-accessibility-visual-performance-validation"
     ],
     "blockedActions": [
@@ -22,16 +23,17 @@
       "adapter-write",
       "commit-push-release"
     ],
-    "ownerDecision": "Em 2026-08-28 o owner autorizou executar, testar e validar cada componente em sequência. Figma, Web core, commit, push e release permanecem bloqueados."
+    "ownerDecision": "Em 2026-09-02 o owner aprovou a implementação e validação local contínua do Modal Angular. Figma, tokens, Web core, commit, push e release permanecem bloqueados."
   },
   "baseline": {
     "figma": {
       "fileKey": "IE68amP9Hya5ieFw1rX8S8",
       "page": "Modal",
       "providerAgnostic": true,
-      "evidenceStatus": "snapshot-current",
+      "evidenceStatus": "snapshot-historical",
       "snapshotAgeHoursAtKickoff": 17,
-      "writeStatus": "approved-unchanged"
+      "writeStatus": "approved-unchanged",
+      "ownerNote": "Em 2026-09-02 o owner confirmou que o Figma não teve alterações e dispensou novo snapshot para esta implementação Angular."
     },
     "sharedContract": {
       "providerAgnostic": true,
@@ -88,10 +90,30 @@
       "status": "beta",
       "sourceModules": ["registry/tis/dialog.tsx", "@base-ui/react/dialog"],
       "writeStatus": "authorized"
+    },
+    {
+      "id": "angular-native",
+      "label": "Angular",
+      "technologyFamily": "angular",
+      "distribution": { "channel": "angular-package", "package": "@tis/angular" },
+      "resolutionContext": {
+        "package": "@tis/angular",
+        "entrypoint": "modal",
+        "angularVersion": "21.2.22",
+        "cdkVersion": "21.2.14"
+      },
+      "status": "validated",
+      "sourceModules": [
+        "packages/angular/modal/src/modal.ts",
+        "@angular/cdk/overlay",
+        "@angular/cdk/portal",
+        "@angular/cdk/a11y"
+      ],
+      "writeStatus": "authorized"
     }
   ],
   "separation": {
-    "dependencyDirection": "figma-and-tokens -> three-independent-outputs -> documentation-choice",
+    "dependencyDirection": "figma-and-tokens -> four-independent-outputs -> documentation-choice",
     "outputsCoexist": true,
     "outputSourcesMustRemainSeparate": true,
     "oneOutputCannotReplaceAnother": true,
@@ -109,14 +131,14 @@
     "status": "approved",
     "ownerApproval": {
       "at": "2026-08-28",
-      "note": "Owner autorizou execução contínua; paridade validada por testes funcionais, visuais, acessíveis e de bundle."
+      "note": "Owner autorizou execução contínua; as quatro saídas foram validadas por testes funcionais, visuais, acessíveis e de bundle."
     },
     "selectsWinner": false,
     "allowsDocumentedDifferences": true
   },
   "documentation": {
     "selectionMode": "user-choice",
-    "trackIds": ["web-html-css-js", "ark-zag", "react-shadcn-base-ui"],
+    "trackIds": ["web-html-css-js", "ark-zag", "react-shadcn-base-ui", "angular-native"],
     "defaultTrack": "web-html-css-js",
     "showsUnavailableState": true,
     "status": "implemented"
@@ -131,7 +153,7 @@
     { "id": "upstream-benchmark", "status": "done", "evidence": "evidence/upstream-benchmark.md" },
     { "id": "current-contract", "status": "done", "evidence": "evidence/provider-comparison.md" },
     { "id": "improvement-classification", "status": "done", "evidence": "evidence/provider-comparison.md" },
-    { "id": "brief-owner-approval", "status": "approved", "ownerApproval": { "at": "2026-08-28", "note": "Owner autorizou execução local contínua." } },
+    { "id": "brief-owner-approval", "status": "approved", "ownerApproval": { "at": "2026-09-02", "note": "Owner autorizou a extensão Angular e execução local contínua." } },
     { "id": "figma-outcome", "status": "approved", "ownerApproval": { "at": "2026-08-28", "note": "Figma preservado; snapshot Modal com issueCount=0." } },
     { "id": "output-implementation", "status": "done" },
     { "id": "parity-validation", "status": "done" },
@@ -142,11 +164,13 @@
     { "type": "repo-contract", "path": "evidence/current-contract.md", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "upstream-benchmark", "path": "evidence/upstream-benchmark.md", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "output-parity", "path": "evidence/provider-comparison.md", "scope": "run", "status": "current", "freshness": "fresh" },
-    { "type": "figma-snapshot", "path": ".figma-snapshot.json", "scope": "repo", "status": "current", "freshness": "fresh" },
+    { "type": "figma-snapshot", "path": ".figma-snapshot.json", "scope": "repo", "status": "historical", "freshness": "stale" },
     { "type": "repo-validation", "path": "06-repo-implementation-report.md", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "visual-comparison-web", "path": "evidence/web-open-2026-08-28.png", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "visual-comparison-ark", "path": "evidence/ark-open-2026-08-28.png", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "visual-comparison-react", "path": "evidence/react-open-2026-08-28.png", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "visual-comparison-angular", "path": "docs/agents/runs/2026-08-28-angular-output/evidence/angular-consumer-1280.png", "scope": "repo", "status": "current", "freshness": "fresh" },
+    { "type": "visual-comparison-angular-mobile", "path": "docs/agents/runs/2026-08-28-angular-output/evidence/angular-consumer-320.png", "scope": "repo", "status": "current", "freshness": "fresh" },
     { "type": "visual-docs-static", "path": "evidence/docs-static-examples-2026-08-28.png", "scope": "run", "status": "current", "freshness": "fresh" },
     { "type": "global-closeout", "path": "evidence/global-closeout-2026-08-28.md", "scope": "run", "status": "current", "freshness": "fresh" }
   ]

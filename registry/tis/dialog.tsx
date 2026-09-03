@@ -57,7 +57,7 @@ function DialogViewport({
 function DialogContent({
   className,
   children,
-  size = "sm",
+  size = "md",
   showCloseButton = true,
   closeLabel = "Fechar modal",
   ...props

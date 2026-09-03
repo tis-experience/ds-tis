@@ -4,7 +4,7 @@
 - Componente: Modal
 - Run: `2026-08-28-modal-upstream-intake`
 - Agent: Repo Component Agent
-- Data: 2026-08-28
+- Data: 2026-09-02
 
 ## Implementação
 
@@ -13,7 +13,10 @@
   Escape, outside click, controlled state e retorno de foco.
 - React: `registry/tis/dialog.tsx` mantém Base UI isolado, largura border-box e
   close de 40px/ícone de 24px totalmente dentro da superfície.
-- Docs: três rotas e cinco exemplos estáticos carregam o CSS público e Buttons.
+- Angular: `@tis/angular/modal` usa CDK Overlay, Portal e A11y sem imports das
+  outras saídas; expõe `model()` controlado, outputs tipados, content projection,
+  três sizes, focus trap, Escape, backdrop, scroll lock e retorno de foco.
+- Docs: as quatro rotas permitem escolher a implementação sem misturar source.
 
 ## Correção encontrada pela revisão visual
 
@@ -32,6 +35,10 @@
 - Foco inicial, Tab/Shift+Tab, Escape, outside click, controlled state, retorno
   de foco, dark mode e Axe passaram no browser gate.
 - Os cinco exemplos estáticos têm `display:flex`, background, padding e radius.
+- O consumer Angular passou em 320, 390 e 1280px, nos temas light/dark, com
+  associação de title/description, foco inicial, ciclo de Tab/Shift+Tab, Escape,
+  backdrop, retorno de foco e Axe sem violações.
+- O entrypoint Modal mede 2,84 KiB gzip, abaixo do orçamento de 12 KiB.
 
 ## Evidência visual
 
@@ -41,6 +48,9 @@
   `evidence/ark-open-mobile-390-2026-08-28.png`,
   `evidence/react-open-mobile-390-2026-08-28.png`.
 - Astro: `evidence/docs-static-examples-2026-08-28.png`.
+- Angular: `../2026-08-28-angular-output/evidence/angular-consumer-1280.png`,
+  `../2026-08-28-angular-output/evidence/angular-consumer-390.png` e
+  `../2026-08-28-angular-output/evidence/angular-consumer-320.png`.
 
 ## Bloqueado antes de
 

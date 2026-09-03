@@ -104,7 +104,8 @@ function createInstance(overlay) {
       }
       releaseFocusTrap = trapFocus(overlay, dialog);
       const focusable = getFocusable(dialog);
-      (focusable[0] || dialog).focus();
+      const requestedFocus = dialog.querySelector('[autofocus], [data-ds-modal-initial-focus]');
+      (requestedFocus || focusable[0] || dialog).focus();
       emit(overlay, 'ds-modal-open', {
         overlay,
         dialog,
