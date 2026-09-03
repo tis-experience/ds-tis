@@ -2505,12 +2505,17 @@ async function auditTabsOutputSelector() {
   await page.goto(`${origin}${mobileRoute}`, { waitUntil: 'networkidle' });
   await page.locator('main h1').first().waitFor();
   const anatomy = page.locator('.ds-source-guidance[data-source-path="docs/tabs.html"] .ds-anatomy').first();
+  const anatomyTablist = anatomy.locator('[role="tablist"]').first();
   const anatomyBounds = await anatomy.boundingBox();
   const markerBounds = await anatomy.locator('.ds-anatomy__marker').evaluateAll((elements) => elements.map((element) => {
     const rect = element.getBoundingClientRect();
     return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
   }));
   expect(Boolean(anatomyBounds), `${mobileRoute}: anatomia não foi renderizada em 320px`);
+  expect(
+    await anatomyTablist.evaluate((element) => getComputedStyle(element).overflow === 'visible'),
+    `${mobileRoute}: tablist demonstrativo não pode recortar os marcadores da anatomia`,
+  );
   expect(
     markerBounds.length === 4 && markerBounds.every((marker) =>
       marker.left >= anatomyBounds.x - 1 &&
