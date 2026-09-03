@@ -51,6 +51,38 @@ try {
   await page.locator('[data-testid="button-form"] [data-tis-angular-button]').first().click();
   expect((await page.locator('[data-testid="submit-count"]').textContent())?.includes("1"), "Button type=submit não submeteu o form nativo");
 
+  const input = page.getByRole("textbox", { name: "E-mail" });
+  const inputWrapper = page.locator("tis-input .ds-input");
+  expect(await input.getAttribute("name") === "email", "Input não encaminhou name ao elemento nativo");
+  expect(await input.getAttribute("aria-describedby") !== null, "Input não associou helper por aria-describedby");
+  expect(await input.getAttribute("required") !== null, "Input não encaminhou required ao elemento nativo");
+  await page.getByRole("button", { name: "Guardar e-mail" }).click();
+  await page.waitForFunction(() => document.querySelector("tis-input input")?.getAttribute("aria-invalid") === "true");
+  expect(await input.getAttribute("aria-invalid") === "true", "Input required não expôs aria-invalid após submit");
+  expect(await page.getByText("Digite um e-mail para continuar", { exact: true }).isVisible(), "Input não exibiu mensagem de erro associada");
+  await input.fill("ana@empresa.com");
+  await page.waitForFunction(() => document.querySelector('[data-testid="input-value"]')?.textContent?.includes("ana@empresa.com"));
+  expect((await page.locator('[data-testid="input-value"]').textContent())?.includes("ana@empresa.com"), "ControlValueAccessor do Input não atualizou Angular Forms");
+  expect(await input.getAttribute("aria-invalid") === null, "Input manteve estado inválido após valor válido");
+  await input.focus();
+  expect(await inputWrapper.evaluate((node) => node.matches(":focus-within")), "Input não expôs estado de foco no wrapper");
+
+  const textarea = page.getByRole("textbox", { name: "Mensagem" });
+  const textareaWrapper = page.locator("tis-textarea .ds-textarea");
+  expect(await textarea.getAttribute("name") === "message", "Textarea não encaminhou name ao elemento nativo");
+  expect((await textarea.getAttribute("aria-describedby"))?.split(" ").length === 2, "Textarea não associou contador e helper por aria-describedby");
+  expect(await textarea.getAttribute("required") !== null, "Textarea não encaminhou required ao elemento nativo");
+  await page.getByRole("button", { name: "Guardar mensagem" }).click();
+  await page.waitForFunction(() => document.querySelector("tis-textarea textarea")?.getAttribute("aria-invalid") === "true");
+  expect(await textarea.getAttribute("aria-invalid") === "true", "Textarea required não expôs aria-invalid após submit");
+  expect(await page.getByText("Escreva uma mensagem para continuar", { exact: true }).isVisible(), "Textarea não exibiu mensagem de erro associada");
+  await textarea.fill("Contexto para revisão.");
+  await page.waitForFunction(() => document.querySelector('[data-testid="textarea-value"]')?.textContent?.includes("22"));
+  expect((await page.locator("tis-textarea .ds-field__counter").textContent())?.includes("22/500"), "Textarea não atualizou o contador");
+  expect(await textarea.getAttribute("aria-invalid") === null, "Textarea manteve estado inválido após valor válido");
+  await textarea.focus();
+  expect(await textareaWrapper.evaluate((node) => node.matches(":focus-within")), "Textarea não expôs estado de foco no wrapper");
+
   const checkbox = page.locator('tis-checkbox input[type="checkbox"]');
   expect(await checkbox.getAttribute("name") === "weeklySummary", "Checkbox não encaminhou name ao input nativo");
   expect(await checkbox.getAttribute("aria-describedby") !== null, "Checkbox não associou description/helper por aria-describedby");
@@ -288,6 +320,29 @@ try {
       responsiveToggle.width === 44 && responsiveToggle.height === 24 && responsiveToggle.inside,
       `${width}px: Toggle cortado, deformado ou desalinhado (${JSON.stringify(responsiveToggle)})`,
     );
+    const responsiveFields = await page.locator("tis-input .ds-input, tis-textarea .ds-textarea").evaluateAll((nodes) => nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      const field = node.querySelector("input, textarea")?.getBoundingClientRect();
+      return {
+        bottom: rect.bottom,
+        fieldHeight: field?.height ?? 0,
+        fieldWidth: field?.width ?? 0,
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        viewport: document.documentElement.clientWidth,
+        width: rect.width,
+      };
+    }));
+    expect(
+      responsiveFields.length === 2 && responsiveFields.every((geometry) =>
+        geometry.width > 0 && geometry.height > 0 && geometry.height < 180 &&
+        geometry.left >= 0 && geometry.right <= geometry.viewport &&
+        geometry.fieldWidth <= geometry.width + 4 && geometry.fieldHeight <= geometry.height + 4 &&
+        geometry.bottom > geometry.top),
+      `${width}px: Input/Textarea cortado, desproporcional ou fora do viewport (${JSON.stringify(responsiveFields)})`,
+    );
     const responsiveSelect = await page.locator("tis-select .ds-select").evaluate((node) => {
       const rect = node.getBoundingClientRect();
       const field = node.querySelector("select")?.getBoundingClientRect();
@@ -350,12 +405,24 @@ try {
       reference.remove();
       return result;
     };
+    const compareField = (actualSelector, rootClass, fieldMarkup, properties) => {
+      const actual = document.querySelector(actualSelector);
+      const reference = document.createElement("div");
+      reference.className = rootClass;
+      reference.innerHTML = fieldMarkup;
+      document.body.append(reference);
+      const result = { actual: pick(actual, properties), reference: pick(reference, properties) };
+      reference.remove();
+      return result;
+    };
     return {
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
+      input: compareField("tis-input .ds-input", "ds-input ds-input--md ds-input--filled", '<input class="ds-input__field" value="ana@empresa.com">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       radio: compare('tis-radio-group input[type="radio"]', "ds-radio", ["width", "height", "border-radius", "background-color", "border-color"], "input", "radio", "ds-radio-label"),
       select: compareSelect(),
+      textarea: compareField("tis-textarea .ds-textarea", "ds-textarea ds-textarea--md ds-textarea--filled", '<textarea class="ds-textarea__field">Contexto para revisão.</textarea>', ["border-radius", "background-color", "color", "font-size"]),
       toggle: compare('tis-toggle input[role="switch"]', "ds-toggle", ["width", "height", "border-radius", "background-color", "border-color"], "input", "checkbox", "ds-toggle-label", true),
       modal: compare(".tis-angular-modal-pane .ds-modal", "ds-modal ds-modal--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "max-height"], "div"),
     };
@@ -371,8 +438,10 @@ try {
     ["angular-button--playground", "tis-button"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
+    ["angular-input--playground", "tis-input"],
     ["angular-radio--playground", "tis-radio-group"],
     ["angular-select--playground", "tis-select"],
+    ["angular-textarea--playground", "tis-textarea"],
     ["angular-toggle--playground", "tis-toggle"],
     ["angular-modal--playground", "tis-modal"],
     ["angular-popover--playground", "tis-popover"],
@@ -570,6 +639,93 @@ try {
   });
   expect(selectDark.mode === "dark", "Story do Select não recebeu tema dark");
   expect(selectDark.actual === selectDark.expected, `Select Angular divergiu da referência dark (${JSON.stringify(selectDark)})`);
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-input--estados&globals=mode:light`, { waitUntil: "networkidle" });
+  const inputStates = page.locator("tis-input input.ds-input__field");
+  expect(await inputStates.count() === 5, "Story de estados do Input não renderizou a matriz completa");
+  expect(await inputStates.nth(0).inputValue() === "", "Story do Input perdeu o estado padrão");
+  expect(await inputStates.nth(1).inputValue() === "usuario@empresa.com", "Story do Input perdeu o estado preenchido");
+  expect(await inputStates.nth(2).getAttribute("aria-invalid") === "true", "Story do Input perdeu o estado inválido");
+  expect(await inputStates.nth(3).isDisabled(), "Story do Input perdeu o estado disabled");
+  expect(await inputStates.nth(4).getAttribute("readonly") !== null, "Story do Input perdeu o estado readonly");
+  const inputGeometry = await page.locator("tis-input .ds-input").evaluateAll((nodes) => nodes.map((node) => {
+    const rect = node.getBoundingClientRect();
+    const field = node.querySelector("input")?.getBoundingClientRect();
+    return { height: rect.height, width: rect.width, fieldHeight: field?.height ?? 0 };
+  }));
+  expect(
+    inputGeometry.every((geometry) => geometry.height === 40 && geometry.width > geometry.height && geometry.fieldHeight <= 44),
+    `Story do Input tem controle cortado ou field desproporcional (${JSON.stringify(inputGeometry)})`,
+  );
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-input--angular-forms&globals=mode:dark`, { waitUntil: "networkidle" });
+  const formsInput = page.getByRole("textbox", { name: "E-mail" });
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await page.waitForFunction(() => document.querySelector("tis-input input")?.getAttribute("aria-invalid") === "true");
+  expect(await page.getByText("Digite um e-mail para continuar.", { exact: true }).isVisible(), "Story Angular Forms não validou Input required");
+  await formsInput.fill("ana@empresa.com");
+  await page.waitForTimeout(100);
+  expect((await page.getByRole("status").textContent())?.includes("ana@empresa.com"), "Story Angular Forms não refletiu o valor do Input");
+  const inputDark = await formsInput.evaluate((node) => {
+    const actual = node.closest(".ds-input");
+    const reference = document.createElement("div");
+    reference.className = "ds-input ds-input--filled";
+    reference.innerHTML = '<input class="ds-input__field" value="ana@empresa.com">';
+    document.body.append(reference);
+    const result = {
+      actual: getComputedStyle(actual).backgroundColor,
+      expected: getComputedStyle(reference).backgroundColor,
+      mode: document.documentElement.dataset.mode,
+    };
+    reference.remove();
+    return result;
+  });
+  expect(inputDark.mode === "dark", "Story do Input não recebeu tema dark");
+  expect(inputDark.actual === inputDark.expected, `Input Angular divergiu da referência dark (${JSON.stringify(inputDark)})`);
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-textarea--estados&globals=mode:light`, { waitUntil: "networkidle" });
+  const textareaStates = page.locator("tis-textarea textarea.ds-textarea__field");
+  expect(await textareaStates.count() === 5, "Story de estados do Textarea não renderizou a matriz completa");
+  expect(await textareaStates.nth(0).inputValue() === "", "Story do Textarea perdeu o estado padrão");
+  expect(await textareaStates.nth(1).inputValue() !== "", "Story do Textarea perdeu o estado preenchido");
+  expect(await textareaStates.nth(2).getAttribute("aria-invalid") === "true", "Story do Textarea perdeu o estado inválido");
+  expect(await textareaStates.nth(3).isDisabled(), "Story do Textarea perdeu o estado disabled");
+  expect(await textareaStates.nth(4).getAttribute("readonly") !== null, "Story do Textarea perdeu o estado readonly");
+  const textareaGeometry = await page.locator("tis-textarea .ds-textarea").evaluateAll((nodes) => nodes.map((node) => {
+    const rect = node.getBoundingClientRect();
+    const field = node.querySelector("textarea")?.getBoundingClientRect();
+    return { height: rect.height, width: rect.width, fieldHeight: field?.height ?? 0 };
+  }));
+  expect(
+    textareaGeometry.every((geometry) => geometry.height >= 80 && geometry.height < 180 && geometry.width > geometry.height && geometry.fieldHeight <= geometry.height + 4),
+    `Story do Textarea tem controle cortado ou altura desproporcional (${JSON.stringify(textareaGeometry)})`,
+  );
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-textarea--com-contador&globals=mode:dark`, { waitUntil: "networkidle" });
+  const counters = page.locator("tis-textarea .ds-field__counter");
+  const counterTextareas = page.locator("tis-textarea textarea");
+  expect(await counters.count() === 2, "Story do Textarea não renderizou os contadores");
+  expect(!((await counters.first().getAttribute("class")) ?? "").includes("ds-field__counter--over"), "Contador dentro do limite recebeu estado over");
+  expect((await counters.nth(1).getAttribute("class"))?.includes("ds-field__counter--over"), "Contador acima do limite não recebeu estado over");
+  expect(await counterTextareas.count() === 2, "Story do Textarea perdeu os controles associados aos contadores");
+  const counterTextarea = counterTextareas.first();
+  expect((await counterTextarea.getAttribute("aria-describedby"))?.includes("counter"), "Textarea não associou contador por aria-describedby");
+  const textareaDark = await counterTextarea.evaluate((node) => {
+    const actual = node.closest(".ds-textarea");
+    const reference = document.createElement("div");
+    reference.className = "ds-textarea ds-textarea--filled";
+    reference.innerHTML = '<textarea class="ds-textarea__field">Conteúdo em revisão.</textarea>';
+    document.body.append(reference);
+    const result = {
+      actual: getComputedStyle(actual).backgroundColor,
+      expected: getComputedStyle(reference).backgroundColor,
+      mode: document.documentElement.dataset.mode,
+    };
+    reference.remove();
+    return result;
+  });
+  expect(textareaDark.mode === "dark", "Story do Textarea não recebeu tema dark");
+  expect(textareaDark.actual === textareaDark.expected, `Textarea Angular divergiu da referência dark (${JSON.stringify(textareaDark)})`);
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-popover--sem-seta&globals=mode:light`, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: "Abrir popover" }).click();

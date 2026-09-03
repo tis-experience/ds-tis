@@ -12,6 +12,7 @@ import {
 } from "@tis/angular/accordion";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
+import { TisInput, TisInputIconStart } from "@tis/angular/input";
 import {
   TisModal,
   TisModalBody,
@@ -21,6 +22,7 @@ import {
 import { TisPopover, TisPopoverActions, TisPopoverContent } from "@tis/angular/popover";
 import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
+import { TisTextarea } from "@tis/angular/textarea";
 import { TisToggle } from "@tis/angular/toggle";
 
 @Component({
@@ -38,6 +40,8 @@ import { TisToggle } from "@tis/angular/toggle";
     TisButton,
     TisButtonIconStart,
     TisCheckbox,
+    TisInput,
+    TisInputIconStart,
     TisModal,
     TisModalBody,
     TisModalFooter,
@@ -49,6 +53,7 @@ import { TisToggle } from "@tis/angular/toggle";
     TisRadioOption,
     TisSelect,
     TisSelectIcon,
+    TisTextarea,
     TisToggle,
     FormsModule,
   ],
@@ -58,7 +63,7 @@ import { TisToggle } from "@tis/angular/toggle";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Button, Accordion, Checkbox, Radio, Toggle, Select, Modal e Popover instalados a partir do pacote local.</p>
+          <p>Dez componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -81,6 +86,71 @@ import { TisToggle } from "@tis/angular/toggle";
             Estado assíncrono
           </tis-button>
           <span role="status" data-testid="submit-count">Submissões: {{ submitted() }}</span>
+        </form>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="input-heading">
+        <div class="consumer-section__heading">
+          <h2 id="input-heading">Input Text</h2>
+          <span class="consumer-status">HTML nativo + Angular Forms</span>
+        </div>
+        <form
+          class="consumer-row consumer-row--selection"
+          data-testid="input-form"
+          novalidate
+          (submit)="inputSubmitted.set(true); $event.preventDefault()"
+        >
+          <tis-input
+            name="email"
+            label="E-mail"
+            type="email"
+            autocomplete="email"
+            [ngModel]="email()"
+            (ngModelChange)="email.set($event)"
+            [required]="true"
+            [invalid]="inputSubmitted() && !email()"
+            helperText="Use seu e-mail corporativo."
+            errorMessage="Digite um e-mail para continuar"
+          >
+            <svg tisInputIconStart viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21a8 8 0 0 1 16 0" />
+            </svg>
+          </tis-input>
+          <tis-button type="submit" size="sm">Guardar e-mail</tis-button>
+          <span role="status" data-testid="input-value">
+            E-mail: {{ email() || "nenhum" }}
+          </span>
+        </form>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="textarea-heading">
+        <div class="consumer-section__heading">
+          <h2 id="textarea-heading">Textarea</h2>
+          <span class="consumer-status">HTML nativo + Angular Forms</span>
+        </div>
+        <form
+          class="consumer-row consumer-row--selection"
+          data-testid="textarea-form"
+          novalidate
+          (submit)="textareaSubmitted.set(true); $event.preventDefault()"
+        >
+          <tis-textarea
+            name="message"
+            label="Mensagem"
+            [ngModel]="message()"
+            (ngModelChange)="message.set($event)"
+            [required]="true"
+            [invalid]="textareaSubmitted() && !message()"
+            [maxLength]="500"
+            [showCounter]="true"
+            helperText="Explique o contexto em poucas linhas."
+            errorMessage="Escreva uma mensagem para continuar"
+          />
+          <tis-button type="submit" size="sm">Guardar mensagem</tis-button>
+          <span role="status" data-testid="textarea-value">
+            Caracteres: {{ message().length }}
+          </span>
         </form>
       </section>
 
@@ -351,13 +421,17 @@ export class AppComponent {
   private readonly document = inject(DOCUMENT);
   readonly dark = signal(false);
   readonly checkboxSubmitted = signal(false);
+  readonly email = signal("");
+  readonly inputSubmitted = signal(false);
   readonly loading = signal(false);
+  readonly message = signal("");
   readonly multiple = signal(false);
   readonly modalOpen = signal(false);
   readonly popoverOpen = signal(false);
   readonly radioSubmitted = signal(false);
   readonly selectSubmitted = signal(false);
   readonly submitted = signal(0);
+  readonly textareaSubmitted = signal(false);
   readonly notificationChannel = signal<string | null>(null);
   readonly securityAlerts = signal(true);
   readonly country = signal("");

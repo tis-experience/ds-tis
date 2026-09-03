@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'button' | 'checkbox' | 'combobox' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -152,6 +152,132 @@ initAccordions()`,
       markup: `<button class="ds-button ds-button--brand ds-button--md" type="button">
   <span class="ds-button__label">Continuar</span>
 </button>`,
+    },
+  },
+  input: {
+    description: {
+      pt: 'Coleta texto curto ou dados estruturados em uma única linha.',
+      en: 'Collects short text or structured data in a single line.',
+    },
+    previewSize: 'medium',
+    descriptions: {
+      angular: {
+        pt: 'Componente Angular standalone sobre input nativo, com Form Field completo, ícones, validação e ControlValueAccessor.',
+        en: 'A standalone Angular component over a native input, with a complete Form Field, icons, validation, and ControlValueAccessor.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, com primitive Base UI e classes/tokens públicos do Input Text TIS.',
+        en: 'A React source recipe with a Base UI primitive and the public TIS Input Text classes and tokens.',
+      },
+    },
+    examples: {
+      angular: [
+        {
+          storyId: 'angular-input--tamanhos',
+          size: 'medium',
+          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          description: {
+            pt: 'Controles sm, md e lg executados pelo componente Angular nativo.',
+            en: 'Small, medium, and large controls running through the native Angular component.',
+          },
+        },
+        {
+          storyId: 'angular-input--estados',
+          size: 'medium',
+          title: { pt: 'Estados · Angular', en: 'States · Angular' },
+          description: {
+            pt: 'Estados padrão, preenchido, erro, desabilitado e somente leitura com semântica nativa.',
+            en: 'Default, filled, error, disabled, and read-only states with native semantics.',
+          },
+        },
+      ],
+    },
+    angular: {
+      primitive: 'HTML input + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
+      markup: `<tis-input
+  name="email"
+  label="E-mail"
+  type="email"
+  [(ngModel)]="email"
+  helperText="Use seu e-mail corporativo."
+  [required]="true"
+>
+  <svg tisInputIconStart aria-hidden="true">…</svg>
+</tis-input>`,
+    },
+    web: {
+      storyId: 'components-form-input-text--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<div class="ds-field">
+  <label class="ds-field__label" for="email">E-mail</label>
+  <div class="ds-input ds-input--md">
+    <input id="email" class="ds-input__field" type="email" name="email" />
+  </div>
+</div>`,
+    },
+  },
+  textarea: {
+    description: {
+      pt: 'Coleta texto livre em múltiplas linhas com limite e contador opcionais.',
+      en: 'Collects free-form multiline text with an optional limit and counter.',
+    },
+    previewSize: 'medium',
+    descriptions: {
+      angular: {
+        pt: 'Componente Angular standalone sobre textarea nativo, com Form Field, contador acessível, validação e ControlValueAccessor.',
+        en: 'A standalone Angular component over a native textarea, with Form Field, accessible counter, validation, and ControlValueAccessor.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, com textarea nativo e classes/tokens públicos do Textarea TIS.',
+        en: 'A React source recipe with a native textarea and the public TIS Textarea classes and tokens.',
+      },
+    },
+    examples: {
+      angular: [
+        {
+          storyId: 'angular-textarea--tamanhos',
+          size: 'large',
+          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          description: {
+            pt: 'Alturas mínimas sm, md e lg preservadas pelo componente Angular.',
+            en: 'Small, medium, and large minimum heights preserved by the Angular component.',
+          },
+        },
+        {
+          storyId: 'angular-textarea--com-contador',
+          size: 'large',
+          title: { pt: 'Contador · Angular', en: 'Counter · Angular' },
+          description: {
+            pt: 'Contagem associada por aria-describedby, incluindo o estado acima do limite.',
+            en: 'Count associated through aria-describedby, including the over-limit state.',
+          },
+        },
+      ],
+    },
+    angular: {
+      primitive: 'HTML textarea + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import { TisTextarea } from '@tis/angular/textarea'`,
+      markup: `<tis-textarea
+  name="message"
+  label="Mensagem"
+  [(ngModel)]="message"
+  helperText="Máximo de 500 caracteres."
+  [maxLength]="500"
+  [showCounter]="true"
+/>`,
+    },
+    web: {
+      storyId: 'components-form-textarea--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<div class="ds-field">
+  <label class="ds-field__label" for="message">Mensagem</label>
+  <div class="ds-textarea ds-textarea--md">
+    <textarea id="message" class="ds-textarea__field" name="message"></textarea>
+  </div>
+</div>`,
     },
   },
   checkbox: {

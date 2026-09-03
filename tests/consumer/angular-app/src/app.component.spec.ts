@@ -4,10 +4,12 @@ import {
   TisAccordionHarness,
   TisButtonHarness,
   TisCheckboxHarness,
+  TisInputHarness,
   TisModalHarness,
   TisPopoverHarness,
   TisRadioGroupHarness,
   TisSelectHarness,
+  TisTextareaHarness,
   TisToggleHarness,
 } from "@tis/angular/testing";
 
@@ -67,6 +69,43 @@ describe("DS TIS Angular consumer", () => {
     fixture.componentInstance.checkboxSubmitted.set(true);
     fixture.detectChanges();
     expect(await checkbox.isInvalid()).toBe(true);
+  });
+
+  it("integra Input Text nativo com Angular Forms e required", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const input = await loader.getHarness(TisInputHarness);
+
+    expect(await input.getValue()).toBe("");
+    await input.setValue("ana@empresa.com");
+    fixture.detectChanges();
+    expect(await input.getValue()).toBe("ana@empresa.com");
+    expect(fixture.componentInstance.email()).toBe("ana@empresa.com");
+
+    fixture.componentInstance.email.set("");
+    fixture.componentInstance.inputSubmitted.set(true);
+    fixture.detectChanges();
+    expect(await input.isInvalid()).toBe(true);
+  });
+
+  it("integra Textarea nativo com Angular Forms, required e contador", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const textarea = await loader.getHarness(TisTextareaHarness);
+
+    expect(await textarea.getValue()).toBe("");
+    await textarea.setValue("Contexto para revisão.");
+    fixture.detectChanges();
+    expect(await textarea.getValue()).toBe("Contexto para revisão.");
+    expect(fixture.componentInstance.message()).toBe("Contexto para revisão.");
+    expect(fixture.nativeElement.querySelector("tis-textarea .ds-field__counter")?.textContent.trim()).toBe("22/500");
+
+    fixture.componentInstance.message.set("");
+    fixture.componentInstance.textareaSubmitted.set(true);
+    fixture.detectChanges();
+    expect(await textarea.isInvalid()).toBe(true);
   });
 
   it("integra Radio nativo com seleção exclusiva, Angular Forms e required", async () => {

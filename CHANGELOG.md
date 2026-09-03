@@ -35,6 +35,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.**
+  Os entrypoints `@tis/angular/input` e `@tis/angular/textarea` compõem Form
+  Field, label, helper, erro, ícones e contador pela anatomia pública do DS,
+  preservam required, invalid, disabled e readonly e integram
+  `ControlValueAccessor` ao Angular Forms. Storybook, harnesses, consumer
+  instalado, responsividade, dark mode, Axe e bundles validam as duas novas
+  implementações sem alterar Figma, tokens ou as outras três saídas.
 - **Toggle passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/toggle` usa checkbox nativo com role switch, preserva
   on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra

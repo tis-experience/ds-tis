@@ -60,6 +60,29 @@ export class TisCheckboxHarness extends ComponentHarness {
   }
 }
 
+export class TisInputHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-input";
+  private readonly input = this.locatorFor("input.ds-input__field");
+
+  async getValue(): Promise<string> {
+    return (await this.input()).getProperty<string>("value");
+  }
+
+  async setValue(value: string): Promise<void> {
+    const input = await this.input();
+    await input.clear();
+    await input.sendKeys(value);
+  }
+
+  async isDisabled(): Promise<boolean> {
+    return (await this.input()).getProperty<boolean>("disabled");
+  }
+
+  async isInvalid(): Promise<boolean> {
+    return (await this.input()).getAttribute("aria-invalid").then((value) => value === "true");
+  }
+}
+
 export class TisRadioGroupHarness extends ComponentHarness {
   static readonly hostSelector = "tis-radio-group";
   private readonly fieldset = this.locatorFor("fieldset.ds-radio-group");
@@ -134,6 +157,29 @@ export class TisSelectHarness extends ComponentHarness {
 
   async isInvalid(): Promise<boolean> {
     return (await this.select()).getAttribute("aria-invalid").then((value) => value === "true");
+  }
+}
+
+export class TisTextareaHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-textarea";
+  private readonly textarea = this.locatorFor("textarea.ds-textarea__field");
+
+  async getValue(): Promise<string> {
+    return (await this.textarea()).getProperty<string>("value");
+  }
+
+  async setValue(value: string): Promise<void> {
+    const textarea = await this.textarea();
+    await textarea.clear();
+    await textarea.sendKeys(value);
+  }
+
+  async isDisabled(): Promise<boolean> {
+    return (await this.textarea()).getProperty<boolean>("disabled");
+  }
+
+  async isInvalid(): Promise<boolean> {
+    return (await this.textarea()).getAttribute("aria-invalid").then((value) => value === "true");
   }
 }
 

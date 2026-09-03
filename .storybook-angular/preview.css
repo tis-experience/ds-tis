@@ -40,10 +40,14 @@ body:has(.ds-angular-popover-stage) {
 
 .ds-angular-checkbox-grid,
 .ds-angular-checkbox-form,
+.ds-angular-input-grid,
+.ds-angular-input-form,
 .ds-angular-radio-grid,
 .ds-angular-radio-form,
 .ds-angular-select-grid,
 .ds-angular-select-form,
+.ds-angular-textarea-grid,
+.ds-angular-textarea-form,
 .ds-angular-toggle-grid,
 .ds-angular-toggle-form {
   display: grid;
@@ -52,10 +56,30 @@ body:has(.ds-angular-popover-stage) {
   gap: var(--ds-space-md);
 }
 
+.ds-angular-input-stage,
+.ds-angular-input-grid,
+.ds-angular-input-form,
 .ds-angular-select-stage,
 .ds-angular-select-grid,
-.ds-angular-select-form {
-  inline-size: min(100%, var(--ds-size-2xl));
+.ds-angular-select-form,
+.ds-angular-textarea-stage,
+.ds-angular-textarea-grid,
+.ds-angular-textarea-form {
+  inline-size: min(100%, var(--ds-size-layout-md));
+}
+
+:is(
+  .ds-angular-input-stage,
+  .ds-angular-input-grid,
+  .ds-angular-input-form,
+  .ds-angular-select-stage,
+  .ds-angular-select-grid,
+  .ds-angular-select-form,
+  .ds-angular-textarea-stage,
+  .ds-angular-textarea-grid,
+  .ds-angular-textarea-form
+) > :is(tis-input, tis-select, tis-textarea) {
+  inline-size: 100%;
 }
 
 .ds-angular-checkbox-status {
@@ -77,6 +101,13 @@ body:has(.ds-angular-popover-stage) {
 }
 
 .ds-angular-select-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-input-status,
+.ds-angular-textarea-status {
   margin: 0;
   color: var(--ds-content-muted);
   font-size: var(--ds-body-font-size-sm);

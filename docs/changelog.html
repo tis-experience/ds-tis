@@ -95,6 +95,13 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.</strong>
+Os entrypoints <code>@tis/angular/input</code> e <code>@tis/angular/textarea</code> compõem Form
+Field, label, helper, erro, ícones e contador pela anatomia pública do DS,
+preservam required, invalid, disabled e readonly e integram
+<code>ControlValueAccessor</code> ao Angular Forms. Storybook, harnesses, consumer
+instalado, responsividade, dark mode, Axe e bundles validam as duas novas
+implementações sem alterar Figma, tokens ou as outras três saídas.</li>
 <li><strong>Toggle passa a integrar a saída Angular nativa em beta de workspace.</strong> O
 entrypoint <code>@tis/angular/toggle</code> usa checkbox nativo com role switch, preserva
 on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra

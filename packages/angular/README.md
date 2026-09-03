@@ -10,13 +10,15 @@ tokens públicos do DS; não inclui nem duplica o CSS global.
 Use entrypoints independentes:
 
 ```ts
-import { TisButton } from "@tis/angular/button";
 import { TisAccordion, TisAccordionItem } from "@tis/angular/accordion";
+import { TisButton } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
+import { TisInput } from "@tis/angular/input";
 import { TisModal, TisModalBody, TisModalFooter } from "@tis/angular/modal";
 import { TisPopover } from "@tis/angular/popover";
 import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
+import { TisTextarea } from "@tis/angular/textarea";
 import { TisToggle } from "@tis/angular/toggle";
 ```
 
