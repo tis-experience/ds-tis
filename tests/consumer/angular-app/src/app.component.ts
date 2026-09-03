@@ -12,6 +12,7 @@ import {
 } from "@tis/angular/accordion";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
+import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
 import { TisInput, TisInputIconStart } from "@tis/angular/input";
 import {
   TisModal,
@@ -42,6 +43,8 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisButton,
     TisButtonIconStart,
     TisCheckbox,
+    TisCombobox,
+    TisComboboxIcon,
     TisInput,
     TisInputIconStart,
     TisModal,
@@ -71,7 +74,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Doze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Treze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -281,12 +284,46 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         </form>
       </section>
 
+      <section class="consumer-section" aria-labelledby="combobox-heading">
+        <div class="consumer-section__heading">
+          <h2 id="combobox-heading">Combobox</h2>
+          <span class="consumer-status">Angular Aria + Angular Forms</span>
+        </div>
+        <form
+          class="consumer-row consumer-row--selection"
+          data-testid="combobox-form"
+          novalidate
+          (submit)="comboboxSubmitted.set(true); $event.preventDefault()"
+        >
+          <tis-combobox
+            name="searchCountry"
+            label="Buscar país"
+            [options]="countries"
+            [ngModel]="searchCountry()"
+            (ngModelChange)="searchCountry.set($event)"
+            [required]="true"
+            [invalid]="comboboxSubmitted() && !searchCountry()"
+            helperText="Digite para filtrar as opções."
+            errorMessage="Selecione um país para continuar"
+          >
+            <svg tisComboboxIcon viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+          </tis-combobox>
+          <tis-button type="submit" size="sm">Guardar país filtrado</tis-button>
+          <span role="status" data-testid="combobox-value">
+            País filtrado: {{ searchCountry() || "nenhum" }}
+          </span>
+        </form>
+      </section>
+
       <section class="consumer-section" aria-labelledby="tooltip-heading">
         <div class="consumer-section__heading">
           <h2 id="tooltip-heading">Tooltip</h2>
           <span class="consumer-status">CDK Overlay</span>
         </div>
-        <tis-tooltip content="Editar documento" placement="top">
+        <tis-tooltip content="Editar documento" placement="top" [closeDelay]="300">
           <button
             tisTooltipTrigger
             class="ds-button ds-button--outline ds-button--sm"
@@ -469,6 +506,7 @@ export class AppComponent {
   private readonly document = inject(DOCUMENT);
   readonly dark = signal(false);
   readonly checkboxSubmitted = signal(false);
+  readonly comboboxSubmitted = signal(false);
   readonly email = signal("");
   readonly inputSubmitted = signal(false);
   readonly loading = signal(false);
@@ -484,6 +522,14 @@ export class AppComponent {
   readonly notificationChannel = signal<string | null>(null);
   readonly securityAlerts = signal(true);
   readonly country = signal("");
+  readonly searchCountry = signal<string | null>(null);
+  readonly countries: readonly TisComboboxOption[] = [
+    { label: "Argentina", value: "ar" },
+    { label: "Brasil", value: "br" },
+    { label: "Chile", value: "cl" },
+    { disabled: true, label: "Indisponível", value: "disabled" },
+    { label: "Portugal", value: "pt" },
+  ];
   readonly weeklySummary = signal(false);
   readonly lastCloseReason = signal("nenhum");
   readonly lastModalCloseReason = signal("nenhum");

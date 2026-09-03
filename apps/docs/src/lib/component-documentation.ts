@@ -443,6 +443,10 @@ import { TisRadioGroup, TisRadioOption } from '@tis/angular/radio'`,
     },
     previewSize: 'medium',
     descriptions: {
+      angular: {
+        pt: 'Componente Angular standalone com Angular Aria, filtro local, Form Field completo e ControlValueAccessor.',
+        en: 'A standalone Angular component with Angular Aria, local filtering, a complete Form Field, and ControlValueAccessor.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém filtro, seleção, foco e teclado.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains filtering, selection, focus, and keyboard behavior.',
@@ -461,6 +465,25 @@ import { TisRadioGroup, TisRadioOption } from '@tis/angular/radio'`,
   ComboboxInput,
   ComboboxItem,
 } from '@tis/react/ark/combobox'`,
+    },
+    angular: {
+      primitive: '@angular/aria/combobox + listbox + Angular Forms',
+      imports: `import { FormsModule } from '@angular/forms'
+import {
+  TisCombobox,
+  TisComboboxIcon,
+  type TisComboboxOption,
+} from '@tis/angular/combobox'`,
+      markup: `<tis-combobox
+  name="country"
+  label="País"
+  [(ngModel)]="country"
+  [options]="countryOptions"
+  helperText="Digite para filtrar as opções."
+  [required]="true"
+>
+  <svg tisComboboxIcon aria-hidden="true">…</svg>
+</tis-combobox>`,
     },
     web: {
       storyId: 'components-form-combobox--playground',

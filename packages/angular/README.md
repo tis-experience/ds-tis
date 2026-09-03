@@ -13,6 +13,7 @@ Use entrypoints independentes:
 import { TisAccordion, TisAccordionItem } from "@tis/angular/accordion";
 import { TisButton } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
+import { TisCombobox, TisComboboxIcon } from "@tis/angular/combobox";
 import { TisInput } from "@tis/angular/input";
 import { TisModal, TisModalBody, TisModalFooter } from "@tis/angular/modal";
 import { TisPopover } from "@tis/angular/popover";

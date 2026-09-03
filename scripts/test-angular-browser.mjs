@@ -144,13 +144,13 @@ try {
   expect(await toggle.evaluate((node) => node.matches(":focus-visible")), "Toggle não exibiu focus ring por teclado");
   expect((await page.locator('[data-testid="toggle-value"]').textContent())?.includes("desligados"), "ControlValueAccessor do Toggle não atualizou Angular Forms");
 
-  const select = page.getByRole("combobox", { name: "País" });
+  const select = page.getByRole("combobox", { exact: true, name: "País" });
   const selectWrapper = page.locator("tis-select .ds-select");
   expect(await select.getAttribute("name") === "country", "Select não encaminhou name ao elemento nativo");
   expect(await select.getAttribute("aria-describedby") !== null, "Select não associou helper por aria-describedby");
   expect(await select.getAttribute("required") !== null, "Select não encaminhou required ao elemento nativo");
   expect(await select.inputValue() === "", "Select deveria iniciar no placeholder");
-  await page.getByRole("button", { name: "Guardar país" }).click();
+  await page.getByRole("button", { exact: true, name: "Guardar país" }).click();
   await page.waitForFunction(() => document.querySelector("tis-select select")?.getAttribute("aria-invalid") === "true");
   expect(await select.getAttribute("aria-invalid") === "true", "Select required não expôs aria-invalid após submit");
   expect(await page.getByText("Selecione um país para continuar", { exact: true }).isVisible(), "Select não exibiu mensagem de erro associada");
@@ -159,10 +159,43 @@ try {
   expect(await select.inputValue() === "cl", "Select nativo não selecionou Chile");
   expect((await page.locator('[data-testid="select-value"]').textContent())?.includes("cl"), "ControlValueAccessor do Select não atualizou Angular Forms");
   expect(await select.getAttribute("aria-invalid") === null, "Select manteve estado inválido após seleção válida");
-  await page.getByRole("button", { name: "Guardar país" }).focus();
+  await page.getByRole("button", { exact: true, name: "Guardar país" }).focus();
   await page.keyboard.press("Shift+Tab");
   expect(await select.evaluate((node) => node === document.activeElement), "Navegação por teclado não alcançou o Select");
   expect(await selectWrapper.evaluate((node) => node.matches(":focus-within")), "Select não expôs estado de foco no wrapper");
+
+  const combobox = page.getByRole("combobox", { exact: true, name: "Buscar país" });
+  const comboboxWrapper = page.locator("tis-combobox .ds-combobox");
+  expect(await combobox.getAttribute("name") === "searchCountry", "Combobox não encaminhou name ao input nativo");
+  expect(await combobox.getAttribute("aria-describedby") !== null, "Combobox não associou helper por aria-describedby");
+  expect(await combobox.getAttribute("required") !== null, "Combobox não encaminhou required ao input nativo");
+  expect(await combobox.getAttribute("aria-expanded") === "false", "Combobox deveria iniciar fechado");
+  await page.getByRole("button", { exact: true, name: "Guardar país filtrado" }).click();
+  await page.waitForFunction(() => document.querySelector("tis-combobox input")?.getAttribute("aria-invalid") === "true");
+  expect(await page.getByText("Selecione um país para continuar", { exact: true }).isVisible(), "Combobox não exibiu mensagem de erro associada");
+  await combobox.fill("Bra");
+  await page.waitForFunction(() => document.querySelectorAll("tis-combobox .ds-combobox__option").length === 1);
+  expect(await combobox.getAttribute("aria-expanded") === "true", "Combobox não abriu ao filtrar");
+  expect((await page.locator("tis-combobox .ds-combobox__option").textContent())?.trim() === "Brasil", "Combobox não filtrou a lista");
+  await combobox.press("ArrowDown");
+  expect(Boolean(await combobox.getAttribute("aria-activedescendant")), "Combobox não expôs aria-activedescendant ao navegar");
+  await combobox.press("Enter");
+  await page.waitForFunction(() => document.querySelector('[data-testid="combobox-value"]')?.textContent?.includes("br"));
+  expect(await combobox.inputValue() === "Brasil", "Combobox não refletiu o label selecionado no input");
+  expect(await combobox.getAttribute("aria-expanded") === "false", "Combobox não fechou após selecionar");
+  expect((await page.locator('[data-testid="combobox-value"]').textContent())?.includes("br"), "ControlValueAccessor do Combobox não atualizou Angular Forms");
+  expect(await combobox.getAttribute("aria-invalid") === null, "Combobox manteve estado inválido após seleção válida");
+  await page.locator("tis-combobox .ds-combobox__clear").click();
+  await page.waitForFunction(() => document.querySelector('[data-testid="combobox-value"]')?.textContent?.includes("nenhum"));
+  expect(await combobox.inputValue() === "", "Clear do Combobox não limpou o input");
+  await combobox.fill("Ind");
+  await combobox.press("ArrowDown");
+  await combobox.press("Enter");
+  expect((await page.locator('[data-testid="combobox-value"]').textContent())?.includes("nenhum"), "Combobox selecionou opção disabled");
+  await combobox.press("Escape");
+  expect(await combobox.getAttribute("aria-expanded") === "false", "Escape não fechou o Combobox");
+  expect(await combobox.evaluate((node) => node === document.activeElement), "Combobox não preservou foco no input após Escape");
+  expect(await comboboxWrapper.evaluate((node) => node.matches(":focus-within")), "Combobox não expôs estado de foco no wrapper");
 
   const tooltipTrigger = page.locator("[data-tis-angular-tooltip-trigger]");
   const tooltipContent = page.locator(".tis-angular-tooltip-overlay [role=\"tooltip\"]");
@@ -180,12 +213,13 @@ try {
   await tooltipContent.waitFor({ state: "detached" });
   expect(await tooltipTrigger.evaluate((node) => node === document.activeElement), "Tooltip não preservou foco no trigger após Escape");
 
-  await page.getByRole("button", { name: "Guardar país" }).focus();
+  await page.getByRole("button", { exact: true, name: "Guardar país" }).focus();
   await page.mouse.move(0, 0);
   await tooltipTrigger.hover();
   await tooltipContent.waitFor({ state: "visible" });
-  await page.waitForTimeout(120);
-  await tooltipContent.hover({ force: true });
+  await page.waitForTimeout(40);
+  const tooltipBox = await tooltipContent.boundingBox();
+  if (tooltipBox) await page.mouse.move(tooltipBox.x + tooltipBox.width / 2, tooltipBox.y + tooltipBox.height / 2);
   await page.waitForTimeout(180);
   expect(await tooltipContent.isVisible(), "Tooltip não permaneceu aberto com o ponteiro sobre o conteúdo");
   await page.mouse.move(0, 0);
@@ -324,6 +358,29 @@ try {
     await page.reload({ waitUntil: "networkidle" });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow <= 1, `${width}px: overflow horizontal de ${overflow}px`);
+    const responsiveCombobox = page.getByRole("combobox", { exact: true, name: "Buscar país" });
+    await responsiveCombobox.fill("Bra");
+    const responsiveComboboxGeometry = await page.locator("tis-combobox .ds-combobox-anchor").evaluate((node) => {
+      const control = node.querySelector(".ds-combobox")?.getBoundingClientRect();
+      const listbox = node.querySelector(".ds-combobox__listbox")?.getBoundingClientRect();
+      return {
+        controlHeight: control?.height ?? 0,
+        controlLeft: control?.left ?? -1,
+        controlRight: control?.right ?? -1,
+        listboxLeft: listbox?.left ?? -1,
+        listboxRight: listbox?.right ?? -1,
+        viewport: document.documentElement.clientWidth,
+      };
+    });
+    expect(
+      responsiveComboboxGeometry.controlHeight === 40 &&
+        responsiveComboboxGeometry.controlLeft >= 0 &&
+        responsiveComboboxGeometry.controlRight <= responsiveComboboxGeometry.viewport &&
+        responsiveComboboxGeometry.listboxLeft >= 0 &&
+        responsiveComboboxGeometry.listboxRight <= responsiveComboboxGeometry.viewport,
+      `${width}px: Combobox ou listbox cortado/desalinhado (${JSON.stringify(responsiveComboboxGeometry)})`,
+    );
+    await responsiveCombobox.press("Escape");
     await page.getByRole("button", { name: "Revisar alterações" }).click();
     const responsiveModal = page.locator(".tis-angular-modal-pane .ds-modal");
     await responsiveModal.waitFor();
@@ -489,6 +546,7 @@ try {
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
+      combobox: compareField("tis-combobox .ds-combobox", "ds-combobox ds-combobox--md", '<input class="ds-combobox__input">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       input: compareField("tis-input .ds-input", "ds-input ds-input--md ds-input--filled", '<input class="ds-input__field" value="ana@empresa.com">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       radio: compare('tis-radio-group input[type="radio"]', "ds-radio", ["width", "height", "border-radius", "background-color", "border-color"], "input", "radio", "ds-radio-label"),
       select: compareSelect(),
@@ -509,6 +567,7 @@ try {
     ["angular-button--playground", "tis-button"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
+    ["angular-combobox--playground", "tis-combobox"],
     ["angular-input--playground", "tis-input"],
     ["angular-radio--playground", "tis-radio-group"],
     ["angular-select--playground", "tis-select"],
@@ -786,7 +845,7 @@ try {
   );
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-select--angular-forms&globals=mode:dark`, { waitUntil: "networkidle" });
-  const formsSelect = page.getByRole("combobox", { name: "País" });
+  const formsSelect = page.getByRole("combobox", { exact: true, name: "País" });
   await page.getByRole("button", { name: "Continuar" }).click();
   await page.waitForFunction(() => document.querySelector("tis-select select")?.getAttribute("aria-invalid") === "true");
   expect(await page.getByText("Selecione um país para continuar.", { exact: true }).isVisible(), "Story Angular Forms não validou Select required");
@@ -809,6 +868,51 @@ try {
   });
   expect(selectDark.mode === "dark", "Story do Select não recebeu tema dark");
   expect(selectDark.actual === selectDark.expected, `Select Angular divergiu da referência dark (${JSON.stringify(selectDark)})`);
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-combobox--estados&globals=mode:light`, { waitUntil: "networkidle" });
+  const comboboxStates = page.locator("tis-combobox input.ds-combobox__input");
+  expect(await comboboxStates.count() === 5, "Story de estados do Combobox não renderizou a matriz completa");
+  expect(await comboboxStates.nth(0).inputValue() === "", "Story do Combobox perdeu o estado padrão");
+  expect(await comboboxStates.nth(1).inputValue() === "Brasil", "Story do Combobox perdeu o estado preenchido");
+  expect(await comboboxStates.nth(2).getAttribute("aria-invalid") === "true", "Story do Combobox perdeu o estado inválido");
+  expect(await comboboxStates.nth(3).isDisabled(), "Story do Combobox perdeu o estado disabled");
+  expect(await comboboxStates.nth(4).getAttribute("readonly") !== null, "Story do Combobox perdeu o estado readonly");
+  const comboboxGeometry = await page.locator("tis-combobox .ds-combobox").evaluateAll((nodes) => nodes.map((node) => {
+    const rect = node.getBoundingClientRect();
+    const field = node.querySelector("input")?.getBoundingClientRect();
+    return { height: rect.height, width: rect.width, fieldHeight: field?.height ?? 0 };
+  }));
+  expect(
+    comboboxGeometry.every((geometry) => geometry.height === 40 && geometry.width > geometry.height && geometry.fieldHeight <= 44),
+    `Story do Combobox tem controle cortado ou field desproporcional (${JSON.stringify(comboboxGeometry)})`,
+  );
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-combobox--angular-forms&globals=mode:dark`, { waitUntil: "networkidle" });
+  const formsCombobox = page.getByRole("combobox", { exact: true, name: "País" });
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await page.waitForFunction(() => document.querySelector("tis-combobox input")?.getAttribute("aria-invalid") === "true");
+  expect(await page.getByText("Selecione um país para continuar.", { exact: true }).isVisible(), "Story Angular Forms não validou Combobox required");
+  await formsCombobox.fill("Bra");
+  await formsCombobox.press("ArrowDown");
+  await formsCombobox.press("Enter");
+  await page.waitForTimeout(100);
+  expect((await page.getByRole("status").textContent())?.includes("br"), "Story Angular Forms não refletiu o valor do Combobox");
+  const comboboxDark = await formsCombobox.evaluate((node) => {
+    const actual = node.closest(".ds-combobox");
+    const reference = document.createElement("div");
+    reference.className = "ds-combobox ds-combobox--md ds-combobox--filled";
+    reference.innerHTML = '<input class="ds-combobox__input" value="Brasil">';
+    document.body.append(reference);
+    const result = {
+      actual: getComputedStyle(actual).backgroundColor,
+      expected: getComputedStyle(reference).backgroundColor,
+      mode: document.documentElement.dataset.mode,
+    };
+    reference.remove();
+    return result;
+  });
+  expect(comboboxDark.mode === "dark", "Story do Combobox não recebeu tema dark");
+  expect(comboboxDark.actual === comboboxDark.expected, `Combobox Angular divergiu da referência dark (${JSON.stringify(comboboxDark)})`);
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-input--estados&globals=mode:light`, { waitUntil: "networkidle" });
   const inputStates = page.locator("tis-input input.ds-input__field");

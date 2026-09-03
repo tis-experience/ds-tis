@@ -60,6 +60,56 @@ export class TisCheckboxHarness extends ComponentHarness {
   }
 }
 
+export class TisComboboxHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-combobox";
+  private readonly input = this.locatorFor("input.ds-combobox__input");
+  private readonly options = this.locatorForAll(".ds-combobox__option");
+
+  async getValue(): Promise<string> {
+    return (await this.input()).getProperty<string>("value");
+  }
+
+  async setQuery(value: string): Promise<void> {
+    const input = await this.input();
+    await input.clear();
+    await input.sendKeys(value);
+  }
+
+  async isOpen(): Promise<boolean> {
+    return (await this.input()).getAttribute("aria-expanded").then((value) => value === "true");
+  }
+
+  async getActiveDescendant(): Promise<string | null> {
+    return (await this.input()).getAttribute("aria-activedescendant");
+  }
+
+  async getVisibleOptionLabels(): Promise<string[]> {
+    const labels: string[] = [];
+    for (const option of await this.options()) {
+      if (await option.getAttribute("hidden") === null) labels.push(await option.text());
+    }
+    return labels;
+  }
+
+  async select(label: string): Promise<void> {
+    for (const option of await this.options()) {
+      if ((await option.text()).trim() === label) {
+        await option.click();
+        return;
+      }
+    }
+    throw new Error(`Combobox option not found: ${label}`);
+  }
+
+  async clear(): Promise<void> {
+    await (await this.locatorFor("button.ds-combobox__clear")()).click();
+  }
+
+  async isInvalid(): Promise<boolean> {
+    return (await this.input()).getAttribute("aria-invalid").then((value) => value === "true");
+  }
+}
+
 export class TisInputHarness extends ComponentHarness {
   static readonly hostSelector = "tis-input";
   private readonly input = this.locatorFor("input.ds-input__field");

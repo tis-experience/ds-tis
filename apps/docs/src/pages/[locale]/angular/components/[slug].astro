@@ -4,7 +4,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import ComponentDocumentationPage from '../../../../components/ComponentDocumentationPage.astro';
 
 export function getStaticPaths() {
-  const slugs = ['accordion', 'button', 'checkbox', 'input', 'modal', 'popover', 'radio', 'select', 'tabs', 'textarea', 'toggle', 'tooltip'] as const;
+  const slugs = ['accordion', 'button', 'checkbox', 'combobox', 'input', 'modal', 'popover', 'radio', 'select', 'tabs', 'textarea', 'toggle', 'tooltip'] as const;
   return ['pt-br', 'en'].flatMap((locale) =>
     slugs.map((slug) => ({
       params: { locale, slug },
@@ -14,7 +14,7 @@ export function getStaticPaths() {
 }
 
 const { locale, slug } = Astro.props;
-const names = { accordion: 'Accordion', button: 'Button', checkbox: 'Checkbox', input: 'Input Text', modal: 'Modal', popover: 'Popover', radio: 'Radio', select: 'Select', tabs: 'Tabs', textarea: 'Textarea', toggle: 'Toggle', tooltip: 'Tooltip' };
+const names = { accordion: 'Accordion', button: 'Button', checkbox: 'Checkbox', combobox: 'Combobox', input: 'Input Text', modal: 'Modal', popover: 'Popover', radio: 'Radio', select: 'Select', tabs: 'Tabs', textarea: 'Textarea', toggle: 'Toggle', tooltip: 'Tooltip' };
 ---
 
 <StarlightPage

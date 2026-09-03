@@ -4,6 +4,7 @@ import {
   TisAccordionHarness,
   TisButtonHarness,
   TisCheckboxHarness,
+  TisComboboxHarness,
   TisInputHarness,
   TisModalHarness,
   TisPopoverHarness,
@@ -158,6 +159,36 @@ describe("DS TIS Angular consumer", () => {
     fixture.componentInstance.selectSubmitted.set(true);
     fixture.detectChanges();
     expect(await select.isInvalid()).toBe(true);
+  });
+
+  it("integra Combobox com filtro, seleção, clear e Angular Forms", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const combobox = await loader.getHarness(TisComboboxHarness);
+
+    expect(await combobox.getValue()).toBe("");
+    await combobox.setQuery("Bra");
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await combobox.isOpen()).toBe(true);
+    expect(await combobox.getVisibleOptionLabels()).toEqual(["Brasil"]);
+
+    await combobox.select("Brasil");
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await combobox.getValue()).toBe("Brasil");
+    expect(fixture.componentInstance.searchCountry()).toBe("br");
+
+    await combobox.clear();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(fixture.componentInstance.searchCountry()).toBeNull();
+
+    fixture.componentInstance.comboboxSubmitted.set(true);
+    fixture.detectChanges();
+    expect(await combobox.isInvalid()).toBe(true);
   });
 
   it("integra Tabs com seleção, painéis e relações ARIA", async () => {
