@@ -368,7 +368,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 10,
+      "componentCount": 11,
       "components": [
         {
           "slug": "accordion",
@@ -417,6 +417,12 @@
           "entrypoint": "select",
           "primitive": "native select + Angular Forms",
           "storyId": "angular-select--playground"
+        },
+        {
+          "slug": "tabs",
+          "entrypoint": "tabs",
+          "primitive": "@angular/aria/tabs",
+          "storyId": "angular-tabs--playground"
         },
         {
           "slug": "textarea",

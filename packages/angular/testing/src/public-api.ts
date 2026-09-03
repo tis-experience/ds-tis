@@ -7,6 +7,7 @@ export {
   TisPopoverHarness,
   TisRadioGroupHarness,
   TisSelectHarness,
+  TisTabsHarness,
   TisTextareaHarness,
   TisToggleHarness,
 } from "./harnesses";

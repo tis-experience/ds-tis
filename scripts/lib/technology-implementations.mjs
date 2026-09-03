@@ -53,6 +53,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   popover: { entrypoint: "popover", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-popover--playground" },
   radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" },
   select: { entrypoint: "select", primitive: "native select + Angular Forms", storyId: "angular-select--playground" },
+  tabs: { entrypoint: "tabs", primitive: "@angular/aria/tabs", storyId: "angular-tabs--playground" },
   textarea: { entrypoint: "textarea", primitive: "native textarea + Angular Forms", storyId: "angular-textarea--playground" },
   toggle: { entrypoint: "toggle", primitive: "native switch + Angular Forms", storyId: "angular-toggle--playground" },
 };

@@ -113,6 +113,10 @@ body:has(.ds-angular-popover-stage) {
   font-size: var(--ds-body-font-size-sm);
 }
 
+.ds-angular-tabs-stage {
+  inline-size: 100%;
+}
+
 #storybook-root > main {
   min-block-size: 100%;
   color: var(--ds-content-default);

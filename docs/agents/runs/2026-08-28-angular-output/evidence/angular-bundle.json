@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T12:48:13.819Z",
+  "generatedAt": "2026-09-03T19:13:43.013Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -49,6 +49,12 @@
       "rawBytes": 11281,
       "gzipBytes": 2373,
       "budgetGzipBytes": 6144
+    },
+    {
+      "name": "tabs",
+      "rawBytes": 4775,
+      "gzipBytes": 969,
+      "budgetGzipBytes": 8192
     },
     {
       "name": "textarea",

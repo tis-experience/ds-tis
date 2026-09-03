@@ -9,6 +9,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Tabs preserva labels, overflow local e anatomia em viewports estreitos.**
+  As tabs deixam de quebrar o texto em múltiplas linhas, a lista passa a rolar
+  horizontalmente dentro do próprio componente e o marcador 4 da anatomia
+  permanece dentro do canvas em 320px nas quatro saídas.
 - **Previews funcionais aguardam a renderização real do Storybook.** O portal
   mantém o estado de carregamento até a story estar pronta, inclusive após
   alternar entre light e dark, evitando recargas concorrentes e exemplos vazios.
@@ -45,6 +49,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Tabs passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/tabs` usa Angular Aria para seleção controlável,
+  roving tabindex, navegação por setas/Home/End, item disabled e relações ARIA.
+  Storybook, harness, consumer instalado, responsividade, dark mode, Axe e
+  bundle validam a quarta implementação sem alterar Figma, tokens ou as outras
+  três saídas.
 - **Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.**
   Os entrypoints `@tis/angular/input` e `@tis/angular/textarea` compõem Form
   Field, label, helper, erro, ícones e contador pela anatomia pública do DS,
