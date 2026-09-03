@@ -12,6 +12,7 @@ import {
   TisTabsHarness,
   TisTextareaHarness,
   TisToggleHarness,
+  TisTooltipHarness,
 } from "@tis/angular/testing";
 
 import { AppComponent } from "./app.component";
@@ -180,6 +181,26 @@ describe("DS TIS Angular consumer", () => {
     const tabElements = fixture.nativeElement.querySelectorAll("button[tisTab]");
     expect(tabElements[1].getAttribute("aria-controls")).toBeTruthy();
     expect(tabElements[2].getAttribute("aria-disabled")).toBe("true");
+  });
+
+  it("integra Tooltip com focus e aria-describedby", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const tooltip = await loader.getHarness(TisTooltipHarness);
+
+    expect(await tooltip.isOpen()).toBe(false);
+    expect(await tooltip.getDescriptionId()).toMatch(/^tis-tooltip-/);
+    await tooltip.focus();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await tooltip.isOpen()).toBe(true);
+
+    const descriptionId = await tooltip.getDescriptionId();
+    const content = fixture.nativeElement.ownerDocument.getElementById(descriptionId);
+    expect(content?.getAttribute("role")).toBe("tooltip");
+    expect(content?.textContent?.trim()).toBe("Editar documento");
   });
 
   it("abre o Popover, fecha com Escape e retorna foco", async () => {

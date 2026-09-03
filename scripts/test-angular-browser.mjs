@@ -164,6 +164,33 @@ try {
   expect(await select.evaluate((node) => node === document.activeElement), "Navegação por teclado não alcançou o Select");
   expect(await selectWrapper.evaluate((node) => node.matches(":focus-within")), "Select não expôs estado de foco no wrapper");
 
+  const tooltipTrigger = page.locator("[data-tis-angular-tooltip-trigger]");
+  const tooltipContent = page.locator(".tis-angular-tooltip-overlay [role=\"tooltip\"]");
+  expect(await tooltipContent.count() === 0, "Tooltip deveria iniciar fechado");
+  await tooltipTrigger.focus();
+  await tooltipContent.waitFor({ state: "visible" });
+  const tooltipId = await tooltipContent.getAttribute("id");
+  expect(Boolean(tooltipId), "Tooltip não gerou id estável");
+  expect(
+    (await tooltipTrigger.getAttribute("aria-describedby"))?.split(/\s+/).includes(tooltipId),
+    "Tooltip não associou trigger e conteúdo por aria-describedby",
+  );
+  expect(await tooltipTrigger.evaluate((node) => node === document.activeElement), "Tooltip moveu o foco para fora do trigger");
+  await page.keyboard.press("Escape");
+  await tooltipContent.waitFor({ state: "detached" });
+  expect(await tooltipTrigger.evaluate((node) => node === document.activeElement), "Tooltip não preservou foco no trigger após Escape");
+
+  await page.getByRole("button", { name: "Guardar país" }).focus();
+  await page.mouse.move(0, 0);
+  await tooltipTrigger.hover();
+  await tooltipContent.waitFor({ state: "visible" });
+  await page.waitForTimeout(120);
+  await tooltipContent.hover({ force: true });
+  await page.waitForTimeout(180);
+  expect(await tooltipContent.isVisible(), "Tooltip não permaneceu aberto com o ponteiro sobre o conteúdo");
+  await page.mouse.move(0, 0);
+  await tooltipContent.waitFor({ state: "detached" });
+
   const tabs = page.locator("button[tistab]");
   const tabPanels = page.locator("[tistabpanel]");
   expect(await tabs.count() === 3, "Tabs não renderizou três tabs");
@@ -381,6 +408,31 @@ try {
         responsiveSelect.fieldWidth <= responsiveSelect.width + 4,
       `${width}px: Select cortado, deformado ou com field desproporcional (${JSON.stringify(responsiveSelect)})`,
     );
+    const responsiveTooltipTrigger = page.locator("[data-tis-angular-tooltip-trigger]");
+    await responsiveTooltipTrigger.focus();
+    const responsiveTooltip = page.locator(".tis-angular-tooltip-overlay [role=\"tooltip\"]");
+    await responsiveTooltip.waitFor({ state: "visible" });
+    const responsiveTooltipGeometry = await responsiveTooltip.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        bottom: rect.bottom,
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        viewportHeight: window.innerHeight,
+        viewportWidth: document.documentElement.clientWidth,
+        width: rect.width,
+      };
+    });
+    expect(
+      responsiveTooltipGeometry.width > 0 && responsiveTooltipGeometry.height > 0 &&
+        responsiveTooltipGeometry.left >= 0 && responsiveTooltipGeometry.right <= responsiveTooltipGeometry.viewportWidth &&
+        responsiveTooltipGeometry.top >= 0 && responsiveTooltipGeometry.bottom <= responsiveTooltipGeometry.viewportHeight,
+      `${width}px: Tooltip cortado ou fora do viewport (${JSON.stringify(responsiveTooltipGeometry)})`,
+    );
+    await page.keyboard.press("Escape");
+    await responsiveTooltip.waitFor({ state: "detached" });
     await page.screenshot({ path: path.join(EVIDENCE, `angular-consumer-${width}.png`), fullPage: true });
   }
 
@@ -463,6 +515,7 @@ try {
     ["angular-tabs--playground", "[tisTabs]"],
     ["angular-textarea--playground", "tis-textarea"],
     ["angular-toggle--playground", "tis-toggle"],
+    ["angular-tooltip--playground", "tis-tooltip"],
     ["angular-modal--playground", "tis-modal"],
     ["angular-popover--playground", "tis-popover"],
   ];
@@ -506,6 +559,69 @@ try {
     `Story do Tabs cortou ou desalinhou itens em 320px (${JSON.stringify(tabsGeometry)})`,
   );
   await axe("Storybook Tabs dark 320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-tooltip--playground&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyTooltipTrigger = page.getByRole("button", { name: "Editar" });
+  await storyTooltipTrigger.focus();
+  const storyTooltip = page.getByRole("tooltip");
+  await storyTooltip.waitFor({ state: "visible" });
+  const storyTooltipContract = await storyTooltip.evaluate((node) => {
+    const styles = getComputedStyle(node);
+    const rect = node.getBoundingClientRect();
+    const probe = document.createElement("span");
+    probe.style.background = "var(--ds-tooltip-content-fill-default)";
+    probe.style.color = "var(--ds-tooltip-label-color-default)";
+    document.body.append(probe);
+    const result = {
+      actualBackground: styles.backgroundColor,
+      actualColor: styles.color,
+      bottom: rect.bottom,
+      expectedBackground: getComputedStyle(probe).backgroundColor,
+      expectedColor: getComputedStyle(probe).color,
+      fontSize: styles.fontSize,
+      height: rect.height,
+      left: rect.left,
+      lineHeight: styles.lineHeight,
+      mode: document.documentElement.dataset.mode,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      right: rect.right,
+      top: rect.top,
+      viewportHeight: window.innerHeight,
+      viewportWidth: document.documentElement.clientWidth,
+      width: rect.width,
+    };
+    probe.remove();
+    return result;
+  });
+  expect(storyTooltipContract.mode === "dark", "Story do Tooltip não recebeu tema dark");
+  expect(
+    storyTooltipContract.actualBackground === storyTooltipContract.expectedBackground &&
+      storyTooltipContract.actualColor === storyTooltipContract.expectedColor,
+    `Story do Tooltip não consumiu os tokens dark (${JSON.stringify(storyTooltipContract)})`,
+  );
+  expect(
+    storyTooltipContract.width > 0 && storyTooltipContract.height > 0 &&
+      storyTooltipContract.left >= 0 && storyTooltipContract.right <= storyTooltipContract.viewportWidth &&
+      storyTooltipContract.top >= 0 && storyTooltipContract.bottom <= storyTooltipContract.viewportHeight &&
+      storyTooltipContract.overflow <= 1 && storyTooltipContract.fontSize === "14px" && storyTooltipContract.lineHeight === "20px",
+    `Story do Tooltip ficou cortado ou desproporcional em 320px (${JSON.stringify(storyTooltipContract)})`,
+  );
+  const tooltipAxe = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+    .analyze();
+  expect(
+    tooltipAxe.violations.length === 0,
+    `Storybook Tooltip dark 320px: Axe WCAG encontrou ${tooltipAxe.violations.map((item) => item.id).join(", ")}`,
+  );
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-tooltip--sem-seta&globals=mode:light`, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Editar" }).focus();
+  const arrowlessTooltip = page.locator(".tis-angular-tooltip-overlay");
+  await arrowlessTooltip.waitFor({ state: "visible" });
+  expect(
+    await arrowlessTooltip.locator(".ds-tooltip__content").evaluate((node) => getComputedStyle(node, "::before").content === "none"),
+    "Tooltip Angular sem seta ainda renderizou o pseudo-elemento",
+  );
   await page.setViewportSize({ width: 1280, height: 720 });
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-checkbox--estados&globals=mode:light`, { waitUntil: "networkidle" });

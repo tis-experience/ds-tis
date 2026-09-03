@@ -125,6 +125,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   e usam overflow horizontal local quando o conteúdo excede a largura, evitando
   tabs deformadas em 320px; a validação permanece separada por provider. O
   catálogo React passa a ter vinte e um componentes beta.
+- **Tooltip passa a oferecer a quarta saída Angular nativa sem alterar o contrato Web/Figma.**
+  O novo entrypoint `@tis/angular/tooltip` usa CDK Overlay e Portal, preserva
+  hover/focus, delays, conteúdo hoverable, Escape, `aria-describedby`, quatro
+  placements, flip e seta opcional. Storybook, consumidor real, harness, Axe,
+  responsividade, tema escuro e bundle passam a bloquear regressões visuais e
+  comportamentais desta saída.
 - **Tooltip conclui a paridade local nas três saídas sem alterar o contrato Web/Figma.**
   Ark UI/Zag recebe adapter independente e o registry React recebe uma recipe
   shadcn baseada em Base UI, ambos alinhados ao visual, aos 11 tokens e ao

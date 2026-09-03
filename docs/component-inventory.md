@@ -99,5 +99,5 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | HTML/CSS/JS | Estável | 26 |
 | Ark/Zag | Beta | 13 |
 | React · shadcn/Base UI | Beta | 22 |
-| Angular nativo | Beta local | 11 |
+| Angular nativo | Beta local | 12 |
 | Storybook Web | Completo | 26/26 |

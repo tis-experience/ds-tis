@@ -579,7 +579,7 @@ async function auditCanonicalCatalog(route, locale) {
   const menuLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Menu' }).locator('a');
   expect(await menuLinks.count() === 4, `${route}: Menu deve ligar o nome e as três implementações disponíveis`);
   const tooltipLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tooltip' }).locator('a');
-  expect(await tooltipLinks.count() === 4, `${route}: Tooltip deve ligar o nome e as três implementações disponíveis`);
+  expect(await tooltipLinks.count() === 5, `${route}: Tooltip deve ligar o nome e as quatro implementações disponíveis`);
   const tabsLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tabs' }).locator('a');
   expect(await tabsLinks.count() === 5, `${route}: Tabs deve ligar o nome e as quatro implementações disponíveis`);
   const toastLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Toast' }).locator('a');
@@ -2298,6 +2298,14 @@ async function auditTooltipOutputSelector() {
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'react-tooltip--playground',
       triggerName: 'Informações do projeto',
+      guidanceCount: 3,
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/tooltip/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-tooltip--playground',
+      triggerName: 'Editar',
       guidanceCount: 3,
     },
   ];

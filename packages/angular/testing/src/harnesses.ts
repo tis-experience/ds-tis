@@ -197,6 +197,23 @@ export class TisTabsHarness extends ComponentHarness {
   }
 }
 
+export class TisTooltipHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-tooltip";
+  private readonly trigger = this.locatorFor("[tisTooltipTrigger]");
+
+  async focus(): Promise<void> {
+    await (await this.trigger()).focus();
+  }
+
+  async isOpen(): Promise<boolean> {
+    return (await this.host()).getAttribute("data-open").then((value) => value === "true");
+  }
+
+  async getDescriptionId(): Promise<string | null> {
+    return (await this.trigger()).getAttribute("aria-describedby");
+  }
+}
+
 export class TisTextareaHarness extends ComponentHarness {
   static readonly hostSelector = "tis-textarea";
   private readonly textarea = this.locatorFor("textarea.ds-textarea__field");
