@@ -62,7 +62,7 @@
 
 .ds-menu__label {
   padding: var(--ds-space-xs) var(--ds-space-md);
-  color: var(--ds-content-subtle);
+  color: var(--ds-menu-item-content-color-default);
   font-size: var(--ds-body-font-size-xs);
   font-weight: var(--ds-body-font-weight-semibold);
   line-height: var(--ds-body-line-height-xs);

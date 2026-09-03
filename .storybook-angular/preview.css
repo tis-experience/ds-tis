@@ -131,6 +131,31 @@ body:has(.ds-angular-popover-stage) {
   inline-size: 100%;
 }
 
+.ds-angular-menu-stage,
+.ds-angular-menu-grid {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-lg);
+  inline-size: 100%;
+  min-block-size: var(--ds-size-layout-sm);
+  padding: var(--ds-space-lg);
+}
+
+.ds-angular-menu-stage {
+  flex-direction: column;
+}
+
+.ds-angular-menu-grid {
+  flex-wrap: wrap;
+}
+
+.ds-angular-menu-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
 .ds-angular-tooltip-stage {
   box-sizing: border-box;
   display: grid;

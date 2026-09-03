@@ -6,6 +6,7 @@ import {
   TisCheckboxHarness,
   TisComboboxHarness,
   TisInputHarness,
+  TisMenuHarness,
   TisModalHarness,
   TisPopoverHarness,
   TisRadioGroupHarness,
@@ -212,6 +213,29 @@ describe("DS TIS Angular consumer", () => {
     const tabElements = fixture.nativeElement.querySelectorAll("button[tisTab]");
     expect(tabElements[1].getAttribute("aria-controls")).toBeTruthy();
     expect(tabElements[2].getAttribute("aria-disabled")).toBe("true");
+  });
+
+  it("integra Menu com abertura, item disabled e seleção", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const menu = await loader.getHarness(TisMenuHarness);
+
+    expect(await menu.isOpen()).toBe(false);
+    expect(await menu.getItemCount()).toBe(3);
+    await menu.open();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await menu.isOpen()).toBe(true);
+
+    const disabled = fixture.nativeElement.querySelector('button[tisMenuItem][aria-disabled="true"]');
+    expect(disabled?.textContent).toContain("Transferir");
+    await menu.select("Editar");
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await menu.isOpen()).toBe(false);
+    expect(fixture.componentInstance.lastMenuAction()).toBe("edit");
   });
 
   it("integra Tooltip com focus e aria-describedby", async () => {

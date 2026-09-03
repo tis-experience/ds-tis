@@ -49,6 +49,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Action Menu passa a integrar a saída Angular nativa em beta de workspace.**
+  O entrypoint `@tis/angular/menu` usa Angular Aria para abertura, roving focus,
+  typeahead, itens disabled, comandos, checkbox e radio items, retorno de foco e
+  relações ARIA. Storybook, harness, consumer instalado, responsividade, dark
+  mode, Axe e bundle validam a quarta implementação. O label de grupo do Menu
+  compartilhado também passa a preservar contraste AA sobre a superfície dark,
+  sem alterar Figma ou tokens.
 - **Combobox passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/combobox` usa Angular Aria para filtro local, seleção
   por `aria-activedescendant`, teclado, opções desabilitadas e relações ARIA,

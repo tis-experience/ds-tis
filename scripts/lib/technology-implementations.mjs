@@ -50,6 +50,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" },
   combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" },
   input: { entrypoint: "input", primitive: "native input + Angular Forms", storyId: "angular-input--playground" },
+  menu: { entrypoint: "menu", primitive: "@angular/aria/menu", storyId: "angular-menu--playground" },
   modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" },
   popover: { entrypoint: "popover", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-popover--playground" },
   radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" },
