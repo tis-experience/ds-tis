@@ -1,15 +1,15 @@
 # Relatório da saída Angular
 
 - Data da validação: 2026-09-03
-- Branch: `codex/angular-combobox`
-- Base: `4562c48` (`origin/main`)
-- Status: **Combobox implementado e validado neste incremento**
+- Branch: `codex/angular-menu`
+- Base: `55209dc` (`origin/main`)
+- Status: **Action Menu implementado e validado neste incremento**
 
 ## 1. Escopo
 
-A saída Angular agora oferece treze entrypoints independentes: Accordion,
-Button, Checkbox, Combobox, Input Text, Modal, Popover, Radio, Select, Tabs,
-Textarea, Toggle e Tooltip. Este incremento acrescenta o Combobox Angular e os
+A saída Angular agora oferece catorze entrypoints independentes: Accordion,
+Button, Checkbox, Combobox, Input Text, Menu, Modal, Popover, Radio, Select,
+Tabs, Textarea, Toggle e Tooltip. Este incremento acrescenta o Action Menu Angular e os
 artefatos necessários de consumer, Storybook, documentação e testes. Web,
 Ark/Zag, React, tokens e Figma foram preservados.
 
@@ -26,6 +26,7 @@ apresentada como evidência fresca de release.
 | Checkbox | `TisCheckbox` standalone e `ControlValueAccessor` | checkbox nativo + Angular Forms | checked, indeterminate, disabled, required, invalid, formulário, teclado e temas |
 | Combobox | `TisCombobox`, `TisComboboxIcon` e `ControlValueAccessor` | Angular Aria Combobox/Listbox + Angular Forms | filtro local, seleção, active descendant, opções disabled, clear, Escape, formulário, sizes e temas |
 | Input Text | `TisInput` e diretivas de ícone standalone + `ControlValueAccessor` | input nativo + Angular Forms | tipos, label, required, helper, erro, ícones, disabled, readonly, sizes e temas |
+| Menu | diretivas `TisActionMenu`, `TisMenu*` standalone | Angular Aria Menu | abertura, roving focus, typeahead, disabled, comandos, checkbox/radio items, retorno de foco, responsividade e temas |
 | Modal | `TisModal` e diretivas de body/footer/foco inicial | CDK Overlay, Portal e A11y | diálogo modal, title/description, focus trap, Escape, backdrop, scroll lock, retorno de foco, sizes e temas |
 | Popover | `TisPopover` standalone | CDK Overlay, Portal e A11y | trigger, panel, close, placements, arrow, outside click e retorno de foco |
 | Radio | `TisRadioGroup`, `TisRadioOption` e `ControlValueAccessor` | fieldset, legend e radios nativos + Angular Forms | seleção exclusiva, setas, disabled, required, invalid, formulário e temas |
@@ -38,14 +39,14 @@ apresentada como evidência fresca de release.
 Não há imports cruzados com React, Base UI, shadcn, Ark UI ou Zag. O consumidor
 continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overlay.
 
-## 3. Artefatos de Combobox
+## 3. Artefatos de Action Menu
 
-- Entry point: `packages/angular/combobox/`.
-- Storybook: `packages/angular/stories/combobox.stories.ts`.
-- Harness: `TisComboboxHarness` em `@tis/angular/testing`.
+- Entry point: `packages/angular/menu/`.
+- Storybook: `packages/angular/stories/menu.stories.ts`.
+- Harness: `TisMenuHarness` em `@tis/angular/testing`.
 - Consumer real: `tests/consumer/angular-app/src/app.component.ts`.
 - Catálogo e docs: metadados canônicos, índice Angular bilíngue e página de
-  Combobox em PT-BR e inglês.
+  Menu em PT-BR e inglês.
 - Evidência: testes unitários, consumer instalado, bundles e browser em 320,
   390 e 1280px.
 
@@ -53,14 +54,15 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 
 | Gate | Resultado |
 | --- | --- |
-| `npm run test:angular` | passou: package build, tarball real, consumer, 13 testes unitários, Storybook, bundles, browser e Axe |
-| Testes unitários | passaram: 13 testes com harnesses e Angular Forms |
-| Consumer de produção | 366,47 KiB JS + 232,20 KiB CSS brutos |
+| `npm run test:angular` | passou: package build, tarball real, consumer, 14 testes unitários, Storybook, bundles, browser e Axe |
+| Testes unitários | passaram: 14 testes com harnesses, Angular Forms e Action Menu |
+| Consumer de produção | 389,57 KiB JS + 232,22 KiB CSS brutos |
 | Accordion incremental | 1,47 KiB gzip; orçamento 8 KiB |
 | Button incremental | 1,32 KiB gzip; orçamento 4 KiB |
 | Checkbox incremental | 1,94 KiB gzip; orçamento 5 KiB |
 | Combobox incremental | 3,70 KiB gzip; orçamento 12 KiB |
 | Input Text incremental | 2,51 KiB gzip; orçamento 6 KiB |
+| Menu incremental | 2,90 KiB gzip; orçamento 10 KiB |
 | Modal incremental | 2,84 KiB gzip; orçamento 12 KiB |
 | Popover incremental | 3,61 KiB gzip; orçamento 12 KiB |
 | Radio incremental | 2,22 KiB gzip; orçamento 6 KiB |
@@ -79,11 +81,11 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 - `evidence/angular-consumer-390.png`
 - `evidence/angular-consumer-320.png`
 
-As capturas foram regeneradas pelo gate integral de navegador. O Combobox
-preservou controle de 40px, listbox dentro do viewport em 320, 390 e 1280px,
-filtro e seleção por teclado, opção disabled, clear, Escape, tema dark e ausência
-de overflow. As stories bloqueiam controles comprimidos, popup recortado e
-divergência light/dark.
+As capturas foram regeneradas pelo gate integral de navegador. O Action Menu
+preservou trigger e painel dentro do viewport em 320, 390 e 1280px, comandos
+alinhados, foco por teclado, typeahead, item disabled, Escape, retorno de foco,
+tema dark e ausência de overflow. As stories bloqueiam painel recortado,
+contraste insuficiente, semântica incorreta e divergência light/dark.
 
 ## 6. Limites
 
@@ -94,6 +96,6 @@ divergência light/dark.
 
 ## 7. Próximo passo
 
-Revisar o diff e publicar o incremento por PR. Depois, iniciar o Action Menu
-Angular e preservar o mesmo padrão de paridade visual, teclado, dark mode,
-responsividade, Storybook e Axe.
+Revisar o diff e publicar o incremento por PR. Depois, iniciar o Toast Angular
+e preservar o mesmo padrão de paridade visual, interação, anúncios acessíveis,
+dark mode, responsividade, Storybook e Axe.

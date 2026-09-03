@@ -581,6 +581,32 @@ import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
         pt: 'Recipe React distribuída como source, com comportamento Base UI e classes/tokens públicos do Menu TIS.',
         en: 'A React source recipe with Base UI behavior and the public TIS Menu classes and tokens.',
       },
+      angular: {
+        pt: 'Diretivas standalone sobre Angular Aria com foco roving, typeahead, comandos e escolhas radio/checkbox.',
+        en: 'Standalone directives over Angular Aria with roving focus, typeahead, commands, and radio/checkbox choices.',
+      },
+    },
+    examples: {
+      angular: [
+        {
+          storyId: 'angular-menu--escolhas',
+          size: 'medium',
+          title: { pt: 'Escolhas · Angular', en: 'Choices · Angular' },
+          description: {
+            pt: 'Itens radio e checkbox executados com semântica e estado próprios.',
+            en: 'Radio and checkbox items running with their own semantics and state.',
+          },
+        },
+        {
+          storyId: 'angular-menu--tamanhos',
+          size: 'medium',
+          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          description: {
+            pt: 'Triggers e surfaces sm, md e lg preservam alinhamento e largura útil.',
+            en: 'Small, medium, and large triggers and surfaces preserve alignment and usable width.',
+          },
+        },
+      ],
     },
     ark: {
       adapterImport: `import {
@@ -589,6 +615,26 @@ import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
   MenuItem,
   MenuTrigger,
 } from '@tis/react/ark/menu'`,
+    },
+    angular: {
+      primitive: '@angular/aria/menu',
+      imports: `import {
+  TisActionMenu,
+  TisMenu,
+  TisMenuItem,
+  TisMenuItemLabel,
+  TisMenuTrigger,
+} from '@tis/angular/menu'`,
+      markup: `<div tisActionMenu align="start">
+  <button tisMenuTrigger [menu]="menu.primitive">
+    <span class="ds-button__label">Ações do projeto</span>
+  </button>
+  <div tisMenu #menu="tisMenu" aria-label="Ações do projeto">
+    <button tisMenuItem value="edit" searchTerm="Editar">
+      <span tisMenuItemLabel>Editar detalhes</span>
+    </button>
+  </div>
+</div>`,
     },
     web: {
       storyId: 'components-menu--action-menu',

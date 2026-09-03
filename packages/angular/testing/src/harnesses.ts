@@ -133,6 +133,36 @@ export class TisInputHarness extends ComponentHarness {
   }
 }
 
+export class TisMenuHarness extends ComponentHarness {
+  static readonly hostSelector = "[tisActionMenu]";
+  private readonly trigger = this.locatorFor("button[tisMenuTrigger]");
+  private readonly items = this.locatorForAll(
+    "button[tisMenuItem], button[tisMenuCheckboxItem], button[tisMenuRadioItem]",
+  );
+
+  async open(): Promise<void> {
+    if (!(await this.isOpen())) await (await this.trigger()).click();
+  }
+
+  async isOpen(): Promise<boolean> {
+    return (await this.trigger()).getAttribute("aria-expanded").then((value) => value === "true");
+  }
+
+  async getItemCount(): Promise<number> {
+    return (await this.items()).length;
+  }
+
+  async select(label: string): Promise<void> {
+    for (const item of await this.items()) {
+      if ((await item.text()).trim().includes(label)) {
+        await item.click();
+        return;
+      }
+    }
+    throw new Error(`Menu item not found: ${label}`);
+  }
+}
+
 export class TisRadioGroupHarness extends ComponentHarness {
   static readonly hostSelector = "tis-radio-group";
   private readonly fieldset = this.locatorFor("fieldset.ds-radio-group");

@@ -368,7 +368,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 13,
+      "componentCount": 14,
       "components": [
         {
           "slug": "accordion",
@@ -399,6 +399,12 @@
           "entrypoint": "input",
           "primitive": "native input + Angular Forms",
           "storyId": "angular-input--playground"
+        },
+        {
+          "slug": "menu",
+          "entrypoint": "menu",
+          "primitive": "@angular/aria/menu",
+          "storyId": "angular-menu--playground"
         },
         {
           "slug": "modal",

@@ -577,7 +577,7 @@ async function auditCanonicalCatalog(route, locale) {
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
   expect(await popoverLinks.count() === 5, `${route}: Popover deve ligar o nome e as quatro implementações disponíveis`);
   const menuLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Menu' }).locator('a');
-  expect(await menuLinks.count() === 4, `${route}: Menu deve ligar o nome e as três implementações disponíveis`);
+  expect(await menuLinks.count() === 5, `${route}: Menu deve ligar o nome e as quatro implementações disponíveis`);
   const tooltipLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tooltip' }).locator('a');
   expect(await tooltipLinks.count() === 5, `${route}: Tooltip deve ligar o nome e as quatro implementações disponíveis`);
   const tabsLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tabs' }).locator('a');
@@ -2164,6 +2164,13 @@ async function auditMenuOutputSelector() {
       storyId: 'react-menu--playground',
       guidanceCount: 3,
     },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/menu/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-menu--playground',
+      guidanceCount: 3,
+    },
   ];
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -2176,7 +2183,7 @@ async function auditMenuOutputSelector() {
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
     );
-    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI']) {
+    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI', 'Angular']) {
       expect(
         await options.filter({ hasText: label }).count() === 1 &&
           !(await options.filter({ hasText: label }).isDisabled()),

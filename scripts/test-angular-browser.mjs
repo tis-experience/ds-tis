@@ -193,9 +193,36 @@ try {
   await combobox.press("Enter");
   expect((await page.locator('[data-testid="combobox-value"]').textContent())?.includes("nenhum"), "Combobox selecionou opção disabled");
   await combobox.press("Escape");
+  await page.waitForFunction(() => document.querySelector("tis-combobox input")?.getAttribute("aria-expanded") === "false");
   expect(await combobox.getAttribute("aria-expanded") === "false", "Escape não fechou o Combobox");
   expect(await combobox.evaluate((node) => node === document.activeElement), "Combobox não preservou foco no input após Escape");
   expect(await comboboxWrapper.evaluate((node) => node.matches(":focus-within")), "Combobox não expôs estado de foco no wrapper");
+
+  const menuTrigger = page.getByRole("button", { name: "Ações do documento" });
+  const menu = page.getByRole("menu", { name: "Ações do documento" });
+  const menuItems = menu.getByRole("menuitem");
+  expect(await menuTrigger.getAttribute("aria-expanded") === "false", "Menu deveria iniciar fechado");
+  await menuTrigger.click();
+  await page.waitForFunction(() => document.querySelector("[data-tis-angular-menu-trigger]")?.getAttribute("aria-expanded") === "true");
+  expect(await menu.isVisible(), "Menu não abriu pelo trigger");
+  expect(await menuItems.count() === 3, "Menu não renderizou os três comandos");
+  expect(await menuItems.first().evaluate((node) => node === document.activeElement), "Menu não focou o primeiro comando ao abrir");
+  await page.keyboard.press("ArrowDown");
+  expect(await menuItems.nth(1).getAttribute("aria-disabled") === "true", "Menu não preservou aria-disabled");
+  expect(await menuItems.nth(1).evaluate((node) => node === document.activeElement), "Menu disabled não permaneceu alcançável por setas");
+  await page.keyboard.press("Enter");
+  expect(await menuTrigger.getAttribute("aria-expanded") === "true", "Menu ativou indevidamente um item disabled");
+  await page.keyboard.type("Ex");
+  expect(await menuItems.nth(2).evaluate((node) => node === document.activeElement), "Typeahead do Menu não encontrou Excluir");
+  await page.keyboard.press("Escape");
+  await page.waitForFunction(() => document.querySelector("[data-tis-angular-menu-trigger]")?.getAttribute("aria-expanded") === "false");
+  expect(await menuTrigger.getAttribute("aria-expanded") === "false", "Escape não fechou o Menu");
+  expect(await menuTrigger.evaluate((node) => node === document.activeElement), "Menu não retornou foco ao trigger após Escape");
+  await menuTrigger.click();
+  await menuItems.first().click();
+  await page.waitForFunction(() => document.querySelector('[data-testid="menu-action"]')?.textContent?.includes("edit"));
+  expect(await menuTrigger.getAttribute("aria-expanded") === "false", "Menu não fechou após comando habilitado");
+  expect((await page.locator('[data-testid="menu-action"]').textContent())?.includes("edit"), "Menu não emitiu o comando selecionado");
 
   const tooltipTrigger = page.locator("[data-tis-angular-tooltip-trigger]");
   const tooltipContent = page.locator(".tis-angular-tooltip-overlay [role=\"tooltip\"]");
@@ -381,6 +408,21 @@ try {
       `${width}px: Combobox ou listbox cortado/desalinhado (${JSON.stringify(responsiveComboboxGeometry)})`,
     );
     await responsiveCombobox.press("Escape");
+    const responsiveMenuTrigger = page.getByRole("button", { name: "Ações do documento" });
+    await responsiveMenuTrigger.click();
+    const responsiveMenuGeometry = await page.getByRole("menu", { name: "Ações do documento" }).evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        left: rect.left,
+        right: rect.right,
+        viewport: document.documentElement.clientWidth,
+      };
+    });
+    expect(
+      responsiveMenuGeometry.left >= 0 && responsiveMenuGeometry.right <= responsiveMenuGeometry.viewport,
+      `${width}px: Menu excedeu o viewport (${JSON.stringify(responsiveMenuGeometry)})`,
+    );
+    await page.keyboard.press("Escape");
     await page.getByRole("button", { name: "Revisar alterações" }).click();
     const responsiveModal = page.locator(".tis-angular-modal-pane .ds-modal");
     await responsiveModal.waitFor();
@@ -569,6 +611,7 @@ try {
     ["angular-checkbox--playground", "tis-checkbox"],
     ["angular-combobox--playground", "tis-combobox"],
     ["angular-input--playground", "tis-input"],
+    ["angular-menu--playground", "[tisActionMenu]"],
     ["angular-radio--playground", "tis-radio-group"],
     ["angular-select--playground", "tis-select"],
     ["angular-tabs--playground", "[tisTabs]"],
@@ -585,6 +628,33 @@ try {
     const result = await new AxeBuilder({ page }).analyze();
     expect(result.violations.length === 0, `Storybook ${storyId}: Axe encontrou ${result.violations.map((item) => item.id).join(", ")}`);
   }
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-menu--escolhas&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyMenuTrigger = page.getByRole("button", { name: "Preferências" });
+  await storyMenuTrigger.click();
+  await page.waitForFunction(() => document.querySelector("[data-tis-angular-menu-trigger]")?.getAttribute("aria-expanded") === "true");
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const storyMenu = page.getByRole("menu", { name: "Preferências de visualização" });
+  const storyMenuGeometry = await storyMenu.evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: rect.right,
+      mode: document.documentElement.dataset.mode,
+      viewport: document.documentElement.clientWidth,
+    };
+  });
+  expect(storyMenuGeometry.mode === "dark", "Story do Menu não recebeu tema dark");
+  expect(
+    storyMenuGeometry.left >= 0 && storyMenuGeometry.right <= storyMenuGeometry.viewport,
+    `Story do Menu ficou cortado em 320px (${JSON.stringify(storyMenuGeometry)})`,
+  );
+  expect(await storyMenu.getByRole("menuitemradio").count() === 2, "Story do Menu não expôs itens radio");
+  expect(await storyMenu.getByRole("menuitemcheckbox").count() === 1, "Story do Menu não expôs item checkbox");
+  expect(await storyMenu.getByRole("menuitemradio").first().evaluate((node) => node === document.activeElement), "Story do Menu não moveu foco para o primeiro item");
+  await axe("Storybook Menu dark 320px");
+  await page.keyboard.press("Escape");
 
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-tabs--playground&globals=mode:dark`, { waitUntil: "networkidle" });
@@ -708,6 +778,7 @@ try {
   const formsCheckbox = page.locator('tis-checkbox input[type="checkbox"]');
   await formsCheckbox.focus();
   await page.keyboard.press("Space");
+  await page.mouse.move(0, 0);
   await page.waitForTimeout(200);
   expect(await formsCheckbox.isChecked(), "Story Angular Forms não atualizou o Checkbox");
   expect((await page.getByRole("status").textContent())?.includes("true"), "Story Angular Forms não refletiu o valor do ControlValueAccessor");

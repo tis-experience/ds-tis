@@ -4,6 +4,7 @@ export {
   TisCheckboxHarness,
   TisComboboxHarness,
   TisInputHarness,
+  TisMenuHarness,
   TisModalHarness,
   TisPopoverHarness,
   TisRadioGroupHarness,

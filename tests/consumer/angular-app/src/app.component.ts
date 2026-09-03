@@ -15,6 +15,17 @@ import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
 import { TisInput, TisInputIconStart } from "@tis/angular/input";
 import {
+  TisActionMenu,
+  TisMenu,
+  TisMenuGroupLabel,
+  TisMenuItem,
+  TisMenuItemIcon,
+  TisMenuItemLabel,
+  TisMenuSeparator,
+  TisMenuShortcut,
+  TisMenuTrigger,
+} from "@tis/angular/menu";
+import {
   TisModal,
   TisModalBody,
   TisModalFooter,
@@ -47,6 +58,15 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisComboboxIcon,
     TisInput,
     TisInputIconStart,
+    TisActionMenu,
+    TisMenu,
+    TisMenuGroupLabel,
+    TisMenuItem,
+    TisMenuItemIcon,
+    TisMenuItemLabel,
+    TisMenuSeparator,
+    TisMenuShortcut,
+    TisMenuTrigger,
     TisModal,
     TisModalBody,
     TisModalFooter,
@@ -74,7 +94,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Treze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Quatorze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -332,6 +352,53 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         </tis-tooltip>
       </section>
 
+      <section class="consumer-section" aria-labelledby="menu-heading">
+        <div class="consumer-section__heading">
+          <h2 id="menu-heading">Menu</h2>
+          <span class="consumer-status">Angular Aria</span>
+        </div>
+        <div class="consumer-row">
+          <div tisActionMenu align="start" data-testid="menu">
+            <button tisMenuTrigger [menu]="menu.primitive" size="md">
+              <span class="ds-button__label">Ações do documento</span>
+              <svg class="ds-button__icon ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div
+              tisMenu
+              #menu="tisMenu"
+              aria-label="Ações do documento"
+              (itemSelected)="lastMenuAction.set($event.toString())"
+            >
+              <div tisMenuGroupLabel>Documento</div>
+              <button tisMenuItem value="edit" searchTerm="Editar">
+                <svg tisMenuItemIcon viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                </svg>
+                <span tisMenuItemLabel>Editar</span>
+                <span tisMenuShortcut>⌘E</span>
+              </button>
+              <button tisMenuItem value="transfer" searchTerm="Transferir" [disabled]="true">
+                <svg tisMenuItemIcon viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="m17 3 4 4-4 4" /><path d="M3 7h18" />
+                </svg>
+                <span tisMenuItemLabel>Transferir</span>
+                <span tisMenuShortcut>Indisponível</span>
+              </button>
+              <div tisMenuSeparator></div>
+              <button tisMenuItem value="delete" searchTerm="Excluir" [destructive]="true">
+                <svg tisMenuItemIcon viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="m19 6-1 14H6L5 6" />
+                </svg>
+                <span tisMenuItemLabel>Excluir</span>
+              </button>
+            </div>
+          </div>
+          <span role="status" data-testid="menu-action">Última ação: {{ lastMenuAction() }}</span>
+        </div>
+      </section>
+
       <section class="consumer-section" aria-labelledby="tabs-heading">
         <div class="consumer-section__heading">
           <h2 id="tabs-heading">Tabs</h2>
@@ -510,6 +577,7 @@ export class AppComponent {
   readonly email = signal("");
   readonly inputSubmitted = signal(false);
   readonly loading = signal(false);
+  readonly lastMenuAction = signal("nenhuma");
   readonly message = signal("");
   readonly multiple = signal(false);
   readonly modalOpen = signal(false);

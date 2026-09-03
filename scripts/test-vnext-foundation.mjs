@@ -87,10 +87,12 @@ const required = [
   'packages/angular/button/src/button.ts',
   'packages/angular/accordion/src/accordion.ts',
   'packages/angular/combobox/src/combobox.ts',
+  'packages/angular/menu/src/menu.ts',
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
   'packages/angular/stories/select.stories.ts',
   'packages/angular/stories/combobox.stories.ts',
+  'packages/angular/stories/menu.stories.ts',
   'packages/react/src/provider-spike.jsx',
   'packages/react/src/provider-spike.stories.jsx',
   'packages/react/src/ark/accordion.jsx',
@@ -262,7 +264,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,combobox,input,modal,popover,radio,select,tabs,textarea,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -549,6 +551,7 @@ for (const contract of [
   "from '@tis/react/ark/accordion'",
   "from '@tis/react/ark/combobox'",
   "from '@tis/angular/combobox'",
+  "from '@tis/angular/menu'",
   "from '@tis/react/ark/menu'",
   "from '@tis/react/ark/modal'",
   "from '@tis/react/ark/select'",
@@ -585,6 +588,9 @@ if (!technologyImplementations.includes('checkbox: { entrypoint: "checkbox", pri
 }
 if (!technologyImplementations.includes('combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Combobox Angular');
+}
+if (!technologyImplementations.includes('menu: { entrypoint: "menu", primitive: "@angular/aria/menu", storyId: "angular-menu--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Menu Angular');
 }
 if (!technologyImplementations.includes('radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Radio Angular');

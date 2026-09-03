@@ -2849,13 +2849,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "menu",
+          "primitive": "@angular/aria/menu",
+          "storyId": "angular-menu--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -2886,7 +2886,6 @@
         "ds-body-font-weight-semibold",
         "ds-body-line-height-sm",
         "ds-body-line-height-xs",
-        "ds-content-subtle",
         "ds-feedback-error-background-subtle",
         "ds-focus-ring-color-default",
         "ds-focus-ring-color-error",

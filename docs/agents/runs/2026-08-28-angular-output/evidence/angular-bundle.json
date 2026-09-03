@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:50:02.280Z",
+  "generatedAt": "2026-09-03T22:47:38.545Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -31,6 +31,12 @@
       "rawBytes": 13227,
       "gzipBytes": 2574,
       "budgetGzipBytes": 6144
+    },
+    {
+      "name": "menu",
+      "rawBytes": 18910,
+      "gzipBytes": 2968,
+      "budgetGzipBytes": 10240
     },
     {
       "name": "modal",

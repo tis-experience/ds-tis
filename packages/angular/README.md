@@ -15,6 +15,7 @@ import { TisButton } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon } from "@tis/angular/combobox";
 import { TisInput } from "@tis/angular/input";
+import { TisActionMenu, TisMenu, TisMenuItem, TisMenuTrigger } from "@tis/angular/menu";
 import { TisModal, TisModalBody, TisModalFooter } from "@tis/angular/modal";
 import { TisPopover } from "@tis/angular/popover";
 import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
