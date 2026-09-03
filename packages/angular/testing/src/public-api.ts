@@ -2,6 +2,7 @@ export {
   TisAccordionHarness,
   TisButtonHarness,
   TisCheckboxHarness,
+  TisComboboxHarness,
   TisInputHarness,
   TisModalHarness,
   TisPopoverHarness,

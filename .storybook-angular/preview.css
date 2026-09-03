@@ -40,6 +40,8 @@ body:has(.ds-angular-popover-stage) {
 
 .ds-angular-checkbox-grid,
 .ds-angular-checkbox-form,
+.ds-angular-combobox-grid,
+.ds-angular-combobox-form,
 .ds-angular-input-grid,
 .ds-angular-input-form,
 .ds-angular-radio-grid,
@@ -57,6 +59,9 @@ body:has(.ds-angular-popover-stage) {
 }
 
 .ds-angular-input-stage,
+.ds-angular-combobox-stage,
+.ds-angular-combobox-grid,
+.ds-angular-combobox-form,
 .ds-angular-input-grid,
 .ds-angular-input-form,
 .ds-angular-select-stage,
@@ -70,6 +75,9 @@ body:has(.ds-angular-popover-stage) {
 
 :is(
   .ds-angular-input-stage,
+  .ds-angular-combobox-stage,
+  .ds-angular-combobox-grid,
+  .ds-angular-combobox-form,
   .ds-angular-input-grid,
   .ds-angular-input-form,
   .ds-angular-select-stage,
@@ -78,7 +86,7 @@ body:has(.ds-angular-popover-stage) {
   .ds-angular-textarea-stage,
   .ds-angular-textarea-grid,
   .ds-angular-textarea-form
-) > :is(tis-input, tis-select, tis-textarea) {
+) > :is(tis-combobox, tis-input, tis-select, tis-textarea) {
   inline-size: 100%;
 }
 
@@ -101,6 +109,12 @@ body:has(.ds-angular-popover-stage) {
 }
 
 .ds-angular-select-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-combobox-status {
   margin: 0;
   color: var(--ds-content-muted);
   font-size: var(--ds-body-font-size-sm);

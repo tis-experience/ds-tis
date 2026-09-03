@@ -1882,6 +1882,13 @@ async function auditComboboxOutputSelector() {
       storyId: 'react-combobox--playground',
       guidanceCount: 3,
     },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/combobox/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-combobox--playground',
+      guidanceCount: 3,
+    },
   ];
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -1894,7 +1901,7 @@ async function auditComboboxOutputSelector() {
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
     );
-    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI']) {
+    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI', 'Angular']) {
       expect(
         await options.filter({ hasText: label }).count() === 1 &&
           !(await options.filter({ hasText: label }).isDisabled()),
@@ -1958,7 +1965,16 @@ async function auditComboboxOutputSelector() {
     await input.press('Enter');
     expect(await input.inputValue() !== 'Indisponível', `${route}: opção disabled foi selecionada`);
     await input.press('ArrowDown');
-    expect(await input.getAttribute('aria-expanded') === 'true', `${route}: ArrowDown não abriu o listbox`);
+    expect(
+      await input.evaluate(async (element) => {
+        for (let frame = 0; frame < 30; frame += 1) {
+          if (element.getAttribute('aria-expanded') === 'true') return true;
+          await new Promise((resolve) => requestAnimationFrame(resolve));
+        }
+        return element.getAttribute('aria-expanded') === 'true';
+      }),
+      `${route}: ArrowDown não abriu o listbox`,
+    );
     await page.waitForTimeout(50);
     await input.press('Escape');
     expect(

@@ -48,6 +48,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   accordion: { entrypoint: "accordion", primitive: "@angular/aria/accordion", storyId: "angular-accordion--playground" },
   button: { entrypoint: "button", primitive: "native button", storyId: "angular-button--playground" },
   checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" },
+  combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" },
   input: { entrypoint: "input", primitive: "native input + Angular Forms", storyId: "angular-input--playground" },
   modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" },
   popover: { entrypoint: "popover", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-popover--playground" },

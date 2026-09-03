@@ -86,9 +86,11 @@ const required = [
   'packages/angular/package.json',
   'packages/angular/button/src/button.ts',
   'packages/angular/accordion/src/accordion.ts',
+  'packages/angular/combobox/src/combobox.ts',
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
   'packages/angular/stories/select.stories.ts',
+  'packages/angular/stories/combobox.stories.ts',
   'packages/react/src/provider-spike.jsx',
   'packages/react/src/provider-spike.stories.jsx',
   'packages/react/src/ark/accordion.jsx',
@@ -260,7 +262,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,input,modal,popover,radio,select,tabs,textarea,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,combobox,input,modal,popover,radio,select,tabs,textarea,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -546,6 +548,7 @@ for (const contract of [
   'config.ark?.adapterImport',
   "from '@tis/react/ark/accordion'",
   "from '@tis/react/ark/combobox'",
+  "from '@tis/angular/combobox'",
   "from '@tis/react/ark/menu'",
   "from '@tis/react/ark/modal'",
   "from '@tis/react/ark/select'",
@@ -579,6 +582,9 @@ if (!technologyImplementations.includes('modal: { entrypoint: "modal", primitive
 }
 if (!technologyImplementations.includes('checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Checkbox Angular');
+}
+if (!technologyImplementations.includes('combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Combobox Angular');
 }
 if (!technologyImplementations.includes('radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Radio Angular');
@@ -905,6 +911,10 @@ if (
 const dynamicReactRoute = read('apps/docs/src/pages/[locale]/react/components/[slug].astro');
 if (dynamicReactRoute.includes("component.slug !== 'button'")) {
   errors.push('Button não pode manter uma página React paralela fora do template dinâmico');
+}
+const dynamicAngularRoute = read('apps/docs/src/pages/[locale]/angular/components/[slug].astro');
+if (!dynamicAngularRoute.includes("'combobox'") || !dynamicAngularRoute.includes("combobox: 'Combobox'")) {
+  errors.push('rota Angular deve gerar e nomear a página do Combobox');
 }
 
 if (fs.existsSync(path.join(ROOT, 'apps', 'docs', 'src', 'components', 'ComponentPageChrome.astro'))) {

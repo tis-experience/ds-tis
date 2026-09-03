@@ -49,6 +49,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Combobox passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/combobox` usa Angular Aria para filtro local, seleção
+  por `aria-activedescendant`, teclado, opções desabilitadas e relações ARIA,
+  preserva o Form Field e integra `ControlValueAccessor` ao Angular Forms.
+  Storybook, harness, consumer instalado, responsividade, dark mode, Axe e
+  bundle validam a quarta implementação sem alterar Figma, tokens ou as outras
+  três saídas.
 - **Tabs passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/tabs` usa Angular Aria para seleção controlável,
   roving tabindex, navegação por setas/Home/End, item disabled e relações ARIA.

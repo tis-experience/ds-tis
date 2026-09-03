@@ -1,7 +1,13 @@
 {
-  "generatedAt": "2026-09-03T20:42:25.284Z",
+  "generatedAt": "2026-09-03T21:50:02.280Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
+    {
+      "name": "accordion",
+      "rawBytes": 7797,
+      "gzipBytes": 1501,
+      "budgetGzipBytes": 8192
+    },
     {
       "name": "button",
       "rawBytes": 6173,
@@ -15,16 +21,16 @@
       "budgetGzipBytes": 5120
     },
     {
+      "name": "combobox",
+      "rawBytes": 18405,
+      "gzipBytes": 3791,
+      "budgetGzipBytes": 12288
+    },
+    {
       "name": "input",
       "rawBytes": 13227,
       "gzipBytes": 2574,
       "budgetGzipBytes": 6144
-    },
-    {
-      "name": "accordion",
-      "rawBytes": 7797,
-      "gzipBytes": 1501,
-      "budgetGzipBytes": 8192
     },
     {
       "name": "modal",
