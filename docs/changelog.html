@@ -68,6 +68,11 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Anatomia e exemplos do Modal preservam a geometria HTML/CSS no portal.</strong>
+Web, Ark/Zag, React e Angular deixam de herdar o rhythm editorial do
+Starlight dentro do componente: close, body, footer, Buttons e Input mantêm
+alinhamento e alturas públicos, e os sete marcadores da anatomia não são
+recortados. O teste de browser passa a bloquear a regressão nas quatro rotas.</li>
 <li><strong>Documentação e governança passam a refletir as quatro saídas da ADR-023.</strong>
 Portal PT-BR/EN, guias para agents, APIs e LLMs deixam de anunciar o piloto de
 três saídas como estado atual. O intake v3 exige Web, Ark/Zag, React e Angular,
@@ -90,6 +95,24 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Toggle passa a integrar a saída Angular nativa em beta de workspace.</strong> O
+entrypoint <code>@tis/angular/toggle</code> usa checkbox nativo com role switch, preserva
+on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra
+<code>ControlValueAccessor</code> ao Angular Forms. Storybook, harness, consumer instalado,
+responsividade, dark mode, Axe e bundle validam a quarta implementação sem
+alterar Figma, tokens ou as outras três saídas.</li>
+<li><strong>Radio passa a integrar a saída Angular nativa em beta de workspace.</strong> Os
+entrypoints <code>TisRadioGroup</code> e <code>TisRadioOption</code> usam fieldset, legend e inputs
+radio nativos, preservam seleção exclusiva, setas, disabled, required e
+invalid e integram <code>ControlValueAccessor</code> ao Angular Forms. Storybook, harness,
+consumer instalado, responsividade, dark mode, Axe e bundle validam a quarta
+implementação sem alterar Figma, tokens ou as outras três saídas.</li>
+<li><strong>Checkbox passa a integrar a saída Angular nativa em beta de workspace.</strong> O
+entrypoint <code>@tis/angular/checkbox</code> usa checkbox nativo, preserva checked,
+indeterminate, disabled, required e invalid e integra <code>ControlValueAccessor</code>
+e validação required do Angular Forms. Storybook, harness, consumer instalado,
+responsividade, dark mode, Axe e bundle passam a validar a quarta implementação
+sem alterar Figma, tokens ou as outras três saídas.</li>
 <li><strong>Modal passa a integrar a saída Angular nativa em beta de workspace.</strong> O novo
 entrypoint <code>@tis/angular/modal</code> preserva a anatomia e os tokens existentes com
 CDK Overlay/Portal/A11y, estado controlado, focus trap, Escape, backdrop,
