@@ -29,6 +29,7 @@ const definitions = {
   tabs: { file: "tis-angular-tabs.mjs", budget: 8 * 1024 },
   textarea: { file: "tis-angular-textarea.mjs", budget: 6 * 1024 },
   toggle: { file: "tis-angular-toggle.mjs", budget: 5 * 1024 },
+  tooltip: { file: "tis-angular-tooltip.mjs", budget: 12 * 1024 },
 };
 const forbiddenByEntry = {
   button: ["AccordionGroup", "FlexibleConnectedPositionStrategy"],
@@ -42,6 +43,7 @@ const forbiddenByEntry = {
   tabs: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   textarea: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   toggle: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  tooltip: ["AccordionGroup", "data-tis-angular-button"],
 };
 const failures = [];
 const results = [];

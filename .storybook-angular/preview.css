@@ -117,6 +117,18 @@ body:has(.ds-angular-popover-stage) {
   inline-size: 100%;
 }
 
+.ds-angular-tooltip-stage {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  min-block-size: calc(100vh - var(--ds-space-2xl));
+}
+
+body:has(.ds-angular-tooltip-stage) {
+  overflow: hidden;
+}
+
 #storybook-root > main {
   min-block-size: 100%;
   color: var(--ds-content-default);

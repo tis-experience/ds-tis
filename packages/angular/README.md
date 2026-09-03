@@ -21,6 +21,7 @@ import { TisSelect, TisSelectIcon } from "@tis/angular/select";
 import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
 import { TisToggle } from "@tis/angular/toggle";
+import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 ```
 
 Os componentes são standalone e usam Angular 21, Angular Forms, Angular Aria/CDK

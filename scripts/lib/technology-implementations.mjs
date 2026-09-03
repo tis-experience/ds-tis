@@ -56,6 +56,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   tabs: { entrypoint: "tabs", primitive: "@angular/aria/tabs", storyId: "angular-tabs--playground" },
   textarea: { entrypoint: "textarea", primitive: "native textarea + Angular Forms", storyId: "angular-textarea--playground" },
   toggle: { entrypoint: "toggle", primitive: "native switch + Angular Forms", storyId: "angular-toggle--playground" },
+  tooltip: { entrypoint: "tooltip", primitive: "@angular/cdk/overlay + portal", storyId: "angular-tooltip--playground" },
 };
 
 export const SHADCN_REGISTRY = {

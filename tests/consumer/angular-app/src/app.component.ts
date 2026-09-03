@@ -25,6 +25,7 @@ import { TisSelect, TisSelectIcon } from "@tis/angular/select";
 import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
 import { TisToggle } from "@tis/angular/toggle";
+import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 
 @Component({
   selector: "app-root",
@@ -60,6 +61,8 @@ import { TisToggle } from "@tis/angular/toggle";
     TisTabs,
     TisTextarea,
     TisToggle,
+    TisTooltip,
+    TisTooltipTrigger,
     FormsModule,
   ],
   template: `
@@ -68,7 +71,7 @@ import { TisToggle } from "@tis/angular/toggle";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Onze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Doze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -276,6 +279,20 @@ import { TisToggle } from "@tis/angular/toggle";
             País: {{ country() || "nenhum" }}
           </span>
         </form>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="tooltip-heading">
+        <div class="consumer-section__heading">
+          <h2 id="tooltip-heading">Tooltip</h2>
+          <span class="consumer-status">CDK Overlay</span>
+        </div>
+        <tis-tooltip content="Editar documento" placement="top">
+          <button
+            tisTooltipTrigger
+            class="ds-button ds-button--outline ds-button--sm"
+            type="button"
+          >Editar</button>
+        </tis-tooltip>
       </section>
 
       <section class="consumer-section" aria-labelledby="tabs-heading">

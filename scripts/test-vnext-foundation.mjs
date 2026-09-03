@@ -260,7 +260,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,input,modal,popover,radio,select,tabs,textarea,toggle'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,input,modal,popover,radio,select,tabs,textarea,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -588,6 +588,9 @@ if (!technologyImplementations.includes('toggle: { entrypoint: "toggle", primiti
 }
 if (!technologyImplementations.includes('tabs: { entrypoint: "tabs", primitive: "@angular/aria/tabs", storyId: "angular-tabs--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Tabs Angular');
+}
+if (!technologyImplementations.includes('tooltip: { entrypoint: "tooltip", primitive: "@angular/cdk/overlay + portal", storyId: "angular-tooltip--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Tooltip Angular');
 }
 
 const componentDocumentationPage = read('apps/docs/src/components/ComponentDocumentationPage.astro');

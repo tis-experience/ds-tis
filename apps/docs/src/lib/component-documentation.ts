@@ -876,8 +876,8 @@ initPopovers()`,
     previewSize: 'compact',
     descriptions: {
       angular: {
-        pt: 'Componente standalone com checkbox nativo, role switch e integração ControlValueAccessor com Angular Forms.',
-        en: 'Standalone component with a native checkbox, switch role, and ControlValueAccessor integration with Angular Forms.',
+        pt: 'Componente standalone sobre CDK Overlay/Portal com hover, focus, delays, posicionamento, flip e Escape.',
+        en: 'Standalone component over CDK Overlay/Portal with hover, focus, delays, positioning, flip, and Escape.',
       },
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém hover, focus, delays, posicionamento e Escape.',
@@ -894,6 +894,20 @@ initPopovers()`,
   TooltipContent,
   TooltipTrigger,
 } from '@tis/react/ark/tooltip'`,
+    },
+    angular: {
+      primitive: '@angular/cdk/overlay + portal',
+      imports: `import {
+  TisTooltip,
+  TisTooltipTrigger,
+} from '@tis/angular/tooltip'`,
+      markup: `<tis-tooltip content="Editar documento" placement="top">
+  <button
+    tisTooltipTrigger
+    class="ds-button ds-button--outline ds-button--sm"
+    type="button"
+  >Editar</button>
+</tis-tooltip>`,
     },
     web: {
       storyId: 'components-tooltip--playground',

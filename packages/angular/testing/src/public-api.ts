@@ -10,4 +10,5 @@ export {
   TisTabsHarness,
   TisTextareaHarness,
   TisToggleHarness,
+  TisTooltipHarness,
 } from "./harnesses";
