@@ -393,6 +393,10 @@ try {
     .waitFor({ state: "visible", timeout: 3000 })
     .then(() => true, () => false);
   expect(menuOpened, "Menu instalado não abriu");
+  expect(
+    await waitForFocus(accountMenu, { contained: true }),
+    "Menu instalado não moveu o foco inicial para um comando",
+  );
   const disabledMenuItem = page.getByRole("menuitem", { name: "Transferir propriedade" });
   expect(await disabledMenuItem.getAttribute("aria-disabled") === "true", "Menu instalado perdeu o item disabled");
   await page.keyboard.press("End");
