@@ -39,6 +39,39 @@ function expect(condition, message) {
   if (!condition) errors.push(message);
 }
 
+async function waitForFocus(locator, { contained = false, timeout = 3000 } = {}) {
+  try {
+    return await locator.evaluate(
+      (element, options) => new Promise((resolve) => {
+        const startedAt = performance.now();
+
+        function checkFocus() {
+          const focused = options.contained
+            ? element.contains(document.activeElement)
+            : element === document.activeElement;
+
+          if (focused) {
+            resolve(true);
+            return;
+          }
+
+          if (performance.now() - startedAt >= options.timeout) {
+            resolve(false);
+            return;
+          }
+
+          requestAnimationFrame(checkFocus);
+        }
+
+        checkFocus();
+      }),
+      { contained, timeout },
+    );
+  } catch {
+    return false;
+  }
+}
+
 function run(label, command, args, options = {}) {
   const result = spawnSync(command, args, {
     cwd: ROOT,
@@ -320,12 +353,12 @@ try {
   expect(await page.getByText("A atualização é aplicada imediatamente após salvar.").isVisible(), "Accordion instalado não abriu o painel");
   await page.keyboard.press("ArrowUp");
   expect(
-    await accordionTriggers.first().evaluate((element) => element === document.activeElement),
+    await waitForFocus(accordionTriggers.first()),
     "Accordion instalado não moveu foco com ArrowUp",
   );
   await page.keyboard.press("End");
   expect(
-    await accordionTriggers.nth(1).evaluate((element) => element === document.activeElement),
+    await waitForFocus(accordionTriggers.nth(1)),
     "Accordion instalado não moveu foco com End",
   );
 
@@ -338,12 +371,12 @@ try {
   await page.keyboard.press("ArrowRight");
   expect(
     await tabs.nth(1).getAttribute("aria-selected") === "true" &&
-      await tabs.nth(1).evaluate((element) => element === document.activeElement),
+      await waitForFocus(tabs.nth(1)),
     "Tabs não ativou Segurança com ArrowRight",
   );
   await page.keyboard.press("End");
   expect(
-    await tabs.nth(1).evaluate((element) => element === document.activeElement),
+    await waitForFocus(tabs.nth(1)),
     "Tabs não ignorou Cobrança disabled com End",
   );
   await page.keyboard.press("Home");
@@ -365,13 +398,13 @@ try {
   await page.keyboard.press("End");
   const destructiveMenuItem = page.getByRole("menuitem", { name: "Excluir conta" });
   expect(
-    await destructiveMenuItem.evaluate((element) => element === document.activeElement),
+    await waitForFocus(destructiveMenuItem),
     "Menu instalado não moveu foco para a última ação com End",
   );
   await page.keyboard.press("Home");
   const firstMenuItem = page.getByRole("menuitem", { name: "Salvar agora" });
   expect(
-    await firstMenuItem.evaluate((element) => element === document.activeElement),
+    await waitForFocus(firstMenuItem),
     "Menu instalado não moveu foco para a primeira ação com Home",
   );
   await page.keyboard.press("Escape");
@@ -380,7 +413,7 @@ try {
     .then(() => true, () => false);
   expect(menuClosed, "Menu instalado não fechou com Escape");
   expect(
-    await menuTrigger.evaluate((element) => element === document.activeElement),
+    await waitForFocus(menuTrigger),
     "Menu instalado não restaurou foco ao trigger",
   );
 
@@ -389,7 +422,7 @@ try {
   expect(await page.getByText("As preferências são aplicadas somente a esta conta.").isVisible(), "Popover instalado não abriu");
   const popoverDialog = page.getByRole("dialog");
   expect(
-    await popoverDialog.evaluate((element) => element.contains(document.activeElement)),
+    await waitForFocus(popoverDialog, { contained: true }),
     "Popover instalado não moveu foco para o conteúdo",
   );
   await page.keyboard.press("Escape");
@@ -399,7 +432,7 @@ try {
     .then(() => true, () => false);
   expect(popoverClosed, "Popover instalado não fechou com Escape");
   expect(
-    await popoverTrigger.evaluate((element) => element === document.activeElement),
+    await waitForFocus(popoverTrigger),
     "Popover instalado não restaurou foco ao trigger",
   );
 
@@ -427,7 +460,7 @@ try {
     "Tooltip instalado não fechou com Escape",
   );
   expect(
-    await tooltipTrigger.evaluate((element) => element === document.activeElement),
+    await waitForFocus(tooltipTrigger),
     "Tooltip instalado moveu foco para fora do trigger",
   );
 
