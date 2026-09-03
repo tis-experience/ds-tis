@@ -175,6 +175,7 @@ try {
   await auditCheckboxOutputSelector();
   await auditRadioOutputSelector();
   await auditToggleOutputSelector();
+  await auditFormControlGuidance();
 
   await auditResponsiveButton(390, 844);
   await auditResponsiveButton(320, 720);
@@ -3048,6 +3049,127 @@ async function auditToggleOutputSelector() {
   }
 
   recordBrowserErrors('Toggle · seletor das quatro saídas');
+}
+
+async function auditFormControlGuidance() {
+  const cases = [
+    {
+      slug: 'input',
+      controlSelector: '.ds-input',
+      sizeSelectors: ['.ds-input--sm', '.ds-input--md', '.ds-input--lg'],
+      expectedHeights: [32, 40, 48],
+      minimumCanvases: 7,
+    },
+    {
+      slug: 'textarea',
+      controlSelector: '.ds-textarea',
+      sizeSelectors: [
+        '.ds-textarea--sm .ds-textarea__field',
+        '.ds-textarea--md .ds-textarea__field',
+        '.ds-textarea--lg .ds-textarea__field',
+      ],
+      expectedHeights: [80, 96, 120],
+      minimumCanvases: 6,
+    },
+  ];
+
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+
+    for (const config of cases) {
+      browserErrors.length = 0;
+      const route = `/ds-tis/next/pt-br/angular/components/${config.slug}/`;
+      const label = `${route} · documentação compartilhada @ ${width}px`;
+
+      await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+      await page.locator('[data-component-panel-select]').evaluate((select) => {
+        select.value = 'design';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      const themeSelect = page.locator('starlight-theme-select select').first();
+      await themeSelect.evaluate((select) => {
+        select.value = 'dark';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
+
+      const guidance = page.locator(
+        `[data-component-panel="design"] .ds-source-guidance[data-component-source="${config.slug}"]`,
+      );
+      await guidance.waitFor();
+
+      const geometry = await guidance.evaluate((root, current) => {
+        const anatomy = root.querySelector('.ds-anatomy');
+        const anatomyBounds = anatomy?.getBoundingClientRect();
+        const markers = [...(anatomy?.querySelectorAll('.ds-anatomy__marker') || [])].map((marker) => {
+          const rect = marker.getBoundingClientRect();
+          return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+        });
+        const markerOverlap = markers.some((marker, index) => markers.slice(index + 1).some((other) =>
+          Math.min(marker.right, other.right) > Math.max(marker.left, other.left) &&
+          Math.min(marker.bottom, other.bottom) > Math.max(marker.top, other.top)
+        ));
+        const canvases = [...root.querySelectorAll('.ds-preview__canvas')];
+        const controls = [...root.querySelectorAll(`.ds-preview__canvas ${current.controlSelector}`)];
+
+        return {
+          anatomyControlHeight: anatomy?.querySelector(current.controlSelector)?.getBoundingClientRect().height || 0,
+          canvasBackgrounds: canvases.map((canvas) => getComputedStyle(canvas).backgroundColor),
+          canvasCount: canvases.length,
+          canvasesFillCards: canvases.every((canvas) => {
+            const canvasBounds = canvas.getBoundingClientRect();
+            const cardBounds = canvas.closest('.ds-preview')?.getBoundingClientRect();
+            return cardBounds && Math.abs(canvasBounds.width - (cardBounds.width - 2)) <= 1;
+          }),
+          controlsHaveGeometry: controls.length > 0 && controls.every((control) => {
+            const rect = control.getBoundingClientRect();
+            return getComputedStyle(control).display === 'flex' && rect.width >= 180 && rect.height > 0;
+          }),
+          iconCounts: {
+            eye: root.querySelectorAll('svg.lucide-eye').length,
+            mail: root.querySelectorAll('svg.lucide-mail').length,
+            search: root.querySelectorAll('svg.lucide-search').length,
+          },
+          markerCount: markers.length,
+          markerOverlap,
+          markersFit: Boolean(anatomyBounds) && markers.every((marker) =>
+            marker.left >= anatomyBounds.left - 1 && marker.right <= anatomyBounds.right + 1 &&
+            marker.top >= anatomyBounds.top - 1 && marker.bottom <= anatomyBounds.bottom + 1
+          ),
+          sizeHeights: current.sizeSelectors.map((selector) =>
+            root.querySelector(selector)?.getBoundingClientRect().height || 0
+          ),
+        };
+      }, config);
+
+      expect(geometry.markerCount === 6, `${label}: anatomia não contém os seis bullets numerados`);
+      expect(geometry.markersFit, `${label}: bullets da anatomia estão recortados`);
+      expect(!geometry.markerOverlap, `${label}: bullets da anatomia estão sobrepostos`);
+      expect(geometry.anatomyControlHeight >= 40, `${label}: controle da anatomia está colapsado`);
+      expect(
+        geometry.canvasCount >= config.minimumCanvases && geometry.canvasesFillCards,
+        `${label}: canvases não preenchem a largura dos cards`,
+      );
+      expect(geometry.controlsHaveGeometry, `${label}: exemplos têm controles colapsados ou estreitos`);
+      expect(
+        geometry.canvasBackgrounds.every((color) => color !== 'rgb(255, 255, 255)'),
+        `${label}: canvases não acompanharam o tema dark`,
+      );
+      expect(
+        geometry.sizeHeights.every((height, index) => Math.abs(height - config.expectedHeights[index]) <= 1),
+        `${label}: tamanhos renderizados divergiram (${geometry.sizeHeights.join('/')})`,
+      );
+      if (config.slug === 'input') {
+        expect(
+          geometry.iconCounts.mail === 2 && geometry.iconCounts.eye === 1 && geometry.iconCounts.search === 1,
+          `${label}: ícones Mail, Eye ou Search não foram renderizados`,
+        );
+      }
+      expect(await horizontalOverflow() <= 1, `${label}: página possui overflow horizontal`);
+      if (width === 390) await auditAxe(label);
+      recordBrowserErrors(label);
+    }
+  }
 }
 
 async function auditResponsiveButton(width, height) {

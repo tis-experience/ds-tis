@@ -90,6 +90,45 @@ html {
   flex-direction: column;
 }
 
+/* Input e Textarea chegam do HTML estável com max-width no canvas para a
+   página v1. No portal, o canvas precisa preencher o card; a largura de leitura
+   pertence ao componente demonstrado, não ao fundo do exemplo. */
+.ds-source-guidance:is(
+  [data-component-source='input'],
+  [data-component-source='textarea']
+) .ds-preview__canvas {
+  width: 100%;
+  max-width: none !important;
+}
+
+.ds-source-guidance[data-component-source='input'] .ds-preview__canvas > :where(.ds-field, .ds-input),
+.ds-source-guidance[data-component-source='textarea'] .ds-preview__canvas > :where(.ds-field, .ds-textarea) {
+  width: min(100%, 25rem);
+}
+
+.ds-source-guidance:is(
+  [data-component-source='input'],
+  [data-component-source='textarea']
+) .ds-anatomy {
+  box-sizing: border-box;
+  padding: 4rem clamp(3rem, 8vw, 4rem) !important;
+}
+
+.ds-source-guidance:is(
+  [data-component-source='input'],
+  [data-component-source='textarea']
+) .ds-anatomy > div {
+  width: min(100%, 25rem) !important;
+  min-width: 0 !important;
+}
+
+.ds-source-guidance:is(
+  [data-component-source='input'],
+  [data-component-source='textarea']
+) .ds-anatomy :where(.ds-field__error, .ds-field__helper) {
+  overflow-wrap: anywhere;
+}
+
 .ds-source-guidance .ds-popover--documentation {
   display: grid;
   inline-size: min(
