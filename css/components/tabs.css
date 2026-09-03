@@ -4,6 +4,7 @@
 
 .ds-tabs {
   display: flex;
+  overflow-x: auto;
   border-bottom: var(--ds-tabs-list-border-width-default) solid var(--ds-overlay-default);
   gap: 0;
 }
@@ -11,6 +12,7 @@
 /* Tab — Figma: padding pl/pr space/lg, pt space/md (12), pb 0
    Gap: 10px before the 2px indicator; Label: label/md (14px Bold / 20px) */
 .ds-tab {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +31,7 @@
   transition: color var(--ds-motion-duration-fast) var(--ds-motion-ease-default),
               border-color var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
   margin-bottom: calc(var(--ds-tabs-list-border-width-default) * -1);
+  white-space: nowrap;
 }
 
 .ds-tab:hover:not(:disabled):not(.ds-tab--active) {

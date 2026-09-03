@@ -912,11 +912,15 @@ initTooltips()`,
       pt: 'Alterna painéis relacionados no mesmo contexto com seleção e teclado previsíveis.',
       en: 'Switches related panels in the same context with predictable selection and keyboard behavior.',
     },
-    previewSize: 'medium',
+    previewSize: 'compact',
     descriptions: {
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém seleção, roving tabindex, relações ARIA e teclado.',
         en: 'An independent React adapter where Ark UI provides the parts and Zag maintains selection, roving tabindex, ARIA relationships, and keyboard behavior.',
+      },
+      angular: {
+        pt: 'Diretivas standalone sobre Angular Aria com seleção controlável, roving tabindex, relações ARIA e navegação por teclado.',
+        en: 'Standalone directives over Angular Aria with controlled selection, roving tabindex, ARIA relationships, and keyboard navigation.',
       },
       react: {
         pt: 'Recipe React distribuída como source, com comportamento Base UI e classes/tokens públicos do Tabs TIS.',
@@ -930,6 +934,31 @@ initTooltips()`,
   TabsList,
   TabsTrigger,
 } from '@tis/react/ark/tabs'`,
+    },
+    angular: {
+      primitive: '@angular/aria/tabs',
+      imports: `import {
+  TisTab,
+  TisTabList,
+  TisTabPanel,
+  TisTabs,
+} from '@tis/angular/tabs'`,
+      markup: `<div tisTabs>
+  <div
+    tisTabList
+    aria-label="Seções do projeto"
+    [(selectedTab)]="selectedTab"
+    selectionMode="follow"
+    [softDisabled]="false"
+  >
+    <button tisTab value="overview">Visão geral</button>
+    <button tisTab value="team">Equipe</button>
+    <button tisTab value="billing" [disabled]="true">Cobrança</button>
+  </div>
+  <div tisTabPanel value="overview">Resumo do projeto.</div>
+  <div tisTabPanel value="team">Equipe do projeto.</div>
+  <div tisTabPanel value="billing">Plano e faturamento.</div>
+</div>`,
     },
     web: {
       storyId: 'components-tabs--playground',

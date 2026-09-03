@@ -160,6 +160,43 @@ export class TisSelectHarness extends ComponentHarness {
   }
 }
 
+export class TisTabsHarness extends ComponentHarness {
+  static readonly hostSelector = "[tisTabs]";
+  private readonly tabs = this.locatorForAll("button[tisTab]");
+  private readonly panels = this.locatorForAll("[tisTabPanel]");
+
+  async getTabCount(): Promise<number> {
+    return (await this.tabs()).length;
+  }
+
+  async getSelectedValue(): Promise<string | null> {
+    for (const tab of await this.tabs()) {
+      if ((await tab.getAttribute("aria-selected")) === "true") {
+        return tab.getAttribute("value");
+      }
+    }
+    return null;
+  }
+
+  async select(value: string): Promise<void> {
+    for (const tab of await this.tabs()) {
+      if (await tab.getAttribute("value") === value) {
+        await tab.click();
+        return;
+      }
+    }
+    throw new Error(`Tab not found: ${value}`);
+  }
+
+  async getVisiblePanelCount(): Promise<number> {
+    let count = 0;
+    for (const panel of await this.panels()) {
+      if (await panel.getAttribute("hidden") === null) count += 1;
+    }
+    return count;
+  }
+}
+
 export class TisTextareaHarness extends ComponentHarness {
   static readonly hostSelector = "tis-textarea";
   private readonly textarea = this.locatorFor("textarea.ds-textarea__field");

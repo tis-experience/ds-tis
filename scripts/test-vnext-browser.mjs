@@ -581,7 +581,7 @@ async function auditCanonicalCatalog(route, locale) {
   const tooltipLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tooltip' }).locator('a');
   expect(await tooltipLinks.count() === 4, `${route}: Tooltip deve ligar o nome e as três implementações disponíveis`);
   const tabsLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tabs' }).locator('a');
-  expect(await tabsLinks.count() === 4, `${route}: Tabs deve ligar o nome e as três implementações disponíveis`);
+  expect(await tabsLinks.count() === 5, `${route}: Tabs deve ligar o nome e as quatro implementações disponíveis`);
   const toastLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Toast' }).locator('a');
   expect(await toastLinks.count() === 4, `${route}: Toast deve ligar o nome e as três implementações disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
@@ -2397,6 +2397,15 @@ async function auditTabsOutputSelector() {
       guidanceCount: 3,
       skipsDisabledEnd: true,
     },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/tabs/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-tabs--playground',
+      tablistName: 'Seções do projeto',
+      guidanceCount: 3,
+      skipsDisabledEnd: true,
+    },
   ];
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -2441,16 +2450,14 @@ async function auditTabsOutputSelector() {
       }),
       `${route}: tab ativa não preservou o contrato visual tokenizado`,
     );
-    if (skipsDisabledEnd) {
-      expect(
-        await tabs.evaluateAll((elements) => elements.every((element) => getComputedStyle(element).whiteSpace === 'nowrap')),
-        `${route}: labels das tabs não devem quebrar em múltiplas linhas`,
-      );
-      expect(
-        await tablist.evaluate((element) => getComputedStyle(element).overflowX === 'auto'),
-        `${route}: tablist deve permitir overflow horizontal local quando necessário`,
-      );
-    }
+    expect(
+      await tabs.evaluateAll((elements) => elements.every((element) => getComputedStyle(element).whiteSpace === 'nowrap')),
+      `${route}: labels das tabs não devem quebrar em múltiplas linhas`,
+    );
+    expect(
+      await tablist.evaluate((element) => getComputedStyle(element).overflowX === 'auto'),
+      `${route}: tablist deve permitir overflow horizontal local quando necessário`,
+    );
 
     await tabs.first().focus();
     await page.keyboard.press('ArrowRight');
@@ -2492,6 +2499,33 @@ async function auditTabsOutputSelector() {
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em desktop`);
     await auditAxe(`${route} · Tabs`);
   }
+
+  await page.setViewportSize({ width: 320, height: 844 });
+  const mobileRoute = '/ds-tis/next/pt-br/angular/components/tabs/';
+  await page.goto(`${origin}${mobileRoute}`, { waitUntil: 'networkidle' });
+  await page.locator('main h1').first().waitFor();
+  const anatomy = page.locator('.ds-source-guidance[data-source-path="docs/tabs.html"] .ds-anatomy').first();
+  const anatomyTablist = anatomy.locator('[role="tablist"]').first();
+  const anatomyBounds = await anatomy.boundingBox();
+  const markerBounds = await anatomy.locator('.ds-anatomy__marker').evaluateAll((elements) => elements.map((element) => {
+    const rect = element.getBoundingClientRect();
+    return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+  }));
+  expect(Boolean(anatomyBounds), `${mobileRoute}: anatomia não foi renderizada em 320px`);
+  expect(
+    await anatomyTablist.evaluate((element) => getComputedStyle(element).overflow === 'visible'),
+    `${mobileRoute}: tablist demonstrativo não pode recortar os marcadores da anatomia`,
+  );
+  expect(
+    markerBounds.length === 4 && markerBounds.every((marker) =>
+      marker.left >= anatomyBounds.x - 1 &&
+      marker.right <= anatomyBounds.x + anatomyBounds.width + 1 &&
+      marker.top >= anatomyBounds.y - 1 &&
+      marker.bottom <= anatomyBounds.y + anatomyBounds.height + 1),
+    `${mobileRoute}: marcadores da anatomia ficaram cortados em 320px`,
+  );
+  expect(await horizontalOverflow() <= 1, `${mobileRoute}: overflow horizontal da página em 320px`);
+  await auditAxe(`${mobileRoute} · Tabs · 320px`);
 
   recordBrowserErrors('Tabs · seletor das quatro saídas');
 }

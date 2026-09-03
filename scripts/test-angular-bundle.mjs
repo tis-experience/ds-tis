@@ -26,6 +26,7 @@ const definitions = {
   popover: { file: "tis-angular-popover.mjs", budget: 12 * 1024 },
   radio: { file: "tis-angular-radio.mjs", budget: 6 * 1024 },
   select: { file: "tis-angular-select.mjs", budget: 6 * 1024 },
+  tabs: { file: "tis-angular-tabs.mjs", budget: 8 * 1024 },
   textarea: { file: "tis-angular-textarea.mjs", budget: 6 * 1024 },
   toggle: { file: "tis-angular-toggle.mjs", budget: 5 * 1024 },
 };
@@ -38,6 +39,7 @@ const forbiddenByEntry = {
   popover: ["AccordionGroup", "data-tis-angular-button"],
   radio: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   select: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  tabs: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   textarea: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   toggle: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
 };

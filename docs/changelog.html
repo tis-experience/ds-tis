@@ -68,6 +68,10 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Tabs preserva labels, overflow local e anatomia em viewports estreitos.</strong>
+As tabs deixam de quebrar o texto em múltiplas linhas, a lista passa a rolar
+horizontalmente dentro do próprio componente e o marcador 4 da anatomia
+permanece dentro do canvas em 320px nas quatro saídas.</li>
 <li><strong>Previews funcionais aguardam a renderização real do Storybook.</strong> O portal
 mantém o estado de carregamento até a story estar pronta, inclusive após
 alternar entre light e dark, evitando recargas concorrentes e exemplos vazios.
@@ -105,6 +109,12 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Tabs passa a integrar a saída Angular nativa em beta de workspace.</strong> O
+entrypoint <code>@tis/angular/tabs</code> usa Angular Aria para seleção controlável,
+roving tabindex, navegação por setas/Home/End, item disabled e relações ARIA.
+Storybook, harness, consumer instalado, responsividade, dark mode, Axe e
+bundle validam a quarta implementação sem alterar Figma, tokens ou as outras
+três saídas.</li>
 <li><strong>Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.</strong>
 Os entrypoints <code>@tis/angular/input</code> e <code>@tis/angular/textarea</code> compõem Form
 Field, label, helper, erro, ícones e contador pela anatomia pública do DS,

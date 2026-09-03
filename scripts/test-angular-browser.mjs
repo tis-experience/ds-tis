@@ -164,6 +164,24 @@ try {
   expect(await select.evaluate((node) => node === document.activeElement), "Navegação por teclado não alcançou o Select");
   expect(await selectWrapper.evaluate((node) => node.matches(":focus-within")), "Select não expôs estado de foco no wrapper");
 
+  const tabs = page.locator("button[tistab]");
+  const tabPanels = page.locator("[tistabpanel]");
+  expect(await tabs.count() === 3, "Tabs não renderizou três tabs");
+  expect(await tabs.nth(0).getAttribute("aria-selected") === "true", "Tabs não selecionou o primeiro item inicialmente");
+  expect(await tabPanels.evaluateAll((nodes) => nodes.filter((node) => !node.hidden).length) === 1, "Tabs deve manter apenas um painel visível");
+  expect(await tabs.nth(2).isDisabled(), "Tabs não preservou disabled nativo");
+  await tabs.nth(0).focus();
+  await page.keyboard.press("ArrowRight");
+  await page.waitForFunction(() => document.querySelectorAll("button[tistab]")[1]?.getAttribute("aria-selected") === "true");
+  expect(await tabs.nth(1).evaluate((node) => node === document.activeElement), "ArrowRight não moveu o foco no Tabs");
+  expect(await tabs.nth(1).getAttribute("aria-selected") === "true", "Tabs em follow mode não acompanhou o foco");
+  expect((await page.locator('[data-testid="tabs"] [role="status"]').textContent())?.includes("team"), "Tabs não sincronizou selectedTab no consumer");
+  await page.keyboard.press("End");
+  expect(await tabs.nth(1).evaluate((node) => node === document.activeElement), "End deveria ignorar a tab disabled");
+  await page.keyboard.press("Home");
+  expect(await tabs.nth(0).evaluate((node) => node === document.activeElement), "Home não retornou à primeira tab");
+  expect(await tabs.nth(0).evaluate((node) => node.matches(":focus-visible")), "Tabs não preservou focus ring por teclado");
+
   const triggers = page.locator("button[tisaccordiontrigger]");
   expect(await triggers.count() === 3, "Accordion não renderizou três triggers");
   await triggers.nth(1).click();
@@ -422,6 +440,7 @@ try {
       input: compareField("tis-input .ds-input", "ds-input ds-input--md ds-input--filled", '<input class="ds-input__field" value="ana@empresa.com">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       radio: compare('tis-radio-group input[type="radio"]', "ds-radio", ["width", "height", "border-radius", "background-color", "border-color"], "input", "radio", "ds-radio-label"),
       select: compareSelect(),
+      tabs: compare("button[tistab]", "ds-tab ds-tab--active", ["padding-inline-start", "padding-inline-end", "border-bottom-width", "border-bottom-color", "color", "font-size"]),
       textarea: compareField("tis-textarea .ds-textarea", "ds-textarea ds-textarea--md ds-textarea--filled", '<textarea class="ds-textarea__field">Contexto para revisão.</textarea>', ["border-radius", "background-color", "color", "font-size"]),
       toggle: compare('tis-toggle input[role="switch"]', "ds-toggle", ["width", "height", "border-radius", "background-color", "border-color"], "input", "checkbox", "ds-toggle-label", true),
       modal: compare(".tis-angular-modal-pane .ds-modal", "ds-modal ds-modal--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "max-height"], "div"),
@@ -441,6 +460,7 @@ try {
     ["angular-input--playground", "tis-input"],
     ["angular-radio--playground", "tis-radio-group"],
     ["angular-select--playground", "tis-select"],
+    ["angular-tabs--playground", "[tisTabs]"],
     ["angular-textarea--playground", "tis-textarea"],
     ["angular-toggle--playground", "tis-toggle"],
     ["angular-modal--playground", "tis-modal"],
@@ -453,6 +473,40 @@ try {
     const result = await new AxeBuilder({ page }).analyze();
     expect(result.violations.length === 0, `Storybook ${storyId}: Axe encontrou ${result.violations.map((item) => item.id).join(", ")}`);
   }
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-tabs--playground&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyTabs = page.locator("button[tistab]");
+  const storyPanels = page.locator("[tistabpanel]");
+  expect(await storyTabs.count() === 3, "Story do Tabs não renderizou a coleção completa");
+  expect(await storyTabs.nth(0).getAttribute("aria-selected") === "true", "Story do Tabs perdeu a seleção inicial");
+  expect(await storyPanels.evaluateAll((nodes) => nodes.filter((node) => !node.hidden).length) === 1, "Story do Tabs exibiu mais de um painel");
+  await storyTabs.nth(0).focus();
+  await page.keyboard.press("ArrowRight");
+  await page.waitForFunction(() => document.querySelectorAll("button[tistab]")[1]?.getAttribute("aria-selected") === "true");
+  expect(await storyTabs.nth(1).getAttribute("aria-selected") === "true", "Story do Tabs não selecionou com ArrowRight");
+  expect(await storyTabs.nth(1).evaluate((node) => node.matches(":focus-visible")), "Story do Tabs perdeu focus ring por teclado");
+  const tabsGeometry = await page.locator("[tistablist]").evaluate((node) => {
+    const root = node.getBoundingClientRect();
+    const items = [...node.querySelectorAll("button")].map((item) => {
+      const rect = item.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, height: rect.height };
+    });
+    return {
+      mode: document.documentElement.dataset.mode,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      root: { left: root.left, right: root.right },
+      items,
+    };
+  });
+  expect(tabsGeometry.mode === "dark", "Story do Tabs não recebeu tema dark");
+  expect(tabsGeometry.overflow <= 1, `Story do Tabs gerou overflow em 320px (${JSON.stringify(tabsGeometry)})`);
+  expect(
+    tabsGeometry.items.every((item) => item.height > 0 && item.left >= tabsGeometry.root.left && item.right <= tabsGeometry.root.right + 1),
+    `Story do Tabs cortou ou desalinhou itens em 320px (${JSON.stringify(tabsGeometry)})`,
+  );
+  await axe("Storybook Tabs dark 320px");
+  await page.setViewportSize({ width: 1280, height: 720 });
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-checkbox--estados&globals=mode:light`, { waitUntil: "networkidle" });
   const checkboxStates = page.locator('tis-checkbox input[type="checkbox"]');

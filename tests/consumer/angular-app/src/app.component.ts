@@ -22,6 +22,7 @@ import {
 import { TisPopover, TisPopoverActions, TisPopoverContent } from "@tis/angular/popover";
 import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
+import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
 import { TisToggle } from "@tis/angular/toggle";
 
@@ -53,6 +54,10 @@ import { TisToggle } from "@tis/angular/toggle";
     TisRadioOption,
     TisSelect,
     TisSelectIcon,
+    TisTab,
+    TisTabList,
+    TisTabPanel,
+    TisTabs,
     TisTextarea,
     TisToggle,
     FormsModule,
@@ -63,7 +68,7 @@ import { TisToggle } from "@tis/angular/toggle";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Dez componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Onze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -273,6 +278,32 @@ import { TisToggle } from "@tis/angular/toggle";
         </form>
       </section>
 
+      <section class="consumer-section" aria-labelledby="tabs-heading">
+        <div class="consumer-section__heading">
+          <h2 id="tabs-heading">Tabs</h2>
+          <span class="consumer-status">Angular Aria</span>
+        </div>
+        <div tisTabs data-testid="tabs">
+          <div
+            tisTabList
+            aria-label="Seções do projeto"
+            [selectedTab]="selectedTab()"
+            (selectedTabChange)="selectedTab.set($event || 'overview')"
+            selectionMode="follow"
+            focusMode="roving"
+            [softDisabled]="false"
+          >
+            <button tisTab value="overview">Visão geral</button>
+            <button tisTab value="team">Equipe</button>
+            <button tisTab value="billing" [disabled]="true">Cobrança</button>
+          </div>
+          <div tisTabPanel value="overview">Resumo do projeto e atividade recente.</div>
+          <div tisTabPanel value="team">Pessoas, funções e permissões do projeto.</div>
+          <div tisTabPanel value="billing">Plano, faturas e forma de pagamento.</div>
+          <p class="consumer-meta" role="status">Selecionada: {{ selectedTab() }}</p>
+        </div>
+      </section>
+
       <section class="consumer-section" aria-labelledby="accordion-heading">
         <div class="consumer-section__heading">
           <h2 id="accordion-heading">Accordion</h2>
@@ -430,6 +461,7 @@ export class AppComponent {
   readonly popoverOpen = signal(false);
   readonly radioSubmitted = signal(false);
   readonly selectSubmitted = signal(false);
+  readonly selectedTab = signal("overview");
   readonly submitted = signal(0);
   readonly textareaSubmitted = signal(false);
   readonly notificationChannel = signal<string | null>(null);

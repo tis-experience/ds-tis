@@ -9,6 +9,7 @@ import {
   TisPopoverHarness,
   TisRadioGroupHarness,
   TisSelectHarness,
+  TisTabsHarness,
   TisTextareaHarness,
   TisToggleHarness,
 } from "@tis/angular/testing";
@@ -156,6 +157,29 @@ describe("DS TIS Angular consumer", () => {
     fixture.componentInstance.selectSubmitted.set(true);
     fixture.detectChanges();
     expect(await select.isInvalid()).toBe(true);
+  });
+
+  it("integra Tabs com seleção, painéis e relações ARIA", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const tabs = await loader.getHarness(TisTabsHarness);
+
+    expect(await tabs.getTabCount()).toBe(3);
+    expect(await tabs.getSelectedValue()).toBe("overview");
+    expect(await tabs.getVisiblePanelCount()).toBe(1);
+
+    await tabs.select("team");
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(await tabs.getSelectedValue()).toBe("team");
+    expect(await tabs.getVisiblePanelCount()).toBe(1);
+    expect(fixture.componentInstance.selectedTab()).toBe("team");
+
+    const tabElements = fixture.nativeElement.querySelectorAll("button[tisTab]");
+    expect(tabElements[1].getAttribute("aria-controls")).toBeTruthy();
+    expect(tabElements[2].getAttribute("aria-disabled")).toBe("true");
   });
 
   it("abre o Popover, fecha com Escape e retorna foco", async () => {
