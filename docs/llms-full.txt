@@ -316,6 +316,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Previews funcionais aguardam a renderização real do Storybook.** O portal
+  mantém o estado de carregamento até a story estar pronta, inclusive após
+  alternar entre light e dark, evitando recargas concorrentes e exemplos vazios.
+  Os testes de consumer aguardam também as transições assíncronas de foco de
+  Accordion, Tabs, Menu, Popover e Tooltip sem reduzir as asserções de teclado.
 - **Input Text e Textarea preservam a composição visual na documentação vNext.**
   As seções compartilhadas passam a carregar Form Field e o CSS público de
   cada controle, renderizam todos os ícones da anatomia e mantêm o canvas em

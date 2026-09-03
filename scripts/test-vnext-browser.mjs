@@ -749,6 +749,11 @@ async function auditReactComponentPage(route, {
       frame.getAttribute('src')?.includes('mode%3Adark')
     )
   );
+  await page.waitForFunction(() =>
+    Array.from(document.querySelectorAll('[data-output-preview-shell]')).every((shell) =>
+      shell.getAttribute('aria-busy') === 'false'
+    )
+  );
   await themeSelect.evaluate((select) => {
     select.value = 'light';
     select.dispatchEvent(new Event('change', { bubbles: true }));
@@ -757,6 +762,11 @@ async function auditReactComponentPage(route, {
   await page.waitForFunction(() =>
     Array.from(document.querySelectorAll('[data-output-preview]')).every((frame) =>
       frame.getAttribute('src')?.includes('mode%3Alight')
+    )
+  );
+  await page.waitForFunction(() =>
+    Array.from(document.querySelectorAll('[data-output-preview-shell]')).every((shell) =>
+      shell.getAttribute('aria-busy') === 'false'
     )
   );
 

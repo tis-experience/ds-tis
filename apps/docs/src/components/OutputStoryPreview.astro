@@ -68,8 +68,51 @@ const storybookUrl = `${storybookBase}/?path=/story/${storyId}`;
         const shell = frame.closest('[data-output-preview-shell]');
         shell?.setAttribute('aria-busy', 'true');
         shell?.removeAttribute('data-loaded');
+        shell?.removeAttribute('data-load-error');
         frame.setAttribute('src', next);
       }
+    };
+
+    const settleFrame = (frame) => {
+      const shell = frame.closest('[data-output-preview-shell]');
+      const attempt = Number(frame.dataset.loadAttempt ?? '0') + 1;
+      frame.dataset.loadAttempt = String(attempt);
+      const startedAt = performance.now();
+
+      const inspectStorybook = () => {
+        if (frame.dataset.loadAttempt !== String(attempt)) return;
+
+        try {
+          const body = frame.contentDocument?.body;
+          const loaded = body?.classList.contains('sb-show-main') ?? false;
+          const failed = body
+            ? ['sb-show-errordisplay', 'sb-show-nopreview'].some((className) => body.classList.contains(className))
+            : false;
+
+          if (loaded || failed) {
+            shell?.setAttribute('aria-busy', 'false');
+            shell?.toggleAttribute('data-loaded', loaded);
+            shell?.toggleAttribute('data-load-error', failed);
+            return;
+          }
+        } catch {
+          // Fallback para um Storybook servido em outra origem.
+          shell?.setAttribute('aria-busy', 'false');
+          shell?.setAttribute('data-loaded', 'true');
+          return;
+        }
+
+        if (performance.now() - startedAt >= 15000) {
+          shell?.setAttribute('aria-busy', 'false');
+          shell?.setAttribute('data-load-error', 'true');
+          console.error(`Functional preview did not become ready: ${frame.title}`);
+          return;
+        }
+
+        requestAnimationFrame(inspectStorybook);
+      };
+
+      requestAnimationFrame(inspectStorybook);
     };
 
     const sync = () => frames.forEach(syncFrame);
@@ -77,11 +120,7 @@ const storybookUrl = `${storybookBase}/?path=/story/${storyId}`;
     frames.forEach((frame) => {
       if (frame.dataset.loadReady === 'true') return;
       frame.dataset.loadReady = 'true';
-      frame.addEventListener('load', () => {
-        const shell = frame.closest('[data-output-preview-shell]');
-        shell?.setAttribute('aria-busy', 'false');
-        shell?.setAttribute('data-loaded', 'true');
-      });
+      frame.addEventListener('load', () => settleFrame(frame));
       syncFrame(frame);
     });
 
