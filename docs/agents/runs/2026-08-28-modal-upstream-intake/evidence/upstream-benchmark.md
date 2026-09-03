@@ -10,4 +10,18 @@
 - `@base-ui/react/dialog` 1.6.0, distribuído como source pelo registry shadcn.
 - Fornece primitive React, portal, backdrop, viewport e gestão de foco.
 
-Os providers não definem visual, tokens, nomes ou implementação de outra saída.
+## Angular nativo
+
+- Angular CDK Overlay/Portal fornece a camada, backdrop, posicionamento central,
+  bloqueio de scroll e lifecycle do conteúdo portado.
+- Angular CDK A11y fornece o focus trap; a API pública do DS mantém title,
+  description, content projection, sizes e eventos tipados.
+
+## Contrato acessível de referência
+
+- WAI-ARIA APG Dialog (Modal): `role=dialog`, `aria-modal`, nome acessível,
+  contenção de foco, Escape e retorno de foco.
+- Carbon Modal e Primer Dialog foram usados como comparação de composição,
+  hierarquia de ações e comportamento responsivo.
+
+As tecnologias não definem visual, tokens, nomes ou implementação de outra saída.

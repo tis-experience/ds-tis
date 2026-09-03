@@ -368,7 +368,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 3,
+      "componentCount": 8,
       "components": [
         {
           "slug": "accordion",
@@ -383,10 +383,40 @@
           "storyId": "angular-button--playground"
         },
         {
+          "slug": "checkbox",
+          "entrypoint": "checkbox",
+          "primitive": "native checkbox + Angular Forms",
+          "storyId": "angular-checkbox--playground"
+        },
+        {
+          "slug": "modal",
+          "entrypoint": "modal",
+          "primitive": "@angular/cdk/overlay + portal + a11y",
+          "storyId": "angular-modal--playground"
+        },
+        {
           "slug": "popover",
           "entrypoint": "popover",
           "primitive": "@angular/cdk/overlay + portal + a11y",
           "storyId": "angular-popover--playground"
+        },
+        {
+          "slug": "radio",
+          "entrypoint": "radio",
+          "primitive": "native radio group + Angular Forms",
+          "storyId": "angular-radio--playground"
+        },
+        {
+          "slug": "select",
+          "entrypoint": "select",
+          "primitive": "native select + Angular Forms",
+          "storyId": "angular-select--playground"
+        },
+        {
+          "slug": "toggle",
+          "entrypoint": "toggle",
+          "primitive": "native switch + Angular Forms",
+          "storyId": "angular-toggle--playground"
         }
       ],
       "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/",

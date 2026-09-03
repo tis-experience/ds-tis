@@ -684,11 +684,12 @@ async function auditReactComponentPage(route, {
     `${route}: React não está ativo no contexto`,
   );
   const isPopover = item === '@tis/popover';
-  const previewSelector = isPopover
+  const isModal = item === '@tis/dialog';
+  const previewSelector = isPopover || isModal
     ? '[data-output-example="playground"] [data-output-preview]'
     : '[data-output-preview]';
   expect(
-    await page.locator('[data-output-preview]').count() === (isPopover ? 2 : 1),
+    await page.locator('[data-output-preview]').count() === (isModal ? 3 : isPopover ? 2 : 1),
     `${route}: quantidade de previews do Storybook incorreta`,
   );
   await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
@@ -710,6 +711,10 @@ async function auditReactComponentPage(route, {
       ? (locale === 'en'
           ? ['Interactive example · React · shadcn/Base UI', 'Additional Content Slot · React · shadcn/Base UI', 'Anatomy']
           : ['Exemplo interativo · React · shadcn/Base UI', 'Content Slot adicional · React · shadcn/Base UI', 'Anatomia'])
+      : isModal
+        ? (locale === 'en'
+            ? ['Interactive example · React · shadcn/Base UI', 'Sizes · React · shadcn/Base UI', 'Custom body · React · shadcn/Base UI', 'Anatomy']
+            : ['Exemplo interativo · React · shadcn/Base UI', 'Tamanhos · React · shadcn/Base UI', 'Body customizado · React · shadcn/Base UI', 'Anatomia'])
       : (locale === 'en'
           ? ['Functional preview', 'Anatomy']
           : ['Preview funcional', 'Anatomia']);
@@ -718,7 +723,7 @@ async function auditReactComponentPage(route, {
       `${route}: painel Design não preservou preview e referência de design`,
     );
     expect(
-      await page.locator('[data-component-panel="design"] .ds-source-guidance[data-component-topic="design"]').count() === (isPopover ? 2 : 1),
+      await page.locator('[data-component-panel="design"] .ds-source-guidance[data-component-topic="design"]').count() === (isPopover || isModal ? 2 : 1),
       `${route}: referência rica de design ausente`,
     );
   } else {
@@ -1093,7 +1098,9 @@ async function auditModalOutputSelector() {
       storyId: 'components-modal--playground',
       triggerName: 'Abrir modal md',
       closeState: 'hidden',
-      guidanceCount: 3,
+      guidanceCount: 4,
+      runtimeSelector: '[data-ds-modal-trigger-init="true"]',
+      exampleStoryIds: ['components-modal--tamanhos', 'components-modal--corpo-customizado'],
     },
     {
       route: '/ds-tis/next/pt-br/ark/components/modal/',
@@ -1102,7 +1109,9 @@ async function auditModalOutputSelector() {
       storyId: 'ark-modal--playground',
       triggerName: 'Abrir modal',
       closeState: 'detached',
-      guidanceCount: 2,
+      guidanceCount: 3,
+      runtimeSelector: '[data-scope="dialog"]',
+      exampleStoryIds: ['ark-modal--sizes', 'ark-modal--custom-body'],
     },
     {
       route: '/ds-tis/next/pt-br/react/components/modal/',
@@ -1111,7 +1120,20 @@ async function auditModalOutputSelector() {
       storyId: 'react-modal--playground',
       triggerName: 'Abrir modal',
       closeState: 'detached',
-      guidanceCount: 2,
+      guidanceCount: 3,
+      runtimeSelector: '[data-slot="dialog-trigger"]',
+      exampleStoryIds: ['react-modal--sizes', 'react-modal--custom-body'],
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/modal/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-modal--playground',
+      triggerName: 'Abrir modal',
+      closeState: 'detached',
+      guidanceCount: 3,
+      runtimeSelector: 'tis-modal',
+      exampleStoryIds: ['angular-modal--tamanhos', 'angular-modal--corpo-customizado'],
     },
   ];
 
@@ -1119,9 +1141,11 @@ async function auditModalOutputSelector() {
   for (const {
     activeLabel,
     closeState,
+    exampleStoryIds,
     guidanceCount,
     previewSelector,
     route,
+    runtimeSelector,
     storyId,
     triggerName,
   } of routes) {
@@ -1145,7 +1169,7 @@ async function auditModalOutputSelector() {
       '[data-component-panel="design"] .ds-source-guidance .ds-modal',
     );
     expect(
-      await staticModalExamples.count() === 5 &&
+      await staticModalExamples.count() === 1 &&
         await staticModalExamples.evaluateAll((examples) => examples.every((example) => {
           const style = getComputedStyle(example);
           return style.display === 'flex' &&
@@ -1153,7 +1177,7 @@ async function auditModalOutputSelector() {
             parseFloat(style.padding) > 0 &&
             parseFloat(style.borderRadius) > 0;
         })),
-      `${route}: exemplos estáticos do Modal perderam a folha CSS pública`,
+      `${route}: anatomia estática do Modal perdeu a folha CSS pública`,
     );
     expect(
       await page
@@ -1162,7 +1186,71 @@ async function auditModalOutputSelector() {
           const style = getComputedStyle(button);
           return style.display === 'flex' && parseFloat(style.borderRadius) > 0;
         })),
-      `${route}: Buttons compostos nos exemplos do Modal perderam seu CSS público`,
+      `${route}: Buttons compostos na anatomia do Modal perderam seu CSS público`,
+    );
+    expect(
+      await staticModalExamples.evaluateAll((examples) => examples.every((example) => {
+        const hasZeroMargin = (element) => {
+          if (!element) return true;
+          const style = getComputedStyle(element);
+          return Math.abs(Number.parseFloat(style.marginTop)) <= 0.5 &&
+            Math.abs(Number.parseFloat(style.marginBottom)) <= 0.5;
+        };
+        const close = example.querySelector('.ds-modal__close');
+        const footer = example.querySelector('.ds-modal__footer');
+        const footerButtons = footer ? [...footer.querySelectorAll(':scope > .ds-button')] : [];
+        const footerAligned = footerButtons.length < 2 || footerButtons.every((button) => {
+          const reference = footerButtons[0].getBoundingClientRect();
+          const current = button.getBoundingClientRect();
+          return Math.abs(current.top - reference.top) <= 1 &&
+            Math.abs(current.bottom - reference.bottom) <= 1;
+        });
+        const customInput = example.querySelector('.ds-modal__body .ds-field > .ds-input');
+        const customAction = example.querySelector('.ds-modal__body > .ds-button');
+        const title = example.querySelector('.ds-modal__title');
+        const description = example.querySelector('.ds-modal__description');
+        const bodyParagraph = example.querySelector('.ds-modal__body > p');
+
+        return hasZeroMargin(close) &&
+          hasZeroMargin(title) &&
+          hasZeroMargin(description) &&
+          hasZeroMargin(bodyParagraph) &&
+          hasZeroMargin(footer) &&
+          footerButtons.every(hasZeroMargin) &&
+          footerAligned &&
+          hasZeroMargin(customInput) &&
+          hasZeroMargin(customAction);
+      })),
+      `${route}: rhythm editorial deslocou anatomia, footer ou composição interna do Modal`,
+    );
+    const anatomy = page.locator(
+      '[data-component-panel="design"] .ds-source-guidance .ds-anatomy',
+    );
+    expect(await anatomy.count() === 1, `${route}: anatomia do Modal ausente`);
+    expect(
+      await anatomy.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        const markers = [...element.querySelectorAll('.ds-anatomy__marker')];
+        const labels = markers.map((marker) => marker.textContent?.trim());
+        const contained = markers.every((marker) => {
+            const rect = marker.getBoundingClientRect();
+            return rect.left >= bounds.left - 1 &&
+              rect.right <= bounds.right + 1 &&
+              rect.top >= bounds.top - 1 &&
+              rect.bottom <= bounds.bottom + 1;
+          });
+        const separated = markers.every((marker, index) => {
+          const rect = marker.getBoundingClientRect();
+          return markers.slice(index + 1).every((other) => {
+            const otherRect = other.getBoundingClientRect();
+            return rect.right <= otherRect.left || otherRect.right <= rect.left ||
+              rect.bottom <= otherRect.top || otherRect.bottom <= rect.top;
+          });
+        });
+        return getComputedStyle(element).overflow === 'visible' &&
+          labels.join(',') === '1,2,3,4,5,6,7' && contained && separated;
+      }),
+      `${route}: marcadores da anatomia do Modal estão ausentes, recortados ou sobrepostos`,
     );
     expect(
       await page
@@ -1181,18 +1269,20 @@ async function auditModalOutputSelector() {
     );
     await activatePanel('design');
 
-    const previewElement = page.locator(previewSelector);
+    const mainPreviewSelector = `[data-output-example="playground"] ${previewSelector}`;
+    const previewElement = page.locator(mainPreviewSelector);
     expect(await previewElement.count() === 1, `${route}: preview funcional próprio ausente`);
     await page.waitForFunction(
       (selector) => Boolean(document.querySelector(selector)?.getAttribute('src')),
-      previewSelector,
+      mainPreviewSelector,
     );
     expect(
       (await previewElement.getAttribute('src'))?.includes(storyId),
       `${route}: preview não aponta para ${storyId}`,
     );
 
-    const preview = page.frameLocator(previewSelector);
+    const preview = page.frameLocator(mainPreviewSelector);
+    await preview.locator(runtimeSelector).first().waitFor({ state: 'attached' });
     const trigger = preview.getByRole('button', { name: triggerName });
     await trigger.waitFor();
     await trigger.click();
@@ -1209,6 +1299,34 @@ async function auditModalOutputSelector() {
     expect(
       await dialog.evaluate((element) => element.contains(document.activeElement)),
       `${route}: foco não entrou no Modal`,
+    );
+    expect(
+      await dialog.evaluate((element) => {
+        const dialogRect = element.getBoundingClientRect();
+        const close = element.querySelector('.ds-modal__close');
+        const closeRect = close?.getBoundingClientRect();
+        const footerButtons = [...element.querySelectorAll('.ds-modal__footer .ds-button')];
+        const firstButtonRect = footerButtons[0]?.getBoundingClientRect();
+        const zeroMargin = (selector) => {
+          const target = element.querySelector(selector);
+          if (!target) return true;
+          const style = getComputedStyle(target);
+          return Math.abs(Number.parseFloat(style.marginTop)) <= 0.5 &&
+            Math.abs(Number.parseFloat(style.marginBottom)) <= 0.5;
+        };
+        return dialogRect.left >= 0 && dialogRect.right <= innerWidth &&
+          dialogRect.top >= 0 && dialogRect.bottom <= innerHeight &&
+          Boolean(closeRect) && closeRect.left >= dialogRect.left && closeRect.right <= dialogRect.right &&
+          closeRect.top >= dialogRect.top && closeRect.bottom <= dialogRect.bottom &&
+          footerButtons.length >= 2 && footerButtons.every((button) => {
+            const rect = button.getBoundingClientRect();
+            return firstButtonRect && Math.abs(rect.top - firstButtonRect.top) <= 1 &&
+              Math.abs(rect.bottom - firstButtonRect.bottom) <= 1;
+          }) &&
+          zeroMargin('.ds-modal__title') && zeroMargin('.ds-modal__description') &&
+          zeroMargin('.ds-modal__body > p');
+      }),
+      `${route}: conteúdo, close ou ações do preview funcional estão desalinhados ou recortados`,
     );
     if (activeLabel === 'Ark/Zag') {
       expect(
@@ -1236,8 +1354,91 @@ async function auditModalOutputSelector() {
       }),
       `${route}: foco não retornou ao trigger`,
     );
+
+    const documentedExamples = page.locator('[data-output-example="documented"]');
+    expect(await documentedExamples.count() === 2, `${route}: exemplos próprios de tamanho e body estão ausentes`);
+    expect(
+      JSON.stringify(await documentedExamples.evaluateAll((elements) => elements.map((element) => element.getAttribute('data-output-story-id')))) === JSON.stringify(exampleStoryIds),
+      `${route}: exemplos não apontam para os stories próprios da saída`,
+    );
+
+    const sizesPreviewSelector = `[data-output-story-id="${exampleStoryIds[0]}"] ${previewSelector}`;
+    const sizesPreview = page.frameLocator(sizesPreviewSelector);
+    const mediumTrigger = sizesPreview.getByRole('button', { name: 'Abrir modal md' });
+    await mediumTrigger.waitFor();
+    if (activeLabel === 'HTML/CSS/JS') {
+      await sizesPreview.locator('[data-ds-modal-trigger-init="true"]').first().waitFor();
+    }
+    await mediumTrigger.click();
+    const mediumDialog = sizesPreview.getByRole('dialog');
+    await mediumDialog.waitFor();
+    expect(
+      await mediumDialog.evaluate((element) => element.classList.contains('ds-modal--md') && element.getBoundingClientRect().bottom <= innerHeight),
+      `${route}: exemplo de tamanhos abriu o Modal md errado ou recortado`,
+    );
+    await page.keyboard.press('Escape');
+    await mediumDialog.waitFor({ state: closeState });
+
+    const customPreviewSelector = `[data-output-story-id="${exampleStoryIds[1]}"] ${previewSelector}`;
+    const customPreview = page.frameLocator(customPreviewSelector);
+    const customTrigger = customPreview.getByRole('button', { name: 'Convidar pessoa' });
+    await customTrigger.waitFor();
+    if (activeLabel === 'HTML/CSS/JS') {
+      await customPreview.locator('[data-ds-modal-trigger-init="true"]').first().waitFor();
+    }
+    await customTrigger.click();
+    const customDialog = customPreview.getByRole('dialog');
+    await customDialog.waitFor();
+    expect(
+      await customDialog.evaluate((element) => {
+        const dialogRect = element.getBoundingClientRect();
+        const input = element.querySelector('.ds-input__field');
+        const inputRect = input?.getBoundingClientRect();
+        const footerButtons = [...element.querySelectorAll('.ds-modal__footer .ds-button')];
+        const firstButtonRect = footerButtons[0]?.getBoundingClientRect();
+        return dialogRect.top >= 0 && dialogRect.bottom <= innerHeight &&
+          Boolean(inputRect) && inputRect.height >= 32 && inputRect.height <= 48 && inputRect.width > inputRect.height &&
+          input === document.activeElement &&
+          footerButtons.length >= 2 && footerButtons.every((button) => {
+            const rect = button.getBoundingClientRect();
+            return firstButtonRect && Math.abs(rect.top - firstButtonRect.top) <= 1 &&
+              Math.abs(rect.bottom - firstButtonRect.bottom) <= 1;
+          });
+      }),
+      `${route}: exemplo de body tem input, ações ou superfície deformados/recortados`,
+    );
+    await page.keyboard.press('Escape');
+    await customDialog.waitFor({ state: closeState });
+
+    const themeSelect = page.locator('starlight-theme-select select').first();
+    await themeSelect.evaluate((select) => {
+      select.value = 'dark';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
+    await page.waitForFunction(
+      () => [...document.querySelectorAll('[data-output-preview]')].every((frame) => frame.getAttribute('src')?.includes('mode%3Adark')),
+    );
+    await page.waitForFunction(
+      () => [...document.querySelectorAll('[data-output-preview-shell]')].every((shell) => shell.getAttribute('aria-busy') === 'false'),
+    );
+    await page.waitForFunction(
+      () => {
+        const frames = [...document.querySelectorAll('[data-output-preview]')];
+        return frames.length === 3 && frames.every((frame) => frame.contentDocument?.documentElement.dataset.mode === 'dark');
+      },
+    );
+    expect(
+      await page.locator('[data-output-preview]').evaluateAll((frames) => frames.length === 3 && frames.every((frame) => frame.contentDocument?.documentElement.dataset.mode === 'dark')),
+      `${route}: os três exemplos funcionais não receberam o tema dark`,
+    );
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
     await auditAxe(`${route} · Modal`);
+    await themeSelect.evaluate((select) => {
+      select.value = 'light';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
   }
 
   const reactRoute = '/ds-tis/next/pt-br/react/components/modal/';
@@ -1776,6 +1977,7 @@ async function auditSelectOutputSelector() {
       storyId: 'components-form-select--playground',
       guidanceCount: 4,
       native: true,
+      nativeValue: 'Chile',
     },
     {
       route: '/ds-tis/next/pt-br/ark/components/select/',
@@ -1784,6 +1986,7 @@ async function auditSelectOutputSelector() {
       storyId: 'ark-select--playground',
       guidanceCount: 3,
       native: false,
+      nativeValue: null,
     },
     {
       route: '/ds-tis/next/pt-br/react/components/select/',
@@ -1792,11 +1995,21 @@ async function auditSelectOutputSelector() {
       storyId: 'react-select--playground',
       guidanceCount: 3,
       native: false,
+      nativeValue: null,
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/select/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-select--playground',
+      guidanceCount: 3,
+      native: true,
+      nativeValue: 'cl',
     },
   ];
 
   await page.setViewportSize({ width: 1440, height: 900 });
-  for (const { activeLabel, guidanceCount, native, previewSelector, route, storyId } of routes) {
+  for (const { activeLabel, guidanceCount, native, nativeValue, previewSelector, route, storyId } of routes) {
     await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
     await page.locator('main h1').first().waitFor();
     const options = page.locator('[data-technology-select] option');
@@ -1805,7 +2018,7 @@ async function auditSelectOutputSelector() {
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
     );
-    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI']) {
+    for (const label of ['HTML/CSS/JS', 'Ark/Zag', 'React · shadcn/Base UI', 'Angular']) {
       expect(
         await options.filter({ hasText: label }).count() === 1 &&
           !(await options.filter({ hasText: label }).isDisabled()),
@@ -1816,6 +2029,39 @@ async function auditSelectOutputSelector() {
     expect(
       await page.locator('.ds-source-guidance[data-source-path="docs/select.html"]').count() === guidanceCount,
       `${route}: documentação rica do Select deveria expor ${guidanceCount} tópicos`,
+    );
+    const anatomy = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-anatomy');
+    expect(await anatomy.count() === 1, `${route}: anatomia do Select ausente`);
+    expect(
+      await anatomy.locator('.ds-anatomy__marker').count() === 7 &&
+        await anatomy.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return [...element.querySelectorAll('.ds-anatomy__marker')].every((marker) => {
+            const rect = marker.getBoundingClientRect();
+            return rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1 &&
+              rect.top >= bounds.top - 1 && rect.bottom <= bounds.bottom + 1;
+          });
+        }),
+      `${route}: bullets numerados da anatomia estão ausentes ou recortados`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-source-guidance .ds-select').evaluateAll((controls) =>
+        controls.length > 0 && controls.every((control) => {
+          const rect = control.getBoundingClientRect();
+          return rect.width > rect.height && rect.height >= 32 && rect.height <= 48;
+        })
+      ),
+      `${route}: exemplos estáticos têm Select cortado ou deformado`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-table-scroll').evaluateAll((regions) =>
+        regions.length > 0 && regions.every((region) => {
+          const table = region.querySelector('table');
+          if (!table) return false;
+          return table.getBoundingClientRect().width >= region.clientWidth - 1;
+        })
+      ),
+      `${route}: tabela visível não preenche a largura do container`,
     );
     expect(await page.locator(previewSelector).count() === 1, `${route}: preview funcional próprio ausente`);
     await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
@@ -1830,7 +2076,7 @@ async function auditSelectOutputSelector() {
 
     if (native) {
       await trigger.selectOption({ label: 'Chile' });
-      expect(await trigger.inputValue() === 'Chile', `${route}: select nativo não selecionou Chile`);
+      expect(await trigger.inputValue() === nativeValue, `${route}: select nativo não selecionou Chile`);
       const unavailable = preview.getByRole('option', { name: 'Indisponível' });
       expect(await unavailable.isDisabled(), `${route}: opção indisponível do select nativo não está disabled`);
     } else {
@@ -1948,7 +2194,12 @@ async function auditMenuOutputSelector() {
     const duplicate = preview.getByRole('menuitem', { name: 'Duplicar projeto' });
     if (activeLabel === 'Ark/Zag') {
       expect(
-        await menu.evaluate((element) => {
+        await menu.evaluate(async (element) => {
+          for (let frame = 0; frame < 30; frame += 1) {
+            const activeId = element.getAttribute('aria-activedescendant');
+            if (element === document.activeElement && activeId === element.querySelector('[role="menuitem"]')?.id) return true;
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+          }
           const activeId = element.getAttribute('aria-activedescendant');
           return element === document.activeElement && activeId === element.querySelector('[role="menuitem"]')?.id;
         }),
@@ -2344,38 +2595,116 @@ async function auditCheckboxOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/web/components/checkbox/',
       activeLabel: 'HTML/CSS/JS',
+      status: 'Estável',
       previewSelector: '[data-output-preview][data-output-storybook="stable"]',
       storyId: 'components-form-checkbox--playground',
       controlSelector: '.ds-checkbox',
+      guidanceCount: 3,
+      runtimeSelector: 'input.ds-checkbox',
     },
     {
       route: '/ds-tis/next/pt-br/ark/components/checkbox/',
       activeLabel: 'Ark/Zag',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'ark-checkbox--playground',
       controlSelector: '.ds-ark-checkbox__control',
+      guidanceCount: 2,
+      runtimeSelector: '[data-scope="checkbox"]',
     },
     {
       route: '/ds-tis/next/pt-br/react/components/checkbox/',
       activeLabel: 'React · shadcn/Base UI',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'react-checkbox--playground',
       controlSelector: '[data-slot="checkbox"]',
+      guidanceCount: 2,
+      runtimeSelector: '[data-slot="checkbox"]',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/checkbox/',
+      activeLabel: 'Angular',
+      status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-checkbox--playground',
+      controlSelector: '.ds-checkbox',
+      guidanceCount: 2,
+      runtimeSelector: '[data-tis-angular-checkbox]',
     },
   ];
 
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const { activeLabel, controlSelector, previewSelector, route, storyId } of routes) {
+  for (const {
+    activeLabel,
+    controlSelector,
+    guidanceCount,
+    previewSelector,
+    route,
+    runtimeSelector,
+    status,
+    storyId,
+  } of routes) {
     await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
     await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Checkbox', `${route}: título Checkbox ausente`);
+    const technologyOptions = page.locator('[data-technology-select] option');
+    expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(
+      await technologyOptions.filter({ hasText: 'Angular' }).isEnabled(),
+      `${route}: saída Angular ainda aparece desabilitada`,
+    );
     expect(
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
+    );
+    expect(
+      (await page.locator('[data-component-panel="implementation"] .ds-react-contract dd').allTextContents()).includes(status),
+      `${route}: status ${status} ausente`,
+    );
+    expect(
+      await page.locator('.ds-source-guidance[data-source-path="docs/checkbox.html"]').count() === guidanceCount,
+      `${route}: documentação compartilhada deveria expor ${guidanceCount} tópicos`,
+    );
+    const anatomy = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-anatomy');
+    expect(await anatomy.count() === 1, `${route}: anatomia do Checkbox ausente`);
+    expect(
+      await anatomy.locator('.ds-anatomy__marker').count() === 4 &&
+        await anatomy.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return [...element.querySelectorAll('.ds-anatomy__marker')].every((marker) => {
+            const rect = marker.getBoundingClientRect();
+            return rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1 &&
+              rect.top >= bounds.top - 1 && rect.bottom <= bounds.bottom + 1;
+          });
+        }),
+      `${route}: bullets numerados da anatomia estão ausentes ou recortados`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-source-guidance .ds-checkbox').evaluateAll((controls) =>
+        controls.length > 0 && controls.every((control) => {
+          const rect = control.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && Math.abs(rect.width - rect.height) <= 0.5;
+        })
+      ),
+      `${route}: exemplos estáticos têm Checkbox cortado ou deformado`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-table-scroll').evaluateAll((regions) =>
+        regions.length > 0 && regions.every((region) => {
+          const table = region.querySelector('table');
+          if (!table) return false;
+          const tableRect = table.getBoundingClientRect();
+          return tableRect.width >= region.clientWidth - 1;
+        })
+      ),
+      `${route}: tabela visível não preenche a largura do container`,
     );
     expect(await page.locator(previewSelector).count() === 1, `${route}: preview funcional próprio ausente`);
     expect((await page.locator(previewSelector).getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
 
     const preview = page.frameLocator(previewSelector);
+    expect(await preview.locator(runtimeSelector).count() >= 1, `${route}: preview não usa o runtime independente de ${activeLabel}`);
     const checkbox = preview.getByRole('checkbox');
     const control = preview.locator(controlSelector).first();
     await checkbox.waitFor();
@@ -2393,6 +2722,18 @@ async function auditCheckboxOutputSelector() {
       }),
       `${route}: geometria ou focus ring do Checkbox divergiu do contrato TIS`,
     );
+    const themeSelect = page.locator('starlight-theme-select select').first();
+    await themeSelect.evaluate((select) => {
+      select.value = 'dark';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
+    await page.waitForFunction((selector) => document.querySelector(selector)?.getAttribute('src')?.includes('mode%3Adark'), previewSelector);
+    await page.waitForFunction((selector) => document.querySelector(selector)?.closest('[data-output-preview-shell]')?.getAttribute('aria-busy') === 'false', previewSelector);
+    expect(
+      await preview.locator('html').getAttribute('data-mode') === 'dark',
+      `${route}: exemplo interativo não recebeu o tema dark`,
+    );
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
     await auditAxe(`${route} · Checkbox`);
   }
@@ -2406,38 +2747,116 @@ async function auditRadioOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/web/components/radio/',
       activeLabel: 'HTML/CSS/JS',
+      status: 'Estável',
       previewSelector: '[data-output-preview][data-output-storybook="stable"]',
       storyId: 'components-form-radio--playground',
       controlSelector: '.ds-radio',
+      guidanceCount: 3,
+      runtimeSelector: 'input.ds-radio',
     },
     {
       route: '/ds-tis/next/pt-br/ark/components/radio/',
       activeLabel: 'Ark/Zag',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'ark-radio--playground',
       controlSelector: '.ds-ark-radio__control',
+      guidanceCount: 2,
+      runtimeSelector: '[data-scope="radio-group"]',
     },
     {
       route: '/ds-tis/next/pt-br/react/components/radio/',
       activeLabel: 'React · shadcn/Base UI',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'react-radio--playground',
       controlSelector: '[data-slot="radio-group-item"]',
+      guidanceCount: 2,
+      runtimeSelector: '[data-slot="radio-group-item"]',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/radio/',
+      activeLabel: 'Angular',
+      status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-radio--playground',
+      controlSelector: '.ds-radio',
+      guidanceCount: 2,
+      runtimeSelector: '[data-tis-angular-radio-group]',
     },
   ];
 
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const { activeLabel, controlSelector, previewSelector, route, storyId } of routes) {
+  for (const {
+    activeLabel,
+    controlSelector,
+    guidanceCount,
+    previewSelector,
+    route,
+    runtimeSelector,
+    status,
+    storyId,
+  } of routes) {
     await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
     await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Radio', `${route}: título Radio ausente`);
+    const technologyOptions = page.locator('[data-technology-select] option');
+    expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(
+      await technologyOptions.filter({ hasText: 'Angular' }).isEnabled(),
+      `${route}: saída Angular ainda aparece desabilitada`,
+    );
     expect(
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
+    );
+    expect(
+      (await page.locator('[data-component-panel="implementation"] .ds-react-contract dd').allTextContents()).includes(status),
+      `${route}: status ${status} ausente`,
+    );
+    expect(
+      await page.locator('.ds-source-guidance[data-source-path="docs/radio.html"]').count() === guidanceCount,
+      `${route}: documentação compartilhada deveria expor ${guidanceCount} tópicos`,
+    );
+    const anatomy = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-anatomy');
+    expect(await anatomy.count() === 1, `${route}: anatomia do Radio ausente`);
+    expect(
+      await anatomy.locator('.ds-anatomy__marker').count() === 5 &&
+        await anatomy.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return [...element.querySelectorAll('.ds-anatomy__marker')].every((marker) => {
+            const rect = marker.getBoundingClientRect();
+            return rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1 &&
+              rect.top >= bounds.top - 1 && rect.bottom <= bounds.bottom + 1;
+          });
+        }),
+      `${route}: bullets numerados da anatomia estão ausentes ou recortados`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-source-guidance .ds-radio').evaluateAll((controls) =>
+        controls.length > 0 && controls.every((control) => {
+          const rect = control.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && Math.abs(rect.width - rect.height) <= 0.5;
+        })
+      ),
+      `${route}: exemplos estáticos têm Radio cortado ou deformado`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-table-scroll').evaluateAll((regions) =>
+        regions.length > 0 && regions.every((region) => {
+          const table = region.querySelector('table');
+          if (!table) return false;
+          const tableRect = table.getBoundingClientRect();
+          return tableRect.width >= region.clientWidth - 1;
+        })
+      ),
+      `${route}: tabela visível não preenche a largura do container`,
     );
     expect(await page.locator(previewSelector).count() === 1, `${route}: preview funcional próprio ausente`);
     expect((await page.locator(previewSelector).getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
 
     const preview = page.frameLocator(previewSelector);
+    expect(await preview.locator(runtimeSelector).count() >= 1, `${route}: preview não usa o runtime independente de ${activeLabel}`);
     const radios = preview.getByRole('radio');
     await radios.first().waitFor();
     expect(await radios.count() === 2, `${route}: o exemplo comparável deve conter duas opções`);
@@ -2455,6 +2874,18 @@ async function auditRadioOutputSelector() {
       }),
       `${route}: geometria ou focus ring do Radio divergiu do contrato TIS`,
     );
+    const themeSelect = page.locator('starlight-theme-select select').first();
+    await themeSelect.evaluate((select) => {
+      select.value = 'dark';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
+    await page.waitForFunction((selector) => document.querySelector(selector)?.getAttribute('src')?.includes('mode%3Adark'), previewSelector);
+    await page.waitForFunction((selector) => document.querySelector(selector)?.closest('[data-output-preview-shell]')?.getAttribute('aria-busy') === 'false', previewSelector);
+    expect(
+      await preview.locator('html').getAttribute('data-mode') === 'dark',
+      `${route}: exemplo interativo não recebeu o tema dark`,
+    );
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
     await auditAxe(`${route} · Radio`);
   }
@@ -2468,38 +2899,116 @@ async function auditToggleOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/web/components/toggle/',
       activeLabel: 'HTML/CSS/JS',
+      status: 'Estável',
       previewSelector: '[data-output-preview][data-output-storybook="stable"]',
       storyId: 'components-form-toggle--playground',
       controlSelector: '.ds-toggle',
+      guidanceCount: 3,
+      runtimeSelector: 'input.ds-toggle',
     },
     {
       route: '/ds-tis/next/pt-br/ark/components/toggle/',
       activeLabel: 'Ark/Zag',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'ark-toggle--playground',
       controlSelector: '.ds-ark-toggle__control',
+      guidanceCount: 2,
+      runtimeSelector: '[data-scope="switch"]',
     },
     {
       route: '/ds-tis/next/pt-br/react/components/toggle/',
       activeLabel: 'React · shadcn/Base UI',
+      status: 'Beta',
       previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
       storyId: 'react-toggle--playground',
       controlSelector: '[data-slot="switch"]',
+      guidanceCount: 2,
+      runtimeSelector: '[data-slot="switch"]',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/toggle/',
+      activeLabel: 'Angular',
+      status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-toggle--playground',
+      controlSelector: '.ds-toggle',
+      guidanceCount: 2,
+      runtimeSelector: '[data-tis-angular-toggle]',
     },
   ];
 
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const { activeLabel, controlSelector, previewSelector, route, storyId } of routes) {
+  for (const {
+    activeLabel,
+    controlSelector,
+    guidanceCount,
+    previewSelector,
+    route,
+    runtimeSelector,
+    status,
+    storyId,
+  } of routes) {
     await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
     await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Toggle', `${route}: título Toggle ausente`);
+    const technologyOptions = page.locator('[data-technology-select] option');
+    expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(
+      await technologyOptions.filter({ hasText: 'Angular' }).isEnabled(),
+      `${route}: saída Angular ainda aparece desabilitada`,
+    );
     expect(
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
+    );
+    expect(
+      (await page.locator('[data-component-panel="implementation"] .ds-react-contract dd').allTextContents()).includes(status),
+      `${route}: status ${status} ausente`,
+    );
+    expect(
+      await page.locator('.ds-source-guidance[data-source-path="docs/toggle.html"]').count() === guidanceCount,
+      `${route}: documentação compartilhada deveria expor ${guidanceCount} tópicos`,
+    );
+    const anatomy = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-anatomy');
+    expect(await anatomy.count() === 1, `${route}: anatomia do Toggle ausente`);
+    expect(
+      await anatomy.locator('.ds-anatomy__marker').count() === 4 &&
+        await anatomy.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return [...element.querySelectorAll('.ds-anatomy__marker')].every((marker) => {
+            const rect = marker.getBoundingClientRect();
+            return rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1 &&
+              rect.top >= bounds.top - 1 && rect.bottom <= bounds.bottom + 1;
+          });
+        }),
+      `${route}: bullets numerados da anatomia estão ausentes ou recortados`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-source-guidance .ds-toggle').evaluateAll((controls) =>
+        controls.length > 0 && controls.every((control) => {
+          const rect = control.getBoundingClientRect();
+          return rect.width > rect.height && rect.height > 0;
+        })
+      ),
+      `${route}: exemplos estáticos têm Toggle cortado ou deformado`,
+    );
+    expect(
+      await page.locator('[data-component-panel="design"] .ds-table-scroll').evaluateAll((regions) =>
+        regions.length > 0 && regions.every((region) => {
+          const table = region.querySelector('table');
+          if (!table) return false;
+          const tableRect = table.getBoundingClientRect();
+          return tableRect.width >= region.clientWidth - 1;
+        })
+      ),
+      `${route}: tabela visível não preenche a largura do container`,
     );
     expect(await page.locator(previewSelector).count() === 1, `${route}: preview funcional próprio ausente`);
     expect((await page.locator(previewSelector).getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
 
     const preview = page.frameLocator(previewSelector);
+    expect(await preview.locator(runtimeSelector).count() >= 1, `${route}: preview não usa o runtime independente de ${activeLabel}`);
     const toggle = preview.getByRole('switch');
     const control = preview.locator(controlSelector).first();
     await toggle.waitFor();
@@ -2521,6 +3030,18 @@ async function auditToggleOutputSelector() {
           style.outlineStyle === 'solid' && Number.parseFloat(style.outlineWidth) >= 2;
       }),
       `${route}: geometria ou focus ring do Toggle divergiu do contrato TIS`,
+    );
+    const themeSelect = page.locator('starlight-theme-select select').first();
+    await themeSelect.evaluate((select) => {
+      select.value = 'dark';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark');
+    await page.waitForFunction((selector) => document.querySelector(selector)?.getAttribute('src')?.includes('mode%3Adark'), previewSelector);
+    await page.waitForFunction((selector) => document.querySelector(selector)?.closest('[data-output-preview-shell]')?.getAttribute('aria-busy') === 'false', previewSelector);
+    expect(
+      await preview.locator('html').getAttribute('data-mode') === 'dark',
+      `${route}: exemplo interativo não recebeu o tema dark`,
     );
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
     await auditAxe(`${route} · Toggle`);

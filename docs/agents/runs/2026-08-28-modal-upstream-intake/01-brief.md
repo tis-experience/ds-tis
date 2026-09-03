@@ -14,6 +14,8 @@
 - Variants: `sm`, `md`, `lg`; controlled/uncontrolled nos adapters.
 - Composição: header, heading, title, description, body, footer, close e Buttons.
 - Tokens: reutilizar `component.modal.*`; nenhum token novo.
-- Impacto repo: preservar Web, validar Ark/Zag e corrigir apenas o adapter React.
+- Impacto repo: preservar Web, Ark/Zag e React; acrescentar Modal Angular nativo
+  como quarto entrypoint independente, com consumer, Storybook, docs e testes.
 - Fora de escopo: Figma, tokens, Web core, Alert Dialog e release.
-- Aprovação: execução local contínua autorizada pelo owner em 2026-08-28.
+- Aprovação: extensão Angular e execução local contínua autorizadas pelo owner em
+  2026-09-02; commit, push, PR e release continuam bloqueados.

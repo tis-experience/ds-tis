@@ -139,6 +139,7 @@ try {
   if (await accordionTrigger.getAttribute('aria-expanded') !== 'true') failures.push('Accordion: trigger não abriu o painel');
 
   await story('Components/Form/Combobox', 'Playground');
+  await page.locator('.ds-combobox-anchor[data-ds-combobox-init="true"]').waitFor();
   const combobox = page.locator('.ds-combobox__input');
   await combobox.focus();
   if (await combobox.getAttribute('aria-expanded') !== 'true') failures.push('Combobox: focus não abriu o listbox');
@@ -335,6 +336,7 @@ try {
   if (await secondTab.getAttribute('aria-selected') !== 'true') failures.push('Tabs: seleção não sincronizou tab e painel');
 
   await story('Components/Tooltip', 'Playground');
+  await page.locator('.ds-tooltip[data-ds-tooltip-init="true"]').waitFor();
   const tooltipTrigger = page.locator('.ds-tooltip button');
   await tooltipTrigger.focus();
   if (await page.locator('.ds-tooltip__content').getAttribute('hidden') !== null) failures.push('Tooltip: focus não abriu conteúdo');

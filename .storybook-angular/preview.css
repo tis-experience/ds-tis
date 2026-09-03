@@ -24,6 +24,64 @@ body:has(.ds-angular-popover-stage) {
   background: var(--ds-background-subtle);
 }
 
+.ds-angular-modal-stage {
+  min-block-size: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.ds-angular-modal-stage--sizes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-sm);
+  flex-wrap: wrap;
+}
+
+.ds-angular-checkbox-grid,
+.ds-angular-checkbox-form,
+.ds-angular-radio-grid,
+.ds-angular-radio-form,
+.ds-angular-select-grid,
+.ds-angular-select-form,
+.ds-angular-toggle-grid,
+.ds-angular-toggle-form {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-select-stage,
+.ds-angular-select-grid,
+.ds-angular-select-form {
+  inline-size: min(100%, var(--ds-size-2xl));
+}
+
+.ds-angular-checkbox-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-radio-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-toggle-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-select-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
 #storybook-root > main {
   min-block-size: 100%;
   color: var(--ds-content-default);

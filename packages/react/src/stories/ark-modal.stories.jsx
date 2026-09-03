@@ -12,28 +12,42 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '../ark/modal.jsx';
-import { StoryCanvas, storyArg } from './_shared.jsx';
+import { StoryCanvas, StoryRow, storyArg } from './_shared.jsx';
 
-function ModalExample({ size = 'md', ...modalProps }) {
+function ModalExample({
+  customBody = false,
+  description = 'Confira os dados antes de aplicar esta atualização.',
+  primaryLabel = 'Aplicar alterações',
+  size = 'md',
+  title = 'Revisar alterações',
+  triggerLabel = 'Abrir modal',
+  ...modalProps
+}) {
   return (
     <Modal {...modalProps}>
       <ModalTrigger asChild>
         <button className="ds-button ds-button--outline" type="button">
-          <span className="ds-button__label">Abrir modal</span>
+          <span className="ds-button__label">{triggerLabel}</span>
         </button>
       </ModalTrigger>
       <ModalContent size={size}>
         <ModalHeader>
           <ModalHeading>
-            <ModalTitle>Revisar alterações</ModalTitle>
-            <ModalDescription>
-              Confira os dados antes de aplicar esta atualização.
-            </ModalDescription>
+            <ModalTitle>{title}</ModalTitle>
+            <ModalDescription>{description}</ModalDescription>
           </ModalHeading>
           <ModalClose label="Fechar modal" />
         </ModalHeader>
         <ModalBody>
-          <p>As alterações poderão ser revertidas posteriormente no histórico.</p>
+          {customBody ? (
+            <div className="ds-field">
+              <label className="ds-field__label" htmlFor="ark-modal-email">E-mail</label>
+              <div className="ds-input ds-input--md">
+                <input autoFocus className="ds-input__field" id="ark-modal-email" type="email" placeholder="nome@empresa.com" />
+              </div>
+              <p className="ds-field__helper">Enviaremos um convite para este endereço.</p>
+            </div>
+          ) : <p>As alterações poderão ser revertidas posteriormente no histórico.</p>}
         </ModalBody>
         <ModalFooter>
           <ModalClose asChild>
@@ -41,9 +55,11 @@ function ModalExample({ size = 'md', ...modalProps }) {
               <span className="ds-button__label">Cancelar</span>
             </button>
           </ModalClose>
-          <button className="ds-button ds-button--brand" type="button">
-            <span className="ds-button__label">Aplicar alterações</span>
-          </button>
+          <ModalClose asChild>
+            <button className="ds-button ds-button--brand" type="button">
+              <span className="ds-button__label">{primaryLabel}</span>
+            </button>
+          </ModalClose>
         </ModalFooter>
       </ModalContent>
     </Modal>
@@ -97,6 +113,37 @@ export const Small = {
 
 export const Large = {
   render: () => <StoryCanvas><ModalExample size="lg" /></StoryCanvas>,
+};
+
+export const Sizes = {
+  render: () => (
+    <StoryCanvas>
+      <StoryRow>
+        {['sm', 'md', 'lg'].map((size) => (
+          <ModalExample
+            key={size}
+            size={size}
+            triggerLabel={`Abrir modal ${size}`}
+          />
+        ))}
+      </StoryRow>
+    </StoryCanvas>
+  ),
+};
+
+export const CustomBody = {
+  render: () => (
+    <StoryCanvas>
+      <ModalExample
+        customBody
+        description="Informe os dados necessários para enviar o convite."
+        primaryLabel="Enviar convite"
+        size="md"
+        title="Convidar pessoa"
+        triggerLabel="Convidar pessoa"
+      />
+    </StoryCanvas>
+  ),
 };
 
 export const Controlled = {

@@ -1,132 +1,85 @@
-# Relatório de preparação da saída Angular
+# Relatório da saída Angular
 
-Data da validação: 2026-08-31
-Branch: `codex/angular`
-Base: `fc02a92` (`origin/main`)
-Status: **pronta para análise local; o worktree misto não está pronto para commit ou release**
+- Data da validação: 2026-09-02
+- Branch: `codex/angular-modal`
+- Base: `980afb6` (`origin/main`)
+- Status: **Toggle implementado e validado localmente; commit, push e PR pendem de autorização**
 
-## 1. Diagnóstico
+## 1. Escopo
 
-A fundação vNext necessária está presente na base da branch. A implementação
-Angular foi construída de forma aditiva, sem alterações em tokens canônicos ou
-no Figma. O pacote permanece privado e identificado como beta de workspace.
+A saída Angular agora oferece sete entrypoints independentes: Button,
+Accordion, Checkbox, Radio, Toggle, Modal e Popover. Esta extensão acrescenta
+somente o Toggle Angular e os artefatos necessários de consumer, Storybook,
+documentação e testes. Web, Ark/Zag, React, tokens e Figma foram preservados.
+O adaptador do portal foi corrigido para carregar os assets públicos de
+Checkbox, Radio, Toggle, Tooltip, Tabs e Toast; sem isso, os exemplos estáticos
+apareciam sem o CSS do componente em todas as rotas de implementação.
 
-O worktree não está limpo: `git status --short` agrupa 211 entradas e
-`git status --short -uall` expande 558 arquivos. O inventário contém:
+O owner confirmou que o Figma não teve alterações e dispensou novo snapshot
+para esta implementação. A evidência Figma anterior permanece histórica e não é
+apresentada como evidência fresca de release.
 
-- 50 arquivos diretamente ligados ao pacote, Storybook, consumer, ADR, rotas e
-  evidências Angular;
-- mais de 300 arquivos de uma expansão paralela de React, Ark/Zag, registry e
-  intakes upstream;
-- 21 arquivos da documentação ou runtime estável com alterações de componentes;
-- 259 arquivos dentro de runs de agentes, incluindo trabalhos anteriores.
+## 2. Arquitetura e paridade
 
-Essas contagens se sobrepõem e servem para classificação, não para soma. Nenhum
-arquivo das áreas paralelas foi revertido, apagado ou incluído implicitamente no
-escopo Angular durante esta auditoria.
-
-## 2. Matriz de arquitetura e paridade
-
-| Componente | Contrato Web preservado | API Angular | Primitive | Diferença inevitável | Evidência |
-| --- | --- | --- | --- | --- | --- |
-| Button | `<button>` e classes `ds-button*` | `TisButton` standalone, inputs tipados e content projection para ícones | HTML nativo | Host Angular usa `display: contents`; o elemento interativo continua sendo o `button` nativo | submit, loading, disabled, ícones, tamanhos, temas, Axe e bundle |
-| Accordion | anatomia `ds-accordion*`, single/multiple, disabled e teclado | diretivas `TisAccordion*` standalone | `@angular/aria/accordion` | estado e roving focus são fornecidos pelo Angular Aria; pointer mantém foco visual apenas para teclado | unitário, teclado, foco, estados, temas, 320/390 e Axe |
-| Popover | trigger, panel, close, actions, placements e classes `ds-popover*` | `TisPopover` standalone, `model()` para open, outputs e content projection | CDK Overlay, Portal e A11y | o panel é portado para o overlay container; a anatomia visual interna permanece igual | Escape, click externo, retorno de foco, quatro placements, arrow/no-arrow, temas, 320/390 e Axe |
+| Componente | API Angular | Primitive | Contrato validado |
+| --- | --- | --- | --- |
+| Button | `TisButton` standalone | HTML nativo | submit, loading, disabled, ícones, sizes e temas |
+| Accordion | diretivas `TisAccordion*` standalone | Angular Aria | single/multiple, disabled, roving focus, teclado e temas |
+| Checkbox | `TisCheckbox` standalone e `ControlValueAccessor` | checkbox nativo + Angular Forms | checked, indeterminate, disabled, required, invalid, formulário, teclado e temas |
+| Radio | `TisRadioGroup`, `TisRadioOption` e `ControlValueAccessor` | fieldset, legend e radios nativos + Angular Forms | seleção exclusiva, setas, disabled, required, invalid, formulário e temas |
+| Toggle | `TisToggle` standalone e `ControlValueAccessor` | checkbox nativo com role switch + Angular Forms | on/off, Space, disabled, formulário, sizes e temas |
+| Modal | `TisModal` e diretivas de body/footer/foco inicial | CDK Overlay, Portal e A11y | diálogo modal, title/description, focus trap, Escape, backdrop, scroll lock, retorno de foco, sizes e temas |
+| Popover | `TisPopover` standalone | CDK Overlay, Portal e A11y | trigger, panel, close, placements, arrow, outside click e retorno de foco |
 
 Não há imports cruzados com React, Base UI, shadcn, Ark UI ou Zag. O consumidor
 continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overlay.
 
-## 3. Artefatos Angular
+## 3. Artefatos do Toggle
 
-### Configuração e distribuição
-
-- `.storybook-angular/main.mjs`
-- `.storybook-angular/preview-head.html`
-- `.storybook-angular/preview.css`
-- `.storybook-angular/preview.ts`
-- `.storybook-angular/tsconfig.json`
-- `angular.json`
-- `tsconfig.angular.json`
-- `package.json`
-- `package-lock.json`
-
-### Biblioteca
-
-- `packages/angular/README.md`
-- `packages/angular/package.json`
-- `packages/angular/ng-package.json`
-- `packages/angular/tsconfig.lib.json`
-- `packages/angular/tsconfig.lib.prod.json`
-- `packages/angular/src/public-api.ts`
-- `packages/angular/button/**`
-- `packages/angular/accordion/**`
-- `packages/angular/popover/**`
-- `packages/angular/testing/**`
-- `packages/angular/stories/**`
-
-### Consumer e testes
-
-- `tests/consumer/angular-app/**`
-- `scripts/test-angular-consumer.mjs`
-- `scripts/test-angular-bundle.mjs`
-- `scripts/test-angular-browser.mjs`
-
-### Arquitetura, portal e evidência
-
-- `docs/decisions/ADR-023-quatro-saidas-com-angular-nativo.md`
-- `docs/decisions/adr-023-quatro-saidas-com-angular-nativo.html`
-- `apps/docs/src/content/docs/pt-br/angular/index.mdx`
-- `apps/docs/src/content/docs/en/angular/index.mdx`
-- `apps/docs/src/pages/[locale]/angular/components/[slug].astro`
-- `docs/agents/runs/2026-08-28-angular-output/evidence/angular-bundle.json`
-- `docs/agents/runs/2026-08-28-angular-output/evidence/angular-consumer-1280.png`
-- `docs/agents/runs/2026-08-28-angular-output/evidence/angular-consumer-390.png`
-- `docs/agents/runs/2026-08-28-angular-output/evidence/angular-consumer-320.png`
-
-Os componentes e utilitários compartilhados do portal precisam ser revisados
-num diff separado, porque atualmente também carregam a expansão React/Ark que
-está fora do pedido Angular original.
+- Entry point: `packages/angular/toggle/`.
+- Storybook: `packages/angular/stories/toggle.stories.ts`.
+- Harness: `TisToggleHarness` em `@tis/angular/testing`.
+- Consumer real: `tests/consumer/angular-app/src/app.component.ts`.
+- Catálogo e docs: metadados canônicos, índice Angular bilíngue e página do Toggle.
+- Evidência: bundle JSON e screenshots de 320, 390 e 1280px nesta run.
 
 ## 4. Evidência executada
 
 | Gate | Resultado |
 | --- | --- |
-| `npm run test:angular` | passou: biblioteca, tarball instalado, consumer, 3 unitários, Storybook, bundle e browser |
-| Consumer de produção | 224,49 KiB JS + 232,08 KiB CSS brutos |
+| `npm run test:angular` | passou: package build, tarball real, consumer, 7 testes unitários, Storybook, bundles e browser |
+| Consumer de produção | 288,66 KiB JS + 232,16 KiB CSS brutos |
 | Button incremental | 1,32 KiB gzip; orçamento 4 KiB |
 | Accordion incremental | 1,47 KiB gzip; orçamento 8 KiB |
+| Checkbox incremental | 1,94 KiB gzip; orçamento 5 KiB |
+| Modal incremental | 2,84 KiB gzip; orçamento 12 KiB |
 | Popover incremental | 3,61 KiB gzip; orçamento 12 KiB |
-| `npm run verify:tokens` | 0 erros, 1 aviso de snapshot antigo |
-| `npm run verify:figma-structure` | 0 issues estruturais |
-| `npm run test:vnext` | passou |
-| `npm run test:vnext:browser` | passou em desktop, 390 e 320; dark mode e Axe válidos |
-| `npm test` | passou: 93 stories, 223 checks de lifecycle, 108 auditorias WCAG sem violações e Pages íntegro |
-| `git diff --check` | passou |
+| Radio incremental | 2,22 KiB gzip; orçamento 6 KiB |
+| Toggle incremental | 1,57 KiB gzip; orçamento 5 KiB |
+| Browser Angular | semântica, teclado, focus trap, retorno de foco, 320/390/1280, light/dark, paridade visual, Storybook e Axe válidos |
+| Browser do portal vNext | quatro implementações, runtimes próprios, interação, dark mode, anatomia, tabelas, 320/390, Storybook e Axe válidos |
 
-## 5. Limitações e bloqueios
+## 5. Evidência visual
 
-1. O snapshot Figma tem mais de 24 horas. Não há drift detectado, mas uma
-   release exige snapshot fresco e nova evidência de release.
-2. O worktree mistura a entrega Angular com uma expansão React/Ark não solicitada
-   pelo brief Angular. Um commit único não é revisável com segurança.
-3. `@tis/angular` está em `0.0.0-beta.0`, privado e não publicado.
-4. Os chunks grandes reportados pelo Storybook pertencem ao ambiente documental;
-   os entrypoints consumíveis permanecem abaixo dos orçamentos definidos.
-5. Nenhum commit, push, PR, tag ou publicação foi realizado.
+- `evidence/angular-consumer-1280.png`
+- `evidence/angular-consumer-390.png`
+- `evidence/angular-consumer-320.png`
 
-## 6. Próxima decisão
+As capturas foram regeneradas pelo gate de navegador e reinspecionadas. Toggle
+mantém 28x16, 44x24 e 56x32px nos três tamanhos; o controle e o texto multilinha
+permanecem alinhados ao topo, sem corte em 320, 390 ou 1280px. As evidências
+anteriores continuam válidas para Checkbox, Radio e Modal.
 
-Antes de publicar, criar uma seleção explícita de arquivos para o PR Angular e
-revisar separadamente os componentes compartilhados do portal. Depois disso:
+## 6. Limites
 
-1. atualizar o snapshot Figma sem editar o arquivo de design;
-2. gerar evidência fresca de release;
-3. repetir os gates sobre o diff isolado;
-4. solicitar autorização para commit, push e PR.
+1. `@tis/angular` continua privado, em `0.0.0-beta.0`, e não foi publicado.
+2. O snapshot Figma é histórico. Uma release futura ainda exige snapshot fresco
+   e `verify:release-evidence`, embora esta implementação não altere Figma/tokens.
+3. Nenhum commit, push, PR, tag ou release foi realizado.
 
-## 7. Próximos componentes recomendados
+## 7. Próximo passo
 
-1. Modal, reutilizando CDK Overlay, Portal e A11y já validados no Popover;
-2. Checkbox, Radio e Toggle, acrescentando integração explícita com Angular Forms;
-3. Select e Combobox, somente após fechar o contrato de `ControlValueAccessor`,
-   teclado composto e estratégia de overlay.
+Concluir os gates gerais do repositório e revisar o diff. Em seguida, iniciar o
+Select Angular com `ControlValueAccessor` e semântica nativa; Combobox vem depois,
+pois exige fechar também teclado composto e estratégia de overlay. Commit, push
+e PR continuam dependendo de autorização explícita.

@@ -316,6 +316,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Anatomia e exemplos do Modal preservam a geometria HTML/CSS no portal.**
+  Web, Ark/Zag, React e Angular deixam de herdar o rhythm editorial do
+  Starlight dentro do componente: close, body, footer, Buttons e Input mantêm
+  alinhamento e alturas públicos, e os sete marcadores da anatomia não são
+  recortados. O teste de browser passa a bloquear a regressão nas quatro rotas.
 - **Documentação e governança passam a refletir as quatro saídas da ADR-023.**
   Portal PT-BR/EN, guias para agents, APIs e LLMs deixam de anunciar o piloto de
   três saídas como estado atual. O intake v3 exige Web, Ark/Zag, React e Angular,
@@ -337,6 +342,30 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Toggle passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/toggle` usa checkbox nativo com role switch, preserva
+  on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra
+  `ControlValueAccessor` ao Angular Forms. Storybook, harness, consumer instalado,
+  responsividade, dark mode, Axe e bundle validam a quarta implementação sem
+  alterar Figma, tokens ou as outras três saídas.
+- **Radio passa a integrar a saída Angular nativa em beta de workspace.** Os
+  entrypoints `TisRadioGroup` e `TisRadioOption` usam fieldset, legend e inputs
+  radio nativos, preservam seleção exclusiva, setas, disabled, required e
+  invalid e integram `ControlValueAccessor` ao Angular Forms. Storybook, harness,
+  consumer instalado, responsividade, dark mode, Axe e bundle validam a quarta
+  implementação sem alterar Figma, tokens ou as outras três saídas.
+- **Checkbox passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/checkbox` usa checkbox nativo, preserva checked,
+  indeterminate, disabled, required e invalid e integra `ControlValueAccessor`
+  e validação required do Angular Forms. Storybook, harness, consumer instalado,
+  responsividade, dark mode, Axe e bundle passam a validar a quarta implementação
+  sem alterar Figma, tokens ou as outras três saídas.
+- **Modal passa a integrar a saída Angular nativa em beta de workspace.** O novo
+  entrypoint `@tis/angular/modal` preserva a anatomia e os tokens existentes com
+  CDK Overlay/Portal/A11y, estado controlado, focus trap, Escape, backdrop,
+  retorno de foco e tamanhos `sm`, `md` e `lg`. Storybook, consumer instalado,
+  documentação, harness, responsividade, dark mode, Axe e bundle passam a
+  validar a quarta implementação sem alterar Figma ou as outras três saídas.
 - **Quarta saída tecnológica Angular nativa em beta de workspace.** Button,
   Accordion e Popover recebem entrypoints tree-shakable em `@tis/angular`,
   Storybook próprio, consumer real e rotas PT-BR/EN no seletor documental. A
@@ -2375,7 +2404,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | HTML/CSS/JS | Estável | 26 |
 | Ark/Zag | Beta | 13 |
 | React · shadcn/Base UI | Beta | 22 |
-| Angular nativo | Beta local | 3 |
+| Angular nativo | Beta local | 8 |
 | Storybook Web | Completo | 26/26 |
 
 

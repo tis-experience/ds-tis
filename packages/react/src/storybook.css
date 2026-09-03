@@ -17,6 +17,10 @@ body {
 .ds-ark-popover__positioner *,
 .ds-ark-popover__positioner *::before,
 .ds-ark-popover__positioner *::after,
+.ds-tis-dialog__viewport,
+.ds-tis-dialog__viewport *,
+.ds-tis-dialog__viewport *::before,
+.ds-tis-dialog__viewport *::after,
 .ds-modal-overlay,
 .ds-modal-overlay *,
 .ds-modal-overlay *::before,
@@ -27,6 +31,7 @@ body {
 .ds-story-shell :where(p, h1, h2, h3, h4, h5, h6),
 .ds-tis-popover__positioner :where(p, h1, h2, h3, h4, h5, h6),
 .ds-ark-popover__positioner :where(p, h1, h2, h3, h4, h5, h6),
+.ds-tis-dialog__viewport :where(p, h1, h2, h3, h4, h5, h6),
 .ds-modal-overlay :where(p, h1, h2, h3, h4, h5, h6) {
   margin: 0;
 }
@@ -34,6 +39,7 @@ body {
 .ds-story-shell svg,
 .ds-tis-popover__positioner svg,
 .ds-ark-popover__positioner svg,
+.ds-tis-dialog__viewport svg,
 .ds-modal-overlay svg {
   display: block;
   max-width: 100%;

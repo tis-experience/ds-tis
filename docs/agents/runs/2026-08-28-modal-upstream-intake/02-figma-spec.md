@@ -10,6 +10,8 @@
   footer; conteúdo customizado compõe componentes DS existentes.
 - Sizes: Small, Medium e Large, em ordem crescente.
 - Estados comportamentais não geram novo variant visual nesta rodada.
-- Resultado: nenhuma proposta de alteração. Providers permanecem ausentes do
-  Figma e não alteram o contrato agnóstico.
+- Resultado: nenhuma proposta de alteração. As quatro tecnologias permanecem
+  ausentes do Figma e não alteram o contrato agnóstico.
+- Evidência: o snapshot de 2026-08-28 é histórico; em 2026-09-02 o owner
+  confirmou que o Figma não mudou e dispensou novo snapshot para esta saída.
 - Bloqueado: qualquer escrita Figma exige nova autorização específica.

@@ -87,6 +87,8 @@ const required = [
   'packages/angular/button/src/button.ts',
   'packages/angular/accordion/src/accordion.ts',
   'packages/angular/popover/src/popover.ts',
+  'packages/angular/select/src/select.ts',
+  'packages/angular/stories/select.stories.ts',
   'packages/react/src/provider-spike.jsx',
   'packages/react/src/provider-spike.stories.jsx',
   'packages/react/src/ark/accordion.jsx',
@@ -258,7 +260,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,popover'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,modal,popover,radio,select,toggle'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -556,14 +558,51 @@ for (const contract of [
   }
 }
 
+for (const modalStoryId of [
+  'components-modal--tamanhos',
+  'components-modal--corpo-customizado',
+  'ark-modal--sizes',
+  'ark-modal--custom-body',
+  'react-modal--sizes',
+  'react-modal--custom-body',
+  'angular-modal--tamanhos',
+  'angular-modal--corpo-customizado',
+]) {
+  if (!componentDocumentation.includes(`storyId: '${modalStoryId}'`)) {
+    errors.push(`Modal deve publicar o exemplo executável próprio ${modalStoryId}`);
+  }
+}
+
+const technologyImplementations = read('scripts/lib/technology-implementations.mjs');
+if (!technologyImplementations.includes('modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint e storyId do Modal Angular');
+}
+if (!technologyImplementations.includes('checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Checkbox Angular');
+}
+if (!technologyImplementations.includes('radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Radio Angular');
+}
+if (!technologyImplementations.includes('toggle: { entrypoint: "toggle", primitive: "native switch + Angular Forms", storyId: "angular-toggle--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Toggle Angular');
+}
+
 const componentDocumentationPage = read('apps/docs/src/components/ComponentDocumentationPage.astro');
 if (
   !componentDocumentationPage.includes('includeOrders={[10]}') ||
-  !componentDocumentationPage.includes('includeOrders={[40, 50]}') ||
   !componentDocumentationPage.includes('data-output-example="playground"') ||
-  !componentDocumentationPage.includes('data-output-example="content-slot"')
+  !componentDocumentationPage.includes("slug === 'popover' ? [40, 50] : [60]") ||
+  !componentDocumentationPage.includes("slug === 'popover' ? 'content-slot' : 'documented'")
 ) {
   errors.push('Popover deve separar anatomia compartilhada de exemplos executáveis próprios de cada saída');
+}
+if (
+  !componentDocumentationPage.includes("slug === 'popover' || slug === 'modal'") ||
+  !componentDocumentationPage.includes("slug === 'popover' ? [40, 50] : [60]") ||
+  !componentDocumentationPage.includes("slug === 'popover' ? 'content-slot' : 'documented'") ||
+  !componentDocumentationPage.includes('data-output-story-id={example.storyId}')
+) {
+  errors.push('Modal deve separar anatomia e tokens compartilhados de exemplos executáveis próprios de cada saída');
 }
 for (const contract of [
   '<ComponentPageHeader',
@@ -650,6 +689,15 @@ for (const [topic, expectedCount] of Object.entries(expectedPopoverTopics)) {
   const count = (popoverHtml.match(new RegExp(`data-doc-topic="${topic}"`, 'g')) || []).length;
   if (count !== expectedCount) {
     errors.push(`docs/popover.html deve expor ${expectedCount} landmarks ${topic}; recebeu ${count}`);
+  }
+}
+
+const modalHtml = read('docs/modal.html');
+const expectedModalTopics = { design: 6, code: 2, accessibility: 2 };
+for (const [topic, expectedCount] of Object.entries(expectedModalTopics)) {
+  const count = (modalHtml.match(new RegExp(`data-doc-topic="${topic}"`, 'g')) || []).length;
+  if (count !== expectedCount) {
+    errors.push(`docs/modal.html deve expor ${expectedCount} landmarks ${topic}; recebeu ${count}`);
   }
 }
 
@@ -1011,9 +1059,11 @@ if (
   reactModalStories.includes('destructive') ||
   reactModalStories.includes('Excluir') ||
   !reactModalStories.includes("size: 'md'") ||
+  !reactModalStories.includes('export const CustomBody') ||
+  !registryDialog.includes('size = "md"') ||
   !registryDialog.includes('aria-modal="true"')
 ) {
-  errors.push('Modal React deve usar md como padrão, reservar destrutividade para Alert Dialog e expor aria-modal');
+  errors.push('Modal React deve usar md como padrão, compor body próprio, reservar destrutividade para Alert Dialog e expor aria-modal');
 }
 for (const staleStoryFile of [
   'packages/react/src/shadcn-base-ui.stories.jsx',

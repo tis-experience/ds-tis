@@ -19,13 +19,23 @@ const EVIDENCE = path.join(
 );
 const definitions = {
   button: { file: "tis-angular-button.mjs", budget: 4 * 1024 },
+  checkbox: { file: "tis-angular-checkbox.mjs", budget: 5 * 1024 },
   accordion: { file: "tis-angular-accordion.mjs", budget: 8 * 1024 },
+  modal: { file: "tis-angular-modal.mjs", budget: 12 * 1024 },
   popover: { file: "tis-angular-popover.mjs", budget: 12 * 1024 },
+  radio: { file: "tis-angular-radio.mjs", budget: 6 * 1024 },
+  select: { file: "tis-angular-select.mjs", budget: 6 * 1024 },
+  toggle: { file: "tis-angular-toggle.mjs", budget: 5 * 1024 },
 };
 const forbiddenByEntry = {
   button: ["AccordionGroup", "FlexibleConnectedPositionStrategy"],
+  checkbox: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   accordion: ["FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  modal: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   popover: ["AccordionGroup", "data-tis-angular-button"],
+  radio: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  select: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  toggle: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
 };
 const failures = [];
 const results = [];

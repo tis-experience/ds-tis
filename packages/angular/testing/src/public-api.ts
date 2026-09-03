@@ -1,1 +1,10 @@
-export { TisAccordionHarness, TisButtonHarness, TisPopoverHarness } from "./harnesses";
+export {
+  TisAccordionHarness,
+  TisButtonHarness,
+  TisCheckboxHarness,
+  TisModalHarness,
+  TisPopoverHarness,
+  TisRadioGroupHarness,
+  TisSelectHarness,
+  TisToggleHarness,
+} from "./harnesses";
