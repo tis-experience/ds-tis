@@ -77,7 +77,7 @@ const routeFor = (component: any, technology: 'web' | 'ark' | 'react' | 'angular
       : undefined;
   }
   if (technology === 'angular') {
-    return pilotSlugs.has(component.slug) && implementation.status === 'beta'
+    return implementation.status === 'beta'
       ? `${base}/${locale}/angular/components/${component.slug}/`
       : undefined;
   }

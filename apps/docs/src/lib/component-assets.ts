@@ -11,6 +11,7 @@ import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
 import tabsCssUrl from '../../../../css/components/tabs.css?url';
+import textareaCssUrl from '../../../../css/components/textarea.css?url';
 import toastCssUrl from '../../../../css/components/toast.css?url';
 import toggleCssUrl from '../../../../css/components/toggle.css?url';
 import tooltipCssUrl from '../../../../css/components/tooltip.css?url';
@@ -26,12 +27,14 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   button: { css: [buttonCssUrl] },
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },
+  input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },
   tabs: { css: [buttonCssUrl, tabsCssUrl] },
+  textarea: { css: [formFieldCssUrl, textareaCssUrl] },
   toast: { css: [badgeCssUrl, buttonCssUrl, toastCssUrl] },
   toggle: { css: [buttonCssUrl, toggleCssUrl] },
   tooltip: { css: [buttonCssUrl, tooltipCssUrl] },

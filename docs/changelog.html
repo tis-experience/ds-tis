@@ -68,6 +68,11 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Input Text e Textarea preservam a composição visual na documentação vNext.</strong>
+As seções compartilhadas passam a carregar Form Field e o CSS público de
+cada controle, renderizam todos os ícones da anatomia e mantêm o canvas em
+largura total com o exemplo centralizado, sem campos colapsados ou áreas
+vazias nas páginas Angular.</li>
 <li><strong>Anatomia e exemplos do Modal preservam a geometria HTML/CSS no portal.</strong>
 Web, Ark/Zag, React e Angular deixam de herdar o rhythm editorial do
 Starlight dentro do componente: close, body, footer, Buttons e Input mantêm
@@ -95,6 +100,13 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.</strong>
+Os entrypoints <code>@tis/angular/input</code> e <code>@tis/angular/textarea</code> compõem Form
+Field, label, helper, erro, ícones e contador pela anatomia pública do DS,
+preservam required, invalid, disabled e readonly e integram
+<code>ControlValueAccessor</code> ao Angular Forms. Storybook, harnesses, consumer
+instalado, responsividade, dark mode, Axe e bundles validam as duas novas
+implementações sem alterar Figma, tokens ou as outras três saídas.</li>
 <li><strong>Toggle passa a integrar a saída Angular nativa em beta de workspace.</strong> O
 entrypoint <code>@tis/angular/toggle</code> usa checkbox nativo com role switch, preserva
 on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra

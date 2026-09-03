@@ -9,6 +9,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Input Text e Textarea preservam a composição visual na documentação vNext.**
+  As seções compartilhadas passam a carregar Form Field e o CSS público de
+  cada controle, renderizam todos os ícones da anatomia e mantêm o canvas em
+  largura total com o exemplo centralizado, sem campos colapsados ou áreas
+  vazias nas páginas Angular.
 - **Anatomia e exemplos do Modal preservam a geometria HTML/CSS no portal.**
   Web, Ark/Zag, React e Angular deixam de herdar o rhythm editorial do
   Starlight dentro do componente: close, body, footer, Buttons e Input mantêm
@@ -35,6 +40,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Input Text e Textarea passam a integrar a saída Angular nativa em beta de workspace.**
+  Os entrypoints `@tis/angular/input` e `@tis/angular/textarea` compõem Form
+  Field, label, helper, erro, ícones e contador pela anatomia pública do DS,
+  preservam required, invalid, disabled e readonly e integram
+  `ControlValueAccessor` ao Angular Forms. Storybook, harnesses, consumer
+  instalado, responsividade, dark mode, Axe e bundles validam as duas novas
+  implementações sem alterar Figma, tokens ou as outras três saídas.
 - **Toggle passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/toggle` usa checkbox nativo com role switch, preserva
   on/off, Space, disabled, tamanhos e conteúdo auxiliar e integra

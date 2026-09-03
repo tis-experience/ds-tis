@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T01:37:16.153Z",
+  "generatedAt": "2026-09-03T12:48:13.819Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -13,6 +13,12 @@
       "rawBytes": 8816,
       "gzipBytes": 1987,
       "budgetGzipBytes": 5120
+    },
+    {
+      "name": "input",
+      "rawBytes": 13227,
+      "gzipBytes": 2574,
+      "budgetGzipBytes": 6144
     },
     {
       "name": "accordion",
@@ -42,6 +48,12 @@
       "name": "select",
       "rawBytes": 11281,
       "gzipBytes": 2373,
+      "budgetGzipBytes": 6144
+    },
+    {
+      "name": "textarea",
+      "rawBytes": 11506,
+      "gzipBytes": 2396,
       "budgetGzipBytes": 6144
     },
     {
