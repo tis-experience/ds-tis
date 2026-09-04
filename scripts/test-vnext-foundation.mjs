@@ -40,6 +40,7 @@ const required = [
   'apps/docs/src/content/docs/pt-br/ark/components/toast.mdx',
   'apps/docs/src/content/docs/pt-br/web/components/button.mdx',
   'apps/docs/src/content/docs/pt-br/web/components/card.mdx',
+  'apps/docs/src/content/docs/pt-br/web/components/divider.mdx',
   'apps/docs/src/content/docs/pt-br/web/components/modal.mdx',
   'apps/docs/src/content/docs/pt-br/web/components/menu.mdx',
   'apps/docs/src/content/docs/pt-br/web/components/tabs.mdx',
@@ -60,6 +61,7 @@ const required = [
   'apps/docs/src/content/docs/en/ark/components/toast.mdx',
   'apps/docs/src/content/docs/en/web/components/modal.mdx',
   'apps/docs/src/content/docs/en/web/components/card.mdx',
+  'apps/docs/src/content/docs/en/web/components/divider.mdx',
   'apps/docs/src/content/docs/en/web/components/menu.mdx',
   'apps/docs/src/content/docs/en/web/components/tabs.mdx',
   'apps/docs/src/content/docs/en/web/components/toast.mdx',
@@ -92,6 +94,7 @@ const required = [
   'packages/angular/card/src/card.ts',
   'packages/angular/accordion/src/accordion.ts',
   'packages/angular/combobox/src/combobox.ts',
+  'packages/angular/divider/src/divider.ts',
   'packages/angular/menu/src/menu.ts',
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
@@ -100,6 +103,7 @@ const required = [
   'packages/angular/stories/badge.stories.ts',
   'packages/angular/stories/card.stories.ts',
   'packages/angular/stories/combobox.stories.ts',
+  'packages/angular/stories/divider.stories.ts',
   'packages/angular/stories/menu.stories.ts',
   'packages/react/src/provider-spike.jsx',
   'packages/react/src/provider-spike.stories.jsx',
@@ -272,7 +276,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,alert,badge,button,card,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,alert,badge,button,card,checkbox,combobox,divider,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -620,6 +624,9 @@ if (!technologyImplementations.includes('badge: { entrypoint: "badge", primitive
 }
 if (!technologyImplementations.includes('card: { entrypoint: "card", primitive: "semantic native element + Angular composition", storyId: "angular-card--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Card Angular');
+}
+if (!technologyImplementations.includes('divider: { entrypoint: "divider", primitive: "native hr", storyId: "angular-divider--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Divider Angular');
 }
 if (!technologyImplementations.includes('modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint e storyId do Modal Angular');

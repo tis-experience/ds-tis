@@ -49,7 +49,7 @@
   <!-- ============================================================
        2. WHEN TO USE / WHEN NOT TO USE
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
     <div class="ds-callout ds-callout--success">
       <div class="ds-callout__title"><span data-lang="pt">Use dividers quando</span><span data-lang="en">Use dividers when</span></div>
@@ -64,13 +64,24 @@
   <!-- ============================================================
        3. ANATOMY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:var(--ds-space-4xl);">
+      <div style="position:relative;width:min(100%,var(--ds-size-layout-sm));" inert>
+        <hr class="ds-divider" style="margin:0;">
+        <span style="position:absolute;left:25%;bottom:0;width:1px;height:var(--ds-space-xl);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:25%;bottom:calc(var(--ds-space-xl) * -1);transform:translateX(-50%);">1</span>
+        <span style="position:absolute;left:50%;top:0;width:1px;height:var(--ds-space-xl);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:50%;top:calc(var(--ds-space-xl) * -1);transform:translateX(-50%);">2</span>
+        <span style="position:absolute;right:25%;bottom:0;width:1px;height:var(--ds-space-xl);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="right:25%;bottom:calc(var(--ds-space-xl) * -1);transform:translateX(50%);">3</span>
+      </div>
+    </div>
     <div class="ds-anatomy-legend">
-      <span data-lang="pt"><strong>1</strong> Elemento separador (<code>.ds-divider</code>) — <code>&lt;hr&gt;</code> decorativo ou elemento com <code>role="separator"</code> quando semântico.<br>
+      <span data-lang="pt"><strong>1</strong> Elemento separador (<code>.ds-divider</code>) — use <code>&lt;hr&gt;</code> quando a separação for semântica; marque como decorativo quando for apenas visual.<br>
       <strong>2</strong> Orientação — horizontal por padrão; vertical com <code>.ds-divider--vertical</code>.<br>
       <strong>3</strong> Token de borda — usa cor semântica de divider/border, não cor hardcoded.</span>
-      <span data-lang="en"><strong>1</strong> Separator element (<code>.ds-divider</code>) — decorative <code>&lt;hr&gt;</code> or element with <code>role="separator"</code> when semantic.<br>
+      <span data-lang="en"><strong>1</strong> Separator element (<code>.ds-divider</code>) — use <code>&lt;hr&gt;</code> for semantic separation; mark it as decorative when it is only visual.<br>
       <strong>2</strong> Orientation — horizontal by default; vertical with <code>.ds-divider--vertical</code>.<br>
       <strong>3</strong> Border token — uses semantic divider/border color, not hardcoded color.</span>
     </div>
@@ -79,7 +90,7 @@
   <!-- ============================================================
        4. VARIANTS (live previews)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Divider horizontal</span><span data-lang="en">Horizontal divider</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">O divider padrão ocupa toda a largura do container e adiciona separação vertical entre o conteúdo.</span><span data-lang="en">The default divider spans the full width of its container and adds vertical separation between content.</span></p>
     <div class="ds-preview">
@@ -101,7 +112,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Em uma lista</span><span data-lang="en">In a list</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Dividers entre itens de lista criam agrupamento visual.</span><span data-lang="en">Dividers between list items create visual grouping.</span></p>
     <div class="ds-preview">
@@ -140,7 +151,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="40">
     <h2 class="ds-subsection__title"><span data-lang="pt">Divider vertical</span><span data-lang="en">Vertical divider</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Use <code>ds-divider--vertical</code> dentro de um flex container para separar itens horizontalmente.</span><span data-lang="en">Use <code>ds-divider--vertical</code> inside a flex container to separate items horizontally.</span></p>
     <div class="ds-preview">
@@ -168,7 +179,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="50">
     <h2 class="ds-subsection__title"><span data-lang="pt">Em uma toolbar</span><span data-lang="en">In a toolbar</span></h2>
     <p style="margin-bottom:var(--ds-space-lg);color:var(--ds-content-default);font-size:var(--ds-body-font-size-sm);"><span data-lang="pt">Dividers verticais separam grupos de ações em uma toolbar.</span><span data-lang="en">Vertical dividers separate groups of actions in a toolbar.</span></p>
     <div class="ds-preview">
@@ -203,7 +214,7 @@
   <!-- ============================================================
        4. BEST PRACTICES (Do / Don't)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
 
     <div class="ds-dodont">
@@ -237,7 +248,7 @@
   <!-- ============================================================
        5. TOKEN MAPPING
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="60">
     <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
@@ -252,7 +263,7 @@
   <!-- ============================================================
        6. CSS CLASSES
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="code" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
@@ -266,7 +277,7 @@
   <!-- ============================================================
        7. ACCESSIBILITY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Contexto</span><span data-lang="en">Context</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th><span data-lang="pt">Implementação</span><span data-lang="en">Implementation</span></th></tr></thead>
@@ -286,7 +297,7 @@
   <!-- ============================================================
        8. RELATED COMPONENTS
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="card.html" class="ds-related__link">Card</a>

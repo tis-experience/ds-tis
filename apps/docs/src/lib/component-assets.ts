@@ -5,6 +5,7 @@ import buttonCssUrl from '../../../../css/components/button.css?url';
 import cardCssUrl from '../../../../css/components/card.css?url';
 import checkboxCssUrl from '../../../../css/components/checkbox.css?url';
 import comboboxCssUrl from '../../../../css/components/combobox.css?url';
+import dividerCssUrl from '../../../../css/components/divider.css?url';
 import formFieldCssUrl from '../../../../css/components/form-field.css?url';
 import inputCssUrl from '../../../../css/components/input.css?url';
 import menuCssUrl from '../../../../css/components/menu.css?url';
@@ -32,6 +33,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   card: { css: [badgeCssUrl, buttonCssUrl, cardCssUrl] },
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },
+  divider: { css: [buttonCssUrl, dividerCssUrl] },
   input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },

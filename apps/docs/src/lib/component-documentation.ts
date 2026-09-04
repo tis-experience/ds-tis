@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'card' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'card' | 'checkbox' | 'combobox' | 'divider' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -331,6 +331,84 @@ initAccordions()`,
     <div class="ds-card__body">128 licenças ativas.</div>
   </div>
 </article>`,
+    },
+  },
+  divider: {
+    description: {
+      pt: 'Separa regiões de conteúdo relacionadas sem introduzir uma nova superfície.',
+      en: 'Separates related content regions without introducing a new surface.',
+    },
+    previewSize: 'compact',
+    descriptions: {
+      angular: {
+        pt: 'Diretiva standalone sobre hr nativo, com orientação tipada e semântica decorativa opcional.',
+        en: 'A standalone directive on a native hr element, with typed orientation and optional decorative semantics.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, sobre hr nativo e com as classes/tokens públicos do Divider TIS.',
+        en: 'A React source recipe on a native hr element using the public TIS Divider classes and tokens.',
+      },
+    },
+    usageGuidance: {
+      useWhen: [
+        { pt: 'A proximidade e o espaçamento não distinguem suficientemente grupos relacionados.', en: 'Proximity and spacing do not sufficiently distinguish related groups.' },
+        { pt: 'Uma toolbar precisa separar visualmente grupos de ações.', en: 'A toolbar needs to visually separate action groups.' },
+      ],
+      avoidWhen: [
+        { pt: 'Um heading ou o espaçamento já comunica claramente a mudança de seção.', en: 'A heading or spacing already clearly communicates the section change.' },
+        { pt: 'A linha seria usada apenas como decoração sem função de agrupamento.', en: 'The line would be used only as decoration without a grouping function.' },
+      ],
+    },
+    examples: {
+      web: [{
+        storyId: 'components-divider--contextos',
+        size: 'medium',
+        title: { pt: 'Contextos', en: 'Contexts' },
+        description: {
+          pt: 'Separadores horizontal e vertical executados com HTML e CSS estáveis.',
+          en: 'Horizontal and vertical separators rendered with stable HTML and CSS.',
+        },
+      }],
+      react: [{
+        storyId: 'react-divider--toolbar',
+        size: 'compact',
+        title: { pt: 'Toolbar', en: 'Toolbar' },
+        description: {
+          pt: 'Separador vertical executado pela recipe React entre Buttons da própria saída.',
+          en: 'A vertical separator rendered by the React recipe between Buttons from the same output.',
+        },
+      }],
+      angular: [{
+        storyId: 'angular-divider--toolbar',
+        size: 'compact',
+        title: { pt: 'Toolbar', en: 'Toolbar' },
+        description: {
+          pt: 'Separador vertical decorativo executado pela diretiva Angular entre Buttons nativos.',
+          en: 'A decorative vertical separator rendered by the Angular directive between native Buttons.',
+        },
+      }],
+    },
+    angular: {
+      primitive: 'HTML hr nativo',
+      imports: `import { TisDivider } from '@tis/angular/divider'`,
+      markup: `<hr tisDivider>
+
+<div role="toolbar" aria-label="Ações de edição">
+  <button type="button">Copiar</button>
+  <hr tisDivider orientation="vertical" [decorative]="true">
+  <button type="button">Colar</button>
+</div>`,
+    },
+    web: {
+      storyId: 'components-divider--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<hr class="ds-divider">
+
+<div role="toolbar" aria-label="Ações de edição">
+  <button type="button">Copiar</button>
+  <hr class="ds-divider ds-divider--vertical" aria-hidden="true">
+  <button type="button">Colar</button>
+</div>`,
     },
   },
   input: {

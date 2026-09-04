@@ -31,6 +31,7 @@ import {
 } from "@tis/angular/card";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
+import { TisDivider } from "@tis/angular/divider";
 import { TisInput, TisInputIconStart } from "@tis/angular/input";
 import {
   TisActionMenu,
@@ -89,6 +90,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisCheckbox,
     TisCombobox,
     TisComboboxIcon,
+    TisDivider,
     TisInput,
     TisInputIconStart,
     TisActionMenu,
@@ -128,7 +130,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Dezassete componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Dezenove componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -225,6 +227,23 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
               <div tisCardContent><p>{{ cardSelected() ? "Selecionado" : "Selecionar card" }}</p></div>
             </div>
           </button>
+        </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="divider-heading">
+        <div class="consumer-section__heading">
+          <h2 id="divider-heading">Divider</h2>
+          <span class="consumer-status">HTML hr nativo</span>
+        </div>
+        <div class="consumer-divider-stack">
+          <p>Configurações gerais</p>
+          <hr tisDivider data-testid="divider-horizontal">
+          <div class="consumer-divider-toolbar" role="toolbar" aria-label="Ações de edição">
+            <tis-button size="sm" variant="ghost">Recortar</tis-button>
+            <tis-button size="sm" variant="ghost">Copiar</tis-button>
+            <hr tisDivider orientation="vertical" [decorative]="true" data-testid="divider-vertical">
+            <tis-button size="sm" variant="ghost">Desfazer</tis-button>
+          </div>
         </div>
       </section>
 

@@ -84,6 +84,20 @@ export class TisCardHarness extends ComponentHarness {
   }
 }
 
+export class TisDividerHarness extends ComponentHarness {
+  static readonly hostSelector = "hr[tisDivider]";
+
+  async getOrientation(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-orientation");
+  }
+
+  async isDecorative(): Promise<boolean> {
+    const host = await this.host();
+    return (await host.getAttribute("aria-hidden")) === "true" &&
+      (await host.getAttribute("role")) === "presentation";
+  }
+}
+
 export class TisAccordionHarness extends ComponentHarness {
   static readonly hostSelector = "[tisAccordion]";
   private readonly triggers = this.locatorForAll("button[tisAccordionTrigger]");

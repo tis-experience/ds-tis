@@ -9,6 +9,9 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Divider vertical preserva espessura em composições flex.** O separador deixa
+  de colapsar para largura zero em toolbars estreitas, mantendo o token de
+  espessura nas saídas HTML/CSS, React e Angular.
 - **Catálogo não escolhe HTML/CSS ao clicar no nome do componente.** Os nomes
   passam a identificar cada item sem funcionar como atalho implícito para Web;
   a navegação fica restrita aos links rotulados HTML/CSS/JS, Ark/Zag, React e
@@ -54,6 +57,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Divider passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/divider` oferece diretiva standalone sobre `hr`
+  nativo, com orientação horizontal/vertical e semântica decorativa opcional.
+  Storybook, harness, consumer instalado, responsividade, dark mode, Axe e
+  bundle validam a saída. As páginas Web, React e Angular expõem anatomia
+  numerada e executam exemplos próprios, sem alterar Figma ou tokens.
 - **Card passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/card` oferece diretivas standalone para media,
   container, header, title, description, content e footer, preservando `article`
