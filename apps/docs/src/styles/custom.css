@@ -106,6 +106,24 @@ html {
   width: min(100%, 25rem);
 }
 
+/* Os exemplos legados de Card limitavam o próprio canvas a 320px, deixando
+   metade do painel sem fundo e fazendo o componente parecer cortado. O canvas
+   ocupa a largura disponível; a restrição de leitura fica somente no Card. */
+.ds-source-guidance[data-component-source='card'] .ds-preview__canvas {
+  width: 100%;
+  max-width: none !important;
+}
+
+.ds-source-guidance[data-component-source='card'] .ds-preview__canvas > .ds-card {
+  width: min(100%, var(--ds-size-layout-xs));
+  max-width: var(--ds-size-layout-xs);
+}
+
+.ds-source-guidance[data-component-source='card'] .ds-preview__canvas[style*='grid-template-columns'] > .ds-card {
+  width: 100%;
+  max-width: none;
+}
+
 .ds-source-guidance:is(
   [data-component-source='input'],
   [data-component-source='textarea']

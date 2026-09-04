@@ -52,7 +52,7 @@ try {
   expect((await page.locator('[data-testid="submit-count"]').textContent())?.includes("1"), "Button type=submit não submeteu o form nativo");
 
   const badges = page.locator("[data-tis-angular-badge]");
-  expect(await badges.count() === 2, "Badge não renderizou os dois exemplos do consumer");
+  expect(await badges.count() === 3, "Badge não renderizou os exemplos próprios e a composição no Card");
   expect(
     await badges.first().evaluate((node) =>
       node.textContent?.trim() === "Aprovado" &&
@@ -62,6 +62,18 @@ try {
       node.classList.contains("ds-badge--subtle")),
     "Badge não preservou conteúdo, tom, variante ou classes públicas",
   );
+
+  const staticCard = page.locator('[data-testid="card-static"]');
+  const interactiveCard = page.locator('[data-testid="card-interactive"]');
+  expect(await staticCard.evaluate((node) => node.tagName === "ARTICLE"), "Card estático não preservou article semântico");
+  expect(await staticCard.getAttribute("data-variant") === "outlined", "Card estático não expôs a variante outlined");
+  expect(await interactiveCard.evaluate((node) => node.tagName === "BUTTON"), "Card interativo não preservou button semântico");
+  expect(await interactiveCard.getAttribute("aria-pressed") === "false", "Card interativo deveria iniciar não selecionado");
+  await interactiveCard.click();
+  await page.waitForFunction(() => document.querySelector('[data-testid="card-interactive"]')?.getAttribute("aria-pressed") === "true");
+  expect(await interactiveCard.getAttribute("aria-pressed") === "true", "Card interativo não alternou a seleção");
+  await interactiveCard.focus();
+  expect(await interactiveCard.evaluate((node) => node === document.activeElement), "Card interativo não recebeu foco");
 
   const input = page.getByRole("textbox", { name: "E-mail" });
   const inputWrapper = page.locator("tis-input .ds-input");
@@ -437,11 +449,20 @@ try {
       };
     }));
     expect(
-      responsiveBadges.length === 2 && responsiveBadges.every((geometry) =>
+      responsiveBadges.length === 3 && responsiveBadges.every((geometry) =>
         geometry.width > geometry.height && geometry.height > 0 &&
         geometry.width < geometry.viewport * 0.75 &&
         geometry.left >= 0 && geometry.right <= geometry.viewport),
       `${width}px: Badge cortado ou deformado (${JSON.stringify(responsiveBadges)})`,
+    );
+    const responsiveCards = await page.locator("[data-tis-angular-card]").evaluateAll((nodes) => nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return { height: rect.height, left: rect.left, right: rect.right, viewport: document.documentElement.clientWidth, width: rect.width };
+    }));
+    expect(
+      responsiveCards.length === 2 && responsiveCards.every((geometry) =>
+        geometry.width > 0 && geometry.height > 0 && geometry.left >= 0 && geometry.right <= geometry.viewport),
+      `${width}px: Card cortado ou deformado (${JSON.stringify(responsiveCards)})`,
     );
     const responsiveCombobox = page.getByRole("combobox", { exact: true, name: "Buscar país" });
     await responsiveCombobox.fill("Bra");
@@ -678,6 +699,7 @@ try {
     return {
       badge: compare("[data-tis-angular-badge]", "ds-badge ds-badge--success ds-badge--subtle", ["align-items", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size", "line-height"]),
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
+      card: compare('[data-testid="card-static"]', "ds-card ds-card--outlined", ["display", "flex-direction", "overflow", "border-radius", "background-color", "border-color", "border-width"]),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
       combobox: compareField("tis-combobox .ds-combobox", "ds-combobox ds-combobox--md", '<input class="ds-combobox__input">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
@@ -700,6 +722,7 @@ try {
   const storyContracts = [
     ["angular-button--playground", "tis-button"],
     ["angular-badge--playground", "tis-badge"],
+    ["angular-card--playground", "[tisCard]"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
     ["angular-combobox--playground", "tis-combobox"],
@@ -751,6 +774,35 @@ try {
   expect(await page.locator("html").getAttribute("data-mode") === "dark", "Story do Badge não recebeu tema dark");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), "Story do Badge criou overflow horizontal em 320px");
   await axe("Storybook Badge dark 320px");
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-card--interativo&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyCard = page.getByRole("button", { name: /Segurança/ });
+  await storyCard.waitFor();
+  expect(await storyCard.getAttribute("aria-pressed") === "false", "Story do Card deveria iniciar não selecionada");
+  await storyCard.click();
+  await page.waitForFunction(() => document.querySelector('[data-tis-angular-card]')?.getAttribute("aria-pressed") === "true");
+  expect(await storyCard.getAttribute("aria-pressed") === "true", "Story do Card não alternou aria-pressed");
+  const cardStoryGeometry = await storyCard.evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    return {
+      background: style.backgroundColor,
+      height: rect.height,
+      left: rect.left,
+      mode: document.documentElement.dataset.mode,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      right: rect.right,
+      width: rect.width,
+    };
+  });
+  expect(
+    cardStoryGeometry.mode === "dark" && cardStoryGeometry.width > 0 && cardStoryGeometry.height > 0 &&
+      cardStoryGeometry.left >= 0 && cardStoryGeometry.right <= 320 && cardStoryGeometry.overflow <= 1 &&
+      cardStoryGeometry.background !== "rgba(0, 0, 0, 0)",
+    `Story do Card ficou cortada, sem superfície ou fora do tema dark (${JSON.stringify(cardStoryGeometry)})`,
+  );
+  await axe("Storybook Card dark 320px");
 
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-menu--escolhas&globals=mode:dark`, { waitUntil: "networkidle" });

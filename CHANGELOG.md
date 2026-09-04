@@ -54,6 +54,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Card passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/card` oferece diretivas standalone para media,
+  container, header, title, description, content e footer, preservando `article`
+  ou `button` como raiz semântica. Storybook, harness, consumer instalado,
+  seleção real, responsividade, dark mode, Axe e bundle validam a saída. As
+  páginas Web, React e Angular carregam o CSS público e executam exemplos
+  próprios equivalentes, sem alterar Figma ou tokens.
 - **Alert passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/alert` oferece composição standalone para icon,
   content, title, description, actions e close, com tons `error`, `info`,

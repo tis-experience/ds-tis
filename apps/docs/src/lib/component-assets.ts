@@ -2,6 +2,7 @@ import accordionCssUrl from '../../../../css/components/accordion.css?url';
 import alertCssUrl from '../../../../css/components/alert.css?url';
 import badgeCssUrl from '../../../../css/components/badge.css?url';
 import buttonCssUrl from '../../../../css/components/button.css?url';
+import cardCssUrl from '../../../../css/components/card.css?url';
 import checkboxCssUrl from '../../../../css/components/checkbox.css?url';
 import comboboxCssUrl from '../../../../css/components/combobox.css?url';
 import formFieldCssUrl from '../../../../css/components/form-field.css?url';
@@ -28,6 +29,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   alert: { css: [alertCssUrl, buttonCssUrl] },
   badge: { css: [badgeCssUrl] },
   button: { css: [buttonCssUrl] },
+  card: { css: [badgeCssUrl, buttonCssUrl, cardCssUrl] },
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },
   input: { css: [formFieldCssUrl, inputCssUrl] },

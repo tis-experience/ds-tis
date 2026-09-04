@@ -14,6 +14,7 @@ import { TisAccordion, TisAccordionItem } from "@tis/angular/accordion";
 import { TisAlert, TisAlertContent, TisAlertTitle } from "@tis/angular/alert";
 import { TisBadge } from "@tis/angular/badge";
 import { TisButton } from "@tis/angular/button";
+import { TisCard, TisCardContainer, TisCardContent } from "@tis/angular/card";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon } from "@tis/angular/combobox";
 import { TisInput } from "@tis/angular/input";

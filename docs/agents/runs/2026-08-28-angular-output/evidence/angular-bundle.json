@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T14:27:46.466Z",
+  "generatedAt": "2026-09-04T15:28:52.590Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -25,6 +25,12 @@
       "rawBytes": 6173,
       "gzipBytes": 1351,
       "budgetGzipBytes": 4096
+    },
+    {
+      "name": "card",
+      "rawBytes": 5966,
+      "gzipBytes": 974,
+      "budgetGzipBytes": 5120
     },
     {
       "name": "checkbox",

@@ -35,6 +35,21 @@ select {
   flex-wrap: wrap;
 }
 
+.consumer-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-size-layout-xs)), 1fr));
+  align-items: start;
+  gap: var(--ds-space-lg);
+}
+
+.consumer-card-grid > [tisCard] {
+  box-sizing: border-box;
+  inline-size: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+}
+
 .consumer-header {
   align-items: flex-start;
   margin-block-end: var(--ds-space-2xl);

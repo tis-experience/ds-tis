@@ -3,6 +3,7 @@ export {
   TisAlertHarness,
   TisBadgeHarness,
   TisButtonHarness,
+  TisCardHarness,
   TisCheckboxHarness,
   TisComboboxHarness,
   TisInputHarness,

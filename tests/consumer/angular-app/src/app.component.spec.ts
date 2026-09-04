@@ -6,6 +6,7 @@ import {
   TisAlertHarness,
   TisBadgeHarness,
   TisButtonHarness,
+  TisCardHarness,
   TisCheckboxHarness,
   TisComboboxHarness,
   TisInputHarness,
@@ -50,13 +51,14 @@ describe("DS TIS Angular consumer", () => {
     const loader = TestbedHarnessEnvironment.loader(fixture);
     const badges = await loader.getAllHarnesses(TisBadgeHarness);
 
-    expect(badges).toHaveLength(2);
+    expect(badges).toHaveLength(3);
     expect(await badges[0].getText()).toBe("Aprovado");
     expect(await badges[0].getTone()).toBe("success");
     expect(await badges[0].getVariant()).toBe("subtle");
     expect(await badges[1].getText()).toBe("Pendente");
     expect(await badges[1].getTone()).toBe("warning");
     expect(await badges[1].getVariant()).toBe("solid");
+    expect(await badges[2].getText()).toBe("Saudável");
   });
 
   it("renderiza Alert com live region contextual e fechamento controlado", async () => {
@@ -74,6 +76,25 @@ describe("DS TIS Angular consumer", () => {
     fixture.detectChanges();
     expect(fixture.componentInstance.alertVisible()).toBe(false);
     expect(fixture.nativeElement.querySelector('[data-testid="alert-dismissed"]')?.textContent.trim()).toBe("Alerta dispensado.");
+  });
+
+  it("preserva semântica e seleção no Card interativo", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const cards = await loader.getAllHarnesses(TisCardHarness);
+
+    expect(cards).toHaveLength(2);
+    expect(await cards[0].getTitle()).toBe("Uso da organização");
+    expect(await cards[0].getVariant()).toBe("outlined");
+    expect(await cards[0].isSelected()).toBe(false);
+    expect(await cards[1].getTitle()).toBe("Segurança");
+    expect(await cards[1].getVariant()).toBe("interactive");
+    expect(await cards[1].isSelected()).toBe(false);
+    await cards[1].click();
+    fixture.detectChanges();
+    expect(await cards[1].isSelected()).toBe(true);
+    expect(fixture.componentInstance.cardSelected()).toBe(true);
   });
 
   it("mantém single mode, disabled e relações ARIA no Accordion", async () => {

@@ -1,19 +1,19 @@
 # Relatório da saída Angular
 
 - Data da validação: 2026-09-04
-- Branch: `codex/angular-alert`
-- Base: `2768df5` (`origin/main`)
-- Status: **Alert implementado e validado neste incremento**
+- Branch: `codex/angular-card`
+- Base: `5375020` (`origin/main`)
+- Status: **Card implementado e validado neste incremento**
 
 ## 1. Escopo
 
-A saída Angular agora oferece dezassete entrypoints independentes: Accordion,
-Alert, Badge, Button, Checkbox, Combobox, Input Text, Menu, Modal, Popover,
+A saída Angular agora oferece dezoito entrypoints independentes: Accordion,
+Alert, Badge, Button, Card, Checkbox, Combobox, Input Text, Menu, Modal, Popover,
 Radio, Select, Tabs, Textarea, Toast, Toggle e Tooltip. Este incremento
-acrescenta o Alert Angular e os artefatos necessários de consumer, Storybook,
-documentação e testes. O exemplo padrão, a iconografia por tom e o dismiss foram
-alinhados entre Web, React e Angular. CSS público, tokens e Figma foram
-preservados.
+acrescenta o Card Angular e os artefatos necessários de consumer, Storybook,
+documentação e testes. Anatomia, estados, composição, responsividade e exemplo
+interativo foram alinhados entre Web, React e Angular. CSS público, tokens e
+Figma foram preservados.
 
 O owner confirmou que o Figma não teve alterações e dispensou novo snapshot
 para esta implementação. A evidência Figma anterior permanece histórica e não é
@@ -27,6 +27,7 @@ apresentada como evidência fresca de release.
 | Alert | `TisAlert` e diretivas de icon/content/title/description/actions/close | live region HTML + composição Angular | quatro tons, solid/subtle, dismiss, prioridade semântica, responsividade e temas |
 | Badge | `TisBadge` standalone | elemento host apresentacional | seis tons, solid/subtle, content projection, responsividade e temas |
 | Button | `TisButton` standalone | HTML nativo | submit, loading, disabled, ícones, sizes e temas |
+| Card | `TisCard` e diretivas de media/container/header/title/description/content/footer | elemento semântico nativo + composição Angular | article estático, button interativo, variantes, seleção, composição, responsividade e temas |
 | Checkbox | `TisCheckbox` standalone e `ControlValueAccessor` | checkbox nativo + Angular Forms | checked, indeterminate, disabled, required, invalid, formulário, teclado e temas |
 | Combobox | `TisCombobox`, `TisComboboxIcon` e `ControlValueAccessor` | Angular Aria Combobox/Listbox + Angular Forms | filtro local, seleção, active descendant, opções disabled, clear, Escape, formulário, sizes e temas |
 | Input Text | `TisInput` e diretivas de ícone standalone + `ControlValueAccessor` | input nativo + Angular Forms | tipos, label, required, helper, erro, ícones, disabled, readonly, sizes e temas |
@@ -44,14 +45,14 @@ apresentada como evidência fresca de release.
 Não há imports cruzados com React, Base UI, shadcn, Ark UI ou Zag. O consumidor
 continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overlay.
 
-## 3. Artefatos de Alert
+## 3. Artefatos de Card
 
-- Entry point: `packages/angular/alert/`.
-- Storybook: `packages/angular/stories/alert.stories.ts`.
-- Harness: `TisAlertHarness` em `@tis/angular/testing`.
+- Entry point: `packages/angular/card/`.
+- Storybook: `packages/angular/stories/card.stories.ts`.
+- Harness: `TisCardHarness` em `@tis/angular/testing`.
 - Consumer real: `tests/consumer/angular-app/src/app.component.ts`.
 - Catálogo e docs: metadados canônicos, índice Angular bilíngue e página de
-  Alert em PT-BR e inglês.
+  Card em PT-BR e inglês.
 - Evidência: testes unitários, consumer instalado, bundles e browser em 320,
   390 e 1280px.
 
@@ -59,13 +60,14 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 
 | Gate | Resultado |
 | --- | --- |
-| `npm run test:angular` | passou: package build, tarball real, consumer, 18 testes unitários, Storybook, bundles, browser e Axe |
-| Testes unitários | passaram: 18 testes com harnesses, Angular Forms e contrato semântico/composicional do Alert |
-| Consumer de produção | 403,21 KiB JS + 232,26 KiB CSS brutos |
+| `npm run test:angular` | passou: package build, tarball real, consumer, 19 testes unitários, Storybook, bundles, browser e Axe |
+| Testes unitários | passaram: 19 testes com harnesses, Angular Forms e contrato semântico/composicional do Card |
+| Consumer de produção | 406,29 KiB JS + 232,53 KiB CSS brutos |
 | Accordion incremental | 1,47 KiB gzip; orçamento 8 KiB |
 | Alert incremental | 1,12 KiB gzip; orçamento 5 KiB |
 | Badge incremental | 0,76 KiB gzip; orçamento 4 KiB |
 | Button incremental | 1,32 KiB gzip; orçamento 4 KiB |
+| Card incremental | 0,95 KiB gzip; orçamento 5 KiB |
 | Checkbox incremental | 1,94 KiB gzip; orçamento 5 KiB |
 | Combobox incremental | 3,70 KiB gzip; orçamento 12 KiB |
 | Input Text incremental | 2,51 KiB gzip; orçamento 6 KiB |
@@ -81,7 +83,7 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 | Tooltip incremental | 3,24 KiB gzip; orçamento 12 KiB |
 | Browser Angular | semântica, Angular Forms, foco, 320/390/1280, light/dark, paridade visual, Storybook e Axe válidos |
 | Browser do portal vNext | quatro implementações, runtimes próprios, interação, dark mode, anatomia, tabelas, 320/390, Storybook e Axe válidos |
-| Suíte geral | `npm run build:all` passou: 92 stories contratuais/93 stories auditadas no browser, 240 páginas HTML no artefato Pages, 108 auditorias de páginas light/dark e zero violações Axe |
+| Suíte geral | `npm run build:all` passou: 92 stories contratuais/93 stories auditadas no browser, 244 páginas HTML no artefato Pages, 108 auditorias de páginas light/dark e zero violações Axe |
 
 ## 5. Evidência visual
 
@@ -89,13 +91,13 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 - `evidence/angular-consumer-390.png`
 - `evidence/angular-consumer-320.png`
 
-As capturas foram regeneradas pelo gate integral de navegador. O Alert preservou
-ícone, title, description e close alinhados, variantes solid/subtle, quatro tons
-e dismiss real em 320, 390 e 1280px, sem stretch ou overflow. A documentação
-carrega o CSS público e os ícones Lucide também na anatomia e nos exemplos fora
-do iframe; o mesmo gate passou a proteger o Badge contra essa regressão. A
-matriz do Storybook bloqueia conteúdo recortado, superfícies ausentes, contraste
-insuficiente e divergência light/dark.
+As capturas foram regeneradas pelo gate integral de navegador. O Card preservou
+media, container, header, conteúdo e footer alinhados em 320, 390 e 1280px, sem
+stretch ou overflow. A documentação carrega o CSS público também na anatomia e
+nos exemplos fora do iframe; o canvas ocupa toda a largura disponível e a
+restrição de leitura fica no componente, evitando o painel visualmente cortado.
+Cada implementação abre o próprio Storybook e o exemplo interativo mantém raiz
+button, seleção real, foco, contraste e dark mode.
 
 ## 6. Limites
 
