@@ -4,6 +4,7 @@ import registry from '../registry.json';
 import '../css/tokens/generated/index.css';
 import '../css/components/accordion.css';
 import '../css/components/alert.css';
+import '../css/components/avatar.css';
 import '../css/components/badge.css';
 import '../css/components/breadcrumb.css';
 import '../css/components/button.css';

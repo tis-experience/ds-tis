@@ -55,6 +55,7 @@ if (fs.existsSync(SITE_DIR)) {
     const expectedRegistryItems = [
       "accordion",
       "alert",
+      "avatar",
       "badge",
       "breadcrumb",
       "button",
