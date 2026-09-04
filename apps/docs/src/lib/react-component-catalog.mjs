@@ -674,6 +674,54 @@ import { Button } from "@/components/ui/button"
       en: 'Provide a contextual aria-label and avoid multiple competing status regions for one loading operation.',
     },
   },
+  table: {
+    summary: {
+      pt: 'Apresenta dados relacionados em linhas e colunas com semântica nativa.',
+      en: 'Presents related data in rows and columns using native semantics.',
+    },
+    anatomy: {
+      pt: ['Região de overflow', 'Caption', 'Header', 'Body', 'Row', 'Head', 'Cell', 'Footer opcional'],
+      en: ['Overflow region', 'Caption', 'Header', 'Body', 'Row', 'Head', 'Cell', 'Optional footer'],
+    },
+    useWhen: {
+      pt: ['os dados têm colunas estáveis, labels claros e precisam ser comparados entre linhas.'],
+      en: ['data has stable columns, clear labels, and must be compared across rows.'],
+    },
+    avoidWhen: {
+      pt: ['o conteúdo é uma lista simples, um layout visual ou uma planilha editável que exige navegação de grid.'],
+      en: ['content is a simple list, a visual layout, or an editable spreadsheet requiring grid navigation.'],
+    },
+    storyId: 'react-table--playground',
+    usage: `import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+<Table regionLabel="Contas de clientes" size="md">
+  <TableCaption>Contas de clientes</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Cliente</TableHead>
+      <TableHead align="end">Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Ana Silva</TableCell>
+      <TableCell align="end">Ativo</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`,
+    accessibility: {
+      pt: 'Mantenha caption, scope nos headers e aria-sort no header ordenável. Use regionLabel quando o overflow horizontal precisar ser alcançado pelo teclado; a ordenação deve ser um button dentro do th.',
+      en: 'Keep the caption, scope on headers, and aria-sort on sortable headers. Use regionLabel when horizontal overflow must be keyboard reachable; sorting must use a button inside the th.',
+    },
+  },
   tabs: {
     summary: {
       pt: 'Alterna painéis relacionados no mesmo contexto com seleção e teclado previsíveis.',

@@ -101,6 +101,7 @@ export const REACT_REGISTRY_BY_SLUG = {
   select: { item: "select", provider: "Base UI" },
   skeleton: { item: "skeleton", provider: "React presentation" },
   spinner: { item: "spinner", provider: "React presentation" },
+  table: { item: "table", provider: "Native React" },
   tabs: { item: "tabs", provider: "Base UI" },
   textarea: { item: "textarea", provider: "Native React" },
   toast: { item: "toast", provider: "Base UI" },

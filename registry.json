@@ -936,6 +936,40 @@
       }
     },
     {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "TIS Table",
+      "description": "Table React nativa com anatomia semântica, overflow local e classes públicas do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/table.tsx",
+          "type": "registry:ui",
+          "target": "@ui/table.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Use caption, scope e aria-sort para preservar a semântica. Forneça regionLabel quando a tabela precisar de overflow focável. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "providerRole": "native-or-composition",
+        "status": "beta",
+        "wave": "content-structure"
+      }
+    },
+    {
       "name": "separator",
       "type": "registry:ui",
       "title": "TIS Separator",

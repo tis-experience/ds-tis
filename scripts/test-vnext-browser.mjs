@@ -140,6 +140,12 @@ try {
     richGuidance: true,
     technologyLinks: 3,
   });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/table/', {
+    item: '@tis/table',
+    locale: 'pt',
+    name: 'Table',
+    technologyLinks: 2,
+  });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/toast/', {
     item: '@tis/toast',
     locale: 'pt',
@@ -641,8 +647,8 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Table$/ }),
   });
   expect(await tableItem.locator('[data-output]').count() === 4, `${route}: Table deve mostrar as quatro implementações`);
-  expect(await tableItem.locator('a').count() === 1, `${route}: Table deve ligar somente a implementação Web disponível`);
-  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 3, `${route}: Table deve identificar três implementações não disponíveis`);
+  expect(await tableItem.locator('a').count() === 2, `${route}: Table deve ligar as implementações Web e React disponíveis`);
+  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 2, `${route}: Table deve identificar Ark/Zag e Angular como não disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);
@@ -667,14 +673,14 @@ async function auditReactCatalog(route, locale) {
   const catalog = page.locator('[data-component-catalog]');
   expect(await catalog.count() === 1, `${route}: catálogo semântico ausente`);
   expect(
-    (await catalog.getAttribute('data-component-count')) === '22',
-    `${route}: contagem declarada do catálogo deve ser vinte e dois`,
+    (await catalog.getAttribute('data-component-count')) === '23',
+    `${route}: contagem declarada do catálogo deve ser vinte e três`,
   );
   const groups = catalog.locator('[data-component-category]');
   expect(await groups.count() === 6, `${route}: catálogo deve expor seis categorias semânticas`);
 
   const items = catalog.locator('.ds-component-catalog__group li');
-  expect(await items.count() === 22, `${route}: catálogo consolidado deve listar vinte e dois componentes`);
+  expect(await items.count() === 23, `${route}: catálogo consolidado deve listar vinte e três componentes`);
   for (const group of await groups.all()) {
     const names = await group.locator('.ds-component-catalog__name').allTextContents();
     const expectedNames = [...names].sort(
@@ -690,7 +696,7 @@ async function auditReactCatalog(route, locale) {
   const hrefs = await catalog.locator('.ds-component-catalog__group a').evaluateAll((links) =>
     links.map((link) => link.href),
   );
-  expect(new Set(hrefs).size === 22, `${route}: cada componente deve ter uma página única`);
+  expect(new Set(hrefs).size === 23, `${route}: cada componente deve ter uma página única`);
   for (const href of hrefs) {
     const response = await context.request.get(href);
     expect(response.ok(), `${route}: página de componente respondeu ${response.status()} em ${href}`);
@@ -4890,6 +4896,18 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Spinner');
   recordBrowserErrors('Storybook vNext · Spinner');
 
+  await page.goto(`${storyBase}react-table--playground`, { waitUntil: 'networkidle' });
+  const table = page.locator('[data-slot="table"]');
+  await table.waitFor();
+  expect(await table.locator('caption').textContent() === 'Contas de clientes', 'Table deve preservar caption');
+  const sortableHead = table.locator('[data-slot="table-head"]').first();
+  expect(await sortableHead.getAttribute('aria-sort') === 'none', 'Table deve iniciar sem ordenação');
+  await table.getByRole('button', { name: /Ordenar por cliente/ }).click();
+  expect(await sortableHead.getAttribute('aria-sort') === 'ascending', 'Table deve atualizar aria-sort ao ordenar');
+  expect(await table.locator('[data-slot="table-row"][data-selected="true"]').count() === 1, 'Table deve preservar row selected');
+  await auditAxe('Storybook vNext · Table');
+  recordBrowserErrors('Storybook vNext · Table');
+
   await page.goto(`${storyBase}react-divider--toolbar`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="separator"]').waitFor();
   expect(await page.locator('[data-slot="separator"]').count() === 1, 'Divider deve permanecer isolado no exemplo de toolbar');
@@ -4920,6 +4938,7 @@ async function auditStorybookComponents() {
     'react-radio--playground',
     'react-skeleton--playground',
     'react-spinner--playground',
+    'react-table--playground',
     'react-tabs--playground',
     'react-textarea--playground',
     'react-toast--playground',

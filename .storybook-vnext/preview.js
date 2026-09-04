@@ -19,6 +19,7 @@ import '../css/components/radio.css';
 import '../css/components/select.css';
 import '../css/components/skeleton.css';
 import '../css/components/spinner.css';
+import '../css/components/table.css';
 import '../css/components/tabs.css';
 import '../css/components/textarea.css';
 import '../css/components/toast.css';
@@ -125,7 +126,7 @@ const preview = {
             'Actions',
             ['Button'],
             'Content and structure',
-            ['Card', 'Divider'],
+            ['Card', 'Divider', 'Table'],
             'Input and selection',
             ['Checkbox', 'Combobox', 'Form Field', 'Input Text', 'Radio', 'Select', 'Textarea', 'Toggle'],
             'Feedback and status',
