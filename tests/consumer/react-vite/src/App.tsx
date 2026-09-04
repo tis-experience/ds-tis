@@ -16,6 +16,14 @@ import {
   AlertTitle,
 } from "./components/ui/alert"
 import { Badge } from "./components/ui/badge"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./components/ui/breadcrumb"
 import { Button } from "./components/ui/button"
 import {
   Card,
@@ -159,12 +167,28 @@ export function App() {
       <header className="consumer-header">
         <p className="consumer-kicker">Registry shadcn · beta</p>
         <h1>Preferências da conta</h1>
-        <p>Vinte e três componentes React instalados como source, com o visual do DS TIS.</p>
+        <p>Vinte e quatro componentes React instalados como source, com o visual do DS TIS.</p>
         <div className="consumer-badge-row" aria-label="Estado da implementação">
           <Badge tone="info" variant="subtle">React beta</Badge>
-          <Badge tone="success" variant="subtle">23 componentes validados</Badge>
+          <Badge tone="success" variant="subtle">24 componentes validados</Badge>
         </div>
       </header>
+
+      <Breadcrumb aria-label="Localização atual">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#inicio">Início</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#conta">Conta</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Preferências</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <Alert role="status" tone={saved ? "success" : "info"} variant="subtle">
         <AlertIcon>{saved ? <CircleCheckIcon /> : <InfoIcon />}</AlertIcon>

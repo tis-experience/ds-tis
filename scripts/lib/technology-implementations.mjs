@@ -87,6 +87,7 @@ export const REACT_REGISTRY_BY_SLUG = {
   accordion: { item: "accordion", provider: "Base UI" },
   alert: { item: "alert", provider: "React composition" },
   badge: { item: "badge", provider: "React composition" },
+  breadcrumb: { item: "breadcrumb", provider: "Native React" },
   button: { item: "button", provider: "Base UI" },
   card: { item: "card", provider: "React composition" },
   checkbox: { item: "checkbox", provider: "Base UI" },

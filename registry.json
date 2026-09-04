@@ -936,6 +936,57 @@
       }
     },
     {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "TIS Breadcrumb",
+      "description": "Breadcrumb React nativo com composição shadcn e semântica de navegação do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "@ui/breadcrumb.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        "[data-slot=\"breadcrumb-list\"]": {
+          "flex-wrap": "wrap",
+          "list-style": "none",
+          "margin": "0",
+          "padding": "0"
+        },
+        "[data-slot=\"breadcrumb-item\"]": {
+          "align-items": "center",
+          "display": "inline-flex"
+        },
+        "[data-slot=\"breadcrumb-ellipsis\"]": {
+          "align-items": "center",
+          "color": "var(--ds-content-subtle)",
+          "display": "inline-flex",
+          "justify-content": "center"
+        }
+      },
+      "docs": "Componha nav, lista ordenada, itens, links, separadores decorativos e uma página atual não clicável. BreadcrumbLink aceita as para integrar o router da aplicação. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "providerRole": "native-or-composition",
+        "status": "beta",
+        "wave": "navigation"
+      }
+    },
+    {
       "name": "table",
       "type": "registry:ui",
       "title": "TIS Table",
