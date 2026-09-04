@@ -316,6 +316,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Catálogo explicita as quatro implementações de cada componente.** Os 26 cards
+  deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
+  todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,
+  enquanto somente implementações funcionais oferecem navegação.
 - **Divider vertical preserva espessura em composições flex.** O separador deixa
   de colapsar para largura zero em toolbars estreitas, mantendo o token de
   espessura nas saídas HTML/CSS, React e Angular.

@@ -137,14 +137,12 @@ const groups = [...getComponents()]
       </header>
       <ul aria-label={`${group.label} · ${isEnglish ? 'components' : 'componentes'}`}>
         {group.components.map((component) => {
-          const availableOutputs = outputDefinitions
-            .map(([technology, label]) => ({
-              href: routeFor(component, technology),
-              implementation: component.implementations[technology],
-              label,
-              technology,
-            }))
-            .filter((output) => output.href);
+          const outputs = outputDefinitions.map(([technology, label]) => ({
+            href: routeFor(component, technology),
+            implementation: component.implementations[technology],
+            label,
+            technology,
+          }));
 
           return (
             <li class="ds-component-catalog__item">
@@ -155,13 +153,20 @@ const groups = [...getComponents()]
                     || fallbackDescriptions[component.slug]?.[language]}
                 </span>
               </div>
-              <ul class="ds-component-catalog__outputs" aria-label={isEnglish ? `${component.name} available implementations` : `Implementações disponíveis de ${component.name}`}>
-                {availableOutputs.map(({ href, implementation, label, technology }) => (
-                  <li>
-                    <a href={href} data-output={technology}>
-                      <span>{label}</span>
-                      <small data-status={implementation.status}>{statusLabel(implementation.status)}</small>
-                    </a>
+              <ul class="ds-component-catalog__outputs" aria-label={isEnglish ? `${component.name} implementation status` : `Estado das implementações de ${component.name}`}>
+                {outputs.map(({ href, implementation, label, technology }) => (
+                  <li data-output={technology} data-availability={href ? 'available' : 'unavailable'}>
+                    {href ? (
+                      <a class="ds-component-catalog__output" href={href}>
+                        <span>{label}</span>
+                        <small data-status={implementation.status}>{statusLabel(implementation.status)}</small>
+                      </a>
+                    ) : (
+                      <span class="ds-component-catalog__output ds-component-catalog__output--inactive">
+                        <span>{label}</span>
+                        <small data-status={implementation.status}>{statusLabel(implementation.status)}</small>
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>

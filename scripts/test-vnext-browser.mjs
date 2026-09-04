@@ -555,24 +555,39 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await outputRows.count() === 26, `${route}: matriz de implementações incompleta`);
   expect(
     await outputRows.evaluateAll((rows) => rows.every((row) => {
-      const count = row.querySelectorAll(':scope > li').length;
-      return count >= 1 && count <= 4;
+      const outputs = [...row.querySelectorAll(':scope > li')].map((item) => item.getAttribute('data-output'));
+      return JSON.stringify(outputs) === JSON.stringify(['web', 'ark', 'react', 'angular']);
     })),
-    `${route}: catálogo deve mostrar somente as saídas disponíveis`,
+    `${route}: cada componente deve mostrar Web, Ark/Zag, React e Angular nessa ordem`,
   );
   expect(await catalog.locator('[data-output="web"]').count() === 26, `${route}: saída Web ausente`);
-  expect(await catalog.locator('[data-output="ark"]').count() === 13, `${route}: os treze adapters Ark disponíveis deveriam aparecer`);
-  expect(await catalog.locator('[data-status="planned"], [data-status="unavailable"]').count() === 0, `${route}: catálogo expôs saída não utilizável`);
+  expect(await catalog.locator('[data-output="ark"]').count() === 26, `${route}: saída Ark/Zag ausente`);
+  expect(await catalog.locator('[data-output="react"]').count() === 26, `${route}: saída React ausente`);
+  expect(await catalog.locator('[data-output="angular"]').count() === 26, `${route}: saída Angular ausente`);
+  expect(
+    await outputRows.evaluateAll((rows) => rows.every((row) => [...row.querySelectorAll(':scope > li')].every((item) => {
+      const status = item.querySelector('[data-status]')?.getAttribute('data-status');
+      const available = item.getAttribute('data-availability') === 'available';
+      const hasLink = item.querySelector(':scope > a') !== null;
+      const hasInactiveLabel = item.querySelector(':scope > .ds-component-catalog__output--inactive') !== null;
+      return status && (available ? hasLink && !hasInactiveLabel : !hasLink && hasInactiveLabel);
+    }))),
+    `${route}: disponibilidade visual e navegabilidade das implementações divergiram`,
+  );
+  expect(
+    await catalog.locator('[data-status="planned"], [data-status="unavailable"]').count() > 0,
+    `${route}: catálogo deve explicitar saídas planejadas ou indisponíveis`,
+  );
   expect(
     await catalog.locator('a.ds-component-catalog__name').count() === 0,
     `${route}: nome do componente não deve escolher implicitamente a saída Web`,
   );
   expect(
-    await catalog.locator('.ds-component-catalog__item a:not([data-output])').count() === 0,
-    `${route}: toda navegação de componente deve identificar explicitamente a implementação`,
+    await catalog.locator('[data-availability="unavailable"] a').count() === 0,
+    `${route}: saída não utilizável não deve oferecer navegação`,
   );
   expect(
-    await catalog.locator('[data-output="web"] > span').evaluateAll((labels) => labels.every((label) => {
+    await catalog.locator('[data-output="web"] .ds-component-catalog__output > span').evaluateAll((labels) => labels.every((label) => {
       const style = getComputedStyle(label);
       return label.textContent?.trim() === 'HTML/CSS/JS' &&
         style.textOverflow !== 'ellipsis' && label.scrollWidth <= label.clientWidth + 1;
@@ -590,16 +605,17 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
   });
   expect(await badgeItem.locator('a').count() === 3, `${route}: Badge deve ligar Web, React e Angular`);
+  expect(await badgeItem.locator('[data-output="ark"]').count() === 1, `${route}: Badge deve exibir a saída Ark planejada`);
   expect(await badgeItem.locator('[data-output="ark"] a').count() === 0, `${route}: Badge não deve ligar a saída Ark ainda planejada`);
   const alertItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
   });
   expect(await alertItem.locator('a').count() === 3, `${route}: Alert deve ligar Web, React e Angular`);
   expect(
-    (await alertItem.locator('a[data-output="web"]').getAttribute('href'))?.includes(`/next/${locale === 'en' ? 'en' : 'pt-br'}/web/components/alert/`),
+    (await alertItem.locator('[data-output="web"] a').getAttribute('href'))?.includes(`/next/${locale === 'en' ? 'en' : 'pt-br'}/web/components/alert/`),
     `${route}: Alert Web caiu na documentação HTML antiga`,
   );
-  expect(await alertItem.locator('a[data-output="ark"]').count() === 0, `${route}: Alert não deve ligar a saída Ark ainda planejada`);
+  expect(await alertItem.locator('[data-output="ark"] a').count() === 0, `${route}: Alert não deve ligar a saída Ark ainda planejada`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
   expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
@@ -612,6 +628,12 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await tabsLinks.count() === 4, `${route}: Tabs deve ligar as quatro implementações disponíveis`);
   const toastLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Toast' }).locator('a');
   expect(await toastLinks.count() === 4, `${route}: Toast deve ligar as quatro implementações disponíveis`);
+  const tableItem = catalog.locator('.ds-component-catalog__item').filter({
+    has: page.locator('.ds-component-catalog__name', { hasText: /^Table$/ }),
+  });
+  expect(await tableItem.locator('[data-output]').count() === 4, `${route}: Table deve mostrar as quatro implementações`);
+  expect(await tableItem.locator('a').count() === 1, `${route}: Table deve ligar somente a implementação Web disponível`);
+  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 3, `${route}: Table deve identificar três implementações não disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);
