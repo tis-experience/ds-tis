@@ -86,6 +86,7 @@ export const SHADCN_REGISTRY = {
 export const REACT_REGISTRY_BY_SLUG = {
   accordion: { item: "accordion", provider: "Base UI" },
   alert: { item: "alert", provider: "React composition" },
+  avatar: { item: "avatar", provider: "Base UI" },
   badge: { item: "badge", provider: "React composition" },
   breadcrumb: { item: "breadcrumb", provider: "Native React" },
   button: { item: "button", provider: "Base UI" },

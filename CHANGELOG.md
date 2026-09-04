@@ -61,6 +61,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Avatar passa a integrar a saída React distribuída por shadcn.** O source
+  usa Base UI para coordenar imagem, carregamento e fallback, preserva os
+  tamanhos `sm`/`md`/`lg` e acrescenta as composições AvatarBadge, AvatarGroup
+  e AvatarGroupCount. Storybook, catálogo bilíngue e consumer independente
+  validam fallback, texto alternativo, dark mode e Axe sem alterar Figma,
+  tokens ou as saídas Web, Ark/Zag e Angular.
 - **Breadcrumb passa a integrar a saída React distribuída por shadcn.** O
   source usa `nav`, lista ordenada, links, página atual e separadores
   decorativos nativos, com composição compatível com routers e reticências para

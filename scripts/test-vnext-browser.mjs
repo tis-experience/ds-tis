@@ -146,6 +146,11 @@ try {
     name: 'Table',
     technologyLinks: 2,
   });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/avatar/', {
+    item: '@tis/avatar',
+    locale: 'pt',
+    name: 'Avatar',
+  });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/toast/', {
     item: '@tis/toast',
     locale: 'pt',
@@ -673,14 +678,14 @@ async function auditReactCatalog(route, locale) {
   const catalog = page.locator('[data-component-catalog]');
   expect(await catalog.count() === 1, `${route}: catálogo semântico ausente`);
   expect(
-    (await catalog.getAttribute('data-component-count')) === '24',
-    `${route}: contagem declarada do catálogo deve ser vinte e quatro`,
+    (await catalog.getAttribute('data-component-count')) === '25',
+    `${route}: contagem declarada do catálogo deve ser vinte e cinco`,
   );
   const groups = catalog.locator('[data-component-category]');
   expect(await groups.count() === 6, `${route}: catálogo deve expor seis categorias semânticas`);
 
   const items = catalog.locator('.ds-component-catalog__group li');
-  expect(await items.count() === 24, `${route}: catálogo consolidado deve listar vinte e quatro componentes`);
+  expect(await items.count() === 25, `${route}: catálogo consolidado deve listar vinte e cinco componentes`);
   for (const group of await groups.all()) {
     const names = await group.locator('.ds-component-catalog__name').allTextContents();
     const expectedNames = [...names].sort(
@@ -696,7 +701,7 @@ async function auditReactCatalog(route, locale) {
   const hrefs = await catalog.locator('.ds-component-catalog__group a').evaluateAll((links) =>
     links.map((link) => link.href),
   );
-  expect(new Set(hrefs).size === 24, `${route}: cada componente deve ter uma página única`);
+  expect(new Set(hrefs).size === 25, `${route}: cada componente deve ter uma página única`);
   for (const href of hrefs) {
     const response = await context.request.get(href);
     expect(response.ok(), `${route}: página de componente respondeu ${response.status()} em ${href}`);
@@ -4930,6 +4935,15 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Breadcrumb');
   recordBrowserErrors('Storybook vNext · Breadcrumb');
 
+  await page.goto(`${storyBase}react-avatar--group`, { waitUntil: 'networkidle' });
+  const avatarGroup = page.getByRole('group', { name: 'Equipa atribuída' });
+  await avatarGroup.waitFor();
+  expect(await avatarGroup.locator('[data-slot="avatar"]').count() === 3, 'AvatarGroup deve preservar três avatars');
+  expect(await avatarGroup.locator('[data-slot="avatar-group-count"]').textContent() === '+3', 'AvatarGroupCount deve indicar pessoas adicionais');
+  expect(await page.getByRole('img', { name: 'Online' }).count() === 1, 'AvatarBadge deve preservar o nome acessível');
+  await auditAxe('Storybook vNext · Avatar');
+  recordBrowserErrors('Storybook vNext · Avatar');
+
   await page.goto(`${storyBase}react-divider--toolbar`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="separator"]').waitFor();
   expect(await page.locator('[data-slot="separator"]').count() === 1, 'Divider deve permanecer isolado no exemplo de toolbar');
@@ -4948,6 +4962,7 @@ async function auditStorybookComponents() {
     'ark-toggle--playground',
     'react-accordion--playground',
     'react-alert--playground',
+    'react-avatar--playground',
     'react-badge--playground',
     'react-breadcrumb--playground',
     'react-button--playground',

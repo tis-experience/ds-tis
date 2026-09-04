@@ -3492,14 +3492,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "avatar",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/avatar.json",
+          "install": "npx shadcn@latest add @tis/avatar",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {

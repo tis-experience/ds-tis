@@ -41,6 +41,7 @@ const expectedItems = [
   'tis-base',
   'accordion',
   'alert',
+  'avatar',
   'badge',
   'breadcrumb',
   'button',
@@ -77,6 +78,7 @@ const requiredDsDependency = SHADCN_REGISTRY.coreDependency;
 const baseUiItems = new Set([
   'tis-base',
   'accordion',
+  'avatar',
   'button',
   'checkbox',
   'combobox',
@@ -129,6 +131,14 @@ const sourceContracts = {
     'data-slot="alert-content"',
     'data-slot="alert-actions"',
     'data-slot="alert-close"',
+  ],
+  avatar: [
+    '@base-ui/react/avatar',
+    'data-slot="avatar-image"',
+    'data-slot="avatar-fallback"',
+    'data-slot="avatar-badge"',
+    'data-slot="avatar-group"',
+    'data-slot="avatar-group-count"',
   ],
   badge: ['ds-badge', 'data-tone={tone}', 'data-variant={variant}'],
   card: [
@@ -380,6 +390,14 @@ const adapterContracts = {
     '[data-slot=\\"breadcrumb-ellipsis\\"]',
     'var(--ds-content-subtle)',
   ],
+  avatar: [
+    '[data-slot=\\"avatar-image\\"][data-loading]',
+    '[data-slot=\\"avatar-fallback\\"]',
+    '[data-slot=\\"avatar-badge\\"]',
+    '[data-slot=\\"avatar-group\\"]',
+    'var(--ds-avatar-icon-size-md)',
+    'var(--ds-feedback-success-background-default)',
+  ],
 };
 for (const [name, contracts] of Object.entries(adapterContracts)) {
   const item = registry.items.find((entry) => entry.name === name);
@@ -533,6 +551,11 @@ const entries = {
     group: 'Registry integrado',
     sourceFiles: [path.join(ROOT, 'registry/tis/breadcrumb.tsx')],
     budget: 12 * 1024,
+  },
+  'registry-avatar': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/avatar.tsx')],
+    budget: 16 * 1024,
   },
 };
 

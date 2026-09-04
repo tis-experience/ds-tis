@@ -82,6 +82,39 @@ const COMPONENT_DOCS = {
       en: 'Use role="alert" only for urgent messages; use status or no live region for lower-priority content.',
     },
   },
+  avatar: {
+    summary: {
+      pt: 'Representa uma pessoa com imagem, iniciais ou ícone de fallback em tamanhos consistentes.',
+      en: 'Represents a person with an image, initials, or fallback icon in consistent sizes.',
+    },
+    anatomy: {
+      pt: ['Raiz', 'Imagem', 'Fallback', 'Badge opcional', 'Grupo opcional', 'Contagem opcional'],
+      en: ['Root', 'Image', 'Fallback', 'Optional badge', 'Optional group', 'Optional count'],
+    },
+    useWhen: {
+      pt: ['uma pessoa, perfil ou membro de equipa precisa ser reconhecido visualmente.'],
+      en: ['a person, profile, or team member needs to be recognized visually.'],
+    },
+    avoidWhen: {
+      pt: ['a imagem não representa uma pessoa ou a identidade textual já é suficiente.'],
+      en: ['the image does not represent a person or textual identity is already sufficient.'],
+    },
+    storyId: 'react-avatar--playground',
+    usage: `import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
+<Avatar size="md">
+  <AvatarFallback>AS</AvatarFallback>
+  <AvatarImage src="/ana-silva.jpg" alt="Ana Silva" />
+</Avatar>`,
+    accessibility: {
+      pt: 'Use alt descritivo quando a imagem comunica identidade. Para avatars decorativos, use alt vazio; fallbacks textuais já fornecem um nome acessível.',
+      en: 'Use descriptive alt text when the image communicates identity. For decorative avatars, use empty alt text; textual fallbacks already provide an accessible name.',
+    },
+  },
   badge: {
     summary: {
       pt: 'Identifica status ou metadados curtos próximos ao conteúdo relacionado.',
