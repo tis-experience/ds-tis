@@ -12,6 +12,7 @@ const buttonCss = path.join(ROOT, 'css/components/button.css');
 const checkboxCss = path.join(ROOT, 'css/components/checkbox.css');
 const comboboxCss = path.join(ROOT, 'css/components/combobox.css');
 const formFieldCss = path.join(ROOT, 'css/components/form-field.css');
+const inputCss = path.join(ROOT, 'css/components/input.css');
 const menuCss = path.join(ROOT, 'css/components/menu.css');
 const modalCss = path.join(ROOT, 'css/components/modal.css');
 const popoverCss = path.join(ROOT, 'css/components/popover.css');
@@ -26,6 +27,7 @@ const arkModalModule = path.join(ROOT, 'packages/react/src/ark/modal.jsx');
 const arkButtonModule = path.join(ROOT, 'packages/react/src/ark/button.jsx');
 const arkCheckboxModule = path.join(ROOT, 'packages/react/src/ark/checkbox.jsx');
 const arkComboboxModule = path.join(ROOT, 'packages/react/src/ark/combobox.jsx');
+const arkInputModule = path.join(ROOT, 'packages/react/src/ark/input.jsx');
 const arkMenuModule = path.join(ROOT, 'packages/react/src/ark/menu.jsx');
 const arkPopoverModule = path.join(ROOT, 'packages/react/src/ark/popover.jsx');
 const arkRadioModule = path.join(ROOT, 'packages/react/src/ark/radio.jsx');
@@ -78,6 +80,14 @@ const entries = {
     source: `
       import { Checkbox } from '@ark-ui/react/checkbox';
       export { Checkbox };
+    `,
+  },
+  'ark-input': {
+    group: 'Ark/Zag incremental',
+    budget: 4 * 1024,
+    source: `
+      import { ark } from '@ark-ui/react/factory';
+      export const Input = ark.input;
     `,
   },
   'ark-radio': {
@@ -169,6 +179,14 @@ const entries = {
     source: `
       import * as CheckboxAdapter from ${JSON.stringify(arkCheckboxModule)};
       export { CheckboxAdapter };
+    `,
+  },
+  'adapter-ark-input': {
+    group: 'Ark/Zag incremental',
+    budget: 5 * 1024,
+    source: `
+      import * as InputAdapter from ${JSON.stringify(arkInputModule)};
+      export { InputAdapter };
     `,
   },
   'adapter-ark-radio': {
@@ -286,6 +304,18 @@ const entries = {
       import ${JSON.stringify(buttonCss)};
       import ${JSON.stringify(storybookCss)};
       export { ButtonAdapter };
+    `,
+  },
+  'preview-ark-input': {
+    group: 'Preview integrado',
+    budget: 22 * 1024,
+    source: `
+      import * as InputAdapter from ${JSON.stringify(arkInputModule)};
+      import ${JSON.stringify(tokensCss)};
+      import ${JSON.stringify(formFieldCss)};
+      import ${JSON.stringify(inputCss)};
+      import ${JSON.stringify(storybookCss)};
+      export { InputAdapter };
     `,
   },
   'preview-ark-popover': {

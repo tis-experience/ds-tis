@@ -133,6 +133,12 @@ export const ARK_ADAPTERS_BY_SLUG = {
     provider: "Ark UI + Zag",
     storyId: "ark-combobox--playground",
   },
+  input: {
+    adapter: "packages/react/src/ark/input.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native input",
+    storyId: "ark-input--playground",
+  },
   menu: {
     adapter: "packages/react/src/ark/menu.jsx",
     framework: "React",

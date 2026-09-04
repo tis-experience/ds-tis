@@ -687,14 +687,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native input",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/input.jsx",
+          "storyId": "ark-input--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/input/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
