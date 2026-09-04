@@ -15,6 +15,7 @@ const formFieldCss = path.join(ROOT, 'css/components/form-field.css');
 const inputCss = path.join(ROOT, 'css/components/input.css');
 const textareaCss = path.join(ROOT, 'css/components/textarea.css');
 const arkTextareaModule = path.join(ROOT, 'packages/react/src/ark/textarea.jsx');
+const arkAlertModule = path.join(ROOT, 'packages/react/src/ark/alert.jsx');
 const menuCss = path.join(ROOT, 'css/components/menu.css');
 const modalCss = path.join(ROOT, 'css/components/modal.css');
 const popoverCss = path.join(ROOT, 'css/components/popover.css');
@@ -51,6 +52,10 @@ const registryToggleModule = path.join(ROOT, 'registry/tis/switch.tsx');
 const registryTooltipModule = path.join(ROOT, 'registry/tis/tooltip.tsx');
 
 const entries = {
+  'adapter-ark-alert': {
+    group: 'Ark/Zag incremental', budget: 5 * 1024,
+    source: `import * as Alert from ${JSON.stringify(arkAlertModule)}; export { Alert };`,
+  },
   'adapter-ark-textarea': {
     group: 'Ark/Zag incremental', budget: 5 * 1024,
     source: `import * as Textarea from ${JSON.stringify(arkTextareaModule)}; export { Textarea };`,

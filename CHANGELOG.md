@@ -61,6 +61,9 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Alert ganha saída Ark em beta de workspace.** As partes públicas do Alert
+  preservam os quatro tons, estilos solid/subtle e tokens TIS; exemplos validam
+  ação, fechamento pelo teclado e retorno de foco com live region contextual.
 - **Textarea ganha saída Ark em beta de workspace.** O adapter
   `@tis/react/ark/textarea` preserva edição multilinha, ref, formulário nativo,
   tamanhos e estados TIS. O portal bilíngue oferece exemplos de contador,

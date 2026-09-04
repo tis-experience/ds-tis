@@ -1,0 +1,112 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-09-04-ark-alert-upstream-intake",
+  "title": "Alert · Ark/Zag",
+  "createdAt": "2026-09-04",
+  "updatedAt": "2026-09-04",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": ".figma-snapshot.json"
+  },
+  "currentGate": "repo",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-04",
+        "note": "Owner aprovou a saída Ark e o escopo sem mudança Figma."
+      },
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-04",
+        "note": "Owner determinou Figma inalterado; snapshot stale não foi tratado como auditoria viva."
+      },
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "in_progress",
+      "ownerApproval": {
+        "at": "2026-09-04",
+        "note": "Owner autorizou implementação, testes e PR isolado."
+      },
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "pending",
+      "ownerApproval": {
+        "at": "2026-09-04",
+        "note": "Owner autorizou commit, push, PR, merge e validação pública."
+      },
+      "updatedAt": "2026-09-04"
+    }
+  ],
+  "checks": {}
+}

@@ -620,12 +620,12 @@ async function auditCanonicalCatalog(route, locale) {
   const alertItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
   });
-  expect(await alertItem.locator('a').count() === 3, `${route}: Alert deve ligar Web, React e Angular`);
+  expect(await alertItem.locator('a').count() === 4, `${route}: Alert deve ligar as quatro saídas`);
   expect(
     (await alertItem.locator('[data-output="web"] a').getAttribute('href'))?.includes(`/next/${locale === 'en' ? 'en' : 'pt-br'}/web/components/alert/`),
     `${route}: Alert Web caiu na documentação HTML antiga`,
   );
-  expect(await alertItem.locator('[data-output="ark"] a').count() === 0, `${route}: Alert não deve ligar a saída Ark ainda planejada`);
+  expect(await alertItem.locator('[data-output="ark"] a').count() === 1, `${route}: Alert deve ligar a saída Ark disponível`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
   expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
@@ -1436,6 +1436,12 @@ async function auditAlertOutputSelector() {
   browserErrors.length = 0;
   const routes = [
     {
+      route: '/ds-tis/next/pt-br/ark/components/alert/',
+      activeLabel: 'Ark/Zag',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'ark-alert--playground',
+    },
+    {
       route: '/ds-tis/next/pt-br/web/components/alert/',
       activeLabel: 'HTML/CSS/JS',
       previewSelector: '[data-output-preview][data-output-storybook="stable"]',
@@ -1465,7 +1471,7 @@ async function auditAlertOutputSelector() {
       `${route}: saída ativa incorreta`,
     );
     expect(await page.locator('[data-technology-select] option').count() === 4, `${route}: seletor não expõe as quatro saídas`);
-    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: Ark planejado deveria permanecer desabilitado`);
+    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isEnabled(), `${route}: Ark disponível deve permanecer selecionável`);
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
 
     const documentedAlert = page.locator(
@@ -4882,6 +4888,34 @@ async function auditStorybookComponents() {
   recordBrowserErrors('Storybook · Textarea Ark');
   await page.setViewportSize({ width: 1280, height: 800 });
 
+  await page.goto(`${storyBase}ark-alert--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-alert').waitFor();
+  await page.getByRole('button', { name: 'Ver detalhes', exact: true }).click();
+  expect(await page.locator('[data-slot="ark-alert-result"]').textContent() === 'Detalhes solicitados.', 'Alert Ark deve executar a ação');
+  await page.getByRole('button', { name: 'Dispensar alerta', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  expect(await page.locator('.ds-ark-alert').count() === 0, 'Alert Ark deve fechar pelo teclado');
+  expect(await page.getByRole('button', { name: 'Mostrar alerta' }).evaluate((el) => el === document.activeElement), 'Alert Ark deve restaurar foco após fechar');
+  await page.getByRole('button', { name: 'Mostrar alerta' }).click();
+  expect(await page.locator('.ds-ark-alert').count() === 1, 'Alert Ark deve permitir mostrar novamente');
+  await auditAxe('Storybook · Alert Ark interação');
+  for (const mode of ['light', 'dark']) {
+    for (const variant of ['subtle', 'solid']) {
+      await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-alert--${variant}`, { waitUntil: 'networkidle' });
+      await page.locator('.ds-ark-alert').first().waitFor();
+      expect(await page.locator('.ds-ark-alert').count() === 4, 'Alert Ark deve publicar quatro tons');
+      expect(await page.locator('.ds-ark-alert[role="alert"]').count() === 1, 'Alert Ark reserva anúncio urgente ao erro do exemplo');
+      expect(await page.locator('.ds-ark-alert[role="status"]').count() === 3, 'Alert Ark deve preservar anúncio não urgente nos demais tons');
+      await auditAxe(`Storybook · Alert Ark ${variant} ${mode}`);
+    }
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-alert--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-alert').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Alert Ark tem overflow em 320px');
+  await auditAxe('Storybook · Alert Ark 320px');
+  recordBrowserErrors('Storybook · Alert Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(`${storyBase}react-alert--playground`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="alert"]').first().waitFor();
   expect(await page.locator('[data-slot="alert"]').count() === 1, 'Alert deve ter uma story isolada');
@@ -4951,6 +4985,7 @@ async function auditStorybookComponents() {
     'ark-checkbox--playground',
     'ark-input--playground',
     'ark-textarea--playground',
+    'ark-alert--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',
