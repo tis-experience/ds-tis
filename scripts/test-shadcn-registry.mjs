@@ -53,6 +53,7 @@ const expectedItems = [
   'field',
   'input',
   'menu',
+  'pagination',
   'radio-group',
   'select',
   'separator',
@@ -242,6 +243,15 @@ const sourceContracts = {
     'aria-current="page"',
     'role="presentation"',
     'data-slot="breadcrumb-ellipsis"',
+  ],
+  pagination: [
+    'data-slot="pagination-content"',
+    'data-slot="pagination-item"',
+    'data-slot="pagination-link"',
+    'aria-current={isActive ? "page" : undefined}',
+    'data-slot="pagination-previous"',
+    'data-slot="pagination-next"',
+    'data-slot="pagination-ellipsis"',
   ],
   table: [
     'ds-table-region',
@@ -556,6 +566,11 @@ const entries = {
     group: 'Registry integrado',
     sourceFiles: [path.join(ROOT, 'registry/tis/avatar.tsx')],
     budget: 16 * 1024,
+  },
+  'registry-pagination': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/pagination.tsx')],
+    budget: 13 * 1024,
   },
 };
 

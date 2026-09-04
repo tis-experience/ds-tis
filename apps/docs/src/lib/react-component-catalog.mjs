@@ -580,6 +580,47 @@ import { Button } from "@/components/ui/button"
       en: 'Preserve aria-haspopup/expanded, composite focus, Arrow keys, Home/End, typeahead, Escape, focusable disabled items, and focus return to the trigger.',
     },
   },
+  pagination: {
+    summary: {
+      pt: 'Permite navegar entre subconjuntos discretos de uma lista, tabela ou resultado de busca.',
+      en: 'Navigates between discrete subsets of a list, table, or search result.',
+    },
+    anatomy: {
+      pt: ['Landmark de navegação', 'Lista', 'Anterior', 'Link de página', 'Página atual', 'Reticências', 'Próxima'],
+      en: ['Navigation landmark', 'List', 'Previous', 'Page link', 'Current page', 'Ellipsis', 'Next'],
+    },
+    useWhen: {
+      pt: ['um conjunto grande de dados é dividido em páginas e a pessoa precisa navegar entre elas.'],
+      en: ['a large data set is divided into pages and people need to navigate between them.'],
+    },
+    avoidWhen: {
+      pt: ['o conteúdo é curto, o fluxo é sequencial ou a navegação representa hierarquia.'],
+      en: ['content is short, the flow is sequential, or navigation represents hierarchy.'],
+    },
+    storyId: 'react-pagination--playground',
+    usage: `import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
+<Pagination aria-label="Paginação de resultados">
+  <PaginationContent>
+    <PaginationItem><PaginationPrevious href="?page=1" /></PaginationItem>
+    <PaginationItem>
+      <PaginationLink as="span" isActive aria-label="Página 2">2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem><PaginationNext href="?page=3" /></PaginationItem>
+  </PaginationContent>
+</Pagination>`,
+    accessibility: {
+      pt: 'Mantenha o nav nomeado, links com destinos reais, aria-current="page" no item atual e controles anterior/próxima indisponíveis nos limites.',
+      en: 'Keep the nav named, links with real destinations, aria-current="page" on the current item, and previous/next controls unavailable at the boundaries.',
+    },
+  },
   popover: {
     summary: {
       pt: 'Exibe conteúdo contextual breve ancorado a um trigger, sem interromper o restante da página.',

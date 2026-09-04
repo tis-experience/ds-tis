@@ -66,6 +66,7 @@ if (fs.existsSync(SITE_DIR)) {
       "field",
       "input",
       "menu",
+      "pagination",
       "popover",
       "radio-group",
       "select",

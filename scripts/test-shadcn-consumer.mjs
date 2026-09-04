@@ -342,6 +342,15 @@ try {
   await page.getByRole("button", { name: "Ordenar clientes" }).click();
   expect(await sortHeader.getAttribute("aria-sort") === "descending", "Table não atualizou aria-sort após ordenar");
   expect(await page.locator('[data-slot="table-row"][data-selected="true"]').count() === 1, "Table perdeu o estado selected");
+  const pagination = page.getByRole("navigation", { name: "Páginas de contas" });
+  expect(await pagination.count() === 1, "Pagination instalada não renderizou o landmark nomeado");
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "1", "Pagination deve iniciar na primeira página");
+  expect(await pagination.getByRole("link", { name: "Página anterior" }).getAttribute("aria-disabled") === "true", "PaginationPrevious deve iniciar indisponível");
+  await pagination.getByRole("link", { name: "Página 2" }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "2", "Pagination não atualizou a página atual");
+  await pagination.getByRole("link", { name: "Próxima página" }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "3", "PaginationNext não avançou para a próxima página");
+  expect(await pagination.getByRole("link", { name: "Próxima página" }).getAttribute("aria-disabled") === "true", "PaginationNext deve ficar indisponível no limite");
   expect(await page.locator('[data-slot="input"]').inputValue() === "Marcell", "Input instalado perdeu o valor inicial");
   expect(await page.locator('[data-slot="textarea"]').inputValue() === "Experience Engineering", "Textarea instalado perdeu o valor inicial");
 

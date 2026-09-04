@@ -16,6 +16,7 @@ import '../css/components/form-field.css';
 import '../css/components/input.css';
 import '../css/components/menu.css';
 import '../css/components/modal.css';
+import '../css/components/pagination.css';
 import '../css/components/popover.css';
 import '../css/components/radio.css';
 import '../css/components/select.css';
