@@ -9,6 +9,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Catálogo não escolhe HTML/CSS ao clicar no nome do componente.** Os nomes
+  passam a identificar cada item sem funcionar como atalho implícito para Web;
+  a navegação fica restrita aos links rotulados HTML/CSS/JS, Ark/Zag, React e
+  Angular, tornando a tecnologia de destino explícita nos dois idiomas.
 - **Tabs preserva labels, overflow local e anatomia em viewports estreitos.**
   As tabs deixam de quebrar o texto em múltiplas linhas, a lista passa a rolar
   horizontalmente dentro do próprio componente e o marcador 4 da anatomia

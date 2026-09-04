@@ -119,7 +119,6 @@ const groups = [...getComponents()]
       </header>
       <ul aria-label={`${group.label} · ${isEnglish ? 'components' : 'componentes'}`}>
         {group.components.map((component) => {
-          const webHref = routeFor(component, 'web');
           const availableOutputs = outputDefinitions
             .map(([technology, label]) => ({
               href: routeFor(component, technology),
@@ -132,7 +131,7 @@ const groups = [...getComponents()]
           return (
             <li class="ds-component-catalog__item">
               <div class="ds-component-catalog__summary">
-                <a class="ds-component-catalog__name" href={webHref}>{component.name}</a>
+                <span class="ds-component-catalog__name">{component.name}</span>
                 <span class="ds-component-catalog__description">
                   {reactDescriptions.get(component.slug)
                     || fallbackDescriptions[component.slug]?.[language]}
