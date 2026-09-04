@@ -64,6 +64,26 @@ export class TisButtonHarness extends ComponentHarness {
   }
 }
 
+export class TisCardHarness extends ComponentHarness {
+  static readonly hostSelector = "[tisCard]";
+
+  async click(): Promise<void> {
+    await (await this.host()).click();
+  }
+
+  async getTitle(): Promise<string> {
+    return (await this.locatorFor("[tisCardTitle]")()).text().then((value) => value.trim());
+  }
+
+  async getVariant(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-variant");
+  }
+
+  async isSelected(): Promise<boolean> {
+    return (await this.host()).getAttribute("aria-pressed").then((value) => value === "true");
+  }
+}
+
 export class TisAccordionHarness extends ComponentHarness {
   static readonly hostSelector = "[tisAccordion]";
   private readonly triggers = this.locatorForAll("button[tisAccordionTrigger]");

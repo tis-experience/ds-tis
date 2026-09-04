@@ -49,6 +49,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   alert: { entrypoint: "alert", primitive: "native live region + Angular composition", storyId: "angular-alert--playground" },
   badge: { entrypoint: "badge", primitive: "presentational host element", storyId: "angular-badge--playground" },
   button: { entrypoint: "button", primitive: "native button", storyId: "angular-button--playground" },
+  card: { entrypoint: "card", primitive: "semantic native element + Angular composition", storyId: "angular-card--playground" },
   checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" },
   combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" },
   input: { entrypoint: "input", primitive: "native input + Angular Forms", storyId: "angular-input--playground" },

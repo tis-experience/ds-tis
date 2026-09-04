@@ -20,6 +20,15 @@ import {
 } from "@tis/angular/alert";
 import { TisBadge } from "@tis/angular/badge";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
+import {
+  TisCard,
+  TisCardContainer,
+  TisCardContent,
+  TisCardDescription,
+  TisCardFooter,
+  TisCardHeader,
+  TisCardTitle,
+} from "@tis/angular/card";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
 import { TisInput, TisInputIconStart } from "@tis/angular/input";
@@ -70,6 +79,13 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisBadge,
     TisButton,
     TisButtonIconStart,
+    TisCard,
+    TisCardContainer,
+    TisCardContent,
+    TisCardDescription,
+    TisCardFooter,
+    TisCardHeader,
+    TisCardTitle,
     TisCheckbox,
     TisCombobox,
     TisComboboxIcon,
@@ -174,6 +190,41 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div class="consumer-row" data-testid="badge-examples">
           <tis-badge tone="success" variant="subtle">Aprovado</tis-badge>
           <tis-badge tone="warning" variant="solid">Pendente</tis-badge>
+        </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="card-heading">
+        <div class="consumer-section__heading">
+          <h2 id="card-heading">Card</h2>
+          <span class="consumer-status">Elemento semântico + composição</span>
+        </div>
+        <div class="consumer-card-grid">
+          <article tisCard variant="outlined" data-testid="card-static">
+            <div tisCardContainer>
+              <header tisCardHeader>
+                <h3 tisCardTitle>Uso da organização</h3>
+                <p tisCardDescription>Resumo atualizado há poucos minutos.</p>
+              </header>
+              <div tisCardContent><p>128 licenças ativas de 150 disponíveis.</p></div>
+              <footer tisCardFooter><tis-badge tone="success" variant="subtle">Saudável</tis-badge></footer>
+            </div>
+          </article>
+          <button
+            tisCard
+            type="button"
+            variant="interactive"
+            data-testid="card-interactive"
+            [selected]="cardSelected()"
+            (click)="cardSelected.set(!cardSelected())"
+          >
+            <div tisCardContainer>
+              <header tisCardHeader>
+                <h3 tisCardTitle>Segurança</h3>
+                <p tisCardDescription>Abrir configurações de acesso.</p>
+              </header>
+              <div tisCardContent><p>{{ cardSelected() ? "Selecionado" : "Selecionar card" }}</p></div>
+            </div>
+          </button>
         </div>
       </section>
 
@@ -644,6 +695,7 @@ export class AppComponent {
   private readonly document = inject(DOCUMENT);
   readonly toastService = inject(TisToastService);
   readonly alertVisible = signal(true);
+  readonly cardSelected = signal(false);
   readonly dark = signal(false);
   readonly checkboxSubmitted = signal(false);
   readonly comboboxSubmitted = signal(false);

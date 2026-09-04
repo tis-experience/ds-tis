@@ -168,6 +168,7 @@ try {
   await auditButtonOutputSelector();
   await auditAlertOutputSelector();
   await auditBadgeOutputSelector();
+  await auditCardOutputSelector();
   await auditModalOutputSelector();
   await auditPopoverOutputSelector();
   await auditComboboxOutputSelector();
@@ -1215,6 +1216,99 @@ async function auditBadgeOutputSelector() {
   }
 
   recordBrowserErrors('Badge · seletor das saídas disponíveis');
+}
+
+async function auditCardOutputSelector() {
+  browserErrors.length = 0;
+  const routes = [
+    {
+      route: '/ds-tis/next/pt-br/web/components/card/',
+      activeLabel: 'HTML/CSS/JS',
+      previewSelector: '[data-output-preview][data-output-storybook="stable"]',
+      storyId: 'components-card--playground',
+      rootSelector: '.ds-card',
+    },
+    {
+      route: '/ds-tis/next/pt-br/react/components/card/',
+      activeLabel: 'React · shadcn/Base UI',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'react-card--playground',
+      rootSelector: '[data-slot="card"]',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/card/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-card--playground',
+      rootSelector: '[data-tis-angular-card]',
+    },
+  ];
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const { activeLabel, previewSelector, rootSelector, route, storyId } of routes) {
+    await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+    await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Card', `${route}: título Card ausente`);
+    const technologyOptions = page.locator('[data-technology-select] option');
+    expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: saída Ark planejada deveria permanecer desabilitada`);
+    expect(
+      (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
+      `${route}: saída ativa incorreta`,
+    );
+
+    const documentedCard = page.locator('[data-component-panel="design"] .ds-anatomy .ds-card').first();
+    await documentedCard.waitFor();
+    expect(
+      await documentedCard.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const title = element.querySelector('.ds-card__title')?.getBoundingClientRect();
+        const body = element.querySelector('.ds-card__body')?.getBoundingClientRect();
+        return style.display === 'flex' && style.flexDirection === 'column' &&
+          style.backgroundColor !== 'rgba(0, 0, 0, 0)' && Number.parseFloat(style.borderRadius) > 0 &&
+          Boolean(title && body) && title.left >= rect.left && title.right <= rect.right &&
+          body.left >= rect.left && body.right <= rect.right && rect.left >= 0 &&
+          rect.right <= document.documentElement.clientWidth;
+      }),
+      `${route}: anatomia do Card perdeu CSS ou alinhamento interno`,
+    );
+
+    const documentedCanvases = page.locator(
+      '[data-component-panel="design"] .ds-source-guidance .ds-preview__canvas',
+    );
+    expect(
+      await documentedCanvases.evaluateAll((elements) => elements.length > 0 && elements.every((element) => {
+        const panel = element.closest('.ds-preview__panel');
+        if (!panel) return false;
+        const canvasRect = element.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+        return Math.abs(canvasRect.width - panelRect.width) <= 1;
+      })),
+      `${route}: canvas documental do Card não preenche a largura do preview`,
+    );
+
+    const preview = page.locator(previewSelector);
+    expect(await preview.count() === 1, `${route}: preview funcional próprio ausente`);
+    await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
+    expect((await preview.getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
+    const card = page.frameLocator(previewSelector).locator(rootSelector).first();
+    await card.waitFor();
+    expect(
+      await card.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > 0 && rect.height > 0 && rect.left >= 0 &&
+          rect.right <= document.documentElement.clientWidth && style.display === 'flex' &&
+          style.flexDirection === 'column' && style.backgroundColor !== 'rgba(0, 0, 0, 0)';
+      }),
+      `${route}: Card ficou cortado ou perdeu a aparência pública`,
+    );
+    expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
+    await auditAxe(`${route} · Card`);
+  }
+
+  recordBrowserErrors('Card · seletor das saídas disponíveis');
 }
 
 async function auditAlertOutputSelector() {

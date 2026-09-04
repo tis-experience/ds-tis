@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'card' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -245,6 +245,92 @@ initAccordions()`,
       markup: `<button class="ds-button ds-button--brand ds-button--md" type="button">
   <span class="ds-button__label">Continuar</span>
 </button>`,
+    },
+  },
+  card: {
+    description: {
+      pt: 'Agrupa conteúdo e ações relacionadas em uma superfície com hierarquia clara.',
+      en: 'Groups related content and actions in a surface with clear hierarchy.',
+    },
+    previewSize: 'medium',
+    descriptions: {
+      angular: {
+        pt: 'Diretivas standalone que preservam article ou button como raiz semântica e aplicam a anatomia pública do Card.',
+        en: 'Standalone directives that preserve article or button as the semantic root and apply the public Card anatomy.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, com raiz polimórfica e as classes/tokens públicos do Card TIS.',
+        en: 'A React source recipe with a polymorphic root and the public TIS Card classes and tokens.',
+      },
+    },
+    usageGuidance: {
+      useWhen: [
+        { pt: 'Conteúdo, metadados e ações formam uma unidade reutilizável ou comparável.', en: 'Content, metadata, and actions form a reusable or comparable unit.' },
+        { pt: 'A superfície precisa comunicar agrupamento e hierarquia próprios.', en: 'The surface needs to communicate its own grouping and hierarchy.' },
+      ],
+      avoidWhen: [
+        { pt: 'O conteúdo já possui hierarquia suficiente sem uma superfície adicional.', en: 'The content already has enough hierarchy without an additional surface.' },
+        { pt: 'O Card interativo precisaria conter outros buttons ou links; evite controles interativos aninhados.', en: 'The interactive Card would need nested buttons or links; avoid nested interactive controls.' },
+      ],
+    },
+    examples: {
+      web: [{
+        storyId: 'components-card--estados',
+        size: 'medium',
+        title: { pt: 'Card interativo', en: 'Interactive Card' },
+        description: {
+          pt: 'Executado pelo HTML nativo; o próprio Card é o único button da composição.',
+          en: 'Rendered with native HTML; the Card itself is the composition’s only button.',
+        },
+      }],
+      react: [{
+        storyId: 'react-card--interactive',
+        size: 'medium',
+        title: { pt: 'Card interativo', en: 'Interactive Card' },
+        description: {
+          pt: 'Executado pela recipe React com raiz polimórfica em button.',
+          en: 'Rendered by the React recipe with a polymorphic button root.',
+        },
+      }],
+      angular: [{
+        storyId: 'angular-card--interativo',
+        size: 'medium',
+        title: { pt: 'Card interativo', en: 'Interactive Card' },
+        description: {
+          pt: 'Executado pelas diretivas Angular sobre button nativo, com seleção real.',
+          en: 'Rendered by Angular directives on a native button with real selection.',
+        },
+      }],
+    },
+    angular: {
+      primitive: 'Elemento semântico nativo + composição Angular',
+      imports: `import {
+  TisCard,
+  TisCardContainer,
+  TisCardContent,
+  TisCardHeader,
+  TisCardTitle,
+} from '@tis/angular/card'`,
+      markup: `<article tisCard variant="outlined">
+  <div tisCardContainer>
+    <header tisCardHeader>
+      <h3 tisCardTitle>Uso da organização</h3>
+    </header>
+    <div tisCardContent>128 licenças ativas.</div>
+  </div>
+</article>`,
+    },
+    web: {
+      storyId: 'components-card--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<article class="ds-card ds-card--outlined">
+  <div class="ds-card__container">
+    <header class="ds-card__header">
+      <h3 class="ds-card__title">Uso da organização</h3>
+    </header>
+    <div class="ds-card__body">128 licenças ativas.</div>
+  </div>
+</article>`,
     },
   },
   input: {

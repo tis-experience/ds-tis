@@ -61,6 +61,38 @@ body:has(.ds-angular-popover-stage) {
   gap: var(--ds-space-sm);
 }
 
+.ds-angular-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-size-layout-xs)), 1fr));
+  align-items: start;
+  gap: var(--ds-space-lg);
+  inline-size: 100%;
+}
+
+.ds-angular-card {
+  box-sizing: border-box;
+  inline-size: min(100%, var(--ds-size-layout-sm));
+  text-align: start;
+}
+
+button.ds-angular-card {
+  color: inherit;
+  font: inherit;
+}
+
+.ds-angular-card-media {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  background: linear-gradient(135deg, var(--ds-brand-background-default), var(--ds-background-subtle));
+}
+
+.ds-angular-card-status {
+  margin: 0;
+  color: var(--ds-content-muted);
+  font-size: var(--ds-body-font-size-sm);
+}
+
 .ds-angular-modal-stage {
   min-block-size: 100vh;
   display: grid;
