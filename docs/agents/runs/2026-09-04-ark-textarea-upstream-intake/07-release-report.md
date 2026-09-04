@@ -1,5 +1,6 @@
 # Release
 
 - Branch: `codex/ark-textarea`.
-- Base inicial: Input Ark PR #68; ajustar para main após integração.
-- Commit, PR, CI e validação pública pendentes.
+- PR: #69; commit de implementação `e2b50d3`.
+- Base atualizada para main após o merge do Input #68 (`b34beff`). O merge de histórico `405b578` preserva exatamente a árvore já validada de Textarea.
+- CI e validação pública pendentes.

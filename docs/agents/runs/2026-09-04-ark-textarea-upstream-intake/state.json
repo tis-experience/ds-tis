@@ -10,7 +10,7 @@
     "generatedAt": null,
     "path": ".figma-snapshot.json"
   },
-  "currentGate": "repo",
+  "currentGate": "release",
   "gates": [
     {
       "id": "brief",
@@ -83,7 +83,7 @@
         "token-sync"
       ],
       "needsOwnerApproval": true,
-      "status": "in_progress",
+      "status": "approved",
       "ownerApproval": {
         "at": "2026-09-04",
         "note": "Owner autorizou implementação, testes e PR isolado."
@@ -100,7 +100,7 @@
         "repo"
       ],
       "needsOwnerApproval": true,
-      "status": "pending",
+      "status": "in_progress",
       "ownerApproval": {
         "at": "2026-09-04",
         "note": "Owner autorizou commit, push, PR, merge e validação pública."
@@ -108,5 +108,10 @@
       "updatedAt": "2026-09-04"
     }
   ],
-  "checks": {}
+  "checks": {
+    "test:vnext": { "status": "passed", "at": "2026-09-04" },
+    "test:vnext:browser": { "status": "passed", "at": "2026-09-04" },
+    "visual:light-dark-320": { "status": "passed", "at": "2026-09-04" },
+    "verify:tokens": { "status": "passed", "at": "2026-09-04", "note": "Figma comparison skipped; no snapshot in worktree." }
+  }
 }

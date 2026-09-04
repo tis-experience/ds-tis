@@ -1,8 +1,8 @@
 # Textarea · Ark
 
 - Run ID: `2026-09-04-ark-textarea-upstream-intake`
-- Current gate: repo
-- Active role: Repo Component Agent
+- Current gate: release
+- Active role: Release Agent
 
 ## Artifacts
 
