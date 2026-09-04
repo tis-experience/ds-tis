@@ -368,13 +368,19 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 15,
+      "componentCount": 16,
       "components": [
         {
           "slug": "accordion",
           "entrypoint": "accordion",
           "primitive": "@angular/aria/accordion",
           "storyId": "angular-accordion--playground"
+        },
+        {
+          "slug": "badge",
+          "entrypoint": "badge",
+          "primitive": "presentational host element",
+          "storyId": "angular-badge--playground"
         },
         {
           "slug": "button",

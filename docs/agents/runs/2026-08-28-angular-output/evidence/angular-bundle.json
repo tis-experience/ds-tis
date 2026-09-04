@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T12:16:46.958Z",
+  "generatedAt": "2026-09-04T13:38:27.107Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -7,6 +7,12 @@
       "rawBytes": 7797,
       "gzipBytes": 1501,
       "budgetGzipBytes": 8192
+    },
+    {
+      "name": "badge",
+      "rawBytes": 2270,
+      "gzipBytes": 776,
+      "budgetGzipBytes": 4096
     },
     {
       "name": "button",

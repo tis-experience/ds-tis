@@ -10,6 +10,7 @@ import {
   TisAccordionTitle,
   TisAccordionTrigger,
 } from "@tis/angular/accordion";
+import { TisBadge } from "@tis/angular/badge";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
@@ -52,6 +53,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisAccordionPanel,
     TisAccordionTitle,
     TisAccordionTrigger,
+    TisBadge,
     TisButton,
     TisButtonIconStart,
     TisCheckbox,
@@ -96,7 +98,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Quinze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Dezasseis componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -120,6 +122,17 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
           </tis-button>
           <span role="status" data-testid="submit-count">Submissões: {{ submitted() }}</span>
         </form>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="badge-heading">
+        <div class="consumer-section__heading">
+          <h2 id="badge-heading">Badge</h2>
+          <span class="consumer-status">Apresentacional</span>
+        </div>
+        <div class="consumer-row" data-testid="badge-examples">
+          <tis-badge tone="success" variant="subtle">Aprovado</tis-badge>
+          <tis-badge tone="warning" variant="solid">Pendente</tis-badge>
+        </div>
       </section>
 
       <section class="consumer-section" aria-labelledby="input-heading">

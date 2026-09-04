@@ -51,6 +51,18 @@ try {
   await page.locator('[data-testid="button-form"] [data-tis-angular-button]').first().click();
   expect((await page.locator('[data-testid="submit-count"]').textContent())?.includes("1"), "Button type=submit não submeteu o form nativo");
 
+  const badges = page.locator("[data-tis-angular-badge]");
+  expect(await badges.count() === 2, "Badge não renderizou os dois exemplos do consumer");
+  expect(
+    await badges.first().evaluate((node) =>
+      node.textContent?.trim() === "Aprovado" &&
+      node.getAttribute("data-tone") === "success" &&
+      node.getAttribute("data-variant") === "subtle" &&
+      node.classList.contains("ds-badge--success") &&
+      node.classList.contains("ds-badge--subtle")),
+    "Badge não preservou conteúdo, tom, variante ou classes públicas",
+  );
+
   const input = page.getByRole("textbox", { name: "E-mail" });
   const inputWrapper = page.locator("tis-input .ds-input");
   expect(await input.getAttribute("name") === "email", "Input não encaminhou name ao elemento nativo");
@@ -414,6 +426,23 @@ try {
     await page.reload({ waitUntil: "networkidle" });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow <= 1, `${width}px: overflow horizontal de ${overflow}px`);
+    const responsiveBadges = await page.locator("[data-tis-angular-badge]").evaluateAll((nodes) => nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        viewport: document.documentElement.clientWidth,
+        width: rect.width,
+      };
+    }));
+    expect(
+      responsiveBadges.length === 2 && responsiveBadges.every((geometry) =>
+        geometry.width > geometry.height && geometry.height > 0 &&
+        geometry.width < geometry.viewport * 0.75 &&
+        geometry.left >= 0 && geometry.right <= geometry.viewport),
+      `${width}px: Badge cortado ou deformado (${JSON.stringify(responsiveBadges)})`,
+    );
     const responsiveCombobox = page.getByRole("combobox", { exact: true, name: "Buscar país" });
     await responsiveCombobox.fill("Bra");
     const responsiveComboboxGeometry = await page.locator("tis-combobox .ds-combobox-anchor").evaluate((node) => {
@@ -439,7 +468,14 @@ try {
     await responsiveCombobox.press("Escape");
     const responsiveMenuTrigger = page.getByRole("button", { name: "Ações do documento" });
     await responsiveMenuTrigger.click();
-    const responsiveMenuGeometry = await page.getByRole("menu", { name: "Ações do documento" }).evaluate((node) => {
+    const responsiveMenu = page.getByRole("menu", { name: "Ações do documento" });
+    await responsiveMenu.waitFor({ state: "visible" });
+    await page.waitForFunction(() => {
+      const menu = document.querySelector("[data-tis-angular-menu]");
+      return Boolean(menu && getComputedStyle(menu).display !== "none" &&
+        menu.getBoundingClientRect().right <= document.documentElement.clientWidth);
+    });
+    const responsiveMenuGeometry = await responsiveMenu.evaluate((node) => {
       const rect = node.getBoundingClientRect();
       return {
         left: rect.left,
@@ -640,6 +676,7 @@ try {
       return result;
     };
     return {
+      badge: compare("[data-tis-angular-badge]", "ds-badge ds-badge--success ds-badge--subtle", ["align-items", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size", "line-height"]),
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
@@ -662,6 +699,7 @@ try {
 
   const storyContracts = [
     ["angular-button--playground", "tis-button"],
+    ["angular-badge--playground", "tis-badge"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
     ["angular-combobox--playground", "tis-combobox"],
@@ -684,6 +722,35 @@ try {
     const result = await new AxeBuilder({ page }).analyze();
     expect(result.violations.length === 0, `Storybook ${storyId}: Axe encontrou ${result.violations.map((item) => item.id).join(", ")}`);
   }
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-badge--tons&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyBadges = page.locator("[data-tis-angular-badge]");
+  expect(await storyBadges.count() === 12, "Story de tons do Badge não renderizou a matriz completa");
+  const badgeStoryGeometry = await storyBadges.evaluateAll((nodes) => nodes.map((node) => {
+    const rect = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    return {
+      background: style.backgroundColor,
+      bottom: rect.bottom,
+      height: rect.height,
+      left: rect.left,
+      right: rect.right,
+      top: rect.top,
+      width: rect.width,
+    };
+  }));
+  expect(
+    badgeStoryGeometry.every((geometry) =>
+      geometry.width > geometry.height && geometry.height > 0 &&
+      geometry.left >= 0 && geometry.right <= 320 &&
+      geometry.top >= 0 && geometry.bottom <= 640 &&
+      geometry.background !== "rgba(0, 0, 0, 0)"),
+    `Story do Badge ficou cortado, deformado ou sem superfície em 320px (${JSON.stringify(badgeStoryGeometry)})`,
+  );
+  expect(await page.locator("html").getAttribute("data-mode") === "dark", "Story do Badge não recebeu tema dark");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), "Story do Badge criou overflow horizontal em 320px");
+  await axe("Storybook Badge dark 320px");
 
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-menu--escolhas&globals=mode:dark`, { waitUntil: "networkidle" });

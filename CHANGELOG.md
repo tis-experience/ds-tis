@@ -12,7 +12,8 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 - **Catálogo não escolhe HTML/CSS ao clicar no nome do componente.** Os nomes
   passam a identificar cada item sem funcionar como atalho implícito para Web;
   a navegação fica restrita aos links rotulados HTML/CSS/JS, Ark/Zag, React e
-  Angular, tornando a tecnologia de destino explícita nos dois idiomas.
+  Angular, tornando a tecnologia de destino explícita nos dois idiomas. Links
+  Web usam a rota vNext sempre que a página correspondente já existe.
 - **Tabs preserva labels, overflow local e anatomia em viewports estreitos.**
   As tabs deixam de quebrar o texto em múltiplas linhas, a lista passa a rolar
   horizontalmente dentro do próprio componente e o marcador 4 da anatomia
@@ -53,6 +54,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Badge passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/badge` oferece componente standalone apresentacional,
+  com tons `brand`, `error`, `info`, `neutral`, `success` e `warning`, variantes
+  `solid` e `subtle`, content projection e as classes públicas do DS. Storybook,
+  harness, consumer instalado, responsividade, dark mode, Axe e bundle validam
+  a saída Angular. As páginas Web, React e Angular usam o mesmo exemplo padrão,
+  sem alterar Figma ou tokens.
 - **Toast passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/toast` oferece serviço standalone, regiões live
   polite/assertive, fila limitada, timeout pausável, até duas actions que não

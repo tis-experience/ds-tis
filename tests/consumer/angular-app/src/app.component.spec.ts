@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import {
   TisAccordionHarness,
+  TisBadgeHarness,
   TisButtonHarness,
   TisCheckboxHarness,
   TisComboboxHarness,
@@ -40,6 +41,21 @@ describe("DS TIS Angular consumer", () => {
     fixture.detectChanges();
     expect(await buttons[2].isDisabled()).toBe(true);
     expect(await buttons[2].isLoading()).toBe(true);
+  });
+
+  it("renderiza Badge apresentacional com tom, variante e conteúdo projetado", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const badges = await loader.getAllHarnesses(TisBadgeHarness);
+
+    expect(badges).toHaveLength(2);
+    expect(await badges[0].getText()).toBe("Aprovado");
+    expect(await badges[0].getTone()).toBe("success");
+    expect(await badges[0].getVariant()).toBe("subtle");
+    expect(await badges[1].getText()).toBe("Pendente");
+    expect(await badges[1].getTone()).toBe("warning");
+    expect(await badges[1].getVariant()).toBe("solid");
   });
 
   it("mantém single mode, disabled e relações ARIA no Accordion", async () => {

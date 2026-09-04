@@ -11,6 +11,7 @@ Use entrypoints independentes:
 
 ```ts
 import { TisAccordion, TisAccordionItem } from "@tis/angular/accordion";
+import { TisBadge } from "@tis/angular/badge";
 import { TisButton } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon } from "@tis/angular/combobox";

@@ -7,7 +7,7 @@ const renderBadge = ({ label, tone, style }) => `<span class="ds-badge ds-badge-
 export default {
   title: 'Components/Badge',
   tags: ['autodocs'],
-  args: { label: 'Em revisão', tone: 'brand', style: 'subtle' },
+  args: { label: 'Em revisão', tone: 'brand', style: 'solid' },
   argTypes: {
     label: { control: 'text', description: 'Texto curto do status ou metadado.' },
     tone: { control: 'select', options: tones, description: 'Intenção semântica.' },

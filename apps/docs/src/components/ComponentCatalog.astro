@@ -11,7 +11,22 @@ const isEnglish = locale === 'en';
 const language = isEnglish ? 'en' : 'pt';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const projectBase = base.endsWith('/next') ? base.slice(0, -'/next'.length) : '';
-const pilotSlugs = new Set(['accordion', 'button', 'checkbox', 'modal', 'popover', 'radio', 'toggle']);
+const webVnextSlugs = new Set([
+  'accordion',
+  'badge',
+  'button',
+  'checkbox',
+  'combobox',
+  'menu',
+  'modal',
+  'popover',
+  'radio',
+  'select',
+  'tabs',
+  'toast',
+  'toggle',
+  'tooltip',
+]);
 const reactDescriptions = new Map(
   getReactComponents(locale).map((component) => [component.slug, component.description]),
 );
@@ -67,7 +82,7 @@ const statusLabel = (status: string) => ({
 const routeFor = (component: any, technology: 'web' | 'ark' | 'react' | 'angular') => {
   const implementation = component.implementations[technology];
   if (technology === 'web') {
-    return pilotSlugs.has(component.slug)
+    return webVnextSlugs.has(component.slug)
       ? `${base}/${locale}/web/components/${component.slug}/`
       : `${projectBase}/docs/${component.slug}.html`;
   }

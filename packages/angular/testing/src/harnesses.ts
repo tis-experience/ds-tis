@@ -1,5 +1,21 @@
 import { ComponentHarness } from "@angular/cdk/testing";
 
+export class TisBadgeHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-badge";
+
+  async getText(): Promise<string> {
+    return (await this.host()).text().then((value) => value.trim());
+  }
+
+  async getTone(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-tone");
+  }
+
+  async getVariant(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-variant");
+  }
+}
+
 export class TisButtonHarness extends ComponentHarness {
   static readonly hostSelector = "tis-button";
   private readonly button = this.locatorFor("button[data-tis-angular-button]");

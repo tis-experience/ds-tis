@@ -24,6 +24,26 @@ body:has(.ds-angular-popover-stage) {
   background: var(--ds-background-subtle);
 }
 
+.ds-angular-badge-grid,
+.ds-angular-badge-grid > section {
+  display: grid;
+  align-content: start;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-badge-grid > section > h2 {
+  margin: 0;
+  color: var(--ds-content-default);
+  font-size: var(--ds-heading-font-size-sm);
+}
+
+.ds-angular-badge-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-space-sm);
+}
+
 .ds-angular-modal-stage {
   min-block-size: 100vh;
   display: grid;
