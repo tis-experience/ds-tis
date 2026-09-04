@@ -209,8 +209,8 @@ if (!astroConfig.includes("label: 'Integração'") || !astroConfig.includes("{ s
 
 for (const locale of ['pt-br', 'en']) {
   const components = getReactComponents(locale);
-  if (components.length !== 22) {
-    errors.push(`catálogo React ${locale} deve expor 22 componentes; recebeu ${components.length}`);
+  if (components.length !== 23) {
+    errors.push(`catálogo React ${locale} deve expor 23 componentes; recebeu ${components.length}`);
   }
   const names = components.map((component) => component.name);
   const expectedNames = [...names].sort(
@@ -1352,8 +1352,8 @@ if (staticStorybook) {
   const publicComponents = getReactComponents('en');
   const componentEntries = entries.filter((entry) => entry.title?.startsWith('Components/'));
   const componentTitles = new Set(componentEntries.map((entry) => entry.title));
-  if (componentTitles.size !== 22) {
-    errors.push(`Storybook vNext deve publicar 22 grupos de componente; recebeu ${componentTitles.size}`);
+  if (componentTitles.size !== 23) {
+    errors.push(`Storybook vNext deve publicar 23 grupos de componente; recebeu ${componentTitles.size}`);
   }
   for (const component of publicComponents) {
     const expectedTitle = `Components/${component.category.label.en}/${component.name}`;
@@ -1457,7 +1457,7 @@ if (staticStorybook) {
     errors.push('Storybook vNext ainda expõe ondas/providers técnicos na navegação pública');
   }
   const reactDocs = componentEntries.filter((entry) => entry.type === 'docs');
-  if (reactDocs.length !== 22) {
+  if (reactDocs.length !== 23) {
     errors.push(`Storybook React deve ter uma Docs por componente; recebeu ${reactDocs.length}`);
   }
 }

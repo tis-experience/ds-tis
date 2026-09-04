@@ -322,6 +322,15 @@ try {
   expect(await page.locator('[data-slot="separator"]').count() === 1, "Separator instalado não renderizou");
   expect(await page.locator('[data-slot="skeleton"][aria-hidden="true"]').count() === 3, "Skeleton instalado deve permanecer silencioso");
   expect(await page.locator('[data-slot="spinner"][role="status"]').count() === 1, "Spinner instalado deve anunciar status");
+  expect(await page.locator('[data-slot="table"]').count() === 1, "Table instalada não renderizou");
+  expect(await page.locator("caption", { hasText: "Contas recentes" }).isVisible(), "Table instalada perdeu o caption");
+  const tableRegion = page.getByRole("region", { name: "Contas recentes" });
+  expect(await tableRegion.getAttribute("tabindex") === "0", "Região com overflow da Table deve ser alcançável pelo teclado");
+  const sortHeader = page.locator('[data-slot="table-head"]').first();
+  expect(await sortHeader.getAttribute("aria-sort") === "ascending", "Table deve expor o estado inicial de ordenação");
+  await page.getByRole("button", { name: "Ordenar clientes" }).click();
+  expect(await sortHeader.getAttribute("aria-sort") === "descending", "Table não atualizou aria-sort após ordenar");
+  expect(await page.locator('[data-slot="table-row"][data-selected="true"]').count() === 1, "Table perdeu o estado selected");
   expect(await page.locator('[data-slot="input"]').inputValue() === "Marcell", "Input instalado perdeu o valor inicial");
   expect(await page.locator('[data-slot="textarea"]').inputValue() === "Experience Engineering", "Textarea instalado perdeu o valor inicial");
 
@@ -547,6 +556,8 @@ try {
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const narrowOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(narrowOverflow <= 1, `consumer criou overflow horizontal em 320px (${narrowOverflow}px)`);
+  const tableOverflow = await tableRegion.evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(tableOverflow > 0, "Table nowrap deve manter overflow dentro da região em 320px");
 
   const axeDark = await new AxeBuilder({ page }).analyze();
   expect(

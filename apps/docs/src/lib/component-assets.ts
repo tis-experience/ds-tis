@@ -13,6 +13,7 @@ import modalCssUrl from '../../../../css/components/modal.css?url';
 import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
+import tableCssUrl from '../../../../css/components/table.css?url';
 import tabsCssUrl from '../../../../css/components/tabs.css?url';
 import textareaCssUrl from '../../../../css/components/textarea.css?url';
 import toastCssUrl from '../../../../css/components/toast.css?url';
@@ -40,6 +41,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },
+  table: { css: [badgeCssUrl, buttonCssUrl, tableCssUrl] },
   tabs: { css: [buttonCssUrl, tabsCssUrl] },
   textarea: { css: [formFieldCssUrl, textareaCssUrl] },
   toast: { css: [badgeCssUrl, buttonCssUrl, toastCssUrl] },

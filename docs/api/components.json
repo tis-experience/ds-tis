@@ -3130,14 +3130,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "table",
+          "provider": "Native React",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/table.json",
+          "install": "npx shadcn@latest add @tis/table",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {

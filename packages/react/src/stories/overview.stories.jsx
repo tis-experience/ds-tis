@@ -1,6 +1,6 @@
 const categories = [
   { name: 'Actions', components: ['Button'] },
-  { name: 'Content and structure', components: ['Card', 'Divider'] },
+  { name: 'Content and structure', components: ['Card', 'Divider', 'Table'] },
   { name: 'Input and selection', components: ['Checkbox', 'Combobox', 'Form Field', 'Input Text', 'Radio', 'Select', 'Textarea', 'Toggle'] },
   { name: 'Feedback and status', components: ['Alert', 'Badge', 'Skeleton', 'Spinner'] },
   { name: 'Navigation', components: ['Menu'] },

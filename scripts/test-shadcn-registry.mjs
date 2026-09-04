@@ -57,6 +57,7 @@ const expectedItems = [
   'skeleton',
   'spinner',
   'switch',
+  'table',
   'tabs',
   'textarea',
   'toast',
@@ -223,6 +224,14 @@ const sourceContracts = {
   separator: ['<hr', 'ds-divider', 'aria-orientation'],
   skeleton: ['ds-skeleton', 'aria-hidden={ariaHidden}', 'data-variant={variant}'],
   spinner: ['ds-spinner', 'role={role}', 'aria-label={ariaLabel}'],
+  table: [
+    'ds-table-region',
+    'data-slot="table-header"',
+    'data-slot="table-body"',
+    'scope = "col"',
+    'ds-table__header-cell--sortable',
+    'data-slot="table-sort-button"',
+  ],
 };
 
 for (const [name, contracts] of Object.entries(sourceContracts)) {
@@ -501,8 +510,9 @@ const entries = {
       path.join(ROOT, 'registry/tis/separator.tsx'),
       path.join(ROOT, 'registry/tis/skeleton.tsx'),
       path.join(ROOT, 'registry/tis/spinner.tsx'),
+      path.join(ROOT, 'registry/tis/table.tsx'),
     ],
-    budget: 15 * 1024,
+    budget: 17 * 1024,
   },
 };
 

@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { CircleCheckIcon, InfoIcon, XIcon } from "lucide-react"
+import { ArrowUpDownIcon, CircleCheckIcon, InfoIcon, XIcon } from "lucide-react"
 
 import {
   Accordion,
@@ -84,6 +84,16 @@ import {
 } from "./components/ui/radio-group"
 import { Separator } from "./components/ui/separator"
 import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableSortButton,
+} from "./components/ui/table"
+import {
   Select,
   SelectContent,
   SelectField,
@@ -136,6 +146,7 @@ const countries = [
 
 export function App() {
   const [saved, setSaved] = useState(false)
+  const [tableDescending, setTableDescending] = useState(false)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -148,10 +159,10 @@ export function App() {
       <header className="consumer-header">
         <p className="consumer-kicker">Registry shadcn · beta</p>
         <h1>Preferências da conta</h1>
-        <p>Vinte e dois componentes React instalados como source, com o visual do DS TIS.</p>
+        <p>Vinte e três componentes React instalados como source, com o visual do DS TIS.</p>
         <div className="consumer-badge-row" aria-label="Estado da implementação">
           <Badge tone="info" variant="subtle">React beta</Badge>
-          <Badge tone="success" variant="subtle">22 componentes validados</Badge>
+          <Badge tone="success" variant="subtle">23 componentes validados</Badge>
         </div>
       </header>
 
@@ -315,6 +326,43 @@ export function App() {
                 Plano e dados de cobrança.
               </TabsContent>
             </Tabs>
+
+            <Table nowrap regionLabel="Contas recentes" size="md">
+              <TableCaption>Contas recentes</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead aria-sort={tableDescending ? "descending" : "ascending"} sortable>
+                    <TableSortButton
+                      aria-label="Ordenar clientes"
+                      onClick={() => setTableDescending((current) => !current)}
+                    >
+                      Cliente
+                      <ArrowUpDownIcon aria-hidden="true" className="ds-table__sort-icon" />
+                    </TableSortButton>
+                  </TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>E-mail</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(tableDescending
+                  ? [
+                      ["Bruno Lima", "Pendente", "bruno.lima@agt.ao"],
+                      ["Ana Silva", "Ativo", "ana.silva@agt.ao"],
+                    ]
+                  : [
+                      ["Ana Silva", "Ativo", "ana.silva@agt.ao"],
+                      ["Bruno Lima", "Pendente", "bruno.lima@agt.ao"],
+                    ]
+                ).map(([name, status, email]) => (
+                  <TableRow key={email} selected={status === "Pendente"}>
+                    <TableCell>{name}</TableCell>
+                    <TableCell>{status}</TableCell>
+                    <TableCell>{email}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
 
             <Menu>
               <MenuTrigger type="button">

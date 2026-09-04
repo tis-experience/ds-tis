@@ -71,6 +71,7 @@ if (fs.existsSync(SITE_DIR)) {
       "skeleton",
       "spinner",
       "switch",
+      "table",
       "tabs",
       "textarea",
       "tis-base",
