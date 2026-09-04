@@ -1,4 +1,5 @@
 import accordionCssUrl from '../../../../css/components/accordion.css?url';
+import alertCssUrl from '../../../../css/components/alert.css?url';
 import badgeCssUrl from '../../../../css/components/badge.css?url';
 import buttonCssUrl from '../../../../css/components/button.css?url';
 import checkboxCssUrl from '../../../../css/components/checkbox.css?url';
@@ -24,6 +25,8 @@ interface ComponentAssets {
 // apenas folhas de componente conhecidas, sem carregar o reset ou todo o DS.
 const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   accordion: { css: [accordionCssUrl, buttonCssUrl] },
+  alert: { css: [alertCssUrl, buttonCssUrl] },
+  badge: { css: [badgeCssUrl] },
   button: { css: [buttonCssUrl] },
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },

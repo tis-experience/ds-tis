@@ -10,6 +10,14 @@ import {
   TisAccordionTitle,
   TisAccordionTrigger,
 } from "@tis/angular/accordion";
+import {
+  TisAlert,
+  TisAlertClose,
+  TisAlertContent,
+  TisAlertDescription,
+  TisAlertIcon,
+  TisAlertTitle,
+} from "@tis/angular/alert";
 import { TisBadge } from "@tis/angular/badge";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
 import { TisCheckbox } from "@tis/angular/checkbox";
@@ -53,6 +61,12 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisAccordionPanel,
     TisAccordionTitle,
     TisAccordionTrigger,
+    TisAlert,
+    TisAlertClose,
+    TisAlertContent,
+    TisAlertDescription,
+    TisAlertIcon,
+    TisAlertTitle,
     TisBadge,
     TisButton,
     TisButtonIconStart,
@@ -98,7 +112,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Dezasseis componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Dezassete componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -122,6 +136,34 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
           </tis-button>
           <span role="status" data-testid="submit-count">Submissões: {{ submitted() }}</span>
         </form>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="alert-heading">
+        <div class="consumer-section__heading">
+          <h2 id="alert-heading">Alert</h2>
+          <span class="consumer-status">Live region nativa</span>
+        </div>
+        @if (alertVisible()) {
+          <tis-alert tone="success" variant="subtle" data-testid="alert">
+            <span tisAlertIcon>
+              <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m8 12 2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <div tisAlertContent>
+              <strong tisAlertTitle>Configuração salva</strong>
+              <span tisAlertDescription>As preferências já estão disponíveis.</span>
+            </div>
+            <button tisAlertClose aria-label="Fechar alerta" (click)="alertVisible.set(false)">
+              <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="m7 7 10 10M17 7 7 17" stroke-linecap="round" />
+              </svg>
+            </button>
+          </tis-alert>
+        } @else {
+          <p role="status" data-testid="alert-dismissed">Alerta dispensado.</p>
+        }
       </section>
 
       <section class="consumer-section" aria-labelledby="badge-heading">
@@ -601,6 +643,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 export class AppComponent {
   private readonly document = inject(DOCUMENT);
   readonly toastService = inject(TisToastService);
+  readonly alertVisible = signal(true);
   readonly dark = signal(false);
   readonly checkboxSubmitted = signal(false);
   readonly comboboxSubmitted = signal(false);

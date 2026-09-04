@@ -1,18 +1,19 @@
 # Relatório da saída Angular
 
 - Data da validação: 2026-09-04
-- Branch: `codex/angular-badge`
-- Base: `abf795f` (`origin/main`)
-- Status: **Badge implementado e validado neste incremento**
+- Branch: `codex/angular-alert`
+- Base: `2768df5` (`origin/main`)
+- Status: **Alert implementado e validado neste incremento**
 
 ## 1. Escopo
 
-A saída Angular agora oferece dezasseis entrypoints independentes: Accordion,
-Badge, Button, Checkbox, Combobox, Input Text, Menu, Modal, Popover, Radio,
-Select, Tabs, Textarea, Toast, Toggle e Tooltip. Este incremento acrescenta o Badge Angular e os
-artefatos necessários de consumer, Storybook, documentação e testes. O exemplo
-padrão de Badge foi alinhado entre Web, React e Angular, e o catálogo passou a
-usar as rotas Web vNext já existentes. CSS, tokens e Figma foram preservados.
+A saída Angular agora oferece dezassete entrypoints independentes: Accordion,
+Alert, Badge, Button, Checkbox, Combobox, Input Text, Menu, Modal, Popover,
+Radio, Select, Tabs, Textarea, Toast, Toggle e Tooltip. Este incremento
+acrescenta o Alert Angular e os artefatos necessários de consumer, Storybook,
+documentação e testes. O exemplo padrão, a iconografia por tom e o dismiss foram
+alinhados entre Web, React e Angular. CSS público, tokens e Figma foram
+preservados.
 
 O owner confirmou que o Figma não teve alterações e dispensou novo snapshot
 para esta implementação. A evidência Figma anterior permanece histórica e não é
@@ -23,6 +24,7 @@ apresentada como evidência fresca de release.
 | Componente | API Angular | Primitive | Contrato validado |
 | --- | --- | --- | --- |
 | Accordion | diretivas `TisAccordion*` standalone | Angular Aria | single/multiple, disabled, roving focus, teclado e temas |
+| Alert | `TisAlert` e diretivas de icon/content/title/description/actions/close | live region HTML + composição Angular | quatro tons, solid/subtle, dismiss, prioridade semântica, responsividade e temas |
 | Badge | `TisBadge` standalone | elemento host apresentacional | seis tons, solid/subtle, content projection, responsividade e temas |
 | Button | `TisButton` standalone | HTML nativo | submit, loading, disabled, ícones, sizes e temas |
 | Checkbox | `TisCheckbox` standalone e `ControlValueAccessor` | checkbox nativo + Angular Forms | checked, indeterminate, disabled, required, invalid, formulário, teclado e temas |
@@ -42,14 +44,14 @@ apresentada como evidência fresca de release.
 Não há imports cruzados com React, Base UI, shadcn, Ark UI ou Zag. O consumidor
 continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overlay.
 
-## 3. Artefatos de Badge
+## 3. Artefatos de Alert
 
-- Entry point: `packages/angular/badge/`.
-- Storybook: `packages/angular/stories/badge.stories.ts`.
-- Harness: `TisBadgeHarness` em `@tis/angular/testing`.
+- Entry point: `packages/angular/alert/`.
+- Storybook: `packages/angular/stories/alert.stories.ts`.
+- Harness: `TisAlertHarness` em `@tis/angular/testing`.
 - Consumer real: `tests/consumer/angular-app/src/app.component.ts`.
 - Catálogo e docs: metadados canônicos, índice Angular bilíngue e página de
-  Badge em PT-BR e inglês.
+  Alert em PT-BR e inglês.
 - Evidência: testes unitários, consumer instalado, bundles e browser em 320,
   390 e 1280px.
 
@@ -57,10 +59,11 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 
 | Gate | Resultado |
 | --- | --- |
-| `npm run test:angular` | passou: package build, tarball real, consumer, 17 testes unitários, Storybook, bundles, browser e Axe |
-| Testes unitários | passaram: 17 testes com harnesses, Angular Forms e contrato apresentacional do Badge |
-| Consumer de produção | 400,11 KiB JS + 232,26 KiB CSS brutos |
+| `npm run test:angular` | passou: package build, tarball real, consumer, 18 testes unitários, Storybook, bundles, browser e Axe |
+| Testes unitários | passaram: 18 testes com harnesses, Angular Forms e contrato semântico/composicional do Alert |
+| Consumer de produção | 403,21 KiB JS + 232,26 KiB CSS brutos |
 | Accordion incremental | 1,47 KiB gzip; orçamento 8 KiB |
+| Alert incremental | 1,12 KiB gzip; orçamento 5 KiB |
 | Badge incremental | 0,76 KiB gzip; orçamento 4 KiB |
 | Button incremental | 1,32 KiB gzip; orçamento 4 KiB |
 | Checkbox incremental | 1,94 KiB gzip; orçamento 5 KiB |
@@ -78,7 +81,7 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 | Tooltip incremental | 3,24 KiB gzip; orçamento 12 KiB |
 | Browser Angular | semântica, Angular Forms, foco, 320/390/1280, light/dark, paridade visual, Storybook e Axe válidos |
 | Browser do portal vNext | quatro implementações, runtimes próprios, interação, dark mode, anatomia, tabelas, 320/390, Storybook e Axe válidos |
-| Suíte geral | `npm test` passou: 92 stories contratuais/93 stories auditadas no browser, 236 páginas HTML, 108 auditorias de páginas light/dark e zero violações Axe |
+| Suíte geral | `npm run build:all` passou: 92 stories contratuais/93 stories auditadas no browser, 240 páginas HTML no artefato Pages, 108 auditorias de páginas light/dark e zero violações Axe |
 
 ## 5. Evidência visual
 
@@ -86,10 +89,13 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 - `evidence/angular-consumer-390.png`
 - `evidence/angular-consumer-320.png`
 
-As capturas foram regeneradas pelo gate integral de navegador. O Badge preservou
-texto, seis tons, variantes solid/subtle e formato compacto em 320, 390 e
-1280px, sem stretch ou overflow. A matriz do Storybook bloqueia conteúdo
-recortado, superfícies ausentes, contraste insuficiente e divergência light/dark.
+As capturas foram regeneradas pelo gate integral de navegador. O Alert preservou
+ícone, title, description e close alinhados, variantes solid/subtle, quatro tons
+e dismiss real em 320, 390 e 1280px, sem stretch ou overflow. A documentação
+carrega o CSS público e os ícones Lucide também na anatomia e nos exemplos fora
+do iframe; o mesmo gate passou a proteger o Badge contra essa regressão. A
+matriz do Storybook bloqueia conteúdo recortado, superfícies ausentes, contraste
+insuficiente e divergência light/dark.
 
 ## 6. Limites
 
@@ -100,5 +106,6 @@ recortado, superfícies ausentes, contraste insuficiente e divergência light/da
 
 ## 7. Próximo passo
 
-Revisar o diff e publicar o incremento por PR. Depois, iniciar o Alert Angular
-e preservar o mesmo padrão de paridade visual, responsividade, Storybook e Axe.
+Concluir os gates, publicar o incremento por PR e verificar o catálogo público.
+Depois, iniciar o próximo componente ainda sem saída Angular, preservando o
+mesmo padrão de paridade visual, responsividade, Storybook e Axe.

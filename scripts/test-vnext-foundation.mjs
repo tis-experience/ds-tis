@@ -84,6 +84,7 @@ const required = [
   '.storybook-angular/main.mjs',
   '.storybook-angular/preview.ts',
   'packages/angular/package.json',
+  'packages/angular/alert/src/alert.ts',
   'packages/angular/badge/src/badge.ts',
   'packages/angular/button/src/button.ts',
   'packages/angular/accordion/src/accordion.ts',
@@ -92,6 +93,7 @@ const required = [
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
   'packages/angular/stories/select.stories.ts',
+  'packages/angular/stories/alert.stories.ts',
   'packages/angular/stories/badge.stories.ts',
   'packages/angular/stories/combobox.stories.ts',
   'packages/angular/stories/menu.stories.ts',
@@ -266,7 +268,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,badge,button,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,alert,badge,button,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -539,9 +541,30 @@ for (const locale of ['pt', 'en']) {
   }
 }
 
+const alertHtml = read('docs/alert.html');
+const expectedAlertTopics = { design: 6, usage: 4, code: 1, accessibility: 2 };
+for (const [topic, expectedCount] of Object.entries(expectedAlertTopics)) {
+  const count = (alertHtml.match(new RegExp(`data-doc-topic="${topic}"`, 'g')) || []).length;
+  if (count !== expectedCount) {
+    errors.push(`docs/alert.html deve expor ${expectedCount} landmarks ${topic}; recebeu ${count}`);
+  }
+}
+for (const locale of ['pt', 'en']) {
+  for (const topic of Object.keys(expectedAlertTopics)) {
+    const guidance = getComponentGuidance('alert', topic, locale);
+    if (!guidance.html.trim()) {
+      errors.push(`Alert ${locale}/${topic}: conteúdo compartilhado vazio`);
+    }
+    if (/data-lang=|<script|<iframe|ds-preview__tabs|ds-preview__code/.test(guidance.html)) {
+      errors.push(`Alert ${locale}/${topic}: adaptador preservou markup legado bloqueado`);
+    }
+  }
+}
+
 const componentDocumentation = read('apps/docs/src/lib/component-documentation.ts');
 for (const contract of [
   "storyId: 'components-accordion--playground'",
+  "storyId: 'components-alert--playground'",
   "storyId: 'components-badge--playground'",
   "storyId: 'components-button--playground'",
   "storyId: 'components-modal--playground'",
@@ -554,6 +577,7 @@ for (const contract of [
   "from '@tis/react/ark/accordion'",
   "from '@tis/react/ark/combobox'",
   "from '@tis/angular/combobox'",
+  "from '@tis/angular/alert'",
   "from '@tis/angular/badge'",
   "from '@tis/angular/menu'",
   "from '@tis/react/ark/menu'",
@@ -584,6 +608,9 @@ for (const modalStoryId of [
 }
 
 const technologyImplementations = read('scripts/lib/technology-implementations.mjs');
+if (!technologyImplementations.includes('alert: { entrypoint: "alert", primitive: "native live region + Angular composition", storyId: "angular-alert--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Alert Angular');
+}
 if (!technologyImplementations.includes('badge: { entrypoint: "badge", primitive: "presentational host element", storyId: "angular-badge--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Badge Angular');
 }
@@ -943,12 +970,14 @@ if (dynamicReactRoute.includes("component.slug !== 'button'")) {
 }
 const dynamicAngularRoute = read('apps/docs/src/pages/[locale]/angular/components/[slug].astro');
 if (
+  !dynamicAngularRoute.includes("'alert'") ||
+  !dynamicAngularRoute.includes("alert: 'Alert'") ||
   !dynamicAngularRoute.includes("'badge'") ||
   !dynamicAngularRoute.includes("badge: 'Badge'") ||
   !dynamicAngularRoute.includes("'combobox'") ||
   !dynamicAngularRoute.includes("combobox: 'Combobox'")
 ) {
-  errors.push('rota Angular deve gerar e nomear as páginas do Badge e Combobox');
+  errors.push('rota Angular deve gerar e nomear as páginas do Alert, Badge e Combobox');
 }
 
 if (fs.existsSync(path.join(ROOT, 'apps', 'docs', 'src', 'components', 'ComponentPageChrome.astro'))) {

@@ -54,6 +54,14 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Alert passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/alert` oferece composição standalone para icon,
+  content, title, description, actions e close, com tons `error`, `info`,
+  `success` e `warning`, variantes `solid` e `subtle` e live region adequada à
+  prioridade da mensagem. Storybook, harness, consumer instalado,
+  responsividade, dark mode, dismiss real, Axe e bundle validam a saída. As
+  páginas Web, React e Angular usam o mesmo cenário padrão e iconografia por
+  tom, sem alterar Figma ou tokens.
 - **Badge passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/badge` oferece componente standalone apresentacional,
   com tons `brand`, `error`, `info`, `neutral`, `success` e `warning`, variantes
