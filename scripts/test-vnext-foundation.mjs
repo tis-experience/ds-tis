@@ -845,11 +845,16 @@ for (const contract of [
   "['react', 'React']",
   "['angular', 'Angular']",
   'implementation.status',
-  '.filter((output) => output.href)',
+  'const outputs = outputDefinitions.map',
+  "data-availability={href ? 'available' : 'unavailable'}",
+  'ds-component-catalog__output--inactive',
 ]) {
   if (!componentCatalog.includes(contract)) {
     errors.push(`catálogo canônico deve preservar o contrato ${contract}`);
   }
+}
+if (componentCatalog.includes('.filter((output) => output.href)')) {
+  errors.push('catálogo canônico não deve ocultar saídas planejadas ou indisponíveis');
 }
 if (componentCatalog.includes('Contrato de design estável com a disponibilidade')) {
   errors.push('catálogo não deve repetir uma descrição genérica para componentes sem saída React');
