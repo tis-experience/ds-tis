@@ -1,15 +1,15 @@
 # Relatório da saída Angular
 
-- Data da validação: 2026-09-03
-- Branch: `codex/angular-menu`
-- Base: `55209dc` (`origin/main`)
-- Status: **Action Menu implementado e validado neste incremento**
+- Data da validação: 2026-09-04
+- Branch: `codex/angular-toast`
+- Base: `b6fb9a7` (`origin/main`)
+- Status: **Toast implementado e validado neste incremento**
 
 ## 1. Escopo
 
-A saída Angular agora oferece catorze entrypoints independentes: Accordion,
+A saída Angular agora oferece quinze entrypoints independentes: Accordion,
 Button, Checkbox, Combobox, Input Text, Menu, Modal, Popover, Radio, Select,
-Tabs, Textarea, Toggle e Tooltip. Este incremento acrescenta o Action Menu Angular e os
+Tabs, Textarea, Toast, Toggle e Tooltip. Este incremento acrescenta o Toast Angular e os
 artefatos necessários de consumer, Storybook, documentação e testes. Web,
 Ark/Zag, React, tokens e Figma foram preservados.
 
@@ -33,20 +33,21 @@ apresentada como evidência fresca de release.
 | Select | `TisSelect` standalone e `ControlValueAccessor` | select nativo + Angular Forms | label, opções, placeholder, required, helper, erro, disabled, sizes e temas |
 | Tabs | diretivas `TisTabs*` standalone | Angular Aria | seleção controlável, roving tabindex, setas, Home/End, disabled e relações ARIA |
 | Textarea | `TisTextarea` standalone e `ControlValueAccessor` | textarea nativo + Angular Forms | label, required, helper, erro, contador, disabled, readonly, sizes e temas |
+| Toast | `TisToastService` e `TisToastRegion` standalone | serviço Angular + regiões live HTML | polite/assertive, fila máxima, timeout pausável, actions persistentes, close, Escape e temas |
 | Toggle | `TisToggle` standalone e `ControlValueAccessor` | checkbox nativo com role switch + Angular Forms | on/off, Space, disabled, formulário, sizes e temas |
 | Tooltip | `TisTooltip` e `TisTooltipTrigger` standalone | CDK Overlay e Portal | hover/focus, delays, conteúdo hoverable, Escape, placements, flip, seta e temas |
 
 Não há imports cruzados com React, Base UI, shadcn, Ark UI ou Zag. O consumidor
 continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overlay.
 
-## 3. Artefatos de Action Menu
+## 3. Artefatos de Toast
 
-- Entry point: `packages/angular/menu/`.
-- Storybook: `packages/angular/stories/menu.stories.ts`.
-- Harness: `TisMenuHarness` em `@tis/angular/testing`.
+- Entry point: `packages/angular/toast/`.
+- Storybook: `packages/angular/stories/toast.stories.ts`.
+- Harness: `TisToastHarness` em `@tis/angular/testing`.
 - Consumer real: `tests/consumer/angular-app/src/app.component.ts`.
 - Catálogo e docs: metadados canônicos, índice Angular bilíngue e página de
-  Menu em PT-BR e inglês.
+  Toast em PT-BR e inglês.
 - Evidência: testes unitários, consumer instalado, bundles e browser em 320,
   390 e 1280px.
 
@@ -54,9 +55,9 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 
 | Gate | Resultado |
 | --- | --- |
-| `npm run test:angular` | passou: package build, tarball real, consumer, 14 testes unitários, Storybook, bundles, browser e Axe |
-| Testes unitários | passaram: 14 testes com harnesses, Angular Forms e Action Menu |
-| Consumer de produção | 389,57 KiB JS + 232,22 KiB CSS brutos |
+| `npm run test:angular` | passou: package build, tarball real, consumer, 16 testes unitários, Storybook, bundles, browser e Axe |
+| Testes unitários | passaram: 16 testes com harnesses, Angular Forms, live regions e ciclo de vida do Toast |
+| Consumer de produção | 398,84 KiB JS + 232,22 KiB CSS brutos |
 | Accordion incremental | 1,47 KiB gzip; orçamento 8 KiB |
 | Button incremental | 1,32 KiB gzip; orçamento 4 KiB |
 | Checkbox incremental | 1,94 KiB gzip; orçamento 5 KiB |
@@ -69,11 +70,12 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 | Select incremental | 2,32 KiB gzip; orçamento 6 KiB |
 | Tabs incremental | 0,95 KiB gzip; orçamento 8 KiB |
 | Textarea incremental | 2,34 KiB gzip; orçamento 6 KiB |
+| Toast incremental | 3,25 KiB gzip; orçamento 8 KiB |
 | Toggle incremental | 1,57 KiB gzip; orçamento 5 KiB |
 | Tooltip incremental | 3,24 KiB gzip; orçamento 12 KiB |
 | Browser Angular | semântica, Angular Forms, foco, 320/390/1280, light/dark, paridade visual, Storybook e Axe válidos |
 | Browser do portal vNext | quatro implementações, runtimes próprios, interação, dark mode, anatomia, tabelas, 320/390, Storybook e Axe válidos |
-| Suíte geral | `npm test` passou: 93 stories, 228 páginas HTML, 108 auditorias de páginas light/dark e zero violações Axe |
+| Suíte geral | `npm test` passou: 92 stories contratuais/93 stories auditadas no browser, 232 páginas HTML, 108 auditorias de páginas light/dark e zero violações Axe |
 
 ## 5. Evidência visual
 
@@ -81,11 +83,11 @@ continua responsável por importar `ds-tis/css` e o CSS estrutural do CDK Overla
 - `evidence/angular-consumer-390.png`
 - `evidence/angular-consumer-320.png`
 
-As capturas foram regeneradas pelo gate integral de navegador. O Action Menu
-preservou trigger e painel dentro do viewport em 320, 390 e 1280px, comandos
-alinhados, foco por teclado, typeahead, item disabled, Escape, retorno de foco,
-tema dark e ausência de overflow. As stories bloqueiam painel recortado,
-contraste insuficiente, semântica incorreta e divergência light/dark.
+As capturas foram regeneradas pelo gate integral de navegador. O Toast preservou
+regiões live, mensagens e actions dentro do viewport em 320, 390 e 1280px,
+timeout pausável, limite de cinco mensagens, Escape contextual, tema dark e
+ausência de overflow. As stories bloqueiam conteúdo recortado, contraste
+insuficiente, semântica incorreta e divergência light/dark.
 
 ## 6. Limites
 
@@ -96,6 +98,5 @@ contraste insuficiente, semântica incorreta e divergência light/dark.
 
 ## 7. Próximo passo
 
-Revisar o diff e publicar o incremento por PR. Depois, iniciar o Toast Angular
-e preservar o mesmo padrão de paridade visual, interação, anúncios acessíveis,
-dark mode, responsividade, Storybook e Axe.
+Revisar o diff e publicar o incremento por PR. Depois, iniciar o Badge Angular
+e preservar o mesmo padrão de paridade visual, responsividade, Storybook e Axe.

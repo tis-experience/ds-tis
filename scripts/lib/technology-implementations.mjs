@@ -57,6 +57,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   select: { entrypoint: "select", primitive: "native select + Angular Forms", storyId: "angular-select--playground" },
   tabs: { entrypoint: "tabs", primitive: "@angular/aria/tabs", storyId: "angular-tabs--playground" },
   textarea: { entrypoint: "textarea", primitive: "native textarea + Angular Forms", storyId: "angular-textarea--playground" },
+  toast: { entrypoint: "toast", primitive: "Angular service + native live regions", storyId: "angular-toast--playground" },
   toggle: { entrypoint: "toggle", primitive: "native switch + Angular Forms", storyId: "angular-toggle--playground" },
   tooltip: { entrypoint: "tooltip", primitive: "@angular/cdk/overlay + portal", storyId: "angular-tooltip--playground" },
 };

@@ -1,5 +1,6 @@
 import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
 import { TestBed } from "@angular/core/testing";
+import { vi } from "vitest";
 import {
   TisAccordionHarness,
   TisButtonHarness,
@@ -13,6 +14,7 @@ import {
   TisSelectHarness,
   TisTabsHarness,
   TisTextareaHarness,
+  TisToastHarness,
   TisToggleHarness,
   TisTooltipHarness,
 } from "@tis/angular/testing";
@@ -256,6 +258,54 @@ describe("DS TIS Angular consumer", () => {
     const content = fixture.nativeElement.ownerDocument.getElementById(descriptionId);
     expect(content?.getAttribute("role")).toBe("tooltip");
     expect(content?.textContent?.trim()).toBe("Editar documento");
+  });
+
+  it("integra Toast com região live, action persistente e dismiss", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const toast = await loader.getHarness(TisToastHarness);
+
+    fixture.componentInstance.showToast();
+    fixture.detectChanges();
+    expect(await toast.getToastCount()).toBe(1);
+    expect(await toast.getTitles()).toEqual(["Alterações salvas"]);
+    expect(fixture.nativeElement.querySelector(".ds-toast-region__polite")?.getAttribute("role")).toBe("status");
+    expect(fixture.nativeElement.querySelector(".ds-toast-region__assertive")?.getAttribute("role")).toBe("alert");
+
+    await toast.activateAction();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.toastActionCount()).toBe(1);
+    expect(await toast.getToastCount()).toBe(1);
+
+    await toast.dismiss();
+    fixture.detectChanges();
+    expect(await toast.getToastCount()).toBe(0);
+  });
+
+  it("pausa e retoma o timeout do Toast sem perder o tempo restante", async () => {
+    vi.useFakeTimers();
+    try {
+      const fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+      const loader = TestbedHarnessEnvironment.loader(fixture);
+      const toast = await loader.getHarness(TisToastHarness);
+      const id = fixture.componentInstance.toastService.show({ title: "Temporário", duration: 100 });
+      fixture.detectChanges();
+
+      vi.advanceTimersByTime(40);
+      fixture.componentInstance.toastService.pause(id);
+      vi.advanceTimersByTime(100);
+      fixture.detectChanges();
+      expect(await toast.getToastCount()).toBe(1);
+
+      fixture.componentInstance.toastService.resume(id);
+      vi.advanceTimersByTime(60);
+      fixture.detectChanges();
+      expect(await toast.getToastCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("abre o Popover, fecha com Escape e retorna foco", async () => {

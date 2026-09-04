@@ -22,6 +22,7 @@ import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
 import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
+import { TisToastRegion, TisToastService } from "@tis/angular/toast";
 import { TisToggle } from "@tis/angular/toggle";
 import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 ```

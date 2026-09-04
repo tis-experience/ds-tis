@@ -368,7 +368,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 14,
+      "componentCount": 15,
       "components": [
         {
           "slug": "accordion",
@@ -441,6 +441,12 @@
           "entrypoint": "textarea",
           "primitive": "native textarea + Angular Forms",
           "storyId": "angular-textarea--playground"
+        },
+        {
+          "slug": "toast",
+          "entrypoint": "toast",
+          "primitive": "Angular service + native live regions",
+          "storyId": "angular-toast--playground"
         },
         {
           "slug": "toggle",

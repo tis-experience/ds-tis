@@ -252,6 +252,35 @@ try {
   await page.mouse.move(0, 0);
   await tooltipContent.waitFor({ state: "detached" });
 
+  const toastTrigger = page.getByRole("button", { exact: true, name: "Mostrar Toast" });
+  await toastTrigger.click();
+  const toast = page.locator("[data-tis-angular-toast]").first();
+  await toast.waitFor({ state: "visible" });
+  expect(await page.locator(".ds-toast-region__polite").getAttribute("role") === "status", "Toast não expôs região polite");
+  expect(await page.locator(".ds-toast-region__assertive").getAttribute("role") === "alert", "Toast não expôs região assertive");
+  await toast.getByRole("button", { name: "Desfazer" }).click();
+  expect(await toast.isVisible(), "Action do Toast dispensou a mensagem indevidamente");
+  await page.waitForFunction(() => document.querySelector('[data-testid="toast-action-count"]')?.textContent?.includes("1"));
+  expect((await page.locator('[data-testid="toast-action-count"]').textContent())?.includes("1"), "Action do Toast não executou callback");
+  await toast.getByRole("button", { name: "Dispensar" }).focus();
+  await page.keyboard.press("Escape");
+  await toast.waitFor({ state: "detached" });
+
+  await toastTrigger.click();
+  const contextualToast = page.locator("[data-tis-angular-toast]").first();
+  await contextualToast.waitFor({ state: "visible" });
+  await toastTrigger.focus();
+  await page.keyboard.press("Escape");
+  expect(await contextualToast.isVisible(), "Escape fora do Toast dispensou a mensagem");
+  await contextualToast.getByRole("button", { name: "Dispensar" }).click();
+  await contextualToast.waitFor({ state: "detached" });
+
+  for (let index = 0; index < 6; index += 1) await toastTrigger.click();
+  expect(await page.locator("[data-tis-angular-toast]").count() === 5, "Toast não limitou a fila visível a cinco mensagens");
+  while (await page.locator("[data-tis-angular-toast] .ds-toast__close").count()) {
+    await page.locator("[data-tis-angular-toast] .ds-toast__close").first().evaluate((button) => button.click());
+  }
+
   const tabs = page.locator("button[tistab]");
   const tabPanels = page.locator("[tistabpanel]");
   expect(await tabs.count() === 3, "Tabs não renderizou três tabs");
@@ -532,7 +561,33 @@ try {
     );
     await page.keyboard.press("Escape");
     await responsiveTooltip.waitFor({ state: "detached" });
+    await responsiveModal.getByRole("button", { name: "Cancelar" }).click();
+    await responsiveModal.waitFor({ state: "detached" });
+    await page.getByRole("button", { exact: true, name: "Mostrar Toast" }).click();
+    const responsiveToast = page.locator("[data-tis-angular-toast]").first();
+    await responsiveToast.waitFor({ state: "visible" });
+    const responsiveToastGeometry = await responsiveToast.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        bottom: rect.bottom,
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        viewportHeight: window.innerHeight,
+        viewportWidth: document.documentElement.clientWidth,
+        width: rect.width,
+      };
+    });
+    expect(
+      responsiveToastGeometry.width > 0 && responsiveToastGeometry.height >= 80 &&
+        responsiveToastGeometry.left >= 0 && responsiveToastGeometry.right <= responsiveToastGeometry.viewportWidth &&
+        responsiveToastGeometry.top >= 0 && responsiveToastGeometry.bottom <= responsiveToastGeometry.viewportHeight,
+      `${width}px: Toast cortado ou fora do viewport (${JSON.stringify(responsiveToastGeometry)})`,
+    );
     await page.screenshot({ path: path.join(EVIDENCE, `angular-consumer-${width}.png`), fullPage: true });
+    await responsiveToast.getByRole("button", { name: "Dispensar" }).click();
+    await responsiveToast.waitFor({ state: "detached" });
   }
 
   await page.setViewportSize({ width: 1280, height: 900 });
@@ -616,6 +671,7 @@ try {
     ["angular-select--playground", "tis-select"],
     ["angular-tabs--playground", "[tisTabs]"],
     ["angular-textarea--playground", "tis-textarea"],
+    ["angular-toast--playground", "tis-toast-region"],
     ["angular-toggle--playground", "tis-toggle"],
     ["angular-tooltip--playground", "tis-tooltip"],
     ["angular-modal--playground", "tis-modal"],
@@ -751,6 +807,61 @@ try {
     await arrowlessTooltip.locator(".ds-tooltip__content").evaluate((node) => getComputedStyle(node, "::before").content === "none"),
     "Tooltip Angular sem seta ainda renderizou o pseudo-elemento",
   );
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-toast--playground&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyToastTrigger = page.getByRole("button", { name: "Mostrar Toast" });
+  await storyToastTrigger.click();
+  const storyToast = page.locator("[data-tis-angular-toast]").first();
+  await storyToast.waitFor({ state: "visible" });
+  const toastGeometry = await storyToast.evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    return {
+      background: style.backgroundColor,
+      bottom: rect.bottom,
+      height: rect.height,
+      left: rect.left,
+      mode: document.documentElement.dataset.mode,
+      padding: style.padding,
+      radius: style.borderRadius,
+      right: rect.right,
+      top: rect.top,
+      viewportHeight: innerHeight,
+      viewportWidth: document.documentElement.clientWidth,
+      width: rect.width,
+    };
+  });
+  expect(toastGeometry.mode === "dark", "Story do Toast não recebeu tema dark");
+  expect(
+    toastGeometry.width > 0 && toastGeometry.width <= 480 && toastGeometry.height >= 80 &&
+      toastGeometry.left >= 0 && toastGeometry.right <= toastGeometry.viewportWidth &&
+      toastGeometry.top >= 0 && toastGeometry.bottom <= toastGeometry.viewportHeight &&
+      toastGeometry.padding === "12px" && toastGeometry.radius === "12px",
+    `Story do Toast ficou cortado ou desproporcional em 320px (${JSON.stringify(toastGeometry)})`,
+  );
+  await storyToast.getByRole("button", { name: "Desfazer" }).click();
+  expect(await storyToast.isVisible(), "Story do Toast fechou ao executar action");
+  await page.waitForFunction(() => [...document.querySelectorAll(".ds-angular-toast-status")].some((node) => node.textContent?.includes("1")));
+  expect((await page.getByText(/Ações executadas:/).textContent())?.includes("1"), "Story do Toast não emitiu action");
+  await storyToast.getByRole("button", { name: "Dispensar" }).click();
+  await storyToast.waitFor({ state: "detached" });
+
+  for (let index = 0; index < 6; index += 1) {
+    await storyToastTrigger.evaluate((button) => button.click());
+  }
+  expect(await page.locator("[data-tis-angular-toast]").count() === 5, "Story do Toast excedeu o limite de cinco mensagens");
+  await axe("Storybook Toast dark 320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-toast--solid-error&globals=mode:light`, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Mostrar Toast" }).click();
+  const errorToast = page.locator("[data-tis-angular-toast]").first();
+  await errorToast.waitFor({ state: "visible" });
+  expect(
+    await errorToast.evaluate((node) => node.classList.contains("ds-toast--error") && node.classList.contains("ds-toast--solid") && !node.querySelector(".ds-toast__actions")),
+    "Story error/solid do Toast não preservou tipo, estilo ou ausência de action",
+  );
+  expect(await errorToast.evaluate((node) => node.parentElement?.getAttribute("role") === "alert"), "Toast de erro não foi anunciado na região assertive");
+  await axe("Storybook Toast error/solid");
   await page.setViewportSize({ width: 1280, height: 720 });
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-checkbox--estados&globals=mode:light`, { waitUntil: "networkidle" });

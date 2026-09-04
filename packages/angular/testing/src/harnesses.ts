@@ -294,6 +294,30 @@ export class TisTooltipHarness extends ComponentHarness {
   }
 }
 
+export class TisToastHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-toast-region";
+  private readonly toasts = this.locatorForAll("[data-tis-angular-toast]");
+  private readonly titles = this.locatorForAll("[data-tis-angular-toast] .ds-toast__title");
+  private readonly actionButtons = this.locatorForAll("[data-tis-angular-toast] .ds-toast__actions button");
+  private readonly closeButtons = this.locatorForAll("[data-tis-angular-toast] .ds-toast__close");
+
+  async getToastCount(): Promise<number> {
+    return (await this.toasts()).length;
+  }
+
+  async getTitles(): Promise<string[]> {
+    return Promise.all((await this.titles()).map(async (title) => (await title.text()).trim()));
+  }
+
+  async activateAction(index = 0): Promise<void> {
+    await (await this.actionButtons())[index].click();
+  }
+
+  async dismiss(index = 0): Promise<void> {
+    await (await this.closeButtons())[index].click();
+  }
+}
+
 export class TisTextareaHarness extends ComponentHarness {
   static readonly hostSelector = "tis-textarea";
   private readonly textarea = this.locatorFor("textarea.ds-textarea__field");
