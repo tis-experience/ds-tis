@@ -1064,6 +1064,10 @@ initTabs()`,
     },
     previewSize: 'medium',
     descriptions: {
+      angular: {
+        pt: 'Serviço Angular standalone com regiões live nativas, fila limitada, timeout pausável e actions persistentes.',
+        en: 'A standalone Angular service with native live regions, a bounded queue, pausable timeout, and persistent actions.',
+      },
       ark: {
         pt: 'Adapter React independente em que Ark UI e Zag gerenciam fila, live region, tempo, pausa e foco.',
         en: 'An independent React adapter where Ark UI and Zag manage the queue, live region, timing, pause, and focus.',
@@ -1104,6 +1108,23 @@ initTabs()`,
   ToastRegion,
   showToast,
 } from '@tis/react/ark/toast'`,
+    },
+    angular: {
+      primitive: 'Angular service + HTML live regions',
+      imports: `import {
+  TisToastRegion,
+  TisToastService,
+} from '@tis/angular/toast'`,
+      markup: `<button type="button" (click)="toast.show({
+  title: 'Preferências salvas',
+  description: 'As alterações já estão disponíveis para esta conta.',
+  type: 'success',
+  actionLabel: 'Desfazer',
+  duration: 0
+})">
+  Mostrar Toast
+</button>
+<tis-toast-region />`,
     },
     web: {
       storyId: 'components-toast--playground',

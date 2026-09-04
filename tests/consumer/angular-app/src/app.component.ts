@@ -36,6 +36,7 @@ import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
 import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
+import { TisToastRegion, TisToastService } from "@tis/angular/toast";
 import { TisToggle } from "@tis/angular/toggle";
 import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 
@@ -83,6 +84,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisTabPanel,
     TisTabs,
     TisTextarea,
+    TisToastRegion,
     TisToggle,
     TisTooltip,
     TisTooltipTrigger,
@@ -94,7 +96,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Quatorze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Quinze componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -352,6 +354,20 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         </tis-tooltip>
       </section>
 
+      <section class="consumer-section" aria-labelledby="toast-heading">
+        <div class="consumer-section__heading">
+          <h2 id="toast-heading">Toast</h2>
+          <span class="consumer-status">Angular service + live regions</span>
+        </div>
+        <div class="consumer-row">
+          <tis-button variant="outline" (click)="showToast()">Mostrar Toast</tis-button>
+          <span class="consumer-meta" role="status" data-testid="toast-action-count">
+            Ações executadas: {{ toastActionCount() }}
+          </span>
+        </div>
+        <tis-toast-region />
+      </section>
+
       <section class="consumer-section" aria-labelledby="menu-heading">
         <div class="consumer-section__heading">
           <h2 id="menu-heading">Menu</h2>
@@ -571,6 +587,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
 })
 export class AppComponent {
   private readonly document = inject(DOCUMENT);
+  readonly toastService = inject(TisToastService);
   readonly dark = signal(false);
   readonly checkboxSubmitted = signal(false);
   readonly comboboxSubmitted = signal(false);
@@ -587,6 +604,7 @@ export class AppComponent {
   readonly selectedTab = signal("overview");
   readonly submitted = signal(0);
   readonly textareaSubmitted = signal(false);
+  readonly toastActionCount = signal(0);
   readonly notificationChannel = signal<string | null>(null);
   readonly securityAlerts = signal(true);
   readonly country = signal("");
@@ -614,5 +632,17 @@ export class AppComponent {
   submit(event: SubmitEvent): void {
     event.preventDefault();
     this.submitted.update((value) => value + 1);
+  }
+
+  showToast(): void {
+    this.toastService.show({
+      title: "Alterações salvas",
+      description: "A alteração foi aplicada e pode ser revertida.",
+      type: "success",
+      style: "subtle",
+      actionLabel: "Desfazer",
+      duration: 0,
+      onAction: () => this.toastActionCount.update((value) => value + 1),
+    });
   }
 }

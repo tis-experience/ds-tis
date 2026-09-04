@@ -144,7 +144,7 @@ try {
     name: 'Toast',
     richGuidance: true,
     structuredUsage: true,
-    technologyLinks: 3,
+    technologyLinks: 4,
   });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/checkbox/', {
     item: '@tis/checkbox',
@@ -591,7 +591,7 @@ async function auditCanonicalCatalog(route, locale) {
   const tabsLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tabs' }).locator('a');
   expect(await tabsLinks.count() === 4, `${route}: Tabs deve ligar as quatro implementações disponíveis`);
   const toastLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Toast' }).locator('a');
-  expect(await toastLinks.count() === 3, `${route}: Toast deve ligar as três implementações disponíveis`);
+  expect(await toastLinks.count() === 4, `${route}: Toast deve ligar as quatro implementações disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);
@@ -2593,6 +2593,13 @@ async function auditToastOutputSelector() {
       storyId: 'react-toast--playground',
       interactive: true,
     },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/toast/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-toast--playground',
+      interactive: true,
+    },
   ];
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -2636,7 +2643,8 @@ async function auditToastOutputSelector() {
       }),
       `${route}: Toast não preservou o contrato visual tokenizado`,
     );
-    expect(await toast.getByText(interactive ? 'Preferências salvas' : 'Alterações salvas').isVisible(), `${route}: título ausente`);
+    const expectedTitle = activeLabel === 'Angular' || !interactive ? 'Alterações salvas' : 'Preferências salvas';
+    expect(await toast.getByText(expectedTitle).isVisible(), `${route}: título ausente`);
     expect(await toast.getByRole('button', { name: 'Desfazer' }).isVisible(), `${route}: action ausente`);
     expect(await toast.getByRole('button', { name: 'Dispensar' }).isVisible(), `${route}: close ausente`);
 
@@ -2654,8 +2662,9 @@ async function auditToastOutputSelector() {
         await toast.isVisible(),
         `${route}: action deveria manter o Toast disponível até dismiss explícito`,
       );
+      await preview.getByText(/(?:Ações|Actions) executadas:\s*1/).waitFor();
       expect(
-        (await preview.getByText(/Actions executadas:/).textContent())?.includes('1'),
+        (await preview.getByText(/(?:Ações|Actions) executadas:/).textContent())?.includes('1'),
         `${route}: action não executou o callback`,
       );
 

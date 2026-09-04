@@ -53,6 +53,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Toast passa a integrar a saída Angular nativa em beta de workspace.** O
+  entrypoint `@tis/angular/toast` oferece serviço standalone, regiões live
+  polite/assertive, fila limitada, timeout pausável, até duas actions que não
+  dispensam a mensagem, close e Escape contextual. Storybook, harness, consumer
+  instalado, responsividade, dark mode, Axe e bundle validam a quarta
+  implementação sem alterar Figma, tokens ou as outras três saídas.
 - **Action Menu passa a integrar a saída Angular nativa em beta de workspace.**
   O entrypoint `@tis/angular/menu` usa Angular Aria para abertura, roving focus,
   typeahead, itens disabled, comandos, checkbox e radio items, retorno de foco e

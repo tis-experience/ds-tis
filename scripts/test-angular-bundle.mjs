@@ -30,6 +30,7 @@ const definitions = {
   select: { file: "tis-angular-select.mjs", budget: 6 * 1024 },
   tabs: { file: "tis-angular-tabs.mjs", budget: 8 * 1024 },
   textarea: { file: "tis-angular-textarea.mjs", budget: 6 * 1024 },
+  toast: { file: "tis-angular-toast.mjs", budget: 8 * 1024 },
   toggle: { file: "tis-angular-toggle.mjs", budget: 5 * 1024 },
   tooltip: { file: "tis-angular-tooltip.mjs", budget: 12 * 1024 },
 };
@@ -46,6 +47,7 @@ const forbiddenByEntry = {
   select: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   tabs: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   textarea: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  toast: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   toggle: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   tooltip: ["AccordionGroup", "data-tis-angular-button"],
 };

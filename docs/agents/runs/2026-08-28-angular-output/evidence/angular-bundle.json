@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:47:38.545Z",
+  "generatedAt": "2026-09-04T12:16:46.958Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -73,6 +73,12 @@
       "rawBytes": 11506,
       "gzipBytes": 2396,
       "budgetGzipBytes": 6144
+    },
+    {
+      "name": "toast",
+      "rawBytes": 13215,
+      "gzipBytes": 3328,
+      "budgetGzipBytes": 8192
     },
     {
       "name": "toggle",
