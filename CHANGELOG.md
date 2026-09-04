@@ -61,6 +61,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Breadcrumb passa a integrar a saída React distribuída por shadcn.** O
+  source usa `nav`, lista ordenada, links, página atual e separadores
+  decorativos nativos, com composição compatível com routers e reticências para
+  trilhas longas. Storybook, catálogo bilíngue e consumer independente validam
+  semântica, foco, dark mode e Axe sem alterar Figma, tokens ou as saídas Web,
+  Ark/Zag e Angular.
 - **Input Text passa a integrar a saída Ark/Zag em beta de workspace.** O
   entrypoint `@tis/react/ark/input` usa Ark Factory sobre `input` nativo,
   preserva tamanhos, ícones, estados, formulário e focus ring do contrato TIS

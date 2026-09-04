@@ -42,6 +42,7 @@ const expectedItems = [
   'accordion',
   'alert',
   'badge',
+  'breadcrumb',
   'button',
   'card',
   'checkbox',
@@ -224,6 +225,14 @@ const sourceContracts = {
   separator: ['<hr', 'ds-divider', 'aria-orientation'],
   skeleton: ['ds-skeleton', 'aria-hidden={ariaHidden}', 'data-variant={variant}'],
   spinner: ['ds-spinner', 'role={role}', 'aria-label={ariaLabel}'],
+  breadcrumb: [
+    'data-slot="breadcrumb-list"',
+    'data-slot="breadcrumb-item"',
+    'data-slot="breadcrumb-link"',
+    'aria-current="page"',
+    'role="presentation"',
+    'data-slot="breadcrumb-ellipsis"',
+  ],
   table: [
     'ds-table-region',
     'data-slot="table-header"',
@@ -364,6 +373,12 @@ const adapterContracts = {
     '.ds-tis-toast__viewport, .ds-tis-toast',
     '.ds-tis-toast[data-limited]',
     'var(--ds-motion-duration-fast)',
+  ],
+  breadcrumb: [
+    '[data-slot=\\"breadcrumb-list\\"]',
+    '[data-slot=\\"breadcrumb-item\\"]',
+    '[data-slot=\\"breadcrumb-ellipsis\\"]',
+    'var(--ds-content-subtle)',
   ],
 };
 for (const [name, contracts] of Object.entries(adapterContracts)) {
@@ -513,6 +528,11 @@ const entries = {
       path.join(ROOT, 'registry/tis/table.tsx'),
     ],
     budget: 17 * 1024,
+  },
+  'registry-breadcrumb': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/breadcrumb.tsx')],
+    budget: 12 * 1024,
   },
 };
 

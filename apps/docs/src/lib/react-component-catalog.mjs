@@ -107,6 +107,49 @@ const COMPONENT_DOCS = {
       en: 'Text must communicate status without relying on color alone; Badge does not replace a live region.',
     },
   },
+  breadcrumb: {
+    summary: {
+      pt: 'Mostra a posição atual numa hierarquia e oferece retorno direto às páginas ancestrais.',
+      en: 'Shows the current position in a hierarchy and provides direct navigation to ancestor pages.',
+    },
+    anatomy: {
+      pt: ['Landmark de navegação', 'Lista ordenada', 'Item', 'Link', 'Separador', 'Página atual', 'Reticências opcionais'],
+      en: ['Navigation landmark', 'Ordered list', 'Item', 'Link', 'Separator', 'Current page', 'Optional ellipsis'],
+    },
+    useWhen: {
+      pt: ['a aplicação tem uma hierarquia com mais de um nível e a localização atual precisa permanecer clara.'],
+      en: ['the application has a hierarchy deeper than one level and the current location must remain clear.'],
+    },
+    avoidWhen: {
+      pt: ['o fluxo é linear, a hierarquia é rasa ou os itens representam etapas de um processo.'],
+      en: ['the flow is linear, the hierarchy is shallow, or the items represent process steps.'],
+    },
+    storyId: 'react-breadcrumb--playground',
+    usage: `import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+<Breadcrumb aria-label="Localização atual">
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Início</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Componentes</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`,
+    accessibility: {
+      pt: 'Mantenha o nav nomeado, a lista ordenada, separadores decorativos e aria-current="page" no item atual. A página atual não deve ser um link para si própria.',
+      en: 'Keep the named nav, ordered list, decorative separators, and aria-current="page" on the current item. The current page must not link to itself.',
+    },
+  },
   button: {
     summary: {
       pt: 'Dispara ações, confirma decisões e avança processos com hierarquia clara.',

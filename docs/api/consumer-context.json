@@ -214,7 +214,7 @@
       "providerPolicy": "Base UI is the behavior provider for this React output; ADR-023 keeps Web, Ark/Zag, React, and Angular as separate coexisting outputs.",
       "package": null,
       "note": "Source distribution; @tis/react is not a public package.",
-      "componentCount": 23,
+      "componentCount": 24,
       "registry": {
         "channel": "v1",
         "baseUrl": "https://tis-experience.github.io/ds-tis/registry/v1",
@@ -249,6 +249,12 @@
           "slug": "badge",
           "item": "badge",
           "provider": "React composition",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "breadcrumb",
+          "item": "breadcrumb",
+          "provider": "Native React",
           "providerRole": "native-or-composition"
         },
         {

@@ -316,6 +316,12 @@ try {
   await page.goto(appServing.url, { waitUntil: "networkidle" });
 
   expect(await page.getByRole("heading", { name: "Preferências da conta" }).isVisible(), "app React não renderizou");
+  const breadcrumb = page.getByRole("navigation", { name: "Localização atual" });
+  expect(await breadcrumb.count() === 1, "Breadcrumb instalado não renderizou o landmark nomeado");
+  expect(await breadcrumb.locator("ol").count() === 1, "Breadcrumb deve preservar a lista ordenada");
+  expect(await breadcrumb.getByRole("link").count() === 2, "Breadcrumb deve preservar os links ancestrais");
+  expect(await breadcrumb.locator('[aria-current="page"]').textContent() === "Preferências", "Breadcrumb deve identificar a página atual");
+  expect(await breadcrumb.locator('[data-slot="breadcrumb-separator"][aria-hidden="true"]').count() === 2, "Breadcrumb deve ocultar separadores decorativos");
   expect(await page.locator('[data-slot="alert"]').count() === 1, "Alert instalado não renderizou");
   expect(await page.locator('[data-slot="badge"]').count() === 2, "Badge instalado não renderizou os estados");
   expect(await page.locator('[data-slot="card"]').count() === 4, "Card instalado não preservou a composição da tela");

@@ -130,6 +130,7 @@ const required = [
   'packages/react/src/stories/accordion.stories.jsx',
   'packages/react/src/stories/alert.stories.jsx',
   'packages/react/src/stories/badge.stories.jsx',
+  'packages/react/src/stories/breadcrumb.stories.jsx',
   'packages/react/src/stories/button.stories.jsx',
   'packages/react/src/stories/card.stories.jsx',
   'packages/react/src/stories/checkbox.stories.jsx',
@@ -209,8 +210,8 @@ if (!astroConfig.includes("label: 'Integração'") || !astroConfig.includes("{ s
 
 for (const locale of ['pt-br', 'en']) {
   const components = getReactComponents(locale);
-  if (components.length !== 23) {
-    errors.push(`catálogo React ${locale} deve expor 23 componentes; recebeu ${components.length}`);
+  if (components.length !== 24) {
+    errors.push(`catálogo React ${locale} deve expor 24 componentes; recebeu ${components.length}`);
   }
   const names = components.map((component) => component.name);
   const expectedNames = [...names].sort(
@@ -1352,8 +1353,8 @@ if (staticStorybook) {
   const publicComponents = getReactComponents('en');
   const componentEntries = entries.filter((entry) => entry.title?.startsWith('Components/'));
   const componentTitles = new Set(componentEntries.map((entry) => entry.title));
-  if (componentTitles.size !== 23) {
-    errors.push(`Storybook vNext deve publicar 23 grupos de componente; recebeu ${componentTitles.size}`);
+  if (componentTitles.size !== 24) {
+    errors.push(`Storybook vNext deve publicar 24 grupos de componente; recebeu ${componentTitles.size}`);
   }
   for (const component of publicComponents) {
     const expectedTitle = `Components/${component.category.label.en}/${component.name}`;
@@ -1457,7 +1458,7 @@ if (staticStorybook) {
     errors.push('Storybook vNext ainda expõe ondas/providers técnicos na navegação pública');
   }
   const reactDocs = componentEntries.filter((entry) => entry.type === 'docs');
-  if (reactDocs.length !== 23) {
+  if (reactDocs.length !== 24) {
     errors.push(`Storybook React deve ter uma Docs por componente; recebeu ${reactDocs.length}`);
   }
 }

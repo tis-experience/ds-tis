@@ -56,6 +56,7 @@ if (fs.existsSync(SITE_DIR)) {
       "accordion",
       "alert",
       "badge",
+      "breadcrumb",
       "button",
       "card",
       "checkbox",

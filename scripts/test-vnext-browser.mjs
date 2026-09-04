@@ -673,14 +673,14 @@ async function auditReactCatalog(route, locale) {
   const catalog = page.locator('[data-component-catalog]');
   expect(await catalog.count() === 1, `${route}: catálogo semântico ausente`);
   expect(
-    (await catalog.getAttribute('data-component-count')) === '23',
-    `${route}: contagem declarada do catálogo deve ser vinte e três`,
+    (await catalog.getAttribute('data-component-count')) === '24',
+    `${route}: contagem declarada do catálogo deve ser vinte e quatro`,
   );
   const groups = catalog.locator('[data-component-category]');
   expect(await groups.count() === 6, `${route}: catálogo deve expor seis categorias semânticas`);
 
   const items = catalog.locator('.ds-component-catalog__group li');
-  expect(await items.count() === 23, `${route}: catálogo consolidado deve listar vinte e três componentes`);
+  expect(await items.count() === 24, `${route}: catálogo consolidado deve listar vinte e quatro componentes`);
   for (const group of await groups.all()) {
     const names = await group.locator('.ds-component-catalog__name').allTextContents();
     const expectedNames = [...names].sort(
@@ -696,7 +696,7 @@ async function auditReactCatalog(route, locale) {
   const hrefs = await catalog.locator('.ds-component-catalog__group a').evaluateAll((links) =>
     links.map((link) => link.href),
   );
-  expect(new Set(hrefs).size === 23, `${route}: cada componente deve ter uma página única`);
+  expect(new Set(hrefs).size === 24, `${route}: cada componente deve ter uma página única`);
   for (const href of hrefs) {
     const response = await context.request.get(href);
     expect(response.ok(), `${route}: página de componente respondeu ${response.status()} em ${href}`);
@@ -4908,6 +4908,28 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Table');
   recordBrowserErrors('Storybook vNext · Table');
 
+  await page.goto(`${storyBase}react-breadcrumb--playground`, { waitUntil: 'networkidle' });
+  const breadcrumb = page.getByRole('navigation', { name: 'Localização atual' });
+  await breadcrumb.waitFor();
+  expect(await breadcrumb.locator('ol').count() === 1, 'Breadcrumb deve usar lista ordenada');
+  expect(await breadcrumb.getByRole('link').count() === 2, 'Breadcrumb deve expor os links ancestrais');
+  expect(
+    await breadcrumb.locator('[aria-current="page"]').textContent() === 'Breadcrumb',
+    'Breadcrumb deve identificar a página atual',
+  );
+  expect(
+    await breadcrumb.locator('[data-slot="breadcrumb-separator"][aria-hidden="true"]').count() === 2,
+    'Breadcrumb deve ocultar os separadores decorativos',
+  );
+  const firstBreadcrumbLink = breadcrumb.getByRole('link').first();
+  await firstBreadcrumbLink.focus();
+  expect(
+    await firstBreadcrumbLink.evaluate((element) => element === document.activeElement),
+    'BreadcrumbLink deve receber foco por teclado',
+  );
+  await auditAxe('Storybook vNext · Breadcrumb');
+  recordBrowserErrors('Storybook vNext · Breadcrumb');
+
   await page.goto(`${storyBase}react-divider--toolbar`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="separator"]').waitFor();
   expect(await page.locator('[data-slot="separator"]').count() === 1, 'Divider deve permanecer isolado no exemplo de toolbar');
@@ -4927,6 +4949,7 @@ async function auditStorybookComponents() {
     'react-accordion--playground',
     'react-alert--playground',
     'react-badge--playground',
+    'react-breadcrumb--playground',
     'react-button--playground',
     'react-card--playground',
     'react-checkbox--playground',
