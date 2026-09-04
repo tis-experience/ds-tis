@@ -31,6 +31,23 @@ body:has(.ds-angular-popover-stage) {
   gap: var(--ds-space-md);
 }
 
+.ds-angular-alert-grid,
+.ds-angular-alert-stack,
+.ds-angular-alert-grid > section {
+  display: grid;
+  gap: var(--ds-space-lg);
+}
+
+.ds-angular-alert-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-size-layout-xs)), 1fr));
+}
+
+.ds-angular-alert-grid > section > h2 {
+  margin: 0;
+  color: var(--ds-content-default);
+  font-size: var(--ds-heading-font-size-sm);
+}
+
 .ds-angular-badge-grid > section > h2 {
   margin: 0;
   color: var(--ds-content-default);

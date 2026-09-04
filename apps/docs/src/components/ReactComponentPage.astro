@@ -57,8 +57,8 @@ const bunInstall = install.replace('npx shadcn@latest', 'bunx --bun shadcn@lates
 const webPath = `${locale}/web/components/${component.slug}/`;
 const arkPath = `${locale}/ark/components/${component.slug}/`;
 const angularPath = `${locale}/angular/components/${component.slug}/`;
-const hasUnifiedDocumentation = ['accordion', 'badge', 'button', 'checkbox', 'combobox', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'toast', 'toggle', 'tooltip'].includes(component.slug);
-const unifiedSlug = component.slug as 'accordion' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
+const hasUnifiedDocumentation = ['accordion', 'alert', 'badge', 'button', 'checkbox', 'combobox', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'toast', 'toggle', 'tooltip'].includes(component.slug);
+const unifiedSlug = component.slug as 'accordion' | 'alert' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
 const hasFourPopoverOutputs = component.slug === 'popover';
 ---
 

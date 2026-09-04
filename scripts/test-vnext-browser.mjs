@@ -102,6 +102,8 @@ try {
     item: '@tis/alert',
     locale: 'pt',
     name: 'Alert',
+    richGuidance: true,
+    structuredUsage: true,
   });
   await auditReactComponentPage('/ds-tis/next/en/react/components/modal/', {
     item: '@tis/dialog',
@@ -164,6 +166,7 @@ try {
   });
   await auditAccordionOutputSelector();
   await auditButtonOutputSelector();
+  await auditAlertOutputSelector();
   await auditBadgeOutputSelector();
   await auditModalOutputSelector();
   await auditPopoverOutputSelector();
@@ -586,6 +589,15 @@ async function auditCanonicalCatalog(route, locale) {
   });
   expect(await badgeItem.locator('a').count() === 3, `${route}: Badge deve ligar Web, React e Angular`);
   expect(await badgeItem.locator('[data-output="ark"] a').count() === 0, `${route}: Badge não deve ligar a saída Ark ainda planejada`);
+  const alertItem = catalog.locator('.ds-component-catalog__item').filter({
+    has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
+  });
+  expect(await alertItem.locator('a').count() === 3, `${route}: Alert deve ligar Web, React e Angular`);
+  expect(
+    (await alertItem.locator('a[data-output="web"]').getAttribute('href'))?.includes(`/next/${locale === 'en' ? 'en' : 'pt-br'}/web/components/alert/`),
+    `${route}: Alert Web caiu na documentação HTML antiga`,
+  );
+  expect(await alertItem.locator('a[data-output="ark"]').count() === 0, `${route}: Alert não deve ligar a saída Ark ainda planejada`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
   expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
@@ -1165,6 +1177,22 @@ async function auditBadgeOutputSelector() {
       expect(accessibilityText.includes('badge não interativo'), `${route}: responsabilidade acessível do Badge ausente`);
     }
 
+    const documentedBadge = page.locator(
+      '[data-component-panel="design"] .ds-source-guidance .ds-badge',
+    ).first();
+    await documentedBadge.waitFor();
+    expect(
+      await documentedBadge.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return ['flex', 'inline-flex'].includes(style.display) &&
+          style.backgroundColor !== 'rgba(0, 0, 0, 0)' &&
+          Number.parseFloat(style.paddingInlineStart) > 0 &&
+          rect.width > rect.height;
+      }),
+      `${route}: exemplos documentais do Badge perderam o CSS público`,
+    );
+
     const preview = page.locator(previewSelector);
     expect(await preview.count() === 1, `${route}: preview funcional próprio ausente`);
     await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
@@ -1187,6 +1215,90 @@ async function auditBadgeOutputSelector() {
   }
 
   recordBrowserErrors('Badge · seletor das saídas disponíveis');
+}
+
+async function auditAlertOutputSelector() {
+  browserErrors.length = 0;
+  const routes = [
+    {
+      route: '/ds-tis/next/pt-br/web/components/alert/',
+      activeLabel: 'HTML/CSS/JS',
+      previewSelector: '[data-output-preview][data-output-storybook="stable"]',
+      storyId: 'components-alert--playground',
+    },
+    {
+      route: '/ds-tis/next/pt-br/react/components/alert/',
+      activeLabel: 'React · shadcn/Base UI',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'react-alert--playground',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/alert/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-alert--playground',
+    },
+  ];
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const { activeLabel, previewSelector, route, storyId } of routes) {
+    await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+    await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Alert', `${route}: título Alert ausente`);
+    expect(
+      (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
+      `${route}: saída ativa incorreta`,
+    );
+    expect(await page.locator('[data-technology-select] option').count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: Ark planejado deveria permanecer desabilitado`);
+    expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
+
+    const documentedAlert = page.locator(
+      '[data-component-panel="design"] .ds-anatomy .ds-alert',
+    ).first();
+    await documentedAlert.waitFor();
+    expect(
+      await documentedAlert.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const close = element.querySelector('.ds-alert__close');
+        const closeStyle = close ? getComputedStyle(close) : null;
+        const icon = element.querySelector('.ds-alert__icon svg');
+        return style.display === 'flex' &&
+          style.backgroundColor !== 'rgba(0, 0, 0, 0)' &&
+          Number.parseFloat(style.paddingInlineStart) > 0 &&
+          ['flex', 'inline-flex'].includes(closeStyle?.display || '') && Boolean(icon) &&
+          rect.left >= 0 && rect.right <= document.documentElement.clientWidth;
+      }),
+      `${route}: anatomia do Alert perdeu CSS, ícone ou alinhamento do close`,
+    );
+
+    const preview = page.locator(previewSelector);
+    await preview.waitFor();
+    await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
+    expect((await preview.getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
+    const frame = page.frameLocator(previewSelector);
+    const alert = frame.locator('.ds-alert').first();
+    await alert.waitFor();
+    expect((await alert.getAttribute('role')) === 'status', `${route}: mensagem de sucesso deveria usar role status`);
+    expect(
+      await alert.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const content = element.querySelector('.ds-alert__content')?.getBoundingClientRect();
+        const close = element.querySelector('.ds-alert__close')?.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.left >= 0 &&
+          rect.right <= document.documentElement.clientWidth && Boolean(content && close) &&
+          content.left >= rect.left && content.right <= close.left;
+      }),
+      `${route}: Alert ficou cortado ou com partes desalinhadas`,
+    );
+    const close = frame.getByRole('button', { name: /Fechar alerta|Dispensar alerta/ });
+    await close.click();
+    await alert.waitFor({ state: 'detached' });
+    await auditAxe(`${route} · Alert`);
+  }
+
+  recordBrowserErrors('Alert · seletor das saídas disponíveis');
 }
 
 async function auditModalOutputSelector() {

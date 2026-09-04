@@ -1,5 +1,36 @@
 import { ComponentHarness } from "@angular/cdk/testing";
 
+export class TisAlertHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-alert";
+  private readonly closeButton = this.locatorForOptional("button[tisAlertClose]");
+
+  async close(): Promise<void> {
+    const button = await this.closeButton();
+    if (!button) throw new Error("Alert close button not found");
+    await button.click();
+  }
+
+  async getDescription(): Promise<string> {
+    return (await this.locatorFor("[tisAlertDescription]")()).text().then((value) => value.trim());
+  }
+
+  async getRole(): Promise<string | null> {
+    return (await this.host()).getAttribute("role");
+  }
+
+  async getTitle(): Promise<string> {
+    return (await this.locatorFor("[tisAlertTitle]")()).text().then((value) => value.trim());
+  }
+
+  async getTone(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-tone");
+  }
+
+  async getVariant(): Promise<string | null> {
+    return (await this.host()).getAttribute("data-variant");
+  }
+}
+
 export class TisBadgeHarness extends ComponentHarness {
   static readonly hostSelector = "tis-badge";
 

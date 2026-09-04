@@ -160,7 +160,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     ) : documentation.storyId ? (
       <>
         <h3>{isEnglish ? 'Functional preview' : 'Preview funcional'}</h3>
-        {slug === 'badge' && (
+        {(slug === 'alert' || slug === 'badge') && (
           <p class="ds-output-example__runtime">{runtimeDescriptions[technology]}</p>
         )}
         <OutputStoryPreview
@@ -357,7 +357,9 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
         : (isEnglish ? 'Preserve native element semantics, accessible names, keyboard behavior, and visible focus.' : 'Preserve a semântica do elemento nativo, nomes acessíveis, comportamento de teclado e foco visível.')}</p>
     )}
     {technology === 'react' && (
-      <p>{slug === 'badge'
+      <p>{slug === 'alert'
+        ? (isEnglish ? 'Preserve the live-region role by message urgency, keep the icon decorative, and give the optional close button an accessible name.' : 'Preserve o papel de live region conforme a urgência da mensagem, mantenha o ícone decorativo e dê nome acessível ao button de fechar opcional.')
+        : slug === 'badge'
         ? (isEnglish ? 'Keep the badge non-interactive and ensure its short text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto curto transmita significado sem depender apenas da cor.')
         : (isEnglish ? 'Preserve Base UI semantics and test real content, focus visibility, and accessible names in the consuming application.' : 'Preserve a semântica da Base UI e teste conteúdo real, foco visível e nomes acessíveis na aplicação consumidora.')}</p>
     )}
@@ -381,6 +383,8 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           ? (isEnglish ? 'Preserve Angular Aria relationships and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve as relações de Angular Aria e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
           : slug === 'checkbox'
             ? (isEnglish ? 'Preserve native checkbox semantics and validate Space, checked and indeterminate states, disabled and invalid states, visible focus, and Angular Forms integration.' : 'Preserve a semântica nativa do checkbox e valide Space, estados checked e indeterminate, disabled e invalid, foco visível e integração com Angular Forms.')
+          : slug === 'alert'
+            ? (isEnglish ? 'Preserve status for contextual messages and alert for urgent errors, keep the icon decorative, and give the optional close button an accessible name.' : 'Preserve status para mensagens contextuais e alert para erros urgentes, mantenha o ícone decorativo e dê nome acessível ao button de fechar opcional.')
           : slug === 'badge'
             ? (isEnglish ? 'Keep the badge non-interactive and ensure its short text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto curto transmita significado sem depender apenas da cor.')
           : slug === 'popover'

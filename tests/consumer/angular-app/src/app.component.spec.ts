@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import {
   TisAccordionHarness,
+  TisAlertHarness,
   TisBadgeHarness,
   TisButtonHarness,
   TisCheckboxHarness,
@@ -56,6 +57,23 @@ describe("DS TIS Angular consumer", () => {
     expect(await badges[1].getText()).toBe("Pendente");
     expect(await badges[1].getTone()).toBe("warning");
     expect(await badges[1].getVariant()).toBe("solid");
+  });
+
+  it("renderiza Alert com live region contextual e fechamento controlado", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const alert = await loader.getHarness(TisAlertHarness);
+
+    expect(await alert.getTitle()).toBe("Configuração salva");
+    expect(await alert.getDescription()).toBe("As preferências já estão disponíveis.");
+    expect(await alert.getTone()).toBe("success");
+    expect(await alert.getVariant()).toBe("subtle");
+    expect(await alert.getRole()).toBe("status");
+    await alert.close();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.alertVisible()).toBe(false);
+    expect(fixture.nativeElement.querySelector('[data-testid="alert-dismissed"]')?.textContent.trim()).toBe("Alerta dispensado.");
   });
 
   it("mantém single mode, disabled e relações ARIA no Accordion", async () => {

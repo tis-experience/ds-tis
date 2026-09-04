@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -111,6 +111,68 @@ initAccordions()`,
       Gerencie formas de pagamento e dados fiscais.
     </div>
   </div>
+</div>`,
+    },
+  },
+  alert: {
+    description: {
+      pt: 'Comunica informação, confirmação, atenção ou erro dentro do fluxo atual.',
+      en: 'Communicates information, confirmation, warning, or error within the current flow.',
+    },
+    previewSize: 'medium',
+    descriptions: {
+      angular: {
+        pt: 'Componente standalone por composição, com live region contextual, partes públicas e fechamento controlado pela aplicação.',
+        en: 'A standalone composition component with contextual live-region semantics, public parts, and application-controlled dismissal.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, composta com elementos nativos e as classes/tokens públicos do Alert TIS.',
+        en: 'A React source recipe composed with native elements and the public TIS Alert classes and tokens.',
+      },
+    },
+    usageGuidance: {
+      useWhen: [
+        { pt: 'A mensagem precisa permanecer visível junto do conteúdo relacionado.', en: 'The message should remain visible next to the related content.' },
+        { pt: 'O estado comunicado exige contexto ou uma ação diretamente relacionada.', en: 'The communicated state needs context or a directly related action.' },
+      ],
+      avoidWhen: [
+        { pt: 'O feedback é breve e não precisa permanecer no fluxo; use Toast.', en: 'Feedback is brief and does not need to remain in the flow; use Toast.' },
+        { pt: 'A pessoa precisa interromper a tarefa para decidir; use Modal.', en: 'The person must interrupt the task to decide; use Modal.' },
+      ],
+    },
+    angular: {
+      primitive: 'Live region nativa + composição Angular',
+      imports: `import {
+  TisAlert,
+  TisAlertClose,
+  TisAlertContent,
+  TisAlertDescription,
+  TisAlertIcon,
+  TisAlertTitle,
+} from '@tis/angular/alert'`,
+      markup: `<tis-alert tone="success" variant="subtle">
+  <span tisAlertIcon><!-- ícone decorativo --></span>
+  <div tisAlertContent>
+    <strong tisAlertTitle>Configuração salva</strong>
+    <span tisAlertDescription>As preferências já estão disponíveis.</span>
+  </div>
+  <button tisAlertClose aria-label="Fechar alerta" (click)="dismiss()">
+    <!-- ícone de fechar -->
+  </button>
+</tis-alert>`,
+    },
+    web: {
+      storyId: 'components-alert--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<div class="ds-alert ds-alert--success ds-alert--subtle" role="status">
+  <span class="ds-alert__icon" aria-hidden="true"><!-- ícone --></span>
+  <div class="ds-alert__content">
+    <strong class="ds-alert__title">Configuração salva</strong>
+    <p class="ds-alert__description">As preferências já estão disponíveis.</p>
+  </div>
+  <button class="ds-alert__close" type="button" aria-label="Fechar alerta">
+    <!-- ícone de fechar -->
+  </button>
 </div>`,
     },
   },
