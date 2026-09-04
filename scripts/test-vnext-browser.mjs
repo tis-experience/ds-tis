@@ -558,6 +558,14 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await catalog.locator('[data-output="ark"]').count() === 13, `${route}: os treze adapters Ark disponíveis deveriam aparecer`);
   expect(await catalog.locator('[data-status="planned"], [data-status="unavailable"]').count() === 0, `${route}: catálogo expôs saída não utilizável`);
   expect(
+    await catalog.locator('a.ds-component-catalog__name').count() === 0,
+    `${route}: nome do componente não deve escolher implicitamente a saída Web`,
+  );
+  expect(
+    await catalog.locator('.ds-component-catalog__item a:not([data-output])').count() === 0,
+    `${route}: toda navegação de componente deve identificar explicitamente a implementação`,
+  );
+  expect(
     await catalog.locator('[data-output="web"] > span').evaluateAll((labels) => labels.every((label) => {
       const style = getComputedStyle(label);
       return label.textContent?.trim() === 'HTML/CSS/JS' &&
@@ -570,20 +578,20 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Button$/ }),
   });
   const buttonLinks = buttonItem.locator('a');
-  expect(await buttonLinks.count() === 5, `${route}: Button deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await buttonLinks.count() === 4, `${route}: Button deve ligar as quatro implementações disponíveis`);
   expect(await buttonItem.locator('[data-output="ark"]').count() === 1, `${route}: Button deve oferecer o adapter Ark disponível`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
-  expect(await accordionLinks.count() === 5, `${route}: Accordion deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
-  expect(await popoverLinks.count() === 5, `${route}: Popover deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await popoverLinks.count() === 4, `${route}: Popover deve ligar as quatro implementações disponíveis`);
   const menuLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Menu' }).locator('a');
-  expect(await menuLinks.count() === 5, `${route}: Menu deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await menuLinks.count() === 4, `${route}: Menu deve ligar as quatro implementações disponíveis`);
   const tooltipLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tooltip' }).locator('a');
-  expect(await tooltipLinks.count() === 5, `${route}: Tooltip deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await tooltipLinks.count() === 4, `${route}: Tooltip deve ligar as quatro implementações disponíveis`);
   const tabsLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Tabs' }).locator('a');
-  expect(await tabsLinks.count() === 5, `${route}: Tabs deve ligar o nome e as quatro implementações disponíveis`);
+  expect(await tabsLinks.count() === 4, `${route}: Tabs deve ligar as quatro implementações disponíveis`);
   const toastLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Toast' }).locator('a');
-  expect(await toastLinks.count() === 4, `${route}: Toast deve ligar o nome e as três implementações disponíveis`);
+  expect(await toastLinks.count() === 3, `${route}: Toast deve ligar as três implementações disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);

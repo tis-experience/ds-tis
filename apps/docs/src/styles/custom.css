@@ -765,13 +765,6 @@ html {
 .ds-component-catalog__name {
   color: var(--sl-color-white);
   font-weight: 650;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.ds-component-catalog__name:hover,
-.ds-component-catalog__name:focus-visible {
-  color: var(--sl-color-text-accent);
 }
 
 .ds-component-catalog__description {
