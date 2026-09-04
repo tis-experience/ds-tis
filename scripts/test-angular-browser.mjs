@@ -75,6 +75,14 @@ try {
   await interactiveCard.focus();
   expect(await interactiveCard.evaluate((node) => node === document.activeElement), "Card interativo não recebeu foco");
 
+  const horizontalDivider = page.locator('[data-testid="divider-horizontal"]');
+  const verticalDivider = page.locator('[data-testid="divider-vertical"]');
+  expect(await horizontalDivider.getAttribute("data-orientation") === "horizontal", "Divider horizontal não expôs orientação");
+  expect(await horizontalDivider.getAttribute("role") === null, "Divider horizontal deve preservar a semântica implícita de hr");
+  expect(await verticalDivider.getAttribute("data-orientation") === "vertical", "Divider vertical não expôs orientação");
+  expect(await verticalDivider.getAttribute("role") === "presentation", "Divider decorativo não removeu a semântica de separador");
+  expect(await verticalDivider.getAttribute("aria-hidden") === "true", "Divider decorativo não foi ocultado da árvore de acessibilidade");
+
   const input = page.getByRole("textbox", { name: "E-mail" });
   const inputWrapper = page.locator("tis-input .ds-input");
   expect(await input.getAttribute("name") === "email", "Input não encaminhou name ao elemento nativo");
@@ -700,6 +708,7 @@ try {
       badge: compare("[data-tis-angular-badge]", "ds-badge ds-badge--success ds-badge--subtle", ["align-items", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size", "line-height"]),
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       card: compare('[data-testid="card-static"]', "ds-card ds-card--outlined", ["display", "flex-direction", "overflow", "border-radius", "background-color", "border-color", "border-width"]),
+      divider: compare('[data-testid="divider-horizontal"]', "ds-divider", ["height", "border-radius", "background-color", "margin-block-start", "margin-block-end"], "hr"),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
       combobox: compareField("tis-combobox .ds-combobox", "ds-combobox ds-combobox--md", '<input class="ds-combobox__input">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
@@ -723,6 +732,7 @@ try {
     ["angular-button--playground", "tis-button"],
     ["angular-badge--playground", "tis-badge"],
     ["angular-card--playground", "[tisCard]"],
+    ["angular-divider--playground", "hr[tisDivider]"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
     ["angular-combobox--playground", "tis-combobox"],
@@ -803,6 +813,31 @@ try {
     `Story do Card ficou cortada, sem superfície ou fora do tema dark (${JSON.stringify(cardStoryGeometry)})`,
   );
   await axe("Storybook Card dark 320px");
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-divider--toolbar&globals=mode:dark`, { waitUntil: "networkidle" });
+  const storyDivider = page.locator("hr[tisDivider]");
+  await storyDivider.waitFor({ state: "attached" });
+  const dividerStoryGeometry = await storyDivider.evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    return {
+      background: style.backgroundColor,
+      height: rect.height,
+      left: rect.left,
+      mode: document.documentElement.dataset.mode,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      right: rect.right,
+      width: rect.width,
+    };
+  });
+  expect(
+    dividerStoryGeometry.mode === "dark" && dividerStoryGeometry.width > 0 && dividerStoryGeometry.height > 0 &&
+      dividerStoryGeometry.left >= 0 && dividerStoryGeometry.right <= 320 && dividerStoryGeometry.overflow <= 1 &&
+      dividerStoryGeometry.background !== "rgba(0, 0, 0, 0)",
+    `Story do Divider ficou cortada, invisível ou fora do tema dark (${JSON.stringify(dividerStoryGeometry)})`,
+  );
+  await axe("Storybook Divider dark 320px");
 
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-menu--escolhas&globals=mode:dark`, { waitUntil: "networkidle" });

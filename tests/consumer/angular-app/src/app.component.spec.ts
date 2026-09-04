@@ -7,6 +7,7 @@ import {
   TisBadgeHarness,
   TisButtonHarness,
   TisCardHarness,
+  TisDividerHarness,
   TisCheckboxHarness,
   TisComboboxHarness,
   TisInputHarness,
@@ -95,6 +96,19 @@ describe("DS TIS Angular consumer", () => {
     fixture.detectChanges();
     expect(await cards[1].isSelected()).toBe(true);
     expect(fixture.componentInstance.cardSelected()).toBe(true);
+  });
+
+  it("preserva orientação e semântica no Divider", async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const dividers = await loader.getAllHarnesses(TisDividerHarness);
+
+    expect(dividers).toHaveLength(2);
+    expect(await dividers[0].getOrientation()).toBe("horizontal");
+    expect(await dividers[0].isDecorative()).toBe(false);
+    expect(await dividers[1].getOrientation()).toBe("vertical");
+    expect(await dividers[1].isDecorative()).toBe(true);
   });
 
   it("mantém single mode, disabled e relações ARIA no Accordion", async () => {

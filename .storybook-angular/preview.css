@@ -93,6 +93,36 @@ button.ds-angular-card {
   font-size: var(--ds-body-font-size-sm);
 }
 
+.ds-angular-divider-stack {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ds-space-sm);
+  inline-size: min(100%, var(--ds-size-layout-sm));
+}
+
+.ds-angular-divider-stack :where(h2, p) {
+  margin: 0;
+}
+
+.ds-angular-divider-toolbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-space-sm);
+  min-block-size: var(--ds-button-height-sm);
+  max-inline-size: 100%;
+}
+
+.ds-angular-divider-toolbar > :not(.ds-divider) {
+  align-self: center;
+}
+
+.ds-angular-divider-toolbar > .ds-divider--vertical {
+  align-self: stretch;
+  block-size: auto;
+  margin: 0;
+}
+
 .ds-angular-modal-stage {
   min-block-size: 100vh;
   display: grid;

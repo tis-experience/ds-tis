@@ -160,9 +160,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     ) : documentation.storyId ? (
       <>
         <h3>{isEnglish ? 'Functional preview' : 'Preview funcional'}</h3>
-        {(slug === 'alert' || slug === 'badge') && (
-          <p class="ds-output-example__runtime">{runtimeDescriptions[technology]}</p>
-        )}
+        <p class="ds-output-example__runtime">{runtimeDescriptions[technology]}</p>
         <OutputStoryPreview
           storyId={documentation.storyId}
           storybook={documentation.storybook}
@@ -171,6 +169,27 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
         >
           {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
         </OutputStoryPreview>
+
+        {(slug === 'card' || slug === 'divider') && documentation.examples.map((example) => (
+          <div
+            class="ds-output-example"
+            data-output-example="documented"
+            data-output-story-id={example.storyId}
+            data-output-technology={technology}
+          >
+            <h3>{example.title} · {documentation.technologyLabel}</h3>
+            <p class="ds-output-example__runtime">{example.description}</p>
+            <OutputStoryPreview
+              storyId={example.storyId}
+              storybook={documentation.storybook}
+              size={example.size || config.previewSize}
+              title={`${example.title} · ${documentation.technologyLabel}`}
+            >
+              {isEnglish ? `Open this example in ${documentation.technologyLabel}` : `Abrir este exemplo em ${documentation.technologyLabel}`}
+            </OutputStoryPreview>
+          </div>
+        ))}
+
         <ComponentGuidance slug={slug} topic="design" />
       </>
     ) : (

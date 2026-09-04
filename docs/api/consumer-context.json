@@ -368,7 +368,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 18,
+      "componentCount": 19,
       "components": [
         {
           "slug": "accordion",
@@ -411,6 +411,12 @@
           "entrypoint": "combobox",
           "primitive": "@angular/aria/combobox + listbox + Angular Forms",
           "storyId": "angular-combobox--playground"
+        },
+        {
+          "slug": "divider",
+          "entrypoint": "divider",
+          "primitive": "native hr",
+          "storyId": "angular-divider--playground"
         },
         {
           "slug": "input",

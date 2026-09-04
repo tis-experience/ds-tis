@@ -17,6 +17,7 @@ import { TisButton } from "@tis/angular/button";
 import { TisCard, TisCardContainer, TisCardContent } from "@tis/angular/card";
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon } from "@tis/angular/combobox";
+import { TisDivider } from "@tis/angular/divider";
 import { TisInput } from "@tis/angular/input";
 import { TisActionMenu, TisMenu, TisMenuItem, TisMenuTrigger } from "@tis/angular/menu";
 import { TisModal, TisModalBody, TisModalFooter } from "@tis/angular/modal";

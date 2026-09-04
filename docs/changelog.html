@@ -68,6 +68,9 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Divider vertical preserva espessura em composições flex.</strong> O separador deixa
+de colapsar para largura zero em toolbars estreitas, mantendo o token de
+espessura nas saídas HTML/CSS, React e Angular.</li>
 <li><strong>Catálogo não escolhe HTML/CSS ao clicar no nome do componente.</strong> Os nomes
 passam a identificar cada item sem funcionar como atalho implícito para Web;
 a navegação fica restrita aos links rotulados HTML/CSS/JS, Ark/Zag, React e
@@ -114,6 +117,12 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Divider passa a integrar a saída Angular nativa em beta de workspace.</strong> O
+entrypoint <code>@tis/angular/divider</code> oferece diretiva standalone sobre <code>hr</code>
+nativo, com orientação horizontal/vertical e semântica decorativa opcional.
+Storybook, harness, consumer instalado, responsividade, dark mode, Axe e
+bundle validam a saída. As páginas Web, React e Angular expõem anatomia
+numerada e executam exemplos próprios, sem alterar Figma ou tokens.</li>
 <li><strong>Card passa a integrar a saída Angular nativa em beta de workspace.</strong> O
 entrypoint <code>@tis/angular/card</code> oferece diretivas standalone para media,
 container, header, title, description, content e footer, preservando <code>article</code>

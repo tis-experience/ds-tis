@@ -4,7 +4,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import ComponentDocumentationPage from '../../../../components/ComponentDocumentationPage.astro';
 
 export function getStaticPaths() {
-  const slugs = ['accordion', 'alert', 'badge', 'button', 'card', 'checkbox', 'combobox', 'input', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'textarea', 'toast', 'toggle', 'tooltip'] as const;
+  const slugs = ['accordion', 'alert', 'badge', 'button', 'card', 'checkbox', 'combobox', 'divider', 'input', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'textarea', 'toast', 'toggle', 'tooltip'] as const;
   return ['pt-br', 'en'].flatMap((locale) =>
     slugs.map((slug) => ({
       params: { locale, slug },
@@ -14,7 +14,7 @@ export function getStaticPaths() {
 }
 
 const { locale, slug } = Astro.props;
-const names = { accordion: 'Accordion', alert: 'Alert', badge: 'Badge', button: 'Button', card: 'Card', checkbox: 'Checkbox', combobox: 'Combobox', input: 'Input Text', menu: 'Menu', modal: 'Modal', popover: 'Popover', radio: 'Radio', select: 'Select', tabs: 'Tabs', textarea: 'Textarea', toast: 'Toast', toggle: 'Toggle', tooltip: 'Tooltip' };
+const names = { accordion: 'Accordion', alert: 'Alert', badge: 'Badge', button: 'Button', card: 'Card', checkbox: 'Checkbox', combobox: 'Combobox', divider: 'Divider', input: 'Input Text', menu: 'Menu', modal: 'Modal', popover: 'Popover', radio: 'Radio', select: 'Select', tabs: 'Tabs', textarea: 'Textarea', toast: 'Toast', toggle: 'Toggle', tooltip: 'Tooltip' };
 ---
 
 <StarlightPage

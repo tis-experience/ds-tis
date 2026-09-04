@@ -169,6 +169,7 @@ try {
   await auditAlertOutputSelector();
   await auditBadgeOutputSelector();
   await auditCardOutputSelector();
+  await auditDividerOutputSelector();
   await auditModalOutputSelector();
   await auditPopoverOutputSelector();
   await auditComboboxOutputSelector();
@@ -1288,11 +1289,12 @@ async function auditCardOutputSelector() {
       `${route}: canvas documental do Card não preenche a largura do preview`,
     );
 
-    const preview = page.locator(previewSelector);
-    expect(await preview.count() === 1, `${route}: preview funcional próprio ausente`);
+    const previews = page.locator(previewSelector);
+    expect(await previews.count() === 2, `${route}: previews funcional e documentado próprios ausentes`);
+    const preview = previews.first();
     await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
     expect((await preview.getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
-    const card = page.frameLocator(previewSelector).locator(rootSelector).first();
+    const card = page.frameLocator(previewSelector).first().locator(rootSelector).first();
     await card.waitFor();
     expect(
       await card.evaluate((element) => {
@@ -1309,6 +1311,93 @@ async function auditCardOutputSelector() {
   }
 
   recordBrowserErrors('Card · seletor das saídas disponíveis');
+}
+
+async function auditDividerOutputSelector() {
+  browserErrors.length = 0;
+  const routes = [
+    {
+      route: '/ds-tis/next/pt-br/web/components/divider/',
+      activeLabel: 'HTML/CSS/JS',
+      previewSelector: '[data-output-preview][data-output-storybook="stable"]',
+      storyId: 'components-divider--playground',
+      rootSelector: '.ds-divider',
+    },
+    {
+      route: '/ds-tis/next/pt-br/react/components/divider/',
+      activeLabel: 'React · shadcn/Base UI',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'react-divider--playground',
+      rootSelector: '[data-slot="separator"]',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/divider/',
+      activeLabel: 'Angular',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-divider--playground',
+      rootSelector: '[data-tis-angular-divider]',
+    },
+  ];
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const { activeLabel, previewSelector, rootSelector, route, storyId } of routes) {
+    await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+    await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Divider', `${route}: título Divider ausente`);
+    expect(await page.locator('[data-technology-select] option').count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: saída Ark planejada deveria permanecer desabilitada`);
+    expect(
+      (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
+      `${route}: saída ativa incorreta`,
+    );
+
+    const anatomy = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-anatomy').first();
+    await anatomy.waitFor();
+    expect(await anatomy.locator('.ds-anatomy__marker').count() === 3, `${route}: anatomia não contém os três bullets numerados`);
+    expect(
+      await anatomy.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        const divider = element.querySelector('.ds-divider')?.getBoundingClientRect();
+        const markers = [...element.querySelectorAll('.ds-anatomy__marker')].map((marker) => marker.getBoundingClientRect());
+        return Boolean(divider && divider.width > 0 && divider.height > 0) && markers.every((marker) =>
+          marker.left >= bounds.left - 1 && marker.right <= bounds.right + 1 &&
+          marker.top >= bounds.top - 1 && marker.bottom <= bounds.bottom + 1
+        );
+      }),
+      `${route}: anatomia do Divider está colapsada ou com bullets cortados`,
+    );
+
+    const documentedCanvases = page.locator('[data-component-panel="design"] .ds-source-guidance .ds-preview__canvas');
+    expect(
+      await documentedCanvases.evaluateAll((elements) => elements.length > 0 && elements.every((element) => {
+        const card = element.closest('.ds-preview');
+        if (!card) return false;
+        return Math.abs(element.getBoundingClientRect().width - (card.getBoundingClientRect().width - 2)) <= 1;
+      })),
+      `${route}: canvases documentais do Divider não preenchem a largura dos cards`,
+    );
+
+    const previews = page.locator(previewSelector);
+    expect(await previews.count() === 2, `${route}: previews funcional e documentado próprios ausentes`);
+    const preview = previews.first();
+    await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
+    expect((await preview.getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
+    const divider = page.frameLocator(previewSelector).first().locator(rootSelector).first();
+    await divider.waitFor();
+    expect(
+      await divider.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > 0 && rect.height > 0 && rect.left >= 0 &&
+          rect.right <= document.documentElement.clientWidth && style.backgroundColor !== 'rgba(0, 0, 0, 0)';
+      }),
+      `${route}: Divider ficou cortado ou perdeu a aparência pública`,
+    );
+    expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
+    await auditAxe(`${route} · Divider`);
+  }
+
+  recordBrowserErrors('Divider · seletor das saídas disponíveis');
 }
 
 async function auditAlertOutputSelector() {
@@ -2915,6 +3004,7 @@ async function auditToastOutputSelector() {
     }
     const toast = preview.locator('.ds-toast').first();
     await toast.waitFor({ state: 'visible' });
+    await page.waitForTimeout(300);
     expect(
       await toast.evaluate((element) => {
         const style = getComputedStyle(element);
@@ -2945,7 +3035,16 @@ async function auditToastOutputSelector() {
         rect.left >= 0 && rect.right <= rect.viewport && rect.width <= 480,
         `${route}: Toast excedeu o viewport ou o limite de 480px (${JSON.stringify(rect)})`,
       );
-      await toast.getByRole('button', { name: 'Desfazer' }).click();
+      const action = toast.getByRole('button', { name: 'Desfazer' });
+      expect(
+        await action.evaluate((element) => {
+          const box = element.getBoundingClientRect();
+          return box.width > 0 && box.height > 0 && box.left >= 0 && box.top >= 0 &&
+            box.right <= innerWidth && box.bottom <= innerHeight;
+        }),
+        `${route}: action do Toast ficou fora do viewport`,
+      );
+      await action.evaluate((element) => element.click());
       expect(
         await toast.isVisible(),
         `${route}: action deveria manter o Toast disponível até dismiss explícito`,
@@ -2956,7 +3055,7 @@ async function auditToastOutputSelector() {
         `${route}: action não executou o callback`,
       );
 
-      await toast.getByRole('button', { name: 'Dispensar' }).click();
+      await toast.getByRole('button', { name: 'Dispensar' }).evaluate((element) => element.click());
       expect(
         await toast.waitFor({ state: 'hidden', timeout: 3000 }).then(() => true, () => false),
         `${route}: close não dispensou o Toast`,

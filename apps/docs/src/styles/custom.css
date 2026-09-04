@@ -124,6 +124,19 @@ html {
   max-width: none;
 }
 
+/* O exemplo de lista do Divider trazia max-width no canvas do site estável.
+   No portal, o fundo do exemplo ocupa o painel inteiro e o separador demonstra
+   corretamente o contrato de largura do próprio container. */
+.ds-source-guidance[data-component-source='divider'] .ds-preview__canvas {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none !important;
+}
+
+.ds-source-guidance[data-component-source='divider'] .ds-preview__canvas[style*='display:flex'] {
+  flex-wrap: wrap;
+}
+
 .ds-source-guidance:is(
   [data-component-source='input'],
   [data-component-source='textarea']

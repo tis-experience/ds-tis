@@ -52,6 +52,7 @@ export const ANGULAR_COMPONENTS_BY_SLUG = {
   card: { entrypoint: "card", primitive: "semantic native element + Angular composition", storyId: "angular-card--playground" },
   checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" },
   combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" },
+  divider: { entrypoint: "divider", primitive: "native hr", storyId: "angular-divider--playground" },
   input: { entrypoint: "input", primitive: "native input + Angular Forms", storyId: "angular-input--playground" },
   menu: { entrypoint: "menu", primitive: "@angular/aria/menu", storyId: "angular-menu--playground" },
   modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" },
