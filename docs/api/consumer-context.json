@@ -103,7 +103,7 @@
       "behaviorArchitecture": "ark-zag",
       "package": null,
       "note": "Saída independente por tecnologia; o primeiro adapter validado é React e não é distribuído pelo registry shadcn.",
-      "componentCount": 14,
+      "componentCount": 15,
       "components": [
         {
           "slug": "accordion",
@@ -181,6 +181,13 @@
           "framework": "React",
           "provider": "Ark UI + Zag",
           "storyId": "ark-tabs--playground"
+        },
+        {
+          "slug": "textarea",
+          "adapter": "packages/react/src/ark/textarea.jsx",
+          "framework": "React",
+          "provider": "Ark UI Factory + native textarea",
+          "storyId": "ark-textarea--playground"
         },
         {
           "slug": "toast",

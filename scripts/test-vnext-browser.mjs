@@ -5,6 +5,7 @@ import { chromium } from 'playwright';
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import path from 'node:path';
+import { ARK_ADAPTERS_BY_SLUG } from './lib/technology-implementations.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SITE = path.join(ROOT, '_site');
@@ -565,8 +566,8 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await catalog.locator('[data-output="react"]').count() === 26, `${route}: saída React ausente`);
   expect(await catalog.locator('[data-output="angular"]').count() === 26, `${route}: saída Angular ausente`);
   expect(
-    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === 14,
-    `${route}: os quatorze adapters Ark disponíveis deveriam aparecer como links`,
+    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === Object.keys(ARK_ADAPTERS_BY_SLUG).length,
+    `${route}: os adapters Ark disponíveis deveriam aparecer como links`,
   );
   expect(
     await outputRows.evaluateAll((rows) => rows.every((row) => [...row.querySelectorAll(':scope > li')].every((item) => {
@@ -4836,6 +4837,51 @@ async function auditStorybookComponents() {
   recordBrowserErrors('Storybook vNext · Input Ark 320px');
   await page.setViewportSize({ width: 1280, height: 800 });
 
+  await page.goto(`${storyBase}ark-textarea--playground`, { waitUntil: 'networkidle' });
+  const textareaArk = page.getByRole('textbox', { name: 'Mensagem' });
+  await textareaArk.waitFor();
+  await page.getByRole('button', { name: 'Enviar', exact: true }).click();
+  expect(await textareaArk.evaluate((el) => !el.validity.valid), 'Textarea Ark deve validar required');
+  await textareaArk.fill('Primeira linha\nSegunda linha');
+  expect(await page.locator('[data-slot="textarea-counter"]').textContent() === '28/200', 'Textarea Ark deve contar edição multilinha');
+  await page.getByRole('button', { name: 'Enviar', exact: true }).click();
+  expect(await page.locator('[data-slot="textarea-result"]').textContent() === 'Primeira linha\nSegunda linha', 'Textarea Ark perdeu nome ou linhas no FormData');
+  await page.getByRole('button', { name: 'Limpar', exact: true }).click();
+  expect(await textareaArk.inputValue() === '', 'Textarea Ark deve limpar o valor controlado');
+  expect(await textareaArk.evaluate((el) => el === document.activeElement), 'Textarea Ark perdeu ref/foco na limpeza');
+  await textareaArk.fill('x'.repeat(210));
+  expect((await textareaArk.inputValue()).length === 200, 'Textarea Ark deve preservar maxlength nativo');
+  await auditAxe('Storybook · Textarea Ark formulário');
+
+  await page.goto(`${storyBase}ark-textarea--uncontrolled`, { waitUntil: 'networkidle' });
+  const notes = page.getByRole('textbox', { name: 'Observações' });
+  expect(await notes.inputValue() === 'Primeira linha\nSegunda linha', 'Textarea Ark perdeu defaultValue');
+  await notes.fill('Editado');
+  expect(await notes.inputValue() === 'Editado', 'Textarea Ark deve permitir edição não controlada');
+
+  await page.goto(`${storyBase}ark-textarea--sizes`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-textarea').first().waitFor();
+  expect(await page.locator('.ds-textarea__field').evaluateAll((els) => {
+    const sizes = els.map((el) => el.getBoundingClientRect().height);
+    return sizes.length === 3 && sizes[0] < sizes[1] && sizes[1] < sizes[2] && els.every((el) => getComputedStyle(el).resize === 'vertical');
+  }), 'Textarea Ark deve preservar tamanhos crescentes e resize vertical');
+
+  for (const mode of ['light', 'dark']) {
+    await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-textarea--states`, { waitUntil: 'networkidle' });
+    await page.locator('.ds-ark-textarea').first().waitFor();
+    expect(await page.getByRole('textbox', { name: 'Desabilitado' }).isDisabled(), 'Textarea Ark deve desabilitar controle');
+    expect(await page.getByRole('textbox', { name: 'Somente leitura' }).getAttribute('readonly') !== null, 'Textarea Ark deve preservar readonly');
+    expect(await page.getByRole('textbox', { name: 'Inválido' }).getAttribute('aria-invalid') === 'true', 'Textarea Ark deve associar erro');
+    await auditAxe(`Storybook · Textarea Ark ${mode}`);
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-textarea--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-textarea').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Textarea Ark tem overflow em 320px');
+  await auditAxe('Storybook · Textarea Ark 320px');
+  recordBrowserErrors('Storybook · Textarea Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
+
   await page.goto(`${storyBase}react-alert--playground`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="alert"]').first().waitFor();
   expect(await page.locator('[data-slot="alert"]').count() === 1, 'Alert deve ter uma story isolada');
@@ -4904,6 +4950,7 @@ async function auditStorybookComponents() {
     'ark-button--playground',
     'ark-checkbox--playground',
     'ark-input--playground',
+    'ark-textarea--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',

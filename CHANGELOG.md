@@ -61,6 +61,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Textarea ganha saída Ark em beta de workspace.** O adapter
+  `@tis/react/ark/textarea` preserva edição multilinha, ref, formulário nativo,
+  tamanhos e estados TIS. O portal bilíngue oferece exemplos de contador,
+  envio, limpeza, valor inicial e estados, com testes de interação e bundle.
 - **Input Text passa a integrar a saída Ark/Zag em beta de workspace.** O
   entrypoint `@tis/react/ark/input` usa Ark Factory sobre `input` nativo,
   preserva tamanhos, ícones, estados, formulário e focus ring do contrato TIS
