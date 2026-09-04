@@ -60,9 +60,13 @@ const selectedInstall = technology === 'web'
     ? angularInstall
     : reactInstall;
 const runtimeDescriptions: Record<DocumentationTechnology, string> = {
-  web: isEnglish
-    ? 'Running with the stable ds-tis/popover JavaScript runtime.'
-    : 'Executado pelo runtime JavaScript estável ds-tis/popover.',
+  web: implementation.runtime
+    ? (isEnglish
+      ? `Running with the stable ${implementation.runtime} JavaScript runtime.`
+      : `Executado pelo runtime JavaScript estável ${implementation.runtime}.`)
+    : (isEnglish
+      ? 'Running with stable DS HTML and CSS, without a component JavaScript runtime.'
+      : 'Executado com HTML e CSS estáveis do DS, sem runtime JavaScript do componente.'),
   ark: isEnglish
     ? 'Running with the independent Ark UI adapter and Zag behavior.'
     : 'Executado pelo adapter independente Ark UI com comportamento Zag.',
@@ -156,6 +160,9 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     ) : documentation.storyId ? (
       <>
         <h3>{isEnglish ? 'Functional preview' : 'Preview funcional'}</h3>
+        {slug === 'badge' && (
+          <p class="ds-output-example__runtime">{runtimeDescriptions[technology]}</p>
+        )}
         <OutputStoryPreview
           storyId={documentation.storyId}
           storybook={documentation.storybook}
@@ -350,7 +357,9 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
         : (isEnglish ? 'Preserve native element semantics, accessible names, keyboard behavior, and visible focus.' : 'Preserve a semântica do elemento nativo, nomes acessíveis, comportamento de teclado e foco visível.')}</p>
     )}
     {technology === 'react' && (
-      <p>{isEnglish ? 'Preserve Base UI semantics and test real content, focus visibility, and accessible names in the consuming application.' : 'Preserve a semântica da Base UI e teste conteúdo real, foco visível e nomes acessíveis na aplicação consumidora.'}</p>
+      <p>{slug === 'badge'
+        ? (isEnglish ? 'Keep the badge non-interactive and ensure its short text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto curto transmita significado sem depender apenas da cor.')
+        : (isEnglish ? 'Preserve Base UI semantics and test real content, focus visibility, and accessible names in the consuming application.' : 'Preserve a semântica da Base UI e teste conteúdo real, foco visível e nomes acessíveis na aplicação consumidora.')}</p>
     )}
     {technology === 'ark' && (
       <p>{documentation.status === 'planned'
@@ -372,6 +381,8 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           ? (isEnglish ? 'Preserve Angular Aria relationships and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve as relações de Angular Aria e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
           : slug === 'checkbox'
             ? (isEnglish ? 'Preserve native checkbox semantics and validate Space, checked and indeterminate states, disabled and invalid states, visible focus, and Angular Forms integration.' : 'Preserve a semântica nativa do checkbox e valide Space, estados checked e indeterminate, disabled e invalid, foco visível e integração com Angular Forms.')
+          : slug === 'badge'
+            ? (isEnglish ? 'Keep the badge non-interactive and ensure its short text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto curto transmita significado sem depender apenas da cor.')
           : slug === 'popover'
             ? (isEnglish ? 'Preserve the non-modal dialog contract and validate Escape, outside interaction, ARIA relationships, and focus return.' : 'Preserve o contrato de dialog não modal e valide Escape, interação externa, relações ARIA e retorno de foco.')
           : slug === 'modal'

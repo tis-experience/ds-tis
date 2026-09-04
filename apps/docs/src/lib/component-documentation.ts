@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'badge' | 'button' | 'checkbox' | 'combobox' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -112,6 +112,37 @@ initAccordions()`,
     </div>
   </div>
 </div>`,
+    },
+  },
+  badge: {
+    description: {
+      pt: 'Identifica estado, categoria ou atributo com um label curto e semanticamente explícito.',
+      en: 'Identifies a status, category, or attribute with a short, semantically explicit label.',
+    },
+    previewSize: 'compact',
+    descriptions: {
+      angular: {
+        pt: 'Componente standalone apresentacional com inputs tipados, content projection e as classes públicas do Badge TIS.',
+        en: 'A standalone presentational component with typed inputs, content projection, and the public TIS Badge classes.',
+      },
+      react: {
+        pt: 'Recipe React distribuída como source, com elemento span e as classes/tokens públicos do Badge TIS.',
+        en: 'A React source recipe with a span element and the public TIS Badge classes and tokens.',
+      },
+    },
+    angular: {
+      primitive: 'Elemento host apresentacional',
+      imports: `import { TisBadge } from '@tis/angular/badge'`,
+      markup: `<tis-badge tone="success" variant="subtle">
+  Aprovado
+</tis-badge>`,
+    },
+    web: {
+      storyId: 'components-badge--playground',
+      imports: `import 'ds-tis/css'`,
+      markup: `<span class="ds-badge ds-badge--success ds-badge--subtle">
+  Aprovado
+</span>`,
     },
   },
   button: {

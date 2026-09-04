@@ -124,4 +124,8 @@ select {
   .consumer-row .ds-button {
     inline-size: 100%;
   }
+
+  .consumer-row > tis-badge {
+    inline-size: auto;
+  }
 }

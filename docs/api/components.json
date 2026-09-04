@@ -1831,13 +1831,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "badge",
+          "primitive": "presentational host element",
+          "storyId": "angular-badge--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },

@@ -164,6 +164,7 @@ try {
   });
   await auditAccordionOutputSelector();
   await auditButtonOutputSelector();
+  await auditBadgeOutputSelector();
   await auditModalOutputSelector();
   await auditPopoverOutputSelector();
   await auditComboboxOutputSelector();
@@ -580,6 +581,11 @@ async function auditCanonicalCatalog(route, locale) {
   const buttonLinks = buttonItem.locator('a');
   expect(await buttonLinks.count() === 4, `${route}: Button deve ligar as quatro implementações disponíveis`);
   expect(await buttonItem.locator('[data-output="ark"]').count() === 1, `${route}: Button deve oferecer o adapter Ark disponível`);
+  const badgeItem = catalog.locator('.ds-component-catalog__item').filter({
+    has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
+  });
+  expect(await badgeItem.locator('a').count() === 3, `${route}: Badge deve ligar Web, React e Angular`);
+  expect(await badgeItem.locator('[data-output="ark"] a').count() === 0, `${route}: Badge não deve ligar a saída Ark ainda planejada`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
   expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
@@ -1105,6 +1111,82 @@ async function auditButtonOutputSelector() {
   }
 
   recordBrowserErrors('Button · seletor das quatro saídas');
+}
+
+async function auditBadgeOutputSelector() {
+  browserErrors.length = 0;
+  const routes = [
+    {
+      route: '/ds-tis/next/pt-br/web/components/badge/',
+      activeLabel: 'HTML/CSS/JS',
+      status: 'Estável',
+      previewSelector: '[data-output-preview][data-output-storybook="stable"]',
+      storyId: 'components-badge--playground',
+    },
+    {
+      route: '/ds-tis/next/pt-br/react/components/badge/',
+      activeLabel: 'React · shadcn/Base UI',
+      status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'react-badge--playground',
+    },
+    {
+      route: '/ds-tis/next/pt-br/angular/components/badge/',
+      activeLabel: 'Angular',
+      status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      storyId: 'angular-badge--playground',
+    },
+  ];
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const { activeLabel, previewSelector, route, status, storyId } of routes) {
+    await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+    await page.locator('main h1').first().waitFor();
+    expect((await page.locator('main h1').first().textContent())?.trim() === 'Badge', `${route}: título Badge ausente`);
+    const technologyOptions = page.locator('[data-technology-select] option');
+    expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
+    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: saída Ark planejada deveria permanecer desabilitada`);
+    expect(
+      (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
+      `${route}: saída ativa incorreta`,
+    );
+    expect(
+      (await page.locator('[data-component-panel="implementation"] .ds-react-contract dd').allTextContents()).includes(status),
+      `${route}: status ${status} ausente`,
+    );
+    const runtimeText = (await page.locator('.ds-output-example__runtime').first().textContent())?.trim() || '';
+    if (route.includes('/web/')) {
+      expect(runtimeText.includes('sem runtime JavaScript'), `${route}: descrição Web atribuiu runtime incorreto ao Badge`);
+    }
+    const accessibilityText = (await page.locator('[data-component-panel="accessibility"]').innerText()).toLowerCase();
+    expect(!accessibilityText.includes('semântica nativa do button'), `${route}: Badge herdou responsabilidade de Button`);
+    if (!route.includes('/web/')) {
+      expect(accessibilityText.includes('badge não interativo'), `${route}: responsabilidade acessível do Badge ausente`);
+    }
+
+    const preview = page.locator(previewSelector);
+    expect(await preview.count() === 1, `${route}: preview funcional próprio ausente`);
+    await page.waitForFunction((selector) => Boolean(document.querySelector(selector)?.getAttribute('src')), previewSelector);
+    expect((await preview.getAttribute('src'))?.includes(storyId), `${route}: preview não aponta para ${storyId}`);
+    const badge = page.frameLocator(previewSelector).locator('.ds-badge').first();
+    await badge.waitFor();
+    expect(
+      await badge.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > rect.height && rect.height > 0 &&
+          rect.left >= 0 && rect.right <= document.documentElement.clientWidth &&
+          ['flex', 'inline-flex'].includes(style.display) &&
+          style.backgroundColor !== 'rgba(0, 0, 0, 0)';
+      }),
+      `${route}: Badge ficou cortado ou perdeu a aparência pública`,
+    );
+    expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
+    await auditAxe(`${route} · Badge`);
+  }
+
+  recordBrowserErrors('Badge · seletor das saídas disponíveis');
 }
 
 async function auditModalOutputSelector() {

@@ -19,6 +19,7 @@ const EVIDENCE = path.join(
 );
 const definitions = {
   accordion: { file: "tis-angular-accordion.mjs", budget: 8 * 1024 },
+  badge: { file: "tis-angular-badge.mjs", budget: 4 * 1024 },
   button: { file: "tis-angular-button.mjs", budget: 4 * 1024 },
   checkbox: { file: "tis-angular-checkbox.mjs", budget: 5 * 1024 },
   combobox: { file: "tis-angular-combobox.mjs", budget: 12 * 1024 },
@@ -36,6 +37,7 @@ const definitions = {
 };
 const forbiddenByEntry = {
   accordion: ["FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
+  badge: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   button: ["AccordionGroup", "FlexibleConnectedPositionStrategy"],
   checkbox: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],
   combobox: ["AccordionGroup", "FlexibleConnectedPositionStrategy", "data-tis-angular-button"],

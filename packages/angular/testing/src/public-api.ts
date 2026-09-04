@@ -1,5 +1,6 @@
 export {
   TisAccordionHarness,
+  TisBadgeHarness,
   TisButtonHarness,
   TisCheckboxHarness,
   TisComboboxHarness,

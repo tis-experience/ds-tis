@@ -1,6 +1,6 @@
 /**
  * Primary entrypoint for metadata only. Import components from the dedicated,
- * tree-shakable entrypoints: `@tis/angular/button`, `/accordion`, `/combobox`,
+ * tree-shakable entrypoints: `@tis/angular/accordion`, `/badge`, `/button`, `/combobox`,
  * `/input`, `/textarea`, `/checkbox`, `/menu`, `/modal`, `/popover`, `/radio`, `/select`,
  * `/tabs`, `/toast`, `/toggle` and `/tooltip`.
  */

@@ -84,6 +84,7 @@ const required = [
   '.storybook-angular/main.mjs',
   '.storybook-angular/preview.ts',
   'packages/angular/package.json',
+  'packages/angular/badge/src/badge.ts',
   'packages/angular/button/src/button.ts',
   'packages/angular/accordion/src/accordion.ts',
   'packages/angular/combobox/src/combobox.ts',
@@ -91,6 +92,7 @@ const required = [
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
   'packages/angular/stories/select.stories.ts',
+  'packages/angular/stories/badge.stories.ts',
   'packages/angular/stories/combobox.stories.ts',
   'packages/angular/stories/menu.stories.ts',
   'packages/react/src/provider-spike.jsx',
@@ -264,7 +266,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,button,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,badge,button,checkbox,combobox,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -540,6 +542,7 @@ for (const locale of ['pt', 'en']) {
 const componentDocumentation = read('apps/docs/src/lib/component-documentation.ts');
 for (const contract of [
   "storyId: 'components-accordion--playground'",
+  "storyId: 'components-badge--playground'",
   "storyId: 'components-button--playground'",
   "storyId: 'components-modal--playground'",
   "storyId: 'components-popover--playground'",
@@ -551,6 +554,7 @@ for (const contract of [
   "from '@tis/react/ark/accordion'",
   "from '@tis/react/ark/combobox'",
   "from '@tis/angular/combobox'",
+  "from '@tis/angular/badge'",
   "from '@tis/angular/menu'",
   "from '@tis/react/ark/menu'",
   "from '@tis/react/ark/modal'",
@@ -580,6 +584,9 @@ for (const modalStoryId of [
 }
 
 const technologyImplementations = read('scripts/lib/technology-implementations.mjs');
+if (!technologyImplementations.includes('badge: { entrypoint: "badge", primitive: "presentational host element", storyId: "angular-badge--playground" }')) {
+  errors.push('catálogo canônico deve preservar o entrypoint, primitive e storyId do Badge Angular');
+}
 if (!technologyImplementations.includes('modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" }')) {
   errors.push('catálogo canônico deve preservar o entrypoint e storyId do Modal Angular');
 }
@@ -774,6 +781,22 @@ if (
   errors.push('OutputStoryPreview deve distinguir Storybooks, carregar sem scroll, sincronizar tema antes do src e anunciar loading');
 }
 const componentCatalog = read('apps/docs/src/components/ComponentCatalog.astro');
+const webVnextMatch = componentCatalog.match(/const webVnextSlugs = new Set\(\[([\s\S]*?)\]\);/);
+const declaredWebVnextSlugs = webVnextMatch
+  ? [...webVnextMatch[1].matchAll(/'([^']+)'/g)].map((match) => match[1]).sort()
+  : [];
+const webPagesByLocale = ['pt-br', 'en'].map((locale) => fs
+  .readdirSync(path.join(ROOT, 'apps', 'docs', 'src', 'content', 'docs', locale, 'web', 'components'))
+  .filter((name) => name.endsWith('.mdx'))
+  .map((name) => path.basename(name, '.mdx'))
+  .sort());
+if (
+  !webVnextMatch ||
+  JSON.stringify(webPagesByLocale[0]) !== JSON.stringify(webPagesByLocale[1]) ||
+  JSON.stringify(declaredWebVnextSlugs) !== JSON.stringify(webPagesByLocale[0])
+) {
+  errors.push('catálogo canônico deve apontar cada página Web vNext existente para a rota vNext nos dois idiomas');
+}
 for (const contract of [
   'data-component-count={getComponents().length}',
   "['web', 'HTML/CSS/JS']",
@@ -919,8 +942,13 @@ if (dynamicReactRoute.includes("component.slug !== 'button'")) {
   errors.push('Button não pode manter uma página React paralela fora do template dinâmico');
 }
 const dynamicAngularRoute = read('apps/docs/src/pages/[locale]/angular/components/[slug].astro');
-if (!dynamicAngularRoute.includes("'combobox'") || !dynamicAngularRoute.includes("combobox: 'Combobox'")) {
-  errors.push('rota Angular deve gerar e nomear a página do Combobox');
+if (
+  !dynamicAngularRoute.includes("'badge'") ||
+  !dynamicAngularRoute.includes("badge: 'Badge'") ||
+  !dynamicAngularRoute.includes("'combobox'") ||
+  !dynamicAngularRoute.includes("combobox: 'Combobox'")
+) {
+  errors.push('rota Angular deve gerar e nomear as páginas do Badge e Combobox');
 }
 
 if (fs.existsSync(path.join(ROOT, 'apps', 'docs', 'src', 'components', 'ComponentPageChrome.astro'))) {
