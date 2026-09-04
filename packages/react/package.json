@@ -9,6 +9,7 @@
     "./ark/button": "./src/ark/button.jsx",
     "./ark/checkbox": "./src/ark/checkbox.jsx",
     "./ark/combobox": "./src/ark/combobox.jsx",
+    "./ark/input": "./src/ark/input.jsx",
     "./ark/modal": "./src/ark/modal.jsx",
     "./ark/menu": "./src/ark/menu.jsx",
     "./ark/popover": "./src/ark/popover.jsx",

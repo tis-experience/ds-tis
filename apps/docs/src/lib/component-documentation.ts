@@ -418,6 +418,10 @@ initAccordions()`,
     },
     previewSize: 'medium',
     descriptions: {
+      ark: {
+        pt: 'Adapter React independente sobre Ark Factory e input nativo, com a anatomia e os estados públicos do Input Text TIS.',
+        en: 'An independent React adapter built on Ark Factory and a native input, with the public TIS Input Text anatomy and states.',
+      },
       angular: {
         pt: 'Componente Angular standalone sobre input nativo, com Form Field completo, ícones, validação e ControlValueAccessor.',
         en: 'A standalone Angular component over a native input, with a complete Form Field, icons, validation, and ControlValueAccessor.',
@@ -428,6 +432,35 @@ initAccordions()`,
       },
     },
     examples: {
+      ark: [
+        {
+          storyId: 'ark-input--sizes',
+          size: 'medium',
+          title: { pt: 'Tamanhos · Ark/Zag', en: 'Sizes · Ark/Zag' },
+          description: {
+            pt: 'Inputs sm, md e lg executados pelo adapter Ark independente.',
+            en: 'Small, medium, and large inputs running through the independent Ark adapter.',
+          },
+        },
+        {
+          storyId: 'ark-input--states',
+          size: 'medium',
+          title: { pt: 'Estados · Ark/Zag', en: 'States · Ark/Zag' },
+          description: {
+            pt: 'Estados preenchido, inválido, somente leitura e desabilitado com semântica nativa.',
+            en: 'Filled, invalid, read-only, and disabled states with native semantics.',
+          },
+        },
+        {
+          storyId: 'ark-input--form-submission',
+          size: 'medium',
+          title: { pt: 'Formulário · Ark/Zag', en: 'Form · Ark/Zag' },
+          description: {
+            pt: 'Nome, valor, required e tipo permanecem disponíveis para validação e submit nativos.',
+            en: 'Name, value, required, and type remain available to native validation and form submission.',
+          },
+        },
+      ],
       angular: [
         {
           storyId: 'angular-input--tamanhos',
@@ -448,6 +481,9 @@ initAccordions()`,
           },
         },
       ],
+    },
+    ark: {
+      adapterImport: `import { Input } from '@tis/react/ark/input'`,
     },
     angular: {
       primitive: 'HTML input + Angular Forms',

@@ -61,6 +61,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Input Text passa a integrar a saída Ark/Zag em beta de workspace.** O
+  entrypoint `@tis/react/ark/input` usa Ark Factory sobre `input` nativo,
+  preserva tamanhos, ícones, estados, formulário e focus ring do contrato TIS
+  sem introduzir máquina Zag desnecessária. Storybook, portal bilíngue, Axe,
+  responsividade e bundle validam a saída sem alterar Figma, tokens ou as
+  implementações HTML/CSS, React shadcn/Base UI e Angular.
 - **Divider passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/divider` oferece diretiva standalone sobre `hr`
   nativo, com orientação horizontal/vertical e semântica decorativa opcional.

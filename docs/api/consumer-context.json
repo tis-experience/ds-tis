@@ -103,7 +103,7 @@
       "behaviorArchitecture": "ark-zag",
       "package": null,
       "note": "Saída independente por tecnologia; o primeiro adapter validado é React e não é distribuído pelo registry shadcn.",
-      "componentCount": 13,
+      "componentCount": 14,
       "components": [
         {
           "slug": "accordion",
@@ -132,6 +132,13 @@
           "framework": "React",
           "provider": "Ark UI + Zag",
           "storyId": "ark-combobox--playground"
+        },
+        {
+          "slug": "input",
+          "adapter": "packages/react/src/ark/input.jsx",
+          "framework": "React",
+          "provider": "Ark UI Factory + native input",
+          "storyId": "ark-input--playground"
         },
         {
           "slug": "menu",

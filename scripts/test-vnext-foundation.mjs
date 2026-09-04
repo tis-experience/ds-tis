@@ -868,6 +868,8 @@ const arkAccordionSource = read('packages/react/src/ark/accordion.jsx');
 const arkAccordionStories = read('packages/react/src/stories/ark-accordion.stories.jsx');
 const arkModalSource = read('packages/react/src/ark/modal.jsx');
 const arkModalStories = read('packages/react/src/stories/ark-modal.stories.jsx');
+const arkInputSource = read('packages/react/src/ark/input.jsx');
+const arkInputStories = read('packages/react/src/stories/ark-input.stories.jsx');
 const arkMenuSource = read('packages/react/src/ark/menu.jsx');
 const arkMenuStyles = read('packages/react/src/ark/menu.css');
 const arkMenuStories = read('packages/react/src/stories/ark-menu.stories.jsx');
@@ -878,6 +880,20 @@ const arkTabsStories = read('packages/react/src/stories/ark-tabs.stories.jsx');
 const arkToastSource = read('packages/react/src/ark/toast.jsx');
 const arkToastStyles = read('packages/react/src/ark/toast.css');
 const arkToastStories = read('packages/react/src/stories/ark-toast.stories.jsx');
+if (
+  !arkInputSource.includes("from '@ark-ui/react/factory'") ||
+  !arkInputSource.includes('<ark.input') ||
+  !arkInputSource.includes("'ds-input'") ||
+  !arkInputSource.includes("'ds-input__field'") ||
+  !arkInputSource.includes('aria-invalid={ariaInvalid}') ||
+  arkInputSource.includes('@base-ui') ||
+  arkInputStories.includes('@base-ui') ||
+  !arkInputStories.includes("id: 'ark-input'") ||
+  !arkInputStories.includes("options: ['sm', 'md', 'lg']") ||
+  !arkInputStories.includes('export const FormSubmission')
+) {
+  errors.push('Input Ark deve preservar input nativo, anatomia TIS, estados e independência de Base UI');
+}
 if (
   !arkMenuSource.includes("from '@ark-ui/react/menu'") ||
   !arkMenuSource.includes('ds-ark-menu__positioner') ||
@@ -1273,6 +1289,7 @@ if (reactPackage.exports?.['./provider-spike']) {
 }
 if (
   reactPackage.exports?.['./ark/accordion'] !== './src/ark/accordion.jsx' ||
+  reactPackage.exports?.['./ark/input'] !== './src/ark/input.jsx' ||
   reactPackage.exports?.['./ark/menu'] !== './src/ark/menu.jsx' ||
   reactPackage.exports?.['./ark/modal'] !== './src/ark/modal.jsx' ||
   reactPackage.exports?.['./ark/popover'] !== './src/ark/popover.jsx' ||
@@ -1380,6 +1397,13 @@ if (staticStorybook) {
     !arkModalOutput.some((entry) => entry.id === 'ark-modal--playground')
   ) {
     errors.push('Storybook vNext deve publicar o Modal Ark/Zag em uma saída separada');
+  }
+  const arkInputOutput = entries.filter((entry) => entry.title === 'Outputs/Ark + Zag/Input Text');
+  if (
+    arkInputOutput.filter((entry) => entry.type === 'docs').length !== 1 ||
+    !arkInputOutput.some((entry) => entry.id === 'ark-input--playground')
+  ) {
+    errors.push('Storybook vNext deve publicar o Input Text Ark em uma saída separada');
   }
   const arkSelectOutput = entries.filter((entry) => entry.title === 'Outputs/Ark + Zag/Select');
   if (

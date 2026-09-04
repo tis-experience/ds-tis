@@ -565,6 +565,10 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await catalog.locator('[data-output="react"]').count() === 26, `${route}: saída React ausente`);
   expect(await catalog.locator('[data-output="angular"]').count() === 26, `${route}: saída Angular ausente`);
   expect(
+    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === 14,
+    `${route}: os quatorze adapters Ark disponíveis deveriam aparecer como links`,
+  );
+  expect(
     await outputRows.evaluateAll((rows) => rows.every((row) => [...row.querySelectorAll(':scope > li')].every((item) => {
       const status = item.querySelector('[data-status]')?.getAttribute('data-status');
       const available = item.getAttribute('data-availability') === 'available';
@@ -601,6 +605,11 @@ async function auditCanonicalCatalog(route, locale) {
   const buttonLinks = buttonItem.locator('a');
   expect(await buttonLinks.count() === 4, `${route}: Button deve ligar as quatro implementações disponíveis`);
   expect(await buttonItem.locator('[data-output="ark"]').count() === 1, `${route}: Button deve oferecer o adapter Ark disponível`);
+  const inputItem = catalog.locator('.ds-component-catalog__item').filter({
+    has: page.locator('.ds-component-catalog__name', { hasText: /^Input Text$/ }),
+  });
+  expect(await inputItem.locator('a').count() === 4, `${route}: Input Text deve ligar as quatro implementações disponíveis`);
+  expect(await inputItem.locator('[data-output="ark"]').count() === 1, `${route}: Input Text deve oferecer o adapter Ark disponível`);
   const badgeItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
   });
@@ -4761,6 +4770,72 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · form composition');
   recordBrowserErrors('Storybook vNext · form composition');
 
+  await page.goto(`${storyBase}ark-input--playground`, { waitUntil: 'networkidle' });
+  const arkInput = page.getByLabel('E-mail');
+  const arkInputRoot = page.locator('.ds-ark-input');
+  await arkInput.waitFor();
+  await arkInput.fill('ana@empresa.com');
+  expect(await arkInput.inputValue() === 'ana@empresa.com', 'Input Ark não preservou edição nativa');
+  expect(await arkInputRoot.getAttribute('data-filled') === 'true', 'Input Ark não refletiu o estado filled');
+  await page.getByRole('button', { name: 'Limpar' }).click();
+  expect(await arkInput.inputValue() === '', 'Input Ark não limpou o valor controlado');
+  expect(await arkInput.evaluate((element) => element === document.activeElement), 'Input Ark não recuperou foco após limpar');
+  await arkInput.fill('teste@empresa.com');
+  expect(
+    (await page.locator('[data-slot="input-result"]').textContent())?.includes('teste@empresa.com'),
+    'Input Ark não atualizou a saída acessível do valor',
+  );
+  await auditAxe('Storybook vNext · Input Ark');
+  recordBrowserErrors('Storybook vNext · Input Ark');
+
+  await page.goto(`${storyBase}ark-input--sizes`, { waitUntil: 'networkidle' });
+  const arkInputSizes = page.locator('.ds-ark-input');
+  await arkInputSizes.first().waitFor();
+  expect(
+    await arkInputSizes.evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect().height))
+      .then((sizes) => JSON.stringify(sizes) === JSON.stringify([32, 40, 48])),
+    'Input Ark não preservou os tamanhos sm, md e lg',
+  );
+  await auditAxe('Storybook vNext · Input Ark sizes');
+  recordBrowserErrors('Storybook vNext · Input Ark sizes');
+
+  await page.goto(`${storyBase}ark-input--states`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-input').first().waitFor();
+  expect(await page.locator('.ds-ark-input[data-filled]').count() === 1, 'Input Ark deve preservar filled');
+  expect(await page.locator('.ds-ark-input[data-invalid] input[aria-invalid="true"]').count() === 1, 'Input Ark deve associar invalid ao input nativo');
+  expect(await page.locator('.ds-ark-input[data-readonly] input[readonly]').count() === 1, 'Input Ark deve preservar readonly');
+  expect(await page.locator('.ds-ark-input[data-disabled] input:disabled').count() === 1, 'Input Ark deve preservar disabled');
+  await auditAxe('Storybook vNext · Input Ark states');
+  recordBrowserErrors('Storybook vNext · Input Ark states');
+
+  await page.goto(`${storyBase}ark-input--form-submission`, { waitUntil: 'networkidle' });
+  const arkFormInput = page.getByLabel('E-mail');
+  await arkFormInput.fill('ana@empresa.com');
+  await page.getByRole('button', { name: 'Enviar' }).click();
+  expect(
+    (await page.locator('[data-slot="form-result"]').textContent()) === 'ana@empresa.com',
+    'Input Ark não preservou nome e valor no submit nativo',
+  );
+  await auditAxe('Storybook vNext · Input Ark form');
+  recordBrowserErrors('Storybook vNext · Input Ark form');
+
+  await page.goto(
+    `${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:dark&id=ark-input--states`,
+    { waitUntil: 'networkidle' },
+  );
+  await page.locator('.ds-ark-input').first().waitFor();
+  expect(await page.locator('html').getAttribute('data-mode') === 'dark', 'Input Ark não ativou o tema escuro');
+  await auditAxe('Storybook vNext · Input Ark dark');
+  recordBrowserErrors('Storybook vNext · Input Ark dark');
+
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-input--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-input').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Input Ark possui overflow horizontal em 320px');
+  await auditAxe('Storybook vNext · Input Ark 320px');
+  recordBrowserErrors('Storybook vNext · Input Ark 320px');
+  await page.setViewportSize({ width: 1280, height: 800 });
+
   await page.goto(`${storyBase}react-alert--playground`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="alert"]').first().waitFor();
   expect(await page.locator('[data-slot="alert"]').count() === 1, 'Alert deve ter uma story isolada');
@@ -4828,6 +4903,7 @@ async function auditStorybookComponents() {
   const publicPlaygrounds = [
     'ark-button--playground',
     'ark-checkbox--playground',
+    'ark-input--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',
