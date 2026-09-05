@@ -1,14 +1,14 @@
 {
   "schema": "ds-core/agent-run-state",
   "version": 1,
-  "runId": "2026-09-04-ark-textarea-upstream-intake",
-  "title": "Textarea · Ark/Zag",
+  "runId": "2026-09-04-react-table",
+  "title": "React Table",
   "createdAt": "2026-09-04",
-  "updatedAt": "2026-09-05",
+  "updatedAt": "2026-09-04",
   "figmaSnapshot": {
     "id": null,
     "generatedAt": null,
-    "path": ".figma-snapshot.json"
+    "path": null
   },
   "currentGate": "release",
   "gates": [
@@ -22,10 +22,7 @@
       "requires": [],
       "needsOwnerApproval": true,
       "status": "approved",
-      "ownerApproval": {
-        "at": "2026-09-04",
-        "note": "Owner aprovou a saída Ark e o escopo sem mudança Figma."
-      },
+      "ownerApproval": { "at": "2026-09-04", "note": "Owner autorizou execução contínua." },
       "updatedAt": "2026-09-04"
     },
     {
@@ -53,10 +50,7 @@
       ],
       "needsOwnerApproval": true,
       "status": "approved",
-      "ownerApproval": {
-        "at": "2026-09-04",
-        "note": "Owner determinou Figma inalterado; snapshot stale não foi tratado como auditoria viva."
-      },
+      "ownerApproval": { "at": "2026-09-04", "note": "Figma aprovado sem alterações." },
       "updatedAt": "2026-09-04"
     },
     {
@@ -84,10 +78,7 @@
       ],
       "needsOwnerApproval": true,
       "status": "approved",
-      "ownerApproval": {
-        "at": "2026-09-04",
-        "note": "Owner autorizou implementação, testes e PR isolado."
-      },
+      "ownerApproval": { "at": "2026-09-04", "note": "Implementação React autorizada." },
       "updatedAt": "2026-09-04"
     },
     {
@@ -100,22 +91,19 @@
         "repo"
       ],
       "needsOwnerApproval": true,
-      "status": "in_progress",
-      "ownerApproval": {
-        "at": "2026-09-04",
-        "note": "Owner autorizou commit, push, PR, merge e validação pública."
-      },
+      "status": "approved",
+      "ownerApproval": { "at": "2026-09-04", "note": "Commit, push, PR, merge e publicação já autorizados pelo owner." },
       "updatedAt": "2026-09-04"
     }
   ],
   "checks": {
-    "integration:a90c542:test:vnext": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
-    "integration:a90c542:browser": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
-    "integration:a90c542:consumer-web-react": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
-    "integration:a90c542:pages": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
-    "test:vnext": { "status": "passed", "at": "2026-09-04" },
-    "test:vnext:browser": { "status": "passed", "at": "2026-09-04" },
-    "visual:light-dark-320": { "status": "passed", "at": "2026-09-04" },
-    "verify:tokens": { "status": "passed", "at": "2026-09-04", "note": "Figma comparison skipped; no snapshot in worktree." }
+    "registry": "passed",
+    "consumer": "passed",
+    "build": "passed",
+    "vnext": "passed",
+    "browser": "passed",
+    "pages": "passed",
+    "a11y": "passed",
+    "visual": "passed"
   }
 }

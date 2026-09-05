@@ -870,6 +870,109 @@
       }
     },
     {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "TIS Avatar",
+      "description": "Avatar React com imagem otimizada e fallback controlado por Base UI, usando tamanhos e tokens do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/avatar.tsx",
+          "type": "registry:ui",
+          "target": "@ui/avatar.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        "[data-slot=\"avatar\"]": {
+          "isolation": "isolate",
+          "position": "relative"
+        },
+        "[data-slot=\"avatar-image\"], [data-slot=\"avatar-fallback\"]": {
+          "height": "100%",
+          "inset": "0",
+          "position": "absolute",
+          "width": "100%"
+        },
+        "[data-slot=\"avatar-image\"][data-loading], [data-slot=\"avatar-image\"][data-error]": {
+          "visibility": "hidden"
+        },
+        "[data-slot=\"avatar-fallback\"]": {
+          "align-items": "center",
+          "display": "flex",
+          "justify-content": "center"
+        },
+        "[data-slot=\"avatar\"][data-size=\"sm\"] [data-slot=\"avatar-fallback\"][data-icon] .ds-icon": {
+          "height": "var(--ds-avatar-icon-size-sm)",
+          "stroke-width": "var(--ds-avatar-icon-stroke-width-sm)",
+          "width": "var(--ds-avatar-icon-size-sm)"
+        },
+        "[data-slot=\"avatar\"][data-size=\"md\"] [data-slot=\"avatar-fallback\"][data-icon] .ds-icon": {
+          "height": "var(--ds-avatar-icon-size-md)",
+          "stroke-width": "var(--ds-avatar-icon-stroke-width-md)",
+          "width": "var(--ds-avatar-icon-size-md)"
+        },
+        "[data-slot=\"avatar\"][data-size=\"lg\"] [data-slot=\"avatar-fallback\"][data-icon] .ds-icon": {
+          "height": "var(--ds-avatar-icon-size-lg)",
+          "stroke-width": "var(--ds-avatar-icon-stroke-width-lg)",
+          "width": "var(--ds-avatar-icon-size-lg)"
+        },
+        "[data-slot=\"avatar-badge\"]": {
+          "align-items": "center",
+          "background-color": "var(--ds-feedback-success-background-default)",
+          "block-size": "var(--ds-size-xs)",
+          "border": "var(--ds-border-width-strong) solid var(--ds-surface-raised)",
+          "border-radius": "var(--ds-radius-full)",
+          "color": "var(--ds-feedback-success-content-contrast)",
+          "display": "flex",
+          "inset-block-end": "var(--ds-space-none)",
+          "inset-inline-end": "var(--ds-space-none)",
+          "inline-size": "var(--ds-size-xs)",
+          "justify-content": "center",
+          "position": "absolute",
+          "z-index": "1"
+        },
+        "[data-slot=\"avatar-badge\"] svg": {
+          "block-size": "var(--ds-space-sm)",
+          "inline-size": "var(--ds-space-sm)",
+          "stroke-width": "var(--ds-border-width-strong)"
+        },
+        "[data-slot=\"avatar-group\"]": {
+          "align-items": "center",
+          "display": "flex"
+        },
+        "[data-slot=\"avatar-group\"] > [data-slot=\"avatar\"], [data-slot=\"avatar-group\"] > [data-slot=\"avatar-group-count\"]": {
+          "border": "var(--ds-border-width-strong) solid var(--ds-surface-raised)",
+          "margin-inline-start": "calc(var(--ds-space-sm) * -1)"
+        },
+        "[data-slot=\"avatar-group\"] > :first-child": {
+          "margin-inline-start": "var(--ds-space-none)"
+        },
+        "[data-slot=\"avatar-group-count\"]": {
+          "background-color": "var(--ds-background-subtle)",
+          "color": "var(--ds-content-default)"
+        }
+      },
+      "docs": "Componha AvatarImage e AvatarFallback; use AvatarGroup, AvatarGroupCount e AvatarBadge quando necessário. AvatarImage coordena carregamento e erro com o fallback por Base UI. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Base UI",
+        "providerRole": "output-provider",
+        "status": "beta",
+        "wave": "content-structure"
+      }
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "title": "TIS Badge",
@@ -933,6 +1036,126 @@
         "provider": "React composition",
         "status": "beta",
         "wave": "presentation"
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "TIS Breadcrumb",
+      "description": "Breadcrumb React nativo com composição shadcn e semântica de navegação do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "@ui/breadcrumb.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {},
+        "[data-slot=\"breadcrumb-list\"]": {
+          "flex-wrap": "wrap",
+          "list-style": "none",
+          "margin": "0",
+          "padding": "0"
+        },
+        "[data-slot=\"breadcrumb-item\"]": {
+          "align-items": "center",
+          "display": "inline-flex"
+        },
+        "[data-slot=\"breadcrumb-ellipsis\"]": {
+          "align-items": "center",
+          "color": "var(--ds-content-subtle)",
+          "display": "inline-flex",
+          "justify-content": "center"
+        }
+      },
+      "docs": "Componha nav, lista ordenada, itens, links, separadores decorativos e uma página atual não clicável. BreadcrumbLink aceita as para integrar o router da aplicação. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "providerRole": "native-or-composition",
+        "status": "beta",
+        "wave": "navigation"
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "TIS Pagination",
+      "description": "Pagination React nativa com composição shadcn, links semânticos e contrato visual do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "lucide-react@1.28.0",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/pagination.tsx",
+          "type": "registry:ui",
+          "target": "@ui/pagination.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "A aplicação controla URL, dados, total e página atual. Use links reais para destinos navegáveis, aria-current na página atual e disabled nos limites. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "providerRole": "native-or-composition",
+        "status": "beta",
+        "wave": "navigation"
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "TIS Table",
+      "description": "Table React nativa com anatomia semântica, overflow local e classes públicas do DS TIS.",
+      "author": "TIS Experience Engineering",
+      "dependencies": [
+        "clsx@2.1.1",
+        "tailwind-merge@3.6.0",
+        "ds-tis@github:tis-experience/ds-tis#dd4c906943847cb7664a72a0c7637a378b39adcc"
+      ],
+      "files": [
+        {
+          "path": "registry/tis/table.tsx",
+          "type": "registry:ui",
+          "target": "@ui/table.tsx"
+        },
+        {
+          "path": "registry/tis/tis-utils.ts",
+          "type": "registry:lib",
+          "target": "@ui/tis-utils.ts"
+        }
+      ],
+      "css": {
+        "@import \"ds-tis/css\"": {}
+      },
+      "docs": "Use caption, scope e aria-sort para preservar a semântica. Forneça regionLabel quando a tabela precisar de overflow focável. Mantenha @import \"ds-tis/css\" como o primeiro import do CSS global.",
+      "meta": {
+        "provider": "Native React",
+        "providerRole": "native-or-composition",
+        "status": "beta",
+        "wave": "content-structure"
       }
     },
     {
