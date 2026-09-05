@@ -143,7 +143,9 @@ const required = [
   'packages/react/src/stories/overview.stories.jsx',
   'packages/react/src/stories/accordion.stories.jsx',
   'packages/react/src/stories/alert.stories.jsx',
+  'packages/react/src/stories/avatar.stories.jsx',
   'packages/react/src/stories/badge.stories.jsx',
+  'packages/react/src/stories/breadcrumb.stories.jsx',
   'packages/react/src/stories/button.stories.jsx',
   'packages/react/src/stories/card.stories.jsx',
   'packages/react/src/stories/checkbox.stories.jsx',
@@ -152,6 +154,7 @@ const required = [
   'packages/react/src/stories/input.stories.jsx',
   'packages/react/src/stories/modal.stories.jsx',
   'packages/react/src/stories/menu.stories.jsx',
+  'packages/react/src/stories/pagination.stories.jsx',
   'packages/react/src/stories/radio.stories.jsx',
   'packages/react/src/stories/skeleton.stories.jsx',
   'packages/react/src/stories/spinner.stories.jsx',
@@ -223,8 +226,8 @@ if (!astroConfig.includes("label: 'Integração'") || !astroConfig.includes("{ s
 
 for (const locale of ['pt-br', 'en']) {
   const components = getReactComponents(locale);
-  if (components.length !== 22) {
-    errors.push(`catálogo React ${locale} deve expor 22 componentes; recebeu ${components.length}`);
+  if (components.length !== 26) {
+    errors.push(`catálogo React ${locale} deve expor 26 componentes; recebeu ${components.length}`);
   }
   const names = components.map((component) => component.name);
   const expectedNames = [...names].sort(
@@ -885,6 +888,8 @@ const arkAccordionSource = read('packages/react/src/ark/accordion.jsx');
 const arkAccordionStories = read('packages/react/src/stories/ark-accordion.stories.jsx');
 const arkModalSource = read('packages/react/src/ark/modal.jsx');
 const arkModalStories = read('packages/react/src/stories/ark-modal.stories.jsx');
+const arkInputSource = read('packages/react/src/ark/input.jsx');
+const arkInputStories = read('packages/react/src/stories/ark-input.stories.jsx');
 const arkMenuSource = read('packages/react/src/ark/menu.jsx');
 const arkMenuStyles = read('packages/react/src/ark/menu.css');
 const arkMenuStories = read('packages/react/src/stories/ark-menu.stories.jsx');
@@ -895,6 +900,20 @@ const arkTabsStories = read('packages/react/src/stories/ark-tabs.stories.jsx');
 const arkToastSource = read('packages/react/src/ark/toast.jsx');
 const arkToastStyles = read('packages/react/src/ark/toast.css');
 const arkToastStories = read('packages/react/src/stories/ark-toast.stories.jsx');
+if (
+  !arkInputSource.includes("from '@ark-ui/react/factory'") ||
+  !arkInputSource.includes('<ark.input') ||
+  !arkInputSource.includes("'ds-input'") ||
+  !arkInputSource.includes("'ds-input__field'") ||
+  !arkInputSource.includes('aria-invalid={ariaInvalid}') ||
+  arkInputSource.includes('@base-ui') ||
+  arkInputStories.includes('@base-ui') ||
+  !arkInputStories.includes("id: 'ark-input'") ||
+  !arkInputStories.includes("options: ['sm', 'md', 'lg']") ||
+  !arkInputStories.includes('export const FormSubmission')
+) {
+  errors.push('Input Ark deve preservar input nativo, anatomia TIS, estados e independência de Base UI');
+}
 if (
   !arkMenuSource.includes("from '@ark-ui/react/menu'") ||
   !arkMenuSource.includes('ds-ark-menu__positioner') ||
@@ -1290,6 +1309,7 @@ if (reactPackage.exports?.['./provider-spike']) {
 }
 if (
   reactPackage.exports?.['./ark/accordion'] !== './src/ark/accordion.jsx' ||
+  reactPackage.exports?.['./ark/input'] !== './src/ark/input.jsx' ||
   reactPackage.exports?.['./ark/menu'] !== './src/ark/menu.jsx' ||
   reactPackage.exports?.['./ark/modal'] !== './src/ark/modal.jsx' ||
   reactPackage.exports?.['./ark/popover'] !== './src/ark/popover.jsx' ||
@@ -1352,8 +1372,8 @@ if (staticStorybook) {
   const publicComponents = getReactComponents('en');
   const componentEntries = entries.filter((entry) => entry.title?.startsWith('Components/'));
   const componentTitles = new Set(componentEntries.map((entry) => entry.title));
-  if (componentTitles.size !== 22) {
-    errors.push(`Storybook vNext deve publicar 22 grupos de componente; recebeu ${componentTitles.size}`);
+  if (componentTitles.size !== 26) {
+    errors.push(`Storybook vNext deve publicar 26 grupos de componente; recebeu ${componentTitles.size}`);
   }
   for (const component of publicComponents) {
     const expectedTitle = `Components/${component.category.label.en}/${component.name}`;
@@ -1397,6 +1417,13 @@ if (staticStorybook) {
     !arkModalOutput.some((entry) => entry.id === 'ark-modal--playground')
   ) {
     errors.push('Storybook vNext deve publicar o Modal Ark/Zag em uma saída separada');
+  }
+  const arkInputOutput = entries.filter((entry) => entry.title === 'Outputs/Ark + Zag/Input Text');
+  if (
+    arkInputOutput.filter((entry) => entry.type === 'docs').length !== 1 ||
+    !arkInputOutput.some((entry) => entry.id === 'ark-input--playground')
+  ) {
+    errors.push('Storybook vNext deve publicar o Input Text Ark em uma saída separada');
   }
   const arkSelectOutput = entries.filter((entry) => entry.title === 'Outputs/Ark + Zag/Select');
   if (
@@ -1450,7 +1477,7 @@ if (staticStorybook) {
     errors.push('Storybook vNext ainda expõe ondas/providers técnicos na navegação pública');
   }
   const reactDocs = componentEntries.filter((entry) => entry.type === 'docs');
-  if (reactDocs.length !== 22) {
+  if (reactDocs.length !== 26) {
     errors.push(`Storybook React deve ter uma Docs por componente; recebeu ${reactDocs.length}`);
   }
 }
@@ -1477,6 +1504,22 @@ if (fs.existsSync(staticPortal)) {
       );
       if (!fs.existsSync(componentPage)) {
         errors.push(`portal vNext não publicou ${locale}/react/components/${component.slug}`);
+      }
+    }
+    for (const [technology, exampleIds] of [
+      ['ark', ['ark-input--sizes', 'ark-input--states', 'ark-input--form-submission']],
+      ['angular', ['angular-input--tamanhos', 'angular-input--estados']],
+    ]) {
+      const inputPage = path.join(staticPortal, locale, technology, 'components', 'input', 'index.html');
+      if (!fs.existsSync(inputPage)) {
+        errors.push(`portal vNext não publicou ${locale}/${technology}/components/input`);
+        continue;
+      }
+      const html = fs.readFileSync(inputPage, 'utf8');
+      for (const storyId of exampleIds) {
+        if (!html.includes(`data-output-story-id="${storyId}"`) || !html.includes(`id=${storyId}`)) {
+          errors.push(`${locale}/${technology}/input: exemplo executável ${storyId} ausente no HTML publicado`);
+        }
       }
     }
   }

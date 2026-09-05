@@ -34,6 +34,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   testes de formulário e rota PT-BR/EN no catálogo.
 
 ### Corrigido
+- **Anatomia de Table protegida do Markdown do portal:** cabeçalho e corpo
+  mantêm a mesma largura da tabela, sem modificar o CSS público do componente.
+- **Navegação entre saídas usa a disponibilidade real:** páginas React deixam
+  de bloquear Angular implementado e Input Ark. Os exemplos adicionais de Input
+  Angular/Ark ficam visíveis, com altura para estados e títulos sem duplicação.
 - **Revisão das novas saídas Angular:** ordenação da Table corresponde a
   `aria-sort` e mantém a seleção pelo cliente; Pagination preserva cliques
   modificados e permite testes com labels traduzidos. Previews de Skeleton
@@ -90,6 +95,36 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Pagination passa a integrar a saída React distribuída por shadcn.** O
+  source oferece landmark nomeado, lista, links de página, item atual,
+  reticências e controles anterior/próxima nos tamanhos `sm`/`md`/`lg`, sem
+  assumir URL, carregamento ou dados da aplicação. Storybook, catálogo
+  bilíngue e consumer independente validam limites, navegação, dark mode e Axe
+  sem alterar Figma, tokens ou as saídas Web, Ark/Zag e Angular.
+- **Avatar passa a integrar a saída React distribuída por shadcn.** O source
+  usa Base UI para coordenar imagem, carregamento e fallback, preserva os
+  tamanhos `sm`/`md`/`lg` e acrescenta as composições AvatarBadge, AvatarGroup
+  e AvatarGroupCount. Storybook, catálogo bilíngue e consumer independente
+  validam fallback, texto alternativo, dark mode e Axe sem alterar Figma,
+  tokens ou as saídas Web, Ark/Zag e Angular.
+- **Breadcrumb passa a integrar a saída React distribuída por shadcn.** O
+  source usa `nav`, lista ordenada, links, página atual e separadores
+  decorativos nativos, com composição compatível com routers e reticências para
+  trilhas longas. Storybook, catálogo bilíngue e consumer independente validam
+  semântica, foco, dark mode e Axe sem alterar Figma, tokens ou as saídas Web,
+  Ark/Zag e Angular.
+- **Input Text passa a integrar a saída Ark/Zag em beta de workspace.** O
+  entrypoint `@tis/react/ark/input` usa Ark Factory sobre `input` nativo,
+  preserva tamanhos, ícones, estados, formulário e focus ring do contrato TIS
+  sem introduzir máquina Zag desnecessária. Storybook, portal bilíngue, Axe,
+  responsividade e bundle validam a saída sem alterar Figma, tokens ou as
+  implementações HTML/CSS, React shadcn/Base UI e Angular.
+- **Table passa a integrar a saída React distribuída por shadcn.** O source
+  usa HTML table nativo com a anatomia pública do DS TIS, tamanhos `sm`/`md`,
+  layout fixed, nowrap, row selected e ordenação controlada pelo consumidor.
+  Storybook, catálogo bilíngue e consumer independente validam caption, scope,
+  `aria-sort`, overflow local em 320px, dark mode e Axe sem alterar Figma,
+  tokens ou as saídas Web, Ark/Zag e Angular.
 - **Divider passa a integrar a saída Angular nativa em beta de workspace.** O
   entrypoint `@tis/angular/divider` oferece diretiva standalone sobre `hr`
   nativo, com orientação horizontal/vertical e semântica decorativa opcional.

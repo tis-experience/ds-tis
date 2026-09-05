@@ -67,9 +67,13 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     : (isEnglish
       ? 'Running with stable DS HTML and CSS, without a component JavaScript runtime.'
       : 'Executado com HTML e CSS estáveis do DS, sem runtime JavaScript do componente.'),
-  ark: isEnglish
-    ? 'Running with the independent Ark UI adapter and Zag behavior.'
-    : 'Executado pelo adapter independente Ark UI com comportamento Zag.',
+  ark: implementation.provider?.includes('Factory')
+    ? (isEnglish
+      ? 'Running with the independent Ark Factory adapter and native browser behavior.'
+      : 'Executado pelo adapter independente Ark Factory com comportamento nativo do navegador.')
+    : (isEnglish
+      ? 'Running with the independent Ark UI adapter and Zag behavior.'
+      : 'Executado pelo adapter independente Ark UI com comportamento Zag.'),
   react: isEnglish
     ? 'Running with the React source recipe distributed through shadcn and based on Base UI.'
     : 'Executado pela recipe React distribuída via shadcn e baseada em Base UI.',
@@ -177,7 +181,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
         </OutputStoryPreview>
 
-        {(slug === 'card' || slug === 'divider' || slug === 'form-field' || slug === 'breadcrumb' || slug === 'avatar' || slug === 'pagination' || slug === 'skeleton' || slug === 'spinner' || slug === 'table') && documentation.examples.map((example) => (
+        {(slug === 'card' || slug === 'divider' || slug === 'form-field' || slug === 'input' || slug === 'breadcrumb' || slug === 'avatar' || slug === 'pagination' || slug === 'skeleton' || slug === 'spinner' || slug === 'table') && documentation.examples.map((example) => (
           <div
             class="ds-output-example"
             data-output-example="documented"

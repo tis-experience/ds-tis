@@ -1,0 +1,164 @@
+{
+  "$schema": "../../templates/upstream-intake.schema.json",
+  "schema": "ds-tis/upstream-intake",
+  "schemaVersion": 3,
+  "id": "2026-09-04-ark-input-upstream-intake",
+  "component": {
+    "name": "Input Text",
+    "slug": "input",
+    "classification": "single-line-form-control"
+  },
+  "authorization": {
+    "approvedScope": [
+      "preserve-web-input",
+      "implement-ark-input",
+      "preserve-react-and-angular-input",
+      "four-output-documentation",
+      "functional-accessibility-visual-performance-validation",
+      "commit-push-pr-merge-public-validation"
+    ],
+    "blockedActions": [
+      "figma-write",
+      "web-core-write",
+      "adapter-write",
+      "commit-push-release"
+    ],
+    "ownerDecision": "Os bloqueios listados são os defaults exigidos pelo schema. Em 2026-09-04 o owner liberou explicitamente a escrita do adapter Ark e o fluxo de commit, PR, merge e validação pública; Figma, tokens, Web core, React e Angular permanecem sem alteração."
+  },
+  "baseline": {
+    "figma": {
+      "fileKey": "IE68amP9Hya5ieFw1rX8S8",
+      "page": "Input Text",
+      "providerAgnostic": true,
+      "evidenceStatus": "snapshot-historical",
+      "snapshotAgeHoursAtKickoff": 168,
+      "writeStatus": "approved-unchanged",
+      "ownerNote": "O owner confirmou que o Figma já está refletido no repositório e determinou que não haja mudança de Figma nesta run."
+    },
+    "sharedContract": {
+      "providerAgnostic": true,
+      "sharedByAllOutputs": true,
+      "tokens": "tokens/component/field.json",
+      "design": "docs/input.html",
+      "accessibility": "evidence/current-contract.md"
+    }
+  },
+  "outputs": [
+    {
+      "id": "web-html-css-js",
+      "label": "HTML/CSS/JS",
+      "technologyFamily": "native-web",
+      "distribution": { "channel": "npm", "package": "ds-tis" },
+      "resolutionContext": {
+        "css": "css/components/input.css",
+        "formComposition": "css/components/form-field.css",
+        "api": "docs/api/components.json#input"
+      },
+      "status": "stable",
+      "sourceModules": ["css/components/input.css", "css/components/form-field.css"],
+      "writeStatus": "approved-unchanged"
+    },
+    {
+      "id": "ark-zag",
+      "label": "Ark/Zag",
+      "technologyFamily": "ark-zag",
+      "distribution": { "channel": "technology-adapters", "package": "@tis/react/ark/input" },
+      "resolutionContext": {
+        "package": "@ark-ui/react/factory",
+        "arkVersion": "5.37.2",
+        "zagVersion": "1.41.2",
+        "zagUsage": "transitive-through-ark-package; no state machine needed for native input"
+      },
+      "status": "beta",
+      "sourceModules": ["packages/react/src/ark/input.jsx", "@ark-ui/react/factory"],
+      "writeStatus": "authorized"
+    },
+    {
+      "id": "react-shadcn-base-ui",
+      "label": "React · shadcn/Base UI",
+      "technologyFamily": "base-ui",
+      "distribution": { "channel": "shadcn-registry", "namespace": "@tis" },
+      "resolutionContext": {
+        "base": "base",
+        "package": "@base-ui/react/input",
+        "baseUiVersion": "1.6.0"
+      },
+      "status": "beta",
+      "sourceModules": ["registry/tis/input.tsx", "@base-ui/react/input"],
+      "writeStatus": "approved-unchanged"
+    },
+    {
+      "id": "angular-native",
+      "label": "Angular",
+      "technologyFamily": "angular",
+      "distribution": { "channel": "angular-package", "package": "@tis/angular" },
+      "resolutionContext": {
+        "package": "@tis/angular",
+        "entrypoint": "input",
+        "angularVersion": "21.2.22",
+        "forms": "ControlValueAccessor"
+      },
+      "status": "beta",
+      "sourceModules": ["packages/angular/input/src/input.ts", "@angular/forms"],
+      "writeStatus": "approved-unchanged"
+    }
+  ],
+  "separation": {
+    "dependencyDirection": "figma-and-tokens -> four-independent-outputs -> documentation-choice",
+    "outputsCoexist": true,
+    "outputSourcesMustRemainSeparate": true,
+    "oneOutputCannotReplaceAnother": true,
+    "sharedContractDoesNotMeanSharedImplementation": true
+  },
+  "parity": {
+    "requiredDimensions": [
+      "tis-contract-parity",
+      "native-input-semantics-and-aria",
+      "controlled-value-focus-and-forms",
+      "sizes-states-and-icons",
+      "responsive-light-dark-and-axe",
+      "bundle-and-dependencies"
+    ],
+    "status": "approved",
+    "ownerApproval": {
+      "at": "2026-09-04",
+      "note": "O owner autorizou execução contínua até o fechamento; a saída Ark foi validada funcional, visual e acessivelmente sem modificar as demais saídas."
+    },
+    "selectsWinner": false,
+    "allowsDocumentedDifferences": true
+  },
+  "documentation": {
+    "selectionMode": "user-choice",
+    "trackIds": ["web-html-css-js", "ark-zag", "react-shadcn-base-ui", "angular-native"],
+    "defaultTrack": "web-html-css-js",
+    "showsUnavailableState": true,
+    "status": "implemented"
+  },
+  "figmaOutcome": {
+    "status": "approved-unchanged",
+    "allowedOutcomes": ["unchanged-with-evidence", "improvement-proposal"],
+    "requiresOwnerApproval": true
+  },
+  "gates": [
+    { "id": "current-state", "status": "done", "evidence": "evidence/current-contract.md" },
+    { "id": "upstream-benchmark", "status": "done", "evidence": "evidence/upstream-benchmark.md" },
+    { "id": "current-contract", "status": "done", "evidence": "evidence/provider-comparison.md" },
+    { "id": "improvement-classification", "status": "done", "evidence": "evidence/provider-comparison.md" },
+    { "id": "brief-owner-approval", "status": "approved", "ownerApproval": { "at": "2026-09-04", "note": "Owner aprovou Ark/Zag como próxima saída e autorizou execução contínua." } },
+    { "id": "figma-outcome", "status": "approved", "ownerApproval": { "at": "2026-09-04", "note": "Figma e tokens permanecem inalterados por decisão do owner." } },
+    { "id": "output-implementation", "status": "done" },
+    { "id": "parity-validation", "status": "done" },
+    { "id": "documentation-selector", "status": "done" },
+    { "id": "release", "status": "pending" }
+  ],
+  "evidence": [
+    { "type": "repo-contract", "path": "evidence/current-contract.md", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "upstream-benchmark", "path": "evidence/upstream-benchmark.md", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "output-parity", "path": "evidence/provider-comparison.md", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "figma-snapshot", "path": ".figma-snapshot.json", "scope": "repo", "status": "historical", "freshness": "stale" },
+    { "type": "repo-validation", "path": "06-repo-implementation-report.md", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "visual-input-light", "path": "evidence/ark-input-states-light.png", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "visual-input-dark", "path": "evidence/ark-input-states-dark.png", "scope": "run", "status": "current", "freshness": "fresh" },
+    { "type": "visual-input-mobile", "path": "evidence/ark-input-320.png", "scope": "run", "status": "current", "freshness": "fresh" }
+  ]
+}

@@ -1,7 +1,7 @@
 import accordionCssUrl from '../../../../css/components/accordion.css?url';
 import alertCssUrl from '../../../../css/components/alert.css?url';
-import badgeCssUrl from '../../../../css/components/badge.css?url';
 import avatarCssUrl from '../../../../css/components/avatar.css?url';
+import badgeCssUrl from '../../../../css/components/badge.css?url';
 import breadcrumbCssUrl from '../../../../css/components/breadcrumb.css?url';
 import buttonCssUrl from '../../../../css/components/button.css?url';
 import cardCssUrl from '../../../../css/components/card.css?url';
@@ -34,8 +34,8 @@ interface ComponentAssets {
 const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   accordion: { css: [accordionCssUrl, buttonCssUrl] },
   alert: { css: [alertCssUrl, buttonCssUrl] },
-  badge: { css: [badgeCssUrl] },
   avatar: { css: [avatarCssUrl] },
+  badge: { css: [badgeCssUrl] },
   breadcrumb: { css: [breadcrumbCssUrl] },
   button: { css: [buttonCssUrl] },
   card: { css: [badgeCssUrl, buttonCssUrl, cardCssUrl] },

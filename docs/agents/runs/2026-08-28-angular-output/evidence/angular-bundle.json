@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T23:36:24.157Z",
+  "generatedAt": "2026-09-05T17:17:43.406Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -88,8 +88,8 @@
     },
     {
       "name": "pagination",
-      "rawBytes": 8560,
-      "gzipBytes": 1880,
+      "rawBytes": 8652,
+      "gzipBytes": 1931,
       "budgetGzipBytes": 4096
     },
     {

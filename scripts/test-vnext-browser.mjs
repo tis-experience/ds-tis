@@ -78,6 +78,7 @@ try {
   });
 
   await auditComponentResourcesAndTechnologySwitch();
+  await auditReactAngularRoundTrip();
 
   await auditPortalLanding('/ds-tis/next/pt-br/', 'pt');
   await auditPortalLanding('/ds-tis/next/en/', 'en');
@@ -139,6 +140,22 @@ try {
     name: 'Tabs',
     richGuidance: true,
     technologyLinks: 3,
+  });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/table/', {
+    item: '@tis/table',
+    locale: 'pt',
+    name: 'Table',
+    technologyLinks: 3,
+  });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/avatar/', {
+    item: '@tis/avatar',
+    locale: 'pt',
+    name: 'Avatar',
+  });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/pagination/', {
+    item: '@tis/pagination',
+    locale: 'pt',
+    name: 'Pagination',
   });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/toast/', {
     item: '@tis/toast',
@@ -473,6 +490,39 @@ async function auditComponentResourcesAndTechnologySwitch() {
   recordBrowserErrors('recursos e troca de tecnologia');
 }
 
+async function auditReactAngularRoundTrip() {
+  const slugs = ['avatar', 'breadcrumb', 'form-field', 'input', 'pagination', 'skeleton', 'spinner', 'table', 'textarea'];
+  for (const locale of ['pt-br', 'en']) {
+    for (const slug of slugs) {
+      const route = `/ds-tis/next/${locale}/react/components/${slug}/`;
+      browserErrors.length = 0;
+      await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+      const angularOption = page.locator('[data-technology-select]').getByRole('option', { name: 'Angular', exact: true });
+      expect(await angularOption.count() === 1 && await angularOption.isEnabled(), `${route}: saída Angular implementada indisponível no seletor`);
+      await page.locator('[data-technology-select]').selectOption({ label: 'Angular' });
+      await page.waitForURL(`**/${locale}/angular/components/${slug}/`);
+      expect(await page.locator('main h1').count() === 1, `${route}: Angular não abriu a página do componente`);
+      if (slug === 'table') {
+        for (const width of [320, 1280]) {
+          await page.setViewportSize({ width, height: 900 });
+          const anatomy = await page.locator('.ds-anatomy .ds-table').evaluate((table) => ({
+            display: getComputedStyle(table).display,
+            width: table.getBoundingClientRect().width,
+            headWidth: table.tHead.getBoundingClientRect().width,
+            bodyWidth: table.tBodies[0].getBoundingClientRect().width,
+          }));
+          expect(anatomy.display === 'table', `${route}: Markdown substituiu o layout nativo da anatomia em ${width}px`);
+          expect(Math.abs(anatomy.width - anatomy.headWidth) < 1 && Math.abs(anatomy.width - anatomy.bodyWidth) < 1,
+            `${route}: cabeçalho/corpo não preenchem a largura da anatomia em ${width}px`);
+        }
+      }
+      await page.locator('[data-technology-select]').selectOption({ label: 'React · shadcn/Base UI' });
+      await page.waitForURL(`**/${locale}/react/components/${slug}/`);
+      recordBrowserErrors(`troca React/Angular: ${locale}/${slug}`);
+    }
+  }
+}
+
 async function auditPortalLanding(route, locale) {
   browserErrors.length = 0;
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -565,6 +615,10 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await catalog.locator('[data-output="react"]').count() === 26, `${route}: saída React ausente`);
   expect(await catalog.locator('[data-output="angular"]').count() === 26, `${route}: saída Angular ausente`);
   expect(
+    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === 14,
+    `${route}: os quatorze adapters Ark disponíveis deveriam aparecer como links`,
+  );
+  expect(
     await outputRows.evaluateAll((rows) => rows.every((row) => [...row.querySelectorAll(':scope > li')].every((item) => {
       const status = item.querySelector('[data-status]')?.getAttribute('data-status');
       const available = item.getAttribute('data-availability') === 'available';
@@ -601,6 +655,11 @@ async function auditCanonicalCatalog(route, locale) {
   const buttonLinks = buttonItem.locator('a');
   expect(await buttonLinks.count() === 4, `${route}: Button deve ligar as quatro implementações disponíveis`);
   expect(await buttonItem.locator('[data-output="ark"]').count() === 1, `${route}: Button deve oferecer o adapter Ark disponível`);
+  const inputItem = catalog.locator('.ds-component-catalog__item').filter({
+    has: page.locator('.ds-component-catalog__name', { hasText: /^Input Text$/ }),
+  });
+  expect(await inputItem.locator('a').count() === 4, `${route}: Input Text deve ligar as quatro implementações disponíveis`);
+  expect(await inputItem.locator('[data-output="ark"]').count() === 1, `${route}: Input Text deve oferecer o adapter Ark disponível`);
   const badgeItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
   });
@@ -632,8 +691,8 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Table$/ }),
   });
   expect(await tableItem.locator('[data-output]').count() === 4, `${route}: Table deve mostrar as quatro implementações`);
-  expect(await tableItem.locator('a').count() === 2, `${route}: Table deve ligar as implementações Web e Angular disponíveis`);
-  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 2, `${route}: Table deve identificar Ark e React como implementações não disponíveis`);
+  expect(await tableItem.locator('a').count() === 3, `${route}: Table deve ligar as implementações Web, React e Angular disponíveis`);
+  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 1, `${route}: Table deve identificar somente Ark/Zag como não disponível`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);
@@ -658,14 +717,14 @@ async function auditReactCatalog(route, locale) {
   const catalog = page.locator('[data-component-catalog]');
   expect(await catalog.count() === 1, `${route}: catálogo semântico ausente`);
   expect(
-    (await catalog.getAttribute('data-component-count')) === '22',
-    `${route}: contagem declarada do catálogo deve ser vinte e dois`,
+    (await catalog.getAttribute('data-component-count')) === '26',
+    `${route}: contagem declarada do catálogo deve ser vinte e seis`,
   );
   const groups = catalog.locator('[data-component-category]');
   expect(await groups.count() === 6, `${route}: catálogo deve expor seis categorias semânticas`);
 
   const items = catalog.locator('.ds-component-catalog__group li');
-  expect(await items.count() === 22, `${route}: catálogo consolidado deve listar vinte e dois componentes`);
+  expect(await items.count() === 26, `${route}: catálogo consolidado deve listar vinte e seis componentes`);
   for (const group of await groups.all()) {
     const names = await group.locator('.ds-component-catalog__name').allTextContents();
     const expectedNames = [...names].sort(
@@ -681,7 +740,7 @@ async function auditReactCatalog(route, locale) {
   const hrefs = await catalog.locator('.ds-component-catalog__group a').evaluateAll((links) =>
     links.map((link) => link.href),
   );
-  expect(new Set(hrefs).size === 22, `${route}: cada componente deve ter uma página única`);
+  expect(new Set(hrefs).size === 26, `${route}: cada componente deve ter uma página única`);
   for (const href of hrefs) {
     const response = await context.request.get(href);
     expect(response.ok(), `${route}: página de componente respondeu ${response.status()} em ${href}`);
@@ -4761,6 +4820,72 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · form composition');
   recordBrowserErrors('Storybook vNext · form composition');
 
+  await page.goto(`${storyBase}ark-input--playground`, { waitUntil: 'networkidle' });
+  const arkInput = page.getByLabel('E-mail');
+  const arkInputRoot = page.locator('.ds-ark-input');
+  await arkInput.waitFor();
+  await arkInput.fill('ana@empresa.com');
+  expect(await arkInput.inputValue() === 'ana@empresa.com', 'Input Ark não preservou edição nativa');
+  expect(await arkInputRoot.getAttribute('data-filled') === 'true', 'Input Ark não refletiu o estado filled');
+  await page.getByRole('button', { name: 'Limpar' }).click();
+  expect(await arkInput.inputValue() === '', 'Input Ark não limpou o valor controlado');
+  expect(await arkInput.evaluate((element) => element === document.activeElement), 'Input Ark não recuperou foco após limpar');
+  await arkInput.fill('teste@empresa.com');
+  expect(
+    (await page.locator('[data-slot="input-result"]').textContent())?.includes('teste@empresa.com'),
+    'Input Ark não atualizou a saída acessível do valor',
+  );
+  await auditAxe('Storybook vNext · Input Ark');
+  recordBrowserErrors('Storybook vNext · Input Ark');
+
+  await page.goto(`${storyBase}ark-input--sizes`, { waitUntil: 'networkidle' });
+  const arkInputSizes = page.locator('.ds-ark-input');
+  await arkInputSizes.first().waitFor();
+  expect(
+    await arkInputSizes.evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect().height))
+      .then((sizes) => JSON.stringify(sizes) === JSON.stringify([32, 40, 48])),
+    'Input Ark não preservou os tamanhos sm, md e lg',
+  );
+  await auditAxe('Storybook vNext · Input Ark sizes');
+  recordBrowserErrors('Storybook vNext · Input Ark sizes');
+
+  await page.goto(`${storyBase}ark-input--states`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-input').first().waitFor();
+  expect(await page.locator('.ds-ark-input[data-filled]').count() === 1, 'Input Ark deve preservar filled');
+  expect(await page.locator('.ds-ark-input[data-invalid] input[aria-invalid="true"]').count() === 1, 'Input Ark deve associar invalid ao input nativo');
+  expect(await page.locator('.ds-ark-input[data-readonly] input[readonly]').count() === 1, 'Input Ark deve preservar readonly');
+  expect(await page.locator('.ds-ark-input[data-disabled] input:disabled').count() === 1, 'Input Ark deve preservar disabled');
+  await auditAxe('Storybook vNext · Input Ark states');
+  recordBrowserErrors('Storybook vNext · Input Ark states');
+
+  await page.goto(`${storyBase}ark-input--form-submission`, { waitUntil: 'networkidle' });
+  const arkFormInput = page.getByLabel('E-mail');
+  await arkFormInput.fill('ana@empresa.com');
+  await page.getByRole('button', { name: 'Enviar' }).click();
+  expect(
+    (await page.locator('[data-slot="form-result"]').textContent()) === 'ana@empresa.com',
+    'Input Ark não preservou nome e valor no submit nativo',
+  );
+  await auditAxe('Storybook vNext · Input Ark form');
+  recordBrowserErrors('Storybook vNext · Input Ark form');
+
+  await page.goto(
+    `${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:dark&id=ark-input--states`,
+    { waitUntil: 'networkidle' },
+  );
+  await page.locator('.ds-ark-input').first().waitFor();
+  expect(await page.locator('html').getAttribute('data-mode') === 'dark', 'Input Ark não ativou o tema escuro');
+  await auditAxe('Storybook vNext · Input Ark dark');
+  recordBrowserErrors('Storybook vNext · Input Ark dark');
+
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-input--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-input').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Input Ark possui overflow horizontal em 320px');
+  await auditAxe('Storybook vNext · Input Ark 320px');
+  recordBrowserErrors('Storybook vNext · Input Ark 320px');
+  await page.setViewportSize({ width: 1280, height: 800 });
+
   await page.goto(`${storyBase}react-alert--playground`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="alert"]').first().waitFor();
   expect(await page.locator('[data-slot="alert"]').count() === 1, 'Alert deve ter uma story isolada');
@@ -4815,6 +4940,60 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Spinner');
   recordBrowserErrors('Storybook vNext · Spinner');
 
+  await page.goto(`${storyBase}react-table--playground`, { waitUntil: 'networkidle' });
+  const table = page.locator('[data-slot="table"]');
+  await table.waitFor();
+  expect(await table.locator('caption').textContent() === 'Contas de clientes', 'Table deve preservar caption');
+  const sortableHead = table.locator('[data-slot="table-head"]').first();
+  expect(await sortableHead.getAttribute('aria-sort') === 'none', 'Table deve iniciar sem ordenação');
+  await table.getByRole('button', { name: /Ordenar por cliente/ }).click();
+  expect(await sortableHead.getAttribute('aria-sort') === 'ascending', 'Table deve atualizar aria-sort ao ordenar');
+  expect(await table.locator('[data-slot="table-row"][data-selected="true"]').count() === 1, 'Table deve preservar row selected');
+  await auditAxe('Storybook vNext · Table');
+  recordBrowserErrors('Storybook vNext · Table');
+
+  await page.goto(`${storyBase}react-breadcrumb--playground`, { waitUntil: 'networkidle' });
+  const breadcrumb = page.getByRole('navigation', { name: 'Localização atual' });
+  await breadcrumb.waitFor();
+  expect(await breadcrumb.locator('ol').count() === 1, 'Breadcrumb deve usar lista ordenada');
+  expect(await breadcrumb.getByRole('link').count() === 2, 'Breadcrumb deve expor os links ancestrais');
+  expect(
+    await breadcrumb.locator('[aria-current="page"]').textContent() === 'Breadcrumb',
+    'Breadcrumb deve identificar a página atual',
+  );
+  expect(
+    await breadcrumb.locator('[data-slot="breadcrumb-separator"][aria-hidden="true"]').count() === 2,
+    'Breadcrumb deve ocultar os separadores decorativos',
+  );
+  const firstBreadcrumbLink = breadcrumb.getByRole('link').first();
+  await firstBreadcrumbLink.focus();
+  expect(
+    await firstBreadcrumbLink.evaluate((element) => element === document.activeElement),
+    'BreadcrumbLink deve receber foco por teclado',
+  );
+  await auditAxe('Storybook vNext · Breadcrumb');
+  recordBrowserErrors('Storybook vNext · Breadcrumb');
+
+  await page.goto(`${storyBase}react-avatar--group`, { waitUntil: 'networkidle' });
+  const avatarGroup = page.getByRole('group', { name: 'Equipa atribuída' });
+  await avatarGroup.waitFor();
+  expect(await avatarGroup.locator('[data-slot="avatar"]').count() === 3, 'AvatarGroup deve preservar três avatars');
+  expect(await avatarGroup.locator('[data-slot="avatar-group-count"]').textContent() === '+3', 'AvatarGroupCount deve indicar pessoas adicionais');
+  expect(await page.getByRole('img', { name: 'Online' }).count() === 1, 'AvatarBadge deve preservar o nome acessível');
+  await auditAxe('Storybook vNext · Avatar');
+  recordBrowserErrors('Storybook vNext · Avatar');
+
+  await page.goto(`${storyBase}react-pagination--playground`, { waitUntil: 'networkidle' });
+  const pagination = page.getByRole('navigation', { name: 'Paginação de resultados' });
+  await pagination.waitFor();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '5', 'Pagination deve identificar a página inicial');
+  await pagination.getByRole('link', { name: 'Próxima página' }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '6', 'PaginationNext deve avançar a página');
+  await pagination.getByRole('link', { name: 'Página anterior' }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '5', 'PaginationPrevious deve retornar a página');
+  await auditAxe('Storybook vNext · Pagination');
+  recordBrowserErrors('Storybook vNext · Pagination');
+
   await page.goto(`${storyBase}react-divider--toolbar`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="separator"]').waitFor();
   expect(await page.locator('[data-slot="separator"]').count() === 1, 'Divider deve permanecer isolado no exemplo de toolbar');
@@ -4828,11 +5007,14 @@ async function auditStorybookComponents() {
   const publicPlaygrounds = [
     'ark-button--playground',
     'ark-checkbox--playground',
+    'ark-input--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',
     'react-alert--playground',
+    'react-avatar--playground',
     'react-badge--playground',
+    'react-breadcrumb--playground',
     'react-button--playground',
     'react-card--playground',
     'react-checkbox--playground',
@@ -4840,10 +5022,12 @@ async function auditStorybookComponents() {
     'react-form-field--playground',
     'react-input--playground',
     'react-modal--playground',
+    'react-pagination--playground',
     'react-popover--playground',
     'react-radio--playground',
     'react-skeleton--playground',
     'react-spinner--playground',
+    'react-table--playground',
     'react-tabs--playground',
     'react-textarea--playground',
     'react-toast--playground',

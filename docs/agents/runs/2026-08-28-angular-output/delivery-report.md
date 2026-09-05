@@ -16,8 +16,28 @@
   Consumer de produção: 430,92 KiB JS + 224,12 KiB CSS. `verify:tokens` sem erros
   ou drift; aviso de snapshot antigo preservado, conforme dispensa do owner
   para trabalho que não altera Figma/tokens.
-- Integração da `main` e verificação de CI do PR em andamento. Esta etapa não
-  publica versão npm nem modifica Figma.
+- Commit do lote: `765782a`. Integração de `origin/main` em `a90c542` preserva
+  26 saídas Web, 26 React, 26 Angular e 14 Ark; sem imports cruzados.
+- A revisão da integração corrigiu páginas React que ainda bloqueavam Angular
+  disponível e a renderização dos exemplos adicionais de Input Angular/Ark.
+  Testes agora cobrem ida e volta React/Angular em nove componentes, PT-BR/EN,
+  e presença dos cinco exemplos de Input no HTML publicado.
+- Storybook Angular, bundle independente e browser Angular passaram após as
+  correções; consumidor React com 26 componentes também passou.
+- QA independente detectou que o Markdown do portal aplicava `display: block`
+  à tabela anatômica: o cabeçalho/corpo não preenchia a largura do container.
+  A região documental foi isolada com `not-content`, preservando o CSS público.
+  Regressão compara largura de table/thead/tbody em 320/1280 e PT-BR/EN.
+- Build integrado passou: 93 stories HTML/CSS; artefato Pages com 1365 arquivos
+  e 272 páginas; 108 auditorias Axe com zero violações, além do theme playground.
+- Após isolar a anatomia, revisor independente validou Table em oito combinações
+  PT-BR/EN × 320/1280 × light/dark: larguras iguais, sete marcadores visíveis,
+  ordenação/seleção corretas, quatro exemplos sem corte e oito auditorias Axe zero.
+- Input foi validado em 16 combinações com 56 iframes sem corte, edição/submit
+  funcionais e títulos sem duplicação. Segurança dos artefatos e diff passaram.
+- Estado: candidata a integração por PR; CI e revisão do PR são os gates para
+  merge. Esta etapa não publica versão npm nem modifica Figma. A comparação de tokens usa o snapshot
+  existente de 201h e não representa uma nova validação do Figma vivo.
 
 ## Incremento Table — 2026-09-04
 

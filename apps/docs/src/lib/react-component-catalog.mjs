@@ -82,6 +82,39 @@ const COMPONENT_DOCS = {
       en: 'Use role="alert" only for urgent messages; use status or no live region for lower-priority content.',
     },
   },
+  avatar: {
+    summary: {
+      pt: 'Representa uma pessoa com imagem, iniciais ou ícone de fallback em tamanhos consistentes.',
+      en: 'Represents a person with an image, initials, or fallback icon in consistent sizes.',
+    },
+    anatomy: {
+      pt: ['Raiz', 'Imagem', 'Fallback', 'Badge opcional', 'Grupo opcional', 'Contagem opcional'],
+      en: ['Root', 'Image', 'Fallback', 'Optional badge', 'Optional group', 'Optional count'],
+    },
+    useWhen: {
+      pt: ['uma pessoa, perfil ou membro de equipa precisa ser reconhecido visualmente.'],
+      en: ['a person, profile, or team member needs to be recognized visually.'],
+    },
+    avoidWhen: {
+      pt: ['a imagem não representa uma pessoa ou a identidade textual já é suficiente.'],
+      en: ['the image does not represent a person or textual identity is already sufficient.'],
+    },
+    storyId: 'react-avatar--playground',
+    usage: `import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
+<Avatar size="md">
+  <AvatarFallback>AS</AvatarFallback>
+  <AvatarImage src="/ana-silva.jpg" alt="Ana Silva" />
+</Avatar>`,
+    accessibility: {
+      pt: 'Use alt descritivo quando a imagem comunica identidade. Para avatars decorativos, use alt vazio; fallbacks textuais já fornecem um nome acessível.',
+      en: 'Use descriptive alt text when the image communicates identity. For decorative avatars, use empty alt text; textual fallbacks already provide an accessible name.',
+    },
+  },
   badge: {
     summary: {
       pt: 'Identifica status ou metadados curtos próximos ao conteúdo relacionado.',
@@ -105,6 +138,49 @@ const COMPONENT_DOCS = {
     accessibility: {
       pt: 'O texto deve comunicar o estado sem depender apenas da cor; Badge não substitui uma live region.',
       en: 'Text must communicate status without relying on color alone; Badge does not replace a live region.',
+    },
+  },
+  breadcrumb: {
+    summary: {
+      pt: 'Mostra a posição atual numa hierarquia e oferece retorno direto às páginas ancestrais.',
+      en: 'Shows the current position in a hierarchy and provides direct navigation to ancestor pages.',
+    },
+    anatomy: {
+      pt: ['Landmark de navegação', 'Lista ordenada', 'Item', 'Link', 'Separador', 'Página atual', 'Reticências opcionais'],
+      en: ['Navigation landmark', 'Ordered list', 'Item', 'Link', 'Separator', 'Current page', 'Optional ellipsis'],
+    },
+    useWhen: {
+      pt: ['a aplicação tem uma hierarquia com mais de um nível e a localização atual precisa permanecer clara.'],
+      en: ['the application has a hierarchy deeper than one level and the current location must remain clear.'],
+    },
+    avoidWhen: {
+      pt: ['o fluxo é linear, a hierarquia é rasa ou os itens representam etapas de um processo.'],
+      en: ['the flow is linear, the hierarchy is shallow, or the items represent process steps.'],
+    },
+    storyId: 'react-breadcrumb--playground',
+    usage: `import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+<Breadcrumb aria-label="Localização atual">
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Início</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Componentes</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`,
+    accessibility: {
+      pt: 'Mantenha o nav nomeado, a lista ordenada, separadores decorativos e aria-current="page" no item atual. A página atual não deve ser um link para si própria.',
+      en: 'Keep the named nav, ordered list, decorative separators, and aria-current="page" on the current item. The current page must not link to itself.',
     },
   },
   button: {
@@ -504,6 +580,47 @@ import { Button } from "@/components/ui/button"
       en: 'Preserve aria-haspopup/expanded, composite focus, Arrow keys, Home/End, typeahead, Escape, focusable disabled items, and focus return to the trigger.',
     },
   },
+  pagination: {
+    summary: {
+      pt: 'Permite navegar entre subconjuntos discretos de uma lista, tabela ou resultado de busca.',
+      en: 'Navigates between discrete subsets of a list, table, or search result.',
+    },
+    anatomy: {
+      pt: ['Landmark de navegação', 'Lista', 'Anterior', 'Link de página', 'Página atual', 'Reticências', 'Próxima'],
+      en: ['Navigation landmark', 'List', 'Previous', 'Page link', 'Current page', 'Ellipsis', 'Next'],
+    },
+    useWhen: {
+      pt: ['um conjunto grande de dados é dividido em páginas e a pessoa precisa navegar entre elas.'],
+      en: ['a large data set is divided into pages and people need to navigate between them.'],
+    },
+    avoidWhen: {
+      pt: ['o conteúdo é curto, o fluxo é sequencial ou a navegação representa hierarquia.'],
+      en: ['content is short, the flow is sequential, or navigation represents hierarchy.'],
+    },
+    storyId: 'react-pagination--playground',
+    usage: `import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
+<Pagination aria-label="Paginação de resultados">
+  <PaginationContent>
+    <PaginationItem><PaginationPrevious href="?page=1" /></PaginationItem>
+    <PaginationItem>
+      <PaginationLink as="span" isActive aria-label="Página 2">2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem><PaginationNext href="?page=3" /></PaginationItem>
+  </PaginationContent>
+</Pagination>`,
+    accessibility: {
+      pt: 'Mantenha o nav nomeado, links com destinos reais, aria-current="page" no item atual e controles anterior/próxima indisponíveis nos limites.',
+      en: 'Keep the nav named, links with real destinations, aria-current="page" on the current item, and previous/next controls unavailable at the boundaries.',
+    },
+  },
   popover: {
     summary: {
       pt: 'Exibe conteúdo contextual breve ancorado a um trigger, sem interromper o restante da página.',
@@ -672,6 +789,54 @@ import { Button } from "@/components/ui/button"
     accessibility: {
       pt: 'Forneça aria-label contextual e evite múltiplos status concorrentes para o mesmo carregamento.',
       en: 'Provide a contextual aria-label and avoid multiple competing status regions for one loading operation.',
+    },
+  },
+  table: {
+    summary: {
+      pt: 'Apresenta dados relacionados em linhas e colunas com semântica nativa.',
+      en: 'Presents related data in rows and columns using native semantics.',
+    },
+    anatomy: {
+      pt: ['Região de overflow', 'Caption', 'Header', 'Body', 'Row', 'Head', 'Cell', 'Footer opcional'],
+      en: ['Overflow region', 'Caption', 'Header', 'Body', 'Row', 'Head', 'Cell', 'Optional footer'],
+    },
+    useWhen: {
+      pt: ['os dados têm colunas estáveis, labels claros e precisam ser comparados entre linhas.'],
+      en: ['data has stable columns, clear labels, and must be compared across rows.'],
+    },
+    avoidWhen: {
+      pt: ['o conteúdo é uma lista simples, um layout visual ou uma planilha editável que exige navegação de grid.'],
+      en: ['content is a simple list, a visual layout, or an editable spreadsheet requiring grid navigation.'],
+    },
+    storyId: 'react-table--playground',
+    usage: `import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+<Table regionLabel="Contas de clientes" size="md">
+  <TableCaption>Contas de clientes</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Cliente</TableHead>
+      <TableHead align="end">Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Ana Silva</TableCell>
+      <TableCell align="end">Ativo</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`,
+    accessibility: {
+      pt: 'Mantenha caption, scope nos headers e aria-sort no header ordenável. Use regionLabel quando o overflow horizontal precisar ser alcançado pelo teclado; a ordenação deve ser um button dentro do th.',
+      en: 'Keep the caption, scope on headers, and aria-sort on sortable headers. Use regionLabel when horizontal overflow must be keyboard reachable; sorting must use a button inside the th.',
     },
   },
   tabs: {

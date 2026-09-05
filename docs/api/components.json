@@ -687,14 +687,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native input",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/input.jsx",
+          "storyId": "ark-input--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/input/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
@@ -3130,14 +3130,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "table",
+          "provider": "Native React",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/table.json",
+          "install": "npx shadcn@latest add @tis/table",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {
@@ -3263,14 +3263,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "breadcrumb",
+          "provider": "Native React",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/breadcrumb.json",
+          "install": "npx shadcn@latest add @tis/breadcrumb",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {
@@ -3368,14 +3368,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "pagination",
+          "provider": "Native React",
+          "providerRole": "native-or-composition",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/pagination.json",
+          "install": "npx shadcn@latest add @tis/pagination",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {
@@ -3492,14 +3492,14 @@
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
-          "status": "unavailable",
-          "distribution": null,
+          "status": "beta",
+          "distribution": "shadcn-registry",
           "package": null,
-          "item": null,
-          "provider": null,
-          "providerRole": null,
-          "registryUrl": null,
-          "install": null,
+          "item": "avatar",
+          "provider": "Base UI",
+          "providerRole": "output-provider",
+          "registryUrl": "https://tis-experience.github.io/ds-tis/registry/v1/avatar.json",
+          "install": "npx shadcn@latest add @tis/avatar",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/react/"
         },
         "angular": {
