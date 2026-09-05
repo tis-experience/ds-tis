@@ -41,7 +41,9 @@ const expectedItems = [
   'tis-base',
   'accordion',
   'alert',
+  'avatar',
   'badge',
+  'breadcrumb',
   'button',
   'card',
   'checkbox',
@@ -51,12 +53,14 @@ const expectedItems = [
   'field',
   'input',
   'menu',
+  'pagination',
   'radio-group',
   'select',
   'separator',
   'skeleton',
   'spinner',
   'switch',
+  'table',
   'tabs',
   'textarea',
   'toast',
@@ -75,6 +79,7 @@ const requiredDsDependency = SHADCN_REGISTRY.coreDependency;
 const baseUiItems = new Set([
   'tis-base',
   'accordion',
+  'avatar',
   'button',
   'checkbox',
   'combobox',
@@ -127,6 +132,14 @@ const sourceContracts = {
     'data-slot="alert-content"',
     'data-slot="alert-actions"',
     'data-slot="alert-close"',
+  ],
+  avatar: [
+    '@base-ui/react/avatar',
+    'data-slot="avatar-image"',
+    'data-slot="avatar-fallback"',
+    'data-slot="avatar-badge"',
+    'data-slot="avatar-group"',
+    'data-slot="avatar-group-count"',
   ],
   badge: ['ds-badge', 'data-tone={tone}', 'data-variant={variant}'],
   card: [
@@ -223,6 +236,31 @@ const sourceContracts = {
   separator: ['<hr', 'ds-divider', 'aria-orientation'],
   skeleton: ['ds-skeleton', 'aria-hidden={ariaHidden}', 'data-variant={variant}'],
   spinner: ['ds-spinner', 'role={role}', 'aria-label={ariaLabel}'],
+  breadcrumb: [
+    'data-slot="breadcrumb-list"',
+    'data-slot="breadcrumb-item"',
+    'data-slot="breadcrumb-link"',
+    'aria-current="page"',
+    'role="presentation"',
+    'data-slot="breadcrumb-ellipsis"',
+  ],
+  pagination: [
+    'data-slot="pagination-content"',
+    'data-slot="pagination-item"',
+    'data-slot="pagination-link"',
+    'aria-current={isActive ? "page" : undefined}',
+    'data-slot="pagination-previous"',
+    'data-slot="pagination-next"',
+    'data-slot="pagination-ellipsis"',
+  ],
+  table: [
+    'ds-table-region',
+    'data-slot="table-header"',
+    'data-slot="table-body"',
+    'scope = "col"',
+    'ds-table__header-cell--sortable',
+    'data-slot="table-sort-button"',
+  ],
 };
 
 for (const [name, contracts] of Object.entries(sourceContracts)) {
@@ -355,6 +393,20 @@ const adapterContracts = {
     '.ds-tis-toast__viewport, .ds-tis-toast',
     '.ds-tis-toast[data-limited]',
     'var(--ds-motion-duration-fast)',
+  ],
+  breadcrumb: [
+    '[data-slot=\\"breadcrumb-list\\"]',
+    '[data-slot=\\"breadcrumb-item\\"]',
+    '[data-slot=\\"breadcrumb-ellipsis\\"]',
+    'var(--ds-content-subtle)',
+  ],
+  avatar: [
+    '[data-slot=\\"avatar-image\\"][data-loading]',
+    '[data-slot=\\"avatar-fallback\\"]',
+    '[data-slot=\\"avatar-badge\\"]',
+    '[data-slot=\\"avatar-group\\"]',
+    'var(--ds-avatar-icon-size-md)',
+    'var(--ds-feedback-success-background-default)',
   ],
 };
 for (const [name, contracts] of Object.entries(adapterContracts)) {
@@ -501,8 +553,24 @@ const entries = {
       path.join(ROOT, 'registry/tis/separator.tsx'),
       path.join(ROOT, 'registry/tis/skeleton.tsx'),
       path.join(ROOT, 'registry/tis/spinner.tsx'),
+      path.join(ROOT, 'registry/tis/table.tsx'),
     ],
-    budget: 15 * 1024,
+    budget: 17 * 1024,
+  },
+  'registry-breadcrumb': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/breadcrumb.tsx')],
+    budget: 12 * 1024,
+  },
+  'registry-avatar': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/avatar.tsx')],
+    budget: 16 * 1024,
+  },
+  'registry-pagination': {
+    group: 'Registry integrado',
+    sourceFiles: [path.join(ROOT, 'registry/tis/pagination.tsx')],
+    budget: 13 * 1024,
   },
 };
 

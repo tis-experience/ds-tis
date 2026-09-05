@@ -1,9 +1,9 @@
 const categories = [
   { name: 'Actions', components: ['Button'] },
-  { name: 'Content and structure', components: ['Card', 'Divider'] },
+  { name: 'Content and structure', components: ['Avatar', 'Card', 'Divider', 'Table'] },
   { name: 'Input and selection', components: ['Checkbox', 'Combobox', 'Form Field', 'Input Text', 'Radio', 'Select', 'Textarea', 'Toggle'] },
   { name: 'Feedback and status', components: ['Alert', 'Badge', 'Skeleton', 'Spinner'] },
-  { name: 'Navigation', components: ['Menu'] },
+  { name: 'Navigation', components: ['Breadcrumb', 'Menu', 'Pagination'] },
   { name: 'Overlay and disclosure', components: ['Accordion', 'Modal', 'Popover'] },
 ];
 

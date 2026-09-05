@@ -1,6 +1,8 @@
 import accordionCssUrl from '../../../../css/components/accordion.css?url';
 import alertCssUrl from '../../../../css/components/alert.css?url';
+import avatarCssUrl from '../../../../css/components/avatar.css?url';
 import badgeCssUrl from '../../../../css/components/badge.css?url';
+import breadcrumbCssUrl from '../../../../css/components/breadcrumb.css?url';
 import buttonCssUrl from '../../../../css/components/button.css?url';
 import cardCssUrl from '../../../../css/components/card.css?url';
 import checkboxCssUrl from '../../../../css/components/checkbox.css?url';
@@ -10,9 +12,11 @@ import formFieldCssUrl from '../../../../css/components/form-field.css?url';
 import inputCssUrl from '../../../../css/components/input.css?url';
 import menuCssUrl from '../../../../css/components/menu.css?url';
 import modalCssUrl from '../../../../css/components/modal.css?url';
+import paginationCssUrl from '../../../../css/components/pagination.css?url';
 import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
+import tableCssUrl from '../../../../css/components/table.css?url';
 import tabsCssUrl from '../../../../css/components/tabs.css?url';
 import textareaCssUrl from '../../../../css/components/textarea.css?url';
 import toastCssUrl from '../../../../css/components/toast.css?url';
@@ -28,7 +32,9 @@ interface ComponentAssets {
 const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   accordion: { css: [accordionCssUrl, buttonCssUrl] },
   alert: { css: [alertCssUrl, buttonCssUrl] },
+  avatar: { css: [avatarCssUrl] },
   badge: { css: [badgeCssUrl] },
+  breadcrumb: { css: [breadcrumbCssUrl] },
   button: { css: [buttonCssUrl] },
   card: { css: [badgeCssUrl, buttonCssUrl, cardCssUrl] },
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
@@ -37,9 +43,11 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },
+  pagination: { css: [buttonCssUrl, paginationCssUrl] },
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },
+  table: { css: [badgeCssUrl, buttonCssUrl, tableCssUrl] },
   tabs: { css: [buttonCssUrl, tabsCssUrl] },
   textarea: { css: [formFieldCssUrl, textareaCssUrl] },
   toast: { css: [badgeCssUrl, buttonCssUrl, toastCssUrl] },

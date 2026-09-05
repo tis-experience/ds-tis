@@ -1,8 +1,8 @@
 # Alert · Ark
 
 - Run ID: `2026-09-04-ark-alert-upstream-intake`
-- Current gate: repo
-- Active role: Repo Component Agent
+- Current gate: release
+- Active role: Release Agent
 
 ## Artifacts
 

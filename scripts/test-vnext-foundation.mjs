@@ -129,7 +129,9 @@ const required = [
   'packages/react/src/stories/overview.stories.jsx',
   'packages/react/src/stories/accordion.stories.jsx',
   'packages/react/src/stories/alert.stories.jsx',
+  'packages/react/src/stories/avatar.stories.jsx',
   'packages/react/src/stories/badge.stories.jsx',
+  'packages/react/src/stories/breadcrumb.stories.jsx',
   'packages/react/src/stories/button.stories.jsx',
   'packages/react/src/stories/card.stories.jsx',
   'packages/react/src/stories/checkbox.stories.jsx',
@@ -138,6 +140,7 @@ const required = [
   'packages/react/src/stories/input.stories.jsx',
   'packages/react/src/stories/modal.stories.jsx',
   'packages/react/src/stories/menu.stories.jsx',
+  'packages/react/src/stories/pagination.stories.jsx',
   'packages/react/src/stories/radio.stories.jsx',
   'packages/react/src/stories/skeleton.stories.jsx',
   'packages/react/src/stories/spinner.stories.jsx',
@@ -209,8 +212,8 @@ if (!astroConfig.includes("label: 'Integração'") || !astroConfig.includes("{ s
 
 for (const locale of ['pt-br', 'en']) {
   const components = getReactComponents(locale);
-  if (components.length !== 22) {
-    errors.push(`catálogo React ${locale} deve expor 22 componentes; recebeu ${components.length}`);
+  if (components.length !== 26) {
+    errors.push(`catálogo React ${locale} deve expor 26 componentes; recebeu ${components.length}`);
   }
   const names = components.map((component) => component.name);
   const expectedNames = [...names].sort(
@@ -1352,8 +1355,8 @@ if (staticStorybook) {
   const publicComponents = getReactComponents('en');
   const componentEntries = entries.filter((entry) => entry.title?.startsWith('Components/'));
   const componentTitles = new Set(componentEntries.map((entry) => entry.title));
-  if (componentTitles.size !== 22) {
-    errors.push(`Storybook vNext deve publicar 22 grupos de componente; recebeu ${componentTitles.size}`);
+  if (componentTitles.size !== 26) {
+    errors.push(`Storybook vNext deve publicar 26 grupos de componente; recebeu ${componentTitles.size}`);
   }
   for (const component of publicComponents) {
     const expectedTitle = `Components/${component.category.label.en}/${component.name}`;
@@ -1457,7 +1460,7 @@ if (staticStorybook) {
     errors.push('Storybook vNext ainda expõe ondas/providers técnicos na navegação pública');
   }
   const reactDocs = componentEntries.filter((entry) => entry.type === 'docs');
-  if (reactDocs.length !== 22) {
+  if (reactDocs.length !== 26) {
     errors.push(`Storybook React deve ter uma Docs por componente; recebeu ${reactDocs.length}`);
   }
 }
