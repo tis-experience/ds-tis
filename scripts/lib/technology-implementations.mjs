@@ -121,6 +121,12 @@ export const ARK_ADAPTERS_BY_SLUG = {
     provider: "Ark UI + Zag",
     storyId: "ark-accordion--playground",
   },
+  badge: {
+    adapter: "packages/react/src/ark/badge.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native span",
+    storyId: "ark-badge--playground",
+  },
   button: {
     adapter: "packages/react/src/ark/button.jsx",
     framework: "React",

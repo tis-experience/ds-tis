@@ -389,6 +389,12 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
     {technology === 'ark' && (
       <p>{documentation.status === 'planned'
         ? (isEnglish ? 'Accessibility evidence remains pending until an independent Ark/Zag adapter exists.' : 'A evidência de acessibilidade permanece pendente até existir um adapter Ark/Zag independente.')
+        : slug === 'input' || slug === 'textarea'
+          ? (isEnglish ? 'Associate a visible label and helper or error text with the native control. Preserve required, disabled, read-only, value, form submission, and visible focus.' : 'Associe label visível e texto auxiliar ou erro ao controle nativo. Preserve required, disabled, somente leitura, valor, envio do formulário e foco visível.')
+        : slug === 'alert'
+          ? (isEnglish ? 'Use status for contextual messages and alert for urgent announcements. Keep icons decorative, name the close button, and manage focus when dismissing the message.' : 'Use status para mensagens contextuais e alert para anúncios urgentes. Mantenha ícones decorativos, nomeie o button de fechar e gerencie o foco ao dispensar a mensagem.')
+        : slug === 'badge'
+          ? (isEnglish ? 'Keep the badge non-interactive and ensure its text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto transmita significado sem depender apenas da cor.')
         : slug === 'accordion'
           ? (isEnglish ? 'Preserve the Ark/Zag semantics and validate expanded state, disabled items, arrow navigation, Home/End, and visible focus.' : 'Preserve a semântica Ark/Zag e valide estado expandido, itens disabled, navegação por setas, Home/End e foco visível.')
           : slug === 'checkbox'

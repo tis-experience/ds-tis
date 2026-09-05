@@ -61,6 +61,9 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Badge ganha saída Ark em beta de workspace**, com seis tons, estilos
+  solid/subtle, conteúdo e refs nativos. Docs PT/EN e Storybook próprios
+  expõem as doze combinações sem alterar os tokens e o CSS público TIS.
 - **Alert ganha saída Ark em beta de workspace.** As partes públicas do Alert
   preservam os quatro tons, estilos solid/subtle e tokens TIS; exemplos validam
   ação, fechamento pelo teclado e retorno de foco com live region contextual.

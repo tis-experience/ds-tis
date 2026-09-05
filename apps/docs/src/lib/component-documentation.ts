@@ -194,6 +194,10 @@ initAccordions()`,
     },
     previewSize: 'compact',
     descriptions: {
+      ark: {
+        pt: 'Adapter Ark Factory em span nativo com os seis tons e dois estilos do Badge TIS.',
+        en: 'An Ark Factory adapter using a native span with six tones and two TIS Badge styles.',
+      },
       angular: {
         pt: 'Componente standalone apresentacional com inputs tipados, content projection e as classes públicas do Badge TIS.',
         en: 'A standalone presentational component with typed inputs, content projection, and the public TIS Badge classes.',
@@ -202,6 +206,13 @@ initAccordions()`,
         pt: 'Recipe React distribuída como source, com elemento span e as classes/tokens públicos do Badge TIS.',
         en: 'A React source recipe with a span element and the public TIS Badge classes and tokens.',
       },
+    },
+    ark: { adapterImport: `import { Badge } from '@tis/react/ark/badge'` },
+    examples: {
+      ark: [
+        { storyId: 'ark-badge--tones', size: 'medium', title: { pt: 'Tons e estilos', en: 'Tones and styles' }, description: { pt: 'Seis tons em solid e subtle.', en: 'Six tones in solid and subtle.' } },
+        { storyId: 'ark-badge--in-context', size: 'compact', title: { pt: 'Em contexto', en: 'In context' }, description: { pt: 'Label junto da informação que qualifica.', en: 'Label next to the information it qualifies.' } },
+      ],
     },
     angular: {
       primitive: 'Elemento host apresentacional',

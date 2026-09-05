@@ -1808,14 +1808,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native span",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/badge.jsx",
+          "storyId": "ark-badge--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/badge/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
