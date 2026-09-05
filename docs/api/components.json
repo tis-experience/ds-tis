@@ -1808,14 +1808,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native span",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/badge.jsx",
+          "storyId": "ark-badge--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/badge/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
@@ -3142,13 +3142,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "table",
+          "primitive": "native table elements + Angular directives",
+          "storyId": "angular-table--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3275,13 +3275,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "breadcrumb",
+          "primitive": "native nav + links",
+          "storyId": "angular-breadcrumb--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3380,13 +3380,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "pagination",
+          "primitive": "native nav + links + buttons",
+          "storyId": "angular-pagination--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3504,13 +3504,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "avatar",
+          "primitive": "native image + Angular fallback",
+          "storyId": "angular-avatar--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3710,13 +3710,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "form-field",
+          "primitive": "native label + Angular content projection",
+          "storyId": "angular-form-field--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3820,13 +3820,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "spinner",
+          "primitive": "native status element",
+          "storyId": "angular-spinner--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },
@@ -3924,13 +3924,13 @@
         },
         "angular": {
           "outputId": "angular-native",
-          "status": "planned",
+          "status": "beta",
           "distribution": "angular-package",
           "package": "@tis/angular",
-          "entrypoint": null,
-          "primitive": null,
-          "storyId": null,
-          "install": null,
+          "entrypoint": "skeleton",
+          "primitive": "decorative native element + loading region directive",
+          "storyId": "angular-skeleton--playground",
+          "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
           "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/angular/"
         }
       },

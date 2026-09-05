@@ -237,7 +237,7 @@ button.ds-angular-card {
   align-items: flex-start;
   gap: var(--ds-space-lg);
   inline-size: 100%;
-  min-block-size: var(--ds-size-layout-sm);
+  min-block-size: calc(100vh - 2 * var(--ds-space-lg));
   padding: var(--ds-space-lg);
 }
 
@@ -246,6 +246,7 @@ button.ds-angular-card {
 }
 
 .ds-angular-menu-grid {
+  align-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -290,4 +291,132 @@ body:has(.ds-angular-toast-stage) {
 #storybook-root > main {
   min-block-size: 100%;
   color: var(--ds-content-default);
+}
+
+.ds-angular-breadcrumb-stage {
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  padding: var(--ds-space-xs);
+}
+
+.ds-angular-breadcrumb-stage .ds-breadcrumb {
+  inline-size: max-content;
+  white-space: nowrap;
+}
+
+.ds-angular-avatar-grid {
+  display: grid;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-avatar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-pagination-grid {
+  display: grid;
+  gap: var(--ds-space-lg);
+}
+
+.ds-angular-pagination-stage {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ds-space-sm);
+  max-inline-size: 100%;
+  overflow-x: auto;
+  padding: var(--ds-space-xs);
+}
+
+.ds-angular-pagination-stage .ds-pagination {
+  inline-size: max-content;
+}
+
+.ds-angular-skeleton-standalone,
+.ds-angular-skeleton-grid,
+.ds-angular-skeleton-card,
+.ds-angular-skeleton-list,
+.ds-angular-skeleton-lines {
+  display: grid;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-skeleton-standalone,
+.ds-angular-skeleton-card {
+  inline-size: min(100%, var(--ds-size-layout-xs));
+}
+
+.ds-angular-spinner-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--ds-space-lg);
+}
+
+.ds-angular-spinner-sample {
+  display: grid;
+  min-inline-size: calc(var(--ds-size-control-md) * 2);
+  place-items: center;
+  gap: var(--ds-space-md);
+  padding: var(--ds-space-lg);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-lg);
+}
+
+.ds-angular-spinner-sample > span {
+  color: var(--ds-content-default);
+  font-size: var(--ds-body-font-size-sm);
+}
+
+.ds-angular-spinner-on-color {
+  color: var(--ds-content-inverse);
+  background: var(--ds-brand-background-default);
+}
+
+.ds-angular-spinner-on-color > span {
+  color: inherit;
+}
+
+.ds-angular-table-stack {
+  display: grid;
+  gap: var(--ds-space-2xl);
+  inline-size: 100%;
+}
+
+.ds-angular-table-stack > section {
+  min-inline-size: 0;
+}
+
+.ds-angular-table-stack h2 {
+  margin-block: 0 var(--ds-space-md);
+  color: var(--ds-content-strong);
+  font-size: var(--ds-body-font-size-md);
+}
+
+.ds-angular-table-constrained {
+  inline-size: min(100%, var(--ds-size-layout-xs));
+}
+
+.ds-angular-skeleton-grid > div {
+  display: grid;
+  gap: var(--ds-space-xs);
+}
+
+.ds-angular-skeleton-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+}
+
+.ds-angular-skeleton-profile .ds-angular-skeleton-lines {
+  flex: 1;
+}
+
+.ds-angular-skeleton-card {
+  padding: var(--ds-space-lg);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-lg);
 }

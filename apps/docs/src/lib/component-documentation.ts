@@ -3,7 +3,7 @@ import { getReactComponents } from './react-component-catalog.mjs';
 
 export type DocumentationTechnology = 'web' | 'ark' | 'react' | 'angular';
 export type DocumentationLocale = 'pt-br' | 'en';
-export type DocumentationSlug = 'accordion' | 'alert' | 'badge' | 'button' | 'card' | 'checkbox' | 'combobox' | 'divider' | 'input' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
+export type DocumentationSlug = 'accordion' | 'alert' | 'avatar' | 'badge' | 'breadcrumb' | 'button' | 'card' | 'checkbox' | 'combobox' | 'divider' | 'form-field' | 'input' | 'menu' | 'modal' | 'pagination' | 'popover' | 'radio' | 'select' | 'skeleton' | 'spinner' | 'table' | 'tabs' | 'textarea' | 'toast' | 'toggle' | 'tooltip';
 
 interface LocalizedText {
   pt: string;
@@ -15,11 +15,12 @@ interface ComponentDocumentationConfig {
   descriptions?: Partial<Record<DocumentationTechnology, LocalizedText>>;
   examples?: Partial<Record<DocumentationTechnology, Array<{
     description: LocalizedText;
-    size?: 'compact' | 'medium' | 'large';
+    size?: 'compact' | 'medium' | 'large' | 'tall';
     storyId: string;
     title: LocalizedText;
   }>>>;
   previewSize?: 'compact' | 'medium' | 'large';
+  previewSizes?: Partial<Record<DocumentationTechnology, 'compact' | 'medium' | 'large'>>;
   usageGuidance?: {
     avoidWhen: LocalizedText[];
     note?: LocalizedText;
@@ -41,6 +42,59 @@ interface ComponentDocumentationConfig {
 }
 
 const configs: Record<DocumentationSlug, ComponentDocumentationConfig> = {
+  avatar: {
+    description: { pt: 'Representa pessoas ou entidades por imagem, iniciais ou ícone.', en: 'Represents people or entities using an image, initials or an icon.' },
+    previewSize: 'compact',
+    descriptions: { angular: { pt: 'Componente standalone com imagem nativa e fallback Angular. Compartilha apenas o CSS e os tokens públicos do DS.', en: 'Standalone component with a native image and Angular fallback. Shares only the public DS CSS and tokens.' } },
+    examples: { angular: [
+      { storyId: 'angular-avatar--tamanhos-e-conteudos', size: 'compact', title: { pt: 'Tamanhos e conteúdos', en: 'Sizes and content' }, description: { pt: 'sm, md e lg com iniciais, imagem e ícone.', en: 'sm, md and lg with initials, image and icon.' } },
+      { storyId: 'angular-avatar--fallback', size: 'compact', title: { pt: 'Falha e recuperação da imagem', en: 'Image failure and recovery' }, description: { pt: 'Simule a falha para exibir iniciais e restaure a imagem. O tamanho permanece constante.', en: 'Simulate failure to show initials and restore the image. Size remains constant.' } },
+      { storyId: 'angular-avatar--decorativo', size: 'compact', title: { pt: 'Avatar decorativo', en: 'Decorative avatar' }, description: { pt: 'O texto adjacente identifica a pessoa sem duplicar o anúncio do leitor de tela.', en: 'Adjacent text identifies the person without a duplicate screen reader announcement.' } },
+    ] },
+    angular: {
+      primitive: 'HTML img + fallback Angular',
+      imports: `import { TisAvatar } from '@tis/angular/avatar'`,
+      markup: `<tis-avatar label="Ana Lima" initials="AL" size="md" />
+<tis-avatar label="Ana Lima" content="image" src="/ana.jpg" initials="AL" />
+<tis-avatar label="Pessoa sem foto" content="icon" />
+<tis-avatar label="Ana Lima" initials="AL" decorative /><span>Ana Lima</span>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'components-avatar--playground',
+      markup: `<span class="ds-avatar" role="img" aria-label="Ana Lima"><span aria-hidden="true">AL</span></span>`,
+    },
+  },
+  breadcrumb: {
+    description: { pt: 'Mostra a posição na hierarquia e permite navegar aos níveis anteriores.', en: 'Shows the position in a hierarchy and links to ancestor pages.' },
+    previewSize: 'compact',
+    descriptions: {
+      angular: { pt: 'Diretivas standalone sobre nav, links e spans nativos. O navegador mantém a navegação e o teclado; o consumidor fornece destinos e a página atual.', en: 'Standalone directives on native nav, links and spans. The browser owns navigation and keyboard behavior; the consumer provides destinations and the current page.' },
+    },
+    examples: { angular: [
+      { storyId: 'angular-breadcrumb--navegacao', size: 'compact', title: { pt: 'Navegação entre níveis', en: 'Navigating between levels' }, description: { pt: 'Clique ou use Tab e Enter para voltar a Projetos ou Início. A trilha e a página exibida são atualizadas pelo exemplo Angular.', en: 'Click or use Tab and Enter to return to Projects or Home. The Angular example updates the trail and displayed page.' } },
+      { storyId: 'angular-breadcrumb--hierarquia-profunda', size: 'compact', title: { pt: 'Hierarquia profunda', en: 'Deep hierarchy' }, description: { pt: 'O container do exemplo permite rolagem horizontal quando necessário, sem cortar os links nem alargar a página.', en: 'The example container scrolls horizontally when needed, without clipping links or widening the page.' } },
+    ] },
+    angular: {
+      primitive: 'HTML nav + links nativos',
+      imports: `import { TisBreadcrumb, TisBreadcrumbLink, TisBreadcrumbCurrent,
+  TisBreadcrumbSeparator } from '@tis/angular/breadcrumb'`,
+      markup: `<nav tisBreadcrumb label="Caminho do projeto">
+  <a tisBreadcrumbLink href="/">Início</a>
+  <span tisBreadcrumbSeparator>/</span>
+  <a tisBreadcrumbLink href="/projetos">Projetos</a>
+  <span tisBreadcrumbSeparator>/</span>
+  <span tisBreadcrumbCurrent>Design System</span>
+</nav>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'components-breadcrumb--playground',
+      markup: `<nav class="ds-breadcrumb" aria-label="Breadcrumb">
+  <a class="ds-breadcrumb__item" href="/">Início</a>
+  <span class="ds-breadcrumb__separator" aria-hidden="true">/</span>
+  <span class="ds-breadcrumb__item ds-breadcrumb__item--current" aria-current="page">Projetos</span>
+</nav>`,
+    },
+  },
   accordion: {
     description: {
       pt: 'Organiza conteúdo relacionado em seções que podem ser expandidas ou recolhidas.',
@@ -194,6 +248,10 @@ initAccordions()`,
     },
     previewSize: 'compact',
     descriptions: {
+      ark: {
+        pt: 'Adapter Ark Factory em span nativo com os seis tons e dois estilos do Badge TIS.',
+        en: 'An Ark Factory adapter using a native span with six tones and two TIS Badge styles.',
+      },
       angular: {
         pt: 'Componente standalone apresentacional com inputs tipados, content projection e as classes públicas do Badge TIS.',
         en: 'A standalone presentational component with typed inputs, content projection, and the public TIS Badge classes.',
@@ -202,6 +260,13 @@ initAccordions()`,
         pt: 'Recipe React distribuída como source, com elemento span e as classes/tokens públicos do Badge TIS.',
         en: 'A React source recipe with a span element and the public TIS Badge classes and tokens.',
       },
+    },
+    ark: { adapterImport: `import { Badge } from '@tis/react/ark/badge'` },
+    examples: {
+      ark: [
+        { storyId: 'ark-badge--tones', size: 'medium', title: { pt: 'Tons e estilos', en: 'Tones and styles' }, description: { pt: 'Seis tons em solid e subtle.', en: 'Six tones in solid and subtle.' } },
+        { storyId: 'ark-badge--in-context', size: 'compact', title: { pt: 'Em contexto', en: 'In context' }, description: { pt: 'Label junto da informação que qualifica.', en: 'Label next to the information it qualifies.' } },
+      ],
     },
     angular: {
       primitive: 'Elemento host apresentacional',
@@ -422,6 +487,52 @@ initAccordions()`,
 </div>`,
     },
   },
+  'form-field': {
+    description: {
+      pt: 'Conecta label, controle, ajuda e erro em um campo de formulário.',
+      en: 'Connects a label, control, hint and error in a form field.',
+    },
+    descriptions: {
+      angular: {
+        pt: 'Composição standalone com controle projetado. Exponha os IDs e estados ao elemento nativo pelas propriedades públicas do field; o valor continua sob responsabilidade do controle e do Angular Forms.',
+        en: 'Standalone composition with a projected control. Bind the field’s public IDs and states to the native element; the control and Angular Forms continue to own its value.',
+      },
+    },
+    previewSize: 'compact',
+    usageGuidance: {
+      useWhen: [{ pt: 'Um controle nativo ou customizado precisa de label, ajuda e erro externos.', en: 'A native or custom control needs an external label, hint and error.' }],
+      avoidWhen: [{ pt: 'O controle já inclui Form Field: tis-input, tis-select e tis-textarea já possuem essa composição.', en: 'The control already includes Form Field: tis-input, tis-select and tis-textarea already provide this composition.' }],
+      note: { pt: 'Vincule controlId(), describedBy(), ariaInvalid(), ariaLabel() e required() ao controle. O wrapper não valida valores nem substitui ControlValueAccessor.', en: 'Bind controlId(), describedBy(), ariaInvalid(), ariaLabel() and required() to the control. The wrapper does not validate values or replace ControlValueAccessor.' },
+    },
+    examples: {
+      angular: [
+        { storyId: 'angular-form-field--validacao', size: 'compact', title: { pt: 'Validação com Angular Forms', en: 'Angular Forms validation' }, description: { pt: 'Envie vazio para mostrar o erro; digite um nome para removê-lo. Label, helper e erro permanecem associados ao input.', en: 'Submit empty to show the error; enter a name to clear it. Label, hint and error remain associated with the input.' } },
+        { storyId: 'angular-form-field--textarea', size: 'compact', title: { pt: 'Composição com Textarea', en: 'Textarea composition' }, description: { pt: 'Textarea pela anatomia pública do DS dentro do wrapper Angular.', en: 'The public DS Textarea anatomy inside the Angular wrapper.' } },
+        { storyId: 'angular-form-field--sem-label-visivel', size: 'compact', title: { pt: 'Label visualmente oculto', en: 'Visually hidden label' }, description: { pt: 'O nome acessível permanece no controle por aria-label.', en: 'The control keeps its accessible name through aria-label.' } },
+      ],
+    },
+    angular: {
+      primitive: 'HTML label + Angular content projection',
+      imports: `import { TisFormField } from '@tis/angular/form-field'`,
+      markup: `<tis-form-field #field="tisFormField" label="Nome" required
+  helperText="Use seu nome completo." [invalid]="invalid" errorMessage="Informe seu nome.">
+  <div class="ds-input" [class.ds-input--error]="field.invalid()">
+    <input class="ds-input__field" [id]="field.controlId()" [required]="field.required()"
+      [attr.aria-label]="field.ariaLabel()" [attr.aria-invalid]="field.ariaInvalid()"
+      [attr.aria-describedby]="field.describedBy()">
+  </div>
+</tis-form-field>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`,
+      storyId: 'components-form-field--playground',
+      markup: `<div class="ds-field">
+  <div class="ds-field__label-row"><label class="ds-field__label" for="name">Nome</label></div>
+  <div class="ds-input"><input class="ds-input__field" id="name" aria-describedby="name-helper"></div>
+  <span class="ds-field__helper" id="name-helper">Use seu nome completo.</span>
+</div>`,
+    },
+  },
   input: {
     description: {
       pt: 'Coleta texto curto ou dados estruturados em uma única linha.',
@@ -446,8 +557,8 @@ initAccordions()`,
       ark: [
         {
           storyId: 'ark-input--sizes',
-          size: 'medium',
-          title: { pt: 'Tamanhos · Ark/Zag', en: 'Sizes · Ark/Zag' },
+          size: 'large',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
           description: {
             pt: 'Inputs sm, md e lg executados pelo adapter Ark independente.',
             en: 'Small, medium, and large inputs running through the independent Ark adapter.',
@@ -455,8 +566,8 @@ initAccordions()`,
         },
         {
           storyId: 'ark-input--states',
-          size: 'medium',
-          title: { pt: 'Estados · Ark/Zag', en: 'States · Ark/Zag' },
+          size: 'large',
+          title: { pt: 'Estados', en: 'States' },
           description: {
             pt: 'Estados preenchido, inválido, somente leitura e desabilitado com semântica nativa.',
             en: 'Filled, invalid, read-only, and disabled states with native semantics.',
@@ -465,7 +576,7 @@ initAccordions()`,
         {
           storyId: 'ark-input--form-submission',
           size: 'medium',
-          title: { pt: 'Formulário · Ark/Zag', en: 'Form · Ark/Zag' },
+          title: { pt: 'Formulário', en: 'Form' },
           description: {
             pt: 'Nome, valor, required e tipo permanecem disponíveis para validação e submit nativos.',
             en: 'Name, value, required, and type remain available to native validation and form submission.',
@@ -476,7 +587,7 @@ initAccordions()`,
         {
           storyId: 'angular-input--tamanhos',
           size: 'medium',
-          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          title: { pt: 'Tamanhos', en: 'Sizes' },
           description: {
             pt: 'Controles sm, md e lg executados pelo componente Angular nativo.',
             en: 'Small, medium, and large controls running through the native Angular component.',
@@ -484,8 +595,8 @@ initAccordions()`,
         },
         {
           storyId: 'angular-input--estados',
-          size: 'medium',
-          title: { pt: 'Estados · Angular', en: 'States · Angular' },
+          size: 'large',
+          title: { pt: 'Estados', en: 'States' },
           description: {
             pt: 'Estados padrão, preenchido, erro, desabilitado e somente leitura com semântica nativa.',
             en: 'Default, filled, error, disabled, and read-only states with native semantics.',
@@ -528,6 +639,7 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
       en: 'Collects free-form multiline text with an optional limit and counter.',
     },
     previewSize: 'medium',
+    previewSizes: { ark: 'large' },
     descriptions: {
       ark: {
         pt: 'Adapter independente sobre Ark Factory e textarea nativo, com os tamanhos, estados e tokens TIS.',
@@ -545,12 +657,12 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
     examples: {
       ark: [
         {
-          storyId: 'ark-textarea--sizes', size: 'large',
+          storyId: 'ark-textarea--sizes', size: 'tall',
           title: { pt: 'Tamanhos', en: 'Sizes' },
           description: { pt: 'Alturas mínimas sm, md e lg e redimensionamento vertical.', en: 'Small, medium, and large minimum heights and vertical resizing.' },
         },
         {
-          storyId: 'ark-textarea--states', size: 'large',
+          storyId: 'ark-textarea--states', size: 'tall',
           title: { pt: 'Estados', en: 'States' },
           description: { pt: 'Conteúdo preenchido, erro, somente leitura e desabilitado.', en: 'Filled content, invalid, read-only, and disabled states.' },
         },
@@ -564,7 +676,7 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
         {
           storyId: 'angular-textarea--tamanhos',
           size: 'large',
-          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          title: { pt: 'Tamanhos', en: 'Sizes' },
           description: {
             pt: 'Alturas mínimas sm, md e lg preservadas pelo componente Angular.',
             en: 'Small, medium, and large minimum heights preserved by the Angular component.',
@@ -573,7 +685,7 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
         {
           storyId: 'angular-textarea--com-contador',
           size: 'large',
-          title: { pt: 'Contador · Angular', en: 'Counter · Angular' },
+          title: { pt: 'Contador', en: 'Counter' },
           description: {
             pt: 'Contagem associada por aria-describedby, incluindo o estado acima do limite.',
             en: 'Count associated through aria-describedby, including the over-limit state.',
@@ -831,6 +943,103 @@ initComboboxes()`,
 </div>`,
     },
   },
+  skeleton: {
+    description: { pt: 'Representa a forma previsível de conteúdo que ainda está carregando.', en: 'Represents the predictable shape of content that is still loading.' },
+    previewSize: 'compact',
+    descriptions: {
+      angular: { pt: 'Shape standalone sempre decorativo, combinado com uma diretiva de região que anuncia o estado de carregamento uma única vez.', en: 'Always-decorative standalone shape combined with a region directive that announces loading once.' },
+    },
+    examples: { angular: [
+      { storyId: 'angular-skeleton--tipos', size: 'large', title: { pt: 'Tipos', en: 'Types' }, description: { pt: 'Text, circle e rectangle usam os tamanhos e raios do contrato visual.', en: 'Text, circle and rectangle use the visual contract sizes and radii.' } },
+      { storyId: 'angular-skeleton--card', size: 'large', title: { pt: 'Card de perfil', en: 'Profile card' }, description: { pt: 'Uma região de loading combina shapes decorativos sem repetir anúncios.', en: 'One loading region combines decorative shapes without repeated announcements.' } },
+      { storyId: 'angular-skeleton--lista', size: 'tall', title: { pt: 'Lista', en: 'List' }, description: { pt: 'A lista inteira tem um único estado acessível de carregamento.', en: 'The entire list has one accessible loading state.' } },
+    ] },
+    angular: {
+      primitive: 'elementos decorativos + região native status',
+      imports: `import { TisSkeleton, TisSkeletonGroup } from '@tis/angular/skeleton'`,
+      markup: `<div tisSkeletonGroup label="Carregando perfil">
+  <tis-skeleton type="circle" />
+  <tis-skeleton type="text" width="60%" />
+  <tis-skeleton type="rectangle" />
+</div>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'components-skeleton--playground',
+      markup: `<div role="status" aria-label="Carregando perfil" aria-busy="true">
+  <span class="ds-skeleton ds-skeleton--text" aria-hidden="true"></span>
+</div>`,
+    },
+    usageGuidance: {
+      useWhen: [{ pt: 'A estrutura do conteúdo futuro é conhecida e deve permanecer estável durante o carregamento.', en: 'The future content structure is known and should stay stable while loading.' }],
+      avoidWhen: [{ pt: 'A espera pertence a uma única ação ou a estrutura ainda é desconhecida.', en: 'The wait belongs to one action or the structure is unknown.' }],
+      note: { pt: 'Anuncie a região uma vez; mantenha cada shape oculto da árvore acessível.', en: 'Announce the region once; keep each shape hidden from the accessibility tree.' },
+    },
+  },
+  spinner: {
+    description: { pt: 'Indica uma espera indeterminada quando o tempo de conclusão não é conhecido.', en: 'Indicates an indeterminate wait when completion time is unknown.' },
+    previewSize: 'compact',
+    descriptions: {
+      angular: { pt: 'Componente standalone com status acessível próprio ou modo decorativo para composições que já anunciam a operação.', en: 'Standalone component with its own accessible status or a decorative mode for compositions that already announce the operation.' },
+    },
+    examples: { angular: [
+      { storyId: 'angular-spinner--tamanhos', size: 'compact', title: { pt: 'Tamanhos', en: 'Sizes' }, description: { pt: 'Sm, md e lg preservam espessura, proporção e alinhamento.', en: 'Sm, md, and lg preserve stroke, proportion, and alignment.' } },
+      { storyId: 'angular-spinner--estilos', size: 'compact', title: { pt: 'Estilos', en: 'Styles' }, description: { pt: 'Default atende superfícies neutras; on-color mantém contraste em fundos de marca.', en: 'Default suits neutral surfaces; on-color maintains contrast on brand backgrounds.' } },
+      { storyId: 'angular-spinner--no-button', size: 'compact', title: { pt: 'No Button', en: 'In a Button' }, description: { pt: 'O Button anuncia a operação e trata o spinner interno como decorativo.', en: 'The Button announces the operation and treats its internal spinner as decorative.' } },
+    ] },
+    angular: {
+      primitive: 'elemento status nativo',
+      imports: `import { TisSpinner } from '@tis/angular/spinner'`,
+      markup: `<tis-spinner size="md" label="Carregando resultados" />
+
+<tis-spinner decorative />`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'components-spinner--playground',
+      markup: `<span class="ds-spinner ds-spinner--md" role="status" aria-label="Carregando resultados"></span>`,
+    },
+    usageGuidance: {
+      useWhen: [{ pt: 'Uma ação ou região aguarda sem progresso mensurável e a estrutura futura não é conhecida.', en: 'An action or region is waiting without measurable progress and the future structure is unknown.' }],
+      avoidWhen: [{ pt: 'A estrutura do conteúdo é previsível ou o progresso pode ser quantificado.', en: 'The content structure is predictable or progress can be quantified.' }],
+      note: { pt: 'Anuncie a espera uma vez; spinners dentro de Buttons ou regiões nomeadas devem ser decorativos.', en: 'Announce the wait once; spinners inside Buttons or named regions should be decorative.' },
+    },
+  },
+  table: {
+    description: { pt: 'Organiza dados relacionais para leitura e comparação por coluna.', en: 'Organizes relational data for reading and comparison by column.' },
+    previewSize: 'medium',
+    descriptions: {
+      angular: { pt: 'Diretivas standalone sobre elementos table nativos; a aplicação controla dados, ordenação, seleção e ações.', en: 'Standalone directives over native table elements; the application controls data, sorting, selection, and actions.' },
+    },
+    examples: { angular: [
+      { storyId: 'angular-table--tamanhos', size: 'large', title: { pt: 'Tamanhos', en: 'Sizes' }, description: { pt: 'Small mantém linhas de 40 px e Medium mantém 48 px sem alterar a semântica.', en: 'Small keeps 40 px rows and Medium keeps 48 px without changing semantics.' } },
+      { storyId: 'angular-table--estados', size: 'medium', title: { pt: 'Estados', en: 'States' }, description: { pt: 'Linhas default e selected coexistem com ordenação e ações nativas.', en: 'Default and selected rows coexist with native sorting and actions.' } },
+      { storyId: 'angular-table--overflow', size: 'medium', title: { pt: 'Overflow horizontal', en: 'Horizontal overflow' }, description: { pt: 'A região ocupa toda a largura disponível e concentra a rolagem quando as colunas excedem o container.', en: 'The region fills the available width and contains scrolling when columns exceed the container.' } },
+    ] },
+    angular: {
+      primitive: 'elementos table nativos + diretivas Angular',
+      imports: `import {
+  TisTable, TisTableBody, TisTableCaption, TisTableCell,
+  TisTableHeader, TisTableHeaderCell, TisTableRegion, TisTableRow,
+} from '@tis/angular/table'`,
+      markup: `<div tisTableRegion label="Tabela de clientes">
+  <table tisTable size="md">
+    <caption tisTableCaption>Clientes</caption>
+    <thead tisTableHeader><tr tisTableRow><th tisTableHeaderCell>Cliente</th></tr></thead>
+    <tbody tisTableBody><tr tisTableRow><td tisTableCell>Ana Silva</td></tr></tbody>
+  </table>
+</div>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'components-table--playground',
+      markup: `<div class="ds-table-region" role="region" aria-label="Tabela de clientes" tabindex="0">
+  <table class="ds-table ds-table--md">…</table>
+</div>`,
+    },
+    usageGuidance: {
+      useWhen: [{ pt: 'Os dados têm colunas estáveis e precisam ser comparados entre linhas.', en: 'Data has stable columns and needs comparison across rows.' }],
+      avoidWhen: [{ pt: 'O conteúdo é uma lista simples ou exige navegação de planilha editável.', en: 'The content is a simple list or requires editable spreadsheet navigation.' }],
+      note: { pt: 'Preserve table nativa; ordenação, seleção, filtros e paginação pertencem à aplicação.', en: 'Preserve the native table; sorting, selection, filters, and pagination belong to the application.' },
+    },
+  },
   select: {
     description: {
       pt: 'Seleciona um único valor de uma lista conhecida sem aceitar entrada de texto.',
@@ -898,6 +1107,7 @@ import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
       en: 'Offers a short list of contextual commands from a Button.',
     },
     previewSize: 'medium',
+    previewSizes: { angular: 'large' },
     descriptions: {
       ark: {
         pt: 'Adapter React independente em que Ark UI fornece as parts e Zag mantém abertura, foco, typeahead e teclado.',
@@ -916,8 +1126,8 @@ import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
       angular: [
         {
           storyId: 'angular-menu--escolhas',
-          size: 'medium',
-          title: { pt: 'Escolhas · Angular', en: 'Choices · Angular' },
+          size: 'large',
+          title: { pt: 'Escolhas', en: 'Choices' },
           description: {
             pt: 'Itens radio e checkbox executados com semântica e estado próprios.',
             en: 'Radio and checkbox items running with their own semantics and state.',
@@ -926,7 +1136,7 @@ import { TisSelect, TisSelectIcon } from '@tis/angular/select'`,
         {
           storyId: 'angular-menu--tamanhos',
           size: 'medium',
-          title: { pt: 'Tamanhos · Angular', en: 'Sizes · Angular' },
+          title: { pt: 'Tamanhos', en: 'Sizes' },
           description: {
             pt: 'Triggers e surfaces sm, md e lg preservam alinhamento e largura útil.',
             en: 'Small, medium, and large triggers and surfaces preserve alignment and usable width.',
@@ -1158,6 +1368,38 @@ initModals()`,
     <div class="ds-modal__body">Confira os dados antes de continuar.</div>
   </div>
 </div>`,
+    },
+  },
+  pagination: {
+    description: { pt: 'Navega entre subconjuntos discretos de resultados e identifica a página atual.', en: 'Navigates between discrete result sets and identifies the current page.' },
+    previewSize: 'compact',
+    descriptions: {
+      angular: { pt: 'Componente standalone controlado pelo consumidor, com nav, links numerados, botões anterior/próximo e ellipsis não interativo.', en: 'Consumer-controlled standalone component with a nav, numbered links, previous/next buttons and non-interactive ellipses.' },
+    },
+    examples: { angular: [
+      { storyId: 'angular-pagination--tamanhos', size: 'large', title: { pt: 'Tamanhos', en: 'Sizes' }, description: { pt: 'sm, md e lg mantêm a mesma semântica e permitem alterar cada página.', en: 'sm, md and lg preserve the same semantics and allow each page to change.' } },
+      { storyId: 'angular-pagination--limites', size: 'large', title: { pt: 'Limites', en: 'Boundaries' }, description: { pt: 'Anterior fica desabilitado na primeira página e próxima fica desabilitado na última.', en: 'Previous is disabled on the first page and next is disabled on the last.' } },
+    ] },
+    angular: {
+      primitive: 'HTML nav + links + buttons',
+      imports: `import { TisPagination } from '@tis/angular/pagination'`,
+      markup: `<tis-pagination
+  [currentPage]="page()"
+  [totalPages]="10"
+  label="Páginas dos resultados"
+  (pageChange)="page.set($event)"
+/>`,
+    },
+    web: {
+      imports: `import 'ds-tis/css'`, storyId: 'compositions-pagination--playground',
+      markup: `<nav class="ds-pagination" aria-label="Paginação">
+  <ul class="ds-pagination__list">…</ul>
+</nav>`,
+    },
+    usageGuidance: {
+      useWhen: [{ pt: 'O conjunto tem páginas discretas e o total ou a posição atual importam.', en: 'The set has discrete pages and the total or current position matters.' }],
+      avoidWhen: [{ pt: 'O conteúdo é pequeno ou carregado progressivamente sem páginas.', en: 'Content is small or incrementally loaded without pages.' }],
+      note: { pt: 'Dados, URL e currentPage pertencem ao consumidor; pageChange comunica apenas a intenção.', en: 'Data, URL and currentPage belong to the consumer; pageChange only communicates intent.' },
     },
   },
   popover: {
@@ -1622,7 +1864,7 @@ export function getComponentDocumentation(
   return {
     categoryLabel: component.category.label[language],
     component,
-    config,
+    config: { ...config, previewSize: config.previewSizes?.[technology] || config.previewSize },
     description: configuredDescription
       ? localize(configuredDescription, locale)
       : localize(config.description, locale),

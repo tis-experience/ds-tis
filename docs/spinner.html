@@ -64,8 +64,19 @@
   <!-- ============================================================
        3. ANATOMY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl);" aria-hidden="true">
+      <span style="position:relative;display:inline-block;">
+        <span class="ds-spinner ds-spinner--lg"></span>
+        <span style="position:absolute;right:100%;top:50%;width:var(--ds-space-2xl);height:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="right:calc(100% + var(--ds-space-2xl));top:50%;transform:translateY(-50%);">1</span>
+        <span style="position:absolute;left:50%;bottom:100%;width:var(--ds-border-width-default);height:var(--ds-space-2xl);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:50%;bottom:calc(100% + var(--ds-space-2xl));transform:translateX(-50%);">2</span>
+        <span style="position:absolute;left:100%;top:50%;width:var(--ds-space-2xl);height:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:calc(100% + var(--ds-space-2xl));top:50%;transform:translateY(-50%);">3</span>
+      </span>
+    </div>
     <div class="ds-anatomy-legend">
       <span data-lang="pt"><strong>1</strong> Container (<code>.ds-spinner</code>) — elemento inline flex com tamanho tokenizado.<br>
       <strong>2</strong> Ring — borda circular animada por rotação linear.<br>
@@ -232,7 +243,7 @@
   <!-- ============================================================
        5. TOKEN MAPPING
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="60">
     <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
@@ -270,7 +281,7 @@
   <!-- ============================================================
        7. ACCESSIBILITY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>

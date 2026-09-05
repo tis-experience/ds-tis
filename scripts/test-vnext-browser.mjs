@@ -79,6 +79,7 @@ try {
   });
 
   await auditComponentResourcesAndTechnologySwitch();
+  await auditReactAngularRoundTrip();
 
   await auditPortalLanding('/ds-tis/next/pt-br/', 'pt');
   await auditPortalLanding('/ds-tis/next/en/', 'en');
@@ -145,7 +146,7 @@ try {
     item: '@tis/table',
     locale: 'pt',
     name: 'Table',
-    technologyLinks: 2,
+    technologyLinks: 3,
   });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/avatar/', {
     item: '@tis/avatar',
@@ -199,6 +200,7 @@ try {
   await auditRadioOutputSelector();
   await auditToggleOutputSelector();
   await auditFormControlGuidance();
+  await auditAdditionalOutputExamples();
 
   await auditResponsiveButton(390, 844);
   await auditResponsiveButton(320, 720);
@@ -490,6 +492,39 @@ async function auditComponentResourcesAndTechnologySwitch() {
   recordBrowserErrors('recursos e troca de tecnologia');
 }
 
+async function auditReactAngularRoundTrip() {
+  const slugs = ['avatar', 'breadcrumb', 'form-field', 'input', 'pagination', 'skeleton', 'spinner', 'table', 'textarea'];
+  for (const locale of ['pt-br', 'en']) {
+    for (const slug of slugs) {
+      const route = `/ds-tis/next/${locale}/react/components/${slug}/`;
+      browserErrors.length = 0;
+      await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+      const angularOption = page.locator('[data-technology-select]').getByRole('option', { name: 'Angular', exact: true });
+      expect(await angularOption.count() === 1 && await angularOption.isEnabled(), `${route}: saída Angular implementada indisponível no seletor`);
+      await page.locator('[data-technology-select]').selectOption({ label: 'Angular' });
+      await page.waitForURL(`**/${locale}/angular/components/${slug}/`);
+      expect(await page.locator('main h1').count() === 1, `${route}: Angular não abriu a página do componente`);
+      if (slug === 'table') {
+        for (const width of [320, 1280]) {
+          await page.setViewportSize({ width, height: 900 });
+          const anatomy = await page.locator('.ds-anatomy .ds-table').evaluate((table) => ({
+            display: getComputedStyle(table).display,
+            width: table.getBoundingClientRect().width,
+            headWidth: table.tHead.getBoundingClientRect().width,
+            bodyWidth: table.tBodies[0].getBoundingClientRect().width,
+          }));
+          expect(anatomy.display === 'table', `${route}: Markdown substituiu o layout nativo da anatomia em ${width}px`);
+          expect(Math.abs(anatomy.width - anatomy.headWidth) < 1 && Math.abs(anatomy.width - anatomy.bodyWidth) < 1,
+            `${route}: cabeçalho/corpo não preenchem a largura da anatomia em ${width}px`);
+        }
+      }
+      await page.locator('[data-technology-select]').selectOption({ label: 'React · shadcn/Base UI' });
+      await page.waitForURL(`**/${locale}/react/components/${slug}/`);
+      recordBrowserErrors(`troca React/Angular: ${locale}/${slug}`);
+    }
+  }
+}
+
 async function auditPortalLanding(route, locale) {
   browserErrors.length = 0;
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -630,9 +665,8 @@ async function auditCanonicalCatalog(route, locale) {
   const badgeItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
   });
-  expect(await badgeItem.locator('a').count() === 3, `${route}: Badge deve ligar Web, React e Angular`);
-  expect(await badgeItem.locator('[data-output="ark"]').count() === 1, `${route}: Badge deve exibir a saída Ark planejada`);
-  expect(await badgeItem.locator('[data-output="ark"] a').count() === 0, `${route}: Badge não deve ligar a saída Ark ainda planejada`);
+  expect(await badgeItem.locator('a').count() === 4, `${route}: Badge deve ligar as quatro saídas`);
+  expect(await badgeItem.locator('[data-output="ark"] a').count() === 1, `${route}: Badge deve ligar Ark disponível`);
   const alertItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
   });
@@ -658,8 +692,8 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Table$/ }),
   });
   expect(await tableItem.locator('[data-output]').count() === 4, `${route}: Table deve mostrar as quatro implementações`);
-  expect(await tableItem.locator('a').count() === 2, `${route}: Table deve ligar as implementações Web e React disponíveis`);
-  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 2, `${route}: Table deve identificar Ark/Zag e Angular como não disponíveis`);
+  expect(await tableItem.locator('a').count() === 3, `${route}: Table deve ligar as implementações Web, React e Angular disponíveis`);
+  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 1, `${route}: Table deve identificar somente Ark/Zag como não disponível`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);
@@ -1179,6 +1213,12 @@ async function auditBadgeOutputSelector() {
   browserErrors.length = 0;
   const routes = [
     {
+      route: '/ds-tis/next/pt-br/ark/components/badge/',
+      activeLabel: 'Ark/Zag', status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'ark-badge--playground',
+    },
+    {
       route: '/ds-tis/next/pt-br/web/components/badge/',
       activeLabel: 'HTML/CSS/JS',
       status: 'Estável',
@@ -1208,7 +1248,7 @@ async function auditBadgeOutputSelector() {
     expect((await page.locator('main h1').first().textContent())?.trim() === 'Badge', `${route}: título Badge ausente`);
     const technologyOptions = page.locator('[data-technology-select] option');
     expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
-    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: saída Ark planejada deveria permanecer desabilitada`);
+    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isEnabled(), `${route}: saída Ark disponível deveria permanecer habilitada`);
     expect(
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
@@ -1454,7 +1494,7 @@ async function auditAlertOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/ark/components/alert/',
       activeLabel: 'Ark/Zag',
-      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"][data-story-url*="id=ark-alert--playground"]',
       storyId: 'ark-alert--playground',
     },
     {
@@ -2606,7 +2646,7 @@ async function auditMenuOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/angular/components/menu/',
       activeLabel: 'Angular',
-      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"][data-story-url*="id=angular-menu--playground"]',
       storyId: 'angular-menu--playground',
       guidanceCount: 3,
     },
@@ -3582,6 +3622,82 @@ async function auditToggleOutputSelector() {
   }
 
   recordBrowserErrors('Toggle · seletor das quatro saídas');
+}
+
+async function auditAdditionalOutputExamples() {
+  const cases = [
+    ['ark', 'textarea', ['ark-textarea--playground', 'ark-textarea--sizes', 'ark-textarea--states', 'ark-textarea--uncontrolled']],
+    ['angular', 'textarea', ['angular-textarea--playground', 'angular-textarea--tamanhos', 'angular-textarea--com-contador']],
+    ['ark', 'alert', ['ark-alert--playground', 'ark-alert--subtle', 'ark-alert--solid']],
+    ['angular', 'menu', ['angular-menu--playground', 'angular-menu--escolhas', 'angular-menu--tamanhos']],
+  ];
+  for (const locale of ['pt-br', 'en']) {
+    for (const width of [320, 1280]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const [technology, slug, storyIds] of cases) {
+        browserErrors.length = 0;
+        const route = `/ds-tis/next/${locale}/${technology}/components/${slug}/`;
+        await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+        for (const mode of ['light', 'dark']) {
+          await page.locator('starlight-theme-select select').first().evaluate((select, value) => {
+            select.value = value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+          }, mode);
+          for (const storyId of storyIds) {
+            const label = `${locale}/${storyId} @ ${width}/${mode}`;
+            const selector = `[data-output-preview][data-story-url*="id=${storyId}"]`;
+            expect(await page.locator(selector).count() === 1, `${label}: exemplo configurado ausente`);
+            await page.waitForFunction(({ selector, mode }) => {
+              const document = window.document.querySelector(selector)?.contentDocument;
+              return document?.documentElement?.dataset.mode === mode && document.body?.classList.contains('sb-show-main');
+            }, { selector, mode });
+            const frame = page.frameLocator(selector);
+            await frame.locator('body').evaluate(() => document.fonts.ready);
+            const geometry = await frame.locator('body').evaluate(() => ({
+              overflowX: document.documentElement.scrollWidth - window.innerWidth,
+              overflowY: document.documentElement.scrollHeight - window.innerHeight,
+            }));
+            expect(geometry.overflowX <= 1 && geometry.overflowY <= 1,
+              `${label}: conteúdo excede o frame (${JSON.stringify(geometry)})`);
+            if (slug === 'textarea') {
+              const field = frame.locator('textarea:not([disabled]):not([readonly])').first();
+              await field.fill('Texto de validação');
+              expect(await field.inputValue() === 'Texto de validação', `${label}: campo não permite edição`);
+              if (storyId === 'ark-textarea--playground') {
+                await frame.getByRole('button', { name: 'Enviar', exact: true }).click();
+                expect(await frame.locator('[data-slot="textarea-result"]').textContent() === 'Texto de validação', `${label}: envio não exibe o valor`);
+                expect(await frame.locator('body').evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1),
+                  `${label}: resultado após envio excede o frame`);
+              }
+            }
+            if (slug === 'menu') {
+              const triggers = frame.locator('[data-tis-angular-menu-trigger]');
+              expect(await triggers.count() === (storyId.endsWith('--tamanhos') ? 3 : 1), `${label}: triggers ausentes`);
+              for (let index = 0; index < await triggers.count(); index += 1) {
+                await triggers.nth(index).click();
+                const menu = frame.getByRole('menu').filter({ visible: true });
+                await menu.waitFor();
+                expect(await menu.evaluate(async (element) => {
+                  // Angular reposiciona o menu após o render para mantê-lo no viewport.
+                  for (let attempt = 0; attempt < 30; attempt += 1) {
+                    await new Promise(requestAnimationFrame);
+                    const rect = element.getBoundingClientRect();
+                    if (rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth + 1 && rect.bottom <= innerHeight + 1) return true;
+                  }
+                  return false;
+                }), `${label}: menu aberto fica cortado`);
+                await menu.press('Escape');
+                await menu.waitFor({ state: 'hidden' });
+              }
+            }
+          }
+          expect(await horizontalOverflow() <= 1, `${route} @ ${width}/${mode}: página excede a largura`);
+        }
+        recordBrowserErrors(`${route}: exemplos adicionais`);
+      }
+    }
+  }
+  await page.locator('starlight-theme-select select').first().selectOption('light');
 }
 
 async function auditFormControlGuidance() {
@@ -4943,6 +5059,20 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Alert');
   recordBrowserErrors('Storybook vNext · Alert');
 
+  for (const mode of ['light', 'dark']) {
+    await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-badge--tones`, { waitUntil: 'networkidle' });
+    await page.locator('.ds-ark-badge').first().waitFor();
+    expect(await page.locator('.ds-ark-badge').count() === 12, 'Badge Ark deve cobrir seis tons e dois estilos');
+    expect(await page.locator('.ds-ark-badge').evaluateAll((els) => els.every((el) => el.tagName === 'SPAN' && el.tabIndex < 0 && !el.hasAttribute('role') && !!el.textContent.trim())), 'Badge Ark deve ser informativo e não interativo');
+    await auditAxe(`Storybook · Badge Ark ${mode}`);
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-badge--tones`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-badge').first().waitFor();
+  expect(await horizontalOverflow() <= 1, 'Badge Ark tem overflow em 320px');
+  await auditAxe('Storybook · Badge Ark 320px');
+  recordBrowserErrors('Storybook · Badge Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(`${storyBase}react-badge--tones`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="badge"]').first().waitFor();
   expect(await page.locator('[data-slot="badge"]').count() === 12, 'Badge deve cobrir seis tons em solid e subtle');
@@ -5056,6 +5186,7 @@ async function auditStorybookComponents() {
     'ark-input--playground',
     'ark-textarea--playground',
     'ark-alert--playground',
+    'ark-badge--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',
