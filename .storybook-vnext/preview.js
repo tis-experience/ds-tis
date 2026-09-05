@@ -4,7 +4,9 @@ import registry from '../registry.json';
 import '../css/tokens/generated/index.css';
 import '../css/components/accordion.css';
 import '../css/components/alert.css';
+import '../css/components/avatar.css';
 import '../css/components/badge.css';
+import '../css/components/breadcrumb.css';
 import '../css/components/button.css';
 import '../css/components/card.css';
 import '../css/components/checkbox.css';
@@ -14,11 +16,13 @@ import '../css/components/form-field.css';
 import '../css/components/input.css';
 import '../css/components/menu.css';
 import '../css/components/modal.css';
+import '../css/components/pagination.css';
 import '../css/components/popover.css';
 import '../css/components/radio.css';
 import '../css/components/select.css';
 import '../css/components/skeleton.css';
 import '../css/components/spinner.css';
+import '../css/components/table.css';
 import '../css/components/tabs.css';
 import '../css/components/textarea.css';
 import '../css/components/toast.css';
@@ -125,7 +129,7 @@ const preview = {
             'Actions',
             ['Button'],
             'Content and structure',
-            ['Card', 'Divider'],
+            ['Card', 'Divider', 'Table'],
             'Input and selection',
             ['Checkbox', 'Combobox', 'Form Field', 'Input Text', 'Radio', 'Select', 'Textarea', 'Toggle'],
             'Feedback and status',

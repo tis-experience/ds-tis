@@ -228,7 +228,7 @@
       "providerPolicy": "Base UI is the behavior provider for this React output; ADR-023 keeps Web, Ark/Zag, React, and Angular as separate coexisting outputs.",
       "package": null,
       "note": "Source distribution; @tis/react is not a public package.",
-      "componentCount": 22,
+      "componentCount": 26,
       "registry": {
         "channel": "v1",
         "baseUrl": "https://tis-experience.github.io/ds-tis/registry/v1",
@@ -260,9 +260,21 @@
           "providerRole": "native-or-composition"
         },
         {
+          "slug": "avatar",
+          "item": "avatar",
+          "provider": "Base UI",
+          "providerRole": "output-provider"
+        },
+        {
           "slug": "badge",
           "item": "badge",
           "provider": "React composition",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "breadcrumb",
+          "item": "breadcrumb",
+          "provider": "Native React",
           "providerRole": "native-or-composition"
         },
         {
@@ -320,6 +332,12 @@
           "providerRole": "output-provider"
         },
         {
+          "slug": "pagination",
+          "item": "pagination",
+          "provider": "Native React",
+          "providerRole": "native-or-composition"
+        },
+        {
           "slug": "popover",
           "item": "popover",
           "provider": "Base UI",
@@ -347,6 +365,12 @@
           "slug": "spinner",
           "item": "spinner",
           "provider": "React presentation",
+          "providerRole": "native-or-composition"
+        },
+        {
+          "slug": "table",
+          "item": "table",
+          "provider": "Native React",
           "providerRole": "native-or-composition"
         },
         {

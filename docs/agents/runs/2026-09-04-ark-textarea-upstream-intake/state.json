@@ -4,7 +4,7 @@
   "runId": "2026-09-04-ark-textarea-upstream-intake",
   "title": "Textarea · Ark/Zag",
   "createdAt": "2026-09-04",
-  "updatedAt": "2026-09-04",
+  "updatedAt": "2026-09-05",
   "figmaSnapshot": {
     "id": null,
     "generatedAt": null,
@@ -109,6 +109,10 @@
     }
   ],
   "checks": {
+    "integration:a90c542:test:vnext": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
+    "integration:a90c542:browser": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
+    "integration:a90c542:consumer-web-react": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
+    "integration:a90c542:pages": { "status": "passed", "at": "2026-09-05", "exitCode": 0 },
     "test:vnext": { "status": "passed", "at": "2026-09-04" },
     "test:vnext:browser": { "status": "passed", "at": "2026-09-04" },
     "visual:light-dark-320": { "status": "passed", "at": "2026-09-04" },

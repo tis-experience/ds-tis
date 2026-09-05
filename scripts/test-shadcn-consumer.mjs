@@ -294,6 +294,8 @@ try {
   expect(globalCss.includes('[data-slot="tabs-trigger"]'), "nowrap do label de Tabs deve chegar ao consumer");
   expect(globalCss.includes(".ds-tis-toast__content"), "adapter do Toast deve chegar ao consumer");
   expect(globalCss.includes(".ds-tis-toast[data-limited]"), "limite visual do Toast deve chegar ao consumer");
+  expect(globalCss.includes('[data-slot="avatar-image"][data-loading]'), "fallback de carregamento do Avatar deve chegar ao consumer");
+  expect(globalCss.includes('[data-slot="avatar-group"]'), "composição de grupo do Avatar deve chegar ao consumer");
 
   const viteExecutable = path.join(
     ROOT,
@@ -316,12 +318,39 @@ try {
   await page.goto(appServing.url, { waitUntil: "networkidle" });
 
   expect(await page.getByRole("heading", { name: "Preferências da conta" }).isVisible(), "app React não renderizou");
+  const breadcrumb = page.getByRole("navigation", { name: "Localização atual" });
+  expect(await breadcrumb.count() === 1, "Breadcrumb instalado não renderizou o landmark nomeado");
+  expect(await breadcrumb.locator("ol").count() === 1, "Breadcrumb deve preservar a lista ordenada");
+  expect(await breadcrumb.getByRole("link").count() === 2, "Breadcrumb deve preservar os links ancestrais");
+  expect(await breadcrumb.locator('[aria-current="page"]').textContent() === "Preferências", "Breadcrumb deve identificar a página atual");
+  expect(await breadcrumb.locator('[data-slot="breadcrumb-separator"][aria-hidden="true"]').count() === 2, "Breadcrumb deve ocultar separadores decorativos");
   expect(await page.locator('[data-slot="alert"]').count() === 1, "Alert instalado não renderizou");
+  expect(await page.locator('[data-slot="avatar"]').count() === 1, "Avatar instalado não renderizou");
+  expect(await page.locator('[data-slot="avatar-image"][alt="Marcell da Silva"]').count() === 1, "AvatarImage perdeu o texto alternativo");
+  expect(await page.getByRole("img", { name: "Perfil ativo" }).count() === 1, "AvatarBadge perdeu o nome acessível");
   expect(await page.locator('[data-slot="badge"]').count() === 2, "Badge instalado não renderizou os estados");
   expect(await page.locator('[data-slot="card"]').count() === 4, "Card instalado não preservou a composição da tela");
   expect(await page.locator('[data-slot="separator"]').count() === 1, "Separator instalado não renderizou");
   expect(await page.locator('[data-slot="skeleton"][aria-hidden="true"]').count() === 3, "Skeleton instalado deve permanecer silencioso");
   expect(await page.locator('[data-slot="spinner"][role="status"]').count() === 1, "Spinner instalado deve anunciar status");
+  expect(await page.locator('[data-slot="table"]').count() === 1, "Table instalada não renderizou");
+  expect(await page.locator("caption", { hasText: "Contas recentes" }).isVisible(), "Table instalada perdeu o caption");
+  const tableRegion = page.getByRole("region", { name: "Contas recentes" });
+  expect(await tableRegion.getAttribute("tabindex") === "0", "Região com overflow da Table deve ser alcançável pelo teclado");
+  const sortHeader = page.locator('[data-slot="table-head"]').first();
+  expect(await sortHeader.getAttribute("aria-sort") === "ascending", "Table deve expor o estado inicial de ordenação");
+  await page.getByRole("button", { name: "Ordenar clientes" }).click();
+  expect(await sortHeader.getAttribute("aria-sort") === "descending", "Table não atualizou aria-sort após ordenar");
+  expect(await page.locator('[data-slot="table-row"][data-selected="true"]').count() === 1, "Table perdeu o estado selected");
+  const pagination = page.getByRole("navigation", { name: "Páginas de contas" });
+  expect(await pagination.count() === 1, "Pagination instalada não renderizou o landmark nomeado");
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "1", "Pagination deve iniciar na primeira página");
+  expect(await pagination.getByRole("link", { name: "Página anterior" }).getAttribute("aria-disabled") === "true", "PaginationPrevious deve iniciar indisponível");
+  await pagination.getByRole("link", { name: "Página 2" }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "2", "Pagination não atualizou a página atual");
+  await pagination.getByRole("link", { name: "Próxima página" }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "3", "PaginationNext não avançou para a próxima página");
+  expect(await pagination.getByRole("link", { name: "Próxima página" }).getAttribute("aria-disabled") === "true", "PaginationNext deve ficar indisponível no limite");
   expect(await page.locator('[data-slot="input"]').inputValue() === "Marcell", "Input instalado perdeu o valor inicial");
   expect(await page.locator('[data-slot="textarea"]').inputValue() === "Experience Engineering", "Textarea instalado perdeu o valor inicial");
 
@@ -547,6 +576,8 @@ try {
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const narrowOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(narrowOverflow <= 1, `consumer criou overflow horizontal em 320px (${narrowOverflow}px)`);
+  const tableOverflow = await tableRegion.evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(tableOverflow > 0, "Table nowrap deve manter overflow dentro da região em 320px");
 
   const axeDark = await new AxeBuilder({ page }).analyze();
   expect(
