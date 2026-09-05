@@ -316,6 +316,7 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Card interativo: foco de teclado visível** — o recorte da superfície não oculta mais o focus ring externo, cujo afastamento considera a espessura da borda normal ou selecionada. A mídia mantém recorte próprio e cantos arredondados; tokens, anatomia e estados públicos permanecem iguais. Regressão visual verifica os quatro lados em light/dark, mobile/desktop e seleção.
 - **Catálogo explicita as quatro implementações de cada componente.** Os 26 cards
   deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
   todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,

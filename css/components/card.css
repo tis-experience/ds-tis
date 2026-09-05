@@ -113,6 +113,8 @@
 /* Interactive Card — mirrors the Figma Card Interactive set. */
 .ds-card--interactive {
   position: relative;
+  /* O focus ring é externo ao Card, como no variant Focus do Figma. */
+  overflow: visible;
   border: var(--ds-card-interactive-border-width-default) solid var(--ds-card-interactive-border-color-default);
   cursor: pointer;
   transition:
@@ -120,14 +122,30 @@
     box-shadow var(--ds-motion-duration-fast) var(--ds-motion-ease-default);
 }
 
+.ds-card--interactive > .ds-card__media {
+  border-start-start-radius: calc(var(--ds-card-radius-default) - var(--ds-card-interactive-border-width-default));
+  border-start-end-radius: calc(var(--ds-card-radius-default) - var(--ds-card-interactive-border-width-default));
+}
+
+.ds-card--interactive.ds-card--selected > .ds-card__media,
+.ds-card--interactive[aria-selected="true"] > .ds-card__media {
+  border-start-start-radius: calc(var(--ds-card-radius-default) - var(--ds-card-interactive-border-width-selected));
+  border-start-end-radius: calc(var(--ds-card-radius-default) - var(--ds-card-interactive-border-width-selected));
+}
+
 .ds-card--interactive::after {
   content: "";
   position: absolute;
-  inset: calc(var(--ds-focus-ring-width) * -2);
+  inset: calc(var(--ds-focus-ring-width) * -2 - var(--ds-card-interactive-border-width-default));
   border: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color-default);
   border-radius: var(--ds-card-interactive-focus-ring-radius-default);
   pointer-events: none;
   opacity: 0;
+}
+
+.ds-card--interactive.ds-card--selected::after,
+.ds-card--interactive[aria-selected="true"]::after {
+  inset: calc(var(--ds-focus-ring-width) * -2 - var(--ds-card-interactive-border-width-selected));
 }
 
 .ds-card--interactive:hover,
