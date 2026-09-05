@@ -94,6 +94,11 @@ testes de formulário e rota PT-BR/EN no catálogo.</li>
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Relatório de tokens explicita verificações Figma incompletas.</strong> Snapshot
+ausente ou inválido aparece como <code>SKIP</code>, com motivo e contagens limitadas às
+checagens executadas; snapshot desatualizado mantém aviso explícito. O HTML
+só informa &quot;Em dia&quot; com comparação completa e snapshot recente, sem alterar
+regras de drift, severidades ou códigos de saída do verificador.</li>
 <li><strong>Exemplos adicionais do portal sem lista fixa de componentes:</strong> Textarea
 Ark/Angular, Alert Ark e Menu Angular exibem todos os exemplos configurados,
 com a implementação identificada uma única vez no título. Matrizes de Textarea

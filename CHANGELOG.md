@@ -34,6 +34,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   testes de formulário e rota PT-BR/EN no catálogo.
 
 ### Corrigido
+- **Relatório de tokens explicita verificações Figma incompletas.** Snapshot
+  ausente ou inválido aparece como `SKIP`, com motivo e contagens limitadas às
+  checagens executadas; snapshot desatualizado mantém aviso explícito. O HTML
+  só informa "Em dia" com comparação completa e snapshot recente, sem alterar
+  regras de drift, severidades ou códigos de saída do verificador.
 - **Exemplos adicionais do portal sem lista fixa de componentes:** Textarea
   Ark/Angular, Alert Ark e Menu Angular exibem todos os exemplos configurados,
   com a implementação identificada uma única vez no título. Matrizes de Textarea
