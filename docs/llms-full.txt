@@ -316,6 +316,11 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 ## [Não publicado]
 
 ### Corrigido
+- **Relatório de tokens explicita verificações Figma incompletas.** Snapshot
+  ausente ou inválido aparece como `SKIP`, com motivo e contagens limitadas às
+  checagens executadas; snapshot desatualizado mantém aviso explícito. O HTML
+  só informa "Em dia" com comparação completa e snapshot recente, sem alterar
+  regras de drift, severidades ou códigos de saída do verificador.
 - **Catálogo explicita as quatro implementações de cada componente.** Os 26 cards
   deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
   todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,
