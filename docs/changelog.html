@@ -68,6 +68,11 @@
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Relatório de tokens explicita verificações Figma incompletas.</strong> Snapshot
+ausente ou inválido aparece como <code>SKIP</code>, com motivo e contagens limitadas às
+checagens executadas; snapshot desatualizado mantém aviso explícito. O HTML
+só informa &quot;Em dia&quot; com comparação completa e snapshot recente, sem alterar
+regras de drift, severidades ou códigos de saída do verificador.</li>
 <li><strong>Catálogo explicita as quatro implementações de cada componente.</strong> Os 26 cards
 deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
 todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,
