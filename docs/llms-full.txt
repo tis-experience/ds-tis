@@ -368,6 +368,12 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Pagination passa a integrar a saída React distribuída por shadcn.** O
+  source oferece landmark nomeado, lista, links de página, item atual,
+  reticências e controles anterior/próxima nos tamanhos `sm`/`md`/`lg`, sem
+  assumir URL, carregamento ou dados da aplicação. Storybook, catálogo
+  bilíngue e consumer independente validam limites, navegação, dark mode e Axe
+  sem alterar Figma, tokens ou as saídas Web, Ark/Zag e Angular.
 - **Avatar passa a integrar a saída React distribuída por shadcn.** O source
   usa Base UI para coordenar imagem, carregamento e fallback, preserva os
   tamanhos `sm`/`md`/`lg` e acrescenta as composições AvatarBadge, AvatarGroup
@@ -2520,7 +2526,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 |-------|--------|-------------|
 | HTML/CSS/JS | Estável | 26 |
 | Ark/Zag | Beta | 14 |
-| React · shadcn/Base UI | Beta | 25 |
+| React · shadcn/Base UI | Beta | 26 |
 | Angular nativo | Beta local | 19 |
 | Storybook Web | Completo | 26/26 |
 

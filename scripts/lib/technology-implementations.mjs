@@ -97,6 +97,7 @@ export const REACT_REGISTRY_BY_SLUG = {
   "form-field": { item: "field", provider: "React composition" },
   input: { item: "input", provider: "Base UI" },
   menu: { item: "menu", provider: "Base UI" },
+  pagination: { item: "pagination", provider: "Native React" },
   modal: { item: "dialog", provider: "Base UI" },
   popover: { item: "popover", provider: "Base UI" },
   radio: { item: "radio-group", provider: "Base UI" },

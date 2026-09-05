@@ -151,6 +151,11 @@ try {
     locale: 'pt',
     name: 'Avatar',
   });
+  await auditReactComponentPage('/ds-tis/next/pt-br/react/components/pagination/', {
+    item: '@tis/pagination',
+    locale: 'pt',
+    name: 'Pagination',
+  });
   await auditReactComponentPage('/ds-tis/next/pt-br/react/components/toast/', {
     item: '@tis/toast',
     locale: 'pt',
@@ -678,14 +683,14 @@ async function auditReactCatalog(route, locale) {
   const catalog = page.locator('[data-component-catalog]');
   expect(await catalog.count() === 1, `${route}: catálogo semântico ausente`);
   expect(
-    (await catalog.getAttribute('data-component-count')) === '25',
-    `${route}: contagem declarada do catálogo deve ser vinte e cinco`,
+    (await catalog.getAttribute('data-component-count')) === '26',
+    `${route}: contagem declarada do catálogo deve ser vinte e seis`,
   );
   const groups = catalog.locator('[data-component-category]');
   expect(await groups.count() === 6, `${route}: catálogo deve expor seis categorias semânticas`);
 
   const items = catalog.locator('.ds-component-catalog__group li');
-  expect(await items.count() === 25, `${route}: catálogo consolidado deve listar vinte e cinco componentes`);
+  expect(await items.count() === 26, `${route}: catálogo consolidado deve listar vinte e seis componentes`);
   for (const group of await groups.all()) {
     const names = await group.locator('.ds-component-catalog__name').allTextContents();
     const expectedNames = [...names].sort(
@@ -701,7 +706,7 @@ async function auditReactCatalog(route, locale) {
   const hrefs = await catalog.locator('.ds-component-catalog__group a').evaluateAll((links) =>
     links.map((link) => link.href),
   );
-  expect(new Set(hrefs).size === 25, `${route}: cada componente deve ter uma página única`);
+  expect(new Set(hrefs).size === 26, `${route}: cada componente deve ter uma página única`);
   for (const href of hrefs) {
     const response = await context.request.get(href);
     expect(response.ok(), `${route}: página de componente respondeu ${response.status()} em ${href}`);
@@ -4944,6 +4949,17 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Avatar');
   recordBrowserErrors('Storybook vNext · Avatar');
 
+  await page.goto(`${storyBase}react-pagination--playground`, { waitUntil: 'networkidle' });
+  const pagination = page.getByRole('navigation', { name: 'Paginação de resultados' });
+  await pagination.waitFor();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '5', 'Pagination deve identificar a página inicial');
+  await pagination.getByRole('link', { name: 'Próxima página' }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '6', 'PaginationNext deve avançar a página');
+  await pagination.getByRole('link', { name: 'Página anterior' }).click();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === '5', 'PaginationPrevious deve retornar a página');
+  await auditAxe('Storybook vNext · Pagination');
+  recordBrowserErrors('Storybook vNext · Pagination');
+
   await page.goto(`${storyBase}react-divider--toolbar`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="separator"]').waitFor();
   expect(await page.locator('[data-slot="separator"]').count() === 1, 'Divider deve permanecer isolado no exemplo de toolbar');
@@ -4972,6 +4988,7 @@ async function auditStorybookComponents() {
     'react-form-field--playground',
     'react-input--playground',
     'react-modal--playground',
+    'react-pagination--playground',
     'react-popover--playground',
     'react-radio--playground',
     'react-skeleton--playground',

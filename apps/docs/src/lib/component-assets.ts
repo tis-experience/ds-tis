@@ -12,6 +12,7 @@ import formFieldCssUrl from '../../../../css/components/form-field.css?url';
 import inputCssUrl from '../../../../css/components/input.css?url';
 import menuCssUrl from '../../../../css/components/menu.css?url';
 import modalCssUrl from '../../../../css/components/modal.css?url';
+import paginationCssUrl from '../../../../css/components/pagination.css?url';
 import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
@@ -42,6 +43,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },
+  pagination: { css: [buttonCssUrl, paginationCssUrl] },
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },

@@ -80,6 +80,14 @@ import {
   MenuTriggerIndicator,
 } from "./components/ui/menu"
 import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./components/ui/pagination"
+import {
   Popover,
   PopoverClose,
   PopoverContent,
@@ -161,6 +169,7 @@ const countries = [
 export function App() {
   const [saved, setSaved] = useState(false)
   const [tableDescending, setTableDescending] = useState(false)
+  const [paginationPage, setPaginationPage] = useState(1)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -173,10 +182,10 @@ export function App() {
       <header className="consumer-header">
         <p className="consumer-kicker">Registry shadcn · beta</p>
         <h1>Preferências da conta</h1>
-        <p>Vinte e cinco componentes React instalados como source, com o visual do DS TIS.</p>
+        <p>Vinte e seis componentes React instalados como source, com o visual do DS TIS.</p>
         <div className="consumer-badge-row" aria-label="Estado da implementação">
           <Badge tone="info" variant="subtle">React beta</Badge>
-          <Badge tone="success" variant="subtle">25 componentes validados</Badge>
+          <Badge tone="success" variant="subtle">26 componentes validados</Badge>
         </div>
       </header>
 
@@ -406,6 +415,49 @@ export function App() {
                 ))}
               </TableBody>
             </Table>
+
+            <Pagination aria-label="Páginas de contas">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href={`#page-${Math.max(1, paginationPage - 1)}`}
+                    disabled={paginationPage === 1}
+                    text="Página anterior"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      setPaginationPage((current) => Math.max(1, current - 1))
+                    }}
+                  />
+                </PaginationItem>
+                {[1, 2, 3].map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      as={page === paginationPage ? "span" : "a"}
+                      href={page === paginationPage ? undefined : `#page-${page}`}
+                      isActive={page === paginationPage}
+                      aria-label={`Página ${page}`}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        setPaginationPage(page)
+                      }}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    href={`#page-${Math.min(3, paginationPage + 1)}`}
+                    disabled={paginationPage === 3}
+                    text="Próxima página"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      setPaginationPage((current) => Math.min(3, current + 1))
+                    }}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
 
             <Menu>
               <MenuTrigger type="button">
