@@ -20,7 +20,7 @@ No pacote instalado: `ds-tis/metadata`, `ds-tis/metadata/components`, `ds-tis/me
 ## Implementações por tecnologia
 
 - HTML/CSS/JS: 26 componentes estáveis pelo pacote `ds-tis`.
-- Ark/Zag: 15 componentes beta em adapters com status e releases próprios.
+- Ark/Zag: 16 componentes beta em adapters com status e releases próprios.
 - React · shadcn/Base UI: 26 componentes beta estruturados e distribuídos como source pelo registry `v1`; `@tis/react` não é um pacote público.
 - Angular: 19 componentes beta na biblioteca nativa validada por tarball local.
 - As quatro saídas coexistem conforme ADR-022/023; a documentação oferece escolha e a matriz mede paridade sem eleger vencedor.

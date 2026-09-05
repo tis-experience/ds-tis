@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.js",
     "./ark/accordion": "./src/ark/accordion.jsx",
+    "./ark/alert": "./src/ark/alert.jsx",
     "./ark/button": "./src/ark/button.jsx",
     "./ark/checkbox": "./src/ark/checkbox.jsx",
     "./ark/combobox": "./src/ark/combobox.jsx",

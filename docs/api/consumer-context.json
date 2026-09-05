@@ -103,7 +103,7 @@
       "behaviorArchitecture": "ark-zag",
       "package": null,
       "note": "Saída independente por tecnologia; o primeiro adapter validado é React e não é distribuído pelo registry shadcn.",
-      "componentCount": 15,
+      "componentCount": 16,
       "components": [
         {
           "slug": "accordion",
@@ -111,6 +111,13 @@
           "framework": "React",
           "provider": "Ark UI + Zag",
           "storyId": "ark-accordion--playground"
+        },
+        {
+          "slug": "alert",
+          "adapter": "packages/react/src/ark/alert.jsx",
+          "framework": "React",
+          "provider": "Ark UI Factory + native live region",
+          "storyId": "ark-alert--playground"
         },
         {
           "slug": "button",

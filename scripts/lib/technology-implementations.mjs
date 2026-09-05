@@ -113,6 +113,12 @@ export const REACT_REGISTRY_BY_SLUG = {
 };
 
 export const ARK_ADAPTERS_BY_SLUG = {
+  alert: {
+    adapter: "packages/react/src/ark/alert.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native live region",
+    storyId: "ark-alert--playground",
+  },
   accordion: {
     adapter: "packages/react/src/ark/accordion.jsx",
     framework: "React",

@@ -121,6 +121,10 @@ initAccordions()`,
     },
     previewSize: 'medium',
     descriptions: {
+      ark: {
+        pt: 'Adapter Ark Factory com partes TIS, live region contextual e fechamento controlado pela aplicação.',
+        en: 'An Ark Factory adapter with TIS parts, contextual live-region semantics, and application-controlled dismissal.',
+      },
       angular: {
         pt: 'Componente standalone por composição, com live region contextual, partes públicas e fechamento controlado pela aplicação.',
         en: 'A standalone composition component with contextual live-region semantics, public parts, and application-controlled dismissal.',
@@ -138,6 +142,13 @@ initAccordions()`,
       avoidWhen: [
         { pt: 'O feedback é breve e não precisa permanecer no fluxo; use Toast.', en: 'Feedback is brief and does not need to remain in the flow; use Toast.' },
         { pt: 'A pessoa precisa interromper a tarefa para decidir; use Modal.', en: 'The person must interrupt the task to decide; use Modal.' },
+      ],
+    },
+    ark: { adapterImport: `import { Alert, AlertContent, AlertTitle, AlertDescription, AlertIcon, AlertActions, AlertClose } from '@tis/react/ark/alert'` },
+    examples: {
+      ark: [
+        { storyId: 'ark-alert--subtle', size: 'large', title: { pt: 'Subtle', en: 'Subtle' }, description: { pt: 'Quatro tons com fundo suave e borda TIS.', en: 'Four tones with TIS subtle backgrounds and borders.' } },
+        { storyId: 'ark-alert--solid', size: 'large', title: { pt: 'Solid', en: 'Solid' }, description: { pt: 'Quatro tons com preenchimento sólido.', en: 'Four tones with solid backgrounds.' } },
       ],
     },
     angular: {
