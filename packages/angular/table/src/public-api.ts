@@ -1,0 +1,15 @@
+export {
+  TisTable,
+  TisTableBody,
+  TisTableCaption,
+  TisTableCell,
+  TisTableHeader,
+  TisTableHeaderCell,
+  TisTableRegion,
+  TisTableRow,
+  TisTableSort,
+  TisTableSortIcon,
+  type TisTableAlign,
+  type TisTableSize,
+  type TisTableSortDirection,
+} from "./table";

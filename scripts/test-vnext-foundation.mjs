@@ -95,6 +95,20 @@ const required = [
   'packages/angular/accordion/src/accordion.ts',
   'packages/angular/combobox/src/combobox.ts',
   'packages/angular/divider/src/divider.ts',
+  'packages/angular/form-field/src/form-field.ts',
+  'packages/angular/avatar/src/avatar.ts',
+  'packages/angular/stories/avatar.stories.ts',
+  'packages/angular/pagination/src/pagination.ts',
+  'packages/angular/stories/pagination.stories.ts',
+  'packages/angular/skeleton/src/skeleton.ts',
+  'packages/angular/stories/skeleton.stories.ts',
+  'packages/angular/spinner/src/spinner.ts',
+  'packages/angular/stories/spinner.stories.ts',
+  'packages/angular/table/src/table.ts',
+  'packages/angular/stories/table.stories.ts',
+  'packages/angular/breadcrumb/src/breadcrumb.ts',
+  'packages/angular/stories/breadcrumb.stories.ts',
+  'packages/angular/stories/form-field.stories.ts',
   'packages/angular/menu/src/menu.ts',
   'packages/angular/popover/src/popover.ts',
   'packages/angular/select/src/select.ts',
@@ -279,7 +293,7 @@ if (
   TECHNOLOGY_OUTPUTS.length !== 4 ||
   ANGULAR_LIBRARY.package !== '@tis/angular' ||
   ANGULAR_LIBRARY.publicRegistry !== false ||
-  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,alert,badge,button,card,checkbox,combobox,divider,input,menu,modal,popover,radio,select,tabs,textarea,toast,toggle,tooltip'
+  Object.keys(ANGULAR_COMPONENTS_BY_SLUG).sort().join(',') !== 'accordion,alert,avatar,badge,breadcrumb,button,card,checkbox,combobox,divider,form-field,input,menu,modal,pagination,popover,radio,select,skeleton,spinner,table,tabs,textarea,toast,toggle,tooltip'
 ) {
   errors.push('contrato machine-readable deve declarar Angular nativo como quarta saída beta de workspace');
 }
@@ -363,7 +377,10 @@ for (const contract of ['role="tabpanel"', 'aria-labelledby', 'data-component-pa
 }
 
 const componentAssets = read('apps/docs/src/lib/component-assets.ts');
-for (const component of ['accordion', 'button']) {
+if (!componentAssets.includes("'form-field': { css: [formFieldCssUrl, inputCssUrl, textareaCssUrl, selectCssUrl, checkboxCssUrl, radioCssUrl] }") || componentAssets.includes('?? { css: [] }')) {
+  errors.push('Form Field deve carregar todos os controles compostos; CSS documental ausente deve bloquear o build');
+}
+for (const component of ['accordion', 'avatar', 'breadcrumb', 'button', 'pagination', 'skeleton', 'spinner', 'table']) {
   if (!componentAssets.includes(`${component}CssUrl`)) {
     errors.push(`component-assets deve declarar explicitamente o CSS de ${component}`);
   }
@@ -657,6 +674,9 @@ if (!technologyImplementations.includes('tooltip: { entrypoint: "tooltip", primi
 }
 
 const componentDocumentationPage = read('apps/docs/src/components/ComponentDocumentationPage.astro');
+if ((componentDocumentationPage.match(/\{documentation\.examples\.map\(/g) || []).length !== 2) {
+  errors.push('exemplos configurados devem ser renderizados sem whitelist de componentes, tanto em overlays quanto no preview genérico');
+}
 if (
   !componentDocumentationPage.includes('includeOrders={[10]}') ||
   !componentDocumentationPage.includes('data-output-example="playground"') ||
@@ -1487,6 +1507,29 @@ if (fs.existsSync(staticPortal)) {
       );
       if (!fs.existsSync(componentPage)) {
         errors.push(`portal vNext não publicou ${locale}/react/components/${component.slug}`);
+      }
+    }
+    for (const [technology, slug, exampleIds] of [
+      ['ark', 'input', ['ark-input--sizes', 'ark-input--states', 'ark-input--form-submission']],
+      ['angular', 'input', ['angular-input--tamanhos', 'angular-input--estados']],
+      ['ark', 'textarea', ['ark-textarea--sizes', 'ark-textarea--states', 'ark-textarea--uncontrolled']],
+      ['angular', 'textarea', ['angular-textarea--tamanhos', 'angular-textarea--com-contador']],
+      ['ark', 'alert', ['ark-alert--subtle', 'ark-alert--solid']],
+      ['angular', 'menu', ['angular-menu--escolhas', 'angular-menu--tamanhos']],
+    ]) {
+      const componentPage = path.join(staticPortal, locale, technology, 'components', slug, 'index.html');
+      if (!fs.existsSync(componentPage)) {
+        errors.push(`portal vNext não publicou ${locale}/${technology}/components/${slug}`);
+        continue;
+      }
+      const html = fs.readFileSync(componentPage, 'utf8');
+      for (const storyId of exampleIds) {
+        if (!html.includes(`data-output-story-id="${storyId}"`) || !html.includes(`id=${storyId}`)) {
+          errors.push(`${locale}/${technology}/${slug}: exemplo executável ${storyId} ausente no HTML publicado`);
+        }
+      }
+      if (html.includes('· Angular · Angular')) {
+        errors.push(`${locale}/${technology}/${slug}: nome da tecnologia duplicado no título do exemplo`);
       }
     }
   }
