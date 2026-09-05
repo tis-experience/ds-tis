@@ -35,6 +35,14 @@
   ordenação/seleção corretas, quatro exemplos sem corte e oito auditorias Axe zero.
 - Input foi validado em 16 combinações com 56 iframes sem corte, edição/submit
   funcionais e títulos sem duplicação. Segurança dos artefatos e diff passaram.
+- PR: https://github.com/tis-experience/ds-tis/pull/75, integração `060c913`.
+  O CI identificou oito referências visuais anteriores às novas anatomias de
+  Avatar/Skeleton/Spinner/Table. Revisor independente comparou integralmente
+  as capturas Linux do run `33981229235` com as baselines: as diferenças de
+  altura são as inserções intencionais (+210/+154/+152/+463 px); restante
+  preservado após compensar o deslocamento, sem novos cortes/sobreposições.
+  Somente essas oito referências Linux e suas equivalentes macOS são atualizadas;
+  os limites do teste e as demais referências permanecem inalterados.
 - Estado: candidata a integração por PR; CI e revisão do PR são os gates para
   merge. Esta etapa não publica versão npm nem modifica Figma. A comparação de tokens usa o snapshot
   existente de 201h e não representa uma nova validação do Figma vivo.
