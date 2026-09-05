@@ -539,13 +539,38 @@ function writeJsonReport(report) {
   fs.writeFileSync(OUT_JSON, JSON.stringify(report, null, 2) + "\n");
 }
 
-function writeHtmlReport(report) {
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[character]);
+}
+
+function localized(pt, en) {
+  return `<span data-lang="pt">${escapeHtml(pt)}</span><span data-lang="en">${escapeHtml(en)}</span>`;
+}
+
+export function renderHtmlReport(report) {
+  const figma = report.checks.jsonVsFigma;
+  const figmaStatus = figma.skipped ? "skipped" : figma.snapshotFreshness || "unknown";
   const status =
     report.totals.errors > 0
-      ? { label: `${report.totals.errors} divergência(s)`, klass: "error" }
+      ? { label: localized(`${report.totals.errors} divergência(s)`, `${report.totals.errors} discrepancy(s)`), klass: "error" }
+      : figma.skipped
+      ? { label: localized("Verificação parcial — Figma: SKIP", "Partial verification — Figma: SKIP"), klass: "warning" }
+      : figmaStatus === "stale"
+      ? { label: localized("Snapshot Figma desatualizado", "Stale Figma snapshot"), klass: "warning" }
+      : figmaStatus !== "fresh"
+      ? { label: localized("Validade do snapshot não confirmada", "Snapshot freshness unconfirmed"), klass: "warning" }
       : report.totals.warnings > 0
-      ? { label: `${report.totals.warnings} aviso(s)`, klass: "warning" }
-      : { label: "Em dia", klass: "ok" };
+      ? { label: localized(`${report.totals.warnings} aviso(s)`, `${report.totals.warnings} warning(s)`), klass: "warning" }
+      : { label: localized("Em dia", "Up to date"), klass: "ok" };
+  const figmaNotice = figma.skipped
+    ? `${localized("SKIP — comparação não executada.", "SKIP — comparison not run.")} ${escapeHtml(figma.reason || "")} ${localized("As contagens abaixo consideram apenas as checagens executadas; a sincronização com o Figma não foi confirmada.", "The counts below cover only completed checks; Figma synchronization has not been confirmed.")}`
+    : figmaStatus === "stale"
+    ? localized(`STALE — snapshot com ${figma.snapshotAge}, acima do limite de ${figma.snapshotMaxAgeHours}h. A comparação foi executada sobre dados antigos; atualize o snapshot antes de concluir sincronização ou release.`, `STALE — snapshot age ${figma.snapshotAge}, beyond the ${figma.snapshotMaxAgeHours}h limit. The comparison used old data; refresh the snapshot before concluding synchronization or release.`)
+    : figmaStatus === "fresh"
+    ? localized(`Comparação executada — snapshot recente (${figma.snapshotAge}; limite: ${figma.snapshotMaxAgeHours}h).`, `Comparison completed — fresh snapshot (${figma.snapshotAge}; limit: ${figma.snapshotMaxAgeHours}h).`)
+    : localized("A validade do snapshot não foi informada; a sincronização atual com o Figma não pode ser confirmada.", "Snapshot freshness was not reported; current Figma synchronization cannot be confirmed.");
   const rows = [
     ...report.checks.jsonIntegrity.map((d) => ({ check: "JSON integrity", ...d })),
     ...report.checks.jsonVsCss.filter((d) => d.level === "error").map((d) => ({ check: "JSON ↔ CSS", ...d })),
@@ -564,7 +589,7 @@ function writeHtmlReport(report) {
     </tr>`
         )
         .join("")
-    : `<tr><td colspan="5" style="text-align:center;color:var(--ds-content-default)">Nenhuma divergência registrada.</td></tr>`;
+    : `<tr><td colspan="5" style="text-align:center;color:var(--ds-content-default)">${localized("Nenhuma divergência registrada nas checagens executadas.", "No discrepancies recorded in completed checks.")}</td></tr>`;
 
   const html = `<!DOCTYPE html>
 <html lang="pt">
@@ -629,10 +654,11 @@ function writeHtmlReport(report) {
 
   <div class="ds-section">
     <span class="ds-sync-status ${status.klass}">${status.label}</span>
+    <p data-figma-status="${escapeHtml(figmaStatus)}"><strong>JSON ↔ Figma:</strong> ${figmaNotice}</p>
     <div class="ds-sync-meta">
-      <div><strong>Versão:</strong> ${report.version || ""}</div>
-      <div><strong>Divergências:</strong> ${report.totals.errors}</div>
-      <div><strong>Avisos:</strong> ${report.totals.warnings}</div>
+      <div><strong>${localized("Versão:", "Version:")}</strong> ${report.version || ""}</div>
+      <div><strong>${localized("Erros detectados:", "Detected errors:")}</strong> ${report.totals.errors}</div>
+      <div><strong>${localized("Avisos:", "Warnings:")}</strong> ${report.totals.warnings}</div>
     </div>
   </div>
 
@@ -651,8 +677,12 @@ function writeHtmlReport(report) {
 </body>
 </html>
 `;
+  return html;
+}
+
+function writeHtmlReport(report) {
   fs.mkdirSync(path.dirname(OUT_HTML), { recursive: true });
-  fs.writeFileSync(OUT_HTML, html);
+  fs.writeFileSync(OUT_HTML, renderHtmlReport(report));
 }
 
 // -----------------------------------------------------------------------------
@@ -776,7 +806,10 @@ async function main() {
   process.exit(errors > 0 ? 1 : 0);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+if (process.argv[1] && fs.existsSync(process.argv[1]) &&
+    fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url))) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}

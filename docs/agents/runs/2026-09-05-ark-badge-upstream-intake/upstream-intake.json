@@ -1,0 +1,268 @@
+{
+  "$schema": "../../templates/upstream-intake.schema.json",
+  "schema": "ds-tis/upstream-intake",
+  "schemaVersion": 3,
+  "id": "2026-09-05-ark-badge-upstream-intake",
+  "component": {
+    "name": "Badge",
+    "slug": "badge",
+    "classification": "informational-label"
+  },
+  "authorization": {
+    "approvedScope": [
+      "complete-ark-badge",
+      "preserve-existing-thirteen-dirty-files",
+      "four-output-documentation",
+      "functional-accessibility-visual-performance-validation",
+      "independent-review-handoff",
+      "local-commit-after-independent-review"
+    ],
+    "blockedActions": [
+      "figma-write",
+      "web-core-write",
+      "adapter-write",
+      "commit-push-release"
+    ],
+    "ownerDecision": "Implementação Badge autorizada conforme plano e handoff do Orchestrator. adapter-write permanece bloqueado para outras saídas ou alterações fora do Badge; nenhuma publicação autorizada nesta rodada. Após revisão independente, Orchestrator autorizou somente commit local em 2026-09-05; bloqueio commit-push-release mantém push/PR/publicação fora desta rodada."
+  },
+  "baseline": {
+    "figma": {
+      "fileKey": "IE68amP9Hya5ieFw1rX8S8",
+      "page": "Badge",
+      "providerAgnostic": true,
+      "evidenceStatus": "repository-baseline; local snapshot absent",
+      "writeStatus": "approved-unchanged",
+      "ownerNote": "Figma fora do escopo; sem leitura viva nem evidência fresca."
+    },
+    "sharedContract": {
+      "providerAgnostic": true,
+      "sharedByAllOutputs": true,
+      "tokens": "tokens/component/badge.json",
+      "design": "docs/badge.html",
+      "accessibility": "evidence/current-contract.md"
+    }
+  },
+  "outputs": [
+    {
+      "id": "web-html-css-js",
+      "label": "HTML/CSS/JS",
+      "technologyFamily": "native-web",
+      "distribution": {
+        "channel": "npm",
+        "package": "ds-tis"
+      },
+      "resolutionContext": {
+        "css": "css/components/badge.css",
+        "api": "docs/api/components.json#badge"
+      },
+      "status": "stable",
+      "sourceModules": [
+        "css/components/badge.css"
+      ],
+      "writeStatus": "approved-unchanged"
+    },
+    {
+      "id": "ark-zag",
+      "label": "Ark/Zag",
+      "technologyFamily": "ark-zag",
+      "distribution": {
+        "channel": "technology-adapters",
+        "package": "@tis/react/ark/badge",
+        "availability": "private-workspace-beta"
+      },
+      "resolutionContext": {
+        "package": "@ark-ui/react/factory",
+        "arkVersion": "5.37.2",
+        "zagVersion": "1.41.2",
+        "zagUsage": "transitive @zag-js/core via Factory; no state machine or direct Zag import"
+      },
+      "status": "beta",
+      "sourceModules": [
+        "packages/react/src/ark/badge.jsx",
+        "@ark-ui/react/factory"
+      ],
+      "writeStatus": "authorized-badge-only"
+    },
+    {
+      "id": "react-shadcn-base-ui",
+      "label": "React · shadcn/Base UI",
+      "technologyFamily": "base-ui",
+      "distribution": {
+        "channel": "shadcn-registry",
+        "namespace": "@tis"
+      },
+      "resolutionContext": {
+        "base": "base",
+        "package": "native span",
+        "baseUiVersion": "1.6.0"
+      },
+      "status": "beta",
+      "sourceModules": [
+        "registry/tis/badge.tsx",
+        "react"
+      ],
+      "writeStatus": "approved-unchanged"
+    },
+    {
+      "id": "angular-native",
+      "label": "Angular",
+      "technologyFamily": "angular",
+      "distribution": {
+        "channel": "angular-package",
+        "package": "@tis/angular"
+      },
+      "resolutionContext": {
+        "package": "@tis/angular",
+        "entrypoint": "badge",
+        "angularVersion": "21.2.22"
+      },
+      "status": "beta",
+      "sourceModules": [
+        "packages/angular/badge/src/badge.ts",
+        "@angular/core"
+      ],
+      "writeStatus": "approved-unchanged"
+    }
+  ],
+  "separation": {
+    "dependencyDirection": "figma-and-tokens -> four-independent-outputs -> documentation-choice",
+    "outputsCoexist": true,
+    "outputSourcesMustRemainSeparate": true,
+    "oneOutputCannotReplaceAnother": true,
+    "sharedContractDoesNotMeanSharedImplementation": true
+  },
+  "parity": {
+    "requiredDimensions": [
+      "tis-contract-parity",
+      "native-noninteractive-semantics",
+      "children-props-refs-and-lifecycle",
+      "six-tones-solid-subtle",
+      "responsive-light-dark-axe",
+      "bundle-and-dependencies"
+    ],
+    "status": "approved",
+    "selectsWinner": false,
+    "allowsDocumentedDifferences": true,
+    "independentReview": {
+      "at": "2026-09-05",
+      "reviewer": "/root/ark_pending_review",
+      "status": "passed",
+      "evidence": "evidence/independent-review.md"
+    },
+    "ownerApproval": {
+      "at": "2026-09-05",
+      "note": "Orchestrator recebeu revisão independente sem bloqueadores e autorizou commit local Badge."
+    }
+  },
+  "documentation": {
+    "selectionMode": "user-choice",
+    "trackIds": [
+      "web-html-css-js",
+      "ark-zag",
+      "react-shadcn-base-ui",
+      "angular-native"
+    ],
+    "defaultTrack": "web-html-css-js",
+    "showsUnavailableState": true,
+    "status": "implemented"
+  },
+  "figmaOutcome": {
+    "status": "approved-unchanged",
+    "allowedOutcomes": [
+      "unchanged-with-evidence",
+      "improvement-proposal"
+    ],
+    "requiresOwnerApproval": true
+  },
+  "gates": [
+    {
+      "id": "current-state",
+      "status": "done",
+      "evidence": "evidence/current-contract.md"
+    },
+    {
+      "id": "upstream-benchmark",
+      "status": "done",
+      "evidence": "evidence/upstream-benchmark.md"
+    },
+    {
+      "id": "current-contract",
+      "status": "done",
+      "evidence": "evidence/current-contract.md"
+    },
+    {
+      "id": "improvement-classification",
+      "status": "done",
+      "evidence": "evidence/provider-comparison.md"
+    },
+    {
+      "id": "brief-owner-approval",
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Owner autorizou seguir o plano de fechamento do Badge Ark sem alterar Figma/tokens/saídas existentes; Orchestrator limita esta rodada à implementação e revisão independente."
+      }
+    },
+    {
+      "id": "figma-outcome",
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Owner autorizou seguir o plano de fechamento do Badge Ark sem alterar Figma/tokens/saídas existentes; Orchestrator limita esta rodada à implementação e revisão independente."
+      }
+    },
+    {
+      "id": "output-implementation",
+      "status": "done"
+    },
+    {
+      "id": "parity-validation",
+      "status": "done"
+    },
+    {
+      "id": "documentation-selector",
+      "status": "done"
+    },
+    {
+      "id": "release",
+      "status": "blocked"
+    }
+  ],
+  "evidence": [
+    {
+      "type": "current-contract",
+      "path": "evidence/current-contract.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "upstream-benchmark",
+      "path": "evidence/upstream-benchmark.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "provider-comparison",
+      "path": "evidence/provider-comparison.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "repo-validation",
+      "path": "06-repo-implementation-report.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    },
+    {
+      "type": "independent-review",
+      "path": "evidence/independent-review.md",
+      "scope": "run",
+      "status": "current",
+      "freshness": "fresh"
+    }
+  ]
+}

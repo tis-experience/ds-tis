@@ -1,0 +1,188 @@
+{
+  "schema": "ds-core/agent-run-state",
+  "version": 1,
+  "runId": "2026-09-05-ark-badge-upstream-intake",
+  "title": "Badge · Ark/Zag",
+  "createdAt": "2026-09-05",
+  "updatedAt": "2026-09-05",
+  "figmaSnapshot": {
+    "id": null,
+    "generatedAt": null,
+    "path": ".figma-snapshot.json"
+  },
+  "currentGate": "release",
+  "gates": [
+    {
+      "id": "brief",
+      "role": "DS Architect",
+      "artifacts": [
+        "01-brief.md",
+        "02-figma-spec.md"
+      ],
+      "requires": [],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Plano Badge autorizado pelo owner conforme handoff do Orchestrator."
+      },
+      "updatedAt": "2026-09-05"
+    },
+    {
+      "id": "figma-build",
+      "role": "Figma Builder",
+      "artifacts": [
+        "03-figma-build-report.md"
+      ],
+      "requires": [
+        "brief"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-09-05"
+    },
+    {
+      "id": "figma-audit",
+      "role": "Figma Auditor",
+      "artifacts": [
+        "04-figma-audit-report.md"
+      ],
+      "requires": [
+        "figma-build"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Figma sem alteração por escopo autorizado; etapa não aplicável, sem auditoria viva ou snapshot fresco."
+      },
+      "updatedAt": "2026-09-05"
+    },
+    {
+      "id": "token-sync",
+      "role": "Token Sync Agent",
+      "artifacts": [
+        "05-repo-sync-plan.md"
+      ],
+      "requires": [
+        "figma-audit"
+      ],
+      "needsOwnerApproval": false,
+      "status": "approved",
+      "ownerApproval": null,
+      "updatedAt": "2026-09-05"
+    },
+    {
+      "id": "repo",
+      "role": "Repo Component Agent",
+      "artifacts": [
+        "06-repo-implementation-report.md"
+      ],
+      "requires": [
+        "token-sync"
+      ],
+      "needsOwnerApproval": true,
+      "status": "approved",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Revisão independente aprovada; Orchestrator autorizou commit local Badge."
+      },
+      "updatedAt": "2026-09-05"
+    },
+    {
+      "id": "release",
+      "role": "Release Agent",
+      "artifacts": [
+        "07-release-report.md"
+      ],
+      "requires": [
+        "repo"
+      ],
+      "needsOwnerApproval": true,
+      "status": "in_progress",
+      "ownerApproval": {
+        "at": "2026-09-05",
+        "note": "Owner autorizou explicitamente commit, push, PR, merge e documentação após testes em 2026-09-05. Sem Figma, bump ou npm."
+      },
+      "updatedAt": "2026-09-05"
+    }
+  ],
+  "checks": {
+    "agent:preflight": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "build:api": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "build:docs:vnext:pages": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "build:storybook:vnext:pages": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "test:vnext": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "test:vnext:browser": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "verify:tokens": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "1595 tokens, zero erros/avisos; Figma SKIP porque snapshot ausente."
+    },
+    "badge:targeted-qa": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "6 cenários, 5 screenshots, 0 console errors. Evidência /private/tmp/ds-tis-badge-qa/results.json."
+    },
+    "agents:validate-intake": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Saída final do processo confirmada nesta sessão."
+    },
+    "build:tokens": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    },
+    "sync:docs": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    },
+    "build:llms": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    },
+    "git-diff-check": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    },
+    "agents:validate-run": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    },
+    "independent-review": {
+      "exitCode": 0,
+      "at": "2026-09-05",
+      "note": "Concluído nesta sessão; revisão por /root/ark_pending_review quando aplicável."
+    }
+  }
+}

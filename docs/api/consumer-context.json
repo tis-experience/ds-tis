@@ -103,7 +103,7 @@
       "behaviorArchitecture": "ark-zag",
       "package": null,
       "note": "Saída independente por tecnologia; o primeiro adapter validado é React e não é distribuído pelo registry shadcn.",
-      "componentCount": 16,
+      "componentCount": 17,
       "components": [
         {
           "slug": "accordion",
@@ -118,6 +118,13 @@
           "framework": "React",
           "provider": "Ark UI Factory + native live region",
           "storyId": "ark-alert--playground"
+        },
+        {
+          "slug": "badge",
+          "adapter": "packages/react/src/ark/badge.jsx",
+          "framework": "React",
+          "provider": "Ark UI Factory + native span",
+          "storyId": "ark-badge--playground"
         },
         {
           "slug": "button",

@@ -13,8 +13,12 @@
  */
 
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import assert from 'node:assert/strict';
+import { renderHtmlReport } from './tokens-verify.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
@@ -97,6 +101,116 @@ for (const file of [
 }
 
 console.log(`Generators scanned: ${generators.length}\n`);
+
+// Presentation fixtures only: never synthesize a local Figma snapshot or
+// replace a verifier result. The renderer must preserve incomplete evidence.
+const baseReport = {
+  version: 'test',
+  totals: { errors: 0, warnings: 0 },
+  checks: {
+    jsonIntegrity: [],
+    jsonVsCss: [],
+    jsonVsFigma: {
+      skipped: false,
+      snapshotFreshness: 'fresh',
+      snapshotAge: '1h',
+      snapshotMaxAgeHours: 24,
+      divergences: [],
+    },
+  },
+};
+
+function renderStatus(figmaOverrides = {}, totalOverrides = {}) {
+  const report = structuredClone(baseReport);
+  Object.assign(report.checks.jsonVsFigma, figmaOverrides);
+  Object.assign(report.totals, totalOverrides);
+  const original = structuredClone(report);
+  const html = renderHtmlReport(report);
+  assert.deepEqual(report, original, 'HTML presentation must not modify verifier results');
+  return html;
+}
+
+const freshHtml = renderStatus();
+assert.match(freshHtml, /class="ds-sync-status ok"/);
+assert.match(freshHtml, /data-lang="pt">Em dia<\/span>/);
+assert.match(freshHtml, /data-lang="en">Up to date<\/span>/);
+assert.match(freshHtml, /data-figma-status="fresh"/);
+
+for (const reason of [
+  'Snapshot Figma não encontrado (.figma-snapshot.json).',
+  'Snapshot inválido: faltam variables/variableCollections.',
+]) {
+  const skippedHtml = renderStatus({ skipped: true, reason, snapshotFreshness: undefined });
+  assert.match(skippedHtml, /class="ds-sync-status warning"/);
+  assert.match(skippedHtml, /data-figma-status="skipped"/);
+  assert.match(skippedHtml, /Verificação parcial — Figma: SKIP/);
+  assert.match(skippedHtml, /Partial verification — Figma: SKIP/);
+  assert.ok(skippedHtml.includes(reason), 'SKIP must explain why Figma was not checked');
+  assert.match(skippedHtml, /sincronização com o Figma não foi confirmada/);
+  assert.match(skippedHtml, /checagens executadas/);
+  assert.doesNotMatch(skippedHtml, /class="ds-sync-status ok"|>Em dia<|>Up to date</);
+}
+
+const staleHtml = renderStatus({ snapshotFreshness: 'stale', snapshotAge: '49h' }, { warnings: 1 });
+assert.match(staleHtml, /class="ds-sync-status warning"/);
+assert.match(staleHtml, /Snapshot Figma desatualizado/);
+assert.match(staleHtml, /data-figma-status="stale"/);
+assert.match(staleHtml, /STALE — snapshot com 49h, acima do limite de 24h/);
+assert.match(staleHtml, /Stale Figma snapshot/);
+assert.doesNotMatch(staleHtml, /class="ds-sync-status ok"|>Em dia<|>Up to date</);
+
+const unknownHtml = renderStatus({ snapshotFreshness: undefined });
+assert.match(unknownHtml, /Snapshot freshness unconfirmed/);
+assert.doesNotMatch(unknownHtml, /class="ds-sync-status ok"|>Em dia<|>Up to date</);
+const warningHtml = renderStatus({}, { warnings: 1 });
+assert.match(warningHtml, /class="ds-sync-status warning"/);
+assert.match(warningHtml, /1 aviso\(s\)/);
+
+for (const figmaOverrides of [{}, { skipped: true }, { snapshotFreshness: 'stale' }]) {
+  const errorHtml = renderStatus(figmaOverrides, { errors: 2, warnings: 1 });
+  assert.match(errorHtml, /class="ds-sync-status error"/);
+  assert.match(errorHtml, /2 divergência\(s\)/);
+  assert.match(errorHtml, /Detected errors:<\/span><\/strong> 2/);
+  assert.doesNotMatch(errorHtml, /class="ds-sync-status ok"|>Em dia<|>Up to date</);
+}
+
+const escapedReasonHtml = renderStatus({ skipped: true, reason: 'Snapshot inválido: <script>"&\'</script>' });
+assert.match(escapedReasonHtml, /&lt;script&gt;&quot;&amp;&#39;&lt;\/script&gt;/);
+assert.doesNotMatch(escapedReasonHtml, /Snapshot inválido: <script>/);
+
+// Exercise the unchanged CLI error gate in an isolated fixture, including a
+// symlink entrypoint. Never write synthetic evidence to the working checkout.
+const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-tis-token-report-test-'));
+try {
+  fs.mkdirSync(path.join(fixtureRoot, 'scripts', 'lib'), { recursive: true });
+  fs.mkdirSync(path.join(fixtureRoot, 'docs'));
+  for (const file of [
+    'package.json', 'scripts/tokens-verify.mjs',
+    'scripts/lib/figma-dtcg.mjs', 'scripts/lib/doc-token-drift.mjs',
+  ]) fs.copyFileSync(path.join(ROOT, file), path.join(fixtureRoot, file));
+  for (const directory of ['tokens', 'css']) {
+    fs.cpSync(path.join(ROOT, directory), path.join(fixtureRoot, directory), { recursive: true });
+  }
+  fs.writeFileSync(path.join(fixtureRoot, 'docs', 'foundations-negative-test.html'),
+    '<div class="ds-code-block">{"foundation":{"negative-test-only":{"$type":"number","$value":1}}}</div>');
+  const entrypoint = path.join(fixtureRoot, 'scripts', 'tokens-verify.mjs');
+  const linkedEntrypoint = path.join(fixtureRoot, 'tokens-verify-link.mjs');
+  fs.symlinkSync(entrypoint, linkedEntrypoint);
+  for (const script of [entrypoint, linkedEntrypoint]) {
+    const result = spawnSync(process.execPath, [script], { encoding: 'utf8', cwd: fixtureRoot });
+    assert.equal(result.status, 1, `Verifier errors must fail through ${script}: ${result.stderr}`);
+    const cliReport = JSON.parse(fs.readFileSync(path.join(fixtureRoot, 'docs', 'api', 'tokens-sync.json'), 'utf8'));
+    const cliHtml = fs.readFileSync(path.join(fixtureRoot, 'docs', 'tokens-sync.html'), 'utf8');
+    assert.equal(cliReport.totals.errors, 1);
+    assert.equal(cliReport.checks.jsonVsFigma.skipped, true);
+    assert.match(cliHtml, /class="ds-sync-status error"/);
+    assert.match(cliHtml, /SKIP — comparação não executada/);
+  }
+} finally {
+  fs.rmSync(fixtureRoot, { recursive: true, force: true });
+}
+console.log('Token report statuses: PASS — fresh, skipped (missing/invalid), stale, unknown, warnings, errors and escaped reason\n');
+console.log('Token verifier CLI: PASS — errors still exit 1 through real and symlink entrypoints\n');
 
 if (errors.length === 0) {
   console.log(`✅ PASS — 0 refs inválidas em geradores`);
