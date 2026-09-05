@@ -315,7 +315,50 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Table Angular nativa** em `@tis/angular/table`: diretivas standalone para
+  region, table, caption, header, sort, row e cell, mantendo semântica HTML,
+  overflow local e dados/ordenação sob controle da aplicação. Inclui stories,
+  testes e catálogo PT-BR/EN.
+- **Spinner Angular nativo** em `@tis/angular/spinner`: indicador indeterminado
+  com tamanhos sm/md/lg, estilo on-color, status nomeado e modo decorativo para
+  composições que já anunciam a operação. Inclui stories, testes e catálogo PT-BR/EN.
+- **Skeleton Angular nativo** em `@tis/angular/skeleton`: shapes text, circle e
+  rectangle sempre decorativos, com diretiva de região de loading e suporte a
+  reduced motion pelo CSS existente. Inclui stories, testes e catálogo PT-BR/EN.
+- **Pagination Angular nativo** em `@tis/angular/pagination`: navegação
+  controlada com links numerados, anterior/próxima, ellipsis, limites e
+  tamanhos sm/md/lg. Inclui stories funcionais, testes e catálogo PT-BR/EN.
+- **Avatar Angular nativo** em `@tis/angular/avatar`: imagem com fallback para
+  iniciais ou ícone, tamanhos sm/md/lg, nome acessível e opção decorativa.
+  Inclui exemplos próprios, consumer via tarball, testes e catálogo PT-BR/EN.
+- **Breadcrumb Angular nativo** em `@tis/angular/breadcrumb`: diretivas para
+  nav, links, página atual e separadores, preservando navegação nativa. Inclui
+  stories, consumidor via tarball, testes de teclado e documentação PT-BR/EN.
+- **Form Field Angular nativo** em `@tis/angular/form-field`: composição standalone
+  de label, required, helper e erro com projeção do controle e IDs/ARIA públicos,
+  sem alterar o CSS estável. Inclui exemplos próprios, consumidor via tarball,
+  testes de formulário e rota PT-BR/EN no catálogo.
+
 ### Corrigido
+- **Relatório de tokens explicita verificações Figma incompletas.** Snapshot
+  ausente ou inválido aparece como `SKIP`, com motivo e contagens limitadas às
+  checagens executadas; snapshot desatualizado mantém aviso explícito. O HTML
+  só informa "Em dia" com comparação completa e snapshot recente, sem alterar
+  regras de drift, severidades ou códigos de saída do verificador.
+- **Exemplos adicionais do portal sem lista fixa de componentes:** Textarea
+  Ark/Angular, Alert Ark e Menu Angular exibem todos os exemplos configurados,
+  com a implementação identificada uma única vez no título. Matrizes de Textarea
+  Ark e menus Angular abertos recebem espaço suficiente sem cortar o conteúdo.
+- **Anatomia de Table protegida do Markdown do portal:** cabeçalho e corpo
+  mantêm a mesma largura da tabela, sem modificar o CSS público do componente.
+- **Navegação entre saídas usa a disponibilidade real:** páginas React deixam
+  de bloquear Angular implementado e Input Ark. Os exemplos adicionais de Input
+  Angular/Ark ficam visíveis, com altura para estados e títulos sem duplicação.
+- **Revisão das novas saídas Angular:** ordenação da Table corresponde a
+  `aria-sort` e mantém a seleção pelo cliente; Pagination preserva cliques
+  modificados e permite testes com labels traduzidos. Previews de Skeleton
+  contêm todo o conteúdo em 320 px; Spinner e Table exibem mapas de tokens.
 - **Catálogo explicita as quatro implementações de cada componente.** Os 26 cards
   deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
   todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,
@@ -2537,7 +2580,7 @@ Readiness não substitui responsabilidade. Um componente pode ser App-ready usan
 | HTML/CSS/JS | Estável | 26 |
 | Ark/Zag | Beta | 17 |
 | React · shadcn/Base UI | Beta | 26 |
-| Angular nativo | Beta local | 19 |
+| Angular nativo | Beta local | 26 |
 | Storybook Web | Completo | 26/26 |
 
 

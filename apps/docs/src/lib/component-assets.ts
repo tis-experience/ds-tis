@@ -16,6 +16,8 @@ import paginationCssUrl from '../../../../css/components/pagination.css?url';
 import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
+import skeletonCssUrl from '../../../../css/components/skeleton.css?url';
+import spinnerCssUrl from '../../../../css/components/spinner.css?url';
 import tableCssUrl from '../../../../css/components/table.css?url';
 import tabsCssUrl from '../../../../css/components/tabs.css?url';
 import textareaCssUrl from '../../../../css/components/textarea.css?url';
@@ -40,6 +42,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },
   divider: { css: [buttonCssUrl, dividerCssUrl] },
+  'form-field': { css: [formFieldCssUrl, inputCssUrl, textareaCssUrl, selectCssUrl, checkboxCssUrl, radioCssUrl] },
   input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },
@@ -47,6 +50,8 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },
+  skeleton: { css: [skeletonCssUrl] },
+  spinner: { css: [buttonCssUrl, spinnerCssUrl] },
   table: { css: [badgeCssUrl, buttonCssUrl, tableCssUrl] },
   tabs: { css: [buttonCssUrl, tabsCssUrl] },
   textarea: { css: [formFieldCssUrl, textareaCssUrl] },
@@ -56,5 +61,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
 };
 
 export function getComponentAssets(slug: string): ComponentAssets {
-  return COMPONENT_ASSETS[slug] ?? { css: [] };
+  const assets = COMPONENT_ASSETS[slug];
+  if (!assets?.css.length) throw new Error(`${slug}: folhas CSS da documentação não cadastradas`);
+  return assets;
 }

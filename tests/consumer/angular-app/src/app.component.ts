@@ -18,7 +18,9 @@ import {
   TisAlertIcon,
   TisAlertTitle,
 } from "@tis/angular/alert";
+import { TisAvatar } from "@tis/angular/avatar";
 import { TisBadge } from "@tis/angular/badge";
+import { TisBreadcrumb, TisBreadcrumbLink, TisBreadcrumbCurrent, TisBreadcrumbSeparator } from "@tis/angular/breadcrumb";
 import { TisButton, TisButtonIconStart } from "@tis/angular/button";
 import {
   TisCard,
@@ -32,6 +34,7 @@ import {
 import { TisCheckbox } from "@tis/angular/checkbox";
 import { TisCombobox, TisComboboxIcon, type TisComboboxOption } from "@tis/angular/combobox";
 import { TisDivider } from "@tis/angular/divider";
+import { TisFormField } from "@tis/angular/form-field";
 import { TisInput, TisInputIconStart } from "@tis/angular/input";
 import {
   TisActionMenu,
@@ -51,8 +54,24 @@ import {
   TisModalInitialFocus,
 } from "@tis/angular/modal";
 import { TisPopover, TisPopoverActions, TisPopoverContent } from "@tis/angular/popover";
+import { TisPagination } from "@tis/angular/pagination";
 import { TisRadioGroup, TisRadioOption } from "@tis/angular/radio";
 import { TisSelect, TisSelectIcon } from "@tis/angular/select";
+import { TisSkeleton, TisSkeletonGroup } from "@tis/angular/skeleton";
+import { TisSpinner } from "@tis/angular/spinner";
+import {
+  TisTable,
+  TisTableBody,
+  TisTableCaption,
+  TisTableCell,
+  TisTableHeader,
+  TisTableHeaderCell,
+  TisTableRegion,
+  TisTableRow,
+  TisTableSort,
+  TisTableSortIcon,
+  type TisTableSortDirection,
+} from "@tis/angular/table";
 import { TisTab, TisTabList, TisTabPanel, TisTabs } from "@tis/angular/tabs";
 import { TisTextarea } from "@tis/angular/textarea";
 import { TisToastRegion, TisToastService } from "@tis/angular/toast";
@@ -77,7 +96,12 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisAlertDescription,
     TisAlertIcon,
     TisAlertTitle,
+    TisAvatar,
     TisBadge,
+    TisBreadcrumb,
+    TisBreadcrumbLink,
+    TisBreadcrumbCurrent,
+    TisBreadcrumbSeparator,
     TisButton,
     TisButtonIconStart,
     TisCard,
@@ -91,6 +115,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisCombobox,
     TisComboboxIcon,
     TisDivider,
+    TisFormField,
     TisInput,
     TisInputIconStart,
     TisActionMenu,
@@ -109,10 +134,24 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
     TisPopover,
     TisPopoverActions,
     TisPopoverContent,
+    TisPagination,
     TisRadioGroup,
     TisRadioOption,
     TisSelect,
     TisSelectIcon,
+    TisSkeleton,
+    TisSkeletonGroup,
+    TisSpinner,
+    TisTable,
+    TisTableBody,
+    TisTableCaption,
+    TisTableCell,
+    TisTableHeader,
+    TisTableHeaderCell,
+    TisTableRegion,
+    TisTableRow,
+    TisTableSort,
+    TisTableSortIcon,
     TisTab,
     TisTabList,
     TisTabPanel,
@@ -130,7 +169,7 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
         <div>
           <p class="consumer-eyebrow">DS TIS · saída tecnológica</p>
           <h1>Angular nativo</h1>
-          <p>Dezenove componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
+          <p>Componentes Angular nativos instalados a partir do pacote local, sem dependências de outros frameworks.</p>
         </div>
         <tis-button variant="ghost" size="sm" (click)="toggleTheme()">
           {{ dark() ? "Tema claro" : "Tema escuro" }}
@@ -245,6 +284,111 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
             <tis-button size="sm" variant="ghost">Desfazer</tis-button>
           </div>
         </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="avatar-heading">
+        <h2 id="avatar-heading">Avatar</h2>
+        <div class="consumer-row">
+          <tis-avatar label="Ana Lima" initials="AL" size="sm" />
+          <tis-avatar label="Ana Lima, foto" initials="AL" content="image" [src]="avatarSource()" data-testid="avatar-image" />
+          <tis-avatar label="Pessoa sem foto" content="icon" size="lg" />
+          <tis-avatar label="Ana Lima" initials="AL" decorative /><span>Ana Lima</span>
+        </div>
+        <div class="consumer-row">
+          <button class="ds-button ds-button--brand ds-button--sm" type="button" (click)="avatarSource.set('data:image/png;base64,invalid')">Simular falha da foto</button>
+          <button class="ds-button ds-button--outline ds-button--sm" type="button" (click)="avatarSource.set(avatarImage)">Restaurar foto</button>
+        </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="breadcrumb-heading">
+        <h2 id="breadcrumb-heading">Breadcrumb</h2>
+        <nav tisBreadcrumb label="Caminho do projeto">
+          <a tisBreadcrumbLink href="#breadcrumb-home">Início</a><span tisBreadcrumbSeparator>/</span>
+          <a tisBreadcrumbLink href="#breadcrumb-projects">Projetos</a><span tisBreadcrumbSeparator>/</span>
+          <span tisBreadcrumbCurrent>{{ breadcrumbPage() }}</span>
+        </nav>
+        <p id="breadcrumb-home">Visão inicial</p>
+        <p id="breadcrumb-projects">Lista de projetos</p>
+        <button class="ds-button ds-button--brand ds-button--sm" type="button" data-testid="breadcrumb-after">Próxima ação</button>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="pagination-heading">
+        <h2 id="pagination-heading">Pagination</h2>
+        <div class="consumer-pagination-stage">
+          <tis-pagination [currentPage]="resultsPage()" [totalPages]="10" label="Páginas dos resultados"
+            (pageChange)="resultsPage.set($event)" />
+        </div>
+        <p aria-live="polite" data-testid="pagination-result">Resultados {{ (resultsPage() - 1) * 10 + 1 }}–{{ resultsPage() * 10 }}</p>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="skeleton-heading">
+        <h2 id="skeleton-heading">Skeleton</h2>
+        @if (profileLoading()) {
+          <div tisSkeletonGroup label="Carregando perfil" class="consumer-skeleton-card" data-testid="skeleton-loading">
+            <div class="consumer-skeleton-profile"><tis-skeleton type="circle" /><div class="consumer-skeleton-lines"><tis-skeleton type="text" width="65%" /><tis-skeleton type="text" width="40%" /></div></div>
+            <tis-skeleton type="rectangle" />
+          </div>
+        } @else {
+          <article class="consumer-skeleton-card" data-testid="skeleton-content">
+            <h3>Ana Lima</h3><p>Product Designer</p>
+          </article>
+        }
+        <button class="ds-button ds-button--brand ds-button--sm" type="button" (click)="profileLoading.set(!profileLoading())">
+          {{ profileLoading() ? "Concluir carregamento" : "Reiniciar carregamento" }}
+        </button>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="spinner-heading">
+        <h2 id="spinner-heading">Spinner</h2>
+        <div class="consumer-spinner-row" data-testid="spinner-examples">
+          <tis-spinner size="sm" label="Carregando item" />
+          <tis-spinner size="md" label="Carregando secção" />
+          <tis-spinner size="lg" label="Carregando página" />
+        </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="table-heading">
+        <h2 id="table-heading">Table</h2>
+        <div tisTableRegion label="Tabela de clientes" data-testid="table-region">
+          <table tisTable size="md">
+            <caption tisTableCaption>Clientes</caption>
+            <thead tisTableHeader><tr tisTableRow>
+              <th tisTableHeaderCell sortable [sort]="tableSort()">
+                <button tisTableSort aria-label="Ordenar por Cliente" (click)="toggleTableSort()">
+                  <span>Cliente</span>
+                  <svg tisTableSortIcon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
+                </button>
+              </th>
+              <th tisTableHeaderCell>Status</th><th tisTableHeaderCell>E-mail</th><th tisTableHeaderCell align="end">Ações</th>
+            </tr></thead>
+            <tbody tisTableBody>
+              @for (row of tableRows(); track row.email) {
+                <tr tisTableRow [selected]="row.email === 'bruno.lima@tis.com.br'">
+                  <td tisTableCell>{{ row.name }}</td>
+                  <td tisTableCell><tis-badge [tone]="row.status === 'Ativo' ? 'success' : 'warning'" variant="subtle">{{ row.status }}</tis-badge></td>
+                  <td tisTableCell>{{ row.email }}</td>
+                  <td tisTableCell control align="end"><tis-button variant="ghost" size="sm">Abrir</tis-button></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="consumer-section" aria-labelledby="form-field-heading">
+        <h2 id="form-field-heading">Form Field</h2>
+        <form class="ds-field" novalidate (ngSubmit)="fieldSubmitted.set(true)">
+          <tis-form-field #field="tisFormField" label="Nome para contato" required
+            helperText="Use seu nome completo." errorMessage="Informe seu nome."
+            [invalid]="fieldSubmitted() && !contactName().trim()">
+            <div class="ds-input" [class.ds-input--error]="field.invalid()">
+              <input class="ds-input__field" name="contactName" [(ngModel)]="contactName"
+                [id]="field.controlId()" [required]="field.required()" autocomplete="name"
+                [attr.aria-describedby]="field.describedBy()" [attr.aria-invalid]="field.ariaInvalid()">
+            </div>
+          </tis-form-field>
+          <div><tis-button type="submit">Validar nome</tis-button></div>
+        </form>
       </section>
 
       <section class="consumer-section" aria-labelledby="input-heading">
@@ -711,6 +855,8 @@ import { TisTooltip, TisTooltipTrigger } from "@tis/angular/tooltip";
   `,
 })
 export class AppComponent {
+  readonly avatarImage = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#cbd5e1"/><circle cx="40" cy="28" r="14" fill="#475569"/><path d="M12 80V66a28 28 0 0 1 56 0v14" fill="#475569"/></svg>');
+  readonly avatarSource = signal(this.avatarImage);
   private readonly document = inject(DOCUMENT);
   readonly toastService = inject(TisToastService);
   readonly alertVisible = signal(true);
@@ -719,6 +865,17 @@ export class AppComponent {
   readonly checkboxSubmitted = signal(false);
   readonly comboboxSubmitted = signal(false);
   readonly email = signal("");
+  readonly contactName = signal("");
+  readonly breadcrumbPage = signal("Design System");
+  readonly resultsPage = signal(5);
+  readonly profileLoading = signal(true);
+  readonly tableSort = signal<TisTableSortDirection>("none");
+  readonly tableRows = signal([
+    { name: "Ana Silva", status: "Ativo", email: "ana.silva@tis.com.br" },
+    { name: "Bruno Lima", status: "Pendente", email: "bruno.lima@tis.com.br" },
+    { name: "Carla Rocha", status: "Ativo", email: "carla.rocha@tis.com.br" },
+  ]);
+  readonly fieldSubmitted = signal(false);
   readonly inputSubmitted = signal(false);
   readonly loading = signal(false);
   readonly lastMenuAction = signal("nenhuma");
@@ -754,6 +911,13 @@ export class AppComponent {
 
   toggleMultiple(): void {
     this.multiple.update((value) => !value);
+  }
+
+  toggleTableSort(): void {
+    const direction = this.tableSort() === "ascending" ? "descending" : "ascending";
+    this.tableSort.set(direction);
+    this.tableRows.update((rows) => [...rows].sort((a, b) =>
+      a.name.localeCompare(b.name, "pt-BR") * (direction === "descending" ? -1 : 1)));
   }
 
   submit(event: SubmitEvent): void {

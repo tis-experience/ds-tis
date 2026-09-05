@@ -420,7 +420,7 @@
       "install": "npm install ./dist/tis-angular-0.0.0-beta.0.tgz ds-tis",
       "publicRegistry": false,
       "note": "Biblioteca Angular nativa validada por tarball local; ainda não publicada no registry público do npm.",
-      "componentCount": 19,
+      "componentCount": 26,
       "components": [
         {
           "slug": "accordion",
@@ -435,10 +435,22 @@
           "storyId": "angular-alert--playground"
         },
         {
+          "slug": "avatar",
+          "entrypoint": "avatar",
+          "primitive": "native image + Angular fallback",
+          "storyId": "angular-avatar--playground"
+        },
+        {
           "slug": "badge",
           "entrypoint": "badge",
           "primitive": "presentational host element",
           "storyId": "angular-badge--playground"
+        },
+        {
+          "slug": "breadcrumb",
+          "entrypoint": "breadcrumb",
+          "primitive": "native nav + links",
+          "storyId": "angular-breadcrumb--playground"
         },
         {
           "slug": "button",
@@ -471,6 +483,12 @@
           "storyId": "angular-divider--playground"
         },
         {
+          "slug": "form-field",
+          "entrypoint": "form-field",
+          "primitive": "native label + Angular content projection",
+          "storyId": "angular-form-field--playground"
+        },
+        {
           "slug": "input",
           "entrypoint": "input",
           "primitive": "native input + Angular Forms",
@@ -489,6 +507,12 @@
           "storyId": "angular-modal--playground"
         },
         {
+          "slug": "pagination",
+          "entrypoint": "pagination",
+          "primitive": "native nav + links + buttons",
+          "storyId": "angular-pagination--playground"
+        },
+        {
           "slug": "popover",
           "entrypoint": "popover",
           "primitive": "@angular/cdk/overlay + portal + a11y",
@@ -505,6 +529,24 @@
           "entrypoint": "select",
           "primitive": "native select + Angular Forms",
           "storyId": "angular-select--playground"
+        },
+        {
+          "slug": "skeleton",
+          "entrypoint": "skeleton",
+          "primitive": "decorative native element + loading region directive",
+          "storyId": "angular-skeleton--playground"
+        },
+        {
+          "slug": "spinner",
+          "entrypoint": "spinner",
+          "primitive": "native status element",
+          "storyId": "angular-spinner--playground"
+        },
+        {
+          "slug": "table",
+          "entrypoint": "table",
+          "primitive": "native table elements + Angular directives",
+          "storyId": "angular-table--playground"
         },
         {
           "slug": "tabs",

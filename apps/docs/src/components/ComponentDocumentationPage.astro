@@ -93,7 +93,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
   showMetadata={false}
   v1Path={`/docs/${slug}.html`}
   technologies={[
-    { label: 'HTML/CSS/JS', value: 'web', path: outputPaths.web },
+    { label: 'HTML/CSS/JS', value: 'web', ...(slug === 'avatar' || slug === 'breadcrumb' || slug === 'form-field' || slug === 'pagination' || slug === 'skeleton' || slug === 'spinner' || slug === 'table' ? { href: stableUrl } : { path: outputPaths.web }) },
     {
       label: documentation.component.implementations.ark.status === 'planned'
         ? (isEnglish ? 'Ark/Zag — planned' : 'Ark/Zag — planejada')
@@ -102,7 +102,14 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
       path: outputPaths.ark,
       disabled: documentation.component.implementations.ark.status === 'planned',
     },
-    { label: 'React · shadcn/Base UI', value: 'react', path: outputPaths.react },
+    {
+      label: documentation.component.implementations.react.status === 'beta'
+        ? 'React · shadcn/Base UI'
+        : (isEnglish ? 'React · shadcn/Base UI — unavailable' : 'React · shadcn/Base UI — indisponível'),
+      value: 'react',
+      path: outputPaths.react,
+      disabled: documentation.component.implementations.react.status !== 'beta',
+    },
     {
       label: documentation.component.implementations.angular.status === 'planned'
         ? (isEnglish ? 'Angular — planned' : 'Angular — planejada')
@@ -174,7 +181,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
         </OutputStoryPreview>
 
-        {(slug === 'card' || slug === 'divider') && documentation.examples.map((example) => (
+        {documentation.examples.map((example) => (
           <div
             class="ds-output-example"
             data-output-example="documented"
@@ -194,7 +201,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           </div>
         ))}
 
-        <ComponentGuidance slug={slug} topic="design" />
+        <ComponentGuidance slug={slug} topic="design" includeOrders={slug === 'avatar' || slug === 'pagination' || slug === 'skeleton' || slug === 'spinner' || slug === 'table' ? [10, 60] : []} />
       </>
     ) : (
       <>
@@ -416,6 +423,20 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
             ? (isEnglish ? 'Preserve status for contextual messages and alert for urgent errors, keep the icon decorative, and give the optional close button an accessible name.' : 'Preserve status para mensagens contextuais e alert para erros urgentes, mantenha o ícone decorativo e dê nome acessível ao button de fechar opcional.')
           : slug === 'badge'
             ? (isEnglish ? 'Keep the badge non-interactive and ensure its short text conveys meaning without relying on color alone.' : 'Mantenha o badge não interativo e garanta que seu texto curto transmita significado sem depender apenas da cor.')
+          : slug === 'avatar'
+            ? (isEnglish ? 'Provide one accessible label for an informative avatar. Hide decorative avatars when adjacent text already identifies the person. Image failure must preserve its size and accessible name.' : 'Forneça um único nome acessível para o avatar informativo. Oculte o avatar decorativo quando o texto adjacente já identifica a pessoa. A falha da imagem deve preservar tamanho e nome acessível.')
+          : slug === 'breadcrumb'
+            ? (isEnglish ? 'Name the nav landmark, keep ancestor links keyboard-accessible, use a non-focusable span with aria-current="page" for the current page, and hide separators from assistive technology.' : 'Nomeie o landmark nav, mantenha os links anteriores acessíveis por teclado, use span não focável com aria-current="page" para a página atual e oculte os separadores da tecnologia assistiva.')
+          : slug === 'pagination'
+            ? (isEnglish ? 'Name the navigation landmark, keep the current page non-focusable with aria-current="page", disable previous/next at boundaries, hide ellipses, and preserve visible keyboard focus.' : 'Nomeie o landmark de navegação, mantenha a página atual não focável com aria-current="page", desabilite anterior/próxima nos limites, oculte ellipsis e preserve foco visível por teclado.')
+          : slug === 'skeleton'
+            ? (isEnglish ? 'Announce the loading region once with status and aria-busy. Keep every visual shape aria-hidden and respect reduced-motion preferences.' : 'Anuncie a região de carregamento uma única vez com status e aria-busy. Mantenha cada shape visual com aria-hidden e respeite preferências de redução de movimento.')
+          : slug === 'spinner'
+            ? (isEnglish ? 'Give a standalone spinner one status and accessible label. Make it decorative when another control or region already announces the operation, and respect reduced-motion preferences.' : 'Dê ao spinner isolado um status e nome acessível. Torne-o decorativo quando outro controle ou região já anunciar a operação e respeite preferências de redução de movimento.')
+          : slug === 'table'
+            ? (isEnglish ? 'Preserve native table relationships, caption, column scopes, aria-sort on the active sortable header, and a named focusable overflow region only when horizontal scrolling is possible.' : 'Preserve relações nativas da table, caption, scopes de coluna, aria-sort no header ordenável ativo e uma região de overflow focável e nomeada apenas quando a rolagem horizontal for possível.')
+          : slug === 'form-field'
+            ? (isEnglish ? 'Associate the native control with its label and visible descriptions. Test label click, required and invalid states, error removal, hidden-label naming, and Angular Forms.' : 'Associe o controle nativo ao label e às descrições visíveis. Teste clique no label, required e invalid, remoção do erro, nome com label oculto e Angular Forms.')
           : slug === 'popover'
             ? (isEnglish ? 'Preserve the non-modal dialog contract and validate Escape, outside interaction, ARIA relationships, and focus return.' : 'Preserve o contrato de dialog não modal e valide Escape, interação externa, relações ARIA e retorno de foco.')
           : slug === 'modal'
