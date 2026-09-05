@@ -3666,7 +3666,7 @@ async function auditAdditionalOutputExamples() {
               }
             }
             if (slug === 'menu') {
-              const triggers = frame.locator('[aria-haspopup="menu"]');
+              const triggers = frame.locator('[data-tis-angular-menu-trigger]');
               expect(await triggers.count() === (storyId.endsWith('--tamanhos') ? 3 : 1), `${label}: triggers ausentes`);
               for (let index = 0; index < await triggers.count(); index += 1) {
                 await triggers.nth(index).click();
