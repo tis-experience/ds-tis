@@ -34,6 +34,10 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   testes de formulário e rota PT-BR/EN no catálogo.
 
 ### Corrigido
+- **Exemplos adicionais do portal sem lista fixa de componentes:** Textarea
+  Ark/Angular, Alert Ark e Menu Angular exibem todos os exemplos configurados,
+  com a implementação identificada uma única vez no título. Matrizes de Textarea
+  Ark e menus Angular abertos recebem espaço suficiente sem cortar o conteúdo.
 - **Anatomia de Table protegida do Markdown do portal:** cabeçalho e corpo
   mantêm a mesma largura da tabela, sem modificar o CSS público do componente.
 - **Navegação entre saídas usa a disponibilidade real:** páginas React deixam
@@ -95,6 +99,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Alert ganha saída Ark em beta de workspace.** As partes públicas do Alert
+  preservam os quatro tons, estilos solid/subtle e tokens TIS; exemplos validam
+  ação, fechamento pelo teclado e retorno de foco com live region contextual.
+- **Textarea ganha saída Ark em beta de workspace.** O adapter
+  `@tis/react/ark/textarea` preserva edição multilinha, ref, formulário nativo,
+  tamanhos e estados TIS. O portal bilíngue oferece exemplos de contador,
+  envio, limpeza, valor inicial e estados, com testes de interação e bundle.
 - **Pagination passa a integrar a saída React distribuída por shadcn.** O
   source oferece landmark nomeado, lista, links de página, item atual,
   reticências e controles anterior/próxima nos tamanhos `sm`/`md`/`lg`, sem

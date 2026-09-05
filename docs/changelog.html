@@ -94,6 +94,10 @@ testes de formulário e rota PT-BR/EN no catálogo.</li>
 </ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Exemplos adicionais do portal sem lista fixa de componentes:</strong> Textarea
+Ark/Angular, Alert Ark e Menu Angular exibem todos os exemplos configurados,
+com a implementação identificada uma única vez no título. Matrizes de Textarea
+Ark e menus Angular abertos recebem espaço suficiente sem cortar o conteúdo.</li>
 <li><strong>Anatomia de Table protegida do Markdown do portal:</strong> cabeçalho e corpo
 mantêm a mesma largura da tabela, sem modificar o CSS público do componente.</li>
 <li><strong>Navegação entre saídas usa a disponibilidade real:</strong> páginas React deixam
@@ -156,6 +160,13 @@ completos, sem recortar o painel nem alterar a altura pública do Input.</li>
 </ul>
 <h3>Adicionado</h3>
 <ul>
+<li><strong>Alert ganha saída Ark em beta de workspace.</strong> As partes públicas do Alert
+preservam os quatro tons, estilos solid/subtle e tokens TIS; exemplos validam
+ação, fechamento pelo teclado e retorno de foco com live region contextual.</li>
+<li><strong>Textarea ganha saída Ark em beta de workspace.</strong> O adapter
+<code>@tis/react/ark/textarea</code> preserva edição multilinha, ref, formulário nativo,
+tamanhos e estados TIS. O portal bilíngue oferece exemplos de contador,
+envio, limpeza, valor inicial e estados, com testes de interação e bundle.</li>
 <li><strong>Pagination passa a integrar a saída React distribuída por shadcn.</strong> O
 source oferece landmark nomeado, lista, links de página, item atual,
 reticências e controles anterior/próxima nos tamanhos <code>sm</code>/<code>md</code>/<code>lg</code>, sem

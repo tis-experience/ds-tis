@@ -237,7 +237,7 @@ button.ds-angular-card {
   align-items: flex-start;
   gap: var(--ds-space-lg);
   inline-size: 100%;
-  min-block-size: var(--ds-size-layout-sm);
+  min-block-size: calc(100vh - 2 * var(--ds-space-lg));
   padding: var(--ds-space-lg);
 }
 
@@ -246,6 +246,7 @@ button.ds-angular-card {
 }
 
 .ds-angular-menu-grid {
+  align-content: flex-start;
   flex-wrap: wrap;
 }
 

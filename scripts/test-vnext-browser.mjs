@@ -5,6 +5,7 @@ import { chromium } from 'playwright';
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import path from 'node:path';
+import { ARK_ADAPTERS_BY_SLUG } from './lib/technology-implementations.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SITE = path.join(ROOT, '_site');
@@ -199,6 +200,7 @@ try {
   await auditRadioOutputSelector();
   await auditToggleOutputSelector();
   await auditFormControlGuidance();
+  await auditAdditionalOutputExamples();
 
   await auditResponsiveButton(390, 844);
   await auditResponsiveButton(320, 720);
@@ -615,8 +617,8 @@ async function auditCanonicalCatalog(route, locale) {
   expect(await catalog.locator('[data-output="react"]').count() === 26, `${route}: saída React ausente`);
   expect(await catalog.locator('[data-output="angular"]').count() === 26, `${route}: saída Angular ausente`);
   expect(
-    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === 14,
-    `${route}: os quatorze adapters Ark disponíveis deveriam aparecer como links`,
+    await catalog.locator('[data-output="ark"][data-availability="available"]').count() === Object.keys(ARK_ADAPTERS_BY_SLUG).length,
+    `${route}: os adapters Ark disponíveis deveriam aparecer como links`,
   );
   expect(
     await outputRows.evaluateAll((rows) => rows.every((row) => [...row.querySelectorAll(':scope > li')].every((item) => {
@@ -669,12 +671,12 @@ async function auditCanonicalCatalog(route, locale) {
   const alertItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
   });
-  expect(await alertItem.locator('a').count() === 3, `${route}: Alert deve ligar Web, React e Angular`);
+  expect(await alertItem.locator('a').count() === 4, `${route}: Alert deve ligar as quatro saídas`);
   expect(
     (await alertItem.locator('[data-output="web"] a').getAttribute('href'))?.includes(`/next/${locale === 'en' ? 'en' : 'pt-br'}/web/components/alert/`),
     `${route}: Alert Web caiu na documentação HTML antiga`,
   );
-  expect(await alertItem.locator('[data-output="ark"] a').count() === 0, `${route}: Alert não deve ligar a saída Ark ainda planejada`);
+  expect(await alertItem.locator('[data-output="ark"] a').count() === 1, `${route}: Alert deve ligar a saída Ark disponível`);
   const accordionLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Accordion' }).locator('a');
   expect(await accordionLinks.count() === 4, `${route}: Accordion deve ligar as quatro implementações disponíveis`);
   const popoverLinks = catalog.locator('.ds-component-catalog__item').filter({ hasText: 'Popover' }).locator('a');
@@ -1485,6 +1487,12 @@ async function auditAlertOutputSelector() {
   browserErrors.length = 0;
   const routes = [
     {
+      route: '/ds-tis/next/pt-br/ark/components/alert/',
+      activeLabel: 'Ark/Zag',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"][data-story-url*="id=ark-alert--playground"]',
+      storyId: 'ark-alert--playground',
+    },
+    {
       route: '/ds-tis/next/pt-br/web/components/alert/',
       activeLabel: 'HTML/CSS/JS',
       previewSelector: '[data-output-preview][data-output-storybook="stable"]',
@@ -1514,7 +1522,7 @@ async function auditAlertOutputSelector() {
       `${route}: saída ativa incorreta`,
     );
     expect(await page.locator('[data-technology-select] option').count() === 4, `${route}: seletor não expõe as quatro saídas`);
-    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: Ark planejado deveria permanecer desabilitado`);
+    expect(await page.locator('[data-technology-select] option').filter({ hasText: 'Ark/Zag' }).isEnabled(), `${route}: Ark disponível deve permanecer selecionável`);
     expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
 
     const documentedAlert = page.locator(
@@ -2633,7 +2641,7 @@ async function auditMenuOutputSelector() {
     {
       route: '/ds-tis/next/pt-br/angular/components/menu/',
       activeLabel: 'Angular',
-      previewSelector: '[data-output-preview][data-output-storybook="angular"]',
+      previewSelector: '[data-output-preview][data-output-storybook="angular"][data-story-url*="id=angular-menu--playground"]',
       storyId: 'angular-menu--playground',
       guidanceCount: 3,
     },
@@ -3609,6 +3617,82 @@ async function auditToggleOutputSelector() {
   }
 
   recordBrowserErrors('Toggle · seletor das quatro saídas');
+}
+
+async function auditAdditionalOutputExamples() {
+  const cases = [
+    ['ark', 'textarea', ['ark-textarea--playground', 'ark-textarea--sizes', 'ark-textarea--states', 'ark-textarea--uncontrolled']],
+    ['angular', 'textarea', ['angular-textarea--playground', 'angular-textarea--tamanhos', 'angular-textarea--com-contador']],
+    ['ark', 'alert', ['ark-alert--playground', 'ark-alert--subtle', 'ark-alert--solid']],
+    ['angular', 'menu', ['angular-menu--playground', 'angular-menu--escolhas', 'angular-menu--tamanhos']],
+  ];
+  for (const locale of ['pt-br', 'en']) {
+    for (const width of [320, 1280]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const [technology, slug, storyIds] of cases) {
+        browserErrors.length = 0;
+        const route = `/ds-tis/next/${locale}/${technology}/components/${slug}/`;
+        await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
+        for (const mode of ['light', 'dark']) {
+          await page.locator('starlight-theme-select select').first().evaluate((select, value) => {
+            select.value = value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+          }, mode);
+          for (const storyId of storyIds) {
+            const label = `${locale}/${storyId} @ ${width}/${mode}`;
+            const selector = `[data-output-preview][data-story-url*="id=${storyId}"]`;
+            expect(await page.locator(selector).count() === 1, `${label}: exemplo configurado ausente`);
+            await page.waitForFunction(({ selector, mode }) => {
+              const document = window.document.querySelector(selector)?.contentDocument;
+              return document?.documentElement?.dataset.mode === mode && document.body?.classList.contains('sb-show-main');
+            }, { selector, mode });
+            const frame = page.frameLocator(selector);
+            await frame.locator('body').evaluate(() => document.fonts.ready);
+            const geometry = await frame.locator('body').evaluate(() => ({
+              overflowX: document.documentElement.scrollWidth - window.innerWidth,
+              overflowY: document.documentElement.scrollHeight - window.innerHeight,
+            }));
+            expect(geometry.overflowX <= 1 && geometry.overflowY <= 1,
+              `${label}: conteúdo excede o frame (${JSON.stringify(geometry)})`);
+            if (slug === 'textarea') {
+              const field = frame.locator('textarea:not([disabled]):not([readonly])').first();
+              await field.fill('Texto de validação');
+              expect(await field.inputValue() === 'Texto de validação', `${label}: campo não permite edição`);
+              if (storyId === 'ark-textarea--playground') {
+                await frame.getByRole('button', { name: 'Enviar', exact: true }).click();
+                expect(await frame.locator('[data-slot="textarea-result"]').textContent() === 'Texto de validação', `${label}: envio não exibe o valor`);
+                expect(await frame.locator('body').evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1),
+                  `${label}: resultado após envio excede o frame`);
+              }
+            }
+            if (slug === 'menu') {
+              const triggers = frame.locator('[aria-haspopup="menu"]');
+              expect(await triggers.count() === (storyId.endsWith('--tamanhos') ? 3 : 1), `${label}: triggers ausentes`);
+              for (let index = 0; index < await triggers.count(); index += 1) {
+                await triggers.nth(index).click();
+                const menu = frame.getByRole('menu').filter({ visible: true });
+                await menu.waitFor();
+                expect(await menu.evaluate(async (element) => {
+                  // Angular reposiciona o menu após o render para mantê-lo no viewport.
+                  for (let attempt = 0; attempt < 30; attempt += 1) {
+                    await new Promise(requestAnimationFrame);
+                    const rect = element.getBoundingClientRect();
+                    if (rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth + 1 && rect.bottom <= innerHeight + 1) return true;
+                  }
+                  return false;
+                }), `${label}: menu aberto fica cortado`);
+                await menu.press('Escape');
+                await menu.waitFor({ state: 'hidden' });
+              }
+            }
+          }
+          expect(await horizontalOverflow() <= 1, `${route} @ ${width}/${mode}: página excede a largura`);
+        }
+        recordBrowserErrors(`${route}: exemplos adicionais`);
+      }
+    }
+  }
+  await page.locator('starlight-theme-select select').first().selectOption('light');
 }
 
 async function auditFormControlGuidance() {
@@ -4886,6 +4970,79 @@ async function auditStorybookComponents() {
   recordBrowserErrors('Storybook vNext · Input Ark 320px');
   await page.setViewportSize({ width: 1280, height: 800 });
 
+  await page.goto(`${storyBase}ark-textarea--playground`, { waitUntil: 'networkidle' });
+  const textareaArk = page.getByRole('textbox', { name: 'Mensagem' });
+  await textareaArk.waitFor();
+  await page.getByRole('button', { name: 'Enviar', exact: true }).click();
+  expect(await textareaArk.evaluate((el) => !el.validity.valid), 'Textarea Ark deve validar required');
+  await textareaArk.fill('Primeira linha\nSegunda linha');
+  expect(await page.locator('[data-slot="textarea-counter"]').textContent() === '28/200', 'Textarea Ark deve contar edição multilinha');
+  await page.getByRole('button', { name: 'Enviar', exact: true }).click();
+  expect(await page.locator('[data-slot="textarea-result"]').textContent() === 'Primeira linha\nSegunda linha', 'Textarea Ark perdeu nome ou linhas no FormData');
+  await page.getByRole('button', { name: 'Limpar', exact: true }).click();
+  expect(await textareaArk.inputValue() === '', 'Textarea Ark deve limpar o valor controlado');
+  expect(await textareaArk.evaluate((el) => el === document.activeElement), 'Textarea Ark perdeu ref/foco na limpeza');
+  await textareaArk.fill('x'.repeat(210));
+  expect((await textareaArk.inputValue()).length === 200, 'Textarea Ark deve preservar maxlength nativo');
+  await auditAxe('Storybook · Textarea Ark formulário');
+
+  await page.goto(`${storyBase}ark-textarea--uncontrolled`, { waitUntil: 'networkidle' });
+  const notes = page.getByRole('textbox', { name: 'Observações' });
+  expect(await notes.inputValue() === 'Primeira linha\nSegunda linha', 'Textarea Ark perdeu defaultValue');
+  await notes.fill('Editado');
+  expect(await notes.inputValue() === 'Editado', 'Textarea Ark deve permitir edição não controlada');
+
+  await page.goto(`${storyBase}ark-textarea--sizes`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-textarea').first().waitFor();
+  expect(await page.locator('.ds-textarea__field').evaluateAll((els) => {
+    const sizes = els.map((el) => el.getBoundingClientRect().height);
+    return sizes.length === 3 && sizes[0] < sizes[1] && sizes[1] < sizes[2] && els.every((el) => getComputedStyle(el).resize === 'vertical');
+  }), 'Textarea Ark deve preservar tamanhos crescentes e resize vertical');
+
+  for (const mode of ['light', 'dark']) {
+    await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-textarea--states`, { waitUntil: 'networkidle' });
+    await page.locator('.ds-ark-textarea').first().waitFor();
+    expect(await page.getByRole('textbox', { name: 'Desabilitado' }).isDisabled(), 'Textarea Ark deve desabilitar controle');
+    expect(await page.getByRole('textbox', { name: 'Somente leitura' }).getAttribute('readonly') !== null, 'Textarea Ark deve preservar readonly');
+    expect(await page.getByRole('textbox', { name: 'Inválido' }).getAttribute('aria-invalid') === 'true', 'Textarea Ark deve associar erro');
+    await auditAxe(`Storybook · Textarea Ark ${mode}`);
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-textarea--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-textarea').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Textarea Ark tem overflow em 320px');
+  await auditAxe('Storybook · Textarea Ark 320px');
+  recordBrowserErrors('Storybook · Textarea Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
+
+  await page.goto(`${storyBase}ark-alert--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-alert').waitFor();
+  await page.getByRole('button', { name: 'Ver detalhes', exact: true }).click();
+  expect(await page.locator('[data-slot="ark-alert-result"]').textContent() === 'Detalhes solicitados.', 'Alert Ark deve executar a ação');
+  await page.getByRole('button', { name: 'Dispensar alerta', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  expect(await page.locator('.ds-ark-alert').count() === 0, 'Alert Ark deve fechar pelo teclado');
+  expect(await page.getByRole('button', { name: 'Mostrar alerta' }).evaluate((el) => el === document.activeElement), 'Alert Ark deve restaurar foco após fechar');
+  await page.getByRole('button', { name: 'Mostrar alerta' }).click();
+  expect(await page.locator('.ds-ark-alert').count() === 1, 'Alert Ark deve permitir mostrar novamente');
+  await auditAxe('Storybook · Alert Ark interação');
+  for (const mode of ['light', 'dark']) {
+    for (const variant of ['subtle', 'solid']) {
+      await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-alert--${variant}`, { waitUntil: 'networkidle' });
+      await page.locator('.ds-ark-alert').first().waitFor();
+      expect(await page.locator('.ds-ark-alert').count() === 4, 'Alert Ark deve publicar quatro tons');
+      expect(await page.locator('.ds-ark-alert[role="alert"]').count() === 1, 'Alert Ark reserva anúncio urgente ao erro do exemplo');
+      expect(await page.locator('.ds-ark-alert[role="status"]').count() === 3, 'Alert Ark deve preservar anúncio não urgente nos demais tons');
+      await auditAxe(`Storybook · Alert Ark ${variant} ${mode}`);
+    }
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-alert--playground`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-alert').waitFor();
+  expect(await horizontalOverflow() <= 1, 'Alert Ark tem overflow em 320px');
+  await auditAxe('Storybook · Alert Ark 320px');
+  recordBrowserErrors('Storybook · Alert Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(`${storyBase}react-alert--playground`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="alert"]').first().waitFor();
   expect(await page.locator('[data-slot="alert"]').count() === 1, 'Alert deve ter uma story isolada');
@@ -5008,6 +5165,8 @@ async function auditStorybookComponents() {
     'ark-button--playground',
     'ark-checkbox--playground',
     'ark-input--playground',
+    'ark-textarea--playground',
+    'ark-alert--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',

@@ -1,5 +1,32 @@
 # Relatório da saída Angular
 
+## Integração com Textarea e Alert Ark — 2026-09-05
+
+- Base atualizada para `940a7cb`, preservando os PRs #69 e #70: 26 saídas Web,
+  26 React, 26 Angular e 16 Ark. O conflito do relatório de tokens foi resolvido
+  pelo gerador; não houve alteração de tokens, Figma, versão ou CSS público.
+- O renderer compartilhado ocultava exemplos já configurados de Textarea
+  Ark/Angular, Alert Ark e Menu Angular. A lista fixa foi removida; os títulos
+  não duplicam a tecnologia e testes verificam 14 exemplos no HTML PT-BR/EN.
+- QA independente mediu cortes em Textarea Ark (matrizes e resultado após
+  envio) e Menu Angular. Os frames passaram a ter altura por saída e o palco
+  Angular usa a altura do viewport, sem espaçar artificialmente as linhas.
+- Revalidação independente: 32 páginas × PT-BR/EN, 320/1280 e light/dark,
+  104 frames, zero falhas. Incluiu edição, envio de 200 caracteres, reset/foco,
+  contador, readonly/disabled, Alert ação/fechamento/restauração e menus
+  radio/checkbox/sm/md/lg abertos dentro do frame. Capturas finais foram
+  inspecionadas também pelo integrador. Nenhum achado acionável residual.
+- Gate Angular completo repetido: 26 entrypoints, consumidor via tarball,
+  46 unitários, Storybook próprio, budgets e browser/Axe aprovados.
+- App-ready repetido: 223 checks de lifecycle, 70 checks do consumidor,
+  52 auditorias Axe sem violações e 84/84 referências visuais aprovadas.
+- Fundação vNext, intake, bundles, registry e segurança passaram. Regressão
+  browser acrescentada para os 13 previews desses quatro pares componente/saída
+  em oito combinações, incluindo resultado após envio e menus abertos.
+- CI do head integrado e verificação do site publicado ainda são gates de
+  fechamento do PR #75. Snapshot existente com 202h: aviso preservado,
+  zero drift contra esse arquivo; não se declara nova validação do Figma vivo.
+
 ## Revisão independente e integração — 2026-09-05
 
 - Owner autorizou seguir com revisão, commit e PR do lote de sete componentes:

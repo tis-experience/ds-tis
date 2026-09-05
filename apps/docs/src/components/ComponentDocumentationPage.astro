@@ -181,7 +181,7 @@ const runtimeDescriptions: Record<DocumentationTechnology, string> = {
           {isEnglish ? `Open the ${documentation.technologyLabel} playground` : `Abrir playground ${documentation.technologyLabel}`}
         </OutputStoryPreview>
 
-        {(slug === 'card' || slug === 'divider' || slug === 'form-field' || slug === 'input' || slug === 'breadcrumb' || slug === 'avatar' || slug === 'pagination' || slug === 'skeleton' || slug === 'spinner' || slug === 'table') && documentation.examples.map((example) => (
+        {documentation.examples.map((example) => (
           <div
             class="ds-output-example"
             data-output-example="documented"

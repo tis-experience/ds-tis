@@ -120,6 +120,12 @@ export const REACT_REGISTRY_BY_SLUG = {
 };
 
 export const ARK_ADAPTERS_BY_SLUG = {
+  alert: {
+    adapter: "packages/react/src/ark/alert.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native live region",
+    storyId: "ark-alert--playground",
+  },
   accordion: {
     adapter: "packages/react/src/ark/accordion.jsx",
     framework: "React",
@@ -185,6 +191,12 @@ export const ARK_ADAPTERS_BY_SLUG = {
     framework: "React",
     provider: "Ark UI + Zag",
     storyId: "ark-tabs--playground",
+  },
+  textarea: {
+    adapter: "packages/react/src/ark/textarea.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native textarea",
+    storyId: "ark-textarea--playground",
   },
   toast: {
     adapter: "packages/react/src/ark/toast.jsx",

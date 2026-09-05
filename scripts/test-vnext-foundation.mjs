@@ -674,6 +674,9 @@ if (!technologyImplementations.includes('tooltip: { entrypoint: "tooltip", primi
 }
 
 const componentDocumentationPage = read('apps/docs/src/components/ComponentDocumentationPage.astro');
+if ((componentDocumentationPage.match(/\{documentation\.examples\.map\(/g) || []).length !== 2) {
+  errors.push('exemplos configurados devem ser renderizados sem whitelist de componentes, tanto em overlays quanto no preview genérico');
+}
 if (
   !componentDocumentationPage.includes('includeOrders={[10]}') ||
   !componentDocumentationPage.includes('data-output-example="playground"') ||
@@ -1506,20 +1509,27 @@ if (fs.existsSync(staticPortal)) {
         errors.push(`portal vNext não publicou ${locale}/react/components/${component.slug}`);
       }
     }
-    for (const [technology, exampleIds] of [
-      ['ark', ['ark-input--sizes', 'ark-input--states', 'ark-input--form-submission']],
-      ['angular', ['angular-input--tamanhos', 'angular-input--estados']],
+    for (const [technology, slug, exampleIds] of [
+      ['ark', 'input', ['ark-input--sizes', 'ark-input--states', 'ark-input--form-submission']],
+      ['angular', 'input', ['angular-input--tamanhos', 'angular-input--estados']],
+      ['ark', 'textarea', ['ark-textarea--sizes', 'ark-textarea--states', 'ark-textarea--uncontrolled']],
+      ['angular', 'textarea', ['angular-textarea--tamanhos', 'angular-textarea--com-contador']],
+      ['ark', 'alert', ['ark-alert--subtle', 'ark-alert--solid']],
+      ['angular', 'menu', ['angular-menu--escolhas', 'angular-menu--tamanhos']],
     ]) {
-      const inputPage = path.join(staticPortal, locale, technology, 'components', 'input', 'index.html');
-      if (!fs.existsSync(inputPage)) {
-        errors.push(`portal vNext não publicou ${locale}/${technology}/components/input`);
+      const componentPage = path.join(staticPortal, locale, technology, 'components', slug, 'index.html');
+      if (!fs.existsSync(componentPage)) {
+        errors.push(`portal vNext não publicou ${locale}/${technology}/components/${slug}`);
         continue;
       }
-      const html = fs.readFileSync(inputPage, 'utf8');
+      const html = fs.readFileSync(componentPage, 'utf8');
       for (const storyId of exampleIds) {
         if (!html.includes(`data-output-story-id="${storyId}"`) || !html.includes(`id=${storyId}`)) {
-          errors.push(`${locale}/${technology}/input: exemplo executável ${storyId} ausente no HTML publicado`);
+          errors.push(`${locale}/${technology}/${slug}: exemplo executável ${storyId} ausente no HTML publicado`);
         }
+      }
+      if (html.includes('· Angular · Angular')) {
+        errors.push(`${locale}/${technology}/${slug}: nome da tecnologia duplicado no título do exemplo`);
       }
     }
   }

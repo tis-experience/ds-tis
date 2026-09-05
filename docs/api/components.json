@@ -856,14 +856,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native textarea",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/textarea.jsx",
+          "storyId": "ark-textarea--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/textarea/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
@@ -1936,14 +1936,14 @@
         },
         "ark": {
           "outputId": "ark-zag",
-          "status": "planned",
+          "status": "beta",
           "distribution": "technology-adapters",
           "package": null,
-          "provider": "Ark UI + Zag",
-          "framework": null,
-          "adapter": null,
-          "storyId": null,
-          "docs": null
+          "provider": "Ark UI Factory + native live region",
+          "framework": "React",
+          "adapter": "packages/react/src/ark/alert.jsx",
+          "storyId": "ark-alert--playground",
+          "docs": "https://tis-experience.github.io/ds-tis/next/pt-br/ark/components/alert/"
         },
         "react": {
           "outputId": "react-shadcn-base-ui",
