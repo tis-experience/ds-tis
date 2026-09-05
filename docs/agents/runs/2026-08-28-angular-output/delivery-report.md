@@ -43,6 +43,13 @@
   preservado após compensar o deslocamento, sem novos cortes/sobreposições.
   Somente essas oito referências Linux e suas equivalentes macOS são atualizadas;
   os limites do teste e as demais referências permanecem inalterados.
+- O gate local também revelou duas baselines macOS de Divider anteriores ao
+  PR #66 (`8353a4f`), que atualizou somente o Linux. Revisão independente
+  confirmou a anatomia já presente na `main` e +123 px sem outra alteração
+  no artigo. Somente essas duas referências macOS são sincronizadas; HTML,
+  CSS, referências Linux e limites do teste permanecem intactos.
+- Ambiente do QA: Chromium/Playwright e servidor local `127.0.0.1:4177`;
+  Browser plugin ausente (skill `browser` não disponível nesta sessão).
 - Estado: candidata a integração por PR; CI e revisão do PR são os gates para
   merge. Esta etapa não publica versão npm nem modifica Figma. A comparação de tokens usa o snapshot
   existente de 201h e não representa uma nova validação do Figma vivo.
