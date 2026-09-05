@@ -1,5 +1,188 @@
 # Relatório da saída Angular
 
+## Revisão independente e integração — 2026-09-05
+
+- Owner autorizou seguir com revisão, commit e PR do lote de sete componentes:
+  Form Field, Breadcrumb, Avatar, Pagination, Skeleton, Spinner e Table.
+- Role de integração: Release Agent; checklist `docs/agents/checklists/release-checklist.md`.
+- Dois revisores independentes verificaram source/API/testes e documentação.
+  A revisão encontrou e levou à correção de ordenação invertida/seleção por
+  índice na Table, cancelamento de cliques modificados na Pagination, dependência
+  de labels PT no harness, corte móvel de Skeleton e mapas de tokens omitidos.
+- Revisor de documentação verificou as correções Table; QA dos ajustes
+  documentais cobriu 24 combinações PT/EN × 320/1280 × light/dark, totalizando
+  96 iframes sem corte vertical/horizontal ou erro JavaScript.
+- Após as correções: build/tarball Angular e 46 testes unitários passaram.
+  Consumer de produção: 430,92 KiB JS + 224,12 KiB CSS. `verify:tokens` sem erros
+  ou drift; aviso de snapshot antigo preservado, conforme dispensa do owner
+  para trabalho que não altera Figma/tokens.
+- Integração da `main` e verificação de CI do PR em andamento. Esta etapa não
+  publica versão npm nem modifica Figma.
+
+## Incremento Table — 2026-09-04
+
+- Branch: `codex/angular-form-field`, base `6b66bf2`.
+- Role: Repo Component Agent; checklist `docs/agents/checklists/repo-implementation-checklist.md`.
+- Escopo: vigésima sexta e última saída Angular do catálogo atual,
+  `@tis/angular/table`. Sem alteração de Figma, tokens ou CSS público.
+- API: diretivas standalone sobre `table`, `caption`, `thead`, `tbody`, `tr`,
+  `th`, `td` e `button` nativos; região nomeada e focável; tamanhos sm/md;
+  layout fixed/nowrap; alinhamento; truncamento; seleção e `aria-sort`.
+- Entrega local: entrypoint independente, quatro stories, consumer instalado via
+  tarball, harness, três testes unitários, catálogo/rotas PT-BR e EN, anatomia
+  com sete marcadores e exemplos de tamanhos, estados e overflow horizontal.
+- Gates executados: build Angular; consumer de produção; 43 testes unitários
+  totais; Storybook Angular; browser Angular completo; bundle independente;
+  geração de docs/API/LLM; build do portal e QA dedicada no catálogo.
+- Table: 1,60 KiB gzip, orçamento 4 KiB. Consumer: 430,77 KiB JS e
+  224,12 KiB CSS brutos. Sem imports cruzados com outras saídas.
+- QA no servidor local `127.0.0.1:4177`: catálogo → Table Angular em PT-BR e
+  EN; quatro iframes; 1280/320 px × light/dark; ordenação por mouse/teclado,
+  `aria-sort`, linha selected, rows sm/md de 40/48 px, largura integral,
+  overflow restrito à região, foco visível, sete marcadores dentro da anatomia,
+  ausência de corte vertical e zero violações Axe nas tags WCAG utilizadas.
+- Correções provenientes da inspeção visual: separação dos marcadores 1/3/4 na
+  anatomia móvel; remoção de controle focável do diagrama `aria-hidden`;
+  redução dos previews simples de 30 para 18 rem; nomes únicos nas regiões da
+  matriz de tamanhos; asserções de Badge limitadas aos exemplos próprios.
+- Evidência visual inspecionada fora do repo:
+  `/private/tmp/table-anatomy-320-dark.png`,
+  `/private/tmp/table-playground-1280-light.png` e
+  `/private/tmp/table-overflow-320-dark.png`.
+- Estado: implementado e validado localmente; não commitado, não publicado.
+  Próximo passo: gate integrado final e revisão independente antes de integrar
+  por PR. Não se declara autoaprovação.
+
+## Incremento Spinner — 2026-09-04
+
+- Role: Repo Component Agent, mesmo checklist de implementação. Alterações já
+  presentes na branch `codex/angular-form-field` foram preservadas.
+- Vigésima quinta saída Angular: `@tis/angular/spinner`. O host participa da
+  composição e renderiza um `span` nativo com as classes públicas, tamanhos
+  sm/md/lg, estilo on-color, status nomeado e modo decorativo.
+- O modo decorativo evita anúncios duplicados em Button/regiões que já comunicam
+  a espera. A animação respeita `prefers-reduced-motion`; não houve alteração de
+  tokens, CSS público ou Figma.
+- Evidência: tarball instalado num consumer independente, build de produção,
+  40 testes unitários, entrypoint de 0,84 KiB gzip, quatro stories e regressão
+  Angular completa de semântica, paridade CSS, 320/390/1280 px, light/dark e Axe.
+- Portal PT-BR/EN validado em 1280/320 px com quatro exemplos, três marcadores e
+  Axe zero. A inspeção detectou e corrigiu contraste insuficiente no label do
+  exemplo on-color antes da entrega.
+- Estado: local, validado para análise; sem commit, push, PR ou publicação.
+
+## Incremento Skeleton — 2026-09-04
+
+- Role: Repo Component Agent, mesmo checklist de implementação. Alterações já
+  presentes na branch `codex/angular-form-field` foram preservadas.
+- Vigésima quarta saída Angular: `@tis/angular/skeleton`, formada pelo shape
+  standalone decorativo e pela diretiva `tisSkeletonGroup`, que concentra
+  `role="status"`, nome acessível e `aria-busy` numa única região.
+- API visual: tipos text, circle e rectangle, largura opcional e composição sem
+  anúncios duplicados. A animação respeita `prefers-reduced-motion` pelo CSS
+  público existente; não houve mudança em tokens ou Figma.
+- Evidência: tarball instalado num consumer independente, build de produção,
+  38 testes unitários, entrypoint de 0,92 KiB gzip, quatro stories e regressão
+  Angular completa de semântica, visual, 320/390/1280 px, light/dark e Axe.
+- Portal PT-BR/EN validado em 1280/320 px, light/dark, com três marcadores de
+  anatomia e quatro exemplos funcionais. A inspeção detectou e corrigiu dois
+  problemas antes da entrega: `role="status"` inválido em `article` e corte
+  vertical do Card em 320 px. O preview agora contém toda a composição.
+- Estado: local, validado para análise; sem commit, push, PR ou publicação.
+
+## Incremento Pagination — 2026-09-04
+
+- Role: Repo Component Agent, mesmo checklist de implementação. Alterações de
+  Form Field, Breadcrumb e Avatar preservadas na branch
+  `codex/angular-form-field`, base `6b66bf2`.
+- Vigésima terceira saída Angular: `@tis/angular/pagination`. Componente
+  standalone controlado por `currentPage`/`totalPages`, com `pageChange`, nav,
+  links numerados, Buttons anterior/próxima, ellipsis e tamanhos sm/md/lg.
+- O consumidor continua responsável por URL e dados. Página atual usa
+  `aria-current="page"`, fica fora da tabulação e os limites desabilitam apenas
+  o controle correspondente. Exemplos atualizam página e texto reais.
+- Evidência: tarball instalado num consumer independente, build de produção,
+  34 testes unitários, entrypoint de 1,84 KiB gzip, três stories, comparação
+  visual com o CSS estável, teclado, foco, dark e 320 px. Portal PT-BR/EN
+  validado em 1280/320 px e light/dark, com seis marcadores dentro da anatomia,
+  três exemplos funcionais, Axe zero e nenhuma resposta HTTP/console com erro.
+- Correção visual durante QA: o marcador 3 da anatomia saía do quadro em
+  320 px; passou a usar conector superior e a amostra anatômica foi compactada.
+- Estado: local, validado para análise; sem commit, push, PR ou publicação.
+
+## Incremento Breadcrumb — 2026-09-04
+
+- Role: Repo Component Agent, mesmo checklist de implementação. Alterações de
+  Form Field preservadas na branch `codex/angular-form-field`, base `6b66bf2`.
+- Vigésima primeira saída Angular: `@tis/angular/breadcrumb`. Quatro diretivas
+  standalone sobre nav, a e span; preserva classes/tokens públicos, href nativo,
+  label acessível, página atual não focável e separadores decorativos. Sem
+  dependência de router e sem mudanças no CSS consumidor ou Figma.
+- Artefatos: entrypoint próprio, três stories, harness, consumer via tarball,
+  dois testes unitários adicionais, regressões de teclado e stories dark/320px,
+  rotas PT-BR/EN, catálogo, assets e README. A documentação compartilhada deixa
+  de afirmar que o HTML usa ol (o contrato real usa nav com links).
+- Seletor documental: Breadcrumb/Form Field Web apontam para o HTML existente;
+  React indisponível fica desabilitado, evitando navegação a uma rota ausente.
+- Gates: build Angular, instalação real/build do consumer, 25 testes unitários,
+  build Storybook, bundle (Breadcrumb 0,68 KiB gzip / orçamento 3 KiB), browser
+  Angular completo e Axe, build do portal, teste de fundação vNext, verify:tokens
+  (1595 tokens, 0 erros, aviso de snapshot antigo), diff sem erros de whitespace.
+- QA do portal: catálogo → Breadcrumb Angular em PT-BR/EN, três exemplos próprios,
+  links Web válidos, 1280/320px × light/dark. Navegação do exemplo atualiza trilha
+  e conteúdo; seis marcadores dentro da anatomia; CSS carregado, sem overflow da
+  página, console/HTTP sem erros e zero violações nas tags WCAG do gate documental.
+  Prints inspecionados: `/private/tmp/breadcrumb-*.png`. Plugin Browser ausente;
+  testes executados com Playwright/Chromium existente no repo.
+- Não testado: integração real com Angular Router, leitor de tela manual e
+  outros motores de navegador. O componente não intercepta eventos; apenas a
+  story interativa intercepta links para simular a mudança de nível localmente.
+- Estado: validado localmente, não commitado/publicado. Próximo componente Angular:
+  Avatar, seguido de Pagination, Skeleton, Spinner e Table. Revisão independente
+  e integração dos incrementos continuam pendentes; não se declara autoaprovação.
+
+## Incremento Form Field — 2026-09-04
+
+- Branch: `codex/angular-form-field`, base `6b66bf2`.
+- Role: Repo Component Agent; checklist `docs/agents/checklists/repo-implementation-checklist.md`.
+- Escopo: vigésima saída Angular, `@tis/angular/form-field`, para o wrapper
+  CSS-only existente (ADR-017). Sem alteração de Figma, tokens ou CSS consumidor.
+- API: `TisFormField`, label obrigatório, controle projetado, `for`, required,
+  invalid, showLabel, helperText, errorMessage e ariaDescribedby. O consumidor
+  vincula os sinais públicos controlId/describedBy/ariaInvalid/ariaLabel ao
+  elemento nativo e mantém valor, eventos e Angular Forms. TisInput/Select/Textarea
+  já compostos não devem ser aninhados nesse wrapper.
+- Entrega local: entrypoint, quatro stories Angular, consumidor instalado via
+  tarball, testes unitários e browser, catálogo e rotas PT-BR/EN. O índice Angular
+  passa a listar os vinte entrypoints reais, incluindo itens omitidos anteriormente.
+- Gates executados: build Angular; instalação real e build de produção do consumer;
+  23 testes unitários; Storybook Angular; bundle; browser Angular com Axe,
+  foco no clique do label, submit vazio, remoção do erro, nome acessível oculto,
+  descrições válidas e quatro stories dark/320px; `test:vnext`; build do portal;
+  `verify:tokens` (0 erros, apenas aviso de snapshot antigo); `git diff --check`.
+- Form Field: 1,31 KiB gzip, orçamento 4 KiB. Consumer: 411,27 KiB JS e
+  223,41 KiB CSS brutos. Sem imports cruzados com as outras saídas.
+- QA no servidor local `127.0.0.1:4177`: catálogo → Form Field Angular em PT-BR
+  e EN; quatro iframes; 1280/320px × light/dark; input 40px, cinco marcadores
+  dentro da anatomia, sem overflow de página e sem violações WCAG 2.2 AA detectadas.
+  Prints inspecionados fora do repositório em `/private/tmp/field-*.png`.
+- Causa detectada na inspeção visual: nova rota sem cadastro de CSS em
+  `component-assets.ts` produzia anatomia sem estilos. Corrigidos os imports
+  de Form Field/Input/Textarea/Select/Checkbox/Radio. Cadastro ausente agora
+  lança erro de build, com regressão no teste de fundação. A anatomia reutiliza
+  a contenção responsiva de Input/Textarea, sem alterar o contrato visual.
+- Limites: Chromium automatizado, sem teste manual com leitor de tela. O Axe
+  completo do portal também acusa heading-order e landmark-unique ao combinar
+  iframes; a matriz documental usa as mesmas tags WCAG do gate existente, e
+  cada story passa o Axe completo separadamente. Não é alegada conformidade
+  absoluta de acessibilidade nem evidência Figma fresca.
+- Estado: implementado e validado localmente; não commitado, não publicado.
+  Próximo passo: revisão independente e integração deste incremento, coordenada
+  com Input Ark e Table React; depois continuar os seis componentes Angular
+  pendentes (Avatar, Breadcrumb, Pagination, Skeleton, Spinner e Table).
+
+## Histórico do incremento anterior
+
 - Data da validação: 2026-09-04
 - Branch: `codex/angular-divider`
 - Base: `9c1b96c` (`origin/main`)

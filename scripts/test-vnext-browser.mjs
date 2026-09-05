@@ -632,8 +632,8 @@ async function auditCanonicalCatalog(route, locale) {
     has: page.locator('.ds-component-catalog__name', { hasText: /^Table$/ }),
   });
   expect(await tableItem.locator('[data-output]').count() === 4, `${route}: Table deve mostrar as quatro implementações`);
-  expect(await tableItem.locator('a').count() === 1, `${route}: Table deve ligar somente a implementação Web disponível`);
-  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 3, `${route}: Table deve identificar três implementações não disponíveis`);
+  expect(await tableItem.locator('a').count() === 2, `${route}: Table deve ligar as implementações Web e Angular disponíveis`);
+  expect(await tableItem.locator('[data-availability="unavailable"]').count() === 2, `${route}: Table deve identificar Ark e React como implementações não disponíveis`);
   expect(await horizontalOverflow() <= 1, `${route}: overflow horizontal em 390px`);
   await auditAxe(route);
   recordBrowserErrors(route);

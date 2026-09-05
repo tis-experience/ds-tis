@@ -66,8 +66,38 @@
 <p>O formato é baseado em <a href="https://keepachangelog.com/pt-BR/1.1.0/">Keep a Changelog</a> e o versionamento segue <a href="https://semver.org/lang/pt-BR/">Semantic Versioning</a>.</p>
 <p>O sistema segue Semantic Versioning. <code>1.0.0</code> marca o primeiro contrato estável; as tags <code>1.0.0-beta.N</code> e 0.x permanecem como histórico. Regras em <code>docs/process-versioning.html</code>.</p>
 <h2><a href="https://github.com/tis-experience/ds-tis/compare/v1.0.0...HEAD">Não publicado</a></h2>
+<h3>Adicionado</h3>
+<ul>
+<li><strong>Table Angular nativa</strong> em <code>@tis/angular/table</code>: diretivas standalone para
+region, table, caption, header, sort, row e cell, mantendo semântica HTML,
+overflow local e dados/ordenação sob controle da aplicação. Inclui stories,
+testes e catálogo PT-BR/EN.</li>
+<li><strong>Spinner Angular nativo</strong> em <code>@tis/angular/spinner</code>: indicador indeterminado
+com tamanhos sm/md/lg, estilo on-color, status nomeado e modo decorativo para
+composições que já anunciam a operação. Inclui stories, testes e catálogo PT-BR/EN.</li>
+<li><strong>Skeleton Angular nativo</strong> em <code>@tis/angular/skeleton</code>: shapes text, circle e
+rectangle sempre decorativos, com diretiva de região de loading e suporte a
+reduced motion pelo CSS existente. Inclui stories, testes e catálogo PT-BR/EN.</li>
+<li><strong>Pagination Angular nativo</strong> em <code>@tis/angular/pagination</code>: navegação
+controlada com links numerados, anterior/próxima, ellipsis, limites e
+tamanhos sm/md/lg. Inclui stories funcionais, testes e catálogo PT-BR/EN.</li>
+<li><strong>Avatar Angular nativo</strong> em <code>@tis/angular/avatar</code>: imagem com fallback para
+iniciais ou ícone, tamanhos sm/md/lg, nome acessível e opção decorativa.
+Inclui exemplos próprios, consumer via tarball, testes e catálogo PT-BR/EN.</li>
+<li><strong>Breadcrumb Angular nativo</strong> em <code>@tis/angular/breadcrumb</code>: diretivas para
+nav, links, página atual e separadores, preservando navegação nativa. Inclui
+stories, consumidor via tarball, testes de teclado e documentação PT-BR/EN.</li>
+<li><strong>Form Field Angular nativo</strong> em <code>@tis/angular/form-field</code>: composição standalone
+de label, required, helper e erro com projeção do controle e IDs/ARIA públicos,
+sem alterar o CSS estável. Inclui exemplos próprios, consumidor via tarball,
+testes de formulário e rota PT-BR/EN no catálogo.</li>
+</ul>
 <h3>Corrigido</h3>
 <ul>
+<li><strong>Revisão das novas saídas Angular:</strong> ordenação da Table corresponde a
+<code>aria-sort</code> e mantém a seleção pelo cliente; Pagination preserva cliques
+modificados e permite testes com labels traduzidos. Previews de Skeleton
+contêm todo o conteúdo em 320 px; Spinner e Table exibem mapas de tokens.</li>
 <li><strong>Catálogo explicita as quatro implementações de cada componente.</strong> Os 26 cards
 deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
 todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,

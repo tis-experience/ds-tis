@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T15:53:15.016Z",
+  "generatedAt": "2026-09-04T23:36:24.157Z",
   "scope": "adapter Angular minificado; Angular/RxJS/tslib externos por serem peers",
   "results": [
     {
@@ -19,6 +19,18 @@
       "rawBytes": 2270,
       "gzipBytes": 776,
       "budgetGzipBytes": 4096
+    },
+    {
+      "name": "avatar",
+      "rawBytes": 4772,
+      "gzipBytes": 1375,
+      "budgetGzipBytes": 4096
+    },
+    {
+      "name": "breadcrumb",
+      "rawBytes": 3028,
+      "gzipBytes": 699,
+      "budgetGzipBytes": 3072
     },
     {
       "name": "button",
@@ -51,6 +63,12 @@
       "budgetGzipBytes": 3072
     },
     {
+      "name": "form-field",
+      "rawBytes": 5133,
+      "gzipBytes": 1345,
+      "budgetGzipBytes": 4096
+    },
+    {
       "name": "input",
       "rawBytes": 13227,
       "gzipBytes": 2574,
@@ -69,6 +87,12 @@
       "budgetGzipBytes": 12288
     },
     {
+      "name": "pagination",
+      "rawBytes": 8560,
+      "gzipBytes": 1880,
+      "budgetGzipBytes": 4096
+    },
+    {
       "name": "popover",
       "rawBytes": 16570,
       "gzipBytes": 3698,
@@ -85,6 +109,24 @@
       "rawBytes": 11281,
       "gzipBytes": 2373,
       "budgetGzipBytes": 6144
+    },
+    {
+      "name": "skeleton",
+      "rawBytes": 3149,
+      "gzipBytes": 945,
+      "budgetGzipBytes": 3072
+    },
+    {
+      "name": "spinner",
+      "rawBytes": 2797,
+      "gzipBytes": 832,
+      "budgetGzipBytes": 3072
+    },
+    {
+      "name": "table",
+      "rawBytes": 10839,
+      "gzipBytes": 1636,
+      "budgetGzipBytes": 4096
     },
     {
       "name": "tabs",

@@ -8,7 +8,36 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
 
 ## [Não publicado]
 
+### Adicionado
+- **Table Angular nativa** em `@tis/angular/table`: diretivas standalone para
+  region, table, caption, header, sort, row e cell, mantendo semântica HTML,
+  overflow local e dados/ordenação sob controle da aplicação. Inclui stories,
+  testes e catálogo PT-BR/EN.
+- **Spinner Angular nativo** em `@tis/angular/spinner`: indicador indeterminado
+  com tamanhos sm/md/lg, estilo on-color, status nomeado e modo decorativo para
+  composições que já anunciam a operação. Inclui stories, testes e catálogo PT-BR/EN.
+- **Skeleton Angular nativo** em `@tis/angular/skeleton`: shapes text, circle e
+  rectangle sempre decorativos, com diretiva de região de loading e suporte a
+  reduced motion pelo CSS existente. Inclui stories, testes e catálogo PT-BR/EN.
+- **Pagination Angular nativo** em `@tis/angular/pagination`: navegação
+  controlada com links numerados, anterior/próxima, ellipsis, limites e
+  tamanhos sm/md/lg. Inclui stories funcionais, testes e catálogo PT-BR/EN.
+- **Avatar Angular nativo** em `@tis/angular/avatar`: imagem com fallback para
+  iniciais ou ícone, tamanhos sm/md/lg, nome acessível e opção decorativa.
+  Inclui exemplos próprios, consumer via tarball, testes e catálogo PT-BR/EN.
+- **Breadcrumb Angular nativo** em `@tis/angular/breadcrumb`: diretivas para
+  nav, links, página atual e separadores, preservando navegação nativa. Inclui
+  stories, consumidor via tarball, testes de teclado e documentação PT-BR/EN.
+- **Form Field Angular nativo** em `@tis/angular/form-field`: composição standalone
+  de label, required, helper e erro com projeção do controle e IDs/ARIA públicos,
+  sem alterar o CSS estável. Inclui exemplos próprios, consumidor via tarball,
+  testes de formulário e rota PT-BR/EN no catálogo.
+
 ### Corrigido
+- **Revisão das novas saídas Angular:** ordenação da Table corresponde a
+  `aria-sort` e mantém a seleção pelo cliente; Pagination preserva cliques
+  modificados e permite testes com labels traduzidos. Previews de Skeleton
+  contêm todo o conteúdo em 320 px; Spinner e Table exibem mapas de tokens.
 - **Catálogo explicita as quatro implementações de cada componente.** Os 26 cards
   deixam de ocultar Ark/Zag, React ou Angular quando a saída ainda não está pronta:
   todas permanecem visíveis com estado Estável, Beta, Planejada ou Indisponível,
