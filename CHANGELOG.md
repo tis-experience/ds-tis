@@ -66,6 +66,13 @@ O sistema segue Semantic Versioning. `1.0.0` marca o primeiro contrato estável;
   completos, sem recortar o painel nem alterar a altura pública do Input.
 
 ### Adicionado
+- **Alert ganha saída Ark em beta de workspace.** As partes públicas do Alert
+  preservam os quatro tons, estilos solid/subtle e tokens TIS; exemplos validam
+  ação, fechamento pelo teclado e retorno de foco com live region contextual.
+- **Textarea ganha saída Ark em beta de workspace.** O adapter
+  `@tis/react/ark/textarea` preserva edição multilinha, ref, formulário nativo,
+  tamanhos e estados TIS. O portal bilíngue oferece exemplos de contador,
+  envio, limpeza, valor inicial e estados, com testes de interação e bundle.
 - **Pagination passa a integrar a saída React distribuída por shadcn.** O
   source oferece landmark nomeado, lista, links de página, item atual,
   reticências e controles anterior/próxima nos tamanhos `sm`/`md`/`lg`, sem

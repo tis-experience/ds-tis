@@ -1,11 +1,14 @@
-- Status: Em andamento
+- Status: Integrado; rotas públicas verificadas
 
 # Release Report
 
 - Escopo: saída Ark/Zag do Input Text.
 - Branch: `codex/ark-input`.
-- Commit/PR: pendente.
-- Publicação: pendente de merge e GitHub Pages.
+- Commit de implementação: `8897f55`; PR #68 integrada como `b34beff`.
+- GitHub Pages publicado. Em 2026-09-05, as rotas PT-BR/EN de Input Ark
+  responderam HTTP 200 e referenciaram `ark-input--playground`; o índice público
+  de Storybook também continha a story. Esse check não é uma nova auditoria
+  visual ou uma release npm.
 
 ## Gates locais
 

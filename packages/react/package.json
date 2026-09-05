@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.js",
     "./ark/accordion": "./src/ark/accordion.jsx",
+    "./ark/alert": "./src/ark/alert.jsx",
     "./ark/button": "./src/ark/button.jsx",
     "./ark/checkbox": "./src/ark/checkbox.jsx",
     "./ark/combobox": "./src/ark/combobox.jsx",
@@ -16,6 +17,7 @@
     "./ark/radio": "./src/ark/radio.jsx",
     "./ark/select": "./src/ark/select.jsx",
     "./ark/tabs": "./src/ark/tabs.jsx",
+    "./ark/textarea": "./src/ark/textarea.jsx",
     "./ark/toast": "./src/ark/toast.jsx",
     "./ark/toggle": "./src/ark/toggle.jsx",
     "./ark/tooltip": "./src/ark/tooltip.jsx"

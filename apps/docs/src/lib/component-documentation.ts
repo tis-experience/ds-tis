@@ -121,6 +121,10 @@ initAccordions()`,
     },
     previewSize: 'medium',
     descriptions: {
+      ark: {
+        pt: 'Adapter Ark Factory com partes TIS, live region contextual e fechamento controlado pela aplicação.',
+        en: 'An Ark Factory adapter with TIS parts, contextual live-region semantics, and application-controlled dismissal.',
+      },
       angular: {
         pt: 'Componente standalone por composição, com live region contextual, partes públicas e fechamento controlado pela aplicação.',
         en: 'A standalone composition component with contextual live-region semantics, public parts, and application-controlled dismissal.',
@@ -138,6 +142,13 @@ initAccordions()`,
       avoidWhen: [
         { pt: 'O feedback é breve e não precisa permanecer no fluxo; use Toast.', en: 'Feedback is brief and does not need to remain in the flow; use Toast.' },
         { pt: 'A pessoa precisa interromper a tarefa para decidir; use Modal.', en: 'The person must interrupt the task to decide; use Modal.' },
+      ],
+    },
+    ark: { adapterImport: `import { Alert, AlertContent, AlertTitle, AlertDescription, AlertIcon, AlertActions, AlertClose } from '@tis/react/ark/alert'` },
+    examples: {
+      ark: [
+        { storyId: 'ark-alert--subtle', size: 'large', title: { pt: 'Subtle', en: 'Subtle' }, description: { pt: 'Quatro tons com fundo suave e borda TIS.', en: 'Four tones with TIS subtle backgrounds and borders.' } },
+        { storyId: 'ark-alert--solid', size: 'large', title: { pt: 'Solid', en: 'Solid' }, description: { pt: 'Quatro tons com preenchimento sólido.', en: 'Four tones with solid backgrounds.' } },
       ],
     },
     angular: {
@@ -518,6 +529,10 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
     },
     previewSize: 'medium',
     descriptions: {
+      ark: {
+        pt: 'Adapter independente sobre Ark Factory e textarea nativo, com os tamanhos, estados e tokens TIS.',
+        en: 'An independent adapter over Ark Factory and a native textarea, with TIS sizes, states, and tokens.',
+      },
       angular: {
         pt: 'Componente Angular standalone sobre textarea nativo, com Form Field, contador acessível, validação e ControlValueAccessor.',
         en: 'A standalone Angular component over a native textarea, with Form Field, accessible counter, validation, and ControlValueAccessor.',
@@ -528,6 +543,23 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
       },
     },
     examples: {
+      ark: [
+        {
+          storyId: 'ark-textarea--sizes', size: 'large',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: { pt: 'Alturas mínimas sm, md e lg e redimensionamento vertical.', en: 'Small, medium, and large minimum heights and vertical resizing.' },
+        },
+        {
+          storyId: 'ark-textarea--states', size: 'large',
+          title: { pt: 'Estados', en: 'States' },
+          description: { pt: 'Conteúdo preenchido, erro, somente leitura e desabilitado.', en: 'Filled content, invalid, read-only, and disabled states.' },
+        },
+        {
+          storyId: 'ark-textarea--uncontrolled', size: 'medium',
+          title: { pt: 'Valor inicial', en: 'Default value' },
+          description: { pt: 'Edição nativa com defaultValue, sem controlar o valor pelo React.', en: 'Native editing with defaultValue, without controlling the value through React.' },
+        },
+      ],
       angular: [
         {
           storyId: 'angular-textarea--tamanhos',
@@ -549,6 +581,7 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
         },
       ],
     },
+    ark: { adapterImport: `import { Textarea } from '@tis/react/ark/textarea'` },
     angular: {
       primitive: 'HTML textarea + Angular Forms',
       imports: `import { FormsModule } from '@angular/forms'
