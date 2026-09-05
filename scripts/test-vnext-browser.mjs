@@ -665,9 +665,8 @@ async function auditCanonicalCatalog(route, locale) {
   const badgeItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Badge$/ }),
   });
-  expect(await badgeItem.locator('a').count() === 3, `${route}: Badge deve ligar Web, React e Angular`);
-  expect(await badgeItem.locator('[data-output="ark"]').count() === 1, `${route}: Badge deve exibir a saída Ark planejada`);
-  expect(await badgeItem.locator('[data-output="ark"] a').count() === 0, `${route}: Badge não deve ligar a saída Ark ainda planejada`);
+  expect(await badgeItem.locator('a').count() === 4, `${route}: Badge deve ligar as quatro saídas`);
+  expect(await badgeItem.locator('[data-output="ark"] a').count() === 1, `${route}: Badge deve ligar Ark disponível`);
   const alertItem = catalog.locator('.ds-component-catalog__item').filter({
     has: page.locator('.ds-component-catalog__name', { hasText: /^Alert$/ }),
   });
@@ -1214,6 +1213,12 @@ async function auditBadgeOutputSelector() {
   browserErrors.length = 0;
   const routes = [
     {
+      route: '/ds-tis/next/pt-br/ark/components/badge/',
+      activeLabel: 'Ark/Zag', status: 'Beta',
+      previewSelector: '[data-output-preview][data-output-storybook="vnext"]',
+      storyId: 'ark-badge--playground',
+    },
+    {
       route: '/ds-tis/next/pt-br/web/components/badge/',
       activeLabel: 'HTML/CSS/JS',
       status: 'Estável',
@@ -1243,7 +1248,7 @@ async function auditBadgeOutputSelector() {
     expect((await page.locator('main h1').first().textContent())?.trim() === 'Badge', `${route}: título Badge ausente`);
     const technologyOptions = page.locator('[data-technology-select] option');
     expect(await technologyOptions.count() === 4, `${route}: seletor não expõe as quatro saídas`);
-    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isDisabled(), `${route}: saída Ark planejada deveria permanecer desabilitada`);
+    expect(await technologyOptions.filter({ hasText: 'Ark/Zag' }).isEnabled(), `${route}: saída Ark disponível deveria permanecer habilitada`);
     expect(
       (await page.locator('[data-technology-select] option:checked').textContent())?.trim() === activeLabel,
       `${route}: saída ativa incorreta`,
@@ -5054,6 +5059,20 @@ async function auditStorybookComponents() {
   await auditAxe('Storybook vNext · Alert');
   recordBrowserErrors('Storybook vNext · Alert');
 
+  for (const mode of ['light', 'dark']) {
+    await page.goto(`${origin}/ds-tis/next/storybook/iframe.html?viewMode=story&globals=a11y.manual:!true;mode:${mode}&id=ark-badge--tones`, { waitUntil: 'networkidle' });
+    await page.locator('.ds-ark-badge').first().waitFor();
+    expect(await page.locator('.ds-ark-badge').count() === 12, 'Badge Ark deve cobrir seis tons e dois estilos');
+    expect(await page.locator('.ds-ark-badge').evaluateAll((els) => els.every((el) => el.tagName === 'SPAN' && el.tabIndex < 0 && !el.hasAttribute('role') && !!el.textContent.trim())), 'Badge Ark deve ser informativo e não interativo');
+    await auditAxe(`Storybook · Badge Ark ${mode}`);
+  }
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto(`${storyBase}ark-badge--tones`, { waitUntil: 'networkidle' });
+  await page.locator('.ds-ark-badge').first().waitFor();
+  expect(await horizontalOverflow() <= 1, 'Badge Ark tem overflow em 320px');
+  await auditAxe('Storybook · Badge Ark 320px');
+  recordBrowserErrors('Storybook · Badge Ark');
+  await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(`${storyBase}react-badge--tones`, { waitUntil: 'networkidle' });
   await page.locator('[data-slot="badge"]').first().waitFor();
   expect(await page.locator('[data-slot="badge"]').count() === 12, 'Badge deve cobrir seis tons em solid e subtle');
@@ -5167,6 +5186,7 @@ async function auditStorybookComponents() {
     'ark-input--playground',
     'ark-textarea--playground',
     'ark-alert--playground',
+    'ark-badge--playground',
     'ark-radio--playground',
     'ark-toggle--playground',
     'react-accordion--playground',
