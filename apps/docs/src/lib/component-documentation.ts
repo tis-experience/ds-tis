@@ -518,6 +518,10 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
     },
     previewSize: 'medium',
     descriptions: {
+      ark: {
+        pt: 'Adapter independente sobre Ark Factory e textarea nativo, com os tamanhos, estados e tokens TIS.',
+        en: 'An independent adapter over Ark Factory and a native textarea, with TIS sizes, states, and tokens.',
+      },
       angular: {
         pt: 'Componente Angular standalone sobre textarea nativo, com Form Field, contador acessível, validação e ControlValueAccessor.',
         en: 'A standalone Angular component over a native textarea, with Form Field, accessible counter, validation, and ControlValueAccessor.',
@@ -528,6 +532,23 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
       },
     },
     examples: {
+      ark: [
+        {
+          storyId: 'ark-textarea--sizes', size: 'large',
+          title: { pt: 'Tamanhos', en: 'Sizes' },
+          description: { pt: 'Alturas mínimas sm, md e lg e redimensionamento vertical.', en: 'Small, medium, and large minimum heights and vertical resizing.' },
+        },
+        {
+          storyId: 'ark-textarea--states', size: 'large',
+          title: { pt: 'Estados', en: 'States' },
+          description: { pt: 'Conteúdo preenchido, erro, somente leitura e desabilitado.', en: 'Filled content, invalid, read-only, and disabled states.' },
+        },
+        {
+          storyId: 'ark-textarea--uncontrolled', size: 'medium',
+          title: { pt: 'Valor inicial', en: 'Default value' },
+          description: { pt: 'Edição nativa com defaultValue, sem controlar o valor pelo React.', en: 'Native editing with defaultValue, without controlling the value through React.' },
+        },
+      ],
       angular: [
         {
           storyId: 'angular-textarea--tamanhos',
@@ -549,6 +570,7 @@ import { TisInput, TisInputIconStart } from '@tis/angular/input'`,
         },
       ],
     },
+    ark: { adapterImport: `import { Textarea } from '@tis/react/ark/textarea'` },
     angular: {
       primitive: 'HTML textarea + Angular Forms',
       imports: `import { FormsModule } from '@angular/forms'

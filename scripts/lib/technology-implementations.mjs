@@ -179,6 +179,12 @@ export const ARK_ADAPTERS_BY_SLUG = {
     provider: "Ark UI + Zag",
     storyId: "ark-tabs--playground",
   },
+  textarea: {
+    adapter: "packages/react/src/ark/textarea.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native textarea",
+    storyId: "ark-textarea--playground",
+  },
   toast: {
     adapter: "packages/react/src/ark/toast.jsx",
     framework: "React",
