@@ -2,11 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  ElementRef,
+  OnDestroy,
   ViewEncapsulation,
   booleanAttribute,
   computed,
   effect,
   forwardRef,
+  inject,
   input,
   model,
   signal,
@@ -101,7 +104,6 @@ export class TisComboboxIcon {}
         [readonly]="readonly()"
         [firstMatch]="firstMatch()"
         #combobox="ngCombobox"
-        (focusout)="handleFocusOut($event)"
       >
         <div
           class="ds-combobox"
@@ -117,6 +119,7 @@ export class TisComboboxIcon {}
           <input
             class="ds-combobox__input"
             ngComboboxInput
+            #comboboxInput
             type="text"
             autocomplete="off"
             [id]="resolvedId()"
@@ -137,7 +140,7 @@ export class TisComboboxIcon {}
             <button
               class="ds-combobox__clear"
               type="button"
-              aria-label="Limpar seleção"
+              [attr.aria-label]="clearLabel()"
               [hidden]="!hasValue() || isDisabled() || readonly()"
               (pointerdown)="$event.preventDefault()"
               (click)="clear()"
@@ -164,6 +167,7 @@ export class TisComboboxIcon {}
             [readonly]="readonly()"
             [values]="selectedValues()"
             (valuesChange)="handleSelection($event)"
+            [attr.hidden]="!combobox.expanded() || null"
           >
             @for (option of filteredOptions(); track option.value) {
               <li
@@ -187,16 +191,18 @@ export class TisComboboxIcon {}
     </div>
   `,
 })
-export class TisCombobox implements ControlValueAccessor, Validator {
+export class TisCombobox implements ControlValueAccessor, Validator, OnDestroy {
   private readonly generatedId = `tis-combobox-${++nextComboboxId}`;
   private readonly formDisabled = signal(false);
   private readonly ariaCombobox = viewChild(AngularAriaCombobox);
+  private readonly comboboxInputEl = viewChild<ElementRef<HTMLInputElement>>("comboboxInput");
   private onChange: (value: string | null) => void = () => undefined;
   private onTouched: () => void = () => undefined;
   private onValidatorChange: () => void = () => undefined;
 
   readonly ariaDescribedby = input<string | null>(null);
   readonly ariaLabel = input<string | null>(null);
+  readonly clearLabel = input("Limpar seleção");
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly errorMessage = input<string | null>(null);
   readonly helperText = input<string | null>(null);
@@ -236,6 +242,48 @@ export class TisCombobox implements ControlValueAccessor, Validator {
   ].filter(Boolean).join(" ") || null);
   protected readonly resolvedAriaLabel = computed(() => this.ariaLabel() || (!this.showLabel() ? this.label() : null));
 
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  /**
+   * `Escape` nativo do `@angular/aria` (`ComboboxPattern.onKeydown`, ligado
+   * via host binding no `ngCombobox`) chama `close()` do pattern
+   * DIRECTAMENTE — não passa por `TisCombobox.close()` (o método público
+   * acima), por isso a correcção nesse método sozinha não protege este
+   * caminho. `filterMode="manual"` limpa a selecção sempre que o `<input>`
+   * não bate com o `searchTerm` de nenhum item; como `open()` limpa a query
+   * ao reabrir sobre um valor já seleccionado (para mostrar a lista
+   * completa), o `<input>` fica vazio e a selecção perdia-se ao premir
+   * Escape sem ter escrito nada. Fase de CAPTURA no próprio host do
+   * componente, acima do `div` onde o Angular ARIA regista o seu handler:
+   * intercepta o Escape antes de esse handler correr, repõe query/valor
+   * (mesma lógica de `close()`) e delega o fecho a `close()`, já seguro.
+   */
+  private readonly interceptEscape = (event: KeyboardEvent) => {
+    if (event.key !== "Escape" || this.isDisabled() || this.readonly()) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.close();
+  };
+
+  /**
+   * O mesmo problema do Escape (ver `interceptEscape`) acontece ao sair por
+   * completo do combobox por qualquer outro caminho — clicar fora, Tab para
+   * o próximo campo. `Combobox` (`@angular/aria`) regista o seu próprio
+   * `focusout` no `div.ds-combobox-anchor`, em fase de bolha; intercepta-se
+   * aqui, no host, em fase de captura, antes de esse handler correr.
+   * Substitui o binding de template `(focusout)="handleFocusOut($event)"`
+   * que existia antes nesse `div` (nunca chegaria a correr de qualquer
+   * forma, com a propagação interrompida mais acima) — a chamada a
+   * `onTouched()` que esse método fazia está replicada aqui.
+   */
+  private readonly interceptFocusOut = (event: FocusEvent) => {
+    const related = event.relatedTarget as Node | null;
+    if (related && this.host.nativeElement.contains(related)) return;
+    event.stopImmediatePropagation();
+    this.close();
+    this.onTouched();
+  };
+
   constructor() {
     effect(() => {
       this.required();
@@ -247,6 +295,14 @@ export class TisCombobox implements ControlValueAccessor, Validator {
       if (option && untracked(() => this.query()) !== option.label) this.query.set(option.label);
       if (!option && this.value() !== null) this.value.set(null);
     });
+
+    this.host.nativeElement.addEventListener("keydown", this.interceptEscape, true);
+    this.host.nativeElement.addEventListener("focusout", this.interceptFocusOut, true);
+  }
+
+  ngOnDestroy(): void {
+    this.host.nativeElement.removeEventListener("keydown", this.interceptEscape, true);
+    this.host.nativeElement.removeEventListener("focusout", this.interceptFocusOut, true);
   }
 
   writeValue(value: unknown): void {
@@ -275,11 +331,40 @@ export class TisCombobox implements ControlValueAccessor, Validator {
     this.onValidatorChange = fn;
   }
 
+  /**
+   * Reabrir sobre um valor já seleccionado limpa a query, para a lista
+   * completa aparecer outra vez (o utilizador não devia ter de apagar o
+   * texto à mão para poder escolher outra opção). Só limpa quando a query
+   * ainda reflecte a opção seleccionada (nada digitado entretanto) — não
+   * destrói uma pesquisa em curso se open() for chamado de novo enquanto o
+   * popup já está aberto.
+   */
   open(): void {
-    if (!this.isDisabled() && !this.readonly()) this.ariaCombobox()?.open();
+    if (this.isDisabled() || this.readonly()) return;
+    const option = this.selectedOption();
+    if (option && this.query() === option.label) this.query.set("");
+    this.ariaCombobox()?.open();
   }
 
+  /**
+   * `ngCombobox` usa filterMode="manual": o `close()` do Angular ARIA limpa
+   * a selecção sempre que o `<input>` não bate com o `searchTerm` de nenhum
+   * item. Como `open()` (acima) limpa a query para mostrar a lista completa,
+   * fechar sem escolher nada de novo deixava o `<input>` vazio e perdia a
+   * selecção — mesmo sem o utilizador ter tocado em nada. Antes de delegar o
+   * fecho ao Angular ARIA, repõe a query (modelo E o valor real do elemento
+   * nativo — o ARIA lê `inputEl().value` directamente, não o signal, que só
+   * seria escrito no DOM no próximo ciclo de change detection) para o label
+   * da opção seleccionada, para o Angular ARIA encontrar a correspondência e
+   * não limpar nada.
+   */
   close(): void {
+    const option = this.selectedOption();
+    if (option && this.query() !== option.label) {
+      this.query.set(option.label);
+      const input = this.comboboxInputEl()?.nativeElement;
+      if (input) input.value = option.label;
+    }
     this.ariaCombobox()?.close();
   }
 
@@ -311,10 +396,5 @@ export class TisCombobox implements ControlValueAccessor, Validator {
     const option = this.options().find((item) => item.value === selected);
     this.query.set(option?.label ?? "");
     this.onChange(selected);
-  }
-
-  protected handleFocusOut(event: FocusEvent): void {
-    const anchor = event.currentTarget as HTMLElement;
-    if (!event.relatedTarget || !anchor.contains(event.relatedTarget as Node)) this.onTouched();
   }
 }

@@ -10,6 +10,7 @@ interface CheckboxArgs {
   helperText: string;
   indeterminate: boolean;
   invalid: boolean;
+  readonly: boolean;
   size: TisCheckboxSize;
 }
 
@@ -25,6 +26,7 @@ const meta: Meta<CheckboxArgs> = {
     helperText: "Pode alterar esta preferência a qualquer momento.",
     indeterminate: false,
     invalid: false,
+    readonly: false,
     size: "md",
   },
   argTypes: {
@@ -47,6 +49,7 @@ const meta: Meta<CheckboxArgs> = {
         [helperText]="helperText"
         [indeterminate]="indeterminate"
         [invalid]="invalid"
+        [readonly]="readonly"
         [size]="size"
       >
         Receber resumo semanal
@@ -69,6 +72,7 @@ export const Estados: Story = {
         <tis-checkbox [indeterminate]="true">Seleção parcial</tis-checkbox>
         <tis-checkbox [disabled]="true">Desabilitado</tis-checkbox>
         <tis-checkbox [checked]="true" [disabled]="true">Marcado e desabilitado</tis-checkbox>
+        <tis-checkbox [checked]="true" [readonly]="true">Marcado e só de leitura</tis-checkbox>
         <tis-checkbox [invalid]="true" errorMessage="Selecione esta opção para continuar">
           Aceitar os termos
         </tis-checkbox>

@@ -51,6 +51,7 @@ let nextCheckboxId = 0;
         class="ds-checkbox"
         [class.ds-checkbox--sm]="size() === 'sm'"
         [class.ds-checkbox--lg]="size() === 'lg'"
+        [class.ds-checkbox--readonly]="readonly() && !isDisabled()"
         [id]="resolvedId()"
         [name]="name()"
         [value]="value()"
@@ -61,6 +62,7 @@ let nextCheckboxId = 0;
         [attr.aria-label]="ariaLabel()"
         [attr.aria-describedby]="describedBy()"
         [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-readonly]="readonly() && !isDisabled() ? 'true' : null"
         type="checkbox"
         (blur)="handleBlur()"
         (change)="handleChange($event)"
@@ -98,6 +100,7 @@ export class TisCheckbox implements ControlValueAccessor, Validator {
   readonly indeterminate = model(false);
   readonly invalid = input(false, { transform: booleanAttribute });
   readonly name = input<string | null>(null);
+  readonly readonly = input(false, { transform: booleanAttribute });
   readonly required = input(false, { transform: booleanAttribute });
   readonly size = input<TisCheckboxSize>("md");
   readonly value = input("on");
@@ -106,6 +109,7 @@ export class TisCheckbox implements ControlValueAccessor, Validator {
   protected readonly errorId = `${this.generatedId}-error`;
   protected readonly helperId = `${this.generatedId}-helper`;
   protected readonly isDisabled = computed(() => this.disabled() || this.formDisabled());
+  private readonly isLocked = computed(() => this.isDisabled() || this.readonly());
   protected readonly resolvedId = computed(() => this.id() || this.generatedId);
   protected readonly describedBy = computed(() => [
     this.ariaDescribedby(),
@@ -151,6 +155,12 @@ export class TisCheckbox implements ControlValueAccessor, Validator {
 
   protected handleChange(event: Event): void {
     const input = event.currentTarget as HTMLInputElement;
+    if (this.isLocked()) {
+      // readonly nativo não tem efeito em checkbox/radio (spec HTML) — tem
+      // de se repor o estado visual manualmente e não propagar a mudança.
+      input.checked = this.checked();
+      return;
+    }
     this.indeterminate.set(false);
     this.checked.set(input.checked);
     this.onChange(input.checked);

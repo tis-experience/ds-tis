@@ -2,8 +2,8 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-:root,
-[data-mode="light"] {
+:where(:root, :host),
+:where([data-mode="light"], :host([data-mode="light"])) {
   --ds-brand-content-default: var(--ds-color-neutral-50);
   --ds-brand-content-hover: var(--ds-color-neutral-50); /** Conteúdo sobre fill primário em hover. */
   --ds-brand-content-disabled: var(--ds-overlay-white-80);

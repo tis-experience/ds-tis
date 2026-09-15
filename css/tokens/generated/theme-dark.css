@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-[data-mode="dark"] {
+:where([data-mode="dark"], :host([data-mode="dark"])) {
   --ds-brand-content-default: var(--ds-color-neutral-900);
   --ds-brand-content-hover: var(--ds-color-neutral-900); /** Conteúdo sobre fill primário em hover. */
   --ds-brand-content-disabled: var(--ds-overlay-white-80);
