@@ -1,5 +1,69 @@
 import { ComponentHarness } from "@angular/cdk/testing";
 
+export class TisPaginationHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-pagination";
+  private readonly nav = this.locatorFor("nav[data-tis-angular-pagination]");
+  private readonly pageLinks = this.locatorForAll("a.ds-pagination__page");
+  private readonly navigationButtons = this.locatorForAll("nav[data-tis-angular-pagination] button");
+
+  async getCurrentPage(): Promise<number> {
+    return Number(await (await this.locatorFor('[aria-current="page"]')()).text());
+  }
+
+  async getLabel(): Promise<string | null> {
+    return (await this.nav()).getAttribute("aria-label");
+  }
+
+  async goTo(page: number): Promise<void> {
+    for (const link of await this.pageLinks()) {
+      if ((await link.text()).trim() === String(page)) {
+        await link.click();
+        return;
+      }
+    }
+    throw new Error(`Pagination page link not found: ${page}`);
+  }
+
+  async next(): Promise<void> {
+    await (await this.navigationButtons())[1].click();
+  }
+
+  async previous(): Promise<void> {
+    await (await this.navigationButtons())[0].click();
+  }
+}
+
+export class TisSkeletonHarness extends ComponentHarness {
+  static readonly hostSelector = "tis-skeleton";
+  async getType(): Promise<string | null> { return (await this.host()).getAttribute("data-type"); }
+  async isDecorative(): Promise<boolean> { return (await this.host()).getAttribute("aria-hidden").then(value => value === "true"); }
+}
+
+export class TisSpinnerHarness extends ComponentHarness {
+  static readonly hostSelector = "[data-tis-angular-spinner]";
+  async getLabel(): Promise<string | null> { return (await this.host()).getAttribute("aria-label"); }
+  async getSize(): Promise<string | null> { return (await this.host()).getAttribute("data-size"); }
+  async isDecorative(): Promise<boolean> { return (await this.host()).getAttribute("aria-hidden").then(value => value === "true"); }
+}
+
+export class TisTableHarness extends ComponentHarness {
+  static readonly hostSelector = "table[data-tis-angular-table]";
+  private readonly rows = this.locatorForAll("tbody tr");
+  async getCaption(): Promise<string> { return (await this.locatorFor("caption")()).text(); }
+  async getRowCount(): Promise<number> { return (await this.rows()).length; }
+  async getSortDirection(): Promise<string | null> { return (await this.locatorFor("th[aria-sort]")()).getAttribute("aria-sort"); }
+  async sort(): Promise<void> { await (await this.locatorFor("button[tisTableSort]")()).click(); }
+}
+
+export class TisBreadcrumbHarness extends ComponentHarness {
+  static readonly hostSelector = "nav[tisBreadcrumb]";
+  async getLabel(): Promise<string | null> { return (await this.host()).getAttribute("aria-label"); }
+  async getLinks(): Promise<string[]> {
+    return Promise.all((await this.locatorForAll("a[tisBreadcrumbLink]")()).map((link) => link.text()));
+  }
+  async getCurrentPage(): Promise<string> { return (await this.locatorFor("span[tisBreadcrumbCurrent]")()).text(); }
+}
+
 export class TisAlertHarness extends ComponentHarness {
   static readonly hostSelector = "tis-alert";
   private readonly closeButton = this.locatorForOptional("button[tisAlertClose]");

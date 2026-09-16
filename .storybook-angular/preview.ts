@@ -38,7 +38,7 @@ const preview: Preview = {
     layout: "padded",
     options: {
       storySort: {
-        order: ["Introdução", "Componentes", ["Accordion", "Alert", "Badge", "Button", "Checkbox", "Combobox", "Input Text", "Menu", "Modal", "Popover", "Radio", "Select", "Tabs", "Textarea", "Toast", "Toggle", "Tooltip"]],
+        order: ["Introdução", "Componentes", ["Accordion", "Alert", "Avatar", "Badge", "Breadcrumb", "Button", "Card", "Checkbox", "Combobox", "Divider", "Form Field", "Input Text", "Menu", "Modal", "Pagination", "Popover", "Radio", "Select", "Skeleton", "Spinner", "Table", "Tabs", "Textarea", "Toast", "Toggle", "Tooltip"]],
       },
     },
   },

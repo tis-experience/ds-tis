@@ -48,10 +48,71 @@ try {
   await page.goto(origin, { waitUntil: "networkidle" });
   await page.locator("h1").waitFor();
 
+  const avatar = page.getByTestId("avatar-image");
+  await avatar.locator("img").waitFor();
+  const avatarSize = await avatar.boundingBox();
+  await page.getByRole("button", { name: "Simular falha da foto", exact: true }).click();
+  await avatar.locator("img").waitFor({ state: "detached" });
+  expect((await avatar.textContent()).trim() === "AL", "Avatar não exibiu iniciais após erro");
+  expect(await avatar.getAttribute("aria-label") === "Ana Lima, foto", "Avatar perdeu nome após erro");
+  const fallbackSize = await avatar.boundingBox();
+  expect(avatarSize.width === fallbackSize.width && avatarSize.height === fallbackSize.height, "Fallback alterou tamanho do Avatar");
+  await page.getByRole("button", { name: "Restaurar foto", exact: true }).click();
+  await avatar.locator("img").waitFor();
+  await page.waitForFunction(() => document.querySelector('[data-testid="avatar-image"] img')?.naturalWidth > 0);
+
+  const pagination = page.getByRole("navigation", { name: "Páginas dos resultados" });
+  await pagination.getByRole("link", { name: "Página 6", exact: true }).click();
+  await pagination.locator('[aria-current="page"]', { hasText: "6" }).waitFor();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "6", "Pagination não atualizou a página pelo link");
+  await page.getByText("Resultados 51–60", { exact: true }).waitFor();
+  expect((await page.getByTestId("pagination-result").textContent())?.includes("51–60"), "Pagination não atualizou os resultados");
+  await pagination.getByRole("link", { name: "Página 1", exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await pagination.locator('[aria-current="page"]', { hasText: "1" }).waitFor();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "1", "Pagination não respondeu ao Enter");
+  expect(await pagination.getByRole("button", { name: "Página anterior", exact: true }).isDisabled(), "Pagination não desabilitou anterior no limite");
+  await pagination.getByRole("button", { name: "Próxima página", exact: true }).click();
+  await pagination.locator('[aria-current="page"]', { hasText: "2" }).waitFor();
+  expect(await pagination.locator('[aria-current="page"]').textContent() === "2", "Pagination não avançou pelo button");
+
+  let skeletonRegion = page.getByRole("status", { name: "Carregando perfil" });
+  expect(await skeletonRegion.count() === 1, "Skeleton não anunciou a região uma única vez");
+  expect(await skeletonRegion.locator('[data-tis-angular-skeleton][aria-hidden="true"]').count() === 4, "Skeleton expôs shapes decorativos à árvore acessível");
+  await page.getByRole("button", { name: "Concluir carregamento", exact: true }).click();
+  await page.getByTestId("skeleton-content").waitFor();
+  expect(await skeletonRegion.count() === 0, "Skeleton manteve status após concluir carregamento");
+  await page.getByRole("button", { name: "Reiniciar carregamento", exact: true }).click();
+  skeletonRegion = page.getByRole("status", { name: "Carregando perfil" });
+  await skeletonRegion.waitFor();
+
+  const spinnerExamples = page.getByTestId("spinner-examples");
+  expect(await spinnerExamples.getByRole("status").count() === 3, "Spinner não expôs os três status nomeados");
+  expect(await spinnerExamples.locator('[data-size="sm"], [data-size="md"], [data-size="lg"]').count() === 3, "Spinner não preservou tamanhos explícitos");
+
+  const tableRegion = page.getByRole("region", { name: "Tabela de clientes" });
+  const consumerTable = tableRegion.locator("table[data-tis-angular-table]");
+  expect(await consumerTable.count() === 1, "Table não preservou a semântica table nativa");
+  expect(await consumerTable.getByRole("caption").textContent() === "Clientes", "Table não preservou caption acessível");
+  expect(await consumerTable.locator("tbody tr").count() === 3, "Table não renderizou as linhas esperadas");
+  expect(await consumerTable.getAttribute("role") === null, "Table adicionou role grid indevido");
+  expect(await consumerTable.locator('tbody tr[data-selected="true"]').count() === 1, "Table não expôs a linha selecionada");
+  const tableSortButton = consumerTable.getByRole("button", { name: "Ordenar por Cliente" });
+  expect(await consumerTable.locator('th[aria-sort="none"]').count() === 1, "Table deveria iniciar sem ordenação");
+  await tableSortButton.click();
+  await page.waitForFunction(() => document.querySelector('[data-testid="table-region"] th')?.getAttribute("aria-sort") === "ascending");
+  expect(await consumerTable.locator('th[aria-sort="ascending"]').count() === 1, "Table não atualizou aria-sort");
+  expect(JSON.stringify(await consumerTable.locator("tbody tr td:first-child").allTextContents()) === JSON.stringify(["Ana Silva", "Bruno Lima", "Carla Rocha"]), "Table: aria-sort ascending diverge da ordem A–Z");
+  await tableSortButton.click();
+  await consumerTable.locator('th[aria-sort="descending"]').waitFor();
+  expect(JSON.stringify(await consumerTable.locator("tbody tr td:first-child").allTextContents()) === JSON.stringify(["Carla Rocha", "Bruno Lima", "Ana Silva"]), "Table: aria-sort descending diverge da ordem Z–A");
+  expect((await consumerTable.locator('tr[data-selected="true"] td').first().textContent())?.trim() === "Bruno Lima", "Table: ordenação alterou a identidade selecionada");
+
   await page.locator('[data-testid="button-form"] [data-tis-angular-button]').first().click();
+  await page.waitForFunction(() => document.querySelector('[data-testid="submit-count"]')?.textContent?.includes("1"));
   expect((await page.locator('[data-testid="submit-count"]').textContent())?.includes("1"), "Button type=submit não submeteu o form nativo");
 
-  const badges = page.locator("[data-tis-angular-badge]");
+  const badges = page.locator('[data-testid="badge-examples"] [data-tis-angular-badge], [data-testid="card-static"] [data-tis-angular-badge]');
   expect(await badges.count() === 3, "Badge não renderizou os exemplos próprios e a composição no Card");
   expect(
     await badges.first().evaluate((node) =>
@@ -76,12 +137,38 @@ try {
   expect(await interactiveCard.evaluate((node) => node === document.activeElement), "Card interativo não recebeu foco");
 
   const horizontalDivider = page.locator('[data-testid="divider-horizontal"]');
+  const breadcrumb = page.getByRole("navigation", { name: "Caminho do projeto" });
+  const breadcrumbLinks = breadcrumb.getByRole("link");
+  expect(await breadcrumbLinks.count() === 2, "Breadcrumb: links anteriores ausentes");
+  expect(await breadcrumb.locator('span[aria-current="page"]').count() === 1, "Breadcrumb: página atual deve ser span único");
+  expect(await breadcrumb.locator('[tisBreadcrumbSeparator][aria-hidden="true"]').count() === 2, "Breadcrumb: separadores não decorativos");
+  await breadcrumbLinks.first().focus();
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Shift+Tab");
+  expect(await breadcrumbLinks.first().evaluate((node) => getComputedStyle(node).outlineStyle !== "none"), "Breadcrumb: foco visível ausente");
+  await page.keyboard.press("Tab");
+  expect(await breadcrumbLinks.nth(1).evaluate((node) => node === document.activeElement), "Breadcrumb: Tab não percorreu os links");
+  await page.keyboard.press("Enter");
+  expect(page.url().endsWith("#breadcrumb-projects"), "Breadcrumb: Enter não navegou ao href nativo");
+  await page.keyboard.press("Tab");
+  expect(await page.locator('[data-testid="breadcrumb-after"]').evaluate((node) => node === document.activeElement), "Breadcrumb: página atual ou separador entrou na tabulação");
   const verticalDivider = page.locator('[data-testid="divider-vertical"]');
   expect(await horizontalDivider.getAttribute("data-orientation") === "horizontal", "Divider horizontal não expôs orientação");
   expect(await horizontalDivider.getAttribute("role") === null, "Divider horizontal deve preservar a semântica implícita de hr");
   expect(await verticalDivider.getAttribute("data-orientation") === "vertical", "Divider vertical não expôs orientação");
   expect(await verticalDivider.getAttribute("role") === "presentation", "Divider decorativo não removeu a semântica de separador");
   expect(await verticalDivider.getAttribute("aria-hidden") === "true", "Divider decorativo não foi ocultado da árvore de acessibilidade");
+
+  const projectedInput = page.getByRole("textbox", { name: "Nome para contato" });
+  await page.locator('tis-form-field label').click();
+  expect(await projectedInput.evaluate((node) => node === document.activeElement), "Form Field: label não focou o controle projetado");
+  await page.getByRole("button", { name: "Validar nome" }).click();
+  await page.locator('tis-form-field [role="alert"]').waitFor();
+  expect(await projectedInput.getAttribute("aria-invalid") === "true", "Form Field: erro não associado ao controle");
+  await projectedInput.fill("Ana Silva");
+  await page.locator('tis-form-field [role="alert"]').waitFor({ state: "detached" });
+  expect(await projectedInput.getAttribute("aria-invalid") === null, "Form Field: erro persistiu após corrigir o valor");
+  expect(await projectedInput.evaluate((node) => (node.getAttribute("aria-describedby") || "").split(" ").every((id) => !!document.getElementById(id))), "Form Field: descrição aponta para ID inexistente");
 
   const input = page.getByRole("textbox", { name: "E-mail" });
   const inputWrapper = page.locator("tis-input .ds-input");
@@ -446,7 +533,7 @@ try {
     await page.reload({ waitUntil: "networkidle" });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow <= 1, `${width}px: overflow horizontal de ${overflow}px`);
-    const responsiveBadges = await page.locator("[data-tis-angular-badge]").evaluateAll((nodes) => nodes.map((node) => {
+    const responsiveBadges = await page.locator('[data-testid="badge-examples"] [data-tis-angular-badge], [data-testid="card-static"] [data-tis-angular-badge]').evaluateAll((nodes) => nodes.map((node) => {
       const rect = node.getBoundingClientRect();
       return {
         height: rect.height,
@@ -704,21 +791,49 @@ try {
       reference.remove();
       return result;
     };
+    const compareSpinner = () => {
+      const actual = document.querySelector('[data-tis-angular-spinner][data-size="sm"]');
+      const reference = document.createElement("span");
+      reference.className = "ds-spinner ds-spinner--sm";
+      actual.parentElement.append(reference);
+      const properties = ["display", "width", "height", "border-radius", "border-width", "border-top-color", "animation-name"];
+      const result = { actual: pick(actual, properties), reference: pick(reference, properties) };
+      reference.remove();
+      return result;
+    };
+    const compareTable = () => {
+      const actual = document.querySelector("table[data-tis-angular-table]");
+      const reference = document.createElement("table");
+      reference.className = "ds-table ds-table--md";
+      reference.innerHTML = '<caption class="ds-table__caption">Referência</caption><tbody class="ds-table__body"><tr class="ds-table__row"><td class="ds-table__cell">Conteúdo</td></tr></tbody>';
+      actual.parentElement.append(reference);
+      const properties = ["display", "width", "border-spacing", "border-collapse", "background-color", "color", "font-family", "font-size", "line-height", "table-layout"];
+      const result = { actual: pick(actual, properties), reference: pick(reference, properties) };
+      reference.remove();
+      return result;
+    };
     return {
       badge: compare("[data-tis-angular-badge]", "ds-badge ds-badge--success ds-badge--subtle", ["align-items", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size", "line-height"]),
+      avatar: compare("[data-tis-angular-avatar]", "ds-avatar ds-avatar--sm", ["align-items", "width", "height", "border-radius", "background-color", "color", "font-size"]),
+      breadcrumb: compare("[data-tis-angular-breadcrumb]", "ds-breadcrumb", ["display", "align-items", "gap", "font-size", "line-height"], "nav"),
       button: compare(".consumer-section [data-tis-angular-button]", "ds-button ds-button--brand ds-button--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       card: compare('[data-testid="card-static"]', "ds-card ds-card--outlined", ["display", "flex-direction", "overflow", "border-radius", "background-color", "border-color", "border-width"]),
       divider: compare('[data-testid="divider-horizontal"]', "ds-divider", ["height", "border-radius", "background-color", "margin-block-start", "margin-block-end"], "hr"),
+      formField: compare("tis-form-field", "ds-field", ["display", "flex-direction", "gap"]),
       accordion: compare("button[tisaccordiontrigger]", "ds-accordion__trigger", ["min-block-size", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       checkbox: compare('tis-checkbox input[type="checkbox"]', "ds-checkbox", ["width", "height", "border-radius", "background-color", "border-color"], "input"),
       combobox: compareField("tis-combobox .ds-combobox", "ds-combobox ds-combobox--md", '<input class="ds-combobox__input">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       input: compareField("tis-input .ds-input", "ds-input ds-input--md ds-input--filled", '<input class="ds-input__field" value="ana@empresa.com">', ["height", "padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "font-size"]),
       radio: compare('tis-radio-group input[type="radio"]', "ds-radio", ["width", "height", "border-radius", "background-color", "border-color"], "input", "radio", "ds-radio-label"),
       select: compareSelect(),
+      skeleton: compare("[data-tis-angular-skeleton]", "ds-skeleton ds-skeleton--circle", ["display", "width", "height", "border-radius", "background-color", "animation-name"]),
+      spinner: compareSpinner(),
+      table: compareTable(),
       tabs: compare("button[tistab]", "ds-tab ds-tab--active", ["padding-inline-start", "padding-inline-end", "border-bottom-width", "border-bottom-color", "color", "font-size"]),
       textarea: compareField("tis-textarea .ds-textarea", "ds-textarea ds-textarea--md ds-textarea--filled", '<textarea class="ds-textarea__field">Contexto para revisão.</textarea>', ["border-radius", "background-color", "color", "font-size"]),
       toggle: compare('tis-toggle input[role="switch"]', "ds-toggle", ["width", "height", "border-radius", "background-color", "border-color"], "input", "checkbox", "ds-toggle-label", true),
       modal: compare(".tis-angular-modal-pane .ds-modal", "ds-modal ds-modal--md", ["padding-inline-start", "padding-inline-end", "border-radius", "background-color", "color", "max-height"], "div"),
+      pagination: compare("[data-tis-angular-pagination]", "ds-pagination", ["display", "align-items", "gap"], "nav"),
     };
   });
   for (const [component, comparison] of Object.entries(visualParity)) {
@@ -731,8 +846,29 @@ try {
   const storyContracts = [
     ["angular-button--playground", "tis-button"],
     ["angular-badge--playground", "tis-badge"],
+    ["angular-avatar--playground", "tis-avatar"],
+    ["angular-avatar--tamanhos-e-conteudos", "tis-avatar"],
+    ["angular-avatar--fallback", "tis-avatar"],
+    ["angular-avatar--decorativo", "tis-avatar"],
+    ["angular-breadcrumb--playground", "nav[tisBreadcrumb]"],
+    ["angular-pagination--playground", "[data-tis-angular-pagination]"],
+    ["angular-pagination--tamanhos", "[data-tis-angular-pagination]"],
+    ["angular-pagination--limites", "[data-tis-angular-pagination]"],
+    ["angular-skeleton--playground", "[data-tis-angular-skeleton]"],
+    ["angular-skeleton--tipos", "[data-tis-angular-skeleton]"],
+    ["angular-skeleton--card", "[data-tis-angular-skeleton]"],
+    ["angular-skeleton--lista", "[data-tis-angular-skeleton]"],
+    ["angular-spinner--playground", "[data-tis-angular-spinner]"],
+    ["angular-spinner--tamanhos", "[data-tis-angular-spinner]"],
+    ["angular-spinner--estilos", "[data-tis-angular-spinner]"],
+    ["angular-spinner--no-button", "[data-tis-angular-button]"],
+    ["angular-table--playground", "[data-tis-angular-table]"],
+    ["angular-table--tamanhos", "[data-tis-angular-table]"],
+    ["angular-table--estados", "[data-tis-angular-table]"],
+    ["angular-table--overflow", "[data-tis-angular-table]"],
     ["angular-card--playground", "[tisCard]"],
     ["angular-divider--playground", "hr[tisDivider]"],
+    ["angular-form-field--playground", "tis-form-field"],
     ["angular-accordion--playground", "[tisAccordion]"],
     ["angular-checkbox--playground", "tis-checkbox"],
     ["angular-combobox--playground", "tis-combobox"],
@@ -757,6 +893,168 @@ try {
   }
 
   await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-breadcrumb--navegacao&globals=mode:dark`, { waitUntil: "networkidle" });
+  const breadcrumbStory = page.getByRole("navigation", { name: "Caminho do projeto" });
+  await breadcrumbStory.getByRole("link", { name: "Projetos" }).focus();
+  await page.keyboard.press("Enter");
+  await page.getByText("Página: Projetos", { exact: true }).waitFor();
+  expect((await breadcrumbStory.locator('[aria-current="page"]').textContent()) === "Projetos", "Breadcrumb story não atualizou página atual");
+  expect((await page.getByText("Página: Projetos", { exact: true }).count()) === 1, "Breadcrumb story não atualizou conteúdo");
+  await axe("Breadcrumb navegação dark/320px");
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-breadcrumb--hierarquia-profunda&globals=mode:dark`, { waitUntil: "networkidle" });
+  const breadcrumbScroll = page.getByRole("region", { name: "Caminho completo, rolável" });
+  expect(await breadcrumbScroll.evaluate((node) => node.scrollWidth > node.clientWidth && document.documentElement.scrollWidth <= innerWidth), "Breadcrumb profundo deveria rolar localmente sem overflow da página");
+  await breadcrumbScroll.focus();
+  await page.keyboard.press("End");
+  await axe("Breadcrumb profundo dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-pagination--playground&globals=mode:dark`, { waitUntil: "networkidle" });
+  const paginationStory = page.getByRole("navigation", { name: "Paginação dos resultados" });
+  const pageSix = paginationStory.getByRole("link", { name: "Página 6", exact: true });
+  await pageSix.focus();
+  expect(await pageSix.evaluate((node) => getComputedStyle(node, "::after").borderStyle === "solid"), "Pagination: foco visível ausente");
+  await page.keyboard.press("Enter");
+  await paginationStory.locator('[aria-current="page"]', { hasText: "6" }).waitFor();
+  expect(await paginationStory.locator('[aria-current="page"]').textContent() === "6", "Pagination story não atualizou a página pelo teclado");
+  expect((await page.getByText("Página atual: 6", { exact: true }).count()) === 1, "Pagination story não atualizou o conteúdo");
+  await paginationStory.getByRole("link", { name: "Página 1", exact: true }).click();
+  await paginationStory.locator('[aria-current="page"]', { hasText: "1" }).waitFor();
+  expect(await paginationStory.getByRole("button", { name: "Página anterior", exact: true }).isDisabled(), "Pagination story não aplicou o limite inicial");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Pagination criou overflow na página");
+  await axe("Pagination interativa dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-pagination--tamanhos&globals=mode:dark`, { waitUntil: "networkidle" });
+  const paginationSizes = await page.locator('[data-tis-angular-pagination]').evaluateAll((nodes) => nodes.map((node) => ({
+    size: node.getAttribute("data-size"),
+    item: node.querySelector(".ds-pagination__page")?.getBoundingClientRect().height,
+  })));
+  expect(paginationSizes.length === 3, "Pagination: matriz de tamanhos incompleta");
+  expect(paginationSizes[0].item < paginationSizes[1].item && paginationSizes[1].item < paginationSizes[2].item, `Pagination: tamanhos fora de ordem (${JSON.stringify(paginationSizes)})`);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Pagination tamanhos alargou a página");
+  await axe("Pagination tamanhos dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-pagination--limites&globals=mode:dark`, { waitUntil: "networkidle" });
+  const limitNavigations = page.locator('[data-tis-angular-pagination]');
+  expect(await limitNavigations.nth(0).getByRole("button", { name: "Página anterior", exact: true }).isDisabled(), "Pagination: limite inicial incorreto");
+  expect(await limitNavigations.nth(1).getByRole("button", { name: "Próxima página", exact: true }).isDisabled(), "Pagination: limite final incorreto");
+  await axe("Pagination limites dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-skeleton--tipos&globals=mode:dark`, { waitUntil: "networkidle" });
+  const skeletonTypes = page.locator('[data-tis-angular-skeleton]');
+  expect(await skeletonTypes.count() === 3, "Skeleton: tipos incompletos");
+  expect(await skeletonTypes.evaluateAll((nodes) => nodes.every((node) => node.getAttribute("aria-hidden") === "true")), "Skeleton: shape não decorativo");
+  const skeletonGeometry = await skeletonTypes.evaluateAll((nodes) => nodes.map((node) => ({ type: node.getAttribute("data-type"), width: node.getBoundingClientRect().width, height: node.getBoundingClientRect().height })));
+  expect(skeletonGeometry.every((item) => item.width > 0 && item.height > 0), `Skeleton: geometria inválida (${JSON.stringify(skeletonGeometry)})`);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(await skeletonTypes.first().evaluate((node) => getComputedStyle(node).animationName === "none"), "Skeleton não respeitou reduced motion");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Skeleton tipos alargou a página");
+  await axe("Skeleton tipos dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-skeleton--card&globals=mode:dark`, { waitUntil: "networkidle" });
+  const skeletonCard = page.getByRole("status", { name: "Carregando perfil" });
+  expect(await skeletonCard.count() === 1, "Skeleton card: status único ausente");
+  expect(await skeletonCard.locator('[aria-hidden="true"]').count() === 7, "Skeleton card: shapes não estão todos ocultos");
+  await axe("Skeleton card dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-skeleton--lista&globals=mode:dark`, { waitUntil: "networkidle" });
+  expect(await page.getByRole("status", { name: "Carregando lista" }).count() === 1, "Skeleton lista: anúncio deveria ser único");
+  expect(await page.locator('article[aria-hidden="true"]').count() === 3, "Skeleton lista: cards decorativos incompletos");
+  await axe("Skeleton lista dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-spinner--tamanhos&globals=mode:dark`, { waitUntil: "networkidle" });
+  const spinners = page.locator('[data-tis-angular-spinner]');
+  expect(await spinners.count() === 3, "Spinner: tamanhos incompletos");
+  const spinnerGeometry = await spinners.evaluateAll((nodes) => nodes.map((node) => ({ size: node.getAttribute("data-size"), width: node.getBoundingClientRect().width, height: node.getBoundingClientRect().height })));
+  expect(spinnerGeometry.every((item) => item.width > 0 && Math.abs(item.width - item.height) < 0.05), `Spinner: geometria inválida (${JSON.stringify(spinnerGeometry)})`);
+  expect(spinnerGeometry[0].width < spinnerGeometry[1].width && spinnerGeometry[1].width < spinnerGeometry[2].width, `Spinner: ordem de tamanhos inválida (${JSON.stringify(spinnerGeometry)})`);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(await spinners.first().evaluate((node) => getComputedStyle(node).animationName === "none"), "Spinner não respeitou reduced motion");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Spinner tamanhos alargou a página");
+  await axe("Spinner tamanhos dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-spinner--estilos&globals=mode:dark`, { waitUntil: "networkidle" });
+  expect(await page.locator('[data-on-color]').count() === 1, "Spinner on-color ausente");
+  await axe("Spinner estilos dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-spinner--no-button&globals=mode:dark`, { waitUntil: "networkidle" });
+  const loadingButton = page.getByRole("button", { name: /Salvar|Salvando/ });
+  expect(await loadingButton.isDisabled(), "Spinner no Button não preservou estado disabled");
+  expect(await loadingButton.getAttribute("aria-busy") === "true", "Spinner no Button não preservou aria-busy");
+  expect(await loadingButton.locator('.ds-spinner[aria-hidden="true"]').count() === 1, "Spinner no Button não ficou decorativo");
+  await axe("Spinner no Button dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-table--playground&globals=mode:dark`, { waitUntil: "networkidle" });
+  const tableStory = page.getByRole("region", { name: "Tabela de clientes" });
+  const tableStoryNative = tableStory.locator("table");
+  expect(await tableStoryNative.locator("tbody tr").count() === 3, "Table playground: linhas incompletas");
+  const tableStorySort = tableStoryNative.getByRole("button", { name: "Ordenar por Cliente" });
+  await tableStorySort.focus();
+  expect(await tableStorySort.evaluate((node) => getComputedStyle(node, "::after").borderStyle === "solid"), "Table playground: foco visível ausente");
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() => document.querySelector('table[data-tis-angular-table] th')?.getAttribute("aria-sort") === "ascending");
+  expect(await tableStoryNative.locator('th[aria-sort="ascending"]').count() === 1, "Table playground: aria-sort não atualizou pelo teclado");
+  expect(JSON.stringify(await tableStoryNative.locator("tbody tr td:first-child").allTextContents()) === JSON.stringify(["Ana Silva", "Bruno Lima", "Carla Rocha"]), "Table playground: aria-sort ascending diverge da ordem A–Z");
+  await page.keyboard.press("Enter");
+  await tableStoryNative.locator('th[aria-sort="descending"]').waitFor();
+  expect(JSON.stringify(await tableStoryNative.locator("tbody tr td:first-child").allTextContents()) === JSON.stringify(["Carla Rocha", "Bruno Lima", "Ana Silva"]), "Table playground: aria-sort descending diverge da ordem Z–A");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Table playground alargou a página");
+  await axe("Table playground dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-table--tamanhos&globals=mode:dark`, { waitUntil: "networkidle" });
+  const tableSizes = await page.locator("table[data-tis-angular-table]").evaluateAll((nodes) => nodes.map((node) => ({
+    size: node.getAttribute("data-size"),
+    rowHeight: node.querySelector("tbody tr")?.getBoundingClientRect().height,
+  })));
+  expect(tableSizes.length === 2, "Table tamanhos: matriz incompleta");
+  expect(tableSizes[0].size === "sm" && tableSizes[1].size === "md" && tableSizes[0].rowHeight < tableSizes[1].rowHeight, `Table tamanhos: ordem ou altura inválida (${JSON.stringify(tableSizes)})`);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Table tamanhos alargou a página");
+  await axe("Table tamanhos dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-table--estados&globals=mode:dark`, { waitUntil: "networkidle" });
+  expect(await page.locator('tbody tr[data-selected="true"]').count() === 1, "Table estados: seleção ausente");
+  expect((await page.locator('tbody tr[data-selected="true"] td').first().textContent())?.trim() === "Ana Silva", "Table estados: identidade inicial incorreta");
+  const stateSort = page.getByRole("button", { name: "Ordenar por Cliente" });
+  await stateSort.click();
+  await page.locator('th[aria-sort="ascending"]').waitFor();
+  await stateSort.click();
+  await page.locator('th[aria-sort="descending"]').waitFor();
+  expect((await page.locator('tbody tr[data-selected="true"] td').first().textContent())?.trim() === "Ana Silva", "Table estados: seleção mudou de cliente ao ordenar");
+  await axe("Table estados dark/320px");
+
+  await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-table--overflow&globals=mode:dark`, { waitUntil: "networkidle" });
+  const tableOverflow = page.getByRole("region", { name: "Tabela de clientes" });
+  const overflowGeometry = await tableOverflow.evaluate((node) => ({ clientWidth: node.clientWidth, scrollWidth: node.scrollWidth, documentWidth: document.documentElement.scrollWidth, viewportWidth: innerWidth }));
+  expect(overflowGeometry.scrollWidth > overflowGeometry.clientWidth, `Table overflow: região não criou scroll interno (${JSON.stringify(overflowGeometry)})`);
+  expect(overflowGeometry.documentWidth <= overflowGeometry.viewportWidth + 1, `Table overflow: tabela alargou a página (${JSON.stringify(overflowGeometry)})`);
+  await tableOverflow.focus();
+  expect(await tableOverflow.evaluate((node) => getComputedStyle(node).outlineStyle === "solid"), "Table overflow: foco visível da região ausente");
+  await axe("Table overflow dark/320px");
+
+  for (const storyId of ["playground", "validacao", "textarea", "sem-label-visivel"]) {
+    await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-form-field--${storyId}&globals=mode:dark`, { waitUntil: "networkidle" });
+    const field = page.locator("tis-form-field");
+    await field.waitFor();
+    const geometry = await field.evaluate((node) => {
+      const control = node.querySelector(".ds-input, .ds-textarea");
+      const rect = control.getBoundingClientRect();
+      return { height: rect.height, left: rect.left, right: rect.right, mode: document.documentElement.dataset.mode,
+        overflow: document.documentElement.scrollWidth - innerWidth };
+    });
+    expect(geometry.mode === "dark" && geometry.left >= 0 && geometry.right <= 320 && geometry.overflow <= 1,
+      `Form Field ${storyId}: corte ou tema incorreto (${JSON.stringify(geometry)})`);
+    if (storyId !== "textarea") expect(geometry.height === 40, `Form Field ${storyId}: altura do Input alterada`);
+    if (storyId === "sem-label-visivel") expect(await page.getByRole("textbox", { name: "Nome" }).count() === 1, "Form Field ocultou o nome acessível");
+    if (storyId === "validacao") {
+      await page.getByRole("button", { name: "Validar nome" }).click();
+      await page.getByRole("alert").waitFor();
+      await axe("Form Field inválido dark/320px");
+      await page.getByRole("textbox", { name: "Nome para contato" }).fill("Ana");
+      await page.getByRole("alert").waitFor({ state: "detached" });
+    }
+    await axe(`Form Field ${storyId} dark/320px`);
+  }
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-badge--tons&globals=mode:dark`, { waitUntil: "networkidle" });
   const storyBadges = page.locator("[data-tis-angular-badge]");
   expect(await storyBadges.count() === 12, "Story de tons do Badge não renderizou a matriz completa");

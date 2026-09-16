@@ -30,6 +30,25 @@ describe("DS TIS Angular consumer", () => {
     await TestBed.configureTestingModule({ imports: [AppComponent] }).compileComponents();
   });
 
+  it("ordena clientes de acordo com aria-sort e preserva a linha selecionada", () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.componentInstance.tableRows.update((rows) => [rows[1], rows[2], rows[0]]);
+    fixture.detectChanges();
+    const region = fixture.nativeElement.querySelector('[data-testid="table-region"]') as HTMLElement;
+    const sort = region.querySelector("button")!;
+    const names = () => Array.from(region.querySelectorAll("tbody td:first-child"), (cell) => cell.textContent?.trim());
+    for (const [direction, expected] of [
+      ["ascending", ["Ana Silva", "Bruno Lima", "Carla Rocha"]],
+      ["descending", ["Carla Rocha", "Bruno Lima", "Ana Silva"]],
+    ] as const) {
+      sort.click();
+      fixture.detectChanges();
+      expect(region.querySelector("th")?.getAttribute("aria-sort")).toBe(direction);
+      expect(names()).toEqual(expected);
+      expect(region.querySelector('tr[data-selected="true"] td')?.textContent?.trim()).toBe("Bruno Lima");
+    }
+  });
+
   it("submete pelo Button nativo e preserva loading/disabled", async () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
@@ -50,16 +69,19 @@ describe("DS TIS Angular consumer", () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const loader = TestbedHarnessEnvironment.loader(fixture);
-    const badges = await loader.getAllHarnesses(TisBadgeHarness);
+    const badgeLoader = await loader.getChildLoader('[data-testid="badge-examples"]');
+    const cardLoader = await loader.getChildLoader('[data-testid="card-static"]');
+    const badges = await badgeLoader.getAllHarnesses(TisBadgeHarness);
+    const cardBadge = await cardLoader.getHarness(TisBadgeHarness);
 
-    expect(badges).toHaveLength(3);
+    expect(badges).toHaveLength(2);
     expect(await badges[0].getText()).toBe("Aprovado");
     expect(await badges[0].getTone()).toBe("success");
     expect(await badges[0].getVariant()).toBe("subtle");
     expect(await badges[1].getText()).toBe("Pendente");
     expect(await badges[1].getTone()).toBe("warning");
     expect(await badges[1].getVariant()).toBe("solid");
-    expect(await badges[2].getText()).toBe("Saudável");
+    expect(await cardBadge.getText()).toBe("Saudável");
   });
 
   it("renderiza Alert com live region contextual e fechamento controlado", async () => {

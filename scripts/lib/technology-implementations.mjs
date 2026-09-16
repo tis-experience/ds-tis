@@ -47,18 +47,25 @@ export const ANGULAR_LIBRARY = {
 export const ANGULAR_COMPONENTS_BY_SLUG = {
   accordion: { entrypoint: "accordion", primitive: "@angular/aria/accordion", storyId: "angular-accordion--playground" },
   alert: { entrypoint: "alert", primitive: "native live region + Angular composition", storyId: "angular-alert--playground" },
+  avatar: { entrypoint: "avatar", primitive: "native image + Angular fallback", storyId: "angular-avatar--playground" },
   badge: { entrypoint: "badge", primitive: "presentational host element", storyId: "angular-badge--playground" },
+  breadcrumb: { entrypoint: "breadcrumb", primitive: "native nav + links", storyId: "angular-breadcrumb--playground" },
   button: { entrypoint: "button", primitive: "native button", storyId: "angular-button--playground" },
   card: { entrypoint: "card", primitive: "semantic native element + Angular composition", storyId: "angular-card--playground" },
   checkbox: { entrypoint: "checkbox", primitive: "native checkbox + Angular Forms", storyId: "angular-checkbox--playground" },
   combobox: { entrypoint: "combobox", primitive: "@angular/aria/combobox + listbox + Angular Forms", storyId: "angular-combobox--playground" },
   divider: { entrypoint: "divider", primitive: "native hr", storyId: "angular-divider--playground" },
+  "form-field": { entrypoint: "form-field", primitive: "native label + Angular content projection", storyId: "angular-form-field--playground" },
   input: { entrypoint: "input", primitive: "native input + Angular Forms", storyId: "angular-input--playground" },
   menu: { entrypoint: "menu", primitive: "@angular/aria/menu", storyId: "angular-menu--playground" },
   modal: { entrypoint: "modal", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-modal--playground" },
+  pagination: { entrypoint: "pagination", primitive: "native nav + links + buttons", storyId: "angular-pagination--playground" },
   popover: { entrypoint: "popover", primitive: "@angular/cdk/overlay + portal + a11y", storyId: "angular-popover--playground" },
   radio: { entrypoint: "radio", primitive: "native radio group + Angular Forms", storyId: "angular-radio--playground" },
   select: { entrypoint: "select", primitive: "native select + Angular Forms", storyId: "angular-select--playground" },
+  skeleton: { entrypoint: "skeleton", primitive: "decorative native element + loading region directive", storyId: "angular-skeleton--playground" },
+  spinner: { entrypoint: "spinner", primitive: "native status element", storyId: "angular-spinner--playground" },
+  table: { entrypoint: "table", primitive: "native table elements + Angular directives", storyId: "angular-table--playground" },
   tabs: { entrypoint: "tabs", primitive: "@angular/aria/tabs", storyId: "angular-tabs--playground" },
   textarea: { entrypoint: "textarea", primitive: "native textarea + Angular Forms", storyId: "angular-textarea--playground" },
   toast: { entrypoint: "toast", primitive: "Angular service + native live regions", storyId: "angular-toast--playground" },
@@ -86,6 +93,7 @@ export const SHADCN_REGISTRY = {
 export const REACT_REGISTRY_BY_SLUG = {
   accordion: { item: "accordion", provider: "Base UI" },
   alert: { item: "alert", provider: "React composition" },
+  avatar: { item: "avatar", provider: "Base UI" },
   badge: { item: "badge", provider: "React composition" },
   breadcrumb: { item: "breadcrumb", provider: "Native React" },
   button: { item: "button", provider: "Base UI" },
@@ -96,6 +104,7 @@ export const REACT_REGISTRY_BY_SLUG = {
   "form-field": { item: "field", provider: "React composition" },
   input: { item: "input", provider: "Base UI" },
   menu: { item: "menu", provider: "Base UI" },
+  pagination: { item: "pagination", provider: "Native React" },
   modal: { item: "dialog", provider: "Base UI" },
   popover: { item: "popover", provider: "Base UI" },
   radio: { item: "radio-group", provider: "Base UI" },
@@ -111,6 +120,12 @@ export const REACT_REGISTRY_BY_SLUG = {
 };
 
 export const ARK_ADAPTERS_BY_SLUG = {
+  alert: {
+    adapter: "packages/react/src/ark/alert.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native live region",
+    storyId: "ark-alert--playground",
+  },
   accordion: {
     adapter: "packages/react/src/ark/accordion.jsx",
     framework: "React",
@@ -176,6 +191,12 @@ export const ARK_ADAPTERS_BY_SLUG = {
     framework: "React",
     provider: "Ark UI + Zag",
     storyId: "ark-tabs--playground",
+  },
+  textarea: {
+    adapter: "packages/react/src/ark/textarea.jsx",
+    framework: "React",
+    provider: "Ark UI Factory + native textarea",
+    storyId: "ark-textarea--playground",
   },
   toast: {
     adapter: "packages/react/src/ark/toast.jsx",

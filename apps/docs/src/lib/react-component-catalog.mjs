@@ -82,6 +82,39 @@ const COMPONENT_DOCS = {
       en: 'Use role="alert" only for urgent messages; use status or no live region for lower-priority content.',
     },
   },
+  avatar: {
+    summary: {
+      pt: 'Representa uma pessoa com imagem, iniciais ou ícone de fallback em tamanhos consistentes.',
+      en: 'Represents a person with an image, initials, or fallback icon in consistent sizes.',
+    },
+    anatomy: {
+      pt: ['Raiz', 'Imagem', 'Fallback', 'Badge opcional', 'Grupo opcional', 'Contagem opcional'],
+      en: ['Root', 'Image', 'Fallback', 'Optional badge', 'Optional group', 'Optional count'],
+    },
+    useWhen: {
+      pt: ['uma pessoa, perfil ou membro de equipa precisa ser reconhecido visualmente.'],
+      en: ['a person, profile, or team member needs to be recognized visually.'],
+    },
+    avoidWhen: {
+      pt: ['a imagem não representa uma pessoa ou a identidade textual já é suficiente.'],
+      en: ['the image does not represent a person or textual identity is already sufficient.'],
+    },
+    storyId: 'react-avatar--playground',
+    usage: `import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
+<Avatar size="md">
+  <AvatarFallback>AS</AvatarFallback>
+  <AvatarImage src="/ana-silva.jpg" alt="Ana Silva" />
+</Avatar>`,
+    accessibility: {
+      pt: 'Use alt descritivo quando a imagem comunica identidade. Para avatars decorativos, use alt vazio; fallbacks textuais já fornecem um nome acessível.',
+      en: 'Use descriptive alt text when the image communicates identity. For decorative avatars, use empty alt text; textual fallbacks already provide an accessible name.',
+    },
+  },
   badge: {
     summary: {
       pt: 'Identifica status ou metadados curtos próximos ao conteúdo relacionado.',
@@ -545,6 +578,47 @@ import { Button } from "@/components/ui/button"
     accessibility: {
       pt: 'Preserve aria-haspopup/expanded, foco composto, setas, Home/End, typeahead, Escape, itens disabled focusable e retorno ao trigger.',
       en: 'Preserve aria-haspopup/expanded, composite focus, Arrow keys, Home/End, typeahead, Escape, focusable disabled items, and focus return to the trigger.',
+    },
+  },
+  pagination: {
+    summary: {
+      pt: 'Permite navegar entre subconjuntos discretos de uma lista, tabela ou resultado de busca.',
+      en: 'Navigates between discrete subsets of a list, table, or search result.',
+    },
+    anatomy: {
+      pt: ['Landmark de navegação', 'Lista', 'Anterior', 'Link de página', 'Página atual', 'Reticências', 'Próxima'],
+      en: ['Navigation landmark', 'List', 'Previous', 'Page link', 'Current page', 'Ellipsis', 'Next'],
+    },
+    useWhen: {
+      pt: ['um conjunto grande de dados é dividido em páginas e a pessoa precisa navegar entre elas.'],
+      en: ['a large data set is divided into pages and people need to navigate between them.'],
+    },
+    avoidWhen: {
+      pt: ['o conteúdo é curto, o fluxo é sequencial ou a navegação representa hierarquia.'],
+      en: ['content is short, the flow is sequential, or navigation represents hierarchy.'],
+    },
+    storyId: 'react-pagination--playground',
+    usage: `import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
+<Pagination aria-label="Paginação de resultados">
+  <PaginationContent>
+    <PaginationItem><PaginationPrevious href="?page=1" /></PaginationItem>
+    <PaginationItem>
+      <PaginationLink as="span" isActive aria-label="Página 2">2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem><PaginationNext href="?page=3" /></PaginationItem>
+  </PaginationContent>
+</Pagination>`,
+    accessibility: {
+      pt: 'Mantenha o nav nomeado, links com destinos reais, aria-current="page" no item atual e controles anterior/próxima indisponíveis nos limites.',
+      en: 'Keep the nav named, links with real destinations, aria-current="page" on the current item, and previous/next controls unavailable at the boundaries.',
     },
   },
   popover: {

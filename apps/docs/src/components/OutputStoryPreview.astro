@@ -3,7 +3,7 @@ interface Props {
   storyId: string;
   title: string;
   storybook?: 'stable' | 'vnext' | 'angular';
-  size?: 'compact' | 'medium' | 'large';
+  size?: 'compact' | 'medium' | 'large' | 'tall';
 }
 
 const { storyId, title, storybook = 'vnext', size = 'medium' } = Astro.props;

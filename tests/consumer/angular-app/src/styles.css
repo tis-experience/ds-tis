@@ -72,6 +72,50 @@ select {
   margin: 0;
 }
 
+.consumer-pagination-stage {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  padding: var(--ds-space-xs);
+}
+
+.consumer-pagination-stage .ds-pagination {
+  inline-size: max-content;
+}
+
+.consumer-skeleton-card,
+.consumer-skeleton-lines {
+  display: grid;
+  gap: var(--ds-space-md);
+}
+
+.consumer-skeleton-card {
+  inline-size: min(100%, var(--ds-size-layout-xs));
+  padding: var(--ds-space-lg);
+  border: var(--ds-border-width-default) solid var(--ds-border-default);
+  border-radius: var(--ds-radius-lg);
+}
+
+.consumer-skeleton-card > :where(h3, p) {
+  margin: 0;
+}
+
+.consumer-skeleton-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+}
+
+.consumer-skeleton-profile .consumer-skeleton-lines {
+  flex: 1;
+}
+
+.consumer-spinner-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-xl);
+}
+
 .consumer-header {
   align-items: flex-start;
   margin-block-end: var(--ds-space-2xl);

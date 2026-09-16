@@ -15,6 +15,12 @@ import {
   AlertIcon,
   AlertTitle,
 } from "./components/ui/alert"
+import {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarImage,
+} from "./components/ui/avatar"
 import { Badge } from "./components/ui/badge"
 import {
   Breadcrumb,
@@ -73,6 +79,14 @@ import {
   MenuTrigger,
   MenuTriggerIndicator,
 } from "./components/ui/menu"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./components/ui/pagination"
 import {
   Popover,
   PopoverClose,
@@ -155,6 +169,7 @@ const countries = [
 export function App() {
   const [saved, setSaved] = useState(false)
   const [tableDescending, setTableDescending] = useState(false)
+  const [paginationPage, setPaginationPage] = useState(1)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -167,10 +182,10 @@ export function App() {
       <header className="consumer-header">
         <p className="consumer-kicker">Registry shadcn · beta</p>
         <h1>Preferências da conta</h1>
-        <p>Vinte e quatro componentes React instalados como source, com o visual do DS TIS.</p>
+        <p>Vinte e seis componentes React instalados como source, com o visual do DS TIS.</p>
         <div className="consumer-badge-row" aria-label="Estado da implementação">
           <Badge tone="info" variant="subtle">React beta</Badge>
-          <Badge tone="success" variant="subtle">24 componentes validados</Badge>
+          <Badge tone="success" variant="subtle">26 componentes validados</Badge>
         </div>
       </header>
 
@@ -214,6 +229,19 @@ export function App() {
             <CardDescription>Dados usados nas comunicações de serviço.</CardDescription>
           </CardHeader>
           <CardContent className="consumer-card-content">
+            <div className="consumer-spinner-row">
+              <Avatar size="lg">
+                <AvatarFallback>MS</AvatarFallback>
+                <AvatarImage
+                  alt="Marcell da Silva"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23d7e6ff'/%3E%3Ccircle cx='80' cy='61' r='30' fill='%233f67a8'/%3E%3Cpath d='M27 150c7-33 25-49 53-49s46 16 53 49' fill='%233f67a8'/%3E%3C/svg%3E"
+                />
+                <AvatarBadge role="img" aria-label="Perfil ativo">
+                  <CircleCheckIcon aria-hidden="true" />
+                </AvatarBadge>
+              </Avatar>
+              <strong>Marcell da Silva</strong>
+            </div>
             <FieldGroup>
               <Field>
                 <FieldLabelRow>
@@ -387,6 +415,49 @@ export function App() {
                 ))}
               </TableBody>
             </Table>
+
+            <Pagination aria-label="Páginas de contas">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href={`#page-${Math.max(1, paginationPage - 1)}`}
+                    disabled={paginationPage === 1}
+                    text="Página anterior"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      setPaginationPage((current) => Math.max(1, current - 1))
+                    }}
+                  />
+                </PaginationItem>
+                {[1, 2, 3].map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      as={page === paginationPage ? "span" : "a"}
+                      href={page === paginationPage ? undefined : `#page-${page}`}
+                      isActive={page === paginationPage}
+                      aria-label={`Página ${page}`}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        setPaginationPage(page)
+                      }}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    href={`#page-${Math.min(3, paginationPage + 1)}`}
+                    disabled={paginationPage === 3}
+                    text="Próxima página"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      setPaginationPage((current) => Math.min(3, current + 1))
+                    }}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
 
             <Menu>
               <MenuTrigger type="button">

@@ -94,6 +94,7 @@ html {
    página v1. No portal, o canvas precisa preencher o card; a largura de leitura
    pertence ao componente demonstrado, não ao fundo do exemplo. */
 .ds-source-guidance:is(
+  [data-component-source='form-field'],
   [data-component-source='input'],
   [data-component-source='textarea']
 ) .ds-preview__canvas {
@@ -138,6 +139,7 @@ html {
 }
 
 .ds-source-guidance:is(
+  [data-component-source='form-field'],
   [data-component-source='input'],
   [data-component-source='textarea']
 ) .ds-anatomy {
@@ -146,6 +148,7 @@ html {
 }
 
 .ds-source-guidance:is(
+  [data-component-source='form-field'],
   [data-component-source='input'],
   [data-component-source='textarea']
 ) .ds-anatomy > div {
@@ -154,6 +157,7 @@ html {
 }
 
 .ds-source-guidance:is(
+  [data-component-source='form-field'],
   [data-component-source='input'],
   [data-component-source='textarea']
 ) .ds-anatomy :where(.ds-field__error, .ds-field__helper) {
@@ -911,6 +915,10 @@ html {
   height: 30rem;
 }
 
+.ds-output-preview--tall iframe {
+  height: 44rem;
+}
+
 .ds-component-anatomy-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1090,6 +1098,10 @@ html {
 
   .ds-source-guidance[data-component-source='modal'] .ds-anatomy {
     padding: var(--ds-dimension-48) var(--ds-dimension-40) !important;
+  }
+
+  .ds-source-guidance[data-component-source='pagination'] .ds-anatomy {
+    padding-inline: var(--ds-space-md) !important;
   }
 
   .ds-source-guidance .ds-token-table :where(th, td) {

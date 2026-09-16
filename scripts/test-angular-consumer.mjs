@@ -60,7 +60,7 @@ if (Object.keys({ ...installedManifest.dependencies, ...installedManifest.peerDe
   throw new Error("@tis/angular não pode depender de React, Ark/Zag, Base UI ou shadcn.");
 }
 
-for (const entrypoint of ["accordion", "alert", "badge", "button", "card", "checkbox", "combobox", "divider", "input", "menu", "modal", "popover", "radio", "select", "tabs", "testing", "textarea", "toast", "toggle", "tooltip"]) {
+for (const entrypoint of ["accordion", "alert", "avatar", "badge", "breadcrumb", "button", "card", "checkbox", "combobox", "divider", "form-field", "input", "menu", "modal", "pagination", "popover", "radio", "select", "skeleton", "spinner", "table", "tabs", "testing", "textarea", "toast", "toggle", "tooltip"]) {
   const entry = installedManifest.exports?.[`./${entrypoint}`];
   if (!entry?.types || !entry?.default ||
       !fs.existsSync(path.join(installedPackage, entry.types)) ||

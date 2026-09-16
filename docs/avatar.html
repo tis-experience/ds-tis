@@ -49,7 +49,7 @@
   <!-- ============================================================
        2. WHEN TO USE / WHEN NOT TO USE
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
     <div class="ds-callout ds-callout--success">
       <div class="ds-callout__title"><span data-lang="pt">Use avatars quando</span><span data-lang="en">Use avatars when</span></div>
@@ -64,8 +64,19 @@
   <!-- ============================================================
        3. ANATOMY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:64px;" aria-hidden="true">
+      <div style="position:relative;display:inline-flex;">
+        <span class="ds-avatar ds-avatar--lg">AL</span>
+        <span style="position:absolute;right:100%;top:12px;width:24px;height:1px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="right:calc(100% + 24px);top:0;">1</span>
+        <span style="position:absolute;left:100%;top:24px;width:24px;height:1px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:calc(100% + 24px);top:12px;">2</span>
+        <span style="position:absolute;left:50%;top:100%;width:1px;height:16px;background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:50%;top:calc(100% + 16px);transform:translateX(-50%);">3</span>
+      </div>
+    </div>
     <div class="ds-anatomy-legend">
       <span data-lang="pt"><strong>1</strong> Container (<code>.ds-avatar</code>) — círculo com tamanho fixo e overflow controlado.<br>
       <strong>2</strong> Conteúdo — imagem, iniciais ou ícone de fallback.<br>
@@ -79,7 +90,7 @@
   <!-- ============================================================
        4. VARIANTS (live previews)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com iniciais</span><span data-lang="en">Initials avatar</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Quando nenhuma imagem esta disponível, exiba 1-2 caracteres de iniciais. Use <code>sm</code>, <code>md</code> ou <code>lg</code> conforme a densidade da interface.</span><span data-lang="en">When no image is available, display 1-2 character initials. Use <code>sm</code>, <code>md</code>, or <code>lg</code> based on interface density.</span></p>
     <div class="ds-preview">
@@ -101,7 +112,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com imagem</span><span data-lang="en">Image avatar</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Quando uma imagem e fornecida, ela preenche o circulo do avatar. Sempre inclua texto <code>alt</code> descritivo.</span><span data-lang="en">When an image is provided it fills the avatar circle. Always include descriptive <code>alt</code> text.</span></p>
     <div class="ds-preview">
@@ -129,7 +140,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="40">
     <h2 class="ds-subsection__title"><span data-lang="pt">Avatar com ícone</span><span data-lang="en">Icon avatar</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Use o modificador <code>ds-avatar--icon</code> com um ícone Lucide como fallback genérico quando nenhuma imagem nem iniciais estao disponíveis.</span><span data-lang="en">Use the <code>ds-avatar--icon</code> modifier with a Lucide icon as a generic fallback when neither image nor initials are available.</span></p>
     <div class="ds-preview">
@@ -157,7 +168,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="50">
     <h2 class="ds-subsection__title"><span data-lang="pt">Grupo de avatars</span><span data-lang="en">Avatar group</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Exiba múltiplos avatars juntos para representar uma equipe ou grupo de usuários.</span><span data-lang="en">Display multiple avatars together to represent a team or group of users.</span></p>
     <div class="ds-preview">
@@ -192,7 +203,7 @@
   <!-- ============================================================
        4. BEST PRACTICES (Do / Don't)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
 
     <div class="ds-dodont">
@@ -218,7 +229,7 @@
   <!-- ============================================================
        5. TOKEN MAPPING
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="60">
     <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
@@ -238,7 +249,7 @@
   <!-- ============================================================
        6. CSS CLASSES
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="code" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
@@ -255,7 +266,7 @@
   <!-- ============================================================
        7. ACCESSIBILITY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Contexto</span><span data-lang="en">Context</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th><span data-lang="pt">Implementação</span><span data-lang="en">Implementation</span></th></tr></thead>
@@ -280,7 +291,7 @@
   <!-- ============================================================
        8. RELATED COMPONENTS
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="badge.html" class="ds-related__link">Badge</a>

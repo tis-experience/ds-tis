@@ -1,5 +1,6 @@
 import accordionCssUrl from '../../../../css/components/accordion.css?url';
 import alertCssUrl from '../../../../css/components/alert.css?url';
+import avatarCssUrl from '../../../../css/components/avatar.css?url';
 import badgeCssUrl from '../../../../css/components/badge.css?url';
 import breadcrumbCssUrl from '../../../../css/components/breadcrumb.css?url';
 import buttonCssUrl from '../../../../css/components/button.css?url';
@@ -11,9 +12,12 @@ import formFieldCssUrl from '../../../../css/components/form-field.css?url';
 import inputCssUrl from '../../../../css/components/input.css?url';
 import menuCssUrl from '../../../../css/components/menu.css?url';
 import modalCssUrl from '../../../../css/components/modal.css?url';
+import paginationCssUrl from '../../../../css/components/pagination.css?url';
 import popoverCssUrl from '../../../../css/components/popover.css?url';
 import radioCssUrl from '../../../../css/components/radio.css?url';
 import selectCssUrl from '../../../../css/components/select.css?url';
+import skeletonCssUrl from '../../../../css/components/skeleton.css?url';
+import spinnerCssUrl from '../../../../css/components/spinner.css?url';
 import tableCssUrl from '../../../../css/components/table.css?url';
 import tabsCssUrl from '../../../../css/components/tabs.css?url';
 import textareaCssUrl from '../../../../css/components/textarea.css?url';
@@ -30,6 +34,7 @@ interface ComponentAssets {
 const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   accordion: { css: [accordionCssUrl, buttonCssUrl] },
   alert: { css: [alertCssUrl, buttonCssUrl] },
+  avatar: { css: [avatarCssUrl] },
   badge: { css: [badgeCssUrl] },
   breadcrumb: { css: [breadcrumbCssUrl] },
   button: { css: [buttonCssUrl] },
@@ -37,12 +42,16 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
   checkbox: { css: [buttonCssUrl, checkboxCssUrl] },
   combobox: { css: [formFieldCssUrl, comboboxCssUrl] },
   divider: { css: [buttonCssUrl, dividerCssUrl] },
+  'form-field': { css: [formFieldCssUrl, inputCssUrl, textareaCssUrl, selectCssUrl, checkboxCssUrl, radioCssUrl] },
   input: { css: [formFieldCssUrl, inputCssUrl] },
   menu: { css: [buttonCssUrl, menuCssUrl] },
   modal: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, modalCssUrl] },
+  pagination: { css: [buttonCssUrl, paginationCssUrl] },
   popover: { css: [buttonCssUrl, formFieldCssUrl, inputCssUrl, popoverCssUrl] },
   radio: { css: [buttonCssUrl, radioCssUrl] },
   select: { css: [formFieldCssUrl, menuCssUrl, selectCssUrl] },
+  skeleton: { css: [skeletonCssUrl] },
+  spinner: { css: [buttonCssUrl, spinnerCssUrl] },
   table: { css: [badgeCssUrl, buttonCssUrl, tableCssUrl] },
   tabs: { css: [buttonCssUrl, tabsCssUrl] },
   textarea: { css: [formFieldCssUrl, textareaCssUrl] },
@@ -52,5 +61,7 @@ const COMPONENT_ASSETS: Record<string, ComponentAssets> = {
 };
 
 export function getComponentAssets(slug: string): ComponentAssets {
-  return COMPONENT_ASSETS[slug] ?? { css: [] };
+  const assets = COMPONENT_ASSETS[slug];
+  if (!assets?.css.length) throw new Error(`${slug}: folhas CSS da documentação não cadastradas`);
+  return assets;
 }

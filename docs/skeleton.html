@@ -49,7 +49,7 @@
   <!-- ============================================================
        2. WHEN TO USE / WHEN NOT TO USE
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Quando usar</span><span data-lang="en">When to use</span></h2>
     <div class="ds-callout ds-callout--success">
       <div class="ds-callout__title"><span data-lang="pt">Use skeletons quando</span><span data-lang="en">Use skeletons when</span></div>
@@ -64,8 +64,25 @@
   <!-- ============================================================
        3. ANATOMY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Anatomia</span><span data-lang="en">Anatomy</span></h2>
+    <div class="ds-anatomy" style="padding:var(--ds-space-5xl);" aria-hidden="true">
+      <div style="position:relative;display:flex;align-items:center;gap:var(--ds-space-md);inline-size:min(100%,var(--ds-size-layout-xs));">
+        <span style="position:relative;display:block;">
+          <span class="ds-skeleton ds-skeleton--circle"></span>
+          <span style="position:absolute;right:100%;top:50%;width:var(--ds-space-xl);height:var(--ds-border-width-default);background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="right:calc(100% + var(--ds-space-xl));top:50%;transform:translateY(-50%);">1</span>
+        </span>
+        <span style="position:relative;display:grid;flex:1;gap:var(--ds-space-sm);">
+          <span class="ds-skeleton ds-skeleton--text"></span>
+          <span class="ds-skeleton ds-skeleton--text" style="inline-size:70%;"></span>
+          <span style="position:absolute;left:50%;bottom:100%;width:var(--ds-border-width-default);height:var(--ds-space-xl);background:var(--ds-brand-background-default);"></span>
+          <span class="ds-anatomy__marker" style="left:50%;bottom:calc(100% + var(--ds-space-xl));transform:translateX(-50%);">2</span>
+        </span>
+        <span style="position:absolute;left:50%;top:100%;width:var(--ds-border-width-default);height:var(--ds-space-xl);background:var(--ds-brand-background-default);"></span>
+        <span class="ds-anatomy__marker" style="left:50%;top:calc(100% + var(--ds-space-xl));transform:translateX(-50%);">3</span>
+      </div>
+    </div>
     <div class="ds-anatomy-legend">
       <span data-lang="pt"><strong>1</strong> Shape (<code>.ds-skeleton</code>) — bloco visual sem conteúdo semântico próprio.<br>
       <strong>2</strong> Variante de forma — text, circle ou rectangle.<br>
@@ -79,7 +96,7 @@
   <!-- ============================================================
        4. VARIANTS (live previews)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton de texto</span><span data-lang="en">Text skeleton</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Representa linhas de conteúdo de texto. Use larguras variadas para simular formas naturais de paragrafo.</span><span data-lang="en">Represents lines of text content. Use varying widths to simulate natural paragraph shapes.</span></p>
     <div class="ds-preview">
@@ -103,7 +120,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton circular</span><span data-lang="en">Circle skeleton</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Perfeito para placeholders de avatar ou ícone.</span><span data-lang="en">Perfect for avatar or icon placeholders.</span></p>
     <div class="ds-preview">
@@ -121,7 +138,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="40">
     <h2 class="ds-subsection__title"><span data-lang="pt">Skeleton retangular</span><span data-lang="en">Rectangle skeleton</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Bloco de largura total para imagens, banners ou grandes áreas de conteúdo.</span><span data-lang="en">Full-width block for images, banners, or large content areas.</span></p>
     <div class="ds-preview">
@@ -139,7 +156,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="50">
     <h2 class="ds-subsection__title"><span data-lang="pt">Composição: card de perfil</span><span data-lang="en">Composition: profile card</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Combinando diferentes formas de skeleton para criar um placeholder de carregamento realista para um card de perfil.</span><span data-lang="en">Combining different skeleton shapes to create a realistic loading placeholder for a profile card.</span></p>
     <div class="ds-preview">
@@ -191,7 +208,7 @@
     </div>
   </div>
 
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="55">
     <h2 class="ds-subsection__title"><span data-lang="pt">Composição: lista de cards</span><span data-lang="en">Composition: card list</span></h2>
     <p style="margin-bottom:var(--ds-dimension-16);color:var(--ds-content-default);font-size:var(--ds-font-size-14);"><span data-lang="pt">Um estado de carregamento para uma lista de cards de conteúdo com imagem, título e descricao.</span><span data-lang="en">A loading state for a list of content cards with image, title, and description.</span></p>
     <div class="ds-preview">
@@ -247,7 +264,7 @@
   <!-- ============================================================
        4. BEST PRACTICES (Do / Don't)
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="20">
     <h2 class="ds-subsection__title"><span data-lang="pt">Boas práticas</span><span data-lang="en">Best practices</span></h2>
 
     <div class="ds-dodont">
@@ -277,7 +294,7 @@
   <!-- ============================================================
        5. TOKEN MAPPING
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="design" data-doc-order="60">
     <h2 class="ds-subsection__title"><span data-lang="pt">Mapeamento de tokens</span><span data-lang="en">Token mapping</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Propriedade</span><span data-lang="en">Property</span></th><th>Token</th><th><span data-lang="pt">Variável CSS</span><span data-lang="en">CSS variable</span></th></tr></thead>
@@ -297,7 +314,7 @@
   <!-- ============================================================
        6. CSS CLASSES
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="code" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Classes CSS</span><span data-lang="en">CSS classes</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Classe</span><span data-lang="en">Class</span></th><th><span data-lang="pt">Descrição</span><span data-lang="en">Description</span></th></tr></thead>
@@ -313,7 +330,7 @@
   <!-- ============================================================
        7. ACCESSIBILITY
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="accessibility" data-doc-order="10">
     <h2 class="ds-subsection__title"><span data-lang="pt">Accessibility</span><span data-lang="en">Accessibility</span></h2>
     <table class="ds-token-table">
       <thead><tr><th><span data-lang="pt">Critério WCAG</span><span data-lang="en">WCAG criterion</span></th><th><span data-lang="pt">Requisito</span><span data-lang="en">Requirement</span></th><th>Status</th></tr></thead>
@@ -337,7 +354,7 @@
   <!-- ============================================================
        8. RELATED COMPONENTS
        ============================================================ -->
-  <div class="ds-subsection">
+  <div class="ds-subsection" data-doc-topic="usage" data-doc-order="30">
     <h2 class="ds-subsection__title"><span data-lang="pt">Relacionados</span><span data-lang="en">Related</span></h2>
     <div class="ds-related">
       <a href="spinner.html" class="ds-related__link">Spinner</a>

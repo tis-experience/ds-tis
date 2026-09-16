@@ -7,6 +7,7 @@ import ComponentPageHeader from './ComponentPageHeader.astro';
 import ComponentPageLayout from './ComponentPageLayout.astro';
 import ComponentPanel from './ComponentPanel.astro';
 import OutputStoryPreview from './OutputStoryPreview.astro';
+import { getComponent } from '../lib/component-source.mjs';
 
 interface ReactComponent {
   accessibility: string;
@@ -57,6 +58,7 @@ const bunInstall = install.replace('npx shadcn@latest', 'bunx --bun shadcn@lates
 const webPath = `${locale}/web/components/${component.slug}/`;
 const arkPath = `${locale}/ark/components/${component.slug}/`;
 const angularPath = `${locale}/angular/components/${component.slug}/`;
+const implementations = getComponent(component.slug).implementations;
 const hasUnifiedDocumentation = ['accordion', 'alert', 'badge', 'button', 'card', 'checkbox', 'combobox', 'divider', 'menu', 'modal', 'popover', 'radio', 'select', 'tabs', 'toast', 'toggle', 'tooltip'].includes(component.slug);
 const unifiedSlug = component.slug as 'accordion' | 'alert' | 'badge' | 'button' | 'card' | 'checkbox' | 'combobox' | 'divider' | 'menu' | 'modal' | 'popover' | 'radio' | 'select' | 'tabs' | 'toast' | 'toggle' | 'tooltip';
 const hasFourPopoverOutputs = component.slug === 'popover';
@@ -76,9 +78,9 @@ const hasFourPopoverOutputs = component.slug === 'popover';
   v1Path={`/docs/${component.slug}.html`}
   technologies={[
     { label: 'HTML/CSS/JS', value: 'web', ...(hasFourPopoverOutputs ? { path: webPath } : { href: stableUrl }) },
-    { label: 'Ark/Zag', value: 'ark', path: arkPath, disabled: !hasFourPopoverOutputs },
+    { label: implementations.ark.status === 'planned' ? (isEnglish ? 'Ark/Zag — planned' : 'Ark/Zag — planejada') : 'Ark/Zag', value: 'ark', path: arkPath, disabled: implementations.ark.status === 'planned' },
     { label: 'React · shadcn/Base UI', value: 'react', path: currentPath },
-    { label: isEnglish ? 'Angular — planned' : 'Angular — planejada', value: 'angular', path: angularPath, disabled: true },
+    { label: implementations.angular.status === 'planned' ? (isEnglish ? 'Angular — planned' : 'Angular — planejada') : 'Angular', value: 'angular', path: angularPath, disabled: implementations.angular.status === 'planned' },
   ]}
 />
 
