@@ -1318,10 +1318,16 @@ try {
 
   await page.goto(`${origin}/storybook/iframe.html?viewMode=story&id=angular-checkbox--estados&globals=mode:light`, { waitUntil: "networkidle" });
   const checkboxStates = page.locator('tis-checkbox input[type="checkbox"]');
-  expect(await checkboxStates.count() === 6, "Story de estados do Checkbox não renderizou a matriz completa");
+  expect(await checkboxStates.count() === 7, "Story de estados do Checkbox não renderizou a matriz completa");
   expect(await checkboxStates.nth(1).isChecked(), "Story do Checkbox perdeu o estado checked");
   expect(await checkboxStates.nth(2).evaluate((node) => node.indeterminate), "Story do Checkbox perdeu o estado indeterminate real");
   expect(await checkboxStates.nth(3).isDisabled(), "Story do Checkbox perdeu o estado disabled");
+  expect(
+    await checkboxStates.nth(5).evaluate((node) => node.getAttribute("aria-readonly") === "true" && node.checked),
+    "Story do Checkbox perdeu o estado readonly",
+  );
+  await checkboxStates.nth(5).click({ force: true });
+  expect(await checkboxStates.nth(5).isChecked(), "Checkbox readonly alterou o estado checked ao clicar");
   const stateGeometry = await checkboxStates.evaluateAll((nodes) => nodes.map((node) => {
     const rect = node.getBoundingClientRect();
     const label = node.closest("label")?.getBoundingClientRect();
