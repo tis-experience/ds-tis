@@ -162,6 +162,20 @@
   color: var(--ds-form-field-label-color-disabled);
 }
 
+/*
+ * Readonly. O atributo HTML `readonly` não tem efeito em checkbox/radio
+ * (fora do escopo de :read-only/:read-write na spec CSS) — o bloqueio da
+ * interacção é feito em JS (ver handleChange em checkbox.ts). Aqui só se
+ * comunica visualmente que não é clicável, sem reutilizar os tokens de cor
+ * de disabled (que comunicam "indisponível", não "consultável mas fixo") e
+ * sem introduzir tokens novos — decisão de cor fica para quem mantém a
+ * paleta, se quiser um tratamento mais distinto no futuro.
+ */
+.ds-checkbox--readonly,
+.ds-checkbox-label:has(.ds-checkbox--readonly) {
+  cursor: default;
+}
+
 /* Error state */
 .ds-checkbox-group--error .ds-checkbox {
   border-color: var(--ds-checkbox-box-border-color-unchecked-error);

@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-:root {
+:where(:root, :host) {
   --ds-color-brand-50: #EEF6FF;
   --ds-color-brand-100: #DAEAFE;
   --ds-color-brand-200: #BCDCFE;

@@ -63,7 +63,12 @@ const foundation = new StyleDictionary({
       files: [{
         destination: 'foundation.css',
         format: 'css/variables',
-        options: { selector: ':root', outputReferences: false }
+        // :where(:root, :host) corresponde ao <html> do documento principal
+        // (uso global tradicional) E ao elemento anfitrião de uma shadow
+        // tree (:root não corresponde a nada lá dentro). :where() mantém
+        // especificidade zero, igual à de :root sozinho, sem alterar
+        // comportamento para quem já consome ds-tis/css globalmente.
+        options: { selector: ':where(:root, :host)', outputReferences: false }
       }]
     }
   }
@@ -82,7 +87,11 @@ const semanticLight = new StyleDictionary({
         destination: 'theme-light.css',
         format: 'css/variables',
         filter: (token) => token.path[0] === 'semantic',
-        options: { selector: ':root,\n[data-mode="light"]', outputReferences: true }
+        options: {
+          selector:
+            ':where(:root, :host),\n:where([data-mode="light"], :host([data-mode="light"]))',
+          outputReferences: true,
+        }
       }]
     }
   }
@@ -101,7 +110,10 @@ const semanticDark = new StyleDictionary({
         destination: 'theme-dark.css',
         format: 'css/variables',
         filter: (token) => token.path[0] === 'semantic',
-        options: { selector: '[data-mode="dark"]', outputReferences: true }
+        options: {
+          selector: ':where([data-mode="dark"], :host([data-mode="dark"]))',
+          outputReferences: true,
+        }
       }]
     }
   }
@@ -125,7 +137,7 @@ const component = hasComponentTokens ? new StyleDictionary({
         destination: 'component.css',
         format: 'css/variables',
         filter: (token) => token.path[0] === 'component',
-        options: { selector: ':root', outputReferences: true }
+        options: { selector: ':where(:root, :host)', outputReferences: true }
       }]
     }
   }

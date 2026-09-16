@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-:root {
+:where(:root, :host) {
   --ds-accordion-item-radius-default: var(--ds-radius-lg); /** Accordion Component token aliasing Semantic/radius/lg. */
   --ds-accordion-item-border-width-default: var(--ds-border-width-default); /** Accordion Component token aliasing Semantic/border/width/default. */
   --ds-accordion-item-bg-default: var(--ds-surface-default); /** Accordion Component token aliasing Semantic/surface/default. */
